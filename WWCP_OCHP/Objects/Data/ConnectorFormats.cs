@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.gnu.org/licenses/agpl.html
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,21 +15,30 @@
  * limitations under the License.
  */
 
-#region Usings
-
-using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
-#endregion
-
-namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
+namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
-    public class Class1
+    /// <summary>
+    /// OCHP connector formats.
+    /// </summary>
+    public enum ConnectorFormats
     {
+
+        /// <summary>
+        /// The connector formats is unknown.
+        /// </summary>
+        Unknown,
+
+        /// <summary>
+        /// The connector is a socket; the EV user needs to bring a fitting plug.
+        /// </summary>
+        Socket,
+
+        /// <summary>
+        /// The connector is an attached cable; the EV user car needs to have a fitting inlet.
+        /// </summary>
+        Cable
+
     }
 
 }

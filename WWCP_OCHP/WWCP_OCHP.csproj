@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -7,10 +7,11 @@
     <ProjectGuid>{76016948-1E48-41A4-BBE8-57774768529A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>de.WWCP.IO.OCHP</RootNamespace>
-    <AssemblyName>WWCP_IO_OCHP</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>org.GraphDefined.WWCP.OCHP</RootNamespace>
+    <AssemblyName>org.GraphDefined.WWCP.OCHP</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,8 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\WWCP_IO_OCHP.XML</DocumentationFile>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\org.GraphDefined.WWCP.OCHP.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>..\..\WWCP_Core\WWCP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,10 +42,76 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="IO\ObjectMapper.cs" />
+    <Compile Include="IO\OCHPNS.cs" />
+    <Compile Include="IO\SOAP.cs" />
+    <Compile Include="Objects\CDRInfo.cs" />
+    <Compile Include="Objects\Data\RelatedResources.cs" />
+    <Compile Include="Objects\Data\EVSEImageURLs.cs" />
+    <Compile Include="Objects\Data\ExceptionalPeriods.cs" />
+    <Compile Include="Objects\Data\GeoCoordinateTypes.cs" />
+    <Compile Include="Objects\Data\ChargePointStatusTypes.cs" />
+    <Compile Include="Objects\Data\GeneralLocationTypes.cs" />
+    <Compile Include="Objects\Data\EVSEImageClasses.cs" />
+    <Compile Include="Objects\Data\RelatedResource.cs" />
+    <Compile Include="Objects\ParkingSpotInfo.cs" />
+    <Compile Include="Objects\Data\ExtendedGeoCoordinate.cs" />
+    <Compile Include="Objects\Ratings.cs" />
+    <Compile Include="Objects\Data\Address.cs" />
+    <Compile Include="Objects\Data\EMT_Id.cs" />
+    <Compile Include="Objects\Data\CDRStatusTypes.cs" />
+    <Compile Include="Objects\Data\CDR_Id.cs" />
+    <Compile Include="Objects\Data\ConnectorType.cs" />
+    <Compile Include="Objects\Data\LiveAuth_Id.cs" />
+    <Compile Include="Objects\Data\TokenTypes.cs" />
+    <Compile Include="Objects\Data\TokenSubTypes.cs" />
+    <Compile Include="Objects\Data\TokenRepresentations.cs" />
+    <Compile Include="Objects\Data\ResultCodes.cs" />
+    <Compile Include="Objects\Data\ConnectorFormats.cs" />
+    <Compile Include="Objects\Data\ConnectorStandards.cs" />
+    <Compile Include="Objects\Data\EVSE_Id.cs" />
+    <Compile Include="Objects\Data\ParkingRestrictionTypes.cs" />
+    <Compile Include="Objects\Data\AuthMethodTypes.cs" />
+    <Compile Include="Objects\Data\BillingItemTypes.cs" />
+    <Compile Include="Objects\Data\ParkingStatusTypes.cs" />
+    <Compile Include="Objects\Data\EVSEMinorStatusTypes.cs" />
+    <Compile Include="Objects\Data\Contract_Id.cs" />
+    <Compile Include="Objects\Data\Tariff_Id.cs" />
+    <Compile Include="Objects\Data\Parking_Id.cs" />
+    <Compile Include="Objects\CDRPeriod.cs" />
+    <Compile Include="Objects\ParkingStatus.cs" />
+    <Compile Include="Objects\ChargePointSchedule.cs" />
+    <Compile Include="Objects\PriceComponent.cs" />
+    <Compile Include="Objects\IndividualTariff.cs" />
+    <Compile Include="Objects\TariffElement.cs" />
+    <Compile Include="Objects\TariffRestriction.cs" />
+    <Compile Include="Objects\Result.cs" />
+    <Compile Include="Objects\EVSEStatus.cs" />
+    <Compile Include="Objects\Data\EVSEMajorStatusTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Aegir\Aegir\Aegir.csproj">
+      <Project>{4d8ffccd-738d-41aa-a527-8cfdfe0a681d}</Project>
+      <Name>Aegir</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BouncyCastle\crypto\crypto.csproj">
+      <Project>{38872a5f-e87e-4fad-b109-8eb7b2e6a4a0}</Project>
+      <Name>crypto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Hermod\Hermod\Hermod.csproj">
+      <Project>{477efd16-3627-4473-957d-44ca9a9dfb79}</Project>
+      <Name>Hermod</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Illias\Illias\Illias.csproj">
+      <Project>{23d37453-2d4e-4bd8-b40f-3e731fee7712}</Project>
+      <Name>Illias</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Styx\Styx\Styx.csproj">
+      <Project>{af76ecc0-2ca5-4cff-9e1e-ff5478c4b6e4}</Project>
+      <Name>Styx</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WWCP_Core\WWCP_Core\WWCP_Core.csproj">
       <Project>{33836742-af1d-4aa4-963f-b0a8e60e6480}</Project>
       <Name>WWCP_Core</Name>

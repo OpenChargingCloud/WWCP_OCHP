@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.gnu.org/licenses/agpl.html
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,19 +17,24 @@
 
 #region Usings
 
-using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.Xml.Linq;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
+namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
-    public class Class1
+    /// <summary>
+    /// OHCP XML Namespaces
+    /// </summary>
+    public static class OCHPNS
     {
+
+        /// <summary>
+        /// The default namespace of the Open Clearing House Protocol (OCHP) Version 1.4.
+        /// </summary>
+        public static readonly XNamespace Default = "http://ochp.eu/1.4";
+
     }
 
 }
