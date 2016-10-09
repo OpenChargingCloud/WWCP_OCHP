@@ -50,7 +50,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Restrictions to the usage of this parking spot.
         /// </summary>
-        public ParkingRestrictionTypes  ParkingRestrictions    { get; }
+        public ParkingRestrictions  ParkingRestrictions    { get; }
 
         /// <summary>
         /// Level on which the charge station is located (in garage buildings)
@@ -77,7 +77,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="FloorLevel">Level on which the charge station is located (in garage buildings) in the locally displayed numbering scheme. Examples: "-2","P-5", "2", "+5"</param>
         /// <param name="ParkingSpotNumber">Locally displayed parking slot number. Examples: "10", "251","B25", "P-234"</param>
         public ParkingSpotInfo(Parking_Id               ParkingId,
-                               ParkingRestrictionTypes  ParkingRestrictions,
+                               ParkingRestrictions  ParkingRestrictions,
                                String                   FloorLevel,
                                String                   ParkingSpotNumber)
 

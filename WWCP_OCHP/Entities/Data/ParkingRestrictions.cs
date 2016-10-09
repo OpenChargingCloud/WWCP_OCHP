@@ -28,7 +28,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// OCHP parking restrictions.
     /// </summary>
     [Flags]
-    public enum ParkingRestrictionTypes
+    public enum ParkingRestrictions
     {
 
         /// <summary>

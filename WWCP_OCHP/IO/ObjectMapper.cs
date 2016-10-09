@@ -133,32 +133,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region AsParkingRestrictionType(Text)
 
-        public static ParkingRestrictionTypes AsParkingRestrictionType(this String Text)
+        public static ParkingRestrictions AsParkingRestrictionType(this String Text)
         {
 
             switch (Text)
             {
 
                 case "evonly":
-                    return ParkingRestrictionTypes.EVOnly;
+                    return ParkingRestrictions.EVOnly;
 
                 case "plugged":
-                    return ParkingRestrictionTypes.Plugged;
+                    return ParkingRestrictions.Plugged;
 
                 case "disabled":
-                    return ParkingRestrictionTypes.Disabled;
+                    return ParkingRestrictions.Disabled;
 
                 case "customers":
-                    return ParkingRestrictionTypes.Customers;
+                    return ParkingRestrictions.Customers;
 
                 case "motorcycles":
-                    return ParkingRestrictionTypes.Motorcycles;
+                    return ParkingRestrictions.Motorcycles;
 
                 case "carsharing":
-                    return ParkingRestrictionTypes.CarSharing;
+                    return ParkingRestrictions.CarSharing;
 
                 default:
-                    return ParkingRestrictionTypes.Unknown;
+                    return ParkingRestrictions.Unknown;
 
             }
 
@@ -168,28 +168,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region AsText(this ParkingRestrictionType)
 
-        public static String AsText(this ParkingRestrictionTypes ParkingRestrictionType)
+        public static String AsText(this ParkingRestrictions ParkingRestrictionType)
         {
 
             switch (ParkingRestrictionType)
             {
 
-                case ParkingRestrictionTypes.EVOnly:
+                case ParkingRestrictions.EVOnly:
                     return "evonly";
 
-                case ParkingRestrictionTypes.Plugged:
+                case ParkingRestrictions.Plugged:
                     return "plugged";
 
-                case ParkingRestrictionTypes.Disabled:
+                case ParkingRestrictions.Disabled:
                     return "disabled";
 
-                case ParkingRestrictionTypes.Customers:
+                case ParkingRestrictions.Customers:
                     return "customers";
 
-                case ParkingRestrictionTypes.Motorcycles:
+                case ParkingRestrictions.Motorcycles:
                     return "motorcycles";
 
-                case ParkingRestrictionTypes.CarSharing:
+                case ParkingRestrictions.CarSharing:
                     return "carsharing";
 
                 default:
