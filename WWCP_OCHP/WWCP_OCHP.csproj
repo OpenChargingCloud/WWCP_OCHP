@@ -42,6 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CPO\CPOClient\CPOClient.cs" />
+    <Compile Include="CPO\CPOClient\CPOClientDelegates.cs" />
+    <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
+    <Compile Include="CPO\CPOClient\CPOClientXMLMethods.cs" />
+    <Compile Include="IO\XML.cs" />
     <Compile Include="IO\ObjectMapper.cs" />
     <Compile Include="IO\OCHPNS.cs" />
     <Compile Include="IO\SOAP.cs" />
@@ -123,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CPO\CPOServer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

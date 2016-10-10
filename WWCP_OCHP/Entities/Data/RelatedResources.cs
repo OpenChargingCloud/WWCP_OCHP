@@ -25,6 +25,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     {
 
         /// <summary>
+        /// Unknown resource.
+        /// </summary>
+        Unknown,
+
+        /// <summary>
         /// Direct link to this charge point on a map of the operator.
         /// </summary>
         OperatorMap,

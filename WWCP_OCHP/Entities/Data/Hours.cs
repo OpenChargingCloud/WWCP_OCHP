@@ -18,8 +18,10 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Collections.Generic;
+
+using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
@@ -151,6 +153,41 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //      </exceptionalClosings>
         //
         // </operatingTimes>
+
+        #endregion
+
+        #region ToXML()
+
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        public XElement ToXML()
+
+            => new XElement(OCHPNS.Default + "openingTimes",
+
+                   !TwentyFourSeven && RegularHours != null
+                       ? RegularHours.SafeSelect(hours => new XElement(OCHPNS.Default + "regularHours",
+                                                              new XAttribute(OCHPNS.Default + "weekday",      ObjectMapper.AsInt(hours.DayOfWeek)),
+                                                              new XAttribute(OCHPNS.Default + "periodBegin",  hours.PeriodBegin.ToString()),
+                                                              new XAttribute(OCHPNS.Default + "periodEnd",    hours.PeriodEnd.  ToString())
+                                                          ))
+                       : null,
+
+                   TwentyFourSeven
+                       ? new XElement(OCHPNS.Default + "twentyfourseven", true)
+                       : null,
+
+                   ExceptionalOpenings != null
+                       ? ExceptionalOpenings.SafeSelect(openings => openings.ToXML("exceptionalOpenings"))
+                       : null,
+
+                   ExceptionalClosings != null
+                       ? ExceptionalClosings.SafeSelect(closings => closings.ToXML("exceptionalClosings"))
+                       : null,
+
+                   new XElement(OCHPNS.Default + "closedCharging", ClosedCharging)
+
+               );
 
         #endregion
 

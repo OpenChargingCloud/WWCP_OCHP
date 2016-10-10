@@ -304,6 +304,63 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+
+        #region ToXML()
+
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        public XElement ToXML()
+
+            => new XElement(OCHPNS.Default + "chargePointInfoArray",
+
+                   new XElement(OCHPNS.Default + "evseId",              EVSEId.ToString()),
+                   new XElement(OCHPNS.Default + "locationId",          LocationId),
+
+                   Timestamp.HasValue
+                       ? new XElement(OCHPNS.Default + "timestamp",
+                             new XElement(OCHPNS.Default + "DateTime",  Timestamp.Value)
+                         )
+                       : null,
+
+                   new XElement(OCHPNS.Default + "locationName",        LocationName),
+                   new XElement(OCHPNS.Default + "locationNameLang",    LocationNameLang),
+
+                   Images != null
+                       ? Images.          SafeSelect(image    => image.   ToXML())
+                       : null,
+
+                   RelatedResources != null
+                       ? RelatedResources.SafeSelect(resource => resource.ToXML())
+                       : null,
+
+                   ChargePointAddress.ToXML(),
+
+                   new XElement(OCHPNS.Default + "chargePointLocation",
+                       new XAttribute(OCHPNS.Default + "lat",           ChargePointLocation.Latitude. Value),
+                       new XAttribute(OCHPNS.Default + "lon",           ChargePointLocation.Longitude.Value)
+                   ),
+
+                   RelatedLocations != null
+                       ? RelatedLocations.SafeSelect(location => new XElement(OCHPNS.Default + "relatedLocation",
+                                                                     new XAttribute(OCHPNS.Default + "lat",   location.Latitude.Value),
+                                                                     new XAttribute(OCHPNS.Default + "lon",   location.Longitude.Value),
+                                                                     new XAttribute(OCHPNS.Default + "name",  location.Name),
+                                                                     new XAttribute(OCHPNS.Default + "type",  ObjectMapper.AsText(location.GeoCoordinateType))
+                                                                 ))
+                       : null,
+
+                   TimeZone.IsNotNullOrEmpty()
+                       ? new XElement(OCHPNS.Default + "timeZone",      TimeZone)
+                       : null,
+
+                   OpeningTimes.ToXML()
+
+               );
+
+        #endregion
+
+
     }
 
 }

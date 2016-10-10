@@ -18,8 +18,10 @@
 #region Usings
 
 using System;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
+
+using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
@@ -37,7 +39,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for verifying an URI.
         /// </summary>
-        public static readonly Regex URI_RegEx = new Regex(@"^(http|https|ftp|file):\/\/.+",
+        public static readonly Regex URI_RegEx = new Regex(@"^(http|https|ftp):\/\/.+",
                                                            RegexOptions.IgnorePatternWhitespace);
 
         #endregion
@@ -48,33 +50,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// URI from where the image data can be fetched.
         /// Must begin with a protocol of the list: http, https, file, ftp.
         /// </summary>
-        public String        URI        { get; }
+        public String            URI         { get; }
 
         /// <summary>
         /// The image class.
         /// </summary>
-        public EVSEImageClasses  Class      { get; }
+        public EVSEImageClasses  Class       { get; }
 
         /// <summary>
         /// The image type like: gif, jpeg, png, svg.
         /// </summary>
-        public String        Type      { get; }
+        public String            Type        { get; }
 
         /// <summary>
-        /// Width of the full scale image.
+        /// The optional width of the full scale image.
         /// </summary>
-        public UInt16        Width      { get; }
+        public UInt16?           Width       { get; }
 
         /// <summary>
-        /// Height of the full scale image.
+        /// The optional height of the full scale image.
         /// </summary>
-        public UInt16        Height      { get; }
+        public UInt16?           Height      { get; }
 
         /// <summary>
-        /// URI from where a thumbnail of the image can be fetched.
+        /// An optional URI from where a thumbnail of the image can be fetched.
         /// Must begin with a protocol of the list: http, https, file, ftp.
         /// </summary>
-        public String        ThumbURI   { get; }
+        public String            ThumbURI    { get; }
 
         #endregion
 
@@ -86,16 +88,29 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="URI">URI from where the image data can be fetched. Must begin with a protocol of the list: http, https, file, ftp.</param>
         /// <param name="Class">The image class.</param>
         /// <param name="Type">The image type like: gif, jpeg, png, svg.</param>
-        /// <param name="Width">Width of the full scale image.</param>
-        /// <param name="Height">Height of the full scale image.</param>
-        /// <param name="ThumbURI">URI from where a thumbnail of the image can be fetched. Must begin with a protocol of the list: http, https, file, ftp.</param>
-        public EVSEImageURLs(String        URI,
+        /// <param name="Width">The optional width of the full scale image.</param>
+        /// <param name="Height">The optional height of the full scale image.</param>
+        /// <param name="ThumbURI">An optional URI from where a thumbnail of the image can be fetched. Must begin with a protocol of the list: http, https, file, ftp.</param>
+        public EVSEImageURLs(String            URI,
                              EVSEImageClasses  Class,
-                             String        Type,
-                             UInt16        Width     = 0,
-                             UInt16        Height    = 0,
-                             String        ThumbURI  = null)
+                             String            Type,
+                             UInt16?           Width     = null,
+                             UInt16?           Height    = null,
+                             String            ThumbURI  = null)
         {
+
+            #region Initial checks
+
+            if (URI.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(URI),   "The given image URI must not be null or empty!");
+
+            if (!URI_RegEx.IsMatch(URI))
+                throw new ArgumentException("The given URI does not start with 'http', 'https' or 'ftp'!", nameof(URI));
+
+            if (Type.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(Type),  "The given image type must not be null or empty!");
+
+            #endregion
 
             this.URI       = URI;
             this.ThumbURI  = ThumbURI;
@@ -108,6 +123,48 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+
+        #region ToXML()
+
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        public XElement ToXML()
+
+            => new XElement(OCHPNS.Default + "EvseImageUrlType",
+
+                   new XElement(OCHPNS.Default + "uri",             URI),
+
+                   ThumbURI.IsNotNullOrEmpty()
+                       ? new XElement(OCHPNS.Default + "thumbUri",  ThumbURI)
+                       : null,
+
+                   new XElement(OCHPNS.Default + "class",           ObjectMapper.AsText(Class)),
+                   new XElement(OCHPNS.Default + "type",            Type),
+
+                   Width.HasValue
+                       ? new XElement(OCHPNS.Default + "width",     Width)
+                       : null,
+
+                   Height.HasValue
+                       ? new XElement(OCHPNS.Default + "height",    Height)
+                       : null
+
+               );
+
+        #endregion
+
+
+        #region (override) ToString()
+
+        /// <summary>
+        /// Return a string representation of this object.
+        /// </summary>
+        public override String ToString()
+
+            => String.Concat(Class, " from ", URI);
+
+        #endregion
 
     }
 

@@ -25,6 +25,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     {
 
         /// <summary>
+        /// Unknown image class.
+        /// </summary>
+        Unknown,
+
+        /// <summary>
         /// Logo of a associated roaming network to be displayed with the EVSE for
         /// example in lists, maps and detailed information view;
         /// </summary>

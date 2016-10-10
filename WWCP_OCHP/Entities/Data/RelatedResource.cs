@@ -21,6 +21,7 @@ using System;
 using System.Text.RegularExpressions;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using System.Xml.Linq;
 
 #endregion
 
@@ -72,10 +73,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             #region Initial checks
 
             if (URI.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(URI),  "The given URI must not be null or empty!");
+                throw new ArgumentNullException(nameof(URI),  "The given resource URI must not be null or empty!");
 
             if (!URI_RegEx.IsMatch(URI))
-                throw new ArgumentException("The given URI is invalid!", nameof(URI));
+                throw new ArgumentException("The given resource URI does not start with 'http' or 'https'!", nameof(URI));
 
             #endregion
 
@@ -83,6 +84,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.Class  = Class;
 
         }
+
+        #endregion
+
+
+        #region ToXML()
+
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        public XElement ToXML()
+
+            => new XElement(OCHPNS.Default + "relatedResource",
+
+                   new XElement(OCHPNS.Default + "uri",    URI),
+                   new XElement(OCHPNS.Default + "class",  ObjectMapper.AsText(Class))
+
+               );
 
         #endregion
 

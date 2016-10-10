@@ -15,52 +15,45 @@
  * limitations under the License.
  */
 
-#region Usings
-
-using System;
-
-#endregion
-
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
     /// OCHP geo coordinate types.
     /// </summary>
-    [Flags]
     public enum GeoCoordinateTypes
     {
 
         /// <summary>
-        /// The parking restriction is unknown.
+        /// Unknown geo coordinate type.
         /// </summary>
-        Unknown         = 0,
+        Unknown,
 
         /// <summary>
         /// For larger sites entrances may be specified for navigation.
         /// </summary>
-        entrance,
+        Entrance,
 
         /// <summary>
         /// For larger sites exits may be specified for navigation purpose.
         /// </summary>
-        exit,
+        Exit,
 
         /// <summary>
         /// Two directional entrance and exit.
         /// </summary>
-        access,
+        Access,
 
         /// <summary>
         /// Geographical location of the user interface for authorisation
         /// and payment means. If not specified the user interface is assumed to be at the location of the charge point.
         /// </summary>
-        ui,
+        UI,
 
         /// <summary>
         /// Other relevant point. Name recommended.
         /// </summary>
-        other
+        Other
 
     }
 

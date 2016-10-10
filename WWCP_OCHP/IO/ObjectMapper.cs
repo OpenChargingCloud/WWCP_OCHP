@@ -202,6 +202,302 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsEVSEImageClasses(Text)
+
+        public static EVSEImageClasses AsEVSEImageClasses(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "networkLogo":
+                    return EVSEImageClasses.NetworkLogo;
+
+                case "operatorLogo":
+                    return EVSEImageClasses.OperatorLogo;
+
+                case "ownerLogo":
+                    return EVSEImageClasses.OwnerLogo;
+
+                case "stationPhoto":
+                    return EVSEImageClasses.StationPhoto;
+
+                case "locationPhoto":
+                    return EVSEImageClasses.LocationPhoto;
+
+                case "entrancePhoto":
+                    return EVSEImageClasses.EntrancePhoto;
+
+                case "otherPhoto":
+                    return EVSEImageClasses.OtherPhoto;
+
+                case "otherLogo":
+                    return EVSEImageClasses.OtherLogo;
+
+                case "otherGraphic":
+                    return EVSEImageClasses.OtherGraphic;
+
+                default:
+                    return EVSEImageClasses.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this EVSEImageClass)
+
+        public static String AsText(this EVSEImageClasses EVSEImageClass)
+        {
+
+            switch (EVSEImageClass)
+            {
+
+                case EVSEImageClasses.NetworkLogo:
+                    return "networkLogo";
+
+                case EVSEImageClasses.OperatorLogo:
+                    return "operatorLogo";
+
+                case EVSEImageClasses.OwnerLogo:
+                    return "ownerLogo";
+
+                case EVSEImageClasses.StationPhoto:
+                    return "stationPhoto";
+
+                case EVSEImageClasses.LocationPhoto:
+                    return "locationPhoto";
+
+                case EVSEImageClasses.EntrancePhoto:
+                    return "entrancePhoto";
+
+                case EVSEImageClasses.OtherPhoto:
+                    return "otherPhoto";
+
+                case EVSEImageClasses.OtherLogo:
+                    return "otherLogo";
+
+                case EVSEImageClasses.OtherGraphic:
+                    return "otherGraphic";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region AsRelatedResource(Text)
+
+        public static RelatedResources AsRelatedResource(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "operatorMap":
+                    return RelatedResources.OperatorMap;
+
+                case "operatorPayment":
+                    return RelatedResources.OperatorPayment;
+
+                case "stationInfo":
+                    return RelatedResources.StationInfo;
+
+                case "surroundingInfo":
+                    return RelatedResources.SurroundingInfo;
+
+                case "ownerHomepage":
+                    return RelatedResources.OwnerHomepage;
+
+                case "feedbackForm":
+                    return RelatedResources.FeedbackForm;
+
+                default:
+                    return RelatedResources.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this RelatedResource)
+
+        public static String AsText(this RelatedResources RelatedResource)
+        {
+
+            switch (RelatedResource)
+            {
+
+                case RelatedResources.OperatorMap:
+                    return "operatorMap";
+
+                case RelatedResources.OperatorPayment:
+                    return "operatorPayment";
+
+                case RelatedResources.StationInfo:
+                    return "stationInfo";
+
+                case RelatedResources.SurroundingInfo:
+                    return "surroundingInfo";
+
+                case RelatedResources.OwnerHomepage:
+                    return "ownerHomepage";
+
+                case RelatedResources.FeedbackForm:
+                    return "feedbackForm";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region AsGeoCoordinateType(Text)
+
+        public static GeoCoordinateTypes AsGeoCoordinateType(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "entrance":
+                    return GeoCoordinateTypes.Entrance;
+
+                case "exit":
+                    return GeoCoordinateTypes.Exit;
+
+                case "access":
+                    return GeoCoordinateTypes.Access;
+
+                case "ui":
+                    return GeoCoordinateTypes.UI;
+
+                case "other":
+                    return GeoCoordinateTypes.Other;
+
+                default:
+                    return GeoCoordinateTypes.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this GeoCoordinateType)
+
+        public static String AsText(this GeoCoordinateTypes GeoCoordinateType)
+        {
+
+            switch (GeoCoordinateType)
+            {
+
+                case GeoCoordinateTypes.Entrance:
+                    return "entrance";
+
+                case GeoCoordinateTypes.Exit:
+                    return "exit";
+
+                case GeoCoordinateTypes.Access:
+                    return "access";
+
+                case GeoCoordinateTypes.UI:
+                    return "ui";
+
+                case GeoCoordinateTypes.Other:
+                    return "other";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region AsDayOfWeek(Number)
+
+        public static DayOfWeek AsDayOfWeek(this Int32 Number)
+        {
+
+            switch (Number)
+            {
+
+                case 1:
+                    return DayOfWeek.Monday;
+
+                case 2:
+                    return DayOfWeek.Tuesday;
+
+                case 3:
+                    return DayOfWeek.Wednesday;
+
+                case 4:
+                    return DayOfWeek.Thursday;
+
+                case 5:
+                    return DayOfWeek.Friday;
+
+                case 6:
+                    return DayOfWeek.Saturday;
+
+                default:
+                    return DayOfWeek.Sunday;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsInt(this Weekday)
+
+        public static Int32 AsInt(this DayOfWeek Weekday)
+        {
+
+            switch (Weekday)
+            {
+
+                case DayOfWeek.Monday:
+                    return 1;
+
+                case DayOfWeek.Tuesday:
+                    return 2;
+
+                case DayOfWeek.Wednesday:
+                    return 3;
+
+                case DayOfWeek.Thursday:
+                    return 4;
+
+                case DayOfWeek.Friday:
+                    return 5;
+
+                case DayOfWeek.Saturday:
+                    return 6;
+
+                default:
+                    return 7;
+
+            }
+
+        }
+
+        #endregion
+
+
         #region AsConnectorStandard(Text)
 
         public static ConnectorStandards AsConnectorStandard(this String Text)
