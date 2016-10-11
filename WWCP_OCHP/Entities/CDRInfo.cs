@@ -66,7 +66,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Current status of the CDR. Must be set to "new" by the issuing CMS.
         /// Shall not be changed by any partner but only by the CHS.
         /// </summary>
-        public CDRStatusTypes          Status               { get; }
+        public CDRStatus          Status               { get; }
 
         /// <summary>
         /// Start date and time of the charge session (login with the RFID badge).
@@ -155,7 +155,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        EMT_Id                  EMTId,
                        Contract_Id             ContractId,
                        LiveAuth_Id             LiveAuthId,
-                       CDRStatusTypes          Status,
+                       CDRStatus          Status,
                        DateTime                StartDateTime,
                        DateTime                EndDateTime,
                        TimeSpan?               Duration,

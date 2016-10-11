@@ -21,7 +21,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The OCHP overall status of a charge point.
     /// </summary>
-    public enum ChargePointStatusTypes
+    public enum ChargePointStatus
     {
 
         /// <summary>

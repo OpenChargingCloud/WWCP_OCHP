@@ -15,48 +15,56 @@
  * limitations under the License.
  */
 
+#region Usings
+
+using System;
+
+#endregion
+
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// Reflects the current status of the CDR. This is reflecting the status
-    /// of internal processing in the clearing house. The value cannot be
-    /// changed by the partner's systems directly. Implicit changes are made
-    /// while uploading (including revised, rejected CDRs), approving or
-    /// declining CDRs.
+    /// OCHP (parking) restrictions.
     /// </summary>
-    public enum CDRStatusTypes
+    [Flags]
+    public enum RestrictionTypes
     {
 
         /// <summary>
-        /// A new CDR before upload to the CHS
+        /// The (parking) restriction is unknown.
         /// </summary>
-        New,
+        Unknown         = 0,
 
         /// <summary>
-        /// An uploaded CDR was accepted by the CHS as plausible
+        /// Reserved parking spot for electric vehicles.
         /// </summary>
-        Accepted,
+        EVOnly          = 1,
 
         /// <summary>
-        /// The checked CDR again rejected by the CHS and is to be archived.
+        /// Parking allowed only while plugged in (and charging).
         /// </summary>
-        rejected,
+        Plugged         = 2,
 
         /// <summary>
-        /// The CDR was declined by the owner(EVSP).
+        /// Reserved parking spot for disabled people with valid ID.
         /// </summary>
-        OwnerDeclined,
+        Disabled        = 4,
 
         /// <summary>
-        /// The CDR was approved by the owner(EVSP).
+        /// Parking or charging for costumer/guests only, for example in case of a hotel or shop.
         /// </summary>
-        Approved,
+        Customers       = 8,
 
         /// <summary>
-        /// The CDR was revised by the CPO after a rejection by the owner.
+        /// Parking spot only suitable for (electric) motorcycles, scooters or bicycles.
         /// </summary>
-        Revised
+        Motorcycles     = 16,
+
+        /// <summary>
+        /// Charging / parking only for carsharing vehicles.
+        /// </summary>
+        CarSharing      = 32
 
     }
 

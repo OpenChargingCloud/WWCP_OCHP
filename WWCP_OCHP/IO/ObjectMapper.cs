@@ -18,6 +18,11 @@
 #region Usings
 
 using System;
+using System.Xml.Linq;
+using System.Collections.Generic;
+
+using org.GraphDefined.Vanaheimr.Aegir;
+using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
@@ -131,34 +136,34 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region AsParkingRestrictionType(Text)
+        #region AsRestrictionType(Text)
 
-        public static ParkingRestrictions AsParkingRestrictionType(this String Text)
+        public static RestrictionTypes AsRestrictionType(this String Text)
         {
 
             switch (Text)
             {
 
                 case "evonly":
-                    return ParkingRestrictions.EVOnly;
+                    return RestrictionTypes.EVOnly;
 
                 case "plugged":
-                    return ParkingRestrictions.Plugged;
+                    return RestrictionTypes.Plugged;
 
                 case "disabled":
-                    return ParkingRestrictions.Disabled;
+                    return RestrictionTypes.Disabled;
 
                 case "customers":
-                    return ParkingRestrictions.Customers;
+                    return RestrictionTypes.Customers;
 
                 case "motorcycles":
-                    return ParkingRestrictions.Motorcycles;
+                    return RestrictionTypes.Motorcycles;
 
                 case "carsharing":
-                    return ParkingRestrictions.CarSharing;
+                    return RestrictionTypes.CarSharing;
 
                 default:
-                    return ParkingRestrictions.Unknown;
+                    return RestrictionTypes.Unknown;
 
             }
 
@@ -166,30 +171,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region AsText(this ParkingRestrictionType)
+        #region AsText(this AsRestrictionType)
 
-        public static String AsText(this ParkingRestrictions ParkingRestrictionType)
+        public static String AsText(this RestrictionTypes AsRestrictionType)
         {
 
-            switch (ParkingRestrictionType)
+            switch (AsRestrictionType)
             {
 
-                case ParkingRestrictions.EVOnly:
+                case RestrictionTypes.EVOnly:
                     return "evonly";
 
-                case ParkingRestrictions.Plugged:
+                case RestrictionTypes.Plugged:
                     return "plugged";
 
-                case ParkingRestrictions.Disabled:
+                case RestrictionTypes.Disabled:
                     return "disabled";
 
-                case ParkingRestrictions.Customers:
+                case RestrictionTypes.Customers:
                     return "customers";
 
-                case ParkingRestrictions.Motorcycles:
+                case RestrictionTypes.Motorcycles:
                     return "motorcycles";
 
-                case ParkingRestrictions.CarSharing:
+                case RestrictionTypes.CarSharing:
                     return "carsharing";
 
                 default:
@@ -451,6 +456,37 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                     return DayOfWeek.Friday;
 
                 case 6:
+                    return DayOfWeek.Saturday;
+
+                default:
+                    return DayOfWeek.Sunday;
+
+            }
+
+        }
+
+        public static DayOfWeek AsDayOfWeek(this String Number)
+        {
+
+            switch (Number)
+            {
+
+                case "1":
+                    return DayOfWeek.Monday;
+
+                case "2":
+                    return DayOfWeek.Tuesday;
+
+                case "3":
+                    return DayOfWeek.Wednesday;
+
+                case "4":
+                    return DayOfWeek.Thursday;
+
+                case "5":
+                    return DayOfWeek.Friday;
+
+                case "6":
                     return DayOfWeek.Saturday;
 
                 default:
@@ -730,6 +766,183 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsChargePointStatus(Text)
+
+        public static ChargePointStatus AsChargePointStatus(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "Operative":
+                    return ChargePointStatus.Operative;
+
+                case "Inoperative":
+                    return ChargePointStatus.Inoperative;
+
+                case "Planned":
+                    return ChargePointStatus.Planned;
+
+                case "Closed":
+                    return ChargePointStatus.Closed;
+
+                default:
+                    return ChargePointStatus.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this ChargePointStatus)
+
+        public static String AsText(this ChargePointStatus Status)
+        {
+
+            switch (Status)
+            {
+
+                case ChargePointStatus.Operative:
+                    return "Operative";
+
+                case ChargePointStatus.Inoperative:
+                    return "Inoperative";
+
+                case ChargePointStatus.Planned:
+                    return "Planned";
+
+                case ChargePointStatus.Closed:
+                    return "Closed";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region AsChargePointType(Text)
+
+        public static ChargePointTypes AsChargePointType(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "AC":
+                    return ChargePointTypes.AC;
+
+                case "DC":
+                    return ChargePointTypes.DC;
+
+                default:
+                    return ChargePointTypes.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this ChargePointType)
+
+        public static String AsText(this ChargePointTypes ChargePointType)
+        {
+
+            switch (ChargePointType)
+            {
+
+                case ChargePointTypes.AC:
+                    return "AC";
+
+                case ChargePointTypes.DC:
+                    return "DC";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region AsGeneralLocationType(Text)
+
+        public static GeneralLocationTypes AsGeneralLocationType(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "on-street":
+                    return GeneralLocationTypes.OnStreet;
+
+                case "parking-garage":
+                    return GeneralLocationTypes.ParkingGarage;
+
+                case "underground-garage":
+                    return GeneralLocationTypes.UndergroundGarage;
+
+                case "parking-lot":
+                    return GeneralLocationTypes.ParkingLot;
+
+                case "other":
+                    return GeneralLocationTypes.Other;
+
+                case "private":
+                    return GeneralLocationTypes.Private;
+
+                default:
+                    return GeneralLocationTypes.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this GeneralLocation)
+
+        public static String AsText(this GeneralLocationTypes GeneralLocation)
+        {
+
+            switch (GeneralLocation)
+            {
+
+                case GeneralLocationTypes.OnStreet:
+                    return "on-street";
+
+                case GeneralLocationTypes.ParkingGarage:
+                    return "parking-garage";
+
+                case GeneralLocationTypes.UndergroundGarage:
+                    return "underground-garage";
+
+                case GeneralLocationTypes.ParkingLot:
+                    return "parking-lot";
+
+                case GeneralLocationTypes.Other:
+                    return "other";
+
+                case GeneralLocationTypes.Private:
+                    return "private";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
         #region AsEVSEMajorStatusType(Text)
 
         public static EVSEMajorStatusTypes AsEVSEMajorStatusType(this String Text)
@@ -889,6 +1102,194 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsResultCode(Text)
+
+        public static ResultCodes AsResultCode(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "ok":
+                    return ResultCodes.OK;
+
+                case "partly":
+                    return ResultCodes.Partly;
+
+                case "not-authorized":
+                    return ResultCodes.NotAuthorized;
+
+                case "invalid-id":
+                    return ResultCodes.InvalidId;
+
+                case "server":
+                    return ResultCodes.Server;
+
+                case "format":
+                    return ResultCodes.Format;
+
+                default:
+                    return ResultCodes.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this ResultCode)
+
+        public static String AsText(this ResultCodes ResultCode)
+        {
+
+            switch (ResultCode)
+            {
+
+                case ResultCodes.OK:
+                    return "ok";
+
+                case ResultCodes.Partly:
+                    return "partly";
+
+                case ResultCodes.NotAuthorized:
+                    return "not-authorized";
+
+                case ResultCodes.InvalidId:
+                    return "invalid-id";
+
+                case ResultCodes.Server:
+                    return "server";
+
+                case ResultCodes.Format:
+                    return "format";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
+        // Parse WWCP objects...
+
+        #region ParseGeoCoordinate    (XML, OnException = null)
+
+        #region Documentation
+
+        // <OCHPNS:chargePointLocation lat="?" lon="?" />
+        #endregion
+
+        public static GeoCoordinate ParseGeoCoordinate(XElement             XML,
+                                                       OnExceptionDelegate  OnException = null)
+        {
+
+            try
+            {
+
+                return new GeoCoordinate(
+                           new Latitude (Double.Parse(XML.Attribute(OCHPNS.Default + "lat").Value)),
+                           new Longitude(Double.Parse(XML.Attribute(OCHPNS.Default + "lon").Value))
+                       );
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, XML, e);
+
+                return null;
+
+            }
+
+        }
+
+        #endregion
+
+        #region ParseRegularHours     (XML, OnException = null)
+
+        #region Documentation
+
+        // <OCHPNS:regularHours weekday="1" periodBegin="08:00" periodEnd="20:00">
+        // <OCHPNS:regularHours weekday="2" periodBegin="08:00" periodEnd="20:00">
+        // <OCHPNS:regularHours weekday="3" periodBegin="08:00" periodEnd="20:00">
+        // <OCHPNS:regularHours weekday="4" periodBegin="08:00" periodEnd="20:00">
+        // <OCHPNS:regularHours weekday="5" periodBegin="08:00" periodEnd="20:00">
+        // <OCHPNS:regularHours weekday="6" periodBegin="10:00" periodEnd="16:00">
+
+        #endregion
+
+        public static RegularHours ParseRegularHours(XElement             XML,
+                                                     OnExceptionDelegate  OnException = null)
+        {
+
+            try
+            {
+
+                return new RegularHours(
+
+                           XML.MapAttributeValueOrFail(OCHPNS.Default + "weekday",
+                                                       ObjectMapper.AsDayOfWeek,
+                                                       "Invalid or missing XML attribute 'weekday'!"),
+
+                           XML.MapAttributeValueOrFail(OCHPNS.Default + "periodBegin",
+                                                       HourMin.Parse,
+                                                       "Invalid or missing XML attribute 'periodBegin'!"),
+
+                           XML.MapAttributeValueOrFail(OCHPNS.Default + "periodEnd",
+                                                       HourMin.Parse,
+                                                       "Invalid or missing XML attribute 'periodEnd'!")
+
+                       );
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, XML, e);
+
+                return default(RegularHours);
+
+            }
+
+        }
+
+        #endregion
+
+        #region ParseExceptionalPeriod(XML, OnException = null)
+
+        public static ExceptionalPeriod ParseExceptionalPeriod(XElement             XML,
+                                                               OnExceptionDelegate  OnException = null)
+        {
+
+            try
+            {
+
+                return new ExceptionalPeriod(
+
+                           DateTime.Parse(XML.ElementOrFail(OCHPNS.Default + "periodBegin",
+                                                            "The XML element 'periodBegin' is invalid or missing!").Value),
+
+                           DateTime.Parse(XML.ElementOrFail(OCHPNS.Default + "periodEnd",
+                                                            "The XML element 'periodEnd' is invalid or missing!").Value)
+
+                       );
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, XML, e);
+
+                return default(ExceptionalPeriod);
+
+            }
+
+        }
+
+        #endregion
 
 
     }

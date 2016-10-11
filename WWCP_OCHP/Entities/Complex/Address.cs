@@ -149,18 +149,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) Parse(AddressXML)
+        #region (static) Parse(AddressXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP address.
         /// </summary>
         /// <param name="AddressXML">The XML to parse.</param>
-        public static Address Parse(XElement AddressXML)
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Address Parse(XElement             AddressXML,
+                                    OnExceptionDelegate  OnException = null)
         {
 
             Address _Address;
 
-            if (TryParse(AddressXML, out _Address))
+            if (TryParse(AddressXML, out _Address, OnException))
                 return _Address;
 
             return null;
@@ -169,21 +171,80 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) Parse(AddressText)
+        #region (static) Parse(AddressText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP address.
         /// </summary>
         /// <param name="AddressText">The text to parse.</param>
-        public static Address Parse(String AddressText)
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Address Parse(String               AddressText,
+                                    OnExceptionDelegate  OnException = null)
         {
 
             Address _Address;
 
-            if (TryParse(AddressText, out _Address))
+            if (TryParse(AddressText, out _Address, OnException))
                 return _Address;
 
             return null;
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(AddressXML,  out Address, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given XML representation of an OCHP address.
+        /// </summary>
+        /// <param name="AddressXML">The XML to parse.</param>
+        /// <param name="Address">The parsed address.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(XElement             AddressXML,
+                                       out Address          Address,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                Address = new Address(
+
+                              AddressXML.ElementValueOrDefault(OCHPNS.Default + "houseNumber",
+                                                               String.Empty).
+                                                               Trim(),
+
+                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "address",
+                                                               "Missing or invalid XML element 'address'!").
+                                                               Trim(),
+
+                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "city",
+                                                               "Missing or invalid XML element 'city'!").
+                                                               Trim(),
+
+                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "zipCode",
+                                                               "Missing or invalid XML element 'zipCode'!").
+                                                               Trim(),
+
+                              AddressXML.MapValueOrFail       (OCHPNS.Default + "country",
+                                                               value => Country.ParseAlpha3Code(value.Trim()),
+                                                               "Missing or invalid XML element 'country'!")
+
+                          );
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, AddressXML, e);
+
+                Address = null;
+                return false;
+
+            }
 
         }
 
@@ -219,51 +280,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             Address = null;
             return false;
-
-        }
-
-        #endregion
-
-        #region (static) TryParse(AddressXML, out Address, OnException = null)
-
-        /// <summary>
-        /// Try to parse the given XML representation of an OCHP Address.
-        /// </summary>
-        /// <param name="AddressXML">The XML to parse.</param>
-        /// <param name="Address">The parsed address.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement             AddressXML,
-                                       out Address          Address,
-                                       OnExceptionDelegate  OnException  = null)
-        {
-
-            try
-            {
-
-                Address = new Address(
-
-                              AddressXML.ElementValueOrDefault("houseNumber",  String.Empty).Trim(),
-                              AddressXML.ElementValueOrFail   ("address",      "Missing or invalid XML element 'address!").Trim(),
-                              AddressXML.ElementValueOrFail   ("city",         "Missing or invalid XML element 'city'!").Trim(),
-                              AddressXML.ElementValueOrFail   ("zipCode",      "Missing or invalid XML element 'zipCode'!").Trim(),
-
-                              AddressXML.MapValueOrFail       ("country",
-                                                                value => Country.ParseAlpha3Code(value.Trim()),
-                                                                "Missing or invalid XML element 'country'!")
-                          );
-
-                return true;
-
-            }
-            catch (Exception e)
-            {
-
-                OnException?.Invoke(DateTime.Now, AddressXML, e);
-
-                Address = null;
-                return false;
-
-            }
 
         }
 
@@ -374,10 +390,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if ((Object) Address == null)
                 return false;
 
-            return this.Street.      Equals(Address.Street)      &&
+            return Street.      Equals(Address.Street)      &&
                    HouseNumber. Equals(Address.HouseNumber) &&
                    City.        Equals(Address.City)        &&
-                   ZIPCode.         Equals(Address.ZIPCode)         &&
+                   ZIPCode.     Equals(Address.ZIPCode)     &&
                    Country.     Equals(Address.Country);
 
         }
@@ -398,7 +414,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             {
 
                 return HouseNumber. GetHashCode() * 31 ^
-                       Street.     GetHashCode() * 23 ^
+                       Street.      GetHashCode() * 23 ^
                        City.        GetHashCode() * 17 ^
                        ZIPCode.     GetHashCode() * 11 ^
                        Country.     GetHashCode();

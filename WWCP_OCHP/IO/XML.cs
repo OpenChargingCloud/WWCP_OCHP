@@ -51,12 +51,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             #endregion
 
             return new XElement(OCHPNS.Default + XElementName,
+
                                new XElement(OCHPNS.Default + "periodBegin",
                                    new XElement(OCHPNS.Default + "DateTime", Period.Begin.ToIso8601())
                                ),
+
                                new XElement(OCHPNS.Default + "periodEnd",
                                    new XElement(OCHPNS.Default + "DateTime", Period.End.  ToIso8601())
                                )
+
                            );
 
         }

@@ -56,7 +56,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                               IEnumerable<ChargePointInfo>  ChargePointInfos,
                                                               UInt32                        NumberOfChargePoints,
                                                               TimeSpan?                     RequestTimeout,
-                                                              Acknowledgement               Result,
+                                                              SetChargePointListResponse    Result,
                                                               TimeSpan                      Duration);
 
 

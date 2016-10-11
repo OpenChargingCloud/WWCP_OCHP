@@ -19,40 +19,44 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// Result and error codes for the class Result as return value for method calls.
+    /// Reflects the current status of the CDR. This is reflecting the status
+    /// of internal processing in the clearing house. The value cannot be
+    /// changed by the partner's systems directly. Implicit changes are made
+    /// while uploading (including revised, rejected CDRs), approving or
+    /// declining CDRs.
     /// </summary>
-    public enum ResultCodes
+    public enum CDRStatus
     {
 
         /// <summary>
-        /// Data accepted and processed;
+        /// A new CDR before upload to the CHS
         /// </summary>
-        OK,
+        New,
 
         /// <summary>
-        /// Only part of the data was accepted;
+        /// An uploaded CDR was accepted by the CHS as plausible
         /// </summary>
-        Partly,
+        Accepted,
 
         /// <summary>
-        /// Wrong username and/or password.
+        /// The checked CDR again rejected by the CHS and is to be archived.
         /// </summary>
-        NotAuthorized,
+        rejected,
 
         /// <summary>
-        /// One or more ID (EVSE/Contract) were not valid for this user.
+        /// The CDR was declined by the owner(EVSP).
         /// </summary>
-        InvalidId,
+        OwnerDeclined,
 
         /// <summary>
-        /// Internal server error.
+        /// The CDR was approved by the owner(EVSP).
         /// </summary>
-        Server,
+        Approved,
 
         /// <summary>
-        /// Data has technical errors.
+        /// The CDR was revised by the CPO after a rejection by the owner.
         /// </summary>
-        Format
+        Revised
 
     }
 

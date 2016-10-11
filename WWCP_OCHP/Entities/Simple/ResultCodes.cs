@@ -19,20 +19,45 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// The OCHP type of a charge point.
+    /// Result and error codes for the class Result as return value for method calls.
     /// </summary>
-    public enum ChargePointTypes
+    public enum ResultCodes
     {
 
         /// <summary>
-        /// AC
+        /// Unknowen result code.
         /// </summary>
-        AC,
+        Unknown,
 
         /// <summary>
-        /// DC
+        /// Data accepted and processed.
         /// </summary>
-        DC
+        OK,
+
+        /// <summary>
+        /// Only part of the data was accepted.
+        /// </summary>
+        Partly,
+
+        /// <summary>
+        /// Wrong username and/or password.
+        /// </summary>
+        NotAuthorized,
+
+        /// <summary>
+        /// One or more ID (EVSE/Contract) were not valid for this user.
+        /// </summary>
+        InvalidId,
+
+        /// <summary>
+        /// Internal server error.
+        /// </summary>
+        Server,
+
+        /// <summary>
+        /// Data has technical errors.
+        /// </summary>
+        Format
 
     }
 

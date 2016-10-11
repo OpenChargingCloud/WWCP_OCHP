@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Xml.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -27,7 +28,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// Result as return value for method calls.
+    /// A generic OCHP result.
     /// </summary>
     public class Result
     {
@@ -46,10 +47,83 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region Statics
+
+        /// <summary>
+        /// Unknowen result code.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result Unknown(String Description = null)
+
+            => new Result(ResultCodes.Unknown,
+                          Description);
+
+
+        /// <summary>
+        /// Data accepted and processed.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result OK(String Description = null)
+
+            => new Result(ResultCodes.Unknown,
+                          Description);
+
+
+        /// <summary>
+        /// Only part of the data was accepted.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result Partly(String Description = null)
+
+            => new Result(ResultCodes.Unknown,
+                          Description);
+
+
+        /// <summary>
+        /// Wrong username and/or password.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result NotAuthorized(String Description = null)
+
+            => new Result(ResultCodes.Unknown,
+                          Description);
+
+
+        /// <summary>
+        /// One or more ID (EVSE/Contract) were not valid for this user.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result InvalidId(String Description = null)
+
+            => new Result(ResultCodes.Unknown,
+                          Description);
+
+
+        /// <summary>
+        /// Internal server error.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result Server(String Description = null)
+
+            => new Result(ResultCodes.Unknown,
+                          Description);
+
+
+        /// <summary>
+        /// Data has technical errors.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result Format(String Description = null)
+
+            => new Result(ResultCodes.Unknown,
+                          Description);
+
+        #endregion
+
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHP parking space status.
+        /// Create a new generic OCHP result.
         /// </summary>
         /// <param name="ResultCode">The machine-readable result code.</param>
         /// <param name="Description">A human-readable error description.</param>
@@ -58,9 +132,171 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         {
 
             this.ResultCode   = ResultCode;
-            this.Description  = Description.IsNotNullOrEmpty() ? Description.Trim() : "";
+
+            this.Description  = Description.IsNotNullOrEmpty()
+                                    ? Description.Trim()
+                                    : "";
 
         }
+
+        #endregion
+
+
+        #region Documentation
+
+        // <ns:result>
+        //
+        //    <ns:resultCode>
+        //       <ns:resultCode>?</ns:resultCode>
+        //    </ns:resultCode>
+        //
+        //    <ns:resultDescription>?</ns:resultDescription>
+        //
+        // </ns:result>
+
+        #endregion
+
+        #region (static) Parse(ResultXML,  OnException = null)
+
+        /// <summary>
+        /// Parse the given XML representation of an OCHP result.
+        /// </summary>
+        /// <param name="ResultXML">The XML to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Result Parse(XElement             ResultXML,
+                                   OnExceptionDelegate  OnException = null)
+        {
+
+            Result _Result;
+
+            if (TryParse(ResultXML, out _Result, OnException))
+                return _Result;
+
+            return null;
+
+        }
+
+        #endregion
+
+        #region (static) Parse(ResultText, OnException = null)
+
+        /// <summary>
+        /// Parse the given text representation of an OCHP result.
+        /// </summary>
+        /// <param name="ResultText">The text to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Result Parse(String               ResultText,
+                                   OnExceptionDelegate  OnException = null)
+        {
+
+            Result _Result;
+
+            if (TryParse(ResultText, out _Result, OnException))
+                return _Result;
+
+            return null;
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(ResultXML,  out Result, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given XML representation of an OCHP result.
+        /// </summary>
+        /// <param name="ResultXML">The XML to parse.</param>
+        /// <param name="Result">The parsed result.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(XElement             ResultXML,
+                                       out Result           Result,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                Result = new Result(
+
+                             ResultXML.MapValueOrFail    (OCHPNS.Default + "resultCode",
+                                                          OCHPNS.Default + "resultCode",
+                                                          ObjectMapper.AsResultCode,
+                                                          "Missing or invalid XML element 'resultCode'!"),
+
+                             ResultXML.ElementValueOrFail(OCHPNS.Default + "address",
+                                                          "Missing or invalid XML element 'address'!").
+                                                          Trim()
+
+                         );
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, ResultXML, e);
+
+                Result = null;
+                return false;
+
+            }
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(ResultText, out Result, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given text representation of an OCHP result.
+        /// </summary>
+        /// <param name="ResultText">The text to parse.</param>
+        /// <param name="Result">The parsed result.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(String               ResultText,
+                                       out Result           Result,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                if (TryParse(XDocument.Parse(ResultText).Root,
+                             out Result,
+                             OnException))
+
+                    return true;
+
+            }
+            catch (Exception e)
+            {
+                OnException?.Invoke(DateTime.Now, ResultText, e);
+            }
+
+            Result = null;
+            return false;
+
+        }
+
+        #endregion
+
+        #region ToXML()
+
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        public XElement ToXML()
+
+            => new XElement(OCHPNS.Default + "result",
+
+                   new XElement(OCHPNS.Default + "resultCode",
+                       new XElement(OCHPNS.Default + "resultCode", ResultCode.ToString())
+                   ),
+
+                   new XElement(OCHPNS.Default + "resultDescription", Description)
+
+               );
 
         #endregion
 
@@ -168,7 +404,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             {
 
                 return ResultCode. GetHashCode() * 11 ^
-                       Description.GetHashCode();
+
+                       (Description != null
+                            ? Description.GetHashCode()
+                            : 0);
 
             }
         }
