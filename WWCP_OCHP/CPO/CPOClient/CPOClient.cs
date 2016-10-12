@@ -119,6 +119,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+
         #region OnGetSingleRoamingAuthorisationRequest/-Response
 
         /// <summary>
@@ -188,6 +189,31 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// An event fired whenever a response to a roaming authorisation list update request had been received.
         /// </summary>
         public event OnGetRoamingAuthorisationListUpdatesResponseDelegate  OnGetRoamingAuthorisationListUpdatesResponse;
+
+        #endregion
+
+
+        #region OnAddCDRsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for adding charge detail records will be send.
+        /// </summary>
+        public event OnAddCDRsRequestDelegate   OnAddCDRsRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for adding charge detail records will be send.
+        /// </summary>
+        public event ClientRequestLogHandler    OnAddCDRsSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a response to an add charge detail records SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler   OnAddCDRsSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response to an add charge detail records request had been received.
+        /// </summary>
+        public event OnAddCDRsResponseDelegate  OnAddCDRsResponse;
 
         #endregion
 
@@ -1247,6 +1273,192 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         }
 
         #endregion
+
+
+        #region AddCDRsRequest(...)
+
+        /// <summary>
+        /// Upload the given enumeration of charge detail records.
+        /// </summary>
+        /// <param name="CDRInfos">An enumeration of charge detail records.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<AddCDRsResponse>>
+
+            AddCDRsRequest(IEnumerable<CDRInfo>  CDRInfos,
+
+                           DateTime?             Timestamp          = null,
+                           CancellationToken?    CancellationToken  = null,
+                           EventTracking_Id      EventTrackingId    = null,
+                           TimeSpan?             RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (CDRInfos == null || !CDRInfos.Any())
+                throw new ArgumentNullException(nameof(CDRInfos),  "The given enumeration of charge detail records must not be null or empty!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<AddCDRsResponse> result = null;
+
+            #endregion
+
+            #region Send OnAddCDRsRequest event
+
+            try
+            {
+
+                OnAddCDRsRequest?.Invoke(DateTime.Now,
+                                         Timestamp.Value,
+                                         this,
+                                         ClientId,
+                                         EventTrackingId,
+                                         CDRInfos,
+                                         RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnAddCDRsRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(CPOClientXMLMethods.AddCDRsXML(CDRInfos),
+                                                 "AddCDRsRequest",
+                                                 RequestLogDelegate:   OnAddCDRsSOAPRequest,
+                                                 ResponseLogDelegate:  OnAddCDRsSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(AddCDRsResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<AddCDRsResponse>(httpresponse,
+                                                                                              new AddCDRsResponse(
+                                                                                                  Result.Format(
+                                                                                                      "Invalid SOAP => " +
+                                                                                                      httpresponse.HTTPBody.ToUTF8String()
+                                                                                                  )
+                                                                                              ),
+                                                                                              IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<AddCDRsResponse>(httpresponse,
+                                                                                              new AddCDRsResponse(
+                                                                                                  Result.Server(
+                                                                                                       httpresponse.HTTPStatusCode.ToString() +
+                                                                                                       " => " +
+                                                                                                       httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                  )
+                                                                                              ),
+                                                                                              IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<AddCDRsResponse>.ExceptionThrown(new AddCDRsResponse(
+                                                                                                              Result.Format(exception.Message +
+                                                                                                                            " => " +
+                                                                                                                            exception.StackTrace)),
+                                                                                                          exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<AddCDRsResponse>.OK(new AddCDRsResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnAddCDRsResponse event
+
+            try
+            {
+
+                OnAddCDRsResponse?.Invoke(DateTime.Now,
+                                          Timestamp.Value,
+                                          this,
+                                          ClientId,
+                                          EventTrackingId,
+                                          CDRInfos,
+                                          RequestTimeout,
+                                          result.Content,
+                                          DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnAddCDRsResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
 
     }
 

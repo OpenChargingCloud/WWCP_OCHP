@@ -214,13 +214,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 GetSingleRoamingAuthorisationResponse = new GetSingleRoamingAuthorisationResponse(
 
-                                                            GetSingleRoamingAuthorisationResponseXML.MapElementOrFail (OCHPNS.Default + "result",
-                                                                                                                       "Missing or invalid XML element 'result'!",
-                                                                                                                       Result.Parse,
-                                                                                                                       OnException),
+                                                            GetSingleRoamingAuthorisationResponseXML.MapElementOrFail(OCHPNS.Default + "result",
+                                                                                                                      Result.Parse,
+                                                                                                                      OnException),
 
                                                             GetSingleRoamingAuthorisationResponseXML.MapElementOrFail(OCHPNS.Default + "roamingAuthorisationInfo",
-                                                                                                                      "Missing or invalid XML element 'roamingAuthorisationInfo'!",
                                                                                                                       RoamingAuthorisationInfo.Parse,
                                                                                                                       OnException)
 

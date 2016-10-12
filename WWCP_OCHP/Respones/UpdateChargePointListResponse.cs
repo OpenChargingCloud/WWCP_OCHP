@@ -215,12 +215,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 UpdateChargePointListResponse = new UpdateChargePointListResponse(
 
                                                     UpdateChargePointListResponseXML.MapElementOrFail (OCHPNS.Default + "result",
-                                                                                                       "Missing or invalid XML element 'result'!",
                                                                                                        Result.Parse,
                                                                                                        OnException),
 
                                                     UpdateChargePointListResponseXML.MapElementsOrFail(OCHPNS.Default + "refusedChargePointInfo",
-                                                                                                       "Missing or invalid XML element 'refusedChargePointInfo'!",
                                                                                                        ChargePointInfo.Parse,
                                                                                                        OnException)
 

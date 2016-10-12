@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP roaming authorisation list.
+    /// An OCHP roaming authorisation list response.
     /// </summary>
     public class GetRoamingAuthorisationListResponse : AResponse
     {
@@ -104,7 +104,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHP roaming authorisation list.
+        /// Create a new OCHP roaming authorisation list response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
         /// <param name="RoamingAuthorisationInfos">An enumeration of authorisation card infos.</param>
@@ -228,12 +228,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 GetRoamingAuthorisationListResponse = new GetRoamingAuthorisationListResponse(
 
                                                           GetRoamingAuthorisationListResponseXML.MapElementOrFail (OCHPNS.Default + "result",
-                                                                                                                   "Missing or invalid XML element 'result'!",
                                                                                                                    Result.Parse,
                                                                                                                    OnException),
 
                                                           GetRoamingAuthorisationListResponseXML.MapElementsOrFail(OCHPNS.Default + "roamingAuthorisationInfoArray",
-                                                                                                                   "Missing or invalid XML element 'roamingAuthorisationInfoArray'!",
                                                                                                                    RoamingAuthorisationInfo.Parse,
                                                                                                                    OnException)
 

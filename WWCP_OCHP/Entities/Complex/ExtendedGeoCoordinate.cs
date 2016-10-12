@@ -89,7 +89,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Documentation
 
-        // <OCHP:relatedLocation lat="?" lon="?" name="?" type="?"/>
+        // <OCHP:relatedLocation lat="?" lon="?" name="?" type="?"/>
+
         #endregion
 
         #region (static) Parse(ExtendedGeoCoordinateXML,  OnException = null)

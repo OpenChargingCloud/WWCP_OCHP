@@ -211,25 +211,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 Address = new Address(
 
-                              AddressXML.ElementValueOrDefault(OCHPNS.Default + "houseNumber",
-                                                               String.Empty).
-                                                               Trim(),
+                              AddressXML.ElementValueOrDefault(OCHPNS.Default + "houseNumber", "").Trim(),
 
-                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "address",
-                                                               "Missing or invalid XML element 'address'!").
-                                                               Trim(),
-
-                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "city",
-                                                               "Missing or invalid XML element 'city'!").
-                                                               Trim(),
-
-                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "zipCode",
-                                                               "Missing or invalid XML element 'zipCode'!").
-                                                               Trim(),
+                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "address"        ).Trim(),
+                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "city"           ).Trim(),
+                              AddressXML.ElementValueOrFail   (OCHPNS.Default + "zipCode"        ).Trim(),
 
                               AddressXML.MapValueOrFail       (OCHPNS.Default + "country",
-                                                               value => Country.ParseAlpha3Code(value.Trim()),
-                                                               "Missing or invalid XML element 'country'!")
+                                                               value => Country.ParseAlpha3Code(value.Trim()))
 
                           );
 

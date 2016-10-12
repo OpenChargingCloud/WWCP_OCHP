@@ -87,7 +87,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //    <!--Optional:-->
         //    <ns:nominalVoltage>?</ns:nominalVoltage>
         //
-        // </ns:ratings>
+        // </ns:ratings>
+
         #endregion
 
         #region (static) Parse(RatingsXML,  OnException = null)
@@ -153,7 +154,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 Ratings = new Ratings(
 
                               RatingsXML.MapValueOrFail   (OCHPNS.Default + "maximumPower",
-                                                           "Missing or invalid XML element 'address'!",
                                                            Single.Parse),
 
                               RatingsXML.MapValueOrDefault(OCHPNS.Default + "guaranteedPower",

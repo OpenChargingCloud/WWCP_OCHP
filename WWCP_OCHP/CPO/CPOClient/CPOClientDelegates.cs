@@ -116,7 +116,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
     #endregion
 
-    #region OnGetRoamingAuthorisationList(Updates)
+    #region OnGetRoamingAuthorisationList
 
     /// <summary>
     /// A delegate called whenever a request for the current roaming authorisation list will be send upstream.
@@ -164,6 +164,35 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                               TimeSpan?                                   RequestTimeout,
                                                                               GetRoamingAuthorisationListUpdatesResponse  Result,
                                                                               TimeSpan                                    Duration);
+
+    #endregion
+
+
+    #region OnAddCDRs
+
+    /// <summary>
+    /// A delegate called whenever charge detail records will be send upstream.
+    /// </summary>
+    public delegate Task OnAddCDRsRequestDelegate (DateTime               LogTimestamp,
+                                                   DateTime               RequestTimestamp,
+                                                   CPOClient              Sender,
+                                                   String                 SenderId,
+                                                   EventTracking_Id       EventTrackingId,
+                                                   IEnumerable<CDRInfo>   CDRInfos,
+                                                   TimeSpan?              RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending charge detail records upstream had been received.
+    /// </summary>
+    public delegate Task OnAddCDRsResponseDelegate(DateTime               LogTimestamp,
+                                                   DateTime               RequestTimestamp,
+                                                   CPOClient              Sender,
+                                                   String                 SenderId,
+                                                   EventTracking_Id       EventTrackingId,
+                                                   IEnumerable<CDRInfo>   CDRInfos,
+                                                   TimeSpan?              RequestTimeout,
+                                                   AddCDRsResponse        Result,
+                                                   TimeSpan               Duration);
 
     #endregion
 

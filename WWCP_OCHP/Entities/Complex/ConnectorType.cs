@@ -157,13 +157,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                     ConnectorTypeXML.MapValueOrFail   (OCHPNS.Default + "connectorStandard",
                                                                        OCHPNS.Default + "ConnectorStandard",
-                                                                       ObjectMapper.AsConnectorStandard,
-                                                                       "Missing or invalid XML element 'connectorStandard'!"),
+                                                                       ObjectMapper.AsConnectorStandard),
 
                                     ConnectorTypeXML.MapValueOrFail   (OCHPNS.Default + "connectorFormat",
                                                                        OCHPNS.Default + "ConnectorFormat",
-                                                                       ObjectMapper.AsConnectorFormat,
-                                                                       "Missing or invalid XML element 'connectorFormat'!"),
+                                                                       ObjectMapper.AsConnectorFormat),
 
                                     ConnectorTypeXML.MapValueOrDefault(OCHPNS.Default + "tariffId",
                                                                        Tariff_Id.Parse)
@@ -222,14 +220,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region ToXML()
+        #region ToXML(XName = null)
 
         /// <summary>
         /// Return a XML representation of this object.
         /// </summary>
-        public XElement ToXML()
+        /// <param name="XName">An alternative XML element name [default: "OCHPNS:connector"]</param>
+        public XElement ToXML(XName XName = null)
 
-            => new XElement(OCHPNS.Default + "connectors",
+            => new XElement(XName ?? OCHPNS.Default + "connector",
 
                    new XElement(OCHPNS.Default + "connectorStandard",
                        new XElement(OCHPNS.Default + "ConnectorStandard",  ObjectMapper.AsText(Standard))

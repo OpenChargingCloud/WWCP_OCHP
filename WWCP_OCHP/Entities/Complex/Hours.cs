@@ -264,11 +264,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                            false),
 
                                 HoursXML.MapElementsOrFail(OCHPNS.Default + "exceptionalOpenings",
-                                                           "The XML element 'exceptionalOpenings' is invalid or missing!",
                                                            ObjectMapper.ParseExceptionalPeriod),
 
                                 HoursXML.MapElementsOrFail(OCHPNS.Default + "exceptionalClosings",
-                                                           "The XML element 'exceptionalClosings' is invalid or missing!",
                                                            ObjectMapper.ParseExceptionalPeriod)
                             );
 
@@ -280,7 +278,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                     Hours = new Hours(
 
                                 HoursXML.MapElementsOrFail(OCHPNS.Default + "regularHours",
-                                                           "The XML element 'regularHours' is invalid or missing!",
                                                            ObjectMapper.ParseRegularHours),
 
                                 HoursXML.MapValueOrDefault(OCHPNS.Default + "closedCharging",
@@ -288,12 +285,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                            false),
 
                                 HoursXML.MapElementsOrFail(OCHPNS.Default + "exceptionalOpenings",
-                                                           "The XML element 'exceptionalOpenings' is invalid or missing!",
                                                            ObjectMapper.ParseExceptionalPeriod),
 
                                 HoursXML.MapElementsOrFail(OCHPNS.Default + "exceptionalClosings",
-                                                           "The XML element 'exceptionalClosings' is invalid or missing!",
                                                            ObjectMapper.ParseExceptionalPeriod)
+
                             );
 
                 }

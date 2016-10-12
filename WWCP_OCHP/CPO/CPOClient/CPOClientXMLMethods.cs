@@ -244,6 +244,54 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AddCDRsXML(CDRInfos)
+
+        /// <summary>
+        /// Create an OCHP add charge detail records XML/SOAP request.
+        /// </summary>
+        /// <param name="CDRInfos">An enumeration of charge detail records.</param>
+        public static XElement AddCDRsXML(IEnumerable<CDRInfo>  CDRInfos)
+        {
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //      <ns:AddCDRsRequest>
+            //
+            //         <!--1 or more repetitions:-->
+            //         <ns:cdrInfoArray>
+            //           ...
+            //         </ns:cdrInfoArray>
+            //
+            //      </ns:AddCDRsRequest>
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            #region Initial checks
+
+            if (CDRInfos == null || !CDRInfos.Any())
+                throw new ArgumentNullException(nameof(CDRInfos),  "The given enumeration of charge detail records must not be null!");
+
+            #endregion
+
+
+            return SOAP.Encapsulation(new XElement(OCHPNS.Default + "AddCDRsRequest",
+
+                                          CDRInfos.SafeSelect(cdr => cdr.ToXML(OCHPNS.Default + "cdrInfoArray"))
+
+                                     ));
+
+        }
+
+        #endregion
+
+
     }
 
 }

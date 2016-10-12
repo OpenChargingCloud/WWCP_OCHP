@@ -37,7 +37,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// What dimension is part of this tariff element.
         /// </summary>
-        public BillingItemTypes  BillingItem    { get; }
+        public BillingItems  BillingItem    { get; }
 
         /// <summary>
         /// Price per unit of the billing item in the given currency.
@@ -60,7 +60,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="BillingItem">What dimension is part of this tariff element.</param>
         /// <param name="ItemPrice">Price per unit of the billing item in the given currency.</param>
         /// <param name="StepSize">Minimum amount to be billed (billing will happen in stepSize increments). In case the billingItem is a one time payment, stepSize is to be set to 1.</param>
-        public PriceComponent(BillingItemTypes  BillingItem,
+        public PriceComponent(BillingItems  BillingItem,
                               Single            ItemPrice,
                               UInt16            StepSize)
         {

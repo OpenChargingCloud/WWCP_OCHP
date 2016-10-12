@@ -1243,6 +1243,154 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsCDRStatus(Text)
+
+        public static CDRStatus AsCDRStatus(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "new":
+                    return CDRStatus.New;
+
+                case "accepted":
+                    return CDRStatus.Accepted;
+
+                case "rejected":
+                    return CDRStatus.Rejected;
+
+                case "declined":
+                    return CDRStatus.Declined;
+
+                case "approved":
+                    return CDRStatus.Approved;
+
+                case "revised":
+                    return CDRStatus.Revised;
+
+                default:
+                    return CDRStatus.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this CDRStatus)
+
+        public static String AsText(this CDRStatus CdrStatus)
+        {
+
+            switch (CdrStatus)
+            {
+
+                case CDRStatus.New:
+                    return "new";
+
+                case CDRStatus.Accepted:
+                    return "accepted";
+
+                case CDRStatus.Rejected:
+                    return "rejected";
+
+                case CDRStatus.Declined:
+                    return "declined";
+
+                case CDRStatus.Approved:
+                    return "approved";
+
+                case CDRStatus.Revised:
+                    return "revised";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region AsBillingItem(Text)
+
+        public static BillingItems AsBillingItem(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "parkingtime":
+                    return BillingItems.ParkingTime;
+
+                case "usagetime":
+                    return BillingItems.UsageTime;
+
+                case "energy":
+                    return BillingItems.Energy;
+
+                case "power":
+                    return BillingItems.Power;
+
+                case "serviceFee":
+                    return BillingItems.ServiceFee;
+
+                case "reservation":
+                    return BillingItems.Reservation;
+
+                case "reservationtime":
+                    return BillingItems.ReservationTime;
+
+                default:
+                    return BillingItems.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this BillingItem)
+
+        public static String AsText(this BillingItems BillingItem)
+        {
+
+            switch (BillingItem)
+            {
+
+                case BillingItems.ParkingTime:
+                    return "parkingtime";
+
+                case BillingItems.UsageTime:
+                    return "usagetime";
+
+                case BillingItems.Energy:
+                    return "energy";
+
+                case BillingItems.Power:
+                    return "power";
+
+                case BillingItems.ServiceFee:
+                    return "serviceFee";
+
+                case BillingItems.Reservation:
+                    return "reservation";
+
+                case BillingItems.ReservationTime:
+                    return "reservationtime";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
         #region AsResultCode(Text)
 
         public static ResultCodes AsResultCode(this String Text)

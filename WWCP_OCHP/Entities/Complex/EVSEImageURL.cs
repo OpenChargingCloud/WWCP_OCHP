@@ -198,8 +198,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                    EVSEImageURLXML.ElementValueOrFail(OCHPNS.Default + "uri"),
 
                                    EVSEImageURLXML.MapValueOrFail    (OCHPNS.Default + "class",
-                                                                      ObjectMapper.AsEVSEImageClasses,
-                                                                      "The XML element 'class' is invalid or missing!"),
+                                                                      ObjectMapper.AsEVSEImageClasses),
 
                                    EVSEImageURLXML.ElementValueOrFail(OCHPNS.Default + "type"),
 

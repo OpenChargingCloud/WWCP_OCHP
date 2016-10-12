@@ -79,13 +79,13 @@
     <Compile Include="Entities\Simple\EVSE_Id.cs" />
     <Compile Include="Entities\Simple\RestrictionTypes.cs" />
     <Compile Include="Entities\Simple\AuthMethodTypes.cs" />
-    <Compile Include="Entities\Simple\BillingItemTypes.cs" />
+    <Compile Include="Entities\Simple\BillingItems.cs" />
     <Compile Include="Entities\Simple\ParkingStatusTypes.cs" />
     <Compile Include="Entities\Simple\EVSEMinorStatusTypes.cs" />
     <Compile Include="Entities\Simple\Contract_Id.cs" />
     <Compile Include="Entities\Simple\Tariff_Id.cs" />
     <Compile Include="Entities\Simple\Parking_Id.cs" />
-    <Compile Include="Entities\CDRPeriod.cs" />
+    <Compile Include="Entities\Complex\CDRPeriod.cs" />
     <Compile Include="Entities\ParkingStatus.cs" />
     <Compile Include="Entities\Complex\ChargePointSchedule.cs" />
     <Compile Include="Entities\Complex\PriceComponent.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Entities\Simple\EVSEMajorStatusTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respones\AResponse.cs" />
+    <Compile Include="Respones\AddCDRsResponse.cs" />
     <Compile Include="Respones\GetRoamingAuthorisationListUpdatesResponse.cs" />
     <Compile Include="Respones\GetRoamingAuthorisationListResponse.cs" />
     <Compile Include="Respones\GetSingleRoamingAuthorisationResponse.cs" />

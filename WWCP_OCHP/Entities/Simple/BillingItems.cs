@@ -21,8 +21,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The billing items for charging periods and tariffs.
     /// </summary>
-    public enum BillingItemTypes
+    public enum BillingItems
     {
+
+        /// <summary>
+        /// Unknown billing item.
+        /// </summary>
+        Unknown,
 
         /// <summary>
         /// Price for the time of parking. The billingValue represents the time in hours.

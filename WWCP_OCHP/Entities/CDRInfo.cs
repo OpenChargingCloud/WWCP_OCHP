@@ -94,7 +94,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The type of the charge point "AC" or "DC".
         /// </summary>
-        public String                  ChargePointType      { get; }
+        public ChargePointTypes        ChargePointType      { get; }
 
         /// <summary>
         /// Type of the utilized socket or connector.
@@ -104,7 +104,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Maximum available power at the socket in kilowatts. Example: "3.7", "11", "22".
         /// </summary>
-        public Single                  MaxSocketPower       { get; }
+   //     public Single                  MaxSocketPower       { get; } //Note: Seems to be a bug in the documentation!
 
         /// <summary>
         /// Written identification number of the physical energy meter, provided by the manufacturer.
@@ -114,12 +114,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// An enumeration of periods per item on the bill.
         /// </summary>
-        public IEnumerable<CDRPeriod>  CDRPeriods           { get; }
+        public IEnumerable<CDRPeriod>  ChargingPeriods      { get; }
 
         /// <summary>
         /// Total cost for the entire charging process. Should always equal the sum of the individual periodCosts.
         /// </summary>
-        public Single                  TotalCost            { get; }
+        public Single?                 TotalCosts           { get; }
 
         /// <summary>
         /// The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.
@@ -145,27 +145,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="ChargePointAddress">Optional address information of the charging point.</param>
         /// <param name="ChargePointType">The type of the charge point "AC" or "DC".</param>
         /// <param name="ConnectorType">Type of the utilized socket or connector.</param>
-        /// <param name="MaxSocketPower">Maximum available power at the socket in kilowatts. Example: "3.7", "11", "22".</param>
+   //     /// <param name="MaxSocketPower">Maximum available power at the socket in kilowatts. Example: "3.7", "11", "22".</param>
         /// <param name="MeterId">Written identification number of the physical energy meter, provided by the manufacturer.</param>
-        /// <param name="CDRPeriods">An enumeration of periods per item on the bill.</param>
-        /// <param name="TotalCost">Total cost for the entire charging process. Should always equal the sum of the individual periodCosts.</param>
+        /// <param name="ChargingPeriods">An enumeration of periods per item on the bill.</param>
+        /// <param name="TotalCosts">Total costs for the entire charging process. Should always equal the sum of the individual periodCosts.</param>
         /// <param name="Currency">The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.</param>
         public CDRInfo(CDR_Id                  CDRId,
                        EVSE_Id                 EVSEId,
                        EMT_Id                  EMTId,
                        Contract_Id             ContractId,
                        LiveAuth_Id             LiveAuthId,
-                       CDRStatus          Status,
+                       CDRStatus               Status,
                        DateTime                StartDateTime,
                        DateTime                EndDateTime,
                        TimeSpan?               Duration,
                        Address                 ChargePointAddress,
-                       String                  ChargePointType,
+                       ChargePointTypes        ChargePointType,
                        ConnectorType           ConnectorType,
-                       Single                  MaxSocketPower,
+                    //   Single                  MaxSocketPower,  //Note: Seems to be a bug in the documentation!
                        String                  MeterId,
-                       IEnumerable<CDRPeriod>  CDRPeriods,
-                       Single                  TotalCost,
+                       IEnumerable<CDRPeriod>  ChargingPeriods,
+                       Single?                 TotalCosts,
                        String                  Currency)
 
         {
@@ -184,14 +184,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (ContractId == null)
                 throw new ArgumentNullException(nameof(ContractId),       "The given unique identification of a contract must not be null!");
 
-            if (ChargePointType.IsNullOrEmpty())
+            if (ChargePointType == ChargePointTypes.Unknown)
                 throw new ArgumentNullException(nameof(ChargePointType),  "The given charge point type information must not be null or empty!");
 
-            if (CDRPeriods == null)
-                throw new ArgumentNullException(nameof(CDRPeriods),       "The given enumeration of charge detail record periods must not be null!");
+            if (ChargingPeriods == null)
+                throw new ArgumentNullException(nameof(ChargingPeriods),  "The given enumeration of charge detail record periods must not be null!");
 
-            if (CDRPeriods.Count() < 1)
-                throw new ArgumentException("The given enumeration of charge detail record periods must have at least one item!", nameof(CDRPeriods));
+            if (ChargingPeriods.Count() < 1)
+                throw new ArgumentException("The given enumeration of charge detail record periods must have at least one item!", nameof(ChargingPeriods));
 
             if (Currency.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Currency),         "The given currency information must not be null or empty!");
@@ -210,16 +210,347 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.ChargePointAddress  = ChargePointAddress;
             this.ChargePointType     = ChargePointType;
             this.ConnectorType       = ConnectorType;
-            this.MaxSocketPower      = MaxSocketPower;
+   //         this.MaxSocketPower      = MaxSocketPower;        //Note: Seems to be a bug in the documentation!
             this.MeterId             = MeterId;
-            this.CDRPeriods          = CDRPeriods;
-            this.TotalCost           = TotalCost;
+            this.ChargingPeriods     = ChargingPeriods;
+            this.TotalCosts          = TotalCosts;
             this.Currency            = Currency;
 
         }
 
         #endregion
 
+
+        #region Documentation
+
+        // <ns:cdrInfoArray>
+        //
+        //    <ns:CdrId>?</ns:CdrId>
+        //    <ns:evseId>?</ns:evseId>
+        //
+        //    <ns:emtId representation = "plain" >
+        //       < ns:instance>?</ns:instance>
+        //       <ns:tokenType>?</ns:tokenType>
+        //       <!--Optional:-->
+        //       <ns:tokenSubType>?</ns:tokenSubType>
+        //    </ns:emtId>
+        //
+        //    <ns:contractId>?</ns:contractId>
+        //
+        //    <ns:status>
+        //       <ns:CdrStatusType>?</ns:CdrStatusType>
+        //    </ns:status>
+        //
+        //    <ns:startDateTime>
+        //       <ns:LocalDateTime>?</ns:LocalDateTime>
+        //    </ns:startDateTime>
+        //
+        //    <ns:endDateTime>
+        //       <ns:LocalDateTime>?</ns:LocalDateTime>
+        //    </ns:endDateTime>
+        //
+        //    <!--Optional:-->
+        //    <ns:duration>?</ns:duration>
+        //
+        //    <ns:chargePointAddress>
+        //       <!--Optional:-->
+        //       <ns:houseNumber>?</ns:houseNumber>
+        //       <ns:address>?</ns:address>
+        //       <ns:city>?</ns:city>
+        //       <ns:zipCode>?</ns:zipCode>
+        //       <ns:country>?</ns:country>
+        //    </ns:chargePointAddress>
+        //
+        //    <ns:chargePointType>?</ns:chargePointType>
+        //
+        //    <ns:connectorType>
+        //       <ns:connectorStandard>
+        //          <ns:ConnectorStandard>?</ns:ConnectorStandard>
+        //       </ns:connectorStandard>
+        //       <ns:connectorFormat>
+        //          <ns:ConnectorFormat>?</ns:ConnectorFormat>
+        //       </ns:connectorFormat>
+        //       <!--Optional:-->
+        //       <ns:tariffId>?</ns:tariffId>
+        //    </ns:connectorType>
+        //
+        //    <!--Optional:-->
+        //    <ns:ratings>
+        //       <ns:maximumPower>?</ns:maximumPower>
+        //       <!--Optional:-->
+        //       <ns:guaranteedPower>?</ns:guaranteedPower>
+        //       <!--Optional:-->
+        //       <ns:nominalVoltage>?</ns:nominalVoltage>
+        //    </ns:ratings>
+        //
+        //    <!--Optional:-->
+        //    <ns:meterId>?</ns:meterId>
+        //
+        //    <!--1 or more repetitions:-->
+        //    <ns:chargingPeriods>
+        //
+        //       <ns:startDateTime>
+        //          <ns:LocalDateTime>?</ns:LocalDateTime>
+        //       </ns:startDateTime>
+        //
+        //       <ns:endDateTime>
+        //          <ns:LocalDateTime>?</ns:LocalDateTime>
+        //       </ns:endDateTime>
+        //
+        //       <ns:billingItem>
+        //          <ns:BillingItemType>?</ns:BillingItemType>
+        //       </ns:billingItem>
+        //
+        //       <ns:billingValue>?</ns:billingValue>
+        //       <ns:itemPrice>?</ns:itemPrice>
+        //
+        //       <!--Optional:-->
+        //       <ns:periodCost>?</ns:periodCost>
+        //
+        //       <!--Optional:-->
+        //       <ns:taxrate>?</ns:taxrate>
+        //
+        //    </ns:chargingPeriods>
+        //
+        //    <!--Optional:-->
+        //    <ns:totalCost>?</ns:totalCost>
+        //    <ns:currency>?</ns:currency>
+        //
+        // </ns:cdrInfoArray>
+
+        #endregion
+
+        #region (static) Parse(CDRInfoXML,  OnException = null)
+
+        /// <summary>
+        /// Parse the given XML representation of an OCHP charge data record.
+        /// </summary>
+        /// <param name="CDRInfoXML">The XML to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static CDRInfo Parse(XElement             CDRInfoXML,
+                                    OnExceptionDelegate  OnException  = null)
+        {
+
+            CDRInfo _CDRInfo;
+
+            if (TryParse(CDRInfoXML, out _CDRInfo, OnException))
+                return _CDRInfo;
+
+            return null;
+
+        }
+
+        #endregion
+
+        #region (static) Parse(CDRInfoText, OnException = null)
+
+        /// <summary>
+        /// Parse the given text representation of an OCHP charge data record
+        /// </summary>
+        /// <param name="CDRInfoText">The text to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static CDRInfo Parse(String               CDRInfoText,
+                                    OnExceptionDelegate  OnException  = null)
+        {
+
+            CDRInfo _CDRInfo;
+
+            if (TryParse(CDRInfoText, out _CDRInfo, OnException))
+                return _CDRInfo;
+
+            return null;
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(CDRInfoXML,  out CDRInfo, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given XML representation of an OCHP charge data record
+        /// </summary>
+        /// <param name="CDRInfoXML">The XML to parse.</param>
+        /// <param name="CDRInfo">The parsed charge data record.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(XElement             CDRInfoXML,
+                                       out CDRInfo          CDRInfo,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                CDRInfo = new CDRInfo(
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "CdrId",
+                                                               CDR_Id.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "evseId",
+                                                               EVSE_Id.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "emtId",
+                                                               EMT_Id.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "contractId",
+                                                               Contract_Id.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "LiveAuthId",
+                                                               LiveAuth_Id.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "status",
+                                                               OCHPNS.Default + "CdrStatusType",
+                                                               ObjectMapper.AsCDRStatus),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "startDateTime",
+                                                               OCHPNS.Default + "LocalDateTime",
+                                                               DateTime.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "endDateTime",
+                                                               OCHPNS.Default + "LocalDateTime",
+                                                               DateTime.Parse),
+
+                              CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "duration",
+                                                               TimeSpan.Parse),
+
+                              CDRInfoXML.MapElementOrFail     (OCHPNS.Default + "chargePointAddress",
+                                                               Address.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "chargePointType",
+                                                               ObjectMapper.AsChargePointType),
+
+                              CDRInfoXML.MapElementOrFail     (OCHPNS.Default + "connectorType",
+                                                               ConnectorType.Parse),
+
+                              CDRInfoXML.ElementValueOrDefault(OCHPNS.Default + "meterId"),
+
+                              CDRInfoXML.MapElementsOrFail    (OCHPNS.Default + "chargingPeriods",
+                                                               CDRPeriod.Parse),
+
+                              CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "totalCost",
+                                                               Single.Parse),
+
+                              CDRInfoXML.ElementValueOrFail   (OCHPNS.Default + "currency")
+
+                          );
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, CDRInfoXML, e);
+
+                CDRInfo = null;
+                return false;
+
+            }
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(CDRInfoText, out CDRInfo, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given text representation of an OCHP charge data record.
+        /// </summary>
+        /// <param name="CDRInfoText">The text to parse.</param>
+        /// <param name="CDRInfo">The parsed charge data record.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(String               CDRInfoText,
+                                       out CDRInfo          CDRInfo,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                if (TryParse(XDocument.Parse(CDRInfoText).Root,
+                             out CDRInfo,
+                             OnException))
+
+                    return true;
+
+            }
+            catch (Exception e)
+            {
+                OnException?.Invoke(DateTime.Now, CDRInfoText, e);
+            }
+
+            CDRInfo = null;
+            return false;
+
+        }
+
+        #endregion
+
+        #region ToXML(XName = null)
+
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        /// <param name="XName">An alternative XML element name [default: "OCHPNS:cdrInfoArray"]</param>
+        public XElement ToXML(XName XName = null)
+
+            => new XElement(XName ?? OCHPNS.Default + "cdrInfoArray",
+
+                   new XElement(OCHPNS.Default + "CdrId",               CDRId.     ToString()),
+                   new XElement(OCHPNS.Default + "evseId",              EVSEId.    ToString()),
+                   new XElement(OCHPNS.Default + "emtId",               EMTId.     ToString()),
+                   new XElement(OCHPNS.Default + "contractId",          ContractId.ToString()),
+
+                   new XElement(OCHPNS.Default + "status",
+                       new XElement(OCHPNS.Default + "CdrStatusType",   ObjectMapper.AsText(Status))
+                   ),
+
+                   new XElement(OCHPNS.Default + "startDateTime",
+                       new XElement(OCHPNS.Default + "LocalDateTime",   StartDateTime.ToIso8601())
+                   ),
+
+                   new XElement(OCHPNS.Default + "endDateTime",
+                       new XElement(OCHPNS.Default + "LocalDateTime",   EndDateTime.ToIso8601())
+                   ),
+
+                   Duration.HasValue
+                       ? new XElement(OCHPNS.Default + "duration",      String.Concat(Duration.Value.Hours.  ToString("X3"), ":",
+                                                                                      Duration.Value.Minutes.ToString("X2"), ":",
+                                                                                      Duration.Value.Seconds.ToString("X2")))
+                       : null,
+
+                   ChargePointAddress.ToXML(),
+
+                   new XElement(OCHPNS.Default + "chargePointType",     ObjectMapper.AsText(ChargePointType)),
+
+                   ConnectorType.ToXML(OCHPNS.Default + "connectorType"),
+
+                   MeterId.IsNotNullOrEmpty()
+                       ? new XElement(OCHPNS.Default + "meterId",       MeterId)
+                       : null,
+
+                   ChargingPeriods.Select(period => period.ToXML(OCHPNS.Default + "chargingPeriods")),
+
+                   TotalCosts.HasValue
+                       ? new XElement(OCHPNS.Default + "totalCost",     TotalCosts.Value)
+                       : null,
+
+                   new XElement(OCHPNS.Default + "currency",            Currency)
+
+               );
+
+        #endregion
+
+
+        #region (override) ToString()
+
+        /// <summary>
+        /// Return a string representation of this object.
+        /// </summary>
+        public override String ToString()
+
+            => String.Concat(CDRId.ToString(), " / ", EVSEId.ToString());
+
+        #endregion
 
     }
 

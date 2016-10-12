@@ -616,8 +616,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 ChargePointInfo = new ChargePointInfo(
 
                                       ChargePointInfoXML.MapValueOrFail       (OCHPNS.Default + "evseId",
-                                                                               EVSE_Id.Parse,
-                                                                               "The XML element 'evseId' is invalid or missing!"),
+                                                                               EVSE_Id.Parse),
 
                                       ChargePointInfoXML.ElementValueOrFail   (OCHPNS.Default + "locationId"),
 
@@ -625,32 +624,26 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                       ChargePointInfoXML.ElementValueOrFail   (OCHPNS.Default + "locationNameLang"),
 
                                       ChargePointInfoXML.MapElementOrFail     (OCHPNS.Default + "chargePointAddress",
-                                                                               "The XML element 'chargePointAddress' is invalid or missing!",
                                                                                Address.Parse,
                                                                                OnException),
 
                                       ChargePointInfoXML.MapElementOrFail     (OCHPNS.Default + "chargePointLocation",
-                                                                               "The XML element 'chargePointLocation' is invalid or missing!",
                                                                                ObjectMapper.ParseGeoCoordinate,
                                                                                OnException),
 
                                       ChargePointInfoXML.MapValueOrFail       (OCHPNS.Default + "location",
                                                                                OCHPNS.Default + "GeneralLocationType",
-                                                                               ObjectMapper.AsGeneralLocationType,
-                                                                               "The XML element 'chargePointAddress' is invalid or missing!"),
+                                                                               ObjectMapper.AsGeneralLocationType),
 
                                       ChargePointInfoXML.MapEnumValuesOrFail  (OCHPNS.Default + "authMethods",
-                                                                               "The XML element 'authMethods' is invalid or missing!",
                                                                                OCHPNS.Default + "AuthMethodType",
                                                                                ObjectMapper.AsAuthMethodType),
 
                                       ChargePointInfoXML.MapElementsOrFail    (OCHPNS.Default + "connectors",
-                                                                               "The XML element 'connectors' is invalid or missing!",
                                                                                ConnectorType.Parse,
                                                                                OnException),
 
                                       ChargePointInfoXML.MapValueOrFail       (OCHPNS.Default + "chargePointType",
-                                                                               "The XML element 'chargePointType' is invalid or missing!",
                                                                                ObjectMapper.AsChargePointType),
 
 
@@ -837,7 +830,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                               ))
                        : null,
 
-                   Connectors.SafeSelect(connector => connector.ToXML()),
+                   Connectors.SafeSelect(connector => connector.ToXML(OCHPNS.Default + "connectors")),
 
                    new XElement(OCHPNS.Default + "chargePointType", ObjectMapper.AsText(ChargePointType)),
 

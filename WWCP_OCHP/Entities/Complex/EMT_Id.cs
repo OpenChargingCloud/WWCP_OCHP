@@ -178,16 +178,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 EMTId = new EMT_Id(
 
-                            EMTIdXML.ElementValueOrFail     (OCHPNS.Default + "instance",
-                                                             "Missing or invalid XML element 'address'!"),
+                            EMTIdXML.ElementValueOrFail     (OCHPNS.Default + "instance"),
 
                             EMTIdXML.MapAttributeValueOrFail(OCHPNS.Default + "representation",
-                                                             ObjectMapper.AsTokenRepresentation,
-                                                             "Missing or invalid XML attribute 'representation'!"),
+                                                             ObjectMapper.AsTokenRepresentation),
 
                             EMTIdXML.MapValueOrFail         (OCHPNS.Default + "tokenType",
-                                                             ObjectMapper.AsTokenType,
-                                                             "Missing or invalid XML element 'tokenType'!"),
+                                                             ObjectMapper.AsTokenType),
 
                             EMTIdXML.MapValueOrNullable     (OCHPNS.Default + "tokenSubType",
                                                              ObjectMapper.AsTokenSubType)

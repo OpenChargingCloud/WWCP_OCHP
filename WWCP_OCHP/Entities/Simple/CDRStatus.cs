@@ -29,27 +29,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     {
 
         /// <summary>
-        /// A new CDR before upload to the CHS
+        /// Unknown status.
+        /// </summary>
+        Unknown,
+
+        /// <summary>
+        /// A new CDR before upload to the CHS.
         /// </summary>
         New,
 
         /// <summary>
-        /// An uploaded CDR was accepted by the CHS as plausible
+        /// An uploaded CDR was accepted by the CHS as plausible.
         /// </summary>
         Accepted,
 
         /// <summary>
         /// The checked CDR again rejected by the CHS and is to be archived.
         /// </summary>
-        rejected,
+        Rejected,
 
         /// <summary>
-        /// The CDR was declined by the owner(EVSP).
+        /// The CDR was declined by the owner (EVSP).
         /// </summary>
-        OwnerDeclined,
+        Declined,
 
         /// <summary>
-        /// The CDR was approved by the owner(EVSP).
+        /// The CDR was approved by the owner (EVSP).
         /// </summary>
         Approved,
 

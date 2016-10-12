@@ -162,13 +162,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                           ChargePointScheduleXML.MapValueOrFail    (OCHPNS.Default + "status",
                                                                                     OCHPNS.Default + "ChargePointStatusType",
-                                                                                    ObjectMapper.AsChargePointStatus,
-                                                                                    "Missing or invalid XML element 'status'!"),
+                                                                                    ObjectMapper.AsChargePointStatus),
 
                                           ChargePointScheduleXML.MapValueOrFail    (OCHPNS.Default + "startDate",
                                                                                     OCHPNS.Default + "DateTime",
-                                                                                    DateTime.Parse,
-                                                                                    "Missing or invalid XML element 'startDate'!"),
+                                                                                    DateTime.Parse),
 
                                           ChargePointScheduleXML.MapValueOrNullable(OCHPNS.Default + "endDate",
                                                                                     OCHPNS.Default + "DateTime",

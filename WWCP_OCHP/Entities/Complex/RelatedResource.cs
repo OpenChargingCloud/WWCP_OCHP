@@ -165,8 +165,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                       RelatedResourceXML.ElementValueOrFail(OCHPNS.Default + "uri"),
 
                                       RelatedResourceXML.MapValueOrFail    (OCHPNS.Default + "class",
-                                                                            ObjectMapper.AsRelatedResource,
-                                                                            "The XML element 'class' is invalid or missing!")
+                                                                            ObjectMapper.AsRelatedResource)
 
                                   );
 

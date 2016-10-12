@@ -107,7 +107,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //       <ns:DateTime>?</ns:DateTime>
         //    </ns:expiryDate>
         //
-        // </ns:roamingAuthorisationInfo>
+        // </ns:roamingAuthorisationInfo>
+
         #endregion
 
         #region (static) Parse(RoamingAuthorisationInfoXML,  OnException = null)
@@ -173,18 +174,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 RoamingAuthorisationInfo = new RoamingAuthorisationInfo(
 
                                                RoamingAuthorisationInfoXML.MapElementOrFail     (OCHPNS.Default + "EmtId",
-                                                                                                 "Missing or invalid XML element 'EmtId'!",
                                                                                                  EMT_Id.Parse,
                                                                                                  OnException),
 
                                                RoamingAuthorisationInfoXML.MapValueOrFail       (OCHPNS.Default + "contractId",
-                                                                                                 Contract_Id.Parse,
-                                                                                                 "Missing or invalid XML element 'contractId'!"),
+                                                                                                 Contract_Id.Parse),
 
                                                RoamingAuthorisationInfoXML.MapValueOrFail       (OCHPNS.Default + "expiryDate",
                                                                                                  OCHPNS.Default + "DateTime",
-                                                                                                 DateTime.Parse,
-                                                                                                 "Missing or invalid XML element 'city'!"),
+                                                                                                 DateTime.Parse),
 
                                                RoamingAuthorisationInfoXML.ElementValueOrDefault(OCHPNS.Default + "printedNumber")
 
