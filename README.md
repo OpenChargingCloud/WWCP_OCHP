@@ -6,7 +6,7 @@ Protocol (WWCP) entities and entities implementing the
 _Open Clearing House Protocol (OCHP)_, which is defined and used by
 SmartLab GmbH. The focus of this protocol are the communication aspects
 of a central clearing house. For more details on this protocol please
-visit http://www.e-clearing.eu.
+visit http://www.e-clearing.eu or the [OCHP repository](https://github.com/e-clearing-net/OCHP) on GitHub.
 
 
 ### Your participation
