@@ -242,14 +242,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region ToXML()
+        #region ToXML(XName = null)
 
         /// <summary>
         /// Return a XML representation of this object.
         /// </summary>
-        public XElement ToXML()
+        /// <param name="XName">An alternative XML element name [default: "OCHPNS:roamingAuthorisationInfo"]</param>
+        public XElement ToXML(XName XName = null)
 
-            => new XElement(OCHPNS.Default + "roamingAuthorisationInfo",
+            => new XElement(XName ?? OCHPNS.Default + "roamingAuthorisationInfo",
 
                    new XElement(OCHPNS.Default + "EmtId",       EMTId.ToXML()),
                    new XElement(OCHPNS.Default + "contractId",  ContractId.ToString()),

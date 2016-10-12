@@ -32,15 +32,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// An OCHP get single roaming authorisation response.
     /// </summary>
-    public class GetSingleRoamingAuthorisationResponse
+    public class GetSingleRoamingAuthorisationResponse : AResponse
     {
 
         #region Properties
-
-        /// <summary>
-        /// The machine-readable result code.
-        /// </summary>
-        public Result                    Result                     { get; }
 
         /// <summary>
         /// The authorisation card info.
@@ -115,9 +110,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="RoamingAuthorisationInfo">The authorisation card info.</param>
         public GetSingleRoamingAuthorisationResponse(Result                    Result,
                                                      RoamingAuthorisationInfo  RoamingAuthorisationInfo = null)
+
+            : base(Result)
+
         {
 
-            this.Result                   = Result;
             this.RoamingAuthorisationInfo = RoamingAuthorisationInfo;
 
         }
@@ -144,7 +141,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //
         //          </ns:result>
         //
-        //          <!--Optional:-->        //          <ns:roamingAuthorisationInfo>
+        //          <!--Optional:-->
+        //          <ns:roamingAuthorisationInfo>
         //             ...
         //          <ns:roamingAuthorisationInfo>
         //

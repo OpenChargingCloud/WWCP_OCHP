@@ -87,6 +87,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
     #endregion
 
+
     #region OnGetSingleRoamingAuthorisation
 
     /// <summary>
@@ -112,6 +113,57 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                          TimeSpan?                               RequestTimeout,
                                                                          GetSingleRoamingAuthorisationResponse   Result,
                                                                          TimeSpan                                Duration);
+
+    #endregion
+
+    #region OnGetRoamingAuthorisationList(Updates)
+
+    /// <summary>
+    /// A delegate called whenever a request for the current roaming authorisation list will be send upstream.
+    /// </summary>
+    public delegate Task OnGetRoamingAuthorisationListRequestDelegate (DateTime                              LogTimestamp,
+                                                                       DateTime                              RequestTimestamp,
+                                                                       CPOClient                             Sender,
+                                                                       String                                SenderId,
+                                                                       EventTracking_Id                      EventTrackingId,
+                                                                       TimeSpan?                             RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever the current roaming authorisation list had been received.
+    /// </summary>
+    public delegate Task OnGetRoamingAuthorisationListResponseDelegate(DateTime                              LogTimestamp,
+                                                                       DateTime                              RequestTimestamp,
+                                                                       CPOClient                             Sender,
+                                                                       String                                SenderId,
+                                                                       EventTracking_Id                      EventTrackingId,
+                                                                       TimeSpan?                             RequestTimeout,
+                                                                       GetRoamingAuthorisationListResponse   Result,
+                                                                       TimeSpan                              Duration);
+
+
+    /// <summary>
+    /// A delegate called whenever a request for updates for the roaming authorisation list will be send upstream.
+    /// </summary>
+    public delegate Task OnGetRoamingAuthorisationListUpdatesRequestDelegate (DateTime                                    LogTimestamp,
+                                                                              DateTime                                    RequestTimestamp,
+                                                                              CPOClient                                   Sender,
+                                                                              String                                      SenderId,
+                                                                              EventTracking_Id                            EventTrackingId,
+                                                                              DateTime                                    LastUpdate,
+                                                                              TimeSpan?                                   RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever updates of the roaming authorisation list had been received.
+    /// </summary>
+    public delegate Task OnGetRoamingAuthorisationListUpdatesResponseDelegate(DateTime                                    LogTimestamp,
+                                                                              DateTime                                    RequestTimestamp,
+                                                                              CPOClient                                   Sender,
+                                                                              String                                      SenderId,
+                                                                              EventTracking_Id                            EventTrackingId,
+                                                                              DateTime                                    LastUpdate,
+                                                                              TimeSpan?                                   RequestTimeout,
+                                                                              GetRoamingAuthorisationListUpdatesResponse  Result,
+                                                                              TimeSpan                                    Duration);
 
     #endregion
 

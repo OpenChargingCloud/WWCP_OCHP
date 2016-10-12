@@ -143,6 +143,54 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region OnGetRoamingAuthorisationListRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for the current roaming authorisation list will be send.
+        /// </summary>
+        public event OnGetRoamingAuthorisationListRequestDelegate   OnGetRoamingAuthorisationListRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for the current roaming authorisation list will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                        OnGetRoamingAuthorisationListSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a response to a SOAP request for the current roaming authorisation list had been received.
+        /// </summary>
+        public event ClientResponseLogHandler                       OnGetRoamingAuthorisationListSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response to a request for the current roaming authorisation list had been received.
+        /// </summary>
+        public event OnGetRoamingAuthorisationListResponseDelegate  OnGetRoamingAuthorisationListResponse;
+
+        #endregion
+
+        #region OnGetRoamingAuthorisationListUpdatesRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for updates of a roaming authorisation list will be send.
+        /// </summary>
+        public event OnGetRoamingAuthorisationListUpdatesRequestDelegate   OnGetRoamingAuthorisationListUpdatesRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for updates of a roaming authorisation list will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                               OnGetRoamingAuthorisationListUpdatesSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a response to a roaming authorisation list update SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler                              OnGetRoamingAuthorisationListUpdatesSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response to a roaming authorisation list update request had been received.
+        /// </summary>
+        public event OnGetRoamingAuthorisationListUpdatesResponseDelegate  OnGetRoamingAuthorisationListUpdatesResponse;
+
+        #endregion
+
         #endregion
 
         #region Constructor(s)
@@ -552,8 +600,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                     result = await _OCHPClient.Query(CPOClientXMLMethods.UpdateChargePointListRequestXML(ChargePointInfos),
                                                      "UpdateChargePointListRequest",
-                                                     RequestLogDelegate:   OnSetChargePointListSOAPRequest,
-                                                     ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
+                                                     RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
+                                                     ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
                                                      CancellationToken:    CancellationToken,
                                                      EventTrackingId:      EventTrackingId,
                                                      QueryTimeout:         RequestTimeout,
@@ -661,6 +709,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+
         #region GetSingleRoamingAuthorisation(EMTId, ...)
 
         /// <summary>
@@ -740,8 +789,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 result = await _OCHPClient.Query(CPOClientXMLMethods.GetSingleRoamingAuthorisationXML(EMTId),
                                                  "GetSingleRoamingAuthorisationRequest",
-                                                 RequestLogDelegate:   OnSetChargePointListSOAPRequest,
-                                                 ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
+                                                 RequestLogDelegate:   OnGetSingleRoamingAuthorisationSOAPRequest,
+                                                 ResponseLogDelegate:  OnGetSingleRoamingAuthorisationSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
                                                  QueryTimeout:         RequestTimeout,
@@ -834,6 +883,360 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
                 e.Log(nameof(CPOClient) + "." + nameof(OnGetSingleRoamingAuthorisationResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region GetRoamingAuthorisationListRequest(...)
+
+        /// <summary>
+        /// Get the entire current version of the roaming authorisation list.
+        /// </summary>
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
+
+            GetRoamingAuthorisationListRequest(DateTime?           Timestamp          = null,
+                                               CancellationToken?  CancellationToken  = null,
+                                               EventTracking_Id    EventTrackingId    = null,
+                                               TimeSpan?           RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<GetRoamingAuthorisationListResponse> result = null;
+
+            #endregion
+
+            #region Send OnGetRoamingAuthorisationListRequest event
+
+            try
+            {
+
+                OnGetRoamingAuthorisationListRequest?.Invoke(DateTime.Now,
+                                                             Timestamp.Value,
+                                                             this,
+                                                             ClientId,
+                                                             EventTrackingId,
+                                                             RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnGetRoamingAuthorisationListRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(CPOClientXMLMethods.GetRoamingAuthorisationListXML(),
+                                                 "GetRoamingAuthorisationListRequest",
+                                                 RequestLogDelegate:   OnGetRoamingAuthorisationListSOAPRequest,
+                                                 ResponseLogDelegate:  OnGetRoamingAuthorisationListSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetRoamingAuthorisationListResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<GetRoamingAuthorisationListResponse>(httpresponse,
+                                                                                                                  new GetRoamingAuthorisationListResponse(
+                                                                                                                      Result.Format(
+                                                                                                                          "Invalid SOAP => " +
+                                                                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                                                                      )
+                                                                                                                  ),
+                                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<GetRoamingAuthorisationListResponse>(httpresponse,
+                                                                                                                  new GetRoamingAuthorisationListResponse(
+                                                                                                                      Result.Server(
+                                                                                                                           httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                           " => " +
+                                                                                                                           httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                                      )
+                                                                                                                  ),
+                                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<GetRoamingAuthorisationListResponse>.ExceptionThrown(new GetRoamingAuthorisationListResponse(
+                                                                                                                                  Result.Format(exception.Message +
+                                                                                                                                                " => " +
+                                                                                                                                                exception.StackTrace)),
+                                                                                                                              exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<GetRoamingAuthorisationListResponse>.OK(new GetRoamingAuthorisationListResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnGetRoamingAuthorisationListResponse event
+
+            try
+            {
+
+                OnGetRoamingAuthorisationListResponse?.Invoke(DateTime.Now,
+                                                              Timestamp.Value,
+                                                              this,
+                                                              ClientId,
+                                                              EventTrackingId,
+                                                              RequestTimeout,
+                                                              result.Content,
+                                                              DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnGetRoamingAuthorisationListResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region GetRoamingAuthorisationListUpdatesRequest(...)
+
+        /// <summary>
+        /// Get the entire current version of the roaming authorisation list.
+        /// </summary>
+        /// <param name="LastUpdate">The timestamp of the last roaming authorisation list update.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>>
+
+            GetRoamingAuthorisationListUpdatesRequest(DateTime            LastUpdate,
+
+                                                      DateTime?           Timestamp          = null,
+                                                      CancellationToken?  CancellationToken  = null,
+                                                      EventTracking_Id    EventTrackingId    = null,
+                                                      TimeSpan?           RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<GetRoamingAuthorisationListUpdatesResponse> result = null;
+
+            #endregion
+
+            #region Send OnGetRoamingAuthorisationListUpdatesRequest event
+
+            try
+            {
+
+                OnGetRoamingAuthorisationListUpdatesRequest?.Invoke(DateTime.Now,
+                                                                    Timestamp.Value,
+                                                                    this,
+                                                                    ClientId,
+                                                                    EventTrackingId,
+                                                                    LastUpdate,
+                                                                    RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnGetRoamingAuthorisationListUpdatesRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(CPOClientXMLMethods.GetRoamingAuthorisationListUpdatesXML(LastUpdate),
+                                                 "GetRoamingAuthorisationListUpdatesRequest",
+                                                 RequestLogDelegate:   OnGetRoamingAuthorisationListUpdatesSOAPRequest,
+                                                 ResponseLogDelegate:  OnGetRoamingAuthorisationListUpdatesSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetRoamingAuthorisationListUpdatesResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>(httpresponse,
+                                                                                                                  new GetRoamingAuthorisationListUpdatesResponse(
+                                                                                                                      Result.Format(
+                                                                                                                          "Invalid SOAP => " +
+                                                                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                                                                      )
+                                                                                                                  ),
+                                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>(httpresponse,
+                                                                                                                  new GetRoamingAuthorisationListUpdatesResponse(
+                                                                                                                      Result.Server(
+                                                                                                                           httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                           " => " +
+                                                                                                                           httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                                      )
+                                                                                                                  ),
+                                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.ExceptionThrown(new GetRoamingAuthorisationListUpdatesResponse(
+                                                                                                                                  Result.Format(exception.Message +
+                                                                                                                                                " => " +
+                                                                                                                                                exception.StackTrace)),
+                                                                                                                              exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.OK(new GetRoamingAuthorisationListUpdatesResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnGetRoamingAuthorisationListUpdatesResponse event
+
+            try
+            {
+
+                OnGetRoamingAuthorisationListUpdatesResponse?.Invoke(DateTime.Now,
+                                                                     Timestamp.Value,
+                                                                     this,
+                                                                     ClientId,
+                                                                     EventTrackingId,
+                                                                     LastUpdate,
+                                                                     RequestTimeout,
+                                                                     result.Content,
+                                                                     DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnGetRoamingAuthorisationListUpdatesResponse));
             }
 
             #endregion

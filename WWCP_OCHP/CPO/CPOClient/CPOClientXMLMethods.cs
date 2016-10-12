@@ -131,6 +131,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+
         #region GetSingleRoamingAuthorisationXML(EMTId)
 
         /// <summary>
@@ -159,7 +160,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             //
             //         </ns:emtId>
             //
-            //      </ns:GetSingleRoamingAuthorisationRequest>            //    </soapenv:Body>
+            //      </ns:GetSingleRoamingAuthorisationRequest>
+            //    </soapenv:Body>
             // </soapenv:Envelope>
 
             #endregion
@@ -179,6 +181,68 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         }
 
         #endregion
+
+        #region GetRoamingAuthorisationListXML()
+
+        /// <summary>
+        /// Create an OCHP GetRoamingAuthorisationList XML/SOAP request.
+        /// </summary>
+        public static XElement GetRoamingAuthorisationListXML()
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //
+            //      <ns:GetRoamingAuthorisationListRequest />
+            //
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            => SOAP.Encapsulation(new XElement(OCHPNS.Default + "GetRoamingAuthorisationListRequest"));
+
+        #endregion
+
+        #region GetRoamingAuthorisationListUpdatesXML(LastUpdate)
+
+        /// <summary>
+        /// Create an OCHP GetRoamingAuthorisationListUpdates XML/SOAP request.
+        /// </summary>
+        /// <param name="LastUpdate">The timestamp of the last roaming authorisation list update.</param>
+        public static XElement GetRoamingAuthorisationListUpdatesXML(DateTime LastUpdate)
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //      <ns:GetRoamingAuthorisationListUpdatesRequest>
+            //
+            //         <ns:lastUpdate>
+            //            <ns:DateTime>?</ns:DateTime>
+            //         </ns:lastUpdate>
+            //
+            //      </ns:GetRoamingAuthorisationListUpdatesRequest>
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            => SOAP.Encapsulation(new XElement(OCHPNS.Default + "GetRoamingAuthorisationListUpdatesRequest",
+                                      new XElement(OCHPNS.Default + "lastUpdate",
+                                          new XElement(OCHPNS.Default + "DateTime",
+                                              LastUpdate.ToIso8601()
+                                 ))));
+
+        #endregion
+
 
     }
 

@@ -32,15 +32,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// An OCHP update charge point list response.
     /// </summary>
-    public class UpdateChargePointListResponse
+    public class UpdateChargePointListResponse : AResponse
     {
 
         #region Properties
-
-        /// <summary>
-        /// The machine-readable result code.
-        /// </summary>
-        public Result                        Result                     { get; }
 
         /// <summary>
         /// A human-readable error description.
@@ -115,9 +110,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="RefusedChargePointInfos">An enumeration of refused charge point infos.</param>
         public UpdateChargePointListResponse(Result                        Result,
                                              IEnumerable<ChargePointInfo>  RefusedChargePointInfos = null)
+
+            : base(Result)
+
         {
 
-            this.Result                   = Result;
             this.RefusedChargePointInfos  = RefusedChargePointInfos ?? new ChargePointInfo[0];
 
         }
