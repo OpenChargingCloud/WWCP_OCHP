@@ -84,7 +84,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Links to images related to the EVSE such as photos or logos.
         /// </summary>
-        public IEnumerable<EVSEImageURL>            Images                  { get; }
+        public IEnumerable<EVSEImageURL>             Images                  { get; }
 
         /// <summary>
         /// Links to be visited by the user, related to the charge point or charging station.

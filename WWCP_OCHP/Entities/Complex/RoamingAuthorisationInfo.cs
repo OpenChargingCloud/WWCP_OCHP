@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Xml.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -79,6 +80,189 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.PrintedNumber  = PrintedNumber;
 
         }
+
+        #endregion
+
+
+        #region Documentation
+
+        // <ns:roamingAuthorisationInfo>
+        //
+        //    <ns:EmtId representation="plain">
+        //
+        //       <ns:instance>?</ns:instance>
+        //       <ns:tokenType>?</ns:tokenType>
+        //
+        //       <!--Optional:-->
+        //       <ns:tokenSubType>?</ns:tokenSubType>
+        //
+        //    </ns:EmtId>
+        //
+        //    <ns:contractId>?</ns:contractId>
+        //
+        //    <!--Optional:-->
+        //    <ns:printedNumber>?</ns:printedNumber>
+        //
+        //    <ns:expiryDate>
+        //       <ns:DateTime>?</ns:DateTime>
+        //    </ns:expiryDate>
+        //
+        // </ns:roamingAuthorisationInfo>
+        #endregion
+
+        #region (static) Parse(RoamingAuthorisationInfoXML,  OnException = null)
+
+        /// <summary>
+        /// Parse the given XML representation of an OCHP authorisation card info.
+        /// </summary>
+        /// <param name="RoamingAuthorisationInfoXML">The XML to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static RoamingAuthorisationInfo Parse(XElement             RoamingAuthorisationInfoXML,
+                                                     OnExceptionDelegate  OnException = null)
+        {
+
+            RoamingAuthorisationInfo _RoamingAuthorisationInfo;
+
+            if (TryParse(RoamingAuthorisationInfoXML, out _RoamingAuthorisationInfo, OnException))
+                return _RoamingAuthorisationInfo;
+
+            return null;
+
+        }
+
+        #endregion
+
+        #region (static) Parse(RoamingAuthorisationInfoText, OnException = null)
+
+        /// <summary>
+        /// Parse the given text representation of an OCHP authorisation card info.
+        /// </summary>
+        /// <param name="RoamingAuthorisationInfoText">The text to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static RoamingAuthorisationInfo Parse(String               RoamingAuthorisationInfoText,
+                                                     OnExceptionDelegate  OnException = null)
+        {
+
+            RoamingAuthorisationInfo _RoamingAuthorisationInfo;
+
+            if (TryParse(RoamingAuthorisationInfoText, out _RoamingAuthorisationInfo, OnException))
+                return _RoamingAuthorisationInfo;
+
+            return null;
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(RoamingAuthorisationInfoXML,  out RoamingAuthorisationInfo, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given XML representation of an OCHP authorisation card info.
+        /// </summary>
+        /// <param name="RoamingAuthorisationInfoXML">The XML to parse.</param>
+        /// <param name="RoamingAuthorisationInfo">The parsed authorisation card info.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(XElement                      RoamingAuthorisationInfoXML,
+                                       out RoamingAuthorisationInfo  RoamingAuthorisationInfo,
+                                       OnExceptionDelegate           OnException  = null)
+        {
+
+            try
+            {
+
+                RoamingAuthorisationInfo = new RoamingAuthorisationInfo(
+
+                                               RoamingAuthorisationInfoXML.MapElementOrFail     (OCHPNS.Default + "EmtId",
+                                                                                                 "Missing or invalid XML element 'EmtId'!",
+                                                                                                 EMT_Id.Parse,
+                                                                                                 OnException),
+
+                                               RoamingAuthorisationInfoXML.MapValueOrFail       (OCHPNS.Default + "contractId",
+                                                                                                 Contract_Id.Parse,
+                                                                                                 "Missing or invalid XML element 'contractId'!"),
+
+                                               RoamingAuthorisationInfoXML.MapValueOrFail       (OCHPNS.Default + "expiryDate",
+                                                                                                 OCHPNS.Default + "DateTime",
+                                                                                                 DateTime.Parse,
+                                                                                                 "Missing or invalid XML element 'city'!"),
+
+                                               RoamingAuthorisationInfoXML.ElementValueOrDefault(OCHPNS.Default + "printedNumber")
+
+                                           );
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, RoamingAuthorisationInfoXML, e);
+
+                RoamingAuthorisationInfo = null;
+                return false;
+
+            }
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(RoamingAuthorisationInfoText, out RoamingAuthorisationInfo, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given text representation of an OCHP authorisation card info.
+        /// </summary>
+        /// <param name="RoamingAuthorisationInfoText">The text to parse.</param>
+        /// <param name="RoamingAuthorisationInfo">The parsed authorisation card info.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(String                        RoamingAuthorisationInfoText,
+                                       out RoamingAuthorisationInfo  RoamingAuthorisationInfo,
+                                       OnExceptionDelegate           OnException  = null)
+        {
+
+            try
+            {
+
+                if (TryParse(XDocument.Parse(RoamingAuthorisationInfoText).Root,
+                             out RoamingAuthorisationInfo,
+                             OnException))
+
+                    return true;
+
+            }
+            catch (Exception e)
+            {
+                OnException?.Invoke(DateTime.Now, RoamingAuthorisationInfoText, e);
+            }
+
+            RoamingAuthorisationInfo = null;
+            return false;
+
+        }
+
+        #endregion
+
+        #region ToXML()
+
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        public XElement ToXML()
+
+            => new XElement(OCHPNS.Default + "roamingAuthorisationInfo",
+
+                   new XElement(OCHPNS.Default + "EmtId",       EMTId.ToXML()),
+                   new XElement(OCHPNS.Default + "contractId",  ContractId.ToString()),
+
+                   PrintedNumber.IsNotNullOrEmpty()
+                       ? new XElement(OCHPNS.Default + "printedNumber",  PrintedNumber)
+                       : null,
+
+                   new XElement(OCHPNS.Default + "expiryDate",
+                       new XElement(OCHPNS.Default + "DateTime",         ExpiryDate.ToIso8601())
+                   )
+
+               );
 
         #endregion
 

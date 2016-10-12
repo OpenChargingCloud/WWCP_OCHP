@@ -66,7 +66,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Current status of the CDR. Must be set to "new" by the issuing CMS.
         /// Shall not be changed by any partner but only by the CHS.
         /// </summary>
-        public CDRStatus          Status               { get; }
+        public CDRStatus               Status               { get; }
 
         /// <summary>
         /// Start date and time of the charge session (login with the RFID badge).

@@ -27,7 +27,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The token instance is represented in plain text. (default)
         /// </summary>
-        plain,
+        Plain,
 
         /// <summary>
         /// The token instance is represented in its 160bit SHA1 hash in 40 hexadecimal digits.

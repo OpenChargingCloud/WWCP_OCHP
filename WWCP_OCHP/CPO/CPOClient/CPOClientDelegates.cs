@@ -18,196 +18,102 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
-using System.Collections.Generic;
 
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
-    //public delegate Boolean IncludeEVSEStatusRecordsDelegate(EVSEStatusRecord  EVSEStatusRecord);
+    public delegate Boolean IncludeChargePointsDelegate(ChargePointInfo  ChargePointInfo);
 
-    //#region OnPushEVSEData/-Status
+    #region On(Set|Update)ChargePointList
 
     /// <summary>
     /// A delegate called whenever a charge point list will be send upstream.
     /// </summary>
-    public delegate Task OnSetChargePointListRequestDelegate(DateTime                      LogTimestamp,
-                                                             DateTime                      RequestTimestamp,
-                                                             CPOClient                     Sender,
-                                                             String                        SenderId,
-                                                             EventTracking_Id              EventTrackingId,
-                                                             IEnumerable<ChargePointInfo>  ChargePointInfos,
-                                                             UInt32                        NumberOfChargePoints,
-                                                             TimeSpan?                     RequestTimeout);
+    public delegate Task OnSetChargePointListRequestDelegate    (DateTime                        LogTimestamp,
+                                                                 DateTime                        RequestTimestamp,
+                                                                 CPOClient                       Sender,
+                                                                 String                          SenderId,
+                                                                 EventTracking_Id                EventTrackingId,
+                                                                 IEnumerable<ChargePointInfo>    ChargePointInfos,
+                                                                 UInt32                          NumberOfChargePoints,
+                                                                 TimeSpan?                       RequestTimeout);
 
     /// <summary>
-    /// A delegate called whenever a charge point list had been send upstream.
+    /// A delegate called whenever a response on a set charge point list was received.
     /// </summary>
-    public delegate Task OnSetChargePointListResponseDelegate(DateTime                      LogTimestamp,
-                                                              DateTime                      RequestTimestamp,
-                                                              CPOClient                     Sender,
-                                                              String                        SenderId,
-                                                              EventTracking_Id              EventTrackingId,
-                                                              IEnumerable<ChargePointInfo>  ChargePointInfos,
-                                                              UInt32                        NumberOfChargePoints,
-                                                              TimeSpan?                     RequestTimeout,
-                                                              SetChargePointListResponse    Result,
-                                                              TimeSpan                      Duration);
+    public delegate Task OnSetChargePointListResponseDelegate   (DateTime                        LogTimestamp,
+                                                                 DateTime                        RequestTimestamp,
+                                                                 CPOClient                       Sender,
+                                                                 String                          SenderId,
+                                                                 EventTracking_Id                EventTrackingId,
+                                                                 IEnumerable<ChargePointInfo>    ChargePointInfos,
+                                                                 UInt32                          NumberOfChargePoints,
+                                                                 TimeSpan?                       RequestTimeout,
+                                                                 SetChargePointListResponse      Result,
+                                                                 TimeSpan                        Duration);
 
 
-    ///// <summary>
-    ///// A delegate called whenever new EVSE status will be send upstream.
-    ///// </summary>
-    //public delegate Task OnPushEVSEStatusRequestDelegate (DateTime                                 LogTimestamp,
-    //                                                      DateTime                                 RequestTimestamp,
-    //                                                      CPOClient                                Sender,
-    //                                                      String                                   SenderId,
-    //                                                      EventTracking_Id                         EventTrackingId,
-    //                                                      ActionTypes                               ActionType,
-    //                                                      ILookup<ChargingStationOperator, EVSEStatusRecord>  EVSEStatusRecords,
-    //                                                      UInt32                                   NumberOfEVSEs,
-    //                                                      TimeSpan?                                RequestTimeout);
+    /// <summary>
+    /// A delegate called whenever a charge point list update will be send upstream.
+    /// </summary>
+    public delegate Task OnUpdateChargePointListRequestDelegate (DateTime                        LogTimestamp,
+                                                                 DateTime                        RequestTimestamp,
+                                                                 CPOClient                       Sender,
+                                                                 String                          SenderId,
+                                                                 EventTracking_Id                EventTrackingId,
+                                                                 IEnumerable<ChargePointInfo>    ChargePointInfos,
+                                                                 UInt32                          NumberOfChargePoints,
+                                                                 TimeSpan?                       RequestTimeout);
 
-    ///// <summary>
-    ///// A delegate called whenever new EVSE status had been send upstream.
-    ///// </summary>
-    //public delegate Task OnPushEVSEStatusResponseDelegate(DateTime                                 LogTimestamp,
-    //                                                      DateTime                                 RequestTimestamp,
-    //                                                      CPOClient                                Sender,
-    //                                                      String                                   SenderId,
-    //                                                      EventTracking_Id                         EventTrackingId,
-    //                                                      ActionTypes                               ActionType,
-    //                                                      ILookup<ChargingStationOperator, EVSEStatusRecord>  EVSEStatusRecords,
-    //                                                      UInt32                                   NumberOfEVSEs,
-    //                                                      TimeSpan?                                RequestTimeout,
-    //                                                      Acknowledgement                  Result,
-    //                                                      TimeSpan                                 Duration);
+    /// <summary>
+    /// A delegate called whenever a response on an update charge point list was received.
+    /// </summary>
+    public delegate Task OnUpdateChargePointListResponseDelegate(DateTime                        LogTimestamp,
+                                                                 DateTime                        RequestTimestamp,
+                                                                 CPOClient                       Sender,
+                                                                 String                          SenderId,
+                                                                 EventTracking_Id                EventTrackingId,
+                                                                 IEnumerable<ChargePointInfo>    ChargePointInfos,
+                                                                 UInt32                          NumberOfChargePoints,
+                                                                 TimeSpan?                       RequestTimeout,
+                                                                 UpdateChargePointListResponse   Result,
+                                                                 TimeSpan                        Duration);
 
-    //#endregion
+    #endregion
 
-    //#region OnAuthorizeStart/-Stop
+    #region OnGetSingleRoamingAuthorisation
 
-    ///// <summary>
-    ///// A delegate called whenever an 'authorize start' request will be send.
-    ///// </summary>
-    //public delegate Task OnAuthorizeStartHandler(DateTime                       LogTimestamp,
-    //                                             DateTime                       RequestTimestamp,
-    //                                             CPOClient                      Sender,
-    //                                             String                         SenderId,
-    //                                             ChargingStationOperator_Id                OperatorId,
-    //                                             Auth_Token                     AuthToken,
-    //                                             EVSE_Id                        EVSEId,
-    //                                             ChargingSession_Id             SessionId,
-    //                                             ChargingProduct_Id             PartnerProductId,
-    //                                             ChargingSession_Id             PartnerSessionId,
-    //                                             TimeSpan?                      RequestTimeout);
+    /// <summary>
+    /// A delegate called whenever an e-mobility token authentication will be send upstream.
+    /// </summary>
+    public delegate Task OnGetSingleRoamingAuthorisationRequestDelegate (DateTime                                LogTimestamp,
+                                                                         DateTime                                RequestTimestamp,
+                                                                         CPOClient                               Sender,
+                                                                         String                                  SenderId,
+                                                                         EventTracking_Id                        EventTrackingId,
+                                                                         EMT_Id                                  EMTId,
+                                                                         TimeSpan?                               RequestTimeout);
 
-    ///// <summary>
-    ///// A delegate called whenever a response to a 'authorize start' request had been received.
-    ///// </summary>
-    //public delegate Task OnAuthorizeStartedHandler(DateTime                     Timestamp,
-    //                                               CPOClient                    Sender,
-    //                                               String                       SenderId,
-    //                                               ChargingStationOperator_Id              OperatorId,
-    //                                               Auth_Token                   AuthToken,
-    //                                               EVSE_Id                      EVSEId,
-    //                                               ChargingSession_Id           SessionId,
-    //                                               ChargingProduct_Id           PartnerProductId,
-    //                                               ChargingSession_Id           PartnerSessionId,
-    //                                               TimeSpan?                    RequestTimeout,
-    //                                               AuthorizationStart   Result,
-    //                                               TimeSpan                     Duration);
+    /// <summary>
+    /// A delegate called whenever a response on an e-mobility token authentication was received.
+    /// </summary>
+    public delegate Task OnGetSingleRoamingAuthorisationResponseDelegate(DateTime                                LogTimestamp,
+                                                                         DateTime                                RequestTimestamp,
+                                                                         CPOClient                               Sender,
+                                                                         String                                  SenderId,
+                                                                         EventTracking_Id                        EventTrackingId,
+                                                                         EMT_Id                                  EMTId,
+                                                                         TimeSpan?                               RequestTimeout,
+                                                                         GetSingleRoamingAuthorisationResponse   Result,
+                                                                         TimeSpan                                Duration);
 
+    #endregion
 
-    ///// <summary>
-    ///// A delegate called whenever an 'authorize stop' request will be send.
-    ///// </summary>
-    //public delegate Task OnAuthorizeStopRequestHandler(DateTime                     LogTimestamp,
-    //                                                   DateTime                     RequestTimestamp,
-    //                                                   CPOClient                    Sender,
-    //                                                   String                       SenderId,
-    //                                                   ChargingStationOperator_Id              OperatorId,
-    //                                                   ChargingSession_Id           SessionId,
-    //                                                   Auth_Token                   AuthToken,
-    //                                                   EVSE_Id                      EVSEId,
-    //                                                   ChargingSession_Id           PartnerSessionId,
-    //                                                   TimeSpan?                    RequestTimeout);
-
-    ///// <summary>
-    ///// A delegate called whenever a response to a 'authorize stop' request had been received.
-    ///// </summary>
-    //public delegate Task OnAuthorizeStopResponseHandler(DateTime                    Timestamp,
-    //                                                    CPOClient                   Sender,
-    //                                                    String                      SenderId,
-    //                                                    ChargingStationOperator_Id             OperatorId,
-    //                                                    ChargingSession_Id          SessionId,
-    //                                                    Auth_Token                  AuthToken,
-    //                                                    EVSE_Id                     EVSEId,
-    //                                                    ChargingSession_Id          PartnerSessionId,
-    //                                                    TimeSpan?                   RequestTimeout,
-    //                                                    AuthorizationStop   Result,
-    //                                                    TimeSpan                    Duration);
-
-    //#endregion
-
-    //#region OnSendChargeDetailRecord
-
-    ///// <summary>
-    ///// A delegate called whenever a 'charge detail record' will be send.
-    ///// </summary>
-    //public delegate Task OnSendChargeDetailRecordRequestHandler (DateTime                  LogTimestamp,
-    //                                                             DateTime                  RequestTimestamp,
-    //                                                             CPOClient                 Sender,
-    //                                                             String                    SenderId,
-    //                                                             EventTracking_Id          EventTrackingId,
-    //                                                             ChargeDetailRecord        ChargeDetailRecord,
-    //                                                             TimeSpan?                 RequestTimeout);
-
-    ///// <summary>
-    ///// A delegate called whenever a response for a sent 'charge detail record' had been received.
-    ///// </summary>
-    //public delegate Task OnSendChargeDetailRecordResponseHandler(DateTime                  Timestamp,
-    //                                                             DateTime                  RequestTimestamp,
-    //                                                             CPOClient                 Sender,
-    //                                                             String                    SenderId,
-    //                                                             EventTracking_Id          EventTrackingId,
-    //                                                             ChargeDetailRecord        ChargeDetailRecord,
-    //                                                             TimeSpan?                 RequestTimeout,
-    //                                                             Acknowledgement   Result,
-    //                                                             TimeSpan                  Duration);
-
-    //#endregion
-
-    //#region OnPullAuthenticationData
-
-    ///// <summary>
-    ///// A delegate called whenever a 'pull authentication data' request will be send.
-    ///// </summary>
-    //public delegate Task OnPullAuthenticationDataRequestHandler (DateTime                     LogTimestamp,
-    //                                                             DateTime                     RequestTimestamp,
-    //                                                             CPOClient                    Sender,
-    //                                                             String                       SenderId,
-    //                                                             EventTracking_Id             EventTrackingId,
-    //                                                             ChargingStationOperator_Id              OperatorId,
-    //                                                             TimeSpan?                    RequestTimeout);
-
-    ///// <summary>
-    ///// A delegate called whenever a response for a 'pull authentication data' request had been received.
-    ///// </summary>
-    //public delegate Task OnPullAuthenticationDataResponseHandler(DateTime                     Timestamp,
-    //                                                             CPOClient                    Sender,
-    //                                                             String                       SenderId,
-    //                                                             EventTracking_Id             EventTrackingId,
-    //                                                             ChargingStationOperator_Id              OperatorId,
-    //                                                             TimeSpan?                    RequestTimeout,
-    //                                                             AuthenticationData   Result,
-    //                                                             TimeSpan                     Duration);
-
-    //#endregion
 
 }

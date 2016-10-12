@@ -223,7 +223,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                                                  OnException),
 
                                                  SetChargePointListResponseXML.MapElementsOrFail(OCHPNS.Default + "refusedChargePointInfo",
-                                                                                                 "Missing or invalid XML element 'result'!",
+                                                                                                 "Missing or invalid XML element 'refusedChargePointInfo'!",
                                                                                                  ChargePointInfo.Parse,
                                                                                                  OnException)
 
@@ -292,7 +292,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                    new XElement(OCHPNS.Default + "result", Result.ToXML()),
 
-                   RefusedChargePointInfos.SafeSelect(chargepointinfo => chargepointinfo.ToXML(OCHPNS.Default + "resultDescription"))
+                   RefusedChargePointInfos.SafeSelect(chargepointinfo => chargepointinfo.ToXML(OCHPNS.Default + "refusedChargePointInfo"))
 
                );
 
@@ -399,7 +399,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         {
             unchecked
             {
-                return Result.GetHashCode();
+
+                return RefusedChargePointInfos != null
+
+                           ? Result.GetHashCode() * 11 ^
+                             RefusedChargePointInfos.SafeSelect(info => info.GetHashCode()).Aggregate((a, b) => a ^ b)
+
+                           : Result.GetHashCode();
+
             }
         }
 

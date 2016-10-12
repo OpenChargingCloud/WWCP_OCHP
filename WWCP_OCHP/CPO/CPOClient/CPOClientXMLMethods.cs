@@ -35,7 +35,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     public static class CPOClientXMLMethods
     {
 
-        #region SetChargePointListRequestXML  (ChargePointInfos)
+        #region SetChargePointListRequestXML   (ChargePointInfos)
 
         /// <summary>
         /// Create an OCHP SetChargePointList XML/SOAP request.
@@ -47,14 +47,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             #region Documentation
 
             // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-            //                   xmlns:OCHP    = "http://ochp.eu/1.4">            //
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
             //    <soapenv:Header/>
             //    <soapenv:Body>
             //       <OCHP:SetChargePointListRequest>
             //
             //          <!--1 or more repetitions:-->
-            //          <OCHP:chargePointInfoArray>            //             ...
-            //          </OCHP:chargePointInfoArray>            //
+            //          <OCHP:chargePointInfoArray>
+            //             ...
+            //          </OCHP:chargePointInfoArray>
+            //
             //       </OCHP:SetChargePointListRequest>
             //    </soapenv:Body>
             // </soapenv:Envelope>
@@ -74,6 +77,103 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                           ChargePointInfos.Select(chargepointinfo => chargepointinfo.ToXML()).
                                                            ToArray()
 
+                                     ));
+
+        }
+
+        #endregion
+
+        #region UpdateChargePointListRequestXML(ChargePointInfos)
+
+        /// <summary>
+        /// Create an OCHP UpdateChargePointList XML/SOAP request.
+        /// </summary>
+        /// <param name="ChargePointInfos">An enumeration of charge point infos.</param>
+        public static XElement UpdateChargePointListRequestXML(IEnumerable<ChargePointInfo>  ChargePointInfos)
+        {
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //       <OCHP:UpdateChargePointListRequest>
+            //
+            //          <!--1 or more repetitions:-->
+            //          <OCHP:chargePointInfoArray>
+            //             ...
+            //          </OCHP:chargePointInfoArray>
+            //
+            //       </OCHP:UpdateChargePointListRequest>
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            #region Initial checks
+
+            if (ChargePointInfos == null || !ChargePointInfos.Any())
+                throw new ArgumentNullException(nameof(ChargePointInfos),  "The given enumeration of charge point infos must not be null or empty!");
+
+            #endregion
+
+
+            return SOAP.Encapsulation(new XElement(OCHPNS.Default + "UpdateChargePointListRequest",
+
+                                          ChargePointInfos.Select(chargepointinfo => chargepointinfo.ToXML()).
+                                                           ToArray()
+
+                                     ));
+
+        }
+
+        #endregion
+
+        #region GetSingleRoamingAuthorisationXML(EMTId)
+
+        /// <summary>
+        /// Create an OCHP GetSingleRoamingAuthorisation XML/SOAP request.
+        /// </summary>
+        /// <param name="EMTId">An e-mobility token.</param>
+        public static XElement GetSingleRoamingAuthorisationXML(EMT_Id  EMTId)
+        {
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //      <ns:GetSingleRoamingAuthorisationRequest>
+            //
+            //         <ns:emtId representation="plain">
+            //
+            //            <ns:instance>?</ns:instance>
+            //            <ns:tokenType>?</ns:tokenType>
+            //
+            //            <!--Optional:-->
+            //            <ns:tokenSubType>?</ns:tokenSubType>
+            //
+            //         </ns:emtId>
+            //
+            //      </ns:GetSingleRoamingAuthorisationRequest>            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            #region Initial checks
+
+            if (EMTId == null)
+                throw new ArgumentNullException(nameof(EMTId),  "The given e-mobility token must not be null!");
+
+            #endregion
+
+
+            return SOAP.Encapsulation(new XElement(OCHPNS.Default + "GetSingleRoamingAuthorisationRequest",
+                                          EMTId.ToXML()
                                      ));
 
         }

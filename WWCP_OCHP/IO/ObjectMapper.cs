@@ -1102,6 +1102,147 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsTokenRepresentation(Text)
+
+        public static TokenRepresentations AsTokenRepresentation(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "SHA160":
+                    return TokenRepresentations.SHA160;
+
+                case "SHA256":
+                    return TokenRepresentations.SHA256;
+
+                default:
+                    return TokenRepresentations.Plain;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this TokenRepresentation)
+
+        public static String AsText(this TokenRepresentations TokenRepresentation)
+        {
+
+            switch (TokenRepresentation)
+            {
+
+                case TokenRepresentations.SHA160:
+                    return "SHA160";
+
+                case TokenRepresentations.SHA256:
+                    return "SHA256";
+
+                default:
+                    return "plain";
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region AsTokenType(Text)
+
+        public static TokenTypes AsTokenType(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "remote":
+                    return TokenTypes.Remote;
+
+                case "15118":
+                    return TokenTypes.IEC15118;
+
+                default:
+                    return TokenTypes.RFID;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this TokenType)
+
+        public static String AsText(this TokenTypes TokenType)
+        {
+
+            switch (TokenType)
+            {
+
+                case TokenTypes.Remote:
+                    return "remote";
+
+                case TokenTypes.IEC15118:
+                    return "15118";
+
+                default:
+                    return "rfid";
+
+            }
+
+        }
+
+        #endregion
+
+
+        #region AsTokenSubType(Text)
+
+        public static TokenSubTypes AsTokenSubType(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "mifareDes":
+                    return TokenSubTypes.MifareDES;
+
+                case "calypso":
+                    return TokenSubTypes.Calypso;
+
+                default:
+                    return TokenSubTypes.MifareClassic;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this TokenSubType)
+
+        public static String AsText(this TokenSubTypes TokenSubType)
+        {
+
+            switch (TokenSubType)
+            {
+
+                case TokenSubTypes.MifareDES:
+                    return "mifareDes";
+
+                case TokenSubTypes.Calypso:
+                    return "calypso";
+
+                default:
+                    return "mifareCls";
+
+            }
+
+        }
+
+        #endregion
+
+
         #region AsResultCode(Text)
 
         public static ResultCodes AsResultCode(this String Text)

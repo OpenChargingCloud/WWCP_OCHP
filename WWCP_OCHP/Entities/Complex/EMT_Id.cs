@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Xml.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -101,135 +102,170 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region Parse(EMTId)
+        #region Documentation
 
-        /// <summary>
-        /// Parse the given string as a contract identification.
-        /// </summary>
-        //public static EMT_Id Parse(String Text)
-        //{
-
-        //    #region Initial checks
-
-        //    if (Text.IsNullOrEmpty())
-        //        throw new ArgumentNullException(nameof(Text), "The parameter must not be null or empty!");
-
-        //    #endregion
-
-        //    var _MatchCollection = EMTId_RegEx.Matches(Text.Trim().ToUpper());
-
-        //    if (_MatchCollection.Count != 1)
-        //        throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
-
-        //    ChargingStationOperator_Id __EVSEOperatorId = null;
-
-        //    if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
-        //        return new EMT_Id(__EVSEOperatorId,
-        //                           _MatchCollection[0].Groups[2].Value);
-
-        //    if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
-        //        return new EMT_Id(__EVSEOperatorId,
-        //                           _MatchCollection[0].Groups[4].Value);
-
-
-        //    throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
-
-        //}
+        // <ns:emtId representation="plain">
+        //
+        //    <ns:instance>?</ns:instance>
+        //    <ns:tokenType>?</ns:tokenType>
+        //
+        //    <!--Optional:-->
+        //    <ns:tokenSubType>?</ns:tokenSubType>
+        //
+        // </ns:emtId>
 
         #endregion
 
-        #region Parse(OperatorId, IdSuffix)
+        #region (static) Parse(EMTIdXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given XML representation of an OCHP token identification.
         /// </summary>
-        //public static EMT_Id Parse(ChargingStationOperator_Id OperatorId, String IdSuffix)
-        //{
+        /// <param name="EMTIdXML">The XML to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static EMT_Id Parse(XElement             EMTIdXML,
+                                   OnExceptionDelegate  OnException = null)
+        {
 
-        //    #region Initial checks
+            EMT_Id _EMTId;
 
-        //    if (OperatorId == null)
-        //        throw new ArgumentNullException(nameof(OperatorId),  "The Charging Station Operator identification must not be null or empty!");
+            if (TryParse(EMTIdXML, out _EMTId, OnException))
+                return _EMTId;
 
-        //    if (IdSuffix.IsNullOrEmpty())
-        //        throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
+            return null;
 
-        //    #endregion
-
-        //    return EMT_Id.Parse(OperatorId.ToString() + "*" + IdSuffix);
-
-        //}
+        }
 
         #endregion
 
-        #region TryParse(Text, out EMT_Id)
+        #region (static) Parse(EMTIdText, OnException = null)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given text representation of an OCHP token identification.
         /// </summary>
-        //public static Boolean TryParse(String Text, out EMT_Id EMTId)
-        //{
+        /// <param name="EMTIdText">The text to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static EMT_Id Parse(String               EMTIdText,
+                                   OnExceptionDelegate  OnException = null)
+        {
 
-        //    #region Initial checks
+            EMT_Id _EMTId;
 
-        //    if (Text.IsNullOrEmpty())
-        //    {
-        //        EMTId = null;
-        //        return false;
-        //    }
+            if (TryParse(EMTIdText, out _EMTId, OnException))
+                return _EMTId;
 
-        //    #endregion
+            return null;
 
-        //    try
-        //    {
-
-        //        EMTId = new EMT_Id(Text);
-
-        //    }
-        //    catch (Exception)
-        //    { }
-
-        //    EMTId = null;
-        //    return false;
-
-        //}
+        }
 
         #endregion
 
-        #region TryParse(OperatorId, IdSuffix, out EMTId)
+        #region (static) TryParse(EMTIdXML,  out EMTId, OnException = null)
 
-        ///// <summary>
-        ///// Parse the given string as an EVSE identification.
-        ///// </summary>
-        //public static Boolean TryParse(EVSEOperator_Id OperatorId, String IdSuffix, out EMT_Id EMT_Id)
-        //{
+        /// <summary>
+        /// Try to parse the given XML representation of an OCHP token identification.
+        /// </summary>
+        /// <param name="EMTIdXML">The XML to parse.</param>
+        /// <param name="EMTId">The parsed token identification.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(XElement             EMTIdXML,
+                                       out EMT_Id           EMTId,
+                                       OnExceptionDelegate  OnException  = null)
+        {
 
-        //    try
-        //    {
-        //        EMT_Id = new EMT_Id(OperatorId, IdSuffix);
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    { }
+            try
+            {
 
-        //    EMT_Id = null;
-        //    return false;
+                EMTId = new EMT_Id(
 
-        //}
+                            EMTIdXML.ElementValueOrFail     (OCHPNS.Default + "instance",
+                                                             "Missing or invalid XML element 'address'!"),
+
+                            EMTIdXML.MapAttributeValueOrFail(OCHPNS.Default + "representation",
+                                                             ObjectMapper.AsTokenRepresentation,
+                                                             "Missing or invalid XML attribute 'representation'!"),
+
+                            EMTIdXML.MapValueOrFail         (OCHPNS.Default + "tokenType",
+                                                             ObjectMapper.AsTokenType,
+                                                             "Missing or invalid XML element 'tokenType'!"),
+
+                            EMTIdXML.MapValueOrNullable     (OCHPNS.Default + "tokenSubType",
+                                                             ObjectMapper.AsTokenSubType)
+
+                        );
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, EMTIdXML, e);
+
+                EMTId = null;
+                return false;
+
+            }
+
+        }
 
         #endregion
 
-        #region Clone
+        #region (static) TryParse(EMTIdText, out EMTId, OnException = null)
 
         /// <summary>
-        /// Clone this contract identification.
+        /// Try to parse the given text representation of an OCHP token identification.
         /// </summary>
-        public EMT_Id Clone
+        /// <param name="EMTIdText">The text to parse.</param>
+        /// <param name="EMTId">The parsed token identification.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(String               EMTIdText,
+                                       out EMT_Id           EMTId,
+                                       OnExceptionDelegate  OnException  = null)
+        {
 
-            => new EMT_Id(new String(Instance.ToCharArray()),
-                          Representation,
-                          Type,
-                          SubType);
+            try
+            {
+
+                if (TryParse(XDocument.Parse(EMTIdText).Root,
+                             out EMTId,
+                             OnException))
+
+                    return true;
+
+            }
+            catch (Exception e)
+            {
+                OnException?.Invoke(DateTime.Now, EMTIdText, e);
+            }
+
+            EMTId = null;
+            return false;
+
+        }
+
+        #endregion
+
+        #region ToXML(XName = null)
+
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        /// <param name="XName">An alternative XML element name [default: "OCHPNS:emtId"]</param>
+        public XElement ToXML(XName XName = null)
+
+            => new XElement(XName ?? OCHPNS.Default + "emtId",
+
+                   new XAttribute(OCHPNS.Default + "representation",    ObjectMapper.AsText(Representation)),
+
+                   new XElement  (OCHPNS.Default + "instance",          Instance),
+                   new XElement  (OCHPNS.Default + "tokenType",         ObjectMapper.AsText(Type)),
+
+                   SubType.HasValue
+                       ? new XElement(OCHPNS.Default + "tokenSubType",  SubType.Value)
+                       : null
+
+               );
 
         #endregion
 

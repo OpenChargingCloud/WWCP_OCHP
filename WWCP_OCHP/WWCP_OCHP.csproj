@@ -98,6 +98,8 @@
     <Compile Include="Entities\EVSEStatus.cs" />
     <Compile Include="Entities\Simple\EVSEMajorStatusTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Respones\GetSingleRoamingAuthorisationResponse.cs" />
+    <Compile Include="Respones\UpdateChargePointListResponse.cs" />
     <Compile Include="Respones\SetChargePointListResponse.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>
