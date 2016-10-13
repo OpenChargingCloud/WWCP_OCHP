@@ -133,5 +133,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
     #endregion
 
+    #region OnGetCDRs
+
+    /// <summary>
+    /// A delegate called whenever a get charge detail records request will be send upstream.
+    /// </summary>
+    public delegate Task OnGetCDRsRequestDelegate (DateTime               LogTimestamp,
+                                                   DateTime               RequestTimestamp,
+                                                   EMPClient              Sender,
+                                                   String                 SenderId,
+                                                   EventTracking_Id       EventTrackingId,
+                                                   CDRStatus?             CDRStatus,
+                                                   TimeSpan?              RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a get charge detail records request upstream had been received.
+    /// </summary>
+    public delegate Task OnGetCDRsResponseDelegate(DateTime               LogTimestamp,
+                                                   DateTime               RequestTimestamp,
+                                                   EMPClient              Sender,
+                                                   String                 SenderId,
+                                                   EventTracking_Id       EventTrackingId,
+                                                   CDRStatus?             CDRStatus,
+                                                   TimeSpan?              RequestTimeout,
+                                                   GetCDRsResponse        Result,
+                                                   TimeSpan               Duration);
+
+    #endregion
+
 
 }

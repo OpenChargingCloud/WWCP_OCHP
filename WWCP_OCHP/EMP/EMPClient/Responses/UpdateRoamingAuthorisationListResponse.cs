@@ -40,7 +40,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// An enumeration of refused authorisation card info updates.
         /// </summary>
-        public IEnumerable<RoamingAuthorisationInfo> RefusedRoamingAuthorisationInfos  { get; }
+        public IEnumerable<RoamingAuthorisationInfo>  RefusedRoamingAuthorisationInfos   { get; }
 
         #endregion
 

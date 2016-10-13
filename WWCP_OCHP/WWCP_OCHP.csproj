@@ -50,6 +50,7 @@
     <Compile Include="EMP\EMPClient\EMPClientDelegates.cs" />
     <Compile Include="EMP\EMPClient\EMPClientLogger.cs" />
     <Compile Include="EMP\EMPClient\EMPClientXMLMethods.cs" />
+    <Compile Include="EMP\EMPClient\Responses\GetCDRsResponse.cs" />
     <Compile Include="EMP\EMPClient\Responses\GetChargePointListUpdatesResponse.cs" />
     <Compile Include="EMP\EMPClient\Responses\UpdateRoamingAuthorisationListResponse.cs" />
     <Compile Include="EMP\EMPClient\Responses\SetRoamingAuthorisationListResponse.cs" />
