@@ -20,13 +20,15 @@
 using System;
 using System.Xml.Linq;
 
+using org.GraphDefined.Vanaheimr.Illias;
+
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// Specifies the major and minor status of an EVSE.
+    /// The the major status, minor status and TTL of these status of an OCHP EVSE.
     /// </summary>
     public class EVSEStatus
     {
@@ -94,62 +96,290 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Documentation
 
-        // <soapenv:Envelope xmlns:soapenv    = "http://schemas.xmlsoap.org/soap/envelope/"
-        //                   xmlns:EVSEStatus = "http://www.hubject.com/b2b/services/evsestatus/EVSEData.0">
-        //
-        // [...]
-        //
-        //   <EVSEStatus:EvseStatusRecord>
-        //      <EVSEStatus:EvseId>?</EVSEData:EvseId>
-        //      <EVSEStatus:EvseStatus>?</EVSEData:EvseStatus>
-        //   </EVSEStatus:EvseStatusRecord>
-        //
-        // [...]
+        // <OCHP:evse major="?" minor="?" ttl="?">
+        //    <OCHP:evseId>?</OCHP:evseId>
+        // </OCHP:evse>
 
         #endregion
 
-        #region Parse(EVSEStatusRecordXML)
+        #region (static) Parse(EVSEStatusXML,  OnException = null)
 
-        ///// <summary>
-        ///// Parse the EVSE identification and its current status from the given OCHP XML.
-        ///// </summary>
-        ///// <param name="EVSEStatusRecordXML">An OCHP XML.</param>
-        //public static EVSEStatus Parse(XElement EVSEStatusRecordXML)
-        //{
+        /// <summary>
+        /// Parse the given XML representation of an OCHP EVSE status.
+        /// </summary>
+        /// <param name="EVSEStatusXML">The XML to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static EVSEStatus Parse(XElement             EVSEStatusXML,
+                                       OnExceptionDelegate  OnException = null)
+        {
 
-        //    try
-        //    {
+            EVSEStatus _EVSEStatus;
 
-        //        if (EVSEStatusRecordXML.Name != OCHPNS.EVSEStatus + "EvseStatusRecord")
-        //            throw new Exception("Illegal EVSEStatusRecord XML!");
+            if (TryParse(EVSEStatusXML, out _EVSEStatus, OnException))
+                return _EVSEStatus;
 
-        //        return new EVSEStatus(
-        //            EVSE_Id.Parse(EVSEStatusRecordXML.ElementValueOrFail(OCHPNS.EVSEStatus + "EvseId")),
-        //            (EVSEStatusTypes) Enum.Parse(typeof(EVSEStatusTypes), EVSEStatusRecordXML.ElementValueOrFail(OCHPNS.EVSEStatus + "EvseStatus"))
-        //        );
+            return null;
 
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return null;
-        //    }
+        }
 
-        //}
+        #endregion
+
+        #region (static) Parse(EVSEStatusText, OnException = null)
+
+        /// <summary>
+        /// Parse the given text representation of an OCHP EVSE status.
+        /// </summary>
+        /// <param name="EVSEStatusText">The text to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static EVSEStatus Parse(String               EVSEStatusText,
+                                       OnExceptionDelegate  OnException = null)
+        {
+
+            EVSEStatus _EVSEStatus;
+
+            if (TryParse(EVSEStatusText, out _EVSEStatus, OnException))
+                return _EVSEStatus;
+
+            return null;
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(EVSEStatusXML,  out EVSEStatus, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given XML representation of an OCHP EVSE status.
+        /// </summary>
+        /// <param name="EVSEStatusXML">The XML to parse.</param>
+        /// <param name="EVSEStatus">The parsed EVSE status.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(XElement             EVSEStatusXML,
+                                       out EVSEStatus          EVSEStatus,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                EVSEStatus = new EVSEStatus(
+
+                                 EVSEStatusXML.MapValueOrFail             (OCHPNS.Default + "evseId",
+                                                                           EVSE_Id.Parse),
+
+                                 EVSEStatusXML.MapAttributeValueOrFail    (OCHPNS.Default + "major",
+                                                                           ObjectMapper.AsEVSEMajorStatusType),
+
+                                 EVSEStatusXML.MapAttributeValueOrNullable(OCHPNS.Default + "minor",
+                                                                           ObjectMapper.AsEVSEMinorStatusType),
+
+                                 EVSEStatusXML.MapAttributeValueOrNullable(OCHPNS.Default + "ttl",
+                                                                           DateTime.Parse)
+
+                             );
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, EVSEStatusXML, e);
+
+                EVSEStatus = null;
+                return false;
+
+            }
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(EVSEStatusText, out EVSEStatus, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given text representation of an OCHP EVSE status.
+        /// </summary>
+        /// <param name="EVSEStatusText">The text to parse.</param>
+        /// <param name="EVSEStatus">The parsed EVSE status.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(String               EVSEStatusText,
+                                       out EVSEStatus       EVSEStatus,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                if (TryParse(XDocument.Parse(EVSEStatusText).Root,
+                             out EVSEStatus,
+                             OnException))
+
+                    return true;
+
+            }
+            catch (Exception e)
+            {
+                OnException?.Invoke(DateTime.Now, EVSEStatusText, e);
+            }
+
+            EVSEStatus = null;
+            return false;
+
+        }
 
         #endregion
 
         #region ToXML()
 
-        ///// <summary>
-        ///// Return an OCHP XML representation of this EVSE status record.
-        ///// </summary>
-        ///// <returns></returns>
-        //public XElement ToXML()
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        public XElement ToXML()
 
-        //    => new XElement(OCHPNS.EVSEStatus + "EvseStatusRecord",
-        //           new XElement(OCHPNS.EVSEStatus + "EvseId",     Id.    OriginId),
-        //           new XElement(OCHPNS.EVSEStatus + "EvseStatus", Status.ToString())
-        //       );
+            => new XElement(OCHPNS.Default + "evse",
+
+                   new XAttribute(OCHPNS.Default + "major",         ObjectMapper.AsText(MajorStatus)),
+
+                   MinorStatus.HasValue
+                       ? new XAttribute(OCHPNS.Default + "minor",   ObjectMapper.AsText(MajorStatus))
+                       : null,
+
+                   TTL.HasValue
+                       ? new XAttribute(OCHPNS.Default + "ttl",     TTL.Value.ToIso8601())
+                       : null,
+
+                   new XElement  (OCHPNS.Default + "evseId",        EVSEId.ToString())
+
+               );
+
+        #endregion
+
+
+        #region Operator overloading
+
+        #region Operator == (EVSEStatus1, EVSEStatus2)
+
+        /// <summary>
+        /// Compares two EVSE status for equality.
+        /// </summary>
+        /// <param name="EVSEStatus1">An EVSE status.</param>
+        /// <param name="EVSEStatus2">Another EVSE status.</param>
+        /// <returns>True if both match; False otherwise.</returns
+        public static Boolean operator == (EVSEStatus EVSEStatus1, EVSEStatus EVSEStatus2)
+        {
+
+            // If both are null, or both are same instance, return true.
+            if (Object.ReferenceEquals(EVSEStatus1, EVSEStatus2))
+                return true;
+
+            // If one is null, but not both, return false.
+            if (((Object) EVSEStatus1 == null) || ((Object) EVSEStatus2 == null))
+                return false;
+
+            return EVSEStatus1.Equals(EVSEStatus2);
+
+        }
+
+        #endregion
+
+        #region Operator != (EVSEStatus1, EVSEStatus2)
+
+        /// <summary>
+        /// Compares two EVSE status for inequality.
+        /// </summary>
+        /// <param name="EVSEStatus1">An EVSE status.</param>
+        /// <param name="EVSEStatus2">Another EVSE status.</param>
+        /// <returns>False if both match; True otherwise.</returns>
+        public static Boolean operator != (EVSEStatus EVSEStatus1, EVSEStatus EVSEStatus2)
+
+            => !(EVSEStatus1 == EVSEStatus2);
+
+        #endregion
+
+        #endregion
+
+        #region IEquatable<EVSEStatus> Members
+
+        #region Equals(Object)
+
+        /// <summary>
+        /// Compares two instances of this object.
+        /// </summary>
+        /// <param name="Object">An object to compare with.</param>
+        /// <returns>true|false</returns>
+        public override Boolean Equals(Object Object)
+        {
+
+            if (Object == null)
+                return false;
+
+            // Check if the given object is an EVSE status.
+            var EVSEStatus = Object as EVSEStatus;
+            if ((Object) EVSEStatus == null)
+                return false;
+
+            return this.Equals(EVSEStatus);
+
+        }
+
+        #endregion
+
+        #region Equals(EVSEStatus)
+
+        /// <summary>
+        /// Compares two EVSE status for equality.
+        /// </summary>
+        /// <param name="EVSEStatus">An EVSE status to compare with.</param>
+        /// <returns>True if both match; False otherwise.</returns>
+        public Boolean Equals(EVSEStatus EVSEStatus)
+        {
+
+            if ((Object) EVSEStatus == null)
+                return false;
+
+            return EVSEId.      Equals(EVSEStatus.EVSEId)      &&
+                   MajorStatus. Equals(EVSEStatus.MajorStatus) &&
+
+                   (( MinorStatus.HasValue &&  EVSEStatus.MinorStatus.HasValue && MinorStatus.Value == EVSEStatus.MinorStatus.Value) ||
+                    (!MinorStatus.HasValue && !EVSEStatus.MinorStatus.HasValue)) &&
+
+                   (( TTL.HasValue &&  EVSEStatus.TTL.HasValue && TTL.Value == EVSEStatus.TTL.Value) ||
+                    (!TTL.HasValue && !EVSEStatus.TTL.HasValue));
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #region GetHashCode()
+
+        /// <summary>
+        /// Return the HashCode of this object.
+        /// </summary>
+        /// <returns>The HashCode of this object.</returns>
+        public override Int32 GetHashCode()
+        {
+            unchecked
+            {
+
+                return MajorStatus.GetHashCode() * 11 ^
+                       EVSEId.     GetHashCode();
+
+            }
+        }
+
+        #endregion
+
+        #region (override) ToString()
+
+        /// <summary>
+        /// Return a string representation of this object.
+        /// </summary>
+        public override String ToString()
+
+            => String.Concat(EVSEId, " has ", MajorStatus, MinorStatus.HasValue ? " / " + MinorStatus.Value : "", TTL.HasValue ? " till " + TTL.Value.ToIso8601() : "");
 
         #endregion
 

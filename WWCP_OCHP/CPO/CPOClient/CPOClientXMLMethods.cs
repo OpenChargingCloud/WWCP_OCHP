@@ -131,6 +131,62 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region UpdateStatusXML(EVSEStatus, ParkingStatus = null, DefaultTTL = null)
+
+        /// <summary>
+        /// Create an OCHP add charge detail records XML/SOAP request.
+        /// </summary>
+        /// <param name="EVSEStatus">An enumeration of EVSE status.</param>
+        /// <param name="ParkingStatus">An enumeration of parking status.</param>
+        /// <param name="DefaultTTL">The default time to live for these status.</param>
+        public static XElement UpdateStatusXML(IEnumerable<EVSEStatus>     EVSEStatus     = null,
+                                               IEnumerable<ParkingStatus>  ParkingStatus  = null,
+                                               DateTime?                   DefaultTTL     = null)
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //       <OCHP:UpdateStatusRequest>
+            //
+            //          <!--Zero or more repetitions:-->
+            //          <OCHP:evse major="?" minor="?" ttl="?">
+            //             <OCHP:evseId>?</OCHP:evseId>
+            //          </OCHP:evse>
+            //
+            //          <!--Zero or more repetitions:-->
+            //          <OCHP:parking status="?" ttl="?">
+            //             <OCHP:parkingId>?</OCHP:parkingId>
+            //          </OCHP:parking>
+            //
+            //          <!--Optional:-->
+            //          <OCHP:ttl>
+            //             <OCHP:DateTime>?</OCHP:DateTime>
+            //          </OCHP:ttl>
+            //
+            //       </OCHP:UpdateStatusRequest>            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            => SOAP.Encapsulation(new XElement(OCHPNS.Default + "UpdateStatusRequest",
+
+                                      EVSEStatus.   SafeSelect(status => status.ToXML()),
+                                      ParkingStatus.SafeSelect(status => status.ToXML()),
+
+                                      DefaultTTL.HasValue
+                                          ? new XElement(OCHPNS.Default + "ttl",
+                                                new XElement(OCHPNS.Default + "DateTime",  DefaultTTL.Value.ToIso8601())
+                                            )
+                                          : null
+
+                                 ));
+
+        #endregion
+
 
         #region GetSingleRoamingAuthorisationXML(EMTId)
 

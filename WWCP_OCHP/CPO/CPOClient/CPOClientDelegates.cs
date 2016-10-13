@@ -87,6 +87,38 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
     #endregion
 
+    #region OnUpdateStatus
+
+    /// <summary>
+    /// A delegate called whenever evse and parking status will be send upstream.
+    /// </summary>
+    public delegate Task OnUpdateStatusRequestDelegate (DateTime                     LogTimestamp,
+                                                        DateTime                     RequestTimestamp,
+                                                        CPOClient                    Sender,
+                                                        String                       SenderId,
+                                                        EventTracking_Id             EventTrackingId,
+                                                        IEnumerable<EVSEStatus>      EVSEStatus,
+                                                        IEnumerable<ParkingStatus>   ParkingStatus,
+                                                        DateTime?                    DefaultTTL,
+                                                        TimeSpan?                    RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending evse and parking status upstream had been received.
+    /// </summary>
+    public delegate Task OnUpdateStatusResponseDelegate(DateTime                     LogTimestamp,
+                                                        DateTime                     RequestTimestamp,
+                                                        CPOClient                    Sender,
+                                                        String                       SenderId,
+                                                        EventTracking_Id             EventTrackingId,
+                                                        IEnumerable<EVSEStatus>      EVSEStatus,
+                                                        IEnumerable<ParkingStatus>   ParkingStatus,
+                                                        DateTime?                    DefaultTTL,
+                                                        TimeSpan?                    RequestTimeout,
+                                                        UpdateStatusResponse         Result,
+                                                        TimeSpan                     Duration);
+
+    #endregion
+
 
     #region OnGetSingleRoamingAuthorisation
 

@@ -119,6 +119,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region OnUpdateStatusRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever evse and parking status will be send.
+        /// </summary>
+        public event OnUpdateStatusRequestDelegate   OnUpdateStatusRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for evse and parking status will be send.
+        /// </summary>
+        public event ClientRequestLogHandler         OnUpdateStatusSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a response to an evse and parking status SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler        OnUpdateStatusSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response to an evse and parking status request had been received.
+        /// </summary>
+        public event OnUpdateStatusResponseDelegate  OnUpdateStatusResponse;
+
+        #endregion
+
 
         #region OnGetSingleRoamingAuthorisationRequest/-Response
 
@@ -724,6 +748,196 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
                 e.Log(nameof(CPOClient) + "." + nameof(OnUpdateChargePointListResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region AddCDRsRequest(EVSEStatus, ParkingStatus = null, DefaultTTL = null, ...)
+
+        /// <summary>
+        /// Upload the given enumeration of charge detail records.
+        /// </summary>
+        /// <param name="EVSEStatus">An enumeration of EVSE status.</param>
+        /// <param name="ParkingStatus">An enumeration of parking status.</param>
+        /// <param name="DefaultTTL">The default time to live for these status.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<UpdateStatusResponse>>
+
+            UpdateStatusRequest(IEnumerable<EVSEStatus>     EVSEStatus         = null,
+                                IEnumerable<ParkingStatus>  ParkingStatus      = null,
+                                DateTime?                   DefaultTTL         = null,
+
+                                DateTime?                   Timestamp          = null,
+                                CancellationToken?          CancellationToken  = null,
+                                EventTracking_Id            EventTrackingId    = null,
+                                TimeSpan?                   RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<UpdateStatusResponse> result = null;
+
+            #endregion
+
+            #region Send OnUpdateStatusRequest event
+
+            try
+            {
+
+                OnUpdateStatusRequest?.Invoke(DateTime.Now,
+                                              Timestamp.Value,
+                                              this,
+                                              ClientId,
+                                              EventTrackingId,
+                                              EVSEStatus,
+                                              ParkingStatus,
+                                              DefaultTTL,
+                                              RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(CPOClientXMLMethods.UpdateStatusXML(EVSEStatus,
+                                                                                     ParkingStatus,
+                                                                                     DefaultTTL),
+                                                 "UpdateStatusRequest",
+                                                 RequestLogDelegate:   OnAddCDRsSOAPRequest,
+                                                 ResponseLogDelegate:  OnAddCDRsSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(UpdateStatusResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<UpdateStatusResponse>(httpresponse,
+                                                                                                   new UpdateStatusResponse(
+                                                                                                       Result.Format(
+                                                                                                           "Invalid SOAP => " +
+                                                                                                           httpresponse.HTTPBody.ToUTF8String()
+                                                                                                       )
+                                                                                                   ),
+                                                                                                   IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<UpdateStatusResponse>(httpresponse,
+                                                                                                   new UpdateStatusResponse(
+                                                                                                       Result.Server(
+                                                                                                            httpresponse.HTTPStatusCode.ToString() +
+                                                                                                            " => " +
+                                                                                                            httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                       )
+                                                                                                   ),
+                                                                                                   IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<UpdateStatusResponse>.ExceptionThrown(new UpdateStatusResponse(
+                                                                                                                   Result.Format(exception.Message +
+                                                                                                                                 " => " +
+                                                                                                                                 exception.StackTrace)),
+                                                                                                               exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<UpdateStatusResponse>.OK(new UpdateStatusResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnAddCDRsResponse event
+
+            try
+            {
+
+                OnUpdateStatusResponse?.Invoke(DateTime.Now,
+                                               Timestamp.Value,
+                                               this,
+                                               ClientId,
+                                               EventTrackingId,
+                                               EVSEStatus,
+                                               ParkingStatus,
+                                               DefaultTTL,
+                                               RequestTimeout,
+                                               result.Content,
+                                               DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusResponse));
             }
 
             #endregion

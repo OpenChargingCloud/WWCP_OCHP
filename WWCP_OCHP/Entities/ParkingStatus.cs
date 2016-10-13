@@ -20,13 +20,15 @@
 using System;
 using System.Xml.Linq;
 
+using org.GraphDefined.Vanaheimr.Illias;
+
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// Specifies the status of an OCHP parking space.
+    /// The the major status, minor status and TTL of these status of an OCHP parking space.
     /// </summary>
     public class ParkingStatus
     {
@@ -83,62 +85,279 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Documentation
 
-        // <soapenv:Envelope xmlns:soapenv    = "http://schemas.xmlsoap.org/soap/envelope/"
-        //                   xmlns:EVSEStatus = "http://www.hubject.com/b2b/services/evsestatus/EVSEData.0">
-        //
-        // [...]
-        //
-        //   <EVSEStatus:EvseStatusRecord>
-        //      <EVSEStatus:EvseId>?</EVSEData:EvseId>
-        //      <EVSEStatus:EvseStatus>?</EVSEData:EvseStatus>
-        //   </EVSEStatus:EvseStatusRecord>
-        //
-        // [...]
+        // <OCHP:parking status="?" ttl="?">        //    <OCHP:parkingId>?</OCHP:parkingId>
+        // </OCHP:evse>
 
         #endregion
 
-        #region Parse(EVSEStatusRecordXML)
+        #region (static) Parse(ParkingStatusXML,  OnException = null)
 
-        ///// <summary>
-        ///// Parse the EVSE identification and its current status from the given OCHP XML.
-        ///// </summary>
-        ///// <param name="EVSEStatusRecordXML">An OCHP XML.</param>
-        //public static EVSEStatus Parse(XElement EVSEStatusRecordXML)
-        //{
+        /// <summary>
+        /// Parse the given XML representation of an OCHP parking status.
+        /// </summary>
+        /// <param name="ParkingStatusXML">The XML to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static ParkingStatus Parse(XElement             ParkingStatusXML,
+                                          OnExceptionDelegate  OnException = null)
+        {
 
-        //    try
-        //    {
+            ParkingStatus _ParkingStatus;
 
-        //        if (EVSEStatusRecordXML.Name != OCHPNS.EVSEStatus + "EvseStatusRecord")
-        //            throw new Exception("Illegal EVSEStatusRecord XML!");
+            if (TryParse(ParkingStatusXML, out _ParkingStatus, OnException))
+                return _ParkingStatus;
 
-        //        return new EVSEStatus(
-        //            EVSE_Id.Parse(EVSEStatusRecordXML.ElementValueOrFail(OCHPNS.EVSEStatus + "EvseId")),
-        //            (EVSEStatusTypes) Enum.Parse(typeof(EVSEStatusTypes), EVSEStatusRecordXML.ElementValueOrFail(OCHPNS.EVSEStatus + "EvseStatus"))
-        //        );
+            return null;
 
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return null;
-        //    }
+        }
 
-        //}
+        #endregion
+
+        #region (static) Parse(ParkingStatusText, OnException = null)
+
+        /// <summary>
+        /// Parse the given text representation of an OCHP parking status.
+        /// </summary>
+        /// <param name="ParkingStatusText">The text to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static ParkingStatus Parse(String               ParkingStatusText,
+                                          OnExceptionDelegate  OnException = null)
+        {
+
+            ParkingStatus _ParkingStatus;
+
+            if (TryParse(ParkingStatusText, out _ParkingStatus, OnException))
+                return _ParkingStatus;
+
+            return null;
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(ParkingStatusXML,  out ParkingStatus, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given XML representation of an OCHP parking status.
+        /// </summary>
+        /// <param name="ParkingStatusXML">The XML to parse.</param>
+        /// <param name="ParkingStatus">The parsed parking status.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(XElement             ParkingStatusXML,
+                                       out ParkingStatus    ParkingStatus,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                ParkingStatus = new ParkingStatus(
+
+                                    ParkingStatusXML.MapValueOrFail             (OCHPNS.Default + "parkingId",
+                                                                                 Parking_Id.Parse),
+
+                                    ParkingStatusXML.MapAttributeValueOrFail    (OCHPNS.Default + "status",
+                                                                                 ObjectMapper.AsParkingStatusType),
+
+                                    ParkingStatusXML.MapAttributeValueOrNullable(OCHPNS.Default + "ttl",
+                                                                                 DateTime.Parse)
+
+                                );
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                OnException?.Invoke(DateTime.Now, ParkingStatusXML, e);
+
+                ParkingStatus = null;
+                return false;
+
+            }
+
+        }
+
+        #endregion
+
+        #region (static) TryParse(ParkingStatusText, out ParkingStatus, OnException = null)
+
+        /// <summary>
+        /// Try to parse the given text representation of an OCHP parking status.
+        /// </summary>
+        /// <param name="ParkingStatusText">The text to parse.</param>
+        /// <param name="ParkingStatus">The parsed parking status.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static Boolean TryParse(String               ParkingStatusText,
+                                       out ParkingStatus    ParkingStatus,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                if (TryParse(XDocument.Parse(ParkingStatusText).Root,
+                             out ParkingStatus,
+                             OnException))
+
+                    return true;
+
+            }
+            catch (Exception e)
+            {
+                OnException?.Invoke(DateTime.Now, ParkingStatusText, e);
+            }
+
+            ParkingStatus = null;
+            return false;
+
+        }
 
         #endregion
 
         #region ToXML()
 
-        ///// <summary>
-        ///// Return an OCHP XML representation of this EVSE status record.
-        ///// </summary>
-        ///// <returns></returns>
-        //public XElement ToXML()
+        /// <summary>
+        /// Return a XML representation of this object.
+        /// </summary>
+        public XElement ToXML()
 
-        //    => new XElement(OCHPNS.EVSEStatus + "EvseStatusRecord",
-        //           new XElement(OCHPNS.EVSEStatus + "EvseId",     Id.    OriginId),
-        //           new XElement(OCHPNS.EVSEStatus + "EvseStatus", Status.ToString())
-        //       );
+            => new XElement(OCHPNS.Default + "parking",
+
+                   new XAttribute(OCHPNS.Default + "status",      ObjectMapper.AsText(Status)),
+
+                   TTL.HasValue
+                       ? new XAttribute(OCHPNS.Default + "ttl",   TTL.Value.ToIso8601())
+                       : null,
+
+                   new XElement  (OCHPNS.Default + "parkingId",   ParkingId.ToString())
+
+               );
+
+        #endregion
+
+
+        #region Operator overloading
+
+        #region Operator == (ParkingStatus1, ParkingStatus2)
+
+        /// <summary>
+        /// Compares two parking status for equality.
+        /// </summary>
+        /// <param name="ParkingStatus1">A parking status.</param>
+        /// <param name="ParkingStatus2">Another parking status.</param>
+        /// <returns>True if both match; False otherwise.</returns
+        public static Boolean operator == (ParkingStatus ParkingStatus1, ParkingStatus ParkingStatus2)
+        {
+
+            // If both are null, or both are same instance, return true.
+            if (Object.ReferenceEquals(ParkingStatus1, ParkingStatus2))
+                return true;
+
+            // If one is null, but not both, return false.
+            if (((Object) ParkingStatus1 == null) || ((Object) ParkingStatus2 == null))
+                return false;
+
+            return ParkingStatus1.Equals(ParkingStatus2);
+
+        }
+
+        #endregion
+
+        #region Operator != (ParkingStatus1, ParkingStatus2)
+
+        /// <summary>
+        /// Compares two parking status for inequality.
+        /// </summary>
+        /// <param name="ParkingStatus1">A parking status.</param>
+        /// <param name="ParkingStatus2">Another parking status.</param>
+        /// <returns>False if both match; True otherwise.</returns>
+        public static Boolean operator != (ParkingStatus ParkingStatus1, ParkingStatus ParkingStatus2)
+
+            => !(ParkingStatus1 == ParkingStatus2);
+
+        #endregion
+
+        #endregion
+
+        #region IEquatable<ParkingStatus> Members
+
+        #region Equals(Object)
+
+        /// <summary>
+        /// Compares two instances of this object.
+        /// </summary>
+        /// <param name="Object">An object to compare with.</param>
+        /// <returns>true|false</returns>
+        public override Boolean Equals(Object Object)
+        {
+
+            if (Object == null)
+                return false;
+
+            // Check if the given object is a parking status.
+            var ParkingStatus = Object as ParkingStatus;
+            if ((Object) ParkingStatus == null)
+                return false;
+
+            return this.Equals(ParkingStatus);
+
+        }
+
+        #endregion
+
+        #region Equals(ParkingStatus)
+
+        /// <summary>
+        /// Compares two parking status for equality.
+        /// </summary>
+        /// <param name="ParkingStatus">A parking status to compare with.</param>
+        /// <returns>True if both match; False otherwise.</returns>
+        public Boolean Equals(ParkingStatus ParkingStatus)
+        {
+
+            if ((Object) ParkingStatus == null)
+                return false;
+
+            return ParkingId.Equals(ParkingStatus.ParkingId) &&
+                   Status.   Equals(ParkingStatus.Status)    &&
+
+                   (( TTL.HasValue &&  ParkingStatus.TTL.HasValue && TTL.Value == ParkingStatus.TTL.Value) ||
+                    (!TTL.HasValue && !ParkingStatus.TTL.HasValue));
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #region GetHashCode()
+
+        /// <summary>
+        /// Return the HashCode of this object.
+        /// </summary>
+        /// <returns>The HashCode of this object.</returns>
+        public override Int32 GetHashCode()
+        {
+            unchecked
+            {
+
+                return Status.   GetHashCode() * 11 ^
+                       ParkingId.GetHashCode();
+
+            }
+        }
+
+        #endregion
+
+        #region (override) ToString()
+
+        /// <summary>
+        /// Return a string representation of this object.
+        /// </summary>
+        public override String ToString()
+
+            => String.Concat(ParkingId, " has ", Status, TTL.HasValue ? " till " + TTL.Value.ToIso8601() : "");
 
         #endregion
 
