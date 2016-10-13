@@ -20,10 +20,8 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
-using System.Globalization;
 using System.Collections.Generic;
 
-using org.GraphDefined.Vanaheimr.Aegir;
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -95,6 +93,55 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                           new XElement(OCHPNS.Default + "DateTime",
                                               LastUpdate.ToIso8601()
                                  ))));
+
+        #endregion
+
+        #region GetStatusXML(LastRequest = null, StatusType = null)
+
+        /// <summary>
+        /// Create an OCHP GetStatus XML/SOAP request.
+        /// </summary>
+        /// <param name="LastRequest">Only return status data newer than the given timestamp.</param>
+        /// <param name="StatusType">A status type filter.</param>
+        public static XElement GetStatusXML(DateTime?     LastRequest  = null,
+                                            StatusTypes?  StatusType   = null)
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //      <ns:GetStatusRequest>
+            //
+            //         <!--Optional:-->
+            //         <ns:startDateTime>
+            //            <ns:DateTime>?</ns:DateTime>
+            //         </ns:startDateTime>
+            //
+            //         <!--Optional:-->
+            //         <ns:statusType>?</ns:statusType>
+            //
+            //      </ns:GetStatusRequest>
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            => SOAP.Encapsulation(new XElement(OCHPNS.Default + "GetStatusRequest",
+
+                                      LastRequest.HasValue
+                                          ? new XElement(OCHPNS.Default + "lastUpdate",
+                                                new XElement(OCHPNS.Default + "DateTime",
+                                                    LastRequest.Value.ToIso8601()))
+                                          : null,
+
+                                      StatusType.HasValue
+                                          ? new XElement(OCHPNS.Default + "lastUpdate", StatusType.Value)
+                                          : null
+
+                                 ));
 
         #endregion
 
@@ -196,13 +243,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region GetCDRsXML(CDRStatus)
+        #region GetCDRsXML(CDRStatus = null)
 
         /// <summary>
         /// Create an OCHP get charge detail records XML/SOAP request.
         /// </summary>
         /// <param name="CDRStatus">The status of the requested charge detail records.</param>
-        public static XElement GetCDRsXML(CDRStatus? CDRStatus)
+        public static XElement GetCDRsXML(CDRStatus? CDRStatus = null)
 
             #region Documentation
 
@@ -215,7 +262,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             //
             //         <!--Optional:-->
             //         <OCHP:cdrStatus>
-            //            <OCHP:CdrStatusType>?</OCHP:CdrStatusType>            //         </OCHP:cdrStatus>
+            //            <OCHP:CdrStatusType>?</OCHP:CdrStatusType>
+            //         </OCHP:cdrStatus>
             //
             //      </OCHP:GetCDRsRequest>
             //    </soapenv:Body>

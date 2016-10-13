@@ -759,7 +759,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region AddCDRsRequest(EVSEStatus, ParkingStatus = null, DefaultTTL = null, ...)
+        #region UpdateStatusRequest(EVSEStatus, ParkingStatus = null, DefaultTTL = null, ...)
 
         /// <summary>
         /// Upload the given enumeration of charge detail records.

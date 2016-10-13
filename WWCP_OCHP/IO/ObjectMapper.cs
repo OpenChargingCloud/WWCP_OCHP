@@ -1391,6 +1391,59 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsStatusType(Text)
+
+        public static StatusTypes AsStatusType(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "evse":
+                    return StatusTypes.EVSE;
+
+                case "parking":
+                    return StatusTypes.Parking;
+
+                case "combined":
+                    return StatusTypes.Combined;
+
+                default:
+                    return StatusTypes.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this StatusType)
+
+        public static String AsText(this StatusTypes StatusType)
+        {
+
+            switch (StatusType)
+            {
+
+                case StatusTypes.EVSE:
+                    return "evse";
+
+                case StatusTypes.Parking:
+                    return "parking";
+
+                case StatusTypes.Combined:
+                    return "combined";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
         #region AsResultCode(Text)
 
         public static ResultCodes AsResultCode(this String Text)
@@ -1468,7 +1521,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Documentation
 
-        // <OCHPNS:chargePointLocation lat="?" lon="?" />
+        // <OCHPNS:chargePointLocation lat="?" lon="?" />
+
         #endregion
 
         public static GeoCoordinate ParseGeoCoordinate(XElement             XML,

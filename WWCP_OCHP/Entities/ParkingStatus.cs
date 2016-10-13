@@ -85,7 +85,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Documentation
 
-        // <OCHP:parking status="?" ttl="?">        //    <OCHP:parkingId>?</OCHP:parkingId>
+        // <OCHP:parking status="?" ttl="?">
+        //    <OCHP:parkingId>?</OCHP:parkingId>
         // </OCHP:evse>
 
         #endregion
@@ -215,14 +216,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region ToXML()
+        #region ToXML(XName = null)
 
         /// <summary>
         /// Return a XML representation of this object.
         /// </summary>
-        public XElement ToXML()
+        /// <param name="XName">An alternative XML element name [default: "OCHPNS:cdrInfoArray"]</param>
+        public XElement ToXML(XName XName = null)
 
-            => new XElement(OCHPNS.Default + "parking",
+            => new XElement(XName ?? OCHPNS.Default + "parking",
 
                    new XAttribute(OCHPNS.Default + "status",      ObjectMapper.AsText(Status)),
 

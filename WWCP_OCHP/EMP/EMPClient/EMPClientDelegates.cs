@@ -80,6 +80,36 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
     #endregion
 
+    #region OnGetStatus
+
+    /// <summary>
+    /// A delegate called whenever a get status request will be send upstream.
+    /// </summary>
+    public delegate Task OnGetStatusRequestDelegate (DateTime               LogTimestamp,
+                                                     DateTime               RequestTimestamp,
+                                                     EMPClient              Sender,
+                                                     String                 SenderId,
+                                                     EventTracking_Id       EventTrackingId,
+                                                     DateTime?              LastRequest,
+                                                     StatusTypes?           StatusType,
+                                                     TimeSpan?              RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a get status request upstream had been received.
+    /// </summary>
+    public delegate Task OnGetStatusResponseDelegate(DateTime               LogTimestamp,
+                                                     DateTime               RequestTimestamp,
+                                                     EMPClient              Sender,
+                                                     String                 SenderId,
+                                                     EventTracking_Id       EventTrackingId,
+                                                     DateTime?              LastRequest,
+                                                     StatusTypes?           StatusType,
+                                                     TimeSpan?              RequestTimeout,
+                                                     GetStatusResponse      Result,
+                                                     TimeSpan               Duration);
+
+    #endregion
+
     #region On(Set|Update)RoamingAuthorisationList
 
     /// <summary>

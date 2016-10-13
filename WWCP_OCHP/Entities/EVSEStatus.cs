@@ -230,14 +230,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region ToXML()
+        #region ToXML(XName = null)
 
         /// <summary>
         /// Return a XML representation of this object.
         /// </summary>
-        public XElement ToXML()
+        /// <param name="XName">An alternative XML element name [default: "OCHPNS:cdrInfoArray"]</param>
+        public XElement ToXML(XName XName = null)
 
-            => new XElement(OCHPNS.Default + "evse",
+            => new XElement(XName ?? OCHPNS.Default + "evse",
 
                    new XAttribute(OCHPNS.Default + "major",         ObjectMapper.AsText(MajorStatus)),
 
