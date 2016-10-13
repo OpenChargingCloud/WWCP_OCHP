@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP roaming authorisation list response.
+    /// An OCHP get roaming authorisation list response.
     /// </summary>
     public class GetRoamingAuthorisationListResponse : AResponse
     {
@@ -38,7 +38,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Properties
 
         /// <summary>
-        /// The authorisation card info.
+        /// An enumeration of authorisation card infos.
         /// </summary>
         public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
 
@@ -104,7 +104,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHP roaming authorisation list response.
+        /// Create a new OCHP get roaming authorisation list response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
         /// <param name="RoamingAuthorisationInfos">An enumeration of authorisation card infos.</param>
@@ -168,7 +168,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(GetRoamingAuthorisationListResponseXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP roaming authorisation list.
+        /// Parse the given XML representation of an OCHP roaming authorisation list response.
         /// </summary>
         /// <param name="GetRoamingAuthorisationListResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -190,7 +190,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(GetRoamingAuthorisationListResponseText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP roaming authorisation list.
+        /// Parse the given text representation of an OCHP roaming authorisation list response.
         /// </summary>
         /// <param name="GetRoamingAuthorisationListResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -212,10 +212,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(GetRoamingAuthorisationListResponseXML,  out GetRoamingAuthorisationListResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP roaming authorisation list.
+        /// Try to parse the given XML representation of an OCHP roaming authorisation list response.
         /// </summary>
         /// <param name="GetRoamingAuthorisationListResponseXML">The XML to parse.</param>
-        /// <param name="GetRoamingAuthorisationListResponse">The parsed roaming authorisation list.</param>
+        /// <param name="GetRoamingAuthorisationListResponse">The parsed roaming authorisation list response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
         public static Boolean TryParse(XElement                                 GetRoamingAuthorisationListResponseXML,
                                        out GetRoamingAuthorisationListResponse  GetRoamingAuthorisationListResponse,
@@ -257,10 +257,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(GetRoamingAuthorisationListResponseText, out GetRoamingAuthorisationListResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP roaming authorisation list.
+        /// Try to parse the given text representation of an OCHP roaming authorisation list response.
         /// </summary>
         /// <param name="GetRoamingAuthorisationListResponseText">The text to parse.</param>
-        /// <param name="GetRoamingAuthorisationListResponse">The parsed roaming authorisation list.</param>
+        /// <param name="GetRoamingAuthorisationListResponse">The parsed roaming authorisation list response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
         public static Boolean TryParse(String                                   GetRoamingAuthorisationListResponseText,
                                        out GetRoamingAuthorisationListResponse  GetRoamingAuthorisationListResponse,
@@ -314,8 +314,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Compares two roaming authorisation lists for equality.
         /// </summary>
-        /// <param name="GetRoamingAuthorisationListResponse1">A roaming authorisation list.</param>
-        /// <param name="GetRoamingAuthorisationListResponse2">Another roaming authorisation list.</param>
+        /// <param name="GetRoamingAuthorisationListResponse1">A roaming authorisation list response.</param>
+        /// <param name="GetRoamingAuthorisationListResponse2">Another roaming authorisation list response.</param>
         /// <returns>True if both match; False otherwise.</returns>
         public static Boolean operator == (GetRoamingAuthorisationListResponse GetRoamingAuthorisationListResponse1, GetRoamingAuthorisationListResponse GetRoamingAuthorisationListResponse2)
         {
@@ -339,8 +339,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Compares two roaming authorisation lists for inequality.
         /// </summary>
-        /// <param name="GetRoamingAuthorisationListResponse1">A roaming authorisation list.</param>
-        /// <param name="GetRoamingAuthorisationListResponse2">Another roaming authorisation list.</param>
+        /// <param name="GetRoamingAuthorisationListResponse1">A roaming authorisation list response.</param>
+        /// <param name="GetRoamingAuthorisationListResponse2">Another roaming authorisation list response.</param>
         /// <returns>False if both match; True otherwise.</returns>
         public static Boolean operator != (GetRoamingAuthorisationListResponse GetRoamingAuthorisationListResponse1, GetRoamingAuthorisationListResponse GetRoamingAuthorisationListResponse2)
 
@@ -365,7 +365,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is a roaming authorisation list.
+            // Check if the given object is a roaming authorisation list response.
             var GetRoamingAuthorisationListResponse = Object as GetRoamingAuthorisationListResponse;
             if ((Object) GetRoamingAuthorisationListResponse == null)
                 return false;
@@ -427,7 +427,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => Result.ToString();
+            => String.Concat(Result,
+                             RoamingAuthorisationInfos.Any()
+                                 ? " " + RoamingAuthorisationInfos.Count() + " roaming authorisation infos"
+                                 : "");
 
         #endregion
 

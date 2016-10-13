@@ -38,7 +38,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Properties
 
         /// <summary>
-        /// A human-readable error description.
+        /// An enumeration of refused charge points.
         /// </summary>
         public IEnumerable<ChargePointInfo>  RefusedChargePointInfos    { get; }
 
@@ -107,7 +107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Create a new OCHP set charge point list response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
-        /// <param name="RefusedChargePointInfos">An enumeration of refused charge point infos.</param>
+        /// <param name="RefusedChargePointInfos">An enumeration of refused charge points.</param>
         public SetChargePointListResponse(Result                        Result,
                                           IEnumerable<ChargePointInfo>  RefusedChargePointInfos = null)
 
@@ -287,7 +287,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                    new XElement(OCHPNS.Default + "result", Result.ToXML()),
 
-                   RefusedChargePointInfos.SafeSelect(chargepointinfo => chargepointinfo.ToXML(OCHPNS.Default + "refusedChargePointInfo"))
+                   RefusedChargePointInfos.SafeSelect(chargepoint => chargepoint.ToXML(OCHPNS.Default + "refusedChargePointInfo"))
 
                );
 
@@ -398,7 +398,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return RefusedChargePointInfos != null
 
                            ? Result.GetHashCode() * 11 ^
-                             RefusedChargePointInfos.SafeSelect(info => info.GetHashCode()).Aggregate((a, b) => a ^ b)
+                             RefusedChargePointInfos.SafeSelect(chargepoint => chargepoint.GetHashCode()).Aggregate((a, b) => a ^ b)
 
                            : Result.GetHashCode();
 

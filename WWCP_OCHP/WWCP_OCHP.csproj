@@ -46,6 +46,15 @@
     <Compile Include="CPO\CPOClient\CPOClientDelegates.cs" />
     <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
     <Compile Include="CPO\CPOClient\CPOClientXMLMethods.cs" />
+    <Compile Include="EMP\EMPClient\EMPClient.cs" />
+    <Compile Include="EMP\EMPClient\EMPClientDelegates.cs" />
+    <Compile Include="EMP\EMPClient\EMPClientLogger.cs" />
+    <Compile Include="EMP\EMPClient\EMPClientXMLMethods.cs" />
+    <Compile Include="EMP\EMPClient\Responses\GetChargePointListUpdatesResponse.cs" />
+    <Compile Include="EMP\EMPClient\Responses\UpdateRoamingAuthorisationListResponse.cs" />
+    <Compile Include="EMP\EMPClient\Responses\SetRoamingAuthorisationListResponse.cs" />
+    <Compile Include="IO\AResponse.cs" />
+    <Compile Include="EMP\EMPClient\Responses\GetChargePointListResponse.cs" />
     <Compile Include="IO\XML.cs" />
     <Compile Include="IO\ObjectMapper.cs" />
     <Compile Include="IO\OCHPNS.cs" />
@@ -98,13 +107,12 @@
     <Compile Include="Entities\EVSEStatus.cs" />
     <Compile Include="Entities\Simple\EVSEMajorStatusTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Respones\AResponse.cs" />
-    <Compile Include="Respones\AddCDRsResponse.cs" />
-    <Compile Include="Respones\GetRoamingAuthorisationListUpdatesResponse.cs" />
-    <Compile Include="Respones\GetRoamingAuthorisationListResponse.cs" />
-    <Compile Include="Respones\GetSingleRoamingAuthorisationResponse.cs" />
-    <Compile Include="Respones\UpdateChargePointListResponse.cs" />
-    <Compile Include="Respones\SetChargePointListResponse.cs" />
+    <Compile Include="CPO\CPOClient\Responses\AddCDRsResponse.cs" />
+    <Compile Include="CPO\CPOClient\Responses\GetRoamingAuthorisationListUpdatesResponse.cs" />
+    <Compile Include="CPO\CPOClient\Responses\GetRoamingAuthorisationListResponse.cs" />
+    <Compile Include="CPO\CPOClient\Responses\GetSingleRoamingAuthorisationResponse.cs" />
+    <Compile Include="CPO\CPOClient\Responses\UpdateChargePointListResponse.cs" />
+    <Compile Include="CPO\CPOClient\Responses\SetChargePointListResponse.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -116,7 +116,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
     #endregion
 
-    #region OnGetRoamingAuthorisationList
+    #region OnGetRoamingAuthorisationList(Updates)
 
     /// <summary>
     /// A delegate called whenever a request for the current roaming authorisation list will be send upstream.

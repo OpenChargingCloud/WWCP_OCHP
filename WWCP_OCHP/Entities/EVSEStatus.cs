@@ -111,9 +111,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Parse(EVSEStatusRecordXML)
 
         ///// <summary>
-        ///// Parse the EVSE identification and its current status from the given OICP XML.
+        ///// Parse the EVSE identification and its current status from the given OCHP XML.
         ///// </summary>
-        ///// <param name="EVSEStatusRecordXML">An OICP XML.</param>
+        ///// <param name="EVSEStatusRecordXML">An OCHP XML.</param>
         //public static EVSEStatus Parse(XElement EVSEStatusRecordXML)
         //{
 
@@ -141,7 +141,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region ToXML()
 
         ///// <summary>
-        ///// Return an OICP XML representation of this EVSE status record.
+        ///// Return an OCHP XML representation of this EVSE status record.
         ///// </summary>
         ///// <returns></returns>
         //public XElement ToXML()
