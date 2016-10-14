@@ -162,7 +162,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                           ChargePointScheduleXML.MapValueOrFail    (OCHPNS.Default + "status",
                                                                                     OCHPNS.Default + "ChargePointStatusType",
-                                                                                    ObjectMapper.AsChargePointStatus),
+                                                                                    XML_IO.AsChargePointStatus),
 
                                           ChargePointScheduleXML.MapValueOrFail    (OCHPNS.Default + "startDate",
                                                                                     OCHPNS.Default + "DateTime",
@@ -246,7 +246,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        : null,
 
                    new XElement(OCHPNS.Default + "status",
-                       new XElement(OCHPNS.Default + "ChargePointStatusType", ObjectMapper.AsText(ChargePointStatus))
+                       new XElement(OCHPNS.Default + "ChargePointStatusType", XML_IO.AsText(ChargePointStatus))
                    )
 
                );

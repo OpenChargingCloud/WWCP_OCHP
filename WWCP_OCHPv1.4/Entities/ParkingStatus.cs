@@ -157,7 +157,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                                  Parking_Id.Parse),
 
                                     ParkingStatusXML.MapAttributeValueOrFail    (OCHPNS.Default + "status",
-                                                                                 ObjectMapper.AsParkingStatusType),
+                                                                                 XML_IO.AsParkingStatusType),
 
                                     ParkingStatusXML.MapAttributeValueOrNullable(OCHPNS.Default + "ttl",
                                                                                  DateTime.Parse)
@@ -226,7 +226,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "parking",
 
-                   new XAttribute(OCHPNS.Default + "status",      ObjectMapper.AsText(Status)),
+                   new XAttribute(OCHPNS.Default + "status",      XML_IO.AsText(Status)),
 
                    TTL.HasValue
                        ? new XAttribute(OCHPNS.Default + "ttl",   TTL.Value.ToIso8601())

@@ -399,7 +399,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "status",
                                                                OCHPNS.Default + "CdrStatusType",
-                                                               ObjectMapper.AsCDRStatus),
+                                                               XML_IO.AsCDRStatus),
 
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "startDateTime",
                                                                OCHPNS.Default + "LocalDateTime",
@@ -416,7 +416,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                Address.Parse),
 
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "chargePointType",
-                                                               ObjectMapper.AsChargePointType),
+                                                               XML_IO.AsChargePointType),
 
                               CDRInfoXML.MapElementOrFail     (OCHPNS.Default + "connectorType",
                                                                ConnectorType.Parse),
@@ -501,7 +501,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    new XElement(OCHPNS.Default + "contractId",          ContractId.ToString()),
 
                    new XElement(OCHPNS.Default + "status",
-                       new XElement(OCHPNS.Default + "CdrStatusType",   ObjectMapper.AsText(Status))
+                       new XElement(OCHPNS.Default + "CdrStatusType",   XML_IO.AsText(Status))
                    ),
 
                    new XElement(OCHPNS.Default + "startDateTime",
@@ -520,7 +520,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                    ChargePointAddress.ToXML(),
 
-                   new XElement(OCHPNS.Default + "chargePointType",     ObjectMapper.AsText(ChargePointType)),
+                   new XElement(OCHPNS.Default + "chargePointType",     XML_IO.AsText(ChargePointType)),
 
                    ConnectorType.ToXML(OCHPNS.Default + "connectorType"),
 

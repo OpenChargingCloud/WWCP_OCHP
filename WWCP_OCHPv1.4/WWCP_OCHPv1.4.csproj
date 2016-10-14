@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Hermod\libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +53,10 @@
     <Compile Include="CPO\CPOClient\Responses\CheckCDRsResponse.cs" />
     <Compile Include="CPO\CPOClient\Responses\UpdateTariffsResponse.cs" />
     <Compile Include="CPO\CPOClient\Responses\UpdateStatusResponse.cs" />
+    <Compile Include="CPO\CPODelegates.cs" />
+    <Compile Include="CPO\CPOServer\CPOServer.cs" />
+    <Compile Include="CPO\CPOServer\CPOServerDelegates.cs" />
+    <Compile Include="CPO\CPOServer\CPOServerLogger.cs" />
     <Compile Include="EMP\EMPClient\EMPClient.cs" />
     <Compile Include="EMP\EMPClient\EMPClientDelegates.cs" />
     <Compile Include="EMP\EMPClient\EMPClientLogger.cs" />
@@ -156,11 +164,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="LICENSE" />
     <None Include="README.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CPO\CPOServer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

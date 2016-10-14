@@ -275,7 +275,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                       CDRStatus.HasValue
                                           ? new XElement(OCHPNS.Default + "cdrStatus",
-                                                new XElement(OCHPNS.Default + "CdrStatusType", ObjectMapper.AsText(CDRStatus.Value))
+                                                new XElement(OCHPNS.Default + "CdrStatusType", XML_IO.AsText(CDRStatus.Value))
                                             )
                                           : null
 

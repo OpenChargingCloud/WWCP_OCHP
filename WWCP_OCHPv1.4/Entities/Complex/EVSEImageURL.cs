@@ -198,7 +198,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                    EVSEImageURLXML.ElementValueOrFail(OCHPNS.Default + "uri"),
 
                                    EVSEImageURLXML.MapValueOrFail    (OCHPNS.Default + "class",
-                                                                      ObjectMapper.AsEVSEImageClasses),
+                                                                      XML_IO.AsEVSEImageClasses),
 
                                    EVSEImageURLXML.ElementValueOrFail(OCHPNS.Default + "type"),
 
@@ -277,7 +277,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        ? new XElement(OCHPNS.Default + "thumbUri",  ThumbURI)
                        : null,
 
-                   new XElement(OCHPNS.Default + "class",           ObjectMapper.AsText(Class)),
+                   new XElement(OCHPNS.Default + "class",           XML_IO.AsText(Class)),
                    new XElement(OCHPNS.Default + "type",            Type),
 
                    Width.HasValue

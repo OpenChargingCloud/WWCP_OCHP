@@ -165,7 +165,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                       RelatedResourceXML.ElementValueOrFail(OCHPNS.Default + "uri"),
 
                                       RelatedResourceXML.MapValueOrFail    (OCHPNS.Default + "class",
-                                                                            ObjectMapper.AsRelatedResource)
+                                                                            XML_IO.AsRelatedResource)
 
                                   );
 
@@ -231,7 +231,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => new XElement(OCHPNS.Default + "relatedResource",
 
                    new XElement(OCHPNS.Default + "uri",    URI),
-                   new XElement(OCHPNS.Default + "class",  ObjectMapper.AsText(Class))
+                   new XElement(OCHPNS.Default + "class",  XML_IO.AsText(Class))
 
                );
 

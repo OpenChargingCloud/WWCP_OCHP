@@ -161,7 +161,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                             ExtendedGeoCoordinateXML.AttributeValueOrFail   (OCHPNS.Default + "name"),
 
                                             ExtendedGeoCoordinateXML.MapAttributeValueOrFail(OCHPNS.Default + "type",
-                                                                                             ObjectMapper.AsGeoCoordinateType),
+                                                                                             XML_IO.AsGeoCoordinateType),
 
                                             ExtendedGeoCoordinateXML.MapAttributeValueOrFail(OCHPNS.Default + "lat",
                                                                                              Latitude.Parse),
@@ -234,7 +234,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                new XAttribute(OCHPNS.Default + "lat",   Latitude.Value),
                                new XAttribute(OCHPNS.Default + "lon",   Longitude.Value),
                                new XAttribute(OCHPNS.Default + "name",  Name),
-                               new XAttribute(OCHPNS.Default + "type",  ObjectMapper.AsText(GeoCoordinateType))
+                               new XAttribute(OCHPNS.Default + "type",  XML_IO.AsText(GeoCoordinateType))
                            );
 
         #endregion

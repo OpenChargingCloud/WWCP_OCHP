@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WWCP OCHP v1.4 UnitTests")]
-[assembly: AssemblyDescription("UnitTests for the connectivity between the World Wide Charging Protocol (WWCP) and the Open Clearing House Protocol (OCHP v1.4)")]
+[assembly: AssemblyTitle("WWCP OCHP v1.4 WebAPI")]
+[assembly: AssemblyDescription("WWCP OCHP v1.4 WebAPI")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("GraphDefined GmbH")]
-[assembly: AssemblyProduct("WWCP OCHP v1.4 UnitTests")]
+[assembly: AssemblyProduct("WWCP OCHP v1.4 WebAPI")]
 [assembly: AssemblyCopyright("Copyright © 2014-2016 GraphDefined GmbH")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8c6d566c-8df7-49ca-8169-42660169e58c")]
+[assembly: Guid("ec1b878f-e3aa-49e5-a556-f2200588449b")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -332,7 +332,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ? Enum.GetValues(typeof(RestrictionTypes)).
                           Cast<RestrictionTypes>().
                           Where (restriction => Restrictions.Value.HasFlag(restriction)).
-                          Select(restriction => ObjectMapper.AsText(restriction))
+                          Select(restriction => XML_IO.AsText(restriction))
 
                    : new String[0];
 
@@ -348,7 +348,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => Enum.GetValues(typeof(AuthMethodTypes)).
                     Cast<AuthMethodTypes>().
                     Where (method => method.HasFlag(method)).
-                    Select(method => ObjectMapper.AsText(method));
+                    Select(method => XML_IO.AsText(method));
 
         #endregion
 
@@ -633,18 +633,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                       ChargePointInfoXML.MapValueOrFail       (OCHPNS.Default + "location",
                                                                                OCHPNS.Default + "GeneralLocationType",
-                                                                               ObjectMapper.AsGeneralLocationType),
+                                                                               XML_IO.AsGeneralLocationType),
 
                                       ChargePointInfoXML.MapEnumValuesOrFail  (OCHPNS.Default + "authMethods",
                                                                                OCHPNS.Default + "AuthMethodType",
-                                                                               ObjectMapper.AsAuthMethodType),
+                                                                               XML_IO.AsAuthMethodType),
 
                                       ChargePointInfoXML.MapElementsOrFail    (OCHPNS.Default + "connectors",
                                                                                ConnectorType.Parse,
                                                                                OnException),
 
                                       ChargePointInfoXML.MapValueOrFail       (OCHPNS.Default + "chargePointType",
-                                                                               ObjectMapper.AsChargePointType),
+                                                                               XML_IO.AsChargePointType),
 
 
 
@@ -671,7 +671,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                       ChargePointInfoXML.MapValueOrNullable   (OCHPNS.Default + "status",
                                                                                OCHPNS.Default + "ChargePointStatusType",
-                                                                               ObjectMapper.AsChargePointStatus),
+                                                                               XML_IO.AsChargePointStatus),
 
                                       ChargePointInfoXML.MapElements          (OCHPNS.Default + "statusSchedule",
                                                                                OCHPv1_4.ChargePointSchedule.Parse,
@@ -685,7 +685,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                       ChargePointInfoXML.MapValueOrNullable   (OCHPNS.Default + "restriction",
                                                                                OCHPNS.Default + "RestrictionTypes",
-                                                                               ObjectMapper.AsRestrictionType),
+                                                                               XML_IO.AsRestrictionType),
 
                                       ChargePointInfoXML.MapElement           (OCHPNS.Default + "ratings",
                                                                                Ratings.Parse),
@@ -811,7 +811,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        : null,
 
                    new XElement(OCHPNS.Default + "location",
-                       new XElement(OCHPNS.Default + "GeneralLocationType", ObjectMapper.AsText(Location))
+                       new XElement(OCHPNS.Default + "GeneralLocationType", XML_IO.AsText(Location))
                    ),
 
                    ParkingSpots != null
@@ -832,7 +832,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                    Connectors.SafeSelect(connector => connector.ToXML(OCHPNS.Default + "connectors")),
 
-                   new XElement(OCHPNS.Default + "chargePointType", ObjectMapper.AsText(ChargePointType)),
+                   new XElement(OCHPNS.Default + "chargePointType", XML_IO.AsText(ChargePointType)),
 
                    Ratings != null
                        ? Ratings.ToXML()

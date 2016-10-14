@@ -157,11 +157,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                     ConnectorTypeXML.MapValueOrFail   (OCHPNS.Default + "connectorStandard",
                                                                        OCHPNS.Default + "ConnectorStandard",
-                                                                       ObjectMapper.AsConnectorStandard),
+                                                                       XML_IO.AsConnectorStandard),
 
                                     ConnectorTypeXML.MapValueOrFail   (OCHPNS.Default + "connectorFormat",
                                                                        OCHPNS.Default + "ConnectorFormat",
-                                                                       ObjectMapper.AsConnectorFormat),
+                                                                       XML_IO.AsConnectorFormat),
 
                                     ConnectorTypeXML.MapValueOrDefault(OCHPNS.Default + "tariffId",
                                                                        Tariff_Id.Parse)
@@ -231,11 +231,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => new XElement(XName ?? OCHPNS.Default + "connector",
 
                    new XElement(OCHPNS.Default + "connectorStandard",
-                       new XElement(OCHPNS.Default + "ConnectorStandard",  ObjectMapper.AsText(Standard))
+                       new XElement(OCHPNS.Default + "ConnectorStandard",  XML_IO.AsText(Standard))
                    ),
 
                    new XElement(OCHPNS.Default + "connectorFormat",
-                       new XElement(OCHPNS.Default + "ConnectorFormat",    ObjectMapper.AsText(Format))
+                       new XElement(OCHPNS.Default + "ConnectorFormat",    XML_IO.AsText(Format))
                    ),
 
                    TariffId != null

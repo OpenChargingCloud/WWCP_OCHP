@@ -220,7 +220,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                              DirectResultXML.MapValueOrFail    (OCHPNS.Default + "resultCode",
                                                                 OCHPNS.Default + "resultCode",
-                                                                ObjectMapper.AsDirectResultCode),
+                                                                XML_IO.AsDirectResultCode),
 
                              DirectResultXML.ElementValueOrFail(OCHPNS.Default + "resultDescription")
 

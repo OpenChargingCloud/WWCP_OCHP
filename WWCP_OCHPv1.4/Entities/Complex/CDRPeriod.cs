@@ -208,7 +208,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                 CDRPeriodXML.MapValueOrFail    (OCHPNS.Default + "billingItem",
                                                                 OCHPNS.Default + "BillingItemType",
-                                                                ObjectMapper.AsBillingItem),
+                                                                XML_IO.AsBillingItem),
 
                                 CDRPeriodXML.MapValueOrFail    (OCHPNS.Default + "billingValue",
                                                                 Single.Parse),
@@ -295,7 +295,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ),
 
                    new XElement(OCHPNS.Default + "billingItem",
-                       new XElement(OCHPNS.Default + "BillingItemType",   ObjectMapper.AsText(BillingItem))
+                       new XElement(OCHPNS.Default + "BillingItemType",   XML_IO.AsText(BillingItem))
                    ),
 
                    new XElement(OCHPNS.Default + "billingValue",          BillingValue),

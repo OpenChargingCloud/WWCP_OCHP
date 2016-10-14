@@ -131,7 +131,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ? Enum.GetValues(typeof(RestrictionTypes)).
                           Cast<RestrictionTypes>().
                           Where (restriction => ParkingRestrictions.Value.HasFlag(restriction)).
-                          Select(restriction => ObjectMapper.AsText(restriction))
+                          Select(restriction => XML_IO.AsText(restriction))
 
                    : new String[0];
 
@@ -227,7 +227,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                       ParkingSpotInfoXML.MapEnumValues        (OCHPNS.Default + "restriction",
                                                                                OCHPNS.Default + "RestrictionType",
-                                                                               ObjectMapper.AsRestrictionType),
+                                                                               XML_IO.AsRestrictionType),
 
                                       ParkingSpotInfoXML.ElementValueOrDefault(OCHPNS.Default + "floorLevel"),
 

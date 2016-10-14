@@ -181,13 +181,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                             EMTIdXML.ElementValueOrFail     (OCHPNS.Default + "instance"),
 
                             EMTIdXML.MapAttributeValueOrFail(OCHPNS.Default + "representation",
-                                                             ObjectMapper.AsTokenRepresentation),
+                                                             XML_IO.AsTokenRepresentation),
 
                             EMTIdXML.MapValueOrFail         (OCHPNS.Default + "tokenType",
-                                                             ObjectMapper.AsTokenType),
+                                                             XML_IO.AsTokenType),
 
                             EMTIdXML.MapValueOrNullable     (OCHPNS.Default + "tokenSubType",
-                                                             ObjectMapper.AsTokenSubType)
+                                                             XML_IO.AsTokenSubType)
 
                         );
 
@@ -253,10 +253,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "emtId",
 
-                   new XAttribute(OCHPNS.Default + "representation",    ObjectMapper.AsText(Representation)),
+                   new XAttribute(OCHPNS.Default + "representation",    XML_IO.AsText(Representation)),
 
                    new XElement  (OCHPNS.Default + "instance",          Instance),
-                   new XElement  (OCHPNS.Default + "tokenType",         ObjectMapper.AsText(Type)),
+                   new XElement  (OCHPNS.Default + "tokenType",         XML_IO.AsText(Type)),
 
                    SubType.HasValue
                        ? new XElement(OCHPNS.Default + "tokenSubType",  SubType.Value)

@@ -154,7 +154,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                         PriceComponentXML.MapValueOrFail    (OCHPNS.Default + "billingItem",
                                                                              OCHPNS.Default + "BillingItemType",
-                                                                             ObjectMapper.AsBillingItem),
+                                                                             XML_IO.AsBillingItem),
 
                                         PriceComponentXML.MapValueOrFail    (OCHPNS.Default + "itemPrice",
                                                                              Single.Parse),
@@ -226,7 +226,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => new XElement(OCHPNS.Default + "priceComponent",
 
                    new XElement(OCHPNS.Default + "billingItem",
-                       new XElement(OCHPNS.Default + "BillingItemType",  ObjectMapper.AsText(BillingItem))),
+                       new XElement(OCHPNS.Default + "BillingItemType",  XML_IO.AsText(BillingItem))),
 
                    new XElement(OCHPNS.Default + "itemPrice",            ItemPrice),
                    new XElement(OCHPNS.Default + "stepSize",             StepSize)

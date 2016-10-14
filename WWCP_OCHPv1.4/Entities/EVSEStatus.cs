@@ -168,10 +168,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                            EVSE_Id.Parse),
 
                                  EVSEStatusXML.MapAttributeValueOrFail    (OCHPNS.Default + "major",
-                                                                           ObjectMapper.AsEVSEMajorStatusType),
+                                                                           XML_IO.AsEVSEMajorStatusType),
 
                                  EVSEStatusXML.MapAttributeValueOrNullable(OCHPNS.Default + "minor",
-                                                                           ObjectMapper.AsEVSEMinorStatusType),
+                                                                           XML_IO.AsEVSEMinorStatusType),
 
                                  EVSEStatusXML.MapAttributeValueOrNullable(OCHPNS.Default + "ttl",
                                                                            DateTime.Parse)
@@ -240,10 +240,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "evse",
 
-                   new XAttribute(OCHPNS.Default + "major",         ObjectMapper.AsText(MajorStatus)),
+                   new XAttribute(OCHPNS.Default + "major",         XML_IO.AsText(MajorStatus)),
 
                    MinorStatus.HasValue
-                       ? new XAttribute(OCHPNS.Default + "minor",   ObjectMapper.AsText(MajorStatus))
+                       ? new XAttribute(OCHPNS.Default + "minor",   XML_IO.AsText(MajorStatus))
                        : null,
 
                    TTL.HasValue
