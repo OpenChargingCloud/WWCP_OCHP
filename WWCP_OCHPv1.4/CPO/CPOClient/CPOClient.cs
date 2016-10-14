@@ -414,12 +414,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region SetChargePointList(ChargePointInfos, ...)
+        #region SetChargePointList   (ChargePointInfos, IncludeChargePoints = null, ...)
 
         /// <summary>
-        /// Upload the given enumeration of charge point infos.
+        /// Upload the given enumeration of charge points.
         /// </summary>
-        /// <param name="ChargePointInfos">An enumeration of charge point infos.</param>
+        /// <param name="ChargePointInfos">An enumeration of charge points.</param>
+        /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -428,11 +429,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public async Task<HTTPResponse<SetChargePointListResponse>>
 
             SetChargePointList(IEnumerable<ChargePointInfo>  ChargePointInfos,
+                               IncludeChargePointsDelegate   IncludeChargePoints  = null,
 
-                               DateTime?                     Timestamp          = null,
-                               CancellationToken?            CancellationToken  = null,
-                               EventTracking_Id              EventTrackingId    = null,
-                               TimeSpan?                     RequestTimeout     = null)
+                               DateTime?                     Timestamp            = null,
+                               CancellationToken?            CancellationToken    = null,
+                               EventTracking_Id              EventTrackingId      = null,
+                               TimeSpan?                     RequestTimeout       = null)
 
         {
 
@@ -440,6 +442,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (ChargePointInfos == null)
                 throw new ArgumentNullException(nameof(ChargePointInfos),  "The given enumeration of charge point infos must not be null!");
+
+            if (IncludeChargePoints == null)
+                IncludeChargePoints = chargepoint => true;
 
 
             if (!Timestamp.HasValue)
@@ -458,7 +463,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Get effective number of charge point infos to upload
 
-            var NumberOfChargePoints = ChargePointInfos.Count();
+            var NumberOfChargePoints = ChargePointInfos.Count(chargepoint => IncludeChargePoints(chargepoint));
 
             HTTPResponse<SetChargePointListResponse> result = null;
 
@@ -500,7 +505,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                         DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(CPOClientXMLMethods.SetChargePointListRequestXML(ChargePointInfos),
+                    result = await _OCHPClient.Query(CPOClientXMLMethods.SetChargePointListRequestXML(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint))),
                                                      "SetChargePointListRequest",
                                                      RequestLogDelegate:   OnSetChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
@@ -611,12 +616,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region UpdateChargePointList(ChargePointInfos, ...)
+        #region UpdateChargePointList(ChargePointInfos, IncludeChargePoints = null, ...)
 
         /// <summary>
-        /// Upload the given enumeration of charge point info updates.
+        /// Upload the given enumeration of updated charge points.
         /// </summary>
-        /// <param name="ChargePointInfos">An enumeration of charge point info updates.</param>
+        /// <param name="ChargePointInfos">An enumeration of updated charge points.</param>
+        /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -625,11 +631,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public async Task<HTTPResponse<UpdateChargePointListResponse>>
 
             UpdateChargePointList(IEnumerable<ChargePointInfo>  ChargePointInfos,
+                                  IncludeChargePointsDelegate   IncludeChargePoints  = null,
 
-                                  DateTime?                     Timestamp          = null,
-                                  CancellationToken?            CancellationToken  = null,
-                                  EventTracking_Id              EventTrackingId    = null,
-                                  TimeSpan?                     RequestTimeout     = null)
+                                  DateTime?                     Timestamp            = null,
+                                  CancellationToken?            CancellationToken    = null,
+                                  EventTracking_Id              EventTrackingId      = null,
+                                  TimeSpan?                     RequestTimeout       = null)
 
         {
 
@@ -637,6 +644,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (ChargePointInfos == null)
                 throw new ArgumentNullException(nameof(ChargePointInfos),  "The given enumeration of charge point info updates must not be null!");
+
+            if (IncludeChargePoints == null)
+                IncludeChargePoints = chargepoint => true;
 
 
             if (!Timestamp.HasValue)
@@ -655,7 +665,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Get effective number of charge point infos to upload
 
-            var NumberOfChargePoints = ChargePointInfos.Count();
+            var NumberOfChargePoints = ChargePointInfos.Count(chargepoint => IncludeChargePoints(chargepoint));
 
             HTTPResponse<UpdateChargePointListResponse> result = null;
 
@@ -697,7 +707,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                         DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(CPOClientXMLMethods.UpdateChargePointListRequestXML(ChargePointInfos),
+                    result = await _OCHPClient.Query(CPOClientXMLMethods.UpdateChargePointListRequestXML(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint))),
                                                      "UpdateChargePointListRequest",
                                                      RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
@@ -808,13 +818,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region UpdateStatusRequest(EVSEStatus, ParkingStatus = null, DefaultTTL = null, ...)
+        #region UpdateStatusRequest(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, ...)
 
         /// <summary>
-        /// Upload the given enumeration of charge detail records.
+        /// Upload the given enumeration of EVSE and/or parking status.
         /// </summary>
-        /// <param name="EVSEStatus">An enumeration of EVSE status.</param>
-        /// <param name="ParkingStatus">An enumeration of parking status.</param>
+        /// <param name="EVSEStatus">An optional enumeration of EVSE status.</param>
+        /// <param name="ParkingStatus">An optional enumeration of parking status.</param>
         /// <param name="DefaultTTL">The default time to live for these status.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
@@ -1357,7 +1367,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region GetRoamingAuthorisationListUpdatesRequest(...)
+        #region GetRoamingAuthorisationListUpdatesRequest(LastUpdate, ...)
 
         /// <summary>
         /// Get the entire current version of the roaming authorisation list.
@@ -1538,7 +1548,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region AddCDRsRequest(...)
+        #region AddCDRsRequest(CDRInfos, ...)
 
         /// <summary>
         /// Upload the given enumeration of charge detail records.
@@ -1903,7 +1913,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region UpdateTariffsRequest(...)
+        #region UpdateTariffsRequest(TariffInfos, ...)
 
         /// <summary>
         /// Upload the given enumeration of tariff infos.

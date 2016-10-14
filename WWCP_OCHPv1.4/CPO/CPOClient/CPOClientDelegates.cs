@@ -28,7 +28,12 @@ using org.GraphDefined.Vanaheimr.Illias;
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
+    /// <summary>
+    /// A delegate for filtering charge points.
+    /// </summary>
+    /// <param name="ChargePointInfo">A charge point.</param>
     public delegate Boolean IncludeChargePointsDelegate(ChargePointInfo  ChargePointInfo);
+
 
     #region On(Set|Update)ChargePointList
 
