@@ -246,7 +246,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region GetCDRsXML(CDRStatus = null)
 
         /// <summary>
-        /// Create an OCHP get charge detail records XML/SOAP request.
+        /// Create an OCHP GetCDRs XML/SOAP request.
         /// </summary>
         /// <param name="CDRStatus">The status of the requested charge detail records.</param>
         public static XElement GetCDRsXML(CDRStatus? CDRStatus = null)
@@ -277,6 +277,57 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                           ? new XElement(OCHPNS.Default + "cdrStatus",
                                                 new XElement(OCHPNS.Default + "CdrStatusType", ObjectMapper.AsText(CDRStatus.Value))
                                             )
+                                          : null
+
+                                 ));
+
+        #endregion
+
+        #region ConfirmCDRsXML(Approved = null, Declined = null)
+
+        /// <summary>
+        /// Create an OCHP ConfirmCDRs XML/SOAP request.
+        /// </summary>
+        /// <param name="Approved">An enumeration of approved charge detail records.</param>
+        /// <param name="Declined">An enumeration of declined charge detail records.</param>
+        public static XElement ConfirmCDRsXML(IEnumerable<EVSECDRPair>  Approved = null,
+                                              IEnumerable<EVSECDRPair>  Declined = null)
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //      <OCHP:ConfirmCDRsRequest>
+            //
+            //         <!--Zero or more repetitions:-->
+            //         <ns:approved>
+            //            <ns:cdrId>?</ns:cdrId>
+            //            <ns:evseId>?</ns:evseId>
+            //         </ns:approved>
+            //
+            //         <!--Zero or more repetitions:-->
+            //         <ns:declined>
+            //            <ns:cdrId>?</ns:cdrId>
+            //            <ns:evseId>?</ns:evseId>
+            //         </ns:declined>
+            //
+            //      </OCHP:ConfirmCDRsRequest>
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            => SOAP.Encapsulation(new XElement(OCHPNS.Default + "ConfirmCDRsRequest",
+
+                                      Approved != null
+                                          ? Approved.SafeSelect(pair => pair.ToXML(OCHPNS.Default + "approved"))
+                                          : null,
+
+                                      Declined != null
+                                          ? Declined.SafeSelect(pair => pair.ToXML(OCHPNS.Default + "declined"))
                                           : null
 
                                  ));

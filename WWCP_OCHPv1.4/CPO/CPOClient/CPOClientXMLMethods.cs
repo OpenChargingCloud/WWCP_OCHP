@@ -348,6 +348,46 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region CheckCDRsXML(CDRStatus = null)
+
+        /// <summary>
+        /// Create an OCHP CheckCDRs XML/SOAP request.
+        /// </summary>
+        /// <param name="CDRStatus">The status of the requested charge detail records.</param>
+        public static XElement CheckCDRsXML(CDRStatus? CDRStatus = null)
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //      <OCHP:CheckCDRsRequest>
+            //
+            //         <!--Optional:-->
+            //         <OCHP:cdrStatus>
+            //            <OCHP:CdrStatusType>?</OCHP:CdrStatusType>
+            //         </OCHP:cdrStatus>
+            //
+            //      </OCHP:CheckCDRsRequest>
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            => SOAP.Encapsulation(new XElement(OCHPNS.Default + "CheckCDRsRequest",
+
+                                      CDRStatus.HasValue
+                                          ? new XElement(OCHPNS.Default + "cdrStatus",
+                                                new XElement(OCHPNS.Default + "CdrStatusType", ObjectMapper.AsText(CDRStatus.Value))
+                                            )
+                                          : null
+
+                                 ));
+
+        #endregion
+
 
         #region UpdateTariffsXML(CDRInfos)
 

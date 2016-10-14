@@ -200,31 +200,57 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     #endregion
 
 
-    #region OnAddCDRs
+    #region On(Add|Check)CDRs
 
     /// <summary>
     /// A delegate called whenever charge detail records will be send upstream.
     /// </summary>
-    public delegate Task OnAddCDRsRequestDelegate (DateTime               LogTimestamp,
-                                                   DateTime               RequestTimestamp,
-                                                   CPOClient              Sender,
-                                                   String                 SenderId,
-                                                   EventTracking_Id       EventTrackingId,
-                                                   IEnumerable<CDRInfo>   CDRInfos,
-                                                   TimeSpan?              RequestTimeout);
+    public delegate Task OnAddCDRsRequestDelegate   (DateTime               LogTimestamp,
+                                                     DateTime               RequestTimestamp,
+                                                     CPOClient              Sender,
+                                                     String                 SenderId,
+                                                     EventTracking_Id       EventTrackingId,
+                                                     IEnumerable<CDRInfo>   CDRInfos,
+                                                     TimeSpan?              RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending charge detail records upstream had been received.
     /// </summary>
-    public delegate Task OnAddCDRsResponseDelegate(DateTime               LogTimestamp,
-                                                   DateTime               RequestTimestamp,
-                                                   CPOClient              Sender,
-                                                   String                 SenderId,
-                                                   EventTracking_Id       EventTrackingId,
-                                                   IEnumerable<CDRInfo>   CDRInfos,
-                                                   TimeSpan?              RequestTimeout,
-                                                   AddCDRsResponse        Result,
-                                                   TimeSpan               Duration);
+    public delegate Task OnAddCDRsResponseDelegate  (DateTime               LogTimestamp,
+                                                     DateTime               RequestTimestamp,
+                                                     CPOClient              Sender,
+                                                     String                 SenderId,
+                                                     EventTracking_Id       EventTrackingId,
+                                                     IEnumerable<CDRInfo>   CDRInfos,
+                                                     TimeSpan?              RequestTimeout,
+                                                     AddCDRsResponse        Result,
+                                                     TimeSpan               Duration);
+
+
+
+    /// <summary>
+    /// A delegate called whenever a check charge detail records request will be send upstream.
+    /// </summary>
+    public delegate Task OnCheckCDRsRequestDelegate (DateTime               LogTimestamp,
+                                                     DateTime               RequestTimestamp,
+                                                     CPOClient              Sender,
+                                                     String                 SenderId,
+                                                     EventTracking_Id       EventTrackingId,
+                                                     CDRStatus?             CDRStatus,
+                                                     TimeSpan?              RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a check charge detail records request upstream had been received.
+    /// </summary>
+    public delegate Task OnCheckCDRsResponseDelegate(DateTime               LogTimestamp,
+                                                     DateTime               RequestTimestamp,
+                                                     CPOClient              Sender,
+                                                     String                 SenderId,
+                                                     EventTracking_Id       EventTrackingId,
+                                                     CDRStatus?             CDRStatus,
+                                                     TimeSpan?              RequestTimeout,
+                                                     CheckCDRsResponse      Result,
+                                                     TimeSpan               Duration);
 
     #endregion
 

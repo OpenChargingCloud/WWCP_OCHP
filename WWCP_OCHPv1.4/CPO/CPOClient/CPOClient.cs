@@ -241,6 +241,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region OnCheckCDRsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for checking charge detail records will be send.
+        /// </summary>
+        public event OnCheckCDRsRequestDelegate   OnCheckCDRsRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for checking charge detail records will be send.
+        /// </summary>
+        public event ClientRequestLogHandler      OnCheckCDRsSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a response to a check charge detail records SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler     OnCheckCDRsSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response to a check charge detail records request had been received.
+        /// </summary>
+        public event OnCheckCDRsResponseDelegate  OnCheckCDRsResponse;
+
+        #endregion
+
 
         #region OnUpdateTariffsRequest/-Response
 
@@ -867,8 +891,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                                      ParkingStatus,
                                                                                      DefaultTTL),
                                                  "UpdateStatusRequest",
-                                                 RequestLogDelegate:   OnAddCDRsSOAPRequest,
-                                                 ResponseLogDelegate:  OnAddCDRsSOAPResponse,
+                                                 RequestLogDelegate:   OnUpdateStatusSOAPRequest,
+                                                 ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
                                                  QueryTimeout:         RequestTimeout,
@@ -1687,6 +1711,186 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
                 e.Log(nameof(CPOClient) + "." + nameof(OnAddCDRsResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region CheckCDRsRequest(CDRStatus = null, ...)
+
+        /// <summary>
+        /// Check charge detail records having the given optional status.
+        /// </summary>
+        /// <param name="CDRStatus">The status of the requested charge detail records.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<CheckCDRsResponse>>
+
+            CheckCDRsRequest(CDRStatus?            CDRStatus          = null,
+
+                             DateTime?             Timestamp          = null,
+                             CancellationToken?    CancellationToken  = null,
+                             EventTracking_Id      EventTrackingId    = null,
+                             TimeSpan?             RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<CheckCDRsResponse> result = null;
+
+            #endregion
+
+            #region Send OnCheckCDRsRequest event
+
+            try
+            {
+
+                OnCheckCDRsRequest?.Invoke(DateTime.Now,
+                                           Timestamp.Value,
+                                           this,
+                                           ClientId,
+                                           EventTrackingId,
+                                           CDRStatus,
+                                           RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnCheckCDRsRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(CPOClientXMLMethods.CheckCDRsXML(CDRStatus),
+                                                 "CheckCDRsRequest",
+                                                 RequestLogDelegate:   OnCheckCDRsSOAPRequest,
+                                                 ResponseLogDelegate:  OnCheckCDRsSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(CheckCDRsResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<CheckCDRsResponse>(httpresponse,
+                                                                                                new CheckCDRsResponse(
+                                                                                                    Result.Format(
+                                                                                                        "Invalid SOAP => " +
+                                                                                                        httpresponse.HTTPBody.ToUTF8String()
+                                                                                                    )
+                                                                                                ),
+                                                                                                IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<CheckCDRsResponse>(httpresponse,
+                                                                                                new CheckCDRsResponse(
+                                                                                                    Result.Server(
+                                                                                                         httpresponse.HTTPStatusCode.ToString() +
+                                                                                                         " => " +
+                                                                                                         httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                    )
+                                                                                                ),
+                                                                                                IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<CheckCDRsResponse>.ExceptionThrown(new CheckCDRsResponse(
+                                                                                                                Result.Format(exception.Message +
+                                                                                                                              " => " +
+                                                                                                                              exception.StackTrace)),
+                                                                                                            exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<CheckCDRsResponse>.OK(new CheckCDRsResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnCheckCDRsResponse event
+
+            try
+            {
+
+                OnCheckCDRsResponse?.Invoke(DateTime.Now,
+                                            Timestamp.Value,
+                                            this,
+                                            ClientId,
+                                            EventTrackingId,
+                                            CDRStatus,
+                                            RequestTimeout,
+                                            result.Content,
+                                            DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnCheckCDRsResponse));
             }
 
             #endregion

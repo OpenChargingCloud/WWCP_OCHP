@@ -213,6 +213,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region OnConfirmCDRsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a charge detail record confirmation request will be send.
+        /// </summary>
+        public event OnConfirmCDRsRequestDelegate   OnConfirmCDRsRequest;
+
+        /// <summary>
+        /// An event fired whenever a charge detail record confirmation SOAP request will be send.
+        /// </summary>
+        public event ClientRequestLogHandler        OnConfirmCDRsSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a charge detail record confirmation SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler       OnConfirmCDRsSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for a charge detail record confirmation request had been received.
+        /// </summary>
+        public event OnConfirmCDRsResponseDelegate  OnConfirmCDRsResponse;
+
+        #endregion
+
 
         #region OnGetTariffUpdatesRequest/-Response
 
@@ -1268,7 +1292,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region AddCDRsRequest(CDRStatus = null, ...)
+        #region GetCDRsRequest(CDRStatus = null, ...)
 
         /// <summary>
         /// Download charge detail records having the given optional status.
@@ -1281,7 +1305,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetCDRsResponse>>
 
-            AddCDRsRequest(CDRStatus?            CDRStatus          = null,
+            GetCDRsRequest(CDRStatus?            CDRStatus          = null,
 
                            DateTime?             Timestamp          = null,
                            CancellationToken?    CancellationToken  = null,
@@ -1342,7 +1366,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             {
 
                 result = await _OCHPClient.Query(EMPClientXMLMethods.GetCDRsXML(CDRStatus),
-                                                 "AddCDRsRequest",
+                                                 "GetCDRsRequest",
                                                  RequestLogDelegate:   OnGetCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnGetCDRsSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -1418,7 +1442,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 result = HTTPResponse<GetCDRsResponse>.OK(new GetCDRsResponse(Result.OK("Nothing to upload!")));
 
 
-            #region Send OnAddCDRsResponse event
+            #region Send OnGetCDRsResponse event
 
             try
             {
@@ -1437,6 +1461,195 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
                 e.Log(nameof(CPOClient) + "." + nameof(OnGetCDRsResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region ConfirmCDRsRequest(CDRStatus = null, ...)
+
+        /// <summary>
+        /// Approve or decline charge detail records.
+        /// </summary>
+        /// <param name="Approved">An enumeration of approved charge detail records.</param>
+        /// <param name="Declined">An enumeration of declined charge detail records.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<ConfirmCDRsResponse>>
+
+            ConfirmCDRsRequest(IEnumerable<EVSECDRPair>  Approved           = null,
+                               IEnumerable<EVSECDRPair>  Declined           = null,
+
+                               DateTime?                 Timestamp          = null,
+                               CancellationToken?        CancellationToken  = null,
+                               EventTracking_Id          EventTrackingId    = null,
+                               TimeSpan?                 RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (Approved == null && Declined == null)
+                throw new ArgumentNullException(nameof(Approved) + " & " + nameof(Declined),  "At least one of the two enumerations of charge detail records must not be null!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<ConfirmCDRsResponse> result = null;
+
+            #endregion
+
+            #region Send OnConfirmCDRsRequest event
+
+            try
+            {
+
+                OnConfirmCDRsRequest?.Invoke(DateTime.Now,
+                                             Timestamp.Value,
+                                             this,
+                                             ClientId,
+                                             EventTrackingId,
+                                             Approved,
+                                             Declined,
+                                             RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnConfirmCDRsRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(EMPClientXMLMethods.ConfirmCDRsXML(Approved,
+                                                                                    Declined),
+                                                 "ConfirmCDRsRequest",
+                                                 RequestLogDelegate:   OnConfirmCDRsSOAPRequest,
+                                                 ResponseLogDelegate:  OnConfirmCDRsSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(ConfirmCDRsResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<ConfirmCDRsResponse>(httpresponse,
+                                                                                                  new ConfirmCDRsResponse(
+                                                                                                      Result.Format(
+                                                                                                          "Invalid SOAP => " +
+                                                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                                                      )
+                                                                                                  ),
+                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<ConfirmCDRsResponse>(httpresponse,
+                                                                                                  new ConfirmCDRsResponse(
+                                                                                                      Result.Server(
+                                                                                                           httpresponse.HTTPStatusCode.ToString() +
+                                                                                                           " => " +
+                                                                                                           httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                      )
+                                                                                                  ),
+                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<ConfirmCDRsResponse>.ExceptionThrown(new ConfirmCDRsResponse(
+                                                                                                                  Result.Format(exception.Message +
+                                                                                                                                " => " +
+                                                                                                                                exception.StackTrace)),
+                                                                                                              exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<ConfirmCDRsResponse>.OK(new ConfirmCDRsResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnConfirmCDRsResponse event
+
+            try
+            {
+
+                OnConfirmCDRsResponse?.Invoke(DateTime.Now,
+                                              Timestamp.Value,
+                                              this,
+                                              ClientId,
+                                              EventTrackingId,
+                                              Approved,
+                                              Declined,
+                                              RequestTimeout,
+                                              result.Content,
+                                              DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnConfirmCDRsResponse));
             }
 
             #endregion

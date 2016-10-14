@@ -163,31 +163,58 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
     #endregion
 
-    #region OnGetCDRs
+    #region On(Get|Confirm)CDRs
 
     /// <summary>
     /// A delegate called whenever a get charge detail records request will be send upstream.
     /// </summary>
-    public delegate Task OnGetCDRsRequestDelegate (DateTime               LogTimestamp,
-                                                   DateTime               RequestTimestamp,
-                                                   EMPClient              Sender,
-                                                   String                 SenderId,
-                                                   EventTracking_Id       EventTrackingId,
-                                                   CDRStatus?             CDRStatus,
-                                                   TimeSpan?              RequestTimeout);
+    public delegate Task OnGetCDRsRequestDelegate     (DateTime               LogTimestamp,
+                                                       DateTime               RequestTimestamp,
+                                                       EMPClient              Sender,
+                                                       String                 SenderId,
+                                                       EventTracking_Id       EventTrackingId,
+                                                       CDRStatus?             CDRStatus,
+                                                       TimeSpan?              RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending a get charge detail records request upstream had been received.
     /// </summary>
-    public delegate Task OnGetCDRsResponseDelegate(DateTime               LogTimestamp,
-                                                   DateTime               RequestTimestamp,
-                                                   EMPClient              Sender,
-                                                   String                 SenderId,
-                                                   EventTracking_Id       EventTrackingId,
-                                                   CDRStatus?             CDRStatus,
-                                                   TimeSpan?              RequestTimeout,
-                                                   GetCDRsResponse        Result,
-                                                   TimeSpan               Duration);
+    public delegate Task OnGetCDRsResponseDelegate    (DateTime               LogTimestamp,
+                                                       DateTime               RequestTimestamp,
+                                                       EMPClient              Sender,
+                                                       String                 SenderId,
+                                                       EventTracking_Id       EventTrackingId,
+                                                       CDRStatus?             CDRStatus,
+                                                       TimeSpan?              RequestTimeout,
+                                                       GetCDRsResponse        Result,
+                                                       TimeSpan               Duration);
+
+
+    /// <summary>
+    /// A delegate called whenever a confirm charge detail records request will be send upstream.
+    /// </summary>
+    public delegate Task OnConfirmCDRsRequestDelegate (DateTime                   LogTimestamp,
+                                                       DateTime                   RequestTimestamp,
+                                                       EMPClient                  Sender,
+                                                       String                     SenderId,
+                                                       EventTracking_Id           EventTrackingId,
+                                                       IEnumerable<EVSECDRPair>   Approved,
+                                                       IEnumerable<EVSECDRPair>   Declined,
+                                                       TimeSpan?                  RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a confirm charge detail records request upstream had been received.
+    /// </summary>
+    public delegate Task OnConfirmCDRsResponseDelegate(DateTime                   LogTimestamp,
+                                                       DateTime                   RequestTimestamp,
+                                                       EMPClient                  Sender,
+                                                       String                     SenderId,
+                                                       EventTracking_Id           EventTrackingId,
+                                                       IEnumerable<EVSECDRPair>   Approved,
+                                                       IEnumerable<EVSECDRPair>   Declined,
+                                                       TimeSpan?                  RequestTimeout,
+                                                       ConfirmCDRsResponse        Result,
+                                                       TimeSpan                   Duration);
 
     #endregion
 
