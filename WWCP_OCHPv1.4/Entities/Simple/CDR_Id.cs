@@ -80,7 +80,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Generate a charge point identification based on the given string.
         /// </summary>
         private CDR_Id(ChargingStationOperator_Id  OperatorId,
-                        String                      IdSuffix)
+                       String                      IdSuffix)
         {
 
             #region Initial checks

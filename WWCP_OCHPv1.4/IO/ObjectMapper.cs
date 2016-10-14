@@ -1510,6 +1510,77 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsDirectResultCode(Text)
+
+        public static DirectResultCodes AsDirectResultCode(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "ok":
+                    return DirectResultCodes.OK;
+
+                case "partly":
+                    return DirectResultCodes.Partly;
+
+                case "not-found":
+                    return DirectResultCodes.NotFound;
+
+                case "not-supported":
+                    return DirectResultCodes.NotSupported;
+
+                case "invalid-id":
+                    return DirectResultCodes.InvalidId;
+
+                case "server":
+                    return DirectResultCodes.Server;
+
+                default:
+                    return DirectResultCodes.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this DirectResultCode)
+
+        public static String AsText(this DirectResultCodes  DirectResultCode)
+        {
+
+            switch (DirectResultCode)
+            {
+
+                case DirectResultCodes.OK:
+                    return "ok";
+
+                case DirectResultCodes.Partly:
+                    return "partly";
+
+                case DirectResultCodes.NotFound:
+                    return "not-found";
+
+                case DirectResultCodes.NotSupported:
+                    return "not-supported";
+
+                case DirectResultCodes.InvalidId:
+                    return "invalid-id";
+
+                case DirectResultCodes.Server:
+                    return "server";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
     }
 
 }

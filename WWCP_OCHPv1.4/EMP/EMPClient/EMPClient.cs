@@ -383,6 +383,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        // OCHP v1.4
+
         #region GetChargePointList(...)
 
         /// <summary>
@@ -1842,6 +1844,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+
+        // OHCPdirect v0.2
 
     }
 

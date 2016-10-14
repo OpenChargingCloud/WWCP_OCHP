@@ -28,9 +28,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// A generic OCHP result.
+    /// A generic OCHPdirect result.
     /// </summary>
-    public class Result
+    public class DirectResult
     {
 
         #region Properties
@@ -38,12 +38,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The machine-readable result code.
         /// </summary>
-        public ResultCodes  ResultCode     { get; }
+        public DirectResultCodes  DirectResultCode   { get; }
 
         /// <summary>
         /// A human-readable error description.
         /// </summary>
-        public String       Description    { get; }
+        public String             Description        { get; }
 
         #endregion
 
@@ -53,9 +53,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Unknowen result code.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static Result Unknown(String Description = null)
+        public static DirectResult Unknown(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new DirectResult(DirectResultCodes.Unknown,
                           Description);
 
 
@@ -63,9 +63,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Data accepted and processed.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static Result OK(String Description = null)
+        public static DirectResult OK(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new DirectResult(DirectResultCodes.Unknown,
                           Description);
 
 
@@ -73,9 +73,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Only part of the data was accepted.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static Result Partly(String Description = null)
+        public static DirectResult Partly(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new DirectResult(DirectResultCodes.Unknown,
                           Description);
 
 
@@ -83,9 +83,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Wrong username and/or password.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static Result NotAuthorized(String Description = null)
+        public static DirectResult NotAuthorized(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new DirectResult(DirectResultCodes.Unknown,
                           Description);
 
 
@@ -93,9 +93,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static Result InvalidId(String Description = null)
+        public static DirectResult InvalidId(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new DirectResult(DirectResultCodes.Unknown,
                           Description);
 
 
@@ -103,9 +103,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Internal server error.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static Result Server(String Description = null)
+        public static DirectResult Server(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new DirectResult(DirectResultCodes.Unknown,
                           Description);
 
 
@@ -113,9 +113,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Data has technical errors.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static Result Format(String Description = null)
+        public static DirectResult Format(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new DirectResult(DirectResultCodes.Unknown,
                           Description);
 
         #endregion
@@ -123,15 +123,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new generic OCHP result.
+        /// Create a new generic OCHPdirect result.
         /// </summary>
-        /// <param name="ResultCode">The machine-readable result code.</param>
+        /// <param name="DirectResultCode">The machine-readable result code.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public Result(ResultCodes  ResultCode,
-                      String       Description = null)
+        public DirectResult(DirectResultCodes  DirectResultCode,
+                            String             Description = null)
         {
 
-            this.ResultCode   = ResultCode;
+            this.DirectResultCode   = DirectResultCode;
 
             this.Description  = Description.IsNotNullOrEmpty()
                                     ? Description.Trim()
@@ -156,21 +156,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) Parse(ResultXML,  OnException = null)
+        #region (static) Parse(DirectResultXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP result.
+        /// Parse the given XML representation of an OCHPdirect result.
         /// </summary>
-        /// <param name="ResultXML">The XML to parse.</param>
+        /// <param name="DirectResultXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Result Parse(XElement             ResultXML,
-                                   OnExceptionDelegate  OnException = null)
+        public static DirectResult Parse(XElement             DirectResultXML,
+                                         OnExceptionDelegate  OnException = null)
         {
 
-            Result _Result;
+            DirectResult _DirectResult;
 
-            if (TryParse(ResultXML, out _Result, OnException))
-                return _Result;
+            if (TryParse(DirectResultXML, out _DirectResult, OnException))
+                return _DirectResult;
 
             return null;
 
@@ -178,21 +178,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) Parse(ResultText, OnException = null)
+        #region (static) Parse(DirectResultText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP result.
+        /// Parse the given text representation of an OCHPdirect result.
         /// </summary>
-        /// <param name="ResultText">The text to parse.</param>
+        /// <param name="DirectResultText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Result Parse(String               ResultText,
-                                   OnExceptionDelegate  OnException = null)
+        public static DirectResult Parse(String               DirectResultText,
+                                         OnExceptionDelegate  OnException = null)
         {
 
-            Result _Result;
+            DirectResult _DirectResult;
 
-            if (TryParse(ResultText, out _Result, OnException))
-                return _Result;
+            if (TryParse(DirectResultText, out _DirectResult, OnException))
+                return _DirectResult;
 
             return null;
 
@@ -200,29 +200,29 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) TryParse(ResultXML,  out Result, OnException = null)
+        #region (static) TryParse(DirectResultXML,  out DirectResult, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP result.
+        /// Try to parse the given XML representation of an OCHPdirect result.
         /// </summary>
-        /// <param name="ResultXML">The XML to parse.</param>
-        /// <param name="Result">The parsed result.</param>
+        /// <param name="DirectResultXML">The XML to parse.</param>
+        /// <param name="DirectResult">The parsed OCHPdirect result.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement             ResultXML,
-                                       out Result           Result,
+        public static Boolean TryParse(XElement             DirectResultXML,
+                                       out DirectResult     DirectResult,
                                        OnExceptionDelegate  OnException  = null)
         {
 
             try
             {
 
-                Result = new Result(
+                DirectResult = new DirectResult(
 
-                             ResultXML.MapValueOrFail    (OCHPNS.Default + "resultCode",
-                                                          OCHPNS.Default + "resultCode",
-                                                          ObjectMapper.AsResultCode),
+                             DirectResultXML.MapValueOrFail    (OCHPNS.Default + "resultCode",
+                                                                OCHPNS.Default + "resultCode",
+                                                                ObjectMapper.AsDirectResultCode),
 
-                             ResultXML.ElementValueOrFail(OCHPNS.Default + "resultDescription")
+                             DirectResultXML.ElementValueOrFail(OCHPNS.Default + "resultDescription")
 
                          );
 
@@ -232,9 +232,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ResultXML, e);
+                OnException?.Invoke(DateTime.Now, DirectResultXML, e);
 
-                Result = null;
+                DirectResult = null;
                 return false;
 
             }
@@ -243,24 +243,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) TryParse(ResultText, out Result, OnException = null)
+        #region (static) TryParse(DirectResultText, out DirectResult, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP result.
+        /// Try to parse the given text representation of an OCHPdirect result.
         /// </summary>
-        /// <param name="ResultText">The text to parse.</param>
-        /// <param name="Result">The parsed result.</param>
+        /// <param name="DirectResultText">The text to parse.</param>
+        /// <param name="DirectResult">The parsed OCHPdirect result.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String               ResultText,
-                                       out Result           Result,
+        public static Boolean TryParse(String               DirectResultText,
+                                       out DirectResult     DirectResult,
                                        OnExceptionDelegate  OnException  = null)
         {
 
             try
             {
 
-                if (TryParse(XDocument.Parse(ResultText).Root,
-                             out Result,
+                if (TryParse(XDocument.Parse(DirectResultText).Root,
+                             out DirectResult,
                              OnException))
 
                     return true;
@@ -268,10 +268,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ResultText, e);
+                OnException?.Invoke(DateTime.Now, DirectResultText, e);
             }
 
-            Result = null;
+            DirectResult = null;
             return false;
 
         }
@@ -288,7 +288,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => new XElement(OCHPNS.Default + "result",
 
                    new XElement(OCHPNS.Default + "resultCode",
-                       new XElement(OCHPNS.Default + "resultCode", ResultCode.ToString())
+                       new XElement(OCHPNS.Default + "resultCode", DirectResultCode.ToString())
                    ),
 
                    new XElement(OCHPNS.Default + "resultDescription", Description)
@@ -300,48 +300,48 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Operator overloading
 
-        #region Operator == (Result1, Result2)
+        #region Operator == (DirectResult1, DirectResult2)
 
         /// <summary>
         /// Compares two results for equality.
         /// </summary>
-        /// <param name="Result1">A result.</param>
-        /// <param name="Result2">Another result.</param>
+        /// <param name="DirectResult1">A result.</param>
+        /// <param name="DirectResult2">Another result.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (Result Result1, Result Result2)
+        public static Boolean operator == (DirectResult DirectResult1, DirectResult DirectResult2)
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(Result1, Result2))
+            if (Object.ReferenceEquals(DirectResult1, DirectResult2))
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) Result1 == null) || ((Object) Result2 == null))
+            if (((Object) DirectResult1 == null) || ((Object) DirectResult2 == null))
                 return false;
 
-            return Result1.Equals(Result2);
+            return DirectResult1.Equals(DirectResult2);
 
         }
 
         #endregion
 
-        #region Operator != (Result1, Result2)
+        #region Operator != (DirectResult1, DirectResult2)
 
         /// <summary>
         /// Compares two results for inequality.
         /// </summary>
-        /// <param name="Result1">A result.</param>
-        /// <param name="Result2">Another result.</param>
+        /// <param name="DirectResult1">A result.</param>
+        /// <param name="DirectResult2">Another result.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (Result Result1, Result Result2)
+        public static Boolean operator != (DirectResult DirectResult1, DirectResult DirectResult2)
 
-            => !(Result1 == Result2);
-
-        #endregion
+            => !(DirectResult1 == DirectResult2);
 
         #endregion
 
-        #region IEquatable<Result> Members
+        #endregion
+
+        #region IEquatable<DirectResult> Members
 
         #region Equals(Object)
 
@@ -357,31 +357,31 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a result.
-            var Result = Object as Result;
-            if ((Object) Result == null)
+            var DirectResult = Object as DirectResult;
+            if ((Object) DirectResult == null)
                 return false;
 
-            return this.Equals(Result);
+            return this.Equals(DirectResult);
 
         }
 
         #endregion
 
-        #region Equals(Result)
+        #region Equals(DirectResult)
 
         /// <summary>
         /// Compares two results for equality.
         /// </summary>
-        /// <param name="Result">An result to compare with.</param>
+        /// <param name="DirectResult">An result to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(Result Result)
+        public Boolean Equals(DirectResult DirectResult)
         {
 
-            if ((Object) Result == null)
+            if ((Object) DirectResult == null)
                 return false;
 
-            return this.ResultCode. Equals(Result.ResultCode) &&
-                   this.Description.Equals(Result.Description);
+            return this.DirectResultCode. Equals(DirectResult.DirectResultCode) &&
+                   this.Description.Equals(DirectResult.Description);
 
         }
 
@@ -400,7 +400,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             unchecked
             {
 
-                return ResultCode. GetHashCode() * 11 ^
+                return DirectResultCode. GetHashCode() * 11 ^
 
                        (Description != null
                             ? Description.GetHashCode()
@@ -418,7 +418,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => ResultCode + (Description.IsNotNullOrEmpty() ? " - " + Description : "");
+            => DirectResultCode + (Description.IsNotNullOrEmpty() ? " - " + Description : "");
 
         #endregion
 
