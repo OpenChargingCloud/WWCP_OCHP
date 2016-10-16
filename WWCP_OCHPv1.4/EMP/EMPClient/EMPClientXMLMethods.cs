@@ -434,69 +434,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region SelectEVSEXML(EVSEId, ContractId, ReserveUntil)
-
-        /// <summary>
-        /// Create an OCHP AddServiceEndpoints XML/SOAP request.
-        /// </summary>
-        /// <param name="EVSEId">The unique identification of an EVSE.</param>
-        /// <param name="ContractId">The unique identification of an e-mobility contract.</param>
-        /// <param name="ReserveUntil">An optional timestamp till when then given EVSE should be reserved.</param>
-        public static XElement SelectEVSEXML(EVSE_Id      EVSEId,
-                                             Contract_Id  ContractId,
-                                             DateTime?    ReserveUntil)
-        {
-
-            #region Documentation
-
-            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-            //
-            //    <soapenv:Header/>
-            //    <soapenv:Body>
-            //       <OCHP:SelectEvseRequest>
-            //
-            //          <OCHP:evseId>?</OCHP:evseId>
-            //          <OCHP:contractId>?</OCHP:contractId>
-            //
-            //          <!--Optional:-->
-            //          <OCHP:reserveUntil>
-            //             <OCHP:DateTime>?</OCHP:DateTime>
-            //          </OCHP:reserveUntil>
-            //
-            //       </OCHP:SelectEvseRequest>            //    </soapenv:Body>
-            // </soapenv:Envelope>
-
-            #endregion
-
-            #region Initial checks
-
-            if (EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),      "The given EVSE identification must not be null!");
-
-            if (ContractId == null)
-                throw new ArgumentNullException(nameof(ContractId),  "The given e-mobility contract identification must not be null!");
-
-            #endregion
-
-
-            return SOAP.Encapsulation(new XElement(OCHPNS.Default + "SelectEvseRequest",
-
-                                          new XElement(OCHPNS.Default + "evseId",      EVSEId.    ToString()),
-                                          new XElement(OCHPNS.Default + "contractId",  ContractId.ToString()),
-
-                                          ReserveUntil.HasValue
-                                              ? new XElement(OCHPNS.Default + "reserveUntil",
-                                                    new XElement(OCHPNS.Default + "DateTime",  ReserveUntil.Value.ToIso8601())
-                                                )
-                                              : null
-
-                                     ));
-
-        }
-
-        #endregion
-
 
     }
 

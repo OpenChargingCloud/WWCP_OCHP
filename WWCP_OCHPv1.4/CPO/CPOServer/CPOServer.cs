@@ -61,22 +61,41 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Events
 
-        #region OnRemoteReservationStart
+        #region OnSelectEVSERequest
 
         /// <summary>
-        /// An event sent whenever a remote reservation start command was received.
+        /// An event sent whenever a select EVSE HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                 OnLogRemoteReservationStart;
+        public event RequestLogHandler            OnSelectEVSEHTTPRequest;
 
         /// <summary>
-        /// An event sent whenever a remote reservation start response was sent.
+        /// An event sent whenever a select EVSE HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                  OnLogRemoteReservationStarted;
+        public event AccessLogHandler             OnSelectEVSEHTTPResponse;
 
         /// <summary>
-        /// An event sent whenever a remote reservation start command was received.
+        /// An event sent whenever a select EVSE request was received.
         /// </summary>
-        public event OnRemoteReservationStartDelegate  OnRemoteReservationStart;
+        public event OnSelectEVSERequestDelegate  OnSelectEVSERequest;
+
+        #endregion
+
+        #region OnReleaseEVSERequest
+
+        /// <summary>
+        /// An event sent whenever a release EVSE HTTP request was received.
+        /// </summary>
+        public event RequestLogHandler             OnReleaseEVSEHTTPRequest;
+
+        /// <summary>
+        /// An event sent whenever a release EVSE HTTP response was sent.
+        /// </summary>
+        public event AccessLogHandler              OnReleaseEVSEHTTPResponse;
+
+        /// <summary>
+        /// An event sent whenever a release EVSE request was received.
+        /// </summary>
+        public event OnReleaseEVSERequestDelegate  OnReleaseEVSERequest;
 
         #endregion
 
@@ -171,6 +190,248 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                          },
                                          AllowReplacement: URIReplacement.Allow);
+
+            #endregion
+
+
+            #region / - SelectEVSE
+
+            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+                                            URIPrefix + "/",
+                                            "SelectEvseRequest",
+                                            XML => XML.Descendants(OCHPNS.Default + "SelectEvseRequest").FirstOrDefault(),
+                                            async (Request, SelectEVSEXML) => {
+
+
+                    #region Documentation
+
+                    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+                    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+                    //
+                    //    <soapenv:Header/>
+                    //    <soapenv:Body>
+                    //       <OCHP:SelectEvseRequest>
+                    //
+                    //          <OCHP:evseId>?</OCHP:evseId>
+                    //          <OCHP:contractId>?</OCHP:contractId>
+                    //
+                    //          <!--Optional:-->
+                    //          <OCHP:reserveUntil>
+                    //             <OCHP:DateTime>?</OCHP:DateTime>
+                    //          </OCHP:reserveUntil>
+                    //
+                    //       </OCHP:SelectEvseRequest>                    //    </soapenv:Body>
+                    // </soapenv:Envelope>
+
+                    #endregion
+
+                    #region Send OnSelectEVSEHTTPRequest event
+
+                    try
+                    {
+
+                        OnSelectEVSEHTTPRequest?.Invoke(DateTime.Now,
+                                                        this.SOAPServer,
+                                                        Request);
+
+                    }
+                    catch (Exception e)
+                    {
+                        e.Log(nameof(CPOServer) + "." + nameof(OnSelectEVSEHTTPRequest));
+                    }
+
+                    #endregion
+
+
+                    var _SelectEVSERequest = OCHPv1_4.SelectEVSERequest.Parse(SelectEVSEXML);
+
+                    SelectEVSEResponse response            = null;
+
+
+                    #region Call async subscribers
+
+                    if (response == null)
+                    {
+
+                        var results = OnSelectEVSERequest?.
+                                          GetInvocationList()?.
+                                          SafeSelect(subscriber => (subscriber as OnSelectEVSERequestDelegate)
+                                              (DateTime.Now,
+                                               this,
+                                               Request.CancellationToken,
+                                               Request.EventTrackingId,
+                                               _SelectEVSERequest.EVSEId,
+                                               _SelectEVSERequest.ContractId,
+                                               _SelectEVSERequest.ReserveUntil,
+                                               DefaultQueryTimeout)).
+                                          ToArray();
+
+                        if (results.Length > 0)
+                        {
+
+                            await Task.WhenAll(results);
+
+                            response = results.FirstOrDefault()?.Result;
+
+                        }
+
+                        if (results.Length == 0 || response == null)
+                            response = SelectEVSEResponse.Server("Could not process the incoming SelectEVSE request!");
+
+                    }
+
+                    #endregion
+
+                    #region Create SOAPResponse
+
+                    var HTTPResponse = new HTTPResponseBuilder(Request) {
+                        HTTPStatusCode  = HTTPStatusCode.OK,
+                        Server          = SOAPServer.DefaultServerName,
+                        Date            = DateTime.Now,
+                        ContentType     = HTTPContentType.XMLTEXT_UTF8,
+                        Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
+                    };
+
+                    #endregion
+
+
+                    #region Send OnSelectEVSEHTTPResponse event
+
+                    try
+                    {
+
+                        OnSelectEVSEHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                                                         this.SOAPServer,
+                                                         Request,
+                                                         HTTPResponse);
+
+                    }
+                    catch (Exception e)
+                    {
+                        e.Log(nameof(CPOServer) + "." + nameof(OnSelectEVSEHTTPResponse));
+                    }
+
+                    #endregion
+
+                    return HTTPResponse;
+
+            });
+
+            #endregion
+
+            #region / - ReleaseEVSE
+
+            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+                                            URIPrefix + "/",
+                                            "ReleaseEvseRequest",
+                                            XML => XML.Descendants(OCHPNS.Default + "ReleaseEvseRequest").FirstOrDefault(),
+                                            async (Request, ReleaseEVSEXML) => {
+
+
+                    #region Documentation
+
+                    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+                    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+                    //
+                    //    <soapenv:Header/>
+                    //    <soapenv:Body>
+                    //       <OCHP:ReleaseEvseRequest>
+                    //
+                    //          <ns:directId>?</ns:directId>                    //
+                    //       </OCHP:ReleaseEvseRequest>                    //    </soapenv:Body>
+                    // </soapenv:Envelope>
+
+                    #endregion
+
+                    #region Send OnReleaseEVSEHTTPRequest event
+
+                    try
+                    {
+
+                        OnReleaseEVSEHTTPRequest?.Invoke(DateTime.Now,
+                                                         this.SOAPServer,
+                                                         Request);
+
+                    }
+                    catch (Exception e)
+                    {
+                        e.Log(nameof(CPOServer) + "." + nameof(OnReleaseEVSEHTTPRequest));
+                    }
+
+                    #endregion
+
+
+                    var _ReleaseEVSERequest = OCHPv1_4.ReleaseEVSERequest.Parse(ReleaseEVSEXML);
+
+                    ReleaseEVSEResponse response = null;
+
+
+                    #region Call async subscribers
+
+                    if (response == null)
+                    {
+
+                        var results = OnReleaseEVSERequest?.
+                                          GetInvocationList()?.
+                                          SafeSelect(subscriber => (subscriber as OnReleaseEVSERequestDelegate)
+                                              (DateTime.Now,
+                                               this,
+                                               Request.CancellationToken,
+                                               Request.EventTrackingId,
+                                               _ReleaseEVSERequest.DirectId,
+                                               DefaultQueryTimeout)).
+                                          ToArray();
+
+                        if (results.Length > 0)
+                        {
+
+                            await Task.WhenAll(results);
+
+                            response = results.FirstOrDefault()?.Result;
+
+                        }
+
+                        if (results.Length == 0 || response == null)
+                            response = ReleaseEVSEResponse.Server("Could not process the incoming ReleaseEVSE request!");
+
+                    }
+
+                    #endregion
+
+                    #region Create SOAPResponse
+
+                    var HTTPResponse = new HTTPResponseBuilder(Request) {
+                        HTTPStatusCode  = HTTPStatusCode.OK,
+                        Server          = SOAPServer.DefaultServerName,
+                        Date            = DateTime.Now,
+                        ContentType     = HTTPContentType.XMLTEXT_UTF8,
+                        Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
+                    };
+
+                    #endregion
+
+
+                    #region Send OnReleaseEVSEHTTPResponse event
+
+                    try
+                    {
+
+                        OnReleaseEVSEHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                                                          this.SOAPServer,
+                                                          Request,
+                                                          HTTPResponse);
+
+                    }
+                    catch (Exception e)
+                    {
+                        e.Log(nameof(CPOServer) + "." + nameof(OnReleaseEVSEHTTPResponse));
+                    }
+
+                    #endregion
+
+                    return HTTPResponse;
+
+            });
 
             #endregion
 

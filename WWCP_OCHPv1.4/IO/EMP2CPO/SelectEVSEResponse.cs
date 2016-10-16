@@ -18,15 +18,13 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
+namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
@@ -38,7 +36,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region Properties
 
         /// <summary>
-        /// The session identification for an direct charging process.
+        /// The session identification for a direct charging process.
         /// </summary>
         public Direct_Id  DirectId        { get; }
 
@@ -112,7 +110,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Create a new OCHP select EVSE response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
-        /// <param name="DirectId">The session identification for an direct charging process.</param>
+        /// <param name="DirectId">The session identification for a direct charging process.</param>
         /// <param name="ReservedUntil">An optional timestamp until when the given EVSE is reserved.</param>
         public SelectEVSEResponse(Result     Result,
                                   Direct_Id  DirectId       = null,
@@ -121,6 +119,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             : base(Result)
 
         {
+
+            #region Initial checks
+
+            if (ReservedUntil.HasValue && ReservedUntil.Value <= DateTime.Now)
+                throw new ArgumentException("The given reservation end time must be after than the current time!");
+
+            #endregion
 
             this.DirectId       = DirectId;
             this.ReservedUntil  = ReservedUntil ?? new DateTime?();

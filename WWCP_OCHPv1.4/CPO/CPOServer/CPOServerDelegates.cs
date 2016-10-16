@@ -29,111 +29,45 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
     /// <summary>
-    /// Initiate a remote start of the given charging session at the given EVSE
-    /// and for the given Provider/eMAId.
+    /// Initiate a select EVSE request at the given EVSE and for the given e-mobility contract.
     /// </summary>
     /// <param name="Timestamp">The timestamp of the request.</param>
     /// <param name="Sender">The sender of the request.</param>
     /// <param name="CancellationToken">A token to cancel this task.</param>
     /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
-    /// <param name="EVSEId">The unique identification of an EVSE.</param>
-    /// <param name="ChargingProductId">The unique identification of the choosen charging product at the given EVSE.</param>
-    /// <param name="SessionId">The unique identification of this charging session.</param>
-    /// <param name="PartnerSessionId">The unique identification of this charging session on the partner side.</param>
-    /// <param name="ProviderId">The unique identification of the e-mobility service provider for the case it is different from the current message sender.</param>
-    /// <param name="eMAId">The unique identification of the e-mobility account.</param>
+    /// <param name="EVSEId">The unique identification of the selected EVSE.</param>
+    /// <param name="ContractId">The unique identification of an e-mobility contract.</param>
+    /// <param name="ReserveUntil">An optional timestamp till when then given EVSE should be reserved.</param>
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
-    public delegate Task<Acknowledgement>
+    public delegate Task<SelectEVSEResponse>
 
-        OnRemoteReservationStartDelegate(DateTime              Timestamp,
-                                         CPOServer             Sender,
-                                         CancellationToken     CancellationToken,
-                                         EventTracking_Id      EventTrackingId,
-                                         EVSE_Id               EVSEId,
-                                         ChargingProduct_Id    ChargingProductId,
-                                         ChargingSession_Id    SessionId,
-                                         ChargingSession_Id    PartnerSessionId,
-                                         eMobilityProvider_Id  ProviderId,
-                                         eMobilityAccount_Id   eMAId,
-                                         TimeSpan?             RequestTimeout  = null);
+        OnSelectEVSERequestDelegate(DateTime             Timestamp,
+                                    CPOServer            Sender,
+                                    CancellationToken    CancellationToken,
+                                    EventTracking_Id     EventTrackingId,
+                                    EVSE_Id              EVSEId,
+                                    Contract_Id          ContractId,
+                                    DateTime?            ReserveUntil,
+                                    TimeSpan?            RequestTimeout  = null);
 
 
     /// <summary>
-    /// Initiate a remote stop of the given charging session at the given EVSE.
+    /// Initiate a release EVSE request for the given direct charging session identification.
     /// </summary>
     /// <param name="Timestamp">The timestamp of the request.</param>
     /// <param name="Sender">The sender of the request.</param>
     /// <param name="CancellationToken">A token to cancel this task.</param>
     /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
-    /// <param name="EVSEId">The unique identification of an EVSE.</param>
-    /// <param name="SessionId">The unique identification of this charging session.</param>
-    /// <param name="PartnerSessionId">The unique identification of this charging session on the partner side.</param>
-    /// <param name="ProviderId">The unique identification of the e-mobility service provider for the case it is different from the current message sender..</param>
+    /// <param name="DirectId">The session id referencing the direct charging process to be released.</param>
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
-    public delegate Task<Acknowledgement>
+    public delegate Task<ReleaseEVSEResponse>
 
-        OnRemoteReservationStopDelegate(DateTime              Timestamp,
-                                        CPOServer             Sender,
-                                        CancellationToken     CancellationToken,
-                                        EventTracking_Id      EventTrackingId,
-                                        EVSE_Id               EVSEId,
-                                        ChargingSession_Id    SessionId,
-                                        ChargingSession_Id    PartnerSessionId,
-                                        eMobilityProvider_Id  ProviderId      = null,
-                                        TimeSpan?             RequestTimeout  = null);
+        OnReleaseEVSERequestDelegate(DateTime            Timestamp,
+                                     CPOServer           Sender,
+                                     CancellationToken   CancellationToken,
+                                     EventTracking_Id    EventTrackingId,
+                                     Direct_Id           DirectId,
+                                     TimeSpan?           RequestTimeout  = null);
 
-    /// <summary>
-    /// Initiate a remote start of the given charging session at the given EVSE
-    /// and for the given Provider/eMAId.
-    /// </summary>
-    /// <param name="Timestamp">The timestamp of the request.</param>
-    /// <param name="Sender">The sender of the request.</param>
-    /// <param name="CancellationToken">A token to cancel this task.</param>
-    /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
-    /// <param name="EVSEId">The unique identification of an EVSE.</param>
-    /// <param name="ChargingProductId">The unique identification of the choosen charging product at the given EVSE.</param>
-    /// <param name="SessionId">The unique identification of this charging session.</param>
-    /// <param name="PartnerSessionId">The unique identification of this charging session on the partner side.</param>
-    /// <param name="ProviderId">The unique identification of the e-mobility service provider for the case it is different from the current message sender.</param>
-    /// <param name="eMAId">The unique identification of the e-mobility account.</param>
-    /// <param name="RequestTimeout">An optional timeout for this request.</param>
-    public delegate Task<Acknowledgement>
-
-        OnRemoteStartDelegate(DateTime              Timestamp,
-                              CPOServer             Sender,
-                              CancellationToken     CancellationToken,
-                              EventTracking_Id      EventTrackingId,
-                              EVSE_Id               EVSEId,
-                              ChargingProduct_Id    ChargingProductId,
-                              ChargingSession_Id    SessionId,
-                              ChargingSession_Id    PartnerSessionId,
-                              eMobilityProvider_Id  ProviderId,
-                              eMobilityAccount_Id   eMAId,
-                              TimeSpan?             RequestTimeout  = null);
-
-
-    /// <summary>
-    /// Initiate a remote stop of the given charging session at the given EVSE.
-    /// </summary>
-    /// <param name="Timestamp">The timestamp of the request.</param>
-    /// <param name="Sender">The sender of the request.</param>
-    /// <param name="CancellationToken">A token to cancel this task.</param>
-    /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
-    /// <param name="EVSEId">The unique identification of an EVSE.</param>
-    /// <param name="SessionId">The unique identification of this charging session.</param>
-    /// <param name="PartnerSessionId">The unique identification of this charging session on the partner side.</param>
-    /// <param name="ProviderId">The unique identification of the e-mobility service provider for the case it is different from the current message sender..</param>
-    /// <param name="RequestTimeout">An optional timeout for this request.</param>
-    public delegate Task<Acknowledgement>
-
-        OnRemoteStopDelegate(DateTime              Timestamp,
-                             CPOServer             Sender,
-                             CancellationToken     CancellationToken,
-                             EventTracking_Id      EventTrackingId,
-                             EVSE_Id               EVSEId,
-                             ChargingSession_Id    SessionId,
-                             ChargingSession_Id    PartnerSessionId,
-                             eMobilityProvider_Id  ProviderId      = null,
-                             TimeSpan?             RequestTimeout  = null);
 
 }

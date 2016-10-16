@@ -2361,9 +2361,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.SelectEVSEXML(EVSEId,
-                                                                                   ContractId,
-                                                                                   ReserveUntil),
+                result = await _OCHPClient.Query(new SelectEVSERequest(EVSEId,
+                                                                       ContractId,
+                                                                       ReserveUntil).ToXML(),
                                                  "SelectEVSERequest",
                                                  RequestLogDelegate:   OnSelectEVSESOAPRequest,
                                                  ResponseLogDelegate:  OnSelectEVSESOAPResponse,
