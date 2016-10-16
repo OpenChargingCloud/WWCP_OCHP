@@ -308,7 +308,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     #region OnSelectEVSE
 
     /// <summary>
-    /// A delegate called whenever a select EVSE request will be send to an charge point operator.
+    /// A delegate called whenever a select EVSE request will be send to a charge point operator.
     /// </summary>
     public delegate Task OnSelectEVSERequestDelegate (DateTime             LogTimestamp,
                                                       DateTime             RequestTimestamp,
@@ -321,7 +321,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                       TimeSpan?            RequestTimeout);
 
     /// <summary>
-    /// A delegate called whenever a response after sending a get service endpoints request upstream had been received.
+    /// A delegate called whenever a response after sending a select EVSE request to a charge point operator had been received.
     /// </summary>
     public delegate Task OnSelectEVSEResponseDelegate(DateTime             LogTimestamp,
                                                       DateTime             RequestTimestamp,
@@ -337,5 +337,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
     #endregion
 
+    #region OnReleaseEVSE
+
+    /// <summary>
+    /// A delegate called whenever a release EVSE request will be send to a charge point operator.
+    /// </summary>
+    public delegate Task OnReleaseEVSERequestDelegate (DateTime              LogTimestamp,
+                                                       DateTime              RequestTimestamp,
+                                                       EMPClient             Sender,
+                                                       String                SenderId,
+                                                       EventTracking_Id      EventTrackingId,
+                                                       Direct_Id             DirectId,
+                                                       TimeSpan?             RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a release EVSE request to a charge point operator had been received.
+    /// </summary>
+    public delegate Task OnReleaseEVSEResponseDelegate(DateTime              LogTimestamp,
+                                                       DateTime              RequestTimestamp,
+                                                       EMPClient             Sender,
+                                                       String                SenderId,
+                                                       EventTracking_Id      EventTrackingId,
+                                                       Direct_Id             DirectId,
+                                                       TimeSpan?             RequestTimeout,
+                                                       ReleaseEVSEResponse   Result,
+                                                       TimeSpan              Duration);
+
+    #endregion
 
 }

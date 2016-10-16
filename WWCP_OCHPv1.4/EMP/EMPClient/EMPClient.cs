@@ -339,6 +339,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+        #region OnReleaseEVSERequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request to release an EVSE will be send.
+        /// </summary>
+        public event OnReleaseEVSERequestDelegate   OnReleaseEVSERequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request to release an EVSE will be send.
+        /// </summary>
+        public event ClientRequestLogHandler        OnReleaseEVSESOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a SOAP request to release an EVSE had been received.
+        /// </summary>
+        public event ClientResponseLogHandler       OnReleaseEVSESOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for request to release an EVSE had been received.
+        /// </summary>
+        public event OnReleaseEVSEResponseDelegate  OnReleaseEVSEResponse;
+
+        #endregion
+
         #endregion
 
         #region Constructor(s)
@@ -2285,7 +2309,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region SelectEVSE(...)
 
         /// <summary>
-        /// Download OHCPdirect provider endpoints.
+        /// Select an EVSE and create a new charging session.
         /// </summary>
         /// <param name="EVSEId">The unique identification of an EVSE.</param>
         /// <param name="ContractId">The unique identification of an e-mobility contract.</param>
@@ -2461,6 +2485,190 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
                 e.Log(nameof(EMPClient) + "." + nameof(OnSelectEVSEResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region ReleaseEVSE(...)
+
+        /// <summary>
+        /// Release an EVSE and stop a charging session.
+        /// </summary>
+        /// <param name="DirectId">The session id referencing the direct charging process to be released.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<ReleaseEVSEResponse>>
+
+            ReleaseEVSE(Direct_Id           DirectId,
+
+                        DateTime?           Timestamp          = null,
+                        CancellationToken?  CancellationToken  = null,
+                        EventTracking_Id    EventTrackingId    = null,
+                        TimeSpan?           RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (DirectId == null)
+                throw new ArgumentNullException(nameof(DirectId),  "The given direct charging session identification must not be null!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<ReleaseEVSEResponse> result = null;
+
+            #endregion
+
+            #region Send OnReleaseEVSERequest event
+
+            try
+            {
+
+                OnReleaseEVSERequest?.Invoke(DateTime.Now,
+                                             Timestamp.Value,
+                                             this,
+                                             ClientId,
+                                             EventTrackingId,
+                                             DirectId,
+                                             RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnReleaseEVSERequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(new ReleaseEVSERequest(DirectId).ToXML(),
+                                                 "ReleaseEVSERequest",
+                                                 RequestLogDelegate:   OnReleaseEVSESOAPRequest,
+                                                 ResponseLogDelegate:  OnReleaseEVSESOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(ReleaseEVSEResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<ReleaseEVSEResponse>(httpresponse,
+                                                                                                  new ReleaseEVSEResponse(
+                                                                                                      Result.Format(
+                                                                                                          "Invalid SOAP => " +
+                                                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                                                      )
+                                                                                                  ),
+                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<ReleaseEVSEResponse>(httpresponse,
+                                                                                                  new ReleaseEVSEResponse(
+                                                                                                      Result.Server(
+                                                                                                           httpresponse.HTTPStatusCode.ToString() +
+                                                                                                           " => " +
+                                                                                                           httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                      )
+                                                                                                  ),
+                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<ReleaseEVSEResponse>.ExceptionThrown(new ReleaseEVSEResponse(
+                                                                                                                  Result.Format(exception.Message +
+                                                                                                                                " => " +
+                                                                                                                                exception.StackTrace)),
+                                                                                                              exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<ReleaseEVSEResponse>.OK(new ReleaseEVSEResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnReleaseEVSEResponse event
+
+            try
+            {
+
+                OnReleaseEVSEResponse?.Invoke(DateTime.Now,
+                                              Timestamp.Value,
+                                              this,
+                                              ClientId,
+                                              EventTrackingId,
+                                              DirectId,
+                                              RequestTimeout,
+                                              result.Content,
+                                              DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnReleaseEVSEResponse));
             }
 
             #endregion
