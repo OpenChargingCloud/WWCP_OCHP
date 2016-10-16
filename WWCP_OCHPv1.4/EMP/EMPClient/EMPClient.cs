@@ -33,7 +33,7 @@ using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -66,6 +66,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
         #region Events
+
+        // OCHP
 
         #region OnGetChargePointListRequest/-Response
 
@@ -262,6 +264,57 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+
+        // OCHPdirect
+
+        #region OnAddServiceEndpointsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request to add service endpoints will be send.
+        /// </summary>
+        public event OnAddServiceEndpointsRequestDelegate   OnAddServiceEndpointsRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request to add service endpoints will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                OnAddServiceEndpointsSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a SOAP request to add service endpoints had been received.
+        /// </summary>
+        public event ClientResponseLogHandler               OnAddServiceEndpointsSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for request to add service endpoints had been received.
+        /// </summary>
+        public event OnAddServiceEndpointsResponseDelegate  OnAddServiceEndpointsResponse;
+
+        #endregion
+
+        #region OnAddServiceEndpointsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request to get service endpoints will be send.
+        /// </summary>
+        public event OnGetServiceEndpointsRequestDelegate   OnGetServiceEndpointsRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request to get service endpoints will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                OnGetServiceEndpointsSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a SOAP request to get service endpoints had been received.
+        /// </summary>
+        public event ClientResponseLogHandler               OnGetServiceEndpointsSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for request to get service endpoints had been received.
+        /// </summary>
+        public event OnGetServiceEndpointsResponseDelegate  OnGetServiceEndpointsResponse;
+
+        #endregion
+
         #endregion
 
         #region Constructor(s)
@@ -383,7 +436,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        // OCHP v1.4
+        // OCHP
 
         #region GetChargePointList(...)
 
@@ -799,7 +852,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetStatusRequest));
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetStatusRequest));
             }
 
             #endregion
@@ -912,7 +965,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetStatusResponse));
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetStatusResponse));
             }
 
             #endregion
@@ -986,7 +1039,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnSetRoamingAuthorisationListRequest));
+                e.Log(nameof(EMPClient) + "." + nameof(OnSetRoamingAuthorisationListRequest));
             }
 
             #endregion
@@ -1097,7 +1150,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnSetRoamingAuthorisationListResponse));
+                e.Log(nameof(EMPClient) + "." + nameof(OnSetRoamingAuthorisationListResponse));
             }
 
             #endregion
@@ -1170,7 +1223,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateRoamingAuthorisationListRequest));
+                e.Log(nameof(EMPClient) + "." + nameof(OnUpdateRoamingAuthorisationListRequest));
             }
 
             #endregion
@@ -1281,7 +1334,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateRoamingAuthorisationListResponse));
+                e.Log(nameof(EMPClient) + "." + nameof(OnUpdateRoamingAuthorisationListResponse));
             }
 
             #endregion
@@ -1351,7 +1404,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetCDRsRequest));
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetCDRsRequest));
             }
 
             #endregion
@@ -1462,7 +1515,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetCDRsResponse));
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetCDRsResponse));
             }
 
             #endregion
@@ -1538,7 +1591,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnConfirmCDRsRequest));
+                e.Log(nameof(EMPClient) + "." + nameof(OnConfirmCDRsRequest));
             }
 
             #endregion
@@ -1651,7 +1704,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnConfirmCDRsResponse));
+                e.Log(nameof(EMPClient) + "." + nameof(OnConfirmCDRsResponse));
             }
 
             #endregion
@@ -1845,7 +1898,366 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        // OHCPdirect v0.2
+        // OHCPdirect
+
+        #region AddServiceEndpoints(ProviderEndpoints, ...)
+
+        /// <summary>
+        /// Upload the given enumeration of OHCPdirect provider endpoints.
+        /// </summary>
+        /// <param name="ProviderEndpoints">An enumeration of provider endpoints.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<AddServiceEndpointsResponse>>
+
+            AddServiceEndpoints(IEnumerable<ProviderEndpoint>  ProviderEndpoints,
+
+                                DateTime?                      Timestamp          = null,
+                                CancellationToken?             CancellationToken  = null,
+                                EventTracking_Id               EventTrackingId    = null,
+                                TimeSpan?                      RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (ProviderEndpoints == null)
+                throw new ArgumentNullException(nameof(ProviderEndpoints),  "The given enumeration of provier endpoints must not be null!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<AddServiceEndpointsResponse> result = null;
+
+            #endregion
+
+            #region Send OnAddServiceEndpointsRequest event
+
+            try
+            {
+
+                OnAddServiceEndpointsRequest?.Invoke(DateTime.Now,
+                                                     Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     EventTrackingId,
+                                                     ProviderEndpoints,
+                                                     RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnAddServiceEndpointsRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(EMPClientXMLMethods.AddServiceEndpointsXML(ProviderEndpoints),
+                                                 "AddServiceEndpoints",
+                                                 RequestLogDelegate:   OnAddServiceEndpointsSOAPRequest,
+                                                 ResponseLogDelegate:  OnAddServiceEndpointsSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(AddServiceEndpointsResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<AddServiceEndpointsResponse>(httpresponse,
+                                                                                                          new AddServiceEndpointsResponse(
+                                                                                                              Result.Format(
+                                                                                                                  "Invalid SOAP => " +
+                                                                                                                  httpresponse.HTTPBody.ToUTF8String()
+                                                                                                              )
+                                                                                                          ),
+                                                                                                          IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<AddServiceEndpointsResponse>(httpresponse,
+                                                                                                          new AddServiceEndpointsResponse(
+                                                                                                              Result.Server(
+                                                                                                                   httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                   " => " +
+                                                                                                                   httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                              )
+                                                                                                          ),
+                                                                                                          IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<AddServiceEndpointsResponse>.ExceptionThrown(new AddServiceEndpointsResponse(
+                                                                                                                          Result.Format(exception.Message +
+                                                                                                                                        " => " +
+                                                                                                                                        exception.StackTrace)),
+                                                                                                                      exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<AddServiceEndpointsResponse>.OK(new AddServiceEndpointsResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnAddServiceEndpointsResponse event
+
+            try
+            {
+
+                OnAddServiceEndpointsResponse?.Invoke(DateTime.Now,
+                                                      Timestamp.Value,
+                                                      this,
+                                                      ClientId,
+                                                      EventTrackingId,
+                                                      ProviderEndpoints,
+                                                      RequestTimeout,
+                                                      result.Content,
+                                                      DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnAddServiceEndpointsResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region GetServiceEndpoints(...)
+
+        /// <summary>
+        /// Download OHCPdirect provider endpoints.
+        /// </summary>
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<GetServiceEndpointsResponse>>
+
+            GetServiceEndpoints(DateTime?           Timestamp          = null,
+                                CancellationToken?  CancellationToken  = null,
+                                EventTracking_Id    EventTrackingId    = null,
+                                TimeSpan?           RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<GetServiceEndpointsResponse> result = null;
+
+            #endregion
+
+            #region Send OnGetServiceEndpointsRequest event
+
+            try
+            {
+
+                OnGetServiceEndpointsRequest?.Invoke(DateTime.Now,
+                                                     Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     EventTrackingId,
+                                                     RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetServiceEndpointsRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(EMPClientXMLMethods.GetServiceEndpointsXML(),
+                                                 "GetServiceEndpoints",
+                                                 RequestLogDelegate:   OnGetServiceEndpointsSOAPRequest,
+                                                 ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetServiceEndpointsResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<GetServiceEndpointsResponse>(httpresponse,
+                                                                                                          new GetServiceEndpointsResponse(
+                                                                                                              Result.Format(
+                                                                                                                  "Invalid SOAP => " +
+                                                                                                                  httpresponse.HTTPBody.ToUTF8String()
+                                                                                                              )
+                                                                                                          ),
+                                                                                                          IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<GetServiceEndpointsResponse>(httpresponse,
+                                                                                                          new GetServiceEndpointsResponse(
+                                                                                                              Result.Server(
+                                                                                                                   httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                   " => " +
+                                                                                                                   httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                              )
+                                                                                                          ),
+                                                                                                          IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<GetServiceEndpointsResponse>.ExceptionThrown(new GetServiceEndpointsResponse(
+                                                                                                                          Result.Format(exception.Message +
+                                                                                                                                        " => " +
+                                                                                                                                        exception.StackTrace)),
+                                                                                                                      exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<GetServiceEndpointsResponse>.OK(new GetServiceEndpointsResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnGetServiceEndpointsResponse event
+
+            try
+            {
+
+                OnGetServiceEndpointsResponse?.Invoke(DateTime.Now,
+                                                      Timestamp.Value,
+                                                      this,
+                                                      ClientId,
+                                                      EventTrackingId,
+                                                      RequestTimeout,
+                                                      result.Content,
+                                                      DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetServiceEndpointsResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
 
     }
 

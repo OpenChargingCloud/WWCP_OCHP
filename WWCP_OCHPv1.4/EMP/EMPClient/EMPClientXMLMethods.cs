@@ -26,7 +26,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -34,6 +34,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// </summary>
     public static class EMPClientXMLMethods
     {
+
+        // OCHP
 
         #region GetChargePointListXML()
 
@@ -331,6 +333,104 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                           : null
 
                                  ));
+
+        #endregion
+
+
+        // OCHPdirect
+
+        #region AddServiceEndpointsXML(ProviderEndpoints)
+
+        /// <summary>
+        /// Create an OCHP AddServiceEndpoints XML/SOAP request.
+        /// </summary>
+        /// <param name="ProviderEndpoints">An enumeration of provider endpoints.</param>
+        public static XElement AddServiceEndpointsXML(IEnumerable<ProviderEndpoint>  ProviderEndpoints)
+        {
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //       <OCHP:AddServiceEndpointsRequest>
+            //
+            //          <!--Zero or more repetitions:-->
+            //          <OCHP:providerEndpointArray>
+            //             <OCHP:url>?</ns:url>
+            //             <OCHP:namespaceUrl>?</ns:namespaceUrl>
+            //             <OCHP:accessToken>?</ns:accessToken>
+            //             <OCHP:validDate>?</ns:validDate>
+            //             <!--1 or more repetitions:-->
+            //             <OCHP:whitelist>?</ns:whitelist>
+            //             <!--Zero or more repetitions:-->
+            //             <OCHP:blacklist>?</ns:blacklist>
+            //          </ns:providerEndpointArray>
+            //
+            //          <!--Zero or more repetitions:-->
+            //          <OCHP:operatorEndpointArray>
+            //             <OCHP:url>?</ns:url>
+            //             <OCHP:namespaceUrl>?</ns:namespaceUrl>
+            //             <OCHP:accessToken>?</ns:accessToken>
+            //             <OCHP:validDate>?</ns:validDate>
+            //             <!--1 or more repetitions:-->
+            //             <OCHP:whitelist>?</ns:whitelist>
+            //             <!--Zero or more repetitions:-->
+            //             <OCHP:blacklist>?</ns:blacklist>
+            //          </ns:operatorEndpointArray>
+            //
+            //       </ns:AddServiceEndpointsRequest>
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+            #region Initial checks
+
+            if (ProviderEndpoints.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(ProviderEndpoint),  "The given enumeration of provider endpoints must not be null or empty!");
+
+            #endregion
+
+
+            return SOAP.Encapsulation(new XElement(OCHPNS.Default + "AddServiceEndpointsRequest",
+
+                                          ProviderEndpoints.Select(endpoints => endpoints.ToXML(OCHPNS.Default + "providerEndpointArray")).
+                                                            ToArray()
+
+                                     ));
+
+        }
+
+        #endregion
+
+        #region GetServiceEndpointsXML(ProviderEndpoints)
+
+        /// <summary>
+        /// Create an OCHP GetServiceEndpoints XML/SOAP request.
+        /// </summary>
+        public static XElement GetServiceEndpointsXML()
+        {
+
+            #region Documentation
+
+            // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+            //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+            //
+            //    <soapenv:Header/>
+            //    <soapenv:Body>
+            //       <OCHP:GetServiceEndpointsRequest />
+            //    </soapenv:Body>
+            // </soapenv:Envelope>
+
+            #endregion
+
+
+            return SOAP.Encapsulation(new XElement(OCHPNS.Default + "GetServiceEndpointsRequest"));
+
+        }
 
         #endregion
 

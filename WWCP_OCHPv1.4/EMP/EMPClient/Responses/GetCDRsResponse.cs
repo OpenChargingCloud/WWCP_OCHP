@@ -26,7 +26,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -141,7 +141,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //         <!--Zero or more repetitions:-->
         //         <ns:cdrInfoArray>?</ns:cdrInfoArray>
         //
-        //      </ns:GetCDRsResponse>        //    </soapenv:Body>
+        //      </ns:GetCDRsResponse>
+        //    </soapenv:Body>
         // </soapenv:Envelope>
 
         #endregion

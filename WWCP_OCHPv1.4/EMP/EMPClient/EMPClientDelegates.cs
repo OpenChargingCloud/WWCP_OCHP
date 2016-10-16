@@ -26,8 +26,10 @@ using org.GraphDefined.Vanaheimr.Aegir;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
+
+    // OCHP
 
     #region OnGetChargePointList(Updates)
 
@@ -245,5 +247,63 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                             TimeSpan                   Duration);
 
     #endregion
+
+
+    // OCHPdirect
+
+    #region OnAddServiceEndpoints
+
+    /// <summary>
+    /// A delegate called whenever an add service endpoints request will be send upstream.
+    /// </summary>
+    public delegate Task OnAddServiceEndpointsRequestDelegate (DateTime                        LogTimestamp,
+                                                               DateTime                        RequestTimestamp,
+                                                               EMPClient                       Sender,
+                                                               String                          SenderId,
+                                                               EventTracking_Id                EventTrackingId,
+                                                               IEnumerable<ProviderEndpoint>   ProviderEndpoints,
+                                                               TimeSpan?                       RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending an add service endpoints request upstream had been received.
+    /// </summary>
+    public delegate Task OnAddServiceEndpointsResponseDelegate(DateTime                        LogTimestamp,
+                                                               DateTime                        RequestTimestamp,
+                                                               EMPClient                       Sender,
+                                                               String                          SenderId,
+                                                               EventTracking_Id                EventTrackingId,
+                                                               IEnumerable<ProviderEndpoint>   ProviderEndpoints,
+                                                               TimeSpan?                       RequestTimeout,
+                                                               AddServiceEndpointsResponse     Result,
+                                                               TimeSpan                        Duration);
+
+    #endregion
+
+    #region OnGetServiceEndpoints
+
+    /// <summary>
+    /// A delegate called whenever a get service endpoints request will be send upstream.
+    /// </summary>
+    public delegate Task OnGetServiceEndpointsRequestDelegate (DateTime                      LogTimestamp,
+                                                               DateTime                      RequestTimestamp,
+                                                               EMPClient                     Sender,
+                                                               String                        SenderId,
+                                                               EventTracking_Id              EventTrackingId,
+                                                               TimeSpan?                     RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a get service endpoints request upstream had been received.
+    /// </summary>
+    public delegate Task OnGetServiceEndpointsResponseDelegate(DateTime                      LogTimestamp,
+                                                               DateTime                      RequestTimestamp,
+                                                               EMPClient                     Sender,
+                                                               String                        SenderId,
+                                                               EventTracking_Id              EventTrackingId,
+                                                               TimeSpan?                     RequestTimeout,
+                                                               GetServiceEndpointsResponse   Result,
+                                                               TimeSpan                      Duration);
+
+    #endregion
+
 
 }

@@ -28,6 +28,8 @@ using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
+using org.GraphDefined.WWCP.OCHPv1_4.CPO;
+
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI

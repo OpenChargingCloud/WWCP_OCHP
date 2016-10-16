@@ -26,7 +26,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -121,7 +121,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //            <ns:resultDescription>?</ns:resultDescription>
         //         </ns:result>
         //
-        //      </ns:ConfirmCDRsResponse>        //    </soapenv:Body>
+        //      </ns:ConfirmCDRsResponse>
+        //    </soapenv:Body>
         // </soapenv:Envelope>
 
         #endregion
