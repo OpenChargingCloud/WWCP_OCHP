@@ -38,7 +38,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region Properties
 
         /// <summary>
-        ///  An enumeration of charge points.
+        /// An enumeration of charge points.
         /// </summary>
         public IEnumerable<ChargePointInfo>  ChargePoints    { get; }
 

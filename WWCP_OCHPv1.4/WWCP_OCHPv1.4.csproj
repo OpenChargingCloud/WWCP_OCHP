@@ -66,6 +66,7 @@
     <Compile Include="EMP\EMPClient\EMPClientXMLMethods.cs" />
     <Compile Include="EMP\EMPClient\Responses\AddServiceEndpointsResponse.cs" />
     <Compile Include="EMP\EMPClient\Responses\ConfirmCDRsResponse.cs" />
+    <Compile Include="EMP\EMPClient\Responses\SelectEVSEResponse.cs" />
     <Compile Include="EMP\EMPClient\Responses\GetServiceEndpointsResponse.cs" />
     <Compile Include="EMP\EMPClient\Responses\GetTariffUpdatesResponse.cs" />
     <Compile Include="EMP\EMPClient\Responses\GetStatusResponse.cs" />

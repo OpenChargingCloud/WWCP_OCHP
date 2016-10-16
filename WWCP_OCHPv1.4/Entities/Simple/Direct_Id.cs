@@ -132,11 +132,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
                 return new Direct_Id(__EVSEOperatorId,
-                                   _MatchCollection[0].Groups[2].Value);
+                                     _MatchCollection[0].Groups[2].Value);
 
             if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
                 return new Direct_Id(__EVSEOperatorId,
-                                   _MatchCollection[0].Groups[4].Value);
+                                     _MatchCollection[0].Groups[4].Value);
 
 
             throw new ArgumentException("Illegal charging process identification '" + Text + "'!");

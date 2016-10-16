@@ -315,6 +315,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+        #region OnSelectEVSERequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request to select an EVSE will be send.
+        /// </summary>
+        public event OnSelectEVSERequestDelegate   OnSelectEVSERequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request to select an EVSE will be send.
+        /// </summary>
+        public event ClientRequestLogHandler       OnSelectEVSESOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a SOAP request to select an EVSE had been received.
+        /// </summary>
+        public event ClientResponseLogHandler      OnSelectEVSESOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for request to select an EVSE had been received.
+        /// </summary>
+        public event OnSelectEVSEResponseDelegate  OnSelectEVSEResponse;
+
+        #endregion
+
         #endregion
 
         #region Constructor(s)
@@ -2247,6 +2271,196 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
                 e.Log(nameof(EMPClient) + "." + nameof(OnGetServiceEndpointsResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region SelectEVSE(...)
+
+        /// <summary>
+        /// Download OHCPdirect provider endpoints.
+        /// </summary>
+        /// <param name="EVSEId">The unique identification of an EVSE.</param>
+        /// <param name="ContractId">The unique identification of an e-mobility contract.</param>
+        /// <param name="ReserveUntil">An optional timestamp till when then given EVSE should be reserved.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<SelectEVSEResponse>>
+
+            SelectEVSE(EVSE_Id             EVSEId,
+                       Contract_Id         ContractId,
+                       DateTime?           ReserveUntil       = null,
+
+                       DateTime?           Timestamp          = null,
+                       CancellationToken?  CancellationToken  = null,
+                       EventTracking_Id    EventTrackingId    = null,
+                       TimeSpan?           RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<SelectEVSEResponse> result = null;
+
+            #endregion
+
+            #region Send OnSelectEVSERequest event
+
+            try
+            {
+
+                OnSelectEVSERequest?.Invoke(DateTime.Now,
+                                                     Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     EventTrackingId,
+                                                     EVSEId,
+                                                     ContractId,
+                                                     ReserveUntil,
+                                                     RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnSelectEVSERequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(EMPClientXMLMethods.SelectEVSEXML(EVSEId,
+                                                                                   ContractId,
+                                                                                   ReserveUntil),
+                                                 "SelectEVSERequest",
+                                                 RequestLogDelegate:   OnSelectEVSESOAPRequest,
+                                                 ResponseLogDelegate:  OnSelectEVSESOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(SelectEVSEResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<SelectEVSEResponse>(httpresponse,
+                                                                                                 new SelectEVSEResponse(
+                                                                                                     Result.Format(
+                                                                                                         "Invalid SOAP => " +
+                                                                                                         httpresponse.HTTPBody.ToUTF8String()
+                                                                                                     )
+                                                                                                 ),
+                                                                                                 IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<SelectEVSEResponse>(httpresponse,
+                                                                                                 new SelectEVSEResponse(
+                                                                                                     Result.Server(
+                                                                                                          httpresponse.HTTPStatusCode.ToString() +
+                                                                                                          " => " +
+                                                                                                          httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                     )
+                                                                                                 ),
+                                                                                                 IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<SelectEVSEResponse>.ExceptionThrown(new SelectEVSEResponse(
+                                                                                                                 Result.Format(exception.Message +
+                                                                                                                               " => " +
+                                                                                                                               exception.StackTrace)),
+                                                                                                             exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<SelectEVSEResponse>.OK(new SelectEVSEResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnSelectEVSEResponse event
+
+            try
+            {
+
+                OnSelectEVSEResponse?.Invoke(DateTime.Now,
+                                             Timestamp.Value,
+                                             this,
+                                             ClientId,
+                                             EventTrackingId,
+                                             EVSEId,
+                                             ContractId,
+                                             ReserveUntil,
+                                             RequestTimeout,
+                                             result.Content,
+                                             DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnSelectEVSEResponse));
             }
 
             #endregion

@@ -305,5 +305,37 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
     #endregion
 
+    #region OnSelectEVSE
+
+    /// <summary>
+    /// A delegate called whenever a select EVSE request will be send to an charge point operator.
+    /// </summary>
+    public delegate Task OnSelectEVSERequestDelegate (DateTime             LogTimestamp,
+                                                      DateTime             RequestTimestamp,
+                                                      EMPClient            Sender,
+                                                      String               SenderId,
+                                                      EventTracking_Id     EventTrackingId,
+                                                      EVSE_Id              EVSEId,
+                                                      Contract_Id          ContractId,
+                                                      DateTime?            ReserveUntil,
+                                                      TimeSpan?            RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a get service endpoints request upstream had been received.
+    /// </summary>
+    public delegate Task OnSelectEVSEResponseDelegate(DateTime             LogTimestamp,
+                                                      DateTime             RequestTimestamp,
+                                                      EMPClient            Sender,
+                                                      String               SenderId,
+                                                      EventTracking_Id     EventTrackingId,
+                                                      EVSE_Id              EVSEId,
+                                                      Contract_Id          ContractId,
+                                                      DateTime?            ReserveUntil,
+                                                      TimeSpan?            RequestTimeout,
+                                                      SelectEVSEResponse   Result,
+                                                      TimeSpan             Duration);
+
+    #endregion
+
 
 }
