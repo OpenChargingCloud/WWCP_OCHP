@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Linq;
 using System.Threading;
 using System.Net.Security;
 using System.Threading.Tasks;
@@ -57,6 +58,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #endregion
 
         #region Properties
+
+        private EndpointInfos  _EndpointInfos;
 
         /// <summary>
         /// The attached OCHP EMP client (HTTP/SOAP client) logger.
@@ -363,6 +366,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+        #region OnDirectEVSEStatusRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for EVSE status will be send.
+        /// </summary>
+        public event OnDirectEVSEStatusRequestDelegate   OnDirectEVSEStatusRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for EVSE status will be send.
+        /// </summary>
+        public event ClientRequestLogHandler             OnDirectEVSEStatusSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a SOAP request for EVSE status had been received.
+        /// </summary>
+        public event ClientResponseLogHandler            OnDirectEVSEStatusSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for request for EVSE status had been received.
+        /// </summary>
+        public event OnDirectEVSEStatusResponseDelegate  OnDirectEVSEStatusResponse;
+
+        #endregion
+
         #endregion
 
         #region Constructor(s)
@@ -421,6 +448,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                               LoggingContext,
                                               LogFileCreator);
 
+            this._EndpointInfos = new EndpointInfos();
+
         }
 
         #endregion
@@ -476,6 +505,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
             this.Logger = Logger;
+
+            this._EndpointInfos = new EndpointInfos();
 
         }
 
@@ -854,13 +885,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetStatusResponse>>
 
-            GetStatusRequest(DateTime?             LastRequest        = null,
-                             StatusTypes?          StatusType         = null,
+            GetStatus(DateTime?           LastRequest        = null,
+                      StatusTypes?        StatusType         = null,
 
-                             DateTime?             Timestamp          = null,
-                             CancellationToken?    CancellationToken  = null,
-                             EventTracking_Id      EventTrackingId    = null,
-                             TimeSpan?             RequestTimeout     = null)
+                      DateTime?           Timestamp          = null,
+                      CancellationToken?  CancellationToken  = null,
+                      EventTracking_Id    EventTrackingId    = null,
+                      TimeSpan?           RequestTimeout     = null)
 
         {
 
@@ -1408,12 +1439,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetCDRsResponse>>
 
-            GetCDRsRequest(CDRStatus?            CDRStatus          = null,
+            GetCDRs(CDRStatus?          CDRStatus          = null,
 
-                           DateTime?             Timestamp          = null,
-                           CancellationToken?    CancellationToken  = null,
-                           EventTracking_Id      EventTrackingId    = null,
-                           TimeSpan?             RequestTimeout     = null)
+                    DateTime?           Timestamp          = null,
+                    CancellationToken?  CancellationToken  = null,
+                    EventTracking_Id    EventTrackingId    = null,
+                    TimeSpan?           RequestTimeout     = null)
 
         {
 
@@ -1589,13 +1620,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<ConfirmCDRsResponse>>
 
-            ConfirmCDRsRequest(IEnumerable<EVSECDRPair>  Approved           = null,
-                               IEnumerable<EVSECDRPair>  Declined           = null,
+            ConfirmCDRs(IEnumerable<EVSECDRPair>  Approved           = null,
+                        IEnumerable<EVSECDRPair>  Declined           = null,
 
-                               DateTime?                 Timestamp          = null,
-                               CancellationToken?        CancellationToken  = null,
-                               EventTracking_Id          EventTrackingId    = null,
-                               TimeSpan?                 RequestTimeout     = null)
+                        DateTime?                 Timestamp          = null,
+                        CancellationToken?        CancellationToken  = null,
+                        EventTracking_Id          EventTrackingId    = null,
+                        TimeSpan?                 RequestTimeout     = null)
 
         {
 
@@ -2311,6 +2342,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Select an EVSE and create a new charging session.
         /// </summary>
+        /// <param name="ChargingStationOperatorId">The chage point operator to talk to.</param>
         /// <param name="EVSEId">The unique identification of an EVSE.</param>
         /// <param name="ContractId">The unique identification of an e-mobility contract.</param>
         /// <param name="ReserveUntil">An optional timestamp till when then given EVSE should be reserved.</param>
@@ -2321,14 +2353,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<SelectEVSEResponse>>
 
-            SelectEVSE(EVSE_Id             EVSEId,
-                       Contract_Id         ContractId,
-                       DateTime?           ReserveUntil       = null,
+            SelectEVSE(ChargingStationOperator_Id  ChargingStationOperatorId,
+                       EVSE_Id                     EVSEId,
+                       Contract_Id                 ContractId,
+                       DateTime?                   ReserveUntil       = null,
 
-                       DateTime?           Timestamp          = null,
-                       CancellationToken?  CancellationToken  = null,
-                       EventTracking_Id    EventTrackingId    = null,
-                       TimeSpan?           RequestTimeout     = null)
+                       DateTime?                   Timestamp          = null,
+                       CancellationToken?          CancellationToken  = null,
+                       EventTracking_Id            EventTrackingId    = null,
+                       TimeSpan?                   RequestTimeout     = null)
 
         {
 
@@ -2374,10 +2407,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
+            var ep = _EndpointInfos.Get(EVSEId);
 
-            using (var _OCHPClient = new SOAPClient(Hostname,
+            using (var _OCHPClient = new SOAPClient(ep.First().URL,
                                                     RemotePort,
-                                                    HTTPVirtualHost,
+                                                    ep.First().URL,
                                                     "/service/ochp/v1.4",
                                                     RemoteCertificateValidator,
                                                     ClientCert,
@@ -2464,6 +2498,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 result = HTTPResponse<SelectEVSEResponse>.OK(new SelectEVSEResponse(Result.OK("Nothing to upload!")));
 
 
+            _EndpointInfos.Add(result.Content.DirectId, ep);
+
             #region Send OnSelectEVSEResponse event
 
             try
@@ -2501,6 +2537,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Release an EVSE and stop a charging session.
         /// </summary>
+        /// <param name="ChargingStationOperatorId">The chage point operator to talk to.</param>
         /// <param name="DirectId">The session id referencing the direct charging process to be released.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
@@ -2509,12 +2546,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<ReleaseEVSEResponse>>
 
-            ReleaseEVSE(Direct_Id           DirectId,
+            ReleaseEVSE(ChargingStationOperator_Id  ChargingStationOperatorId,
+                        Direct_Id                   DirectId,
 
-                        DateTime?           Timestamp          = null,
-                        CancellationToken?  CancellationToken  = null,
-                        EventTracking_Id    EventTrackingId    = null,
-                        TimeSpan?           RequestTimeout     = null)
+                        DateTime?                   Timestamp          = null,
+                        CancellationToken?          CancellationToken  = null,
+                        EventTracking_Id            EventTrackingId    = null,
+                        TimeSpan?                   RequestTimeout     = null)
 
         {
 
@@ -2562,6 +2600,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
+
+            var ep = _EndpointInfos.Get(DirectId);
 
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
@@ -2650,6 +2690,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 result = HTTPResponse<ReleaseEVSEResponse>.OK(new ReleaseEVSEResponse(Result.OK("Nothing to upload!")));
 
 
+            _EndpointInfos.Delete(DirectId);
+
+
             #region Send OnReleaseEVSEResponse event
 
             try
@@ -2669,6 +2712,190 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
                 e.Log(nameof(EMPClient) + "." + nameof(OnReleaseEVSEResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region DirectEVSEStatus(...)
+
+        /// <summary>
+        /// Get the status of the given EVSEs directly from the charge point operator..
+        /// </summary>
+        /// <param name="EVSEIds">An enumeration of EVSE identifications.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<DirectEVSEStatusResponse>>
+
+            DirectEVSEStatus(IEnumerable<EVSE_Id>  EVSEIds,
+
+                             DateTime?             Timestamp          = null,
+                             CancellationToken?    CancellationToken  = null,
+                             EventTracking_Id      EventTrackingId    = null,
+                             TimeSpan?             RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (EVSEIds == null)
+                throw new ArgumentNullException(nameof(EVSEIds),  "The given enumeration of EVSE identifications must not be null!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<DirectEVSEStatusResponse> result = null;
+
+            #endregion
+
+            #region Send OnDirectEVSEStatusRequest event
+
+            try
+            {
+
+                OnDirectEVSEStatusRequest?.Invoke(DateTime.Now,
+                                                  Timestamp.Value,
+                                                  this,
+                                                  ClientId,
+                                                  EventTrackingId,
+                                                  EVSEIds,
+                                                  RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnDirectEVSEStatusRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(new DirectEVSEStatusRequest(EVSEIds).ToXML(),
+                                                 "DirectEvseStatusRequest",
+                                                 RequestLogDelegate:   OnReleaseEVSESOAPRequest,
+                                                 ResponseLogDelegate:  OnReleaseEVSESOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(DirectEVSEStatusResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<DirectEVSEStatusResponse>(httpresponse,
+                                                                                                       new DirectEVSEStatusResponse(
+                                                                                                           Result.Format(
+                                                                                                               "Invalid SOAP => " +
+                                                                                                               httpresponse.HTTPBody.ToUTF8String()
+                                                                                                           )
+                                                                                                       ),
+                                                                                                       IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<DirectEVSEStatusResponse>(httpresponse,
+                                                                                                       new DirectEVSEStatusResponse(
+                                                                                                           Result.Server(
+                                                                                                                httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                " => " +
+                                                                                                                httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                           )
+                                                                                                       ),
+                                                                                                       IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<DirectEVSEStatusResponse>.ExceptionThrown(new DirectEVSEStatusResponse(
+                                                                                                                       Result.Format(exception.Message +
+                                                                                                                                     " => " +
+                                                                                                                                     exception.StackTrace)),
+                                                                                                                   exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<DirectEVSEStatusResponse>.OK(new DirectEVSEStatusResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnDirectEVSEStatusResponse event
+
+            try
+            {
+
+                OnDirectEVSEStatusResponse?.Invoke(DateTime.Now,
+                                                   Timestamp.Value,
+                                                   this,
+                                                   ClientId,
+                                                   EventTrackingId,
+                                                   EVSEIds,
+                                                   RequestTimeout,
+                                                   result.Content,
+                                                   DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnDirectEVSEStatusResponse));
             }
 
             #endregion

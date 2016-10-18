@@ -50,6 +50,8 @@
     <Compile Include="CPO\CPOClient\CPOClientDelegates.cs" />
     <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
     <Compile Include="CPO\CPOClient\CPOClientXMLMethods.cs" />
+    <Compile Include="IO\EndpointInfos.cs" />
+    <Compile Include="IO\EndpointInfo.cs" />
     <Compile Include="IO\CPO2Central\AddOperatorServiceEndpointsResponse.cs" />
     <Compile Include="IO\CPO2Central\AddServiceEndpointsResponse.cs" />
     <Compile Include="IO\CPO2Central\CheckCDRsResponse.cs" />
@@ -64,7 +66,9 @@
     <Compile Include="EMP\EMPClient\EMPClientDelegates.cs" />
     <Compile Include="EMP\EMPClient\EMPClientLogger.cs" />
     <Compile Include="EMP\EMPClient\EMPClientXMLMethods.cs" />
+    <Compile Include="IO\EMP2CPO\DirectEVSEStatusRequest.cs" />
     <Compile Include="IO\EMP2CPO\RelaseEVSERequest.cs" />
+    <Compile Include="IO\EMP2CPO\DirectEVSEStatusResponse.cs" />
     <Compile Include="IO\EMP2CPO\SelectEVSERequest.cs" />
     <Compile Include="IO\EMP2Cental\AddServiceEndpointsResponse.cs" />
     <Compile Include="IO\EMP2Cental\ConfirmCDRsResponse.cs" />
