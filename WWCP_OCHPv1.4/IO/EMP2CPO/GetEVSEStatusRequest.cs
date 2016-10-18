@@ -32,7 +32,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// An OCHP direct EVSE status request.
     /// </summary>
-    public class DirectEVSEStatusRequest
+    public class GetEVSEStatusRequest
     {
 
         #region Properties
@@ -50,7 +50,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Create an OCHP DirectEVSEStatus XML/SOAP request.
         /// </summary>
         /// <param name="EVSEIds">An enumeration of EVSE identifications.</param>
-        public DirectEVSEStatusRequest(IEnumerable<EVSE_Id>  EVSEIds)
+        public GetEVSEStatusRequest(IEnumerable<EVSE_Id>  EVSEIds)
         {
 
             #region Initial checks
@@ -85,21 +85,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) Parse(DirectEVSEStatusRequestXML,  OnException = null)
+        #region (static) Parse(GetEVSEStatusRequestXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP direct EVSE status request.
         /// </summary>
-        /// <param name="DirectEVSEStatusRequestXML">The XML to parse.</param>
+        /// <param name="GetEVSEStatusRequestXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static DirectEVSEStatusRequest Parse(XElement             DirectEVSEStatusRequestXML,
-                                                    OnExceptionDelegate  OnException = null)
+        public static GetEVSEStatusRequest Parse(XElement             GetEVSEStatusRequestXML,
+                                                 OnExceptionDelegate  OnException = null)
         {
 
-            DirectEVSEStatusRequest _DirectEVSEStatusRequest;
+            GetEVSEStatusRequest _GetEVSEStatusRequest;
 
-            if (TryParse(DirectEVSEStatusRequestXML, out _DirectEVSEStatusRequest, OnException))
-                return _DirectEVSEStatusRequest;
+            if (TryParse(GetEVSEStatusRequestXML, out _GetEVSEStatusRequest, OnException))
+                return _GetEVSEStatusRequest;
 
             return null;
 
@@ -107,21 +107,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) Parse(DirectEVSEStatusRequestText, OnException = null)
+        #region (static) Parse(GetEVSEStatusRequestText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP direct EVSE status request.
         /// </summary>
-        /// <param name="DirectEVSEStatusRequestText">The text to parse.</param>
+        /// <param name="GetEVSEStatusRequestText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static DirectEVSEStatusRequest Parse(String               DirectEVSEStatusRequestText,
-                                                    OnExceptionDelegate  OnException = null)
+        public static GetEVSEStatusRequest Parse(String               GetEVSEStatusRequestText,
+                                                 OnExceptionDelegate  OnException = null)
         {
 
-            DirectEVSEStatusRequest _DirectEVSEStatusRequest;
+            GetEVSEStatusRequest _GetEVSEStatusRequest;
 
-            if (TryParse(DirectEVSEStatusRequestText, out _DirectEVSEStatusRequest, OnException))
-                return _DirectEVSEStatusRequest;
+            if (TryParse(GetEVSEStatusRequestText, out _GetEVSEStatusRequest, OnException))
+                return _GetEVSEStatusRequest;
 
             return null;
 
@@ -129,28 +129,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) TryParse(DirectEVSEStatusRequestXML,  out DirectEVSEStatusRequest, OnException = null)
+        #region (static) TryParse(GetEVSEStatusRequestXML,  out GetEVSEStatusRequest, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP direct EVSE status request.
         /// </summary>
-        /// <param name="DirectEVSEStatusRequestXML">The XML to parse.</param>
-        /// <param name="DirectEVSEStatusRequest">The parsed direct EVSE status request.</param>
+        /// <param name="GetEVSEStatusRequestXML">The XML to parse.</param>
+        /// <param name="GetEVSEStatusRequest">The parsed direct EVSE status request.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                     DirectEVSEStatusRequestXML,
-                                       out DirectEVSEStatusRequest  DirectEVSEStatusRequest,
-                                       OnExceptionDelegate          OnException  = null)
+        public static Boolean TryParse(XElement                  GetEVSEStatusRequestXML,
+                                       out GetEVSEStatusRequest  GetEVSEStatusRequest,
+                                       OnExceptionDelegate       OnException  = null)
         {
 
             try
             {
 
-                DirectEVSEStatusRequest = new DirectEVSEStatusRequest(
+                GetEVSEStatusRequest = new GetEVSEStatusRequest(
 
-                                              DirectEVSEStatusRequestXML.MapValuesOrFail(OCHPNS.Default + "requestedEvseId",
-                                                                                         EVSE_Id.Parse)
+                                           GetEVSEStatusRequestXML.MapValuesOrFail(OCHPNS.Default + "requestedEvseId",
+                                                                                      EVSE_Id.Parse)
 
-                                          );
+                                       );
 
                 return true;
 
@@ -158,9 +158,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, DirectEVSEStatusRequestXML, e);
+                OnException?.Invoke(DateTime.Now, GetEVSEStatusRequestXML, e);
 
-                DirectEVSEStatusRequest = null;
+                GetEVSEStatusRequest = null;
                 return false;
 
             }
@@ -169,24 +169,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) TryParse(DirectEVSEStatusRequestText, out DirectEVSEStatusRequest, OnException = null)
+        #region (static) TryParse(GetEVSEStatusRequestText, out GetEVSEStatusRequest, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP direct EVSE status request.
         /// </summary>
-        /// <param name="DirectEVSEStatusRequestText">The text to parse.</param>
-        /// <param name="DirectEVSEStatusRequest">The parsed direct EVSE status request.</param>
+        /// <param name="GetEVSEStatusRequestText">The text to parse.</param>
+        /// <param name="GetEVSEStatusRequest">The parsed direct EVSE status request.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                       DirectEVSEStatusRequestText,
-                                       out DirectEVSEStatusRequest  DirectEVSEStatusRequest,
-                                       OnExceptionDelegate          OnException  = null)
+        public static Boolean TryParse(String                    GetEVSEStatusRequestText,
+                                       out GetEVSEStatusRequest  GetEVSEStatusRequest,
+                                       OnExceptionDelegate       OnException  = null)
         {
 
             try
             {
 
-                if (TryParse(XDocument.Parse(DirectEVSEStatusRequestText).Root,
-                             out DirectEVSEStatusRequest,
+                if (TryParse(XDocument.Parse(GetEVSEStatusRequestText).Root,
+                             out GetEVSEStatusRequest,
                              OnException))
 
                     return true;
@@ -194,10 +194,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, DirectEVSEStatusRequestText, e);
+                OnException?.Invoke(DateTime.Now, GetEVSEStatusRequestText, e);
             }
 
-            DirectEVSEStatusRequest = null;
+            GetEVSEStatusRequest = null;
             return false;
 
         }
@@ -211,7 +211,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public XElement ToXML()
 
-            => SOAP.Encapsulation(new XElement(OCHPNS.Default + "ReleaseEvseRequest",
+            => SOAP.Encapsulation(new XElement(OCHPNS.Default + "DirectEvseStatusRequest",
 
                                       EVSEIds.Select(evseid => new XElement(OCHPNS.Default + "requestedEvseId",  evseid.ToString()))
 
@@ -222,48 +222,48 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Operator overloading
 
-        #region Operator == (DirectEVSEStatusRequest1, DirectEVSEStatusRequest2)
+        #region Operator == (GetEVSEStatusRequest1, GetEVSEStatusRequest2)
 
         /// <summary>
         /// Compares two direct EVSE status requests for equality.
         /// </summary>
-        /// <param name="DirectEVSEStatusRequest1">A direct EVSE status request.</param>
-        /// <param name="DirectEVSEStatusRequest2">Another direct EVSE status request.</param>
+        /// <param name="GetEVSEStatusRequest1">A direct EVSE status request.</param>
+        /// <param name="GetEVSEStatusRequest2">Another direct EVSE status request.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (DirectEVSEStatusRequest DirectEVSEStatusRequest1, DirectEVSEStatusRequest DirectEVSEStatusRequest2)
+        public static Boolean operator == (GetEVSEStatusRequest GetEVSEStatusRequest1, GetEVSEStatusRequest GetEVSEStatusRequest2)
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(DirectEVSEStatusRequest1, DirectEVSEStatusRequest2))
+            if (Object.ReferenceEquals(GetEVSEStatusRequest1, GetEVSEStatusRequest2))
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) DirectEVSEStatusRequest1 == null) || ((Object) DirectEVSEStatusRequest2 == null))
+            if (((Object) GetEVSEStatusRequest1 == null) || ((Object) GetEVSEStatusRequest2 == null))
                 return false;
 
-            return DirectEVSEStatusRequest1.Equals(DirectEVSEStatusRequest2);
+            return GetEVSEStatusRequest1.Equals(GetEVSEStatusRequest2);
 
         }
 
         #endregion
 
-        #region Operator != (DirectEVSEStatusRequest1, DirectEVSEStatusRequest2)
+        #region Operator != (GetEVSEStatusRequest1, GetEVSEStatusRequest2)
 
         /// <summary>
         /// Compares two direct EVSE status requests for inequality.
         /// </summary>
-        /// <param name="DirectEVSEStatusRequest1">A direct EVSE status request.</param>
-        /// <param name="DirectEVSEStatusRequest2">Another direct EVSE status request.</param>
+        /// <param name="GetEVSEStatusRequest1">A direct EVSE status request.</param>
+        /// <param name="GetEVSEStatusRequest2">Another direct EVSE status request.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (DirectEVSEStatusRequest DirectEVSEStatusRequest1, DirectEVSEStatusRequest DirectEVSEStatusRequest2)
+        public static Boolean operator != (GetEVSEStatusRequest GetEVSEStatusRequest1, GetEVSEStatusRequest GetEVSEStatusRequest2)
 
-            => !(DirectEVSEStatusRequest1 == DirectEVSEStatusRequest2);
-
-        #endregion
+            => !(GetEVSEStatusRequest1 == GetEVSEStatusRequest2);
 
         #endregion
 
-        #region IEquatable<DirectEVSEStatusRequest> Members
+        #endregion
+
+        #region IEquatable<GetEVSEStatusRequest> Members
 
         #region Equals(Object)
 
@@ -279,32 +279,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a direct EVSE status request.
-            var DirectEVSEStatusRequest = Object as DirectEVSEStatusRequest;
-            if ((Object) DirectEVSEStatusRequest == null)
+            var GetEVSEStatusRequest = Object as GetEVSEStatusRequest;
+            if ((Object) GetEVSEStatusRequest == null)
                 return false;
 
-            return this.Equals(DirectEVSEStatusRequest);
+            return this.Equals(GetEVSEStatusRequest);
 
         }
 
         #endregion
 
-        #region Equals(DirectEVSEStatusRequest)
+        #region Equals(GetEVSEStatusRequest)
 
         /// <summary>
         /// Compares two direct EVSE status requests for equality.
         /// </summary>
-        /// <param name="DirectEVSEStatusRequest">A direct EVSE status request to compare with.</param>
+        /// <param name="GetEVSEStatusRequest">A direct EVSE status request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(DirectEVSEStatusRequest DirectEVSEStatusRequest)
+        public Boolean Equals(GetEVSEStatusRequest GetEVSEStatusRequest)
         {
 
-            if ((Object) DirectEVSEStatusRequest == null)
+            if ((Object) GetEVSEStatusRequest == null)
                 return false;
 
-            return EVSEIds.Count().Equals(DirectEVSEStatusRequest.EVSEIds.Count()) &&
+            return EVSEIds.Count().Equals(GetEVSEStatusRequest.EVSEIds.Count()) &&
 
-                   EVSEIds.Any(evseid => DirectEVSEStatusRequest.EVSEIds.Contains(evseid));
+                   EVSEIds.Any(evseid => GetEVSEStatusRequest.EVSEIds.Contains(evseid));
 
         }
 

@@ -366,27 +366,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region OnDirectEVSEStatusRequest/-Response
+        #region OnGetEVSEStatusRequest/-Response
 
         /// <summary>
         /// An event fired whenever a request for EVSE status will be send.
         /// </summary>
-        public event OnDirectEVSEStatusRequestDelegate   OnDirectEVSEStatusRequest;
+        public event OnGetEVSEStatusRequestDelegate   OnGetEVSEStatusRequest;
 
         /// <summary>
         /// An event fired whenever a SOAP request for EVSE status will be send.
         /// </summary>
-        public event ClientRequestLogHandler             OnDirectEVSEStatusSOAPRequest;
+        public event ClientRequestLogHandler          OnGetEVSEStatusSOAPRequest;
 
         /// <summary>
         /// An event fired whenever a SOAP response for a SOAP request for EVSE status had been received.
         /// </summary>
-        public event ClientResponseLogHandler            OnDirectEVSEStatusSOAPResponse;
+        public event ClientResponseLogHandler         OnGetEVSEStatusSOAPResponse;
 
         /// <summary>
         /// An event fired whenever a response for request for EVSE status had been received.
         /// </summary>
-        public event OnDirectEVSEStatusResponseDelegate  OnDirectEVSEStatusResponse;
+        public event OnGetEVSEStatusResponseDelegate  OnGetEVSEStatusResponse;
 
         #endregion
 
@@ -2723,7 +2723,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region DirectEVSEStatus(...)
+        #region GetEVSEStatus(...)
 
         /// <summary>
         /// Get the status of the given EVSEs directly from the charge point operator..
@@ -2734,9 +2734,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<DirectEVSEStatusResponse>>
+        public async Task<HTTPResponse<GetEVSEStatusResponse>>
 
-            DirectEVSEStatus(IEnumerable<EVSE_Id>  EVSEIds,
+            GetEVSEStatus(IEnumerable<EVSE_Id>  EVSEIds,
 
                              DateTime?             Timestamp          = null,
                              CancellationToken?    CancellationToken  = null,
@@ -2764,27 +2764,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 RequestTimeout = this.RequestTimeout;
 
 
-            HTTPResponse<DirectEVSEStatusResponse> result = null;
+            HTTPResponse<GetEVSEStatusResponse> result = null;
 
             #endregion
 
-            #region Send OnDirectEVSEStatusRequest event
+            #region Send OnGetEVSEStatusRequest event
 
             try
             {
 
-                OnDirectEVSEStatusRequest?.Invoke(DateTime.Now,
-                                                  Timestamp.Value,
-                                                  this,
-                                                  ClientId,
-                                                  EventTrackingId,
-                                                  EVSEIds,
-                                                  RequestTimeout);
+                OnGetEVSEStatusRequest?.Invoke(DateTime.Now,
+                                               Timestamp.Value,
+                                               this,
+                                               ClientId,
+                                               EventTrackingId,
+                                               EVSEIds,
+                                               RequestTimeout);
 
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnDirectEVSEStatusRequest));
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetEVSEStatusRequest));
             }
 
             #endregion
@@ -2800,7 +2800,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(new DirectEVSEStatusRequest(EVSEIds).ToXML(),
+                result = await _OCHPClient.Query(new GetEVSEStatusRequest(EVSEIds).ToXML(),
                                                  "DirectEvseStatusRequest",
                                                  RequestLogDelegate:   OnReleaseEVSESOAPRequest,
                                                  ResponseLogDelegate:  OnReleaseEVSESOAPResponse,
@@ -2810,7 +2810,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(DirectEVSEStatusResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetEVSEStatusResponse.Parse),
 
                                                  #endregion
 
@@ -2820,8 +2820,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<DirectEVSEStatusResponse>(httpresponse,
-                                                                                                       new DirectEVSEStatusResponse(
+                                                     return new HTTPResponse<GetEVSEStatusResponse>(httpresponse,
+                                                                                                       new GetEVSEStatusResponse(
                                                                                                            Result.Format(
                                                                                                                "Invalid SOAP => " +
                                                                                                                httpresponse.HTTPBody.ToUTF8String()
@@ -2839,8 +2839,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<DirectEVSEStatusResponse>(httpresponse,
-                                                                                                       new DirectEVSEStatusResponse(
+                                                     return new HTTPResponse<GetEVSEStatusResponse>(httpresponse,
+                                                                                                       new GetEVSEStatusResponse(
                                                                                                            Result.Server(
                                                                                                                 httpresponse.HTTPStatusCode.ToString() +
                                                                                                                 " => " +
@@ -2859,7 +2859,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      SendException(timestamp, sender, exception);
 
-                                                     return HTTPResponse<DirectEVSEStatusResponse>.ExceptionThrown(new DirectEVSEStatusResponse(
+                                                     return HTTPResponse<GetEVSEStatusResponse>.ExceptionThrown(new GetEVSEStatusResponse(
                                                                                                                        Result.Format(exception.Message +
                                                                                                                                      " => " +
                                                                                                                                      exception.StackTrace)),
@@ -2874,28 +2874,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<DirectEVSEStatusResponse>.OK(new DirectEVSEStatusResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetEVSEStatusResponse>.OK(new GetEVSEStatusResponse(Result.OK("Nothing to upload!")));
 
 
-            #region Send OnDirectEVSEStatusResponse event
+            #region Send OnGetEVSEStatusResponse event
 
             try
             {
 
-                OnDirectEVSEStatusResponse?.Invoke(DateTime.Now,
-                                                   Timestamp.Value,
-                                                   this,
-                                                   ClientId,
-                                                   EventTrackingId,
-                                                   EVSEIds,
-                                                   RequestTimeout,
-                                                   result.Content,
-                                                   DateTime.Now - Timestamp.Value);
+                OnGetEVSEStatusResponse?.Invoke(DateTime.Now,
+                                                Timestamp.Value,
+                                                this,
+                                                ClientId,
+                                                EventTrackingId,
+                                                EVSEIds,
+                                                RequestTimeout,
+                                                result.Content,
+                                                DateTime.Now - Timestamp.Value);
 
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnDirectEVSEStatusResponse));
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetEVSEStatusResponse));
             }
 
             #endregion

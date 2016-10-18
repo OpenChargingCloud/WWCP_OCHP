@@ -370,26 +370,26 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever an EVSE status request will be send to a charge point operator.
     /// </summary>
-    public delegate Task OnDirectEVSEStatusRequestDelegate (DateTime                   LogTimestamp,
-                                                            DateTime                   RequestTimestamp,
-                                                            EMPClient                  Sender,
-                                                            String                     SenderId,
-                                                            EventTracking_Id           EventTrackingId,
-                                                            IEnumerable<EVSE_Id>       EVSEs,
-                                                            TimeSpan?                  RequestTimeout);
+    public delegate Task OnGetEVSEStatusRequestDelegate (DateTime                LogTimestamp,
+                                                         DateTime                RequestTimestamp,
+                                                         EMPClient               Sender,
+                                                         String                  SenderId,
+                                                         EventTracking_Id        EventTrackingId,
+                                                         IEnumerable<EVSE_Id>    EVSEs,
+                                                         TimeSpan?               RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending an EVSE status request to a charge point operator had been received.
     /// </summary>
-    public delegate Task OnDirectEVSEStatusResponseDelegate(DateTime                   LogTimestamp,
-                                                            DateTime                   RequestTimestamp,
-                                                            EMPClient                  Sender,
-                                                            String                     SenderId,
-                                                            EventTracking_Id           EventTrackingId,
-                                                            IEnumerable<EVSE_Id>       EVSEs,
-                                                            TimeSpan?                  RequestTimeout,
-                                                            DirectEVSEStatusResponse   Result,
-                                                            TimeSpan                   Duration);
+    public delegate Task OnGetEVSEStatusResponseDelegate(DateTime                LogTimestamp,
+                                                         DateTime                RequestTimestamp,
+                                                         EMPClient               Sender,
+                                                         String                  SenderId,
+                                                         EventTracking_Id        EventTrackingId,
+                                                         IEnumerable<EVSE_Id>    EVSEs,
+                                                         TimeSpan?               RequestTimeout,
+                                                         GetEVSEStatusResponse   Result,
+                                                         TimeSpan                Duration);
 
     #endregion
 

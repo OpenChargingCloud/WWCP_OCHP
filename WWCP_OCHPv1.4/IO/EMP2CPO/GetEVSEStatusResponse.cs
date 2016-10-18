@@ -32,7 +32,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// An OCHP direct EVSE status response.
     /// </summary>
-    public class DirectEVSEStatusResponse : AResponse
+    public class GetEVSEStatusResponse : AResponse
     {
 
         #region Properties
@@ -60,54 +60,54 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Data accepted and processed.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static DirectEVSEStatusResponse OK(String Description = null)
+        public static GetEVSEStatusResponse OK(String Description = null)
 
-            => new DirectEVSEStatusResponse(Result.OK(Description));
+            => new GetEVSEStatusResponse(Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static DirectEVSEStatusResponse Partly(String Description = null)
+        public static GetEVSEStatusResponse Partly(String Description = null)
 
-            => new DirectEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Result.Unknown(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static DirectEVSEStatusResponse NotAuthorized(String Description = null)
+        public static GetEVSEStatusResponse NotAuthorized(String Description = null)
 
-            => new DirectEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Result.Unknown(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static DirectEVSEStatusResponse InvalidId(String Description = null)
+        public static GetEVSEStatusResponse InvalidId(String Description = null)
 
-            => new DirectEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Result.Unknown(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static DirectEVSEStatusResponse Server(String Description = null)
+        public static GetEVSEStatusResponse Server(String Description = null)
 
-            => new DirectEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Result.Unknown(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static DirectEVSEStatusResponse Format(String Description = null)
+        public static GetEVSEStatusResponse Format(String Description = null)
 
-            => new DirectEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Result.Unknown(Description));
 
         #endregion
 
@@ -120,10 +120,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="EVSEStatus">An enumeration of EVSE status.</param>
         /// <param name="ParkingStatus">An enumeration of parking status.</param>
         /// <param name="CombinedStatus">An enumeration of charge detail records.</param>
-        public DirectEVSEStatusResponse(Result                      Result,
-                                        IEnumerable<EVSEStatus>     EVSEStatus      = null,
-                                        IEnumerable<ParkingStatus>  ParkingStatus   = null,
-                                        IEnumerable<EVSEStatus>     CombinedStatus  = null)
+        public GetEVSEStatusResponse(Result                      Result,
+                                     IEnumerable<EVSEStatus>     EVSEStatus      = null,
+                                     IEnumerable<ParkingStatus>  ParkingStatus   = null,
+                                     IEnumerable<EVSEStatus>     CombinedStatus  = null)
 
             : base(Result)
 
@@ -145,7 +145,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //
         //    <soapenv:Header/>
         //    <soapenv:Body>
-        //      <ns:DirectEVSEStatusResponse>
+        //      <ns:GetStatusResponse>
         //
         //        <!--Zero or more repetitions:-->
         //        <ns:combined major = "?" minor="?" ttl="?">
@@ -162,27 +162,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //           <ns:parkingId>?</ns:parkingId>
         //        </ns:parking>
         //
-        //      </ns:DirectEVSEStatusResponse>
+        //      </ns:GetStatusResponse>
         //    </soapenv:Body>
         // </soapenv:Envelope>
 
         #endregion
 
-        #region (static) Parse(DirectEVSEStatusResponseXML,  OnException = null)
+        #region (static) Parse(GetEVSEStatusResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP get status response.
         /// </summary>
-        /// <param name="DirectEVSEStatusResponseXML">The XML to parse.</param>
+        /// <param name="GetEVSEStatusResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static DirectEVSEStatusResponse Parse(XElement             DirectEVSEStatusResponseXML,
-                                                     OnExceptionDelegate  OnException = null)
+        public static GetEVSEStatusResponse Parse(XElement             GetEVSEStatusResponseXML,
+                                                  OnExceptionDelegate  OnException = null)
         {
 
-            DirectEVSEStatusResponse _DirectEVSEStatusResponse;
+            GetEVSEStatusResponse _GetEVSEStatusResponse;
 
-            if (TryParse(DirectEVSEStatusResponseXML, out _DirectEVSEStatusResponse, OnException))
-                return _DirectEVSEStatusResponse;
+            if (TryParse(GetEVSEStatusResponseXML, out _GetEVSEStatusResponse, OnException))
+                return _GetEVSEStatusResponse;
 
             return null;
 
@@ -190,21 +190,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) Parse(DirectEVSEStatusResponseText, OnException = null)
+        #region (static) Parse(GetEVSEStatusResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP get status response.
         /// </summary>
-        /// <param name="DirectEVSEStatusResponseText">The text to parse.</param>
+        /// <param name="GetEVSEStatusResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static DirectEVSEStatusResponse Parse(String               DirectEVSEStatusResponseText,
-                                                     OnExceptionDelegate  OnException = null)
+        public static GetEVSEStatusResponse Parse(String               GetEVSEStatusResponseText,
+                                                  OnExceptionDelegate  OnException = null)
         {
 
-            DirectEVSEStatusResponse _DirectEVSEStatusResponse;
+            GetEVSEStatusResponse _GetEVSEStatusResponse;
 
-            if (TryParse(DirectEVSEStatusResponseText, out _DirectEVSEStatusResponse, OnException))
-                return _DirectEVSEStatusResponse;
+            if (TryParse(GetEVSEStatusResponseText, out _GetEVSEStatusResponse, OnException))
+                return _GetEVSEStatusResponse;
 
             return null;
 
@@ -212,36 +212,36 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) TryParse(DirectEVSEStatusResponseXML,  out DirectEVSEStatusResponse, OnException = null)
+        #region (static) TryParse(GetEVSEStatusResponseXML,  out GetEVSEStatusResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP get status response.
         /// </summary>
-        /// <param name="DirectEVSEStatusResponseXML">The XML to parse.</param>
-        /// <param name="DirectEVSEStatusResponse">The parsed get status response.</param>
+        /// <param name="GetEVSEStatusResponseXML">The XML to parse.</param>
+        /// <param name="GetEVSEStatusResponse">The parsed get status response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                      DirectEVSEStatusResponseXML,
-                                       out DirectEVSEStatusResponse  DirectEVSEStatusResponse,
-                                       OnExceptionDelegate           OnException  = null)
+        public static Boolean TryParse(XElement                   GetEVSEStatusResponseXML,
+                                       out GetEVSEStatusResponse  GetEVSEStatusResponse,
+                                       OnExceptionDelegate        OnException  = null)
         {
 
             try
             {
 
-                DirectEVSEStatusResponse = new DirectEVSEStatusResponse(
+                GetEVSEStatusResponse = new GetEVSEStatusResponse(
 
                                                // Fake it until the specification will be updated!
                                                new Result(ResultCodes.OK),
 
-                                               DirectEVSEStatusResponseXML.MapElements(OCHPNS.Default + "evse",
+                                               GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "evse",
                                                                                        OCHPv1_4.EVSEStatus.Parse,
                                                                                        OnException),
 
-                                               DirectEVSEStatusResponseXML.MapElements(OCHPNS.Default + "parking",
+                                               GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "parking",
                                                                                        OCHPv1_4.ParkingStatus.Parse,
                                                                                        OnException),
 
-                                               DirectEVSEStatusResponseXML.MapElements(OCHPNS.Default + "combined",
+                                               GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "combined",
                                                                                        OCHPv1_4.EVSEStatus.Parse,
                                                                                        OnException)
 
@@ -253,9 +253,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, DirectEVSEStatusResponseXML, e);
+                OnException?.Invoke(DateTime.Now, GetEVSEStatusResponseXML, e);
 
-                DirectEVSEStatusResponse = null;
+                GetEVSEStatusResponse = null;
                 return false;
 
             }
@@ -264,24 +264,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) TryParse(DirectEVSEStatusResponseText, out DirectEVSEStatusResponse, OnException = null)
+        #region (static) TryParse(GetEVSEStatusResponseText, out GetEVSEStatusResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP get status response.
         /// </summary>
-        /// <param name="DirectEVSEStatusResponseText">The text to parse.</param>
-        /// <param name="DirectEVSEStatusResponse">The parsed get status response.</param>
+        /// <param name="GetEVSEStatusResponseText">The text to parse.</param>
+        /// <param name="GetEVSEStatusResponse">The parsed get status response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                        DirectEVSEStatusResponseText,
-                                       out DirectEVSEStatusResponse  DirectEVSEStatusResponse,
-                                       OnExceptionDelegate           OnException  = null)
+        public static Boolean TryParse(String                     GetEVSEStatusResponseText,
+                                       out GetEVSEStatusResponse  GetEVSEStatusResponse,
+                                       OnExceptionDelegate        OnException  = null)
         {
 
             try
             {
 
-                if (TryParse(XDocument.Parse(DirectEVSEStatusResponseText).Root,
-                             out DirectEVSEStatusResponse,
+                if (TryParse(XDocument.Parse(GetEVSEStatusResponseText).Root,
+                             out GetEVSEStatusResponse,
                              OnException))
 
                     return true;
@@ -289,10 +289,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, DirectEVSEStatusResponseText, e);
+                OnException?.Invoke(DateTime.Now, GetEVSEStatusResponseText, e);
             }
 
-            DirectEVSEStatusResponse = null;
+            GetEVSEStatusResponse = null;
             return false;
 
         }
@@ -306,7 +306,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public XElement ToXML()
 
-            => new XElement(OCHPNS.Default + "DirectEVSEStatusResponse",
+            => new XElement(OCHPNS.Default + "GetStatusResponse",
 
                    EVSEStatus.    Select(evse     => evse.    ToXML(OCHPNS.Default + "combined")),
                    ParkingStatus. Select(parking  => parking. ToXML(OCHPNS.Default + "parking")),
@@ -319,48 +319,48 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Operator overloading
 
-        #region Operator == (DirectEVSEStatusResponse1, DirectEVSEStatusResponse2)
+        #region Operator == (GetEVSEStatusResponse1, GetEVSEStatusResponse2)
 
         /// <summary>
         /// Compares two get status responses for equality.
         /// </summary>
-        /// <param name="DirectEVSEStatusResponse1">A get status response.</param>
-        /// <param name="DirectEVSEStatusResponse2">Another get status response.</param>
+        /// <param name="GetEVSEStatusResponse1">A get status response.</param>
+        /// <param name="GetEVSEStatusResponse2">Another get status response.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (DirectEVSEStatusResponse DirectEVSEStatusResponse1, DirectEVSEStatusResponse DirectEVSEStatusResponse2)
+        public static Boolean operator == (GetEVSEStatusResponse GetEVSEStatusResponse1, GetEVSEStatusResponse GetEVSEStatusResponse2)
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(DirectEVSEStatusResponse1, DirectEVSEStatusResponse2))
+            if (Object.ReferenceEquals(GetEVSEStatusResponse1, GetEVSEStatusResponse2))
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) DirectEVSEStatusResponse1 == null) || ((Object) DirectEVSEStatusResponse2 == null))
+            if (((Object) GetEVSEStatusResponse1 == null) || ((Object) GetEVSEStatusResponse2 == null))
                 return false;
 
-            return DirectEVSEStatusResponse1.Equals(DirectEVSEStatusResponse2);
+            return GetEVSEStatusResponse1.Equals(GetEVSEStatusResponse2);
 
         }
 
         #endregion
 
-        #region Operator != (DirectEVSEStatusResponse1, DirectEVSEStatusResponse2)
+        #region Operator != (GetEVSEStatusResponse1, GetEVSEStatusResponse2)
 
         /// <summary>
         /// Compares two get status responses for inequality.
         /// </summary>
-        /// <param name="DirectEVSEStatusResponse1">A get status response.</param>
-        /// <param name="DirectEVSEStatusResponse2">Another get status response.</param>
+        /// <param name="GetEVSEStatusResponse1">A get status response.</param>
+        /// <param name="GetEVSEStatusResponse2">Another get status response.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (DirectEVSEStatusResponse DirectEVSEStatusResponse1, DirectEVSEStatusResponse DirectEVSEStatusResponse2)
+        public static Boolean operator != (GetEVSEStatusResponse GetEVSEStatusResponse1, GetEVSEStatusResponse GetEVSEStatusResponse2)
 
-            => !(DirectEVSEStatusResponse1 == DirectEVSEStatusResponse2);
-
-        #endregion
+            => !(GetEVSEStatusResponse1 == GetEVSEStatusResponse2);
 
         #endregion
 
-        #region IEquatable<DirectEVSEStatusResponse> Members
+        #endregion
+
+        #region IEquatable<GetEVSEStatusResponse> Members
 
         #region Equals(Object)
 
@@ -376,37 +376,37 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a get status response.
-            var DirectEVSEStatusResponse = Object as DirectEVSEStatusResponse;
-            if ((Object) DirectEVSEStatusResponse == null)
+            var GetEVSEStatusResponse = Object as GetEVSEStatusResponse;
+            if ((Object) GetEVSEStatusResponse == null)
                 return false;
 
-            return this.Equals(DirectEVSEStatusResponse);
+            return this.Equals(GetEVSEStatusResponse);
 
         }
 
         #endregion
 
-        #region Equals(DirectEVSEStatusResponse)
+        #region Equals(GetEVSEStatusResponse)
 
         /// <summary>
         /// Compares two get status responses for equality.
         /// </summary>
-        /// <param name="DirectEVSEStatusResponse">A get status response to compare with.</param>
+        /// <param name="GetEVSEStatusResponse">A get status response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(DirectEVSEStatusResponse DirectEVSEStatusResponse)
+        public Boolean Equals(GetEVSEStatusResponse GetEVSEStatusResponse)
         {
 
-            if ((Object) DirectEVSEStatusResponse == null)
+            if ((Object) GetEVSEStatusResponse == null)
                 return false;
 
-            return ((EVSEStatus     != null && DirectEVSEStatusResponse.EVSEStatus     != null && EVSEStatus.    Count() == DirectEVSEStatusResponse.EVSEStatus.    Count()) ||
-                    (EVSEStatus     == null && DirectEVSEStatusResponse.EVSEStatus     == null)) &&
+            return ((EVSEStatus     != null && GetEVSEStatusResponse.EVSEStatus     != null && EVSEStatus.    Count() == GetEVSEStatusResponse.EVSEStatus.    Count()) ||
+                    (EVSEStatus     == null && GetEVSEStatusResponse.EVSEStatus     == null)) &&
 
-                   ((ParkingStatus  != null && DirectEVSEStatusResponse.ParkingStatus  != null && ParkingStatus. Count() == DirectEVSEStatusResponse.ParkingStatus. Count()) ||
-                    (ParkingStatus  == null && DirectEVSEStatusResponse.ParkingStatus  == null)) &&
+                   ((ParkingStatus  != null && GetEVSEStatusResponse.ParkingStatus  != null && ParkingStatus. Count() == GetEVSEStatusResponse.ParkingStatus. Count()) ||
+                    (ParkingStatus  == null && GetEVSEStatusResponse.ParkingStatus  == null)) &&
 
-                   ((CombinedStatus != null && DirectEVSEStatusResponse.CombinedStatus != null && CombinedStatus.Count() == DirectEVSEStatusResponse.CombinedStatus.Count()) ||
-                    (CombinedStatus == null && DirectEVSEStatusResponse.CombinedStatus == null));
+                   ((CombinedStatus != null && GetEVSEStatusResponse.CombinedStatus != null && CombinedStatus.Count() == GetEVSEStatusResponse.CombinedStatus.Count()) ||
+                    (CombinedStatus == null && GetEVSEStatusResponse.CombinedStatus == null));
 
         }
 

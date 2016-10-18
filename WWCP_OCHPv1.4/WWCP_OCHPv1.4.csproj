@@ -66,9 +66,9 @@
     <Compile Include="EMP\EMPClient\EMPClientDelegates.cs" />
     <Compile Include="EMP\EMPClient\EMPClientLogger.cs" />
     <Compile Include="EMP\EMPClient\EMPClientXMLMethods.cs" />
-    <Compile Include="IO\EMP2CPO\DirectEVSEStatusRequest.cs" />
+    <Compile Include="IO\EMP2CPO\GetEVSEStatusRequest.cs" />
     <Compile Include="IO\EMP2CPO\RelaseEVSERequest.cs" />
-    <Compile Include="IO\EMP2CPO\DirectEVSEStatusResponse.cs" />
+    <Compile Include="IO\EMP2CPO\GetEVSEStatusResponse.cs" />
     <Compile Include="IO\EMP2CPO\SelectEVSERequest.cs" />
     <Compile Include="IO\EMP2Cental\AddServiceEndpointsResponse.cs" />
     <Compile Include="IO\EMP2Cental\ConfirmCDRsResponse.cs" />
