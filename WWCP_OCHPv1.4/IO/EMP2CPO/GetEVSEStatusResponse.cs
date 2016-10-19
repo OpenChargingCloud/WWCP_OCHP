@@ -425,9 +425,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             unchecked
             {
 
-                return (EVSEStatus     != null ? EVSEStatus.    GetHashCode() : 0) * 17 ^
-                       (ParkingStatus  != null ? ParkingStatus. GetHashCode() : 0) * 11 ^
-                       (CombinedStatus != null ? CombinedStatus.GetHashCode() : 0);
+                return (EVSEStatus     != null
+                            ? EVSEStatus.    GetHashCode() * 17
+                            : 0) ^
+
+                       (ParkingStatus  != null
+                            ? ParkingStatus. GetHashCode() * 11
+                            : 0) ^
+
+                       (CombinedStatus != null
+                            ? CombinedStatus.GetHashCode()
+                            : 0);
 
             }
         }
@@ -444,15 +452,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => String.Concat(EVSEStatus.Any()
                                  ? " " + EVSEStatus.    Count() + " evse status, "
                                  : "",
+
                              ParkingStatus.Any()
                                  ? " " + ParkingStatus. Count() + " parking status, "
                                  : "",
+
                              CombinedStatus.Any()
                                  ? " " + CombinedStatus.Count() + " combined status"
                                  : "");
 
         #endregion
-
 
     }
 

@@ -159,7 +159,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //             <ns:DateTime>?</ns:DateTime>
         //          </ns:ttl>
         //
-        //       </ns:ReleaseEvseResponse>        //    </soapenv:Body>
+        //       </ns:ReleaseEvseResponse>
+        //    </soapenv:Body>
         // </soapenv:Envelope>
 
         #endregion
@@ -429,9 +430,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return (DirectId != null
                             ? DirectId.GetHashCode() * 17
                             : 0) ^
+
                        (SessionTimeoutAt.HasValue
                             ? SessionTimeoutAt.GetHashCode() * 11
                             : 0) ^
+
                        Result.GetHashCode();
 
             }
@@ -447,9 +450,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public override String ToString()
 
             => String.Concat(Result,
+
                              DirectId != null
                                  ? " for " + DirectId
                                  : "",
+
                              SessionTimeoutAt.HasValue
                                  ? " timeout at " + SessionTimeoutAt.Value.ToIso8601()
                                  : "");

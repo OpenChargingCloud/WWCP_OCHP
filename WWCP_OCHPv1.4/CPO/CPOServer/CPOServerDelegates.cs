@@ -22,6 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using System.Collections.Generic;
 
 #endregion
 
@@ -52,6 +53,39 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
 
     /// <summary>
+    /// Initiate a control EVSE request for the given charging process session identification.
+    /// </summary>
+    /// <param name="Timestamp">The timestamp of the request.</param>
+    /// <param name="Sender">The sender of the request.</param>
+    /// <param name="CancellationToken">A token to cancel this task.</param>
+    /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
+    /// <param name="DirectId">The unique session identification of the direct charging process to be controlled.</param>
+    /// <param name="Operation">The operation to be performed for the selected charge point.</param>
+    /// <param name="MaxPower">Maximum authorised power in kW.</param>
+    /// <param name="MaxCurrent">Maximum authorised current in A.</param>
+    /// <param name="OnePhase">Marks an AC-charging session to be limited to one-phase charging.</param>
+    /// <param name="MaxEnergy">Maximum authorised energy in kWh.</param>
+    /// <param name="MinEnergy">Minimum required energy in kWh.</param>
+    /// <param name="Departure">Scheduled time of departure.</param>
+    /// <param name="RequestTimeout">An optional timeout for this request.</param>
+    public delegate Task<ControlEVSEResponse>
+
+        OnControlEVSERequestDelegate(DateTime             Timestamp,
+                                     CPOServer            Sender,
+                                     CancellationToken    CancellationToken,
+                                     EventTracking_Id     EventTrackingId,
+                                     Direct_Id            DirectId,
+                                     DirectOperations     Operation,
+                                     Single?              MaxPower,
+                                     Single?              MaxCurrent,
+                                     Boolean?             OnePhase,
+                                     Single?              MaxEnergy,
+                                     Single?              MinEnergy,
+                                     DateTime?            Departure,
+                                     TimeSpan?            RequestTimeout  = null);
+
+
+    /// <summary>
     /// Initiate a release EVSE request for the given direct charging session identification.
     /// </summary>
     /// <param name="Timestamp">The timestamp of the request.</param>
@@ -62,12 +96,52 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<ReleaseEVSEResponse>
 
-        OnReleaseEVSERequestDelegate(DateTime            Timestamp,
-                                     CPOServer           Sender,
-                                     CancellationToken   CancellationToken,
-                                     EventTracking_Id    EventTrackingId,
-                                     Direct_Id           DirectId,
-                                     TimeSpan?           RequestTimeout  = null);
+        OnReleaseEVSERequestDelegate(DateTime             Timestamp,
+                                     CPOServer            Sender,
+                                     CancellationToken    CancellationToken,
+                                     EventTracking_Id     EventTrackingId,
+                                     Direct_Id            DirectId,
+                                     TimeSpan?            RequestTimeout  = null);
+
+
+    /// <summary>
+    /// Initiate a get EVSE status request for the given enumeration of EVSE identifications.
+    /// </summary>
+    /// <param name="Timestamp">The timestamp of the request.</param>
+    /// <param name="Sender">The sender of the request.</param>
+    /// <param name="CancellationToken">A token to cancel this task.</param>
+    /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
+    /// <param name="EVSEIds">An enumeration of EVSE identifications.</param>
+    /// <param name="RequestTimeout">An optional timeout for this request.</param>
+    public delegate Task<GetEVSEStatusResponse>
+
+        OnGetEVSEStatusRequestDelegate(DateTime                Timestamp,
+                                       CPOServer               Sender,
+                                       CancellationToken       CancellationToken,
+                                       EventTracking_Id        EventTrackingId,
+                                       IEnumerable<EVSE_Id>    EVSEIds,
+                                       TimeSpan?               RequestTimeout  = null);
+
+
+    /// <summary>
+    /// Initiate a report discrepancy request for the given EVSE identification.
+    /// </summary>
+    /// <param name="Timestamp">The timestamp of the request.</param>
+    /// <param name="Sender">The sender of the request.</param>
+    /// <param name="CancellationToken">A token to cancel this task.</param>
+    /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
+    /// <param name="EVSEId">The EVSE identification affected by this report.</param>
+    /// <param name="Report">Textual or generated report of the discrepancy.</param>
+    /// <param name="RequestTimeout">An optional timeout for this request.</param>
+    public delegate Task<ReportDiscrepancyResponse>
+
+        OnReportDiscrepancyRequestDelegate(DateTime             Timestamp,
+                                           CPOServer            Sender,
+                                           CancellationToken    CancellationToken,
+                                           EventTracking_Id     EventTrackingId,
+                                           EVSE_Id              EVSEId,
+                                           String               Report,
+                                           TimeSpan?            RequestTimeout  = null);
 
 
 }

@@ -116,7 +116,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //    <!--Zero or more repetitions:-->
         //    <ns:blacklist>?</ns:blacklist>
         //
-        // </ns:operatorEndpointArray>
+        // </ns:operatorEndpointArray>
+
         #endregion
 
         #region (static) Parse(OperatorEndpointXML,  OnException = null)

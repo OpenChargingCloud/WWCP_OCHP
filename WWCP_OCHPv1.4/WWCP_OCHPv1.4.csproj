@@ -50,6 +50,10 @@
     <Compile Include="CPO\CPOClient\CPOClientDelegates.cs" />
     <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
     <Compile Include="CPO\CPOClient\CPOClientXMLMethods.cs" />
+    <Compile Include="IO\EMP2CPO\ControlEVSERequest.cs" />
+    <Compile Include="IO\EMP2CPO\ControlEVSEResponse.cs" />
+    <Compile Include="IO\EMP2CPO\ReportDiscrepancyRequest.cs" />
+    <Compile Include="IO\EMP2CPO\ReportDiscrepancyResponse.cs" />
     <Compile Include="IO\EndpointInfos.cs" />
     <Compile Include="IO\EndpointInfo.cs" />
     <Compile Include="IO\CPO2Central\AddOperatorServiceEndpointsResponse.cs" />

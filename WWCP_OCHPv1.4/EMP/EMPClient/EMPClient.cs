@@ -342,6 +342,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+        #region OnControlEVSERequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request to control a direct charging process will be send.
+        /// </summary>
+        public event OnControlEVSERequestDelegate   OnControlEVSERequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP request to control a direct charging process will be send.
+        /// </summary>
+        public event ClientRequestLogHandler        OnControlEVSESOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a SOAP request to control a direct charging process had been received.
+        /// </summary>
+        public event ClientResponseLogHandler       OnControlEVSESOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for request to control a direct charging process had been received.
+        /// </summary>
+        public event OnControlEVSEResponseDelegate  OnControlEVSEResponse;
+
+        #endregion
+
         #region OnReleaseEVSERequest/-Response
 
         /// <summary>
@@ -384,9 +408,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         public event ClientResponseLogHandler         OnGetEVSEStatusSOAPResponse;
 
         /// <summary>
-        /// An event fired whenever a response for request for EVSE status had been received.
+        /// An event fired whenever a response for an EVSE status request had been received.
         /// </summary>
         public event OnGetEVSEStatusResponseDelegate  OnGetEVSEStatusResponse;
+
+        #endregion
+
+        #region OnReportDiscrepancyRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a report discrepancy request will be send.
+        /// </summary>
+        public event OnReportDiscrepancyRequestDelegate   OnReportDiscrepancyRequest;
+
+        /// <summary>
+        /// An event fired whenever a report discrepancy SOAP request will be send.
+        /// </summary>
+        public event ClientRequestLogHandler              OnReportDiscrepancySOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a report discrepancy SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler             OnReportDiscrepancySOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for a report discrepancy request had been received.
+        /// </summary>
+        public event OnReportDiscrepancyResponseDelegate  OnReportDiscrepancyResponse;
 
         #endregion
 
@@ -2532,6 +2580,226 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+        #region ControlEVSE(...)
+
+        /// <summary>
+        /// Control a direct charging process.
+        /// </summary>
+        /// <param name="DirectId">The unique session identification of the direct charging process to be controlled.</param>
+        /// <param name="Operation">The operation to be performed for the selected charge point.</param>
+        /// <param name="MaxPower">Maximum authorised power in kW.</param>
+        /// <param name="MaxCurrent">Maximum authorised current in A.</param>
+        /// <param name="OnePhase">Marks an AC-charging session to be limited to one-phase charging.</param>
+        /// <param name="MaxEnergy">Maximum authorised energy in kWh.</param>
+        /// <param name="MinEnergy">Minimum required energy in kWh.</param>
+        /// <param name="Departure">Scheduled time of departure.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<ControlEVSEResponse>>
+
+            ControlEVSE(Direct_Id           DirectId,
+                        DirectOperations    Operation,
+                        Single?             MaxPower           = null,
+                        Single?             MaxCurrent         = null,
+                        Boolean?            OnePhase           = null,
+                        Single?             MaxEnergy          = null,
+                        Single?             MinEnergy          = null,
+                        DateTime?           Departure          = null,
+
+                        DateTime?           Timestamp          = null,
+                        CancellationToken?  CancellationToken  = null,
+                        EventTracking_Id    EventTrackingId    = null,
+                        TimeSpan?           RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (DirectId == null)
+                throw new ArgumentNullException(nameof(DirectId),  "The given direct charging process session identification must not be null!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<ControlEVSEResponse> result = null;
+
+            #endregion
+
+            #region Send OnControlEVSERequest event
+
+            try
+            {
+
+                OnControlEVSERequest?.Invoke(DateTime.Now,
+                                             Timestamp.Value,
+                                             this,
+                                             ClientId,
+                                             EventTrackingId,
+                                             DirectId,
+                                             Operation,
+                                             MaxPower,
+                                             MaxCurrent,
+                                             OnePhase,
+                                             MaxEnergy,
+                                             MinEnergy,
+                                             Departure,
+                                             RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnSelectEVSERequest));
+            }
+
+            #endregion
+
+            var ep = _EndpointInfos.Get(DirectId);
+
+            using (var _OCHPClient = new SOAPClient(ep.First().URL,
+                                                    RemotePort,
+                                                    ep.First().URL,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(new ControlEVSERequest(DirectId,
+                                                                        Operation,
+                                                                        MaxPower,
+                                                                        MaxCurrent,
+                                                                        OnePhase,
+                                                                        MaxEnergy,
+                                                                        MinEnergy,
+                                                                        Departure).ToXML(),
+                                                 "ControlEVSERequest",
+                                                 RequestLogDelegate:   OnControlEVSESOAPRequest,
+                                                 ResponseLogDelegate:  OnControlEVSESOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(ControlEVSEResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<ControlEVSEResponse>(httpresponse,
+                                                                                                  new ControlEVSEResponse(
+                                                                                                      Result.Format(
+                                                                                                          "Invalid SOAP => " +
+                                                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                                                      )
+                                                                                                  ),
+                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<ControlEVSEResponse>(httpresponse,
+                                                                                                  new ControlEVSEResponse(
+                                                                                                      Result.Server(
+                                                                                                           httpresponse.HTTPStatusCode.ToString() +
+                                                                                                           " => " +
+                                                                                                           httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                      )
+                                                                                                  ),
+                                                                                                  IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<ControlEVSEResponse>.ExceptionThrown(new ControlEVSEResponse(
+                                                                                                                  Result.Format(exception.Message +
+                                                                                                                                " => " +
+                                                                                                                                exception.StackTrace)),
+                                                                                                              exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<ControlEVSEResponse>.OK(new ControlEVSEResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnControlEVSEResponse event
+
+            try
+            {
+
+                OnControlEVSEResponse?.Invoke(DateTime.Now,
+                                              Timestamp.Value,
+                                              this,
+                                              ClientId,
+                                              EventTrackingId,
+                                              DirectId,
+                                              Operation,
+                                              MaxPower,
+                                              MaxCurrent,
+                                              OnePhase,
+                                              MaxEnergy,
+                                              MinEnergy,
+                                              Departure,
+                                              RequestTimeout,
+                                              result.Content,
+                                              DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnControlEVSEResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
         #region ReleaseEVSE(...)
 
         /// <summary>
@@ -2726,7 +2994,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region GetEVSEStatus(...)
 
         /// <summary>
-        /// Get the status of the given EVSEs directly from the charge point operator..
+        /// Get the status of the given EVSEs directly from the charge point operator.
         /// </summary>
         /// <param name="EVSEIds">An enumeration of EVSE identifications.</param>
         /// 
@@ -2802,8 +3070,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                 result = await _OCHPClient.Query(new GetEVSEStatusRequest(EVSEIds).ToXML(),
                                                  "DirectEvseStatusRequest",
-                                                 RequestLogDelegate:   OnReleaseEVSESOAPRequest,
-                                                 ResponseLogDelegate:  OnReleaseEVSESOAPResponse,
+                                                 RequestLogDelegate:   OnGetEVSEStatusSOAPRequest,
+                                                 ResponseLogDelegate:  OnGetEVSEStatusSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
                                                  QueryTimeout:         RequestTimeout,
@@ -2896,6 +3164,199 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
                 e.Log(nameof(EMPClient) + "." + nameof(OnGetEVSEStatusResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region ReportDiscrepancy(...)
+
+        /// <summary>
+        /// Report a discrepancy or any issue concerning the data, compatibility or status
+        /// of an EVSE to the charge point operator.
+        /// </summary>
+        /// <param name="EVSEId">The EVSE identification affected by this report.</param>
+        /// <param name="Report">Textual or generated report of the discrepancy.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<ReportDiscrepancyResponse>>
+
+            ReportDiscrepancy(EVSE_Id               EVSEId,
+                              String                Report,
+
+                              DateTime?             Timestamp          = null,
+                              CancellationToken?    CancellationToken  = null,
+                              EventTracking_Id      EventTrackingId    = null,
+                              TimeSpan?             RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (EVSEId == null)
+                throw new ArgumentNullException(nameof(EVSEId),  "The given EVSE identification must not be null!");
+
+            if (Report == null || Report.Trim().IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(Report),  "The given EVSE report must not be null or empty!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<ReportDiscrepancyResponse> result = null;
+
+            #endregion
+
+            #region Send OnReportDiscrepancyRequest event
+
+            try
+            {
+
+                OnReportDiscrepancyRequest?.Invoke(DateTime.Now,
+                                                   Timestamp.Value,
+                                                   this,
+                                                   ClientId,
+                                                   EventTrackingId,
+                                                   EVSEId,
+                                                   Report,
+                                                   RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnReportDiscrepancyRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(new ReportDiscrepancyRequest(EVSEId,
+                                                                              Report).ToXML(),
+                                                 "ReportDiscrepancyRequest",
+                                                 RequestLogDelegate:   OnGetEVSEStatusSOAPRequest,
+                                                 ResponseLogDelegate:  OnGetEVSEStatusSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(ReportDiscrepancyResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<ReportDiscrepancyResponse>(httpresponse,
+                                                                                                        new ReportDiscrepancyResponse(
+                                                                                                            Result.Format(
+                                                                                                                "Invalid SOAP => " +
+                                                                                                                httpresponse.HTTPBody.ToUTF8String()
+                                                                                                            )
+                                                                                                        ),
+                                                                                                        IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<ReportDiscrepancyResponse>(httpresponse,
+                                                                                                        new ReportDiscrepancyResponse(
+                                                                                                            Result.Server(
+                                                                                                                 httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                 " => " +
+                                                                                                                 httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                            )
+                                                                                                        ),
+                                                                                                        IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<ReportDiscrepancyResponse>.ExceptionThrown(new ReportDiscrepancyResponse(
+                                                                                                                        Result.Format(exception.Message +
+                                                                                                                                      " => " +
+                                                                                                                                      exception.StackTrace)),
+                                                                                                                    exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<ReportDiscrepancyResponse>.OK(new ReportDiscrepancyResponse(Result.OK("Nothing to upload!")));
+
+
+            #region Send OnReportDiscrepancyResponse event
+
+            try
+            {
+
+                OnReportDiscrepancyResponse?.Invoke(DateTime.Now,
+                                                    Timestamp.Value,
+                                                    this,
+                                                    ClientId,
+                                                    EventTrackingId,
+                                                    EVSEId,
+                                                    Report,
+                                                    RequestTimeout,
+                                                    result.Content,
+                                                    DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnReportDiscrepancyResponse));
             }
 
             #endregion

@@ -305,39 +305,77 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
     #endregion
 
-    #region OnSelectEVSE
+    #region On(Select|Control|Release)EVSE
 
     /// <summary>
     /// A delegate called whenever a select EVSE request will be send to a charge point operator.
     /// </summary>
-    public delegate Task OnSelectEVSERequestDelegate (DateTime             LogTimestamp,
-                                                      DateTime             RequestTimestamp,
-                                                      EMPClient            Sender,
-                                                      String               SenderId,
-                                                      EventTracking_Id     EventTrackingId,
-                                                      EVSE_Id              EVSEId,
-                                                      Contract_Id          ContractId,
-                                                      DateTime?            ReserveUntil,
-                                                      TimeSpan?            RequestTimeout);
+    public delegate Task OnSelectEVSERequestDelegate (DateTime               LogTimestamp,
+                                                      DateTime               RequestTimestamp,
+                                                      EMPClient              Sender,
+                                                      String                 SenderId,
+                                                      EventTracking_Id       EventTrackingId,
+                                                      EVSE_Id                EVSEId,
+                                                      Contract_Id            ContractId,
+                                                      DateTime?              ReserveUntil,
+                                                      TimeSpan?              RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending a select EVSE request to a charge point operator had been received.
     /// </summary>
-    public delegate Task OnSelectEVSEResponseDelegate(DateTime             LogTimestamp,
-                                                      DateTime             RequestTimestamp,
-                                                      EMPClient            Sender,
-                                                      String               SenderId,
-                                                      EventTracking_Id     EventTrackingId,
-                                                      EVSE_Id              EVSEId,
-                                                      Contract_Id          ContractId,
-                                                      DateTime?            ReserveUntil,
-                                                      TimeSpan?            RequestTimeout,
-                                                      SelectEVSEResponse   Result,
-                                                      TimeSpan             Duration);
+    public delegate Task OnSelectEVSEResponseDelegate(DateTime               LogTimestamp,
+                                                      DateTime               RequestTimestamp,
+                                                      EMPClient              Sender,
+                                                      String                 SenderId,
+                                                      EventTracking_Id       EventTrackingId,
+                                                      EVSE_Id                EVSEId,
+                                                      Contract_Id            ContractId,
+                                                      DateTime?              ReserveUntil,
+                                                      TimeSpan?              RequestTimeout,
+                                                      SelectEVSEResponse     Result,
+                                                      TimeSpan               Duration);
 
-    #endregion
 
-    #region OnReleaseEVSE
+
+    /// <summary>
+    /// A delegate called whenever a control EVSE request will be send to a charge point operator.
+    /// </summary>
+    public delegate Task OnControlEVSERequestDelegate (DateTime              LogTimestamp,
+                                                       DateTime              RequestTimestamp,
+                                                       EMPClient             Sender,
+                                                       String                SenderId,
+                                                       EventTracking_Id      EventTrackingId,
+                                                       Direct_Id             DirectId,
+                                                       DirectOperations      Operation,
+                                                       Single?               MaxPower,
+                                                       Single?               MaxCurrent,
+                                                       Boolean?              OnePhase,
+                                                       Single?               MaxEnergy,
+                                                       Single?               MinEnergy,
+                                                       DateTime?             Departure,
+                                                       TimeSpan?             RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a control EVSE request to a charge point operator had been received.
+    /// </summary>
+    public delegate Task OnControlEVSEResponseDelegate(DateTime              LogTimestamp,
+                                                       DateTime              RequestTimestamp,
+                                                       EMPClient             Sender,
+                                                       String                SenderId,
+                                                       EventTracking_Id      EventTrackingId,
+                                                       Direct_Id             DirectId,
+                                                       DirectOperations      Operation,
+                                                       Single?               MaxPower,
+                                                       Single?               MaxCurrent,
+                                                       Boolean?              OnePhase,
+                                                       Single?               MaxEnergy,
+                                                       Single?               MinEnergy,
+                                                       DateTime?             Departure,
+                                                       TimeSpan?             RequestTimeout,
+                                                       ControlEVSEResponse   Result,
+                                                       TimeSpan              Duration);
+
+
 
     /// <summary>
     /// A delegate called whenever a release EVSE request will be send to a charge point operator.
@@ -390,6 +428,36 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                          TimeSpan?               RequestTimeout,
                                                          GetEVSEStatusResponse   Result,
                                                          TimeSpan                Duration);
+
+    #endregion
+
+    #region OnReportDiscrepancy
+
+    /// <summary>
+    /// A delegate called whenever a report discrepancy request will be send to a charge point operator.
+    /// </summary>
+    public delegate Task OnReportDiscrepancyRequestDelegate (DateTime                    LogTimestamp,
+                                                             DateTime                    RequestTimestamp,
+                                                             EMPClient                   Sender,
+                                                             String                      SenderId,
+                                                             EventTracking_Id            EventTrackingId,
+                                                             EVSE_Id                     EVSEId,
+                                                             String                      Report,
+                                                             TimeSpan?                   RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a report discrepancy request to a charge point operator had been received.
+    /// </summary>
+    public delegate Task OnReportDiscrepancyResponseDelegate(DateTime                    LogTimestamp,
+                                                             DateTime                    RequestTimestamp,
+                                                             EMPClient                   Sender,
+                                                             String                      SenderId,
+                                                             EventTracking_Id            EventTrackingId,
+                                                             EVSE_Id                     EVSEId,
+                                                             String                      Report,
+                                                             TimeSpan?                   RequestTimeout,
+                                                             ReportDiscrepancyResponse   Result,
+                                                             TimeSpan                    Duration);
 
     #endregion
 

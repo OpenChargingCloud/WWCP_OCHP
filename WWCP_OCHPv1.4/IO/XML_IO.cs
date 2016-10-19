@@ -1390,6 +1390,59 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsDirectOperation(Text)
+
+        public static DirectOperations AsDirectOperation(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "start":
+                    return DirectOperations.Start;
+
+                case "change":
+                    return DirectOperations.Change;
+
+                case "end":
+                    return DirectOperations.End;
+
+                default:
+                    return DirectOperations.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this DirectOperation)
+
+        public static String AsText(this DirectOperations DirectOperation)
+        {
+
+            switch (DirectOperation)
+            {
+
+                case DirectOperations.Start:
+                    return "start";
+
+                case DirectOperations.Change:
+                    return "change";
+
+                case DirectOperations.End:
+                    return "end";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
         #region AsStatusType(Text)
 
         public static StatusTypes AsStatusType(this String Text)

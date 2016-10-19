@@ -430,9 +430,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return (DirectId != null
                             ? DirectId.GetHashCode() * 17
                             : 0) ^
+
                        (ReservedUntil.HasValue
                             ? ReservedUntil.GetHashCode() * 11
                             : 0) ^
+
                        Result.GetHashCode();
 
             }
@@ -448,9 +450,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public override String ToString()
 
             => String.Concat(Result,
+
                              DirectId != null
                                  ? " for " + DirectId
                                  : "",
+
                              ReservedUntil.HasValue
                                  ? " until " + ReservedUntil.Value.ToIso8601()
                                  : "");
