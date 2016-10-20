@@ -26,7 +26,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -88,7 +88,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(GetEVSEStatusRequestXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP direct EVSE status request.
+        /// Parse the given XML representation of an OCHPdirect direct EVSE status request.
         /// </summary>
         /// <param name="GetEVSEStatusRequestXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -110,7 +110,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(GetEVSEStatusRequestText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP direct EVSE status request.
+        /// Parse the given text representation of an OCHPdirect direct EVSE status request.
         /// </summary>
         /// <param name="GetEVSEStatusRequestText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -132,7 +132,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(GetEVSEStatusRequestXML,  out GetEVSEStatusRequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP direct EVSE status request.
+        /// Try to parse the given XML representation of an OCHPdirect direct EVSE status request.
         /// </summary>
         /// <param name="GetEVSEStatusRequestXML">The XML to parse.</param>
         /// <param name="GetEVSEStatusRequest">The parsed direct EVSE status request.</param>
@@ -172,7 +172,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(GetEVSEStatusRequestText, out GetEVSEStatusRequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP direct EVSE status request.
+        /// Try to parse the given text representation of an OCHPdirect direct EVSE status request.
         /// </summary>
         /// <param name="GetEVSEStatusRequestText">The text to parse.</param>
         /// <param name="GetEVSEStatusRequest">The parsed direct EVSE status request.</param>

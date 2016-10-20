@@ -24,13 +24,13 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
-    /// An OCHPdirect control EVSE response.
+    /// An OCHPdirect release EVSE response.
     /// </summary>
-    public class ControlEVSEResponse : AResponse
+    public class ReleaseEVSEResponse : AResponse
     {
 
         #region Properties
@@ -38,12 +38,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The session identification for a direct charging process.
         /// </summary>
-        public Direct_Id  DirectId         { get; }
+        public Direct_Id  DirectId           { get; }
 
         /// <summary>
-        /// An optional timestamp until when the session will timeout.
+        /// An optional timestamp when the given charging session will be invalidated
         /// </summary>
-        public DateTime?  SessionTimeout   { get; } 
+        public DateTime?  SessionTimeoutAt   { get; } 
 
         #endregion
 
@@ -53,68 +53,68 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Data accepted and processed.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse OK(String Description = null)
+        public static ReleaseEVSEResponse OK(String Description = null)
 
-            => new ControlEVSEResponse(Result.OK(Description));
+            => new ReleaseEVSEResponse(Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse Partly(String Description = null)
+        public static ReleaseEVSEResponse Partly(String Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Result.Unknown(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse NotAuthorized(String Description = null)
+        public static ReleaseEVSEResponse NotAuthorized(String Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Result.Unknown(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse InvalidId(String Description = null)
+        public static ReleaseEVSEResponse InvalidId(String Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Result.Unknown(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse Server(String Description = null)
+        public static ReleaseEVSEResponse Server(String Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Result.Unknown(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse Format(String Description = null)
+        public static ReleaseEVSEResponse Format(String Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Result.Unknown(Description));
 
         #endregion
 
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHPdirect control EVSE response.
+        /// Create a new OCHPdirect release EVSE response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
         /// <param name="DirectId">The session identification for a direct charging process.</param>
-        /// <param name="SessionTimeout">An optional timestamp until when the session will timeout.</param>
-        public ControlEVSEResponse(Result     Result,
-                                   Direct_Id  DirectId        = null,
-                                   DateTime?  SessionTimeout  = null)
+        /// <param name="SessionTimeoutAt">An optional timestamp when the given charging session will be invalidated.</param>
+        public ReleaseEVSEResponse(Result     Result,
+                                   Direct_Id  DirectId          = null,
+                                   DateTime?  SessionTimeoutAt  = null)
 
             : base(Result)
 
@@ -122,13 +122,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (SessionTimeout.HasValue && SessionTimeout.Value <= DateTime.Now)
+            if (SessionTimeoutAt.HasValue && SessionTimeoutAt.Value <= DateTime.Now)
                 throw new ArgumentException("The given reservation end time must be after than the current time!");
 
             #endregion
 
-            this.DirectId       = DirectId;
-            this.SessionTimeout  = SessionTimeout ?? new DateTime?();
+            this.DirectId          = DirectId;
+            this.SessionTimeoutAt  = SessionTimeoutAt ?? new DateTime?();
 
         }
 
@@ -142,7 +142,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //
         //    <soapenv:Header/>
         //    <soapenv:Body>
-        //       <ns:ControlEvseResponse>
+        //       <ns:ReleaseEvseResponse>
         //
         //          <ns:result>
         //             <ns:resultCode>
@@ -159,27 +159,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //             <ns:DateTime>?</ns:DateTime>
         //          </ns:ttl>
         //
-        //       </ns:ControlEvseResponse>
+        //       </ns:ReleaseEvseResponse>
         //    </soapenv:Body>
         // </soapenv:Envelope>
 
         #endregion
 
-        #region (static) Parse(ControlEVSEResponseXML,  OnException = null)
+        #region (static) Parse(ReleaseEVSEResponseXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP control EVSE response.
+        /// Parse the given XML representation of an OCHPdirect release EVSE response.
         /// </summary>
-        /// <param name="ControlEVSEResponseXML">The XML to parse.</param>
+        /// <param name="ReleaseEVSEResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ControlEVSEResponse Parse(XElement             ControlEVSEResponseXML,
+        public static ReleaseEVSEResponse Parse(XElement             ReleaseEVSEResponseXML,
                                                 OnExceptionDelegate  OnException = null)
         {
 
-            ControlEVSEResponse _ControlEVSEResponse;
+            ReleaseEVSEResponse _ReleaseEVSEResponse;
 
-            if (TryParse(ControlEVSEResponseXML, out _ControlEVSEResponse, OnException))
-                return _ControlEVSEResponse;
+            if (TryParse(ReleaseEVSEResponseXML, out _ReleaseEVSEResponse, OnException))
+                return _ReleaseEVSEResponse;
 
             return null;
 
@@ -187,21 +187,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) Parse(ControlEVSEResponseText, OnException = null)
+        #region (static) Parse(ReleaseEVSEResponseText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP control EVSE response.
+        /// Parse the given text representation of an OCHPdirect release EVSE response.
         /// </summary>
-        /// <param name="ControlEVSEResponseText">The text to parse.</param>
+        /// <param name="ReleaseEVSEResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ControlEVSEResponse Parse(String               ControlEVSEResponseText,
+        public static ReleaseEVSEResponse Parse(String               ReleaseEVSEResponseText,
                                                 OnExceptionDelegate  OnException = null)
         {
 
-            ControlEVSEResponse _ControlEVSEResponse;
+            ReleaseEVSEResponse _ReleaseEVSEResponse;
 
-            if (TryParse(ControlEVSEResponseText, out _ControlEVSEResponse, OnException))
-                return _ControlEVSEResponse;
+            if (TryParse(ReleaseEVSEResponseText, out _ReleaseEVSEResponse, OnException))
+                return _ReleaseEVSEResponse;
 
             return null;
 
@@ -209,32 +209,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) TryParse(ControlEVSEResponseXML,  out ControlEVSEResponse, OnException = null)
+        #region (static) TryParse(ReleaseEVSEResponseXML,  out ReleaseEVSEResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP control EVSE response.
+        /// Try to parse the given XML representation of an OCHPdirect release EVSE response.
         /// </summary>
-        /// <param name="ControlEVSEResponseXML">The XML to parse.</param>
-        /// <param name="ControlEVSEResponse">The parsed control EVSE response.</param>
+        /// <param name="ReleaseEVSEResponseXML">The XML to parse.</param>
+        /// <param name="ReleaseEVSEResponse">The parsed release EVSE response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                 ControlEVSEResponseXML,
-                                       out ControlEVSEResponse  ControlEVSEResponse,
-                                       OnExceptionDelegate      OnException  = null)
+        public static Boolean TryParse(XElement                ReleaseEVSEResponseXML,
+                                       out ReleaseEVSEResponse  ReleaseEVSEResponse,
+                                       OnExceptionDelegate     OnException  = null)
         {
 
             try
             {
 
-                ControlEVSEResponse = new ControlEVSEResponse(
+                ReleaseEVSEResponse = new ReleaseEVSEResponse(
 
-                                          ControlEVSEResponseXML.MapElementOrFail  (OCHPNS.Default + "result",
+                                          ReleaseEVSEResponseXML.MapElementOrFail  (OCHPNS.Default + "result",
                                                                                     Result.Parse,
                                                                                     OnException),
 
-                                          ControlEVSEResponseXML.MapValueOrNull    (OCHPNS.Default + "directId",
+                                          ReleaseEVSEResponseXML.MapValueOrNull    (OCHPNS.Default + "directId",
                                                                                     Direct_Id.Parse),
 
-                                          ControlEVSEResponseXML.MapValueOrNullable(OCHPNS.Default + "ttl",
+                                          ReleaseEVSEResponseXML.MapValueOrNullable(OCHPNS.Default + "ttl",
                                                                                     OCHPNS.Default + "DateTime",
                                                                                     DateTime.Parse)
 
@@ -246,9 +246,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ControlEVSEResponseXML, e);
+                OnException?.Invoke(DateTime.Now, ReleaseEVSEResponseXML, e);
 
-                ControlEVSEResponse = null;
+                ReleaseEVSEResponse = null;
                 return false;
 
             }
@@ -257,24 +257,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region (static) TryParse(ControlEVSEResponseText, out ControlEVSEResponse, OnException = null)
+        #region (static) TryParse(ReleaseEVSEResponseText, out ReleaseEVSEResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP control EVSE response.
+        /// Try to parse the given text representation of an OCHPdirect release EVSE response.
         /// </summary>
-        /// <param name="ControlEVSEResponseText">The text to parse.</param>
-        /// <param name="ControlEVSEResponse">The parsed control EVSE response.</param>
+        /// <param name="ReleaseEVSEResponseText">The text to parse.</param>
+        /// <param name="ReleaseEVSEResponse">The parsed release EVSE response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                   ControlEVSEResponseText,
-                                       out ControlEVSEResponse  ControlEVSEResponse,
+        public static Boolean TryParse(String                   ReleaseEVSEResponseText,
+                                       out ReleaseEVSEResponse  ReleaseEVSEResponse,
                                        OnExceptionDelegate      OnException  = null)
         {
 
             try
             {
 
-                if (TryParse(XDocument.Parse(ControlEVSEResponseText).Root,
-                             out ControlEVSEResponse,
+                if (TryParse(XDocument.Parse(ReleaseEVSEResponseText).Root,
+                             out ReleaseEVSEResponse,
                              OnException))
 
                     return true;
@@ -282,10 +282,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ControlEVSEResponseText, e);
+                OnException?.Invoke(DateTime.Now, ReleaseEVSEResponseText, e);
             }
 
-            ControlEVSEResponse = null;
+            ReleaseEVSEResponse = null;
             return false;
 
         }
@@ -299,7 +299,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public XElement ToXML()
 
-            => new XElement(OCHPNS.Default + "ControlEVSEResponse",
+            => new XElement(OCHPNS.Default + "ReleaseEVSEResponse",
 
                    new XElement(OCHPNS.Default + "result", Result.ToXML()),
 
@@ -307,9 +307,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        ? new XElement(OCHPNS.Default + "directId",  DirectId.ToString())
                        : null,
 
-                   SessionTimeout.HasValue
+                   SessionTimeoutAt.HasValue
                        ? new XElement(OCHPNS.Default + "ttl",
-                             new XElement(OCHPNS.Default + "DateTime", SessionTimeout.Value.ToIso8601())
+                             new XElement(OCHPNS.Default + "DateTime", SessionTimeoutAt.Value.ToIso8601())
                          )
                        : null
 
@@ -320,48 +320,48 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Operator overloading
 
-        #region Operator == (ControlEVSEResponse1, ControlEVSEResponse2)
+        #region Operator == (ReleaseEVSEResponse1, ReleaseEVSEResponse2)
 
         /// <summary>
-        /// Compares two control EVSE responses for equality.
+        /// Compares two release EVSE responses for equality.
         /// </summary>
-        /// <param name="ControlEVSEResponse1">A control EVSE response.</param>
-        /// <param name="ControlEVSEResponse2">Another control EVSE response.</param>
+        /// <param name="ReleaseEVSEResponse1">A release EVSE response.</param>
+        /// <param name="ReleaseEVSEResponse2">Another release EVSE response.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (ControlEVSEResponse ControlEVSEResponse1, ControlEVSEResponse ControlEVSEResponse2)
+        public static Boolean operator == (ReleaseEVSEResponse ReleaseEVSEResponse1, ReleaseEVSEResponse ReleaseEVSEResponse2)
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(ControlEVSEResponse1, ControlEVSEResponse2))
+            if (Object.ReferenceEquals(ReleaseEVSEResponse1, ReleaseEVSEResponse2))
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ControlEVSEResponse1 == null) || ((Object) ControlEVSEResponse2 == null))
+            if (((Object) ReleaseEVSEResponse1 == null) || ((Object) ReleaseEVSEResponse2 == null))
                 return false;
 
-            return ControlEVSEResponse1.Equals(ControlEVSEResponse2);
+            return ReleaseEVSEResponse1.Equals(ReleaseEVSEResponse2);
 
         }
 
         #endregion
 
-        #region Operator != (ControlEVSEResponse1, ControlEVSEResponse2)
+        #region Operator != (ReleaseEVSEResponse1, ReleaseEVSEResponse2)
 
         /// <summary>
-        /// Compares two control EVSE responses for inequality.
+        /// Compares two release EVSE responses for inequality.
         /// </summary>
-        /// <param name="ControlEVSEResponse1">A control EVSE response.</param>
-        /// <param name="ControlEVSEResponse2">Another control EVSE response.</param>
+        /// <param name="ReleaseEVSEResponse1">A release EVSE response.</param>
+        /// <param name="ReleaseEVSEResponse2">Another release EVSE response.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (ControlEVSEResponse ControlEVSEResponse1, ControlEVSEResponse ControlEVSEResponse2)
+        public static Boolean operator != (ReleaseEVSEResponse ReleaseEVSEResponse1, ReleaseEVSEResponse ReleaseEVSEResponse2)
 
-            => !(ControlEVSEResponse1 == ControlEVSEResponse2);
-
-        #endregion
+            => !(ReleaseEVSEResponse1 == ReleaseEVSEResponse2);
 
         #endregion
 
-        #region IEquatable<ControlEVSEResponse> Members
+        #endregion
+
+        #region IEquatable<ReleaseEVSEResponse> Members
 
         #region Equals(Object)
 
@@ -376,38 +376,38 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is a control EVSE response.
-            var ControlEVSEResponse = Object as ControlEVSEResponse;
-            if ((Object) ControlEVSEResponse == null)
+            // Check if the given object is a release EVSE response.
+            var ReleaseEVSEResponse = Object as ReleaseEVSEResponse;
+            if ((Object) ReleaseEVSEResponse == null)
                 return false;
 
-            return this.Equals(ControlEVSEResponse);
+            return this.Equals(ReleaseEVSEResponse);
 
         }
 
         #endregion
 
-        #region Equals(ControlEVSEResponse)
+        #region Equals(ReleaseEVSEResponse)
 
         /// <summary>
-        /// Compares two control EVSE responses for equality.
+        /// Compares two release EVSE responses for equality.
         /// </summary>
-        /// <param name="ControlEVSEResponse">A control EVSE response to compare with.</param>
+        /// <param name="ReleaseEVSEResponse">A release EVSE response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ControlEVSEResponse ControlEVSEResponse)
+        public Boolean Equals(ReleaseEVSEResponse ReleaseEVSEResponse)
         {
 
-            if ((Object) ControlEVSEResponse == null)
+            if ((Object) ReleaseEVSEResponse == null)
                 return false;
 
-            return this.Result.Equals(ControlEVSEResponse.Result) &&
+            return this.Result.Equals(ReleaseEVSEResponse.Result) &&
 
                    (DirectId != null
-                       ? DirectId.Equals(ControlEVSEResponse.DirectId)
+                       ? DirectId.Equals(ReleaseEVSEResponse.DirectId)
                        : true) &&
 
-                   (SessionTimeout.HasValue
-                       ? SessionTimeout.Equals(ControlEVSEResponse.SessionTimeout)
+                   (SessionTimeoutAt.HasValue
+                       ? SessionTimeoutAt.Equals(ReleaseEVSEResponse.SessionTimeoutAt)
                        : true);
 
         }
@@ -431,8 +431,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                             ? DirectId.GetHashCode() * 17
                             : 0) ^
 
-                       (SessionTimeout.HasValue
-                            ? SessionTimeout.GetHashCode() * 11
+                       (SessionTimeoutAt.HasValue
+                            ? SessionTimeoutAt.GetHashCode() * 11
                             : 0) ^
 
                        Result.GetHashCode();
@@ -455,8 +455,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                  ? " for " + DirectId
                                  : "",
 
-                             SessionTimeout.HasValue
-                                 ? " until " + SessionTimeout.Value.ToIso8601()
+                             SessionTimeoutAt.HasValue
+                                 ? " timeout at " + SessionTimeoutAt.Value.ToIso8601()
                                  : "");
 
         #endregion

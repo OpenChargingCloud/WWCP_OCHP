@@ -211,15 +211,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 UpdateTariffsResponse = new UpdateTariffsResponse(
 
-                                           UpdateTariffsResponseXML.MapElementOrFail(OCHPNS.Default + "result",
-                                                                                     Result.Parse,
-                                                                                     OnException),
+                                            UpdateTariffsResponseXML.MapElementOrFail(OCHPNS.Default + "result",
+                                                                                      Result.Parse,
+                                                                                      OnException),
 
-                                           UpdateTariffsResponseXML.MapElements     (OCHPNS.Default + "refusedTariffInfo",
-                                                                                     TariffInfo.Parse,
-                                                                                     OnException)
+                                            UpdateTariffsResponseXML.MapElements     (OCHPNS.Default + "refusedTariffInfo",
+                                                                                      TariffInfo.Parse,
+                                                                                      OnException)
 
-                                  );
+                                        );
 
                 return true;
 
@@ -246,9 +246,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="UpdateTariffsResponseText">The text to parse.</param>
         /// <param name="UpdateTariffsResponse">The parsed update tariffs response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                    UpdateTariffsResponseText,
+        public static Boolean TryParse(String                     UpdateTariffsResponseText,
                                        out UpdateTariffsResponse  UpdateTariffsResponse,
-                                       OnExceptionDelegate       OnException  = null)
+                                       OnExceptionDelegate        OnException  = null)
         {
 
             try

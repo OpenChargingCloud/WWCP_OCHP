@@ -26,7 +26,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -171,7 +171,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(GetEVSEStatusResponseXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP get status response.
+        /// Parse the given XML representation of an OCHPdirect get status response.
         /// </summary>
         /// <param name="GetEVSEStatusResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -193,7 +193,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(GetEVSEStatusResponseText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP get status response.
+        /// Parse the given text representation of an OCHPdirect get status response.
         /// </summary>
         /// <param name="GetEVSEStatusResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -215,7 +215,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(GetEVSEStatusResponseXML,  out GetEVSEStatusResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP get status response.
+        /// Try to parse the given XML representation of an OCHPdirect get status response.
         /// </summary>
         /// <param name="GetEVSEStatusResponseXML">The XML to parse.</param>
         /// <param name="GetEVSEStatusResponse">The parsed get status response.</param>
@@ -267,7 +267,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(GetEVSEStatusResponseText, out GetEVSEStatusResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP get status response.
+        /// Try to parse the given text representation of an OCHPdirect get status response.
         /// </summary>
         /// <param name="GetEVSEStatusResponseText">The text to parse.</param>
         /// <param name="GetEVSEStatusResponse">The parsed get status response.</param>

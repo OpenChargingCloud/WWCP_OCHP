@@ -319,7 +319,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region OnAddServiceEndpointsRequest/-Response
+        #region OnGetServiceEndpointsRequest/-Response
 
         /// <summary>
         /// An event fired whenever a request to get service endpoints will be send.
@@ -340,6 +340,31 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// An event fired whenever a response for request to get service endpoints had been received.
         /// </summary>
         public event OnGetServiceEndpointsResponseDelegate  OnGetServiceEndpointsResponse;
+
+        #endregion
+
+
+        #region OnInformProviderRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever an inform provider message will be send.
+        /// </summary>
+        public event OnInformProviderRequestDelegate   OnInformProviderRequest;
+
+        /// <summary>
+        /// An event fired whenever an inform provider SOAP message will be send.
+        /// </summary>
+        public event ClientRequestLogHandler           OnInformProviderSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for an inform provider SOAP message had been received.
+        /// </summary>
+        public event ClientResponseLogHandler          OnInformProviderSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for an inform provider message had been received.
+        /// </summary>
+        public event OnInformProviderResponseDelegate  OnInformProviderResponse;
 
         #endregion
 
@@ -2339,7 +2364,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-
         #region GetServiceEndpoints(...)
 
         /// <summary>
@@ -2514,6 +2538,288 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+
+        #region InformProvider(...)
+
+        /// <summary>
+        /// Send an inform provider OHCPdirect message.
+        /// </summary>
+        /// <param name="DirectMessage">The operation that triggered the operator to send this message.</param>
+        /// <param name="EVSEId">The uqniue EVSE identification of the charge point which is used for this charging process.</param>
+        /// <param name="ContractId">The current contract identification using the charge point.</param>
+        /// <param name="DirectId">The session identification of the direct charging process.</param>
+        /// 
+        /// <param name="SessionTimeoutAt">On success the timeout for this session.</param>
+        /// <param name="StateOfCharge">Current state of charge of the connected EV in percent.</param>
+        /// <param name="MaxPower">Maximum authorised power in kW.</param>
+        /// <param name="MaxCurrent">Maximum authorised current in A.</param>
+        /// <param name="OnePhase">Marks an AC-charging session to be limited to one-phase charging.</param>
+        /// <param name="MaxEnergy">Maximum authorised energy in kWh.</param>
+        /// <param name="MinEnergy">Minimum required energy in kWh.</param>
+        /// <param name="Departure">Scheduled time of departure.</param>
+        /// <param name="CurrentPower">The currently supplied power limit in kWs (in case of load management).</param>
+        /// <param name="ChargedEnergy">The overall amount of energy in kWhs transferred during this charging process.</param>
+        /// <param name="MeterReading">The current meter value as displayed on the meter with corresponding timestamp to enable displaying it to the user.</param>
+        /// <param name="ChargingPeriods">Can be used to transfer billing information to the provider in near real time.</param>
+        /// <param name="CurrentCost">The total cost of the charging process that will be billed by the operator up to this point.</param>
+        /// <param name="Currency">The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<InformProviderResponse>>
+
+            InformProvider(DirectMessages          DirectMessage,
+                           EVSE_Id                 EVSEId,
+                           Contract_Id             ContractId,
+                           Direct_Id               DirectId,
+
+                           DateTime?               SessionTimeoutAt   = null,
+                           Single?                 StateOfCharge      = null,
+                           Single?                 MaxPower           = null,
+                           Single?                 MaxCurrent         = null,
+                           Boolean?                OnePhase           = null,
+                           Single?                 MaxEnergy          = null,
+                           Single?                 MinEnergy          = null,
+                           DateTime?               Departure          = null,
+                           Single?                 CurrentPower       = null,
+                           Single?                 ChargedEnergy      = null,
+                           Timestamped<Single>?    MeterReading       = null,
+                           IEnumerable<CDRPeriod>  ChargingPeriods    = null,
+                           Single?                 CurrentCost        = null,
+                           Currency                Currency           = null,
+
+                           DateTime?               Timestamp          = null,
+                           CancellationToken?      CancellationToken  = null,
+                           EventTracking_Id        EventTrackingId    = null,
+                           TimeSpan?               RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (EVSEId     == null)
+                throw new ArgumentNullException(nameof(EVSEId),      "The given identification of an EVSE must not be null!");
+
+            if (ContractId == null)
+                throw new ArgumentNullException(nameof(ContractId),  "The given identification of an e-mobility contract must not be null!");
+
+            if (DirectId   == null)
+                throw new ArgumentNullException(nameof(DirectId),    "The given identification of an direct charging process must not be null!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<InformProviderResponse> result = null;
+
+            #endregion
+
+            #region Send OnInformProviderSOAPRequest event
+
+            try
+            {
+
+                OnInformProviderRequest?.Invoke(DateTime.Now,
+                                                Timestamp.Value,
+                                                this,
+                                                ClientId,
+                                                EventTrackingId,
+
+                                                DirectMessage,
+                                                EVSEId,
+                                                ContractId,
+                                                DirectId,
+
+                                                SessionTimeoutAt,
+                                                StateOfCharge,
+                                                MaxPower,
+                                                MaxCurrent,
+                                                OnePhase,
+                                                MaxEnergy,
+                                                MinEnergy,
+                                                Departure,
+                                                CurrentPower,
+                                                ChargedEnergy,
+                                                MeterReading,
+                                                ChargingPeriods,
+                                                CurrentCost,
+                                                Currency,
+
+                                                RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnInformProviderSOAPRequest));
+            }
+
+            #endregion
+
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(new InformProviderRequest(DirectMessage,
+                                                                           EVSEId,
+                                                                           ContractId,
+                                                                           DirectId,
+
+                                                                           SessionTimeoutAt,
+                                                                           StateOfCharge,
+                                                                           MaxPower,
+                                                                           MaxCurrent,
+                                                                           OnePhase,
+                                                                           MaxEnergy,
+                                                                           MinEnergy,
+                                                                           Departure,
+                                                                           CurrentPower,
+                                                                           ChargedEnergy,
+                                                                           MeterReading,
+                                                                           ChargingPeriods,
+                                                                           CurrentCost,
+                                                                           Currency
+                                                                          ).ToXML(),
+                                                 "InformProviderMessage",
+                                                 RequestLogDelegate:   OnInformProviderSOAPRequest,
+                                                 ResponseLogDelegate:  OnInformProviderSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(InformProviderResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<InformProviderResponse>(httpresponse,
+                                                                                                     InformProviderResponse.Format(
+                                                                                                        "Invalid SOAP => " +
+                                                                                                        httpresponse.HTTPBody.ToUTF8String()
+                                                                                                     ),
+                                                                                                     IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<InformProviderResponse>(httpresponse,
+                                                                                                     InformProviderResponse.Server(
+                                                                                                         httpresponse.HTTPStatusCode.ToString() +
+                                                                                                         " => " +
+                                                                                                         httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                     ),
+                                                                                                     IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<InformProviderResponse>.ExceptionThrown(InformProviderResponse.Format(
+                                                                                                                     exception.Message +
+                                                                                                                     " => " +
+                                                                                                                     exception.StackTrace
+                                                                                                                 ),
+                                                                                                                 exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<InformProviderResponse>.OK(InformProviderResponse.OK("Nothing to upload!"));
+
+
+            #region Send OnInformProviderResponse event
+
+            try
+            {
+
+                OnInformProviderResponse?.Invoke(DateTime.Now,
+                                                 Timestamp.Value,
+                                                 this,
+                                                 ClientId,
+                                                 EventTrackingId,
+
+                                                 DirectMessage,
+                                                 EVSEId,
+                                                 ContractId,
+                                                 DirectId,
+
+                                                 SessionTimeoutAt,
+                                                 StateOfCharge,
+                                                 MaxPower,
+                                                 MaxCurrent,
+                                                 OnePhase,
+                                                 MaxEnergy,
+                                                 MinEnergy,
+                                                 Departure,
+                                                 CurrentPower,
+                                                 ChargedEnergy,
+                                                 MeterReading,
+                                                 ChargingPeriods,
+                                                 CurrentCost,
+                                                 Currency,
+
+                                                 RequestTimeout,
+                                                 result.Content,
+                                                 DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(CPOClient) + "." + nameof(OnInformProviderResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
 
 
     }

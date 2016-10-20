@@ -29,6 +29,8 @@ using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
+using org.GraphDefined.WWCP.OCHPv1_4.EMP;
+
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
@@ -301,7 +303,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _SelectEVSERequest = OCHPv1_4.SelectEVSERequest.Parse(SelectEVSEXML);
+                    var _SelectEVSERequest = SelectEVSERequest.Parse(SelectEVSEXML);
 
                     SelectEVSEResponse response            = null;
 
@@ -445,7 +447,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _ControlEVSERequest = OCHPv1_4.ControlEVSERequest.Parse(ControlEVSEXML);
+                    var _ControlEVSERequest = ControlEVSERequest.Parse(ControlEVSEXML);
 
                     ControlEVSEResponse response = null;
 
@@ -570,7 +572,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _ReleaseEVSERequest = OCHPv1_4.ReleaseEVSERequest.Parse(ReleaseEVSEXML);
+                    var _ReleaseEVSERequest = ReleaseEVSERequest.Parse(ReleaseEVSEXML);
 
                     ReleaseEVSEResponse response = null;
 
@@ -689,7 +691,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _GetEVSEStatusRequest = OCHPv1_4.GetEVSEStatusRequest.Parse(GetEVSEStatusXML);
+                    var _GetEVSEStatusRequest = GetEVSEStatusRequest.Parse(GetEVSEStatusXML);
 
                     GetEVSEStatusResponse response = null;
 
@@ -808,7 +810,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _ReportDiscrepancyRequest = OCHPv1_4.ReportDiscrepancyRequest.Parse(ReportDiscrepancyXML);
+                    var _ReportDiscrepancyRequest = ReportDiscrepancyRequest.Parse(ReportDiscrepancyXML);
 
                     ReportDiscrepancyResponse response = null;
 

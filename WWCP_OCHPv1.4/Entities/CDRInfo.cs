@@ -124,7 +124,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.
         /// </summary>
-        public String                  Currency             { get; }
+        public Currency                Currency             { get; }
 
         #endregion
 
@@ -166,7 +166,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        String                  MeterId,
                        IEnumerable<CDRPeriod>  ChargingPeriods,
                        Single?                 TotalCosts,
-                       String                  Currency)
+                       Currency                Currency)
 
         {
 
@@ -193,7 +193,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (ChargingPeriods.Count() < 1)
                 throw new ArgumentException("The given enumeration of charge detail record periods must have at least one item!", nameof(ChargingPeriods));
 
-            if (Currency.IsNullOrEmpty())
+            if (Currency == null)
                 throw new ArgumentNullException(nameof(Currency),         "The given currency information must not be null or empty!");
 
             #endregion
@@ -429,7 +429,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                               CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "totalCost",
                                                                Single.Parse),
 
-                              CDRInfoXML.ElementValueOrFail   (OCHPNS.Default + "currency")
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "currency",
+                                                               Currency.ParseString)
 
                           );
 
@@ -534,7 +535,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        ? new XElement(OCHPNS.Default + "totalCost",     TotalCosts.Value)
                        : null,
 
-                   new XElement(OCHPNS.Default + "currency",            Currency)
+                   new XElement(OCHPNS.Default + "currency",            Currency.ISOCode)
 
                );
 

@@ -24,7 +24,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -99,7 +99,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(ReportDiscrepancyRequestXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP report discrepancy request.
+        /// Parse the given XML representation of an OCHPdirect report discrepancy request.
         /// </summary>
         /// <param name="ReportDiscrepancyRequestXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -121,7 +121,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(ReportDiscrepancyRequestText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP report discrepancy request.
+        /// Parse the given text representation of an OCHPdirect report discrepancy request.
         /// </summary>
         /// <param name="ReportDiscrepancyRequestText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -143,7 +143,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(ReportDiscrepancyRequestXML,  out ReportDiscrepancyRequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP report discrepancy request.
+        /// Try to parse the given XML representation of an OCHPdirect report discrepancy request.
         /// </summary>
         /// <param name="ReportDiscrepancyRequestXML">The XML to parse.</param>
         /// <param name="ReportDiscrepancyRequest">The parsed report discrepancy request.</param>
@@ -185,7 +185,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(ReportDiscrepancyRequestText, out ReportDiscrepancyRequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP report discrepancy request.
+        /// Try to parse the given text representation of an OCHPdirect report discrepancy request.
         /// </summary>
         /// <param name="ReportDiscrepancyRequestText">The text to parse.</param>
         /// <param name="ReportDiscrepancyRequest">The parsed report discrepancy request.</param>

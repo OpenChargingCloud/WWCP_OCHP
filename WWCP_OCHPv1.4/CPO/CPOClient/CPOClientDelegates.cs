@@ -348,4 +348,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     #endregion
 
 
+    #region InformProvider
+
+    /// <summary>
+    /// A delegate called whenever an inform provider message will be send to an e-mobility provider.
+    /// </summary>
+    public delegate Task OnInformProviderRequestDelegate (DateTime                 LogTimestamp,
+                                                          DateTime                 RequestTimestamp,
+                                                          CPOClient                Sender,
+                                                          String                   SenderId,
+                                                          EventTracking_Id         EventTrackingId,
+
+                                                          DirectMessages           DirectMessage,
+                                                          EVSE_Id                  EVSEId,
+                                                          Contract_Id              ContractId,
+                                                          Direct_Id                DirectId,
+
+                                                          DateTime?                SessionTimeoutAt,
+                                                          Single?                  StateOfCharge,
+                                                          Single?                  MaxPower,
+                                                          Single?                  MaxCurrent,
+                                                          Boolean?                 OnePhase,
+                                                          Single?                  MaxEnergy,
+                                                          Single?                  MinEnergy,
+                                                          DateTime?                Departure,
+                                                          Single?                  CurrentPower,
+                                                          Single?                  ChargedEnergy,
+                                                          Timestamped<Single>?     MeterReading,
+                                                          IEnumerable<CDRPeriod>   ChargingPeriods,
+                                                          Single?                  CurrentCost,
+                                                          Currency                 Currency,
+
+                                                          TimeSpan?                RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending an inform provider message to an e-mobility provider had been received.
+    /// </summary>
+    public delegate Task OnInformProviderResponseDelegate(DateTime                 LogTimestamp,
+                                                          DateTime                 RequestTimestamp,
+                                                          CPOClient                Sender,
+                                                          String                   SenderId,
+                                                          EventTracking_Id         EventTrackingId,
+
+                                                          DirectMessages           DirectMessage,
+                                                          EVSE_Id                  EVSEId,
+                                                          Contract_Id              ContractId,
+                                                          Direct_Id                DirectId,
+
+                                                          DateTime?                SessionTimeoutAt,
+                                                          Single?                  StateOfCharge,
+                                                          Single?                  MaxPower,
+                                                          Single?                  MaxCurrent,
+                                                          Boolean?                 OnePhase,
+                                                          Single?                  MaxEnergy,
+                                                          Single?                  MinEnergy,
+                                                          DateTime?                Departure,
+                                                          Single?                  CurrentPower,
+                                                          Single?                  ChargedEnergy,
+                                                          Timestamped<Single>?     MeterReading,
+                                                          IEnumerable<CDRPeriod>   ChargingPeriods,
+                                                          Single?                  CurrentCost,
+                                                          Currency                 Currency,
+
+                                                          TimeSpan?                RequestTimeout,
+                                                          InformProviderResponse   Result,
+                                                          TimeSpan                 Duration);
+
+    #endregion
+
+
 }

@@ -53,7 +53,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Contains information about the pricing structure of the tariff element.
         /// </summary>
-        public String                      Currency        { get; }
+        public Currency                    Currency        { get; }
 
         #endregion
 
@@ -67,7 +67,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Currency">Contains information about the pricing structure of the tariff element.</param>
         public IndividualTariff(IEnumerable<TariffElement>  TariffElements,
                                 IEnumerable<String>         Recipients,
-                                String                      Currency)
+                                Currency                    Currency)
         {
 
             this.TariffElements  = TariffElements;
@@ -159,13 +159,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 IndividualTariff = new IndividualTariff(
 
-                                       IndividualTariffXML.MapElements       (OCHPNS.Default + "tariffElement",
-                                                                              TariffElement.Parse,
-                                                                              OnException),
+                                       IndividualTariffXML.MapElements   (OCHPNS.Default + "tariffElement",
+                                                                          TariffElement.Parse,
+                                                                          OnException),
 
-                                       IndividualTariffXML.ElementValues     (OCHPNS.Default + "recipient"),
+                                       IndividualTariffXML.ElementValues (OCHPNS.Default + "recipient"),
 
-                                       IndividualTariffXML.ElementValueOrFail(OCHPNS.Default + "currency")
+                                       IndividualTariffXML.MapValueOrFail(OCHPNS.Default + "currency",
+                                                                          Currency.ParseString)
 
                                    );
 
@@ -235,7 +236,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                    Recipients.    SafeSelect(recipient => new XElement(OCHPNS.Default + "recipient",  recipient)),
 
-                   new XElement(OCHPNS.Default + "currency",  Currency)
+                   new XElement(OCHPNS.Default + "currency",  Currency.ISOCode)
 
                );
 

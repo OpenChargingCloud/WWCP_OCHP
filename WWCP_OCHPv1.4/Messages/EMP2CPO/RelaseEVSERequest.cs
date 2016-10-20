@@ -24,7 +24,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -85,7 +85,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(ReleaseEVSERequestXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP release EVSE request.
+        /// Parse the given XML representation of an OCHPdirect release EVSE request.
         /// </summary>
         /// <param name="ReleaseEVSERequestXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -107,7 +107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(ReleaseEVSERequestText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP release EVSE request.
+        /// Parse the given text representation of an OCHPdirect release EVSE request.
         /// </summary>
         /// <param name="ReleaseEVSERequestText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -129,7 +129,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(ReleaseEVSERequestXML,  out ReleaseEVSERequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP release EVSE request.
+        /// Try to parse the given XML representation of an OCHPdirect release EVSE request.
         /// </summary>
         /// <param name="ReleaseEVSERequestXML">The XML to parse.</param>
         /// <param name="ReleaseEVSERequest">The parsed release EVSE request.</param>
@@ -169,7 +169,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(ReleaseEVSERequestText, out ReleaseEVSERequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP release EVSE request.
+        /// Try to parse the given text representation of an OCHPdirect release EVSE request.
         /// </summary>
         /// <param name="ReleaseEVSERequestText">The text to parse.</param>
         /// <param name="ReleaseEVSERequest">The parsed release EVSE request.</param>

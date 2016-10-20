@@ -24,11 +24,11 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
-    /// An OCHP report discrepancy response.
+    /// An OCHPdirect report discrepancy response.
     /// </summary>
     public class ReportDiscrepancyResponse : AResponse
     {
@@ -128,7 +128,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(ReportDiscrepancyResponseXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP report discrepancy response.
+        /// Parse the given XML representation of an OCHPdirect report discrepancy response.
         /// </summary>
         /// <param name="ReportDiscrepancyResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -150,7 +150,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(ReportDiscrepancyResponseText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP report discrepancy response.
+        /// Parse the given text representation of an OCHPdirect report discrepancy response.
         /// </summary>
         /// <param name="ReportDiscrepancyResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -172,7 +172,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(ReportDiscrepancyResponseXML,  out ReportDiscrepancyResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP report discrepancy response.
+        /// Try to parse the given XML representation of an OCHPdirect report discrepancy response.
         /// </summary>
         /// <param name="ReportDiscrepancyResponseXML">The XML to parse.</param>
         /// <param name="ReportDiscrepancyResponse">The parsed report discrepancy response.</param>
@@ -213,7 +213,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(ReportDiscrepancyResponseText, out ReportDiscrepancyResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP report discrepancy response.
+        /// Try to parse the given text representation of an OCHPdirect report discrepancy response.
         /// </summary>
         /// <param name="ReportDiscrepancyResponseText">The text to parse.</param>
         /// <param name="ReportDiscrepancyResponse">The parsed report discrepancy response.</param>

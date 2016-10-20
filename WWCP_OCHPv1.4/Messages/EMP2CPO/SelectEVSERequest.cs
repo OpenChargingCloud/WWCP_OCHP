@@ -24,7 +24,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -113,7 +113,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(SelectEVSERequestXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP select EVSE request.
+        /// Parse the given XML representation of an OCHPdirect select EVSE request.
         /// </summary>
         /// <param name="SelectEVSERequestXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -135,7 +135,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(SelectEVSERequestText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP select EVSE request.
+        /// Parse the given text representation of an OCHPdirect select EVSE request.
         /// </summary>
         /// <param name="SelectEVSERequestText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -157,7 +157,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(SelectEVSERequestXML,  out SelectEVSERequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP select EVSE request.
+        /// Try to parse the given XML representation of an OCHPdirect select EVSE request.
         /// </summary>
         /// <param name="SelectEVSERequestXML">The XML to parse.</param>
         /// <param name="SelectEVSERequest">The parsed select EVSE request.</param>
@@ -204,7 +204,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(SelectEVSERequestText, out SelectEVSERequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP select EVSE request.
+        /// Try to parse the given text representation of an OCHPdirect select EVSE request.
         /// </summary>
         /// <param name="SelectEVSERequestText">The text to parse.</param>
         /// <param name="SelectEVSERequest">The parsed select EVSE request.</param>

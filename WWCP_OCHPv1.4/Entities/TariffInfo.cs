@@ -82,9 +82,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         // <ns:TariffInfoArray>
         //
-        //    <ns:tariffId>?</ns:tariffId>        //
+        //    <ns:tariffId>?</ns:tariffId>
+        //
         //    <!--1 or more repetitions:-->
-        //    <ns:individualTariff>        //      ...        //    </ns:individualTariff>        //
+        //    <ns:individualTariff>
+        //      ...
+        //    </ns:individualTariff>
+        //
         // </ns:TariffInfoArray>
 
         #endregion

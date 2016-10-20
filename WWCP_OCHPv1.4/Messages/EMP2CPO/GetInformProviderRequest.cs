@@ -24,7 +24,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -85,7 +85,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(GetInformProviderRequestXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP get inform provider request.
+        /// Parse the given XML representation of an OCHPdirect get inform provider request.
         /// </summary>
         /// <param name="GetInformProviderRequestXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -107,7 +107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(GetInformProviderRequestText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP get inform provider request.
+        /// Parse the given text representation of an OCHPdirect get inform provider request.
         /// </summary>
         /// <param name="GetInformProviderRequestText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -129,7 +129,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(GetInformProviderRequestXML,  out GetInformProviderRequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP get inform provider request.
+        /// Try to parse the given XML representation of an OCHPdirect get inform provider request.
         /// </summary>
         /// <param name="GetInformProviderRequestXML">The XML to parse.</param>
         /// <param name="GetInformProviderRequest">The parsed get inform provider request.</param>
@@ -169,7 +169,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(GetInformProviderRequestText, out GetInformProviderRequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP get inform provider request.
+        /// Try to parse the given text representation of an OCHPdirect get inform provider request.
         /// </summary>
         /// <param name="GetInformProviderRequestText">The text to parse.</param>
         /// <param name="GetInformProviderRequest">The parsed get inform provider request.</param>

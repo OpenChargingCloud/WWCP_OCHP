@@ -24,7 +24,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
@@ -166,7 +166,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(ControlEVSERequestXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP control EVSE request.
+        /// Parse the given XML representation of an OCHPdirect control EVSE request.
         /// </summary>
         /// <param name="ControlEVSERequestXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -188,7 +188,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) Parse(ControlEVSERequestText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP control EVSE request.
+        /// Parse the given text representation of an OCHPdirect control EVSE request.
         /// </summary>
         /// <param name="ControlEVSERequestText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
@@ -210,7 +210,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(ControlEVSERequestXML,  out ControlEVSERequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP control EVSE request.
+        /// Try to parse the given XML representation of an OCHPdirect control EVSE request.
         /// </summary>
         /// <param name="ControlEVSERequestXML">The XML to parse.</param>
         /// <param name="ControlEVSERequest">The parsed control EVSE request.</param>
@@ -273,7 +273,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region (static) TryParse(ControlEVSERequestText, out ControlEVSERequest, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP control EVSE request.
+        /// Try to parse the given text representation of an OCHPdirect control EVSE request.
         /// </summary>
         /// <param name="ControlEVSERequestText">The text to parse.</param>
         /// <param name="ControlEVSERequest">The parsed control EVSE request.</param>
