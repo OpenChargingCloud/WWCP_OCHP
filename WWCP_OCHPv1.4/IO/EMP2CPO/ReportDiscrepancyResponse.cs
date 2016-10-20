@@ -93,7 +93,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHP report discrepancy response.
+        /// Create a new OCHPdirect report discrepancy response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
         public ReportDiscrepancyResponse(Result  Result)

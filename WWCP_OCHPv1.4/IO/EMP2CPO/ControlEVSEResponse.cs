@@ -28,7 +28,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP control EVSE response.
+    /// An OCHPdirect control EVSE response.
     /// </summary>
     public class ControlEVSEResponse : AResponse
     {
@@ -107,7 +107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHP control EVSE response.
+        /// Create a new OCHPdirect control EVSE response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
         /// <param name="DirectId">The session identification for a direct charging process.</param>

@@ -28,9 +28,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP report discrepancy request sent whenever a provider wants to report
-    /// an issue concerning the data, compatibility or status of an EVSE to the
-    /// charge point operator.
+    /// An OCHPdirect report discrepancy request sent whenever a provider wants
+    /// to report an issue concerning the data, compatibility or status of an
+    /// EVSE to the charge point operator.
     /// </summary>
     public class ReportDiscrepancyRequest
     {
@@ -52,7 +52,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create an OCHP ReportDiscrepancy XML/SOAP request.
+        /// Create an OCHPdirect ReportDiscrepancy XML/SOAP request.
         /// </summary>
         /// <param name="EVSEId">The EVSE identification affected by this report.</param>
         /// <param name="Report">Textual or generated report of the discrepancy.</param>
@@ -332,9 +332,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
+        {
+            unchecked
+            {
 
-            => EVSEId.GetHashCode() * 11 ^
-               Report.GetHashCode();
+                return EVSEId.GetHashCode() * 11 ^
+                       Report.GetHashCode();
+
+            }
+        }
 
         #endregion
 

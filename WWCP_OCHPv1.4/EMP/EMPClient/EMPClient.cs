@@ -25,7 +25,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
-using org.GraphDefined.Vanaheimr.Aegir;
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
@@ -318,6 +317,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+
         #region OnSelectEVSERequest/-Response
 
         /// <summary>
@@ -414,6 +414,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+
         #region OnReportDiscrepancyRequest/-Response
 
         /// <summary>
@@ -435,6 +436,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// An event fired whenever a response for a report discrepancy request had been received.
         /// </summary>
         public event OnReportDiscrepancyResponseDelegate  OnReportDiscrepancyResponse;
+
+        #endregion
+
+        #region OnGetInformProviderRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a get inform provider request will be send.
+        /// </summary>
+        public event OnGetInformProviderRequestDelegate   OnGetInformProviderRequest;
+
+        /// <summary>
+        /// An event fired whenever a get inform provider SOAP request will be send.
+        /// </summary>
+        public event ClientRequestLogHandler              OnGetInformProviderSOAPRequest;
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a get inform provider SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler             OnGetInformProviderSOAPResponse;
+
+        /// <summary>
+        /// An event fired whenever a response for a get inform provider request had been received.
+        /// </summary>
+        public event OnGetInformProviderResponseDelegate  OnGetInformProviderResponse;
 
         #endregion
 
@@ -2385,6 +2410,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+
         #region SelectEVSE(...)
 
         /// <summary>
@@ -2803,10 +2829,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region ReleaseEVSE(...)
 
         /// <summary>
-        /// Release an EVSE and stop a charging session.
+        /// Release an EVSE and stop a direct charging process.
         /// </summary>
-        /// <param name="ChargingStationOperatorId">The chage point operator to talk to.</param>
-        /// <param name="DirectId">The session id referencing the direct charging process to be released.</param>
+        /// <param name="DirectId">The session identification of the direct charging process to be released.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2814,13 +2839,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<ReleaseEVSEResponse>>
 
-            ReleaseEVSE(ChargingStationOperator_Id  ChargingStationOperatorId,
-                        Direct_Id                   DirectId,
+            ReleaseEVSE(Direct_Id           DirectId,
 
-                        DateTime?                   Timestamp          = null,
-                        CancellationToken?          CancellationToken  = null,
-                        EventTracking_Id            EventTrackingId    = null,
-                        TimeSpan?                   RequestTimeout     = null)
+                        DateTime?           Timestamp          = null,
+                        CancellationToken?  CancellationToken  = null,
+                        EventTracking_Id    EventTrackingId    = null,
+                        TimeSpan?           RequestTimeout     = null)
 
         {
 
@@ -3175,6 +3199,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
+
         #region ReportDiscrepancy(...)
 
         /// <summary>
@@ -3262,8 +3287,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 result = await _OCHPClient.Query(new ReportDiscrepancyRequest(EVSEId,
                                                                               Report).ToXML(),
                                                  "ReportDiscrepancyRequest",
-                                                 RequestLogDelegate:   OnGetEVSEStatusSOAPRequest,
-                                                 ResponseLogDelegate:  OnGetEVSEStatusSOAPResponse,
+                                                 RequestLogDelegate:   OnReportDiscrepancySOAPRequest,
+                                                 ResponseLogDelegate:  OnReportDiscrepancySOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
                                                  QueryTimeout:         RequestTimeout,
@@ -3357,6 +3382,191 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
                 e.Log(nameof(EMPClient) + "." + nameof(OnReportDiscrepancyResponse));
+            }
+
+            #endregion
+
+
+            return result;
+
+        }
+
+        #endregion
+
+        #region GetInformProvider(...)
+
+        /// <summary>
+        /// Request an inform provider message.
+        /// </summary>
+        /// <param name="DirectId">The session identification of the direct charging process.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public async Task<HTTPResponse<GetInformProviderResponse>>
+
+            GetInformProvider(Direct_Id           DirectId,
+
+                              DateTime?           Timestamp          = null,
+                              CancellationToken?  CancellationToken  = null,
+                              EventTracking_Id    EventTrackingId    = null,
+                              TimeSpan?           RequestTimeout     = null)
+
+        {
+
+            #region Initial checks
+
+            if (DirectId == null)
+                throw new ArgumentNullException(nameof(DirectId),  "The given direct charging session identification must not be null!");
+
+
+            if (!Timestamp.HasValue)
+                Timestamp = DateTime.Now;
+
+            if (!CancellationToken.HasValue)
+                CancellationToken = new CancellationTokenSource().Token;
+
+            if (EventTrackingId == null)
+                EventTrackingId = EventTracking_Id.New;
+
+            if (!RequestTimeout.HasValue)
+                RequestTimeout = this.RequestTimeout;
+
+
+            HTTPResponse<GetInformProviderResponse> result = null;
+
+            #endregion
+
+            #region Send OnGetInformProviderRequest event
+
+            try
+            {
+
+                OnGetInformProviderRequest?.Invoke(DateTime.Now,
+                                                   Timestamp.Value,
+                                                   this,
+                                                   ClientId,
+                                                   EventTrackingId,
+                                                   DirectId,
+                                                   RequestTimeout);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetInformProviderRequest));
+            }
+
+            #endregion
+
+
+            var ep = _EndpointInfos.Get(DirectId);
+
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    "/service/ochp/v1.4",
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
+            {
+
+                result = await _OCHPClient.Query(new ReleaseEVSERequest(DirectId).ToXML(),
+                                                 "InformProviderRequest",
+                                                 RequestLogDelegate:   OnGetInformProviderSOAPRequest,
+                                                 ResponseLogDelegate:  OnGetInformProviderSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
+
+                                                 #region OnSuccess
+
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetInformProviderResponse.Parse),
+
+                                                 #endregion
+
+                                                 #region OnSOAPFault
+
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                     return new HTTPResponse<GetInformProviderResponse>(httpresponse,
+                                                                                                        GetInformProviderResponse.Format(
+                                                                                                            "Invalid SOAP => " +
+                                                                                                            httpresponse.HTTPBody.ToUTF8String()
+                                                                                                        ),
+                                                                                                        IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnHTTPError
+
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                     SendHTTPError(timestamp, this, httpresponse);
+
+                                                     return new HTTPResponse<GetInformProviderResponse>(httpresponse,
+                                                                                                        GetInformProviderResponse.Server(
+                                                                                                             httpresponse.HTTPStatusCode.ToString() +
+                                                                                                             " => " +
+                                                                                                             httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                        ),
+                                                                                                        IsFault: true);
+
+                                                 },
+
+                                                 #endregion
+
+                                                 #region OnException
+
+                                                 OnException: (timestamp, sender, exception) => {
+
+                                                     SendException(timestamp, sender, exception);
+
+                                                     return HTTPResponse<GetInformProviderResponse>.ExceptionThrown(GetInformProviderResponse.Format(
+                                                                                                                        exception.Message +
+                                                                                                                        " => " +
+                                                                                                                        exception.StackTrace),
+                                                                                                                    exception);
+
+                                                 }
+
+                                                 #endregion
+
+                                                );
+
+            }
+
+            if (result == null)
+                result = HTTPResponse<GetInformProviderResponse>.OK(GetInformProviderResponse.OK("Nothing to upload!"));
+
+
+            _EndpointInfos.Delete(DirectId);
+
+
+            #region Send OnGetInformProviderResponse event
+
+            try
+            {
+
+                OnGetInformProviderResponse?.Invoke(DateTime.Now,
+                                                    Timestamp.Value,
+                                                    this,
+                                                    ClientId,
+                                                    EventTrackingId,
+                                                    DirectId,
+                                                    RequestTimeout,
+                                                    result.Content,
+                                                    DateTime.Now - Timestamp.Value);
+
+            }
+            catch (Exception e)
+            {
+                e.Log(nameof(EMPClient) + "." + nameof(OnGetInformProviderResponse));
             }
 
             #endregion

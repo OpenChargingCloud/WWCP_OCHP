@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP direct EVSE status request.
+    /// An OCHPdirect get EVSE status request.
     /// </summary>
     public class GetEVSEStatusRequest
     {
@@ -47,7 +47,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create an OCHP DirectEVSEStatus XML/SOAP request.
+        /// Create an OCHPdirect get EVSEStatus XML/SOAP request.
         /// </summary>
         /// <param name="EVSEIds">An enumeration of EVSE identifications.</param>
         public GetEVSEStatusRequest(IEnumerable<EVSE_Id>  EVSEIds)

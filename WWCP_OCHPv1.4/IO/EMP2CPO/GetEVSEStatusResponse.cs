@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP direct EVSE status response.
+    /// An OCHPdirect EVSE status response.
     /// </summary>
     public class GetEVSEStatusResponse : AResponse
     {
@@ -114,7 +114,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHP get status response.
+        /// Create a new OCHPdirect get status response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
         /// <param name="EVSEStatus">An enumeration of EVSE status.</param>

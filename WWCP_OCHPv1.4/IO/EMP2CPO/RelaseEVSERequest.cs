@@ -28,7 +28,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP release EVSE request.
+    /// An OCHPdirect release EVSE request.
     /// </summary>
     public class ReleaseEVSERequest
     {
@@ -45,9 +45,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create an OCHP ReleaseEVSE XML/SOAP request.
+        /// Create an OCHPdirect ReleaseEVSE XML/SOAP request.
         /// </summary>
-        /// <param name="DirectId">The session id referencing the direct charging process to be released.</param>
+        /// <param name="DirectId">The session identification of the direct charging process to be released.</param>
         public ReleaseEVSERequest(Direct_Id  DirectId)
         {
 

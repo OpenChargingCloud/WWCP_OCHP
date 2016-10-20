@@ -461,5 +461,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
     #endregion
 
+    #region GetInformProvider
+
+    /// <summary>
+    /// A delegate called whenever a get inform provider request will be send to a charge point operator.
+    /// </summary>
+    public delegate Task OnGetInformProviderRequestDelegate (DateTime                    LogTimestamp,
+                                                             DateTime                    RequestTimestamp,
+                                                             EMPClient                   Sender,
+                                                             String                      SenderId,
+                                                             EventTracking_Id            EventTrackingId,
+                                                             Direct_Id                   DirectId,
+                                                             TimeSpan?                   RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a get inform provider request to a charge point operator had been received.
+    /// </summary>
+    public delegate Task OnGetInformProviderResponseDelegate(DateTime                    LogTimestamp,
+                                                             DateTime                    RequestTimestamp,
+                                                             EMPClient                   Sender,
+                                                             String                      SenderId,
+                                                             EventTracking_Id            EventTrackingId,
+                                                             Direct_Id                   DirectId,
+                                                             TimeSpan?                   RequestTimeout,
+                                                             GetInformProviderResponse   Result,
+                                                             TimeSpan                    Duration);
+
+    #endregion
 
 }

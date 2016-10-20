@@ -28,7 +28,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP select EVSE request.
+    /// An OCHPdirect select EVSE request.
     /// </summary>
     public class SelectEVSERequest
     {
@@ -55,7 +55,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create an OCHP SelectEVSE XML/SOAP request.
+        /// Create an OCHPdirect SelectEVSE XML/SOAP request.
         /// </summary>
         /// <param name="EVSEId">The unique identification of the selected EVSE.</param>
         /// <param name="ContractId">The unique identification of an e-mobility contract.</param>

@@ -28,7 +28,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP control EVSE request.
+    /// An OCHPdirect control EVSE request.
     /// </summary>
     public class ControlEVSERequest
     {
@@ -80,7 +80,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create an OCHP ControlEVSE XML/SOAP request.
+        /// Create an OCHPdirect ControlEVSE XML/SOAP request.
         /// </summary>
         /// <param name="DirectId">The unique session identification of the direct charging process to be controlled.</param>
         /// <param name="Operation">The operation to be performed for the selected charge point.</param>
@@ -477,33 +477,39 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
+        {
+            unchecked
+            {
 
-            => DirectId.           GetHashCode() * 29 ^
-               Operation.          GetHashCode() * 23 ^
+                return DirectId.           GetHashCode() * 29 ^
+                       Operation.          GetHashCode() * 23 ^
 
-               (MaxPower.HasValue
-                    ? MaxPower.    GetHashCode() * 19
-                    : 0) ^
+                       (MaxPower.HasValue
+                            ? MaxPower.    GetHashCode() * 19
+                            : 0) ^
 
-               (MaxCurrent.HasValue
-                    ? MaxCurrent.  GetHashCode() * 17
-                    : 0) ^
+                       (MaxCurrent.HasValue
+                            ? MaxCurrent.  GetHashCode() * 17
+                            : 0) ^
 
-               (OnePhase.HasValue
-                    ? OnePhase.    GetHashCode() * 13
-                    : 0) ^
+                       (OnePhase.HasValue
+                            ? OnePhase.    GetHashCode() * 13
+                            : 0) ^
 
-               (MaxEnergy.HasValue
-                    ? MaxEnergy.   GetHashCode() * 11
-                    : 0) ^
+                       (MaxEnergy.HasValue
+                            ? MaxEnergy.   GetHashCode() * 11
+                            : 0) ^
 
-               (MinEnergy.HasValue
-                    ? MinEnergy.   GetHashCode() *  7
-                    : 0) ^
+                       (MinEnergy.HasValue
+                            ? MinEnergy.   GetHashCode() *  7
+                            : 0) ^
 
-               (Departure.HasValue
-                    ? Departure.   GetHashCode()
-                    : 0);
+                       (Departure.HasValue
+                            ? Departure.   GetHashCode()
+                            : 0);
+
+            }
+        }
 
         #endregion
 

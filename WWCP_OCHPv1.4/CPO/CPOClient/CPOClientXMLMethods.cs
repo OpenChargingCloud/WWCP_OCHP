@@ -407,15 +407,66 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             //
             //    <soapenv:Header/>
             //    <soapenv:Body>
-            //      <ns:UpdateTariffsRequest>
+            //       <ns:UpdateTariffsRequest>
             //
-            //         <!--1 or more repetitions:-->
-            //         <ns:TariffInfoArray>
-            //           ...
-            //         </ns:TariffInfoArray>
+            //          <!--1 or more repetitions:-->
+            //          <ns:TariffInfoArray>
             //
-            //      </ns:UpdateTariffsRequest>
-            //    </soapenv:Body>
+            //             <ns:tariffId>?</ns:tariffId>
+            //
+            //             <!--1 or more repetitions:-->
+            //             <ns:individualTariff>
+            //
+            //                <!--1 or more repetitions:-->
+            //                <ns:tariffElement>
+            //
+            //                   <ns:priceComponent>
+            //
+            //                      <ns:billingItem>
+            //                         <ns:BillingItemType>?</ns:BillingItemType>
+            //                      </ns:billingItem>
+            //
+            //                      <ns:itemPrice>?</ns:itemPrice>
+            //                      <ns:stepSize>?</ns:stepSize>
+            //
+            //                   </ns:priceComponent>
+            //
+            //                   <ns:tariffRestriction>
+            //
+            //                      <!--0 to 14 repetitions:-->
+            //                      <ns:regularHours weekday="?" periodBegin="?" periodEnd="?"/>
+            //
+            //                      <!--Optional:-->
+            //                      <ns:startDateTime>
+            //                         <ns:DateTime>?</ns:DateTime>
+            //                      </ns:startDateTime>
+            //
+            //                      <!--Optional:-->
+            //                      <ns:endDateTime>
+            //                         <ns:DateTime>?</ns:DateTime>
+            //                      </ns:endDateTime>
+            //
+            //                      <ns:minEnergy>?</ns:minEnergy>
+            //                      <ns:maxEnergy>?</ns:maxEnergy>
+            //                      <ns:minPower>?</ns:minPower>
+            //                      <ns:maxPower>?</ns:maxPower>
+            //                      <ns:minDuration>?</ns:minDuration>
+            //                      <ns:maxDuration>?</ns:maxDuration>
+            //
+            //                   </ns:tariffRestriction>
+            //
+            //                </ns:tariffElement>
+            //
+            //                <!--Zero or more repetitions:-->
+            //                <ns:recipient>?</ns:recipient>
+            //
+            //                <ns:currency>?</ns:currency>
+            //
+            //             </ns:individualTariff>
+            //
+            //          </ns:TariffInfoArray>
+            //
+            //       </ns:UpdateTariffsRequest>            //    </soapenv:Body>
             // </soapenv:Envelope>
 
             #endregion

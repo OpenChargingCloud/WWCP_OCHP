@@ -107,7 +107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHP release EVSE response.
+        /// Create a new OCHPdirect release EVSE response.
         /// </summary>
         /// <param name="Result">A generic OHCP result.</param>
         /// <param name="DirectId">The session identification for a direct charging process.</param>

@@ -1443,6 +1443,71 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region AsDirectMessage(Text)
+
+        public static DirectMessages AsDirectMessage(this String Text)
+        {
+
+            switch (Text)
+            {
+
+                case "start":
+                    return DirectMessages.Start;
+
+                case "change":
+                    return DirectMessages.Change;
+
+                case "info":
+                    return DirectMessages.Info;
+
+                case "end":
+                    return DirectMessages.End;
+
+                case "finish":
+                    return DirectMessages.Finish;
+
+                default:
+                    return DirectMessages.Unknown;
+
+            }
+
+        }
+
+        #endregion
+
+        #region AsText(this DirectMessage)
+
+        public static String AsText(this DirectMessages DirectMessage)
+        {
+
+            switch (DirectMessage)
+            {
+
+                case DirectMessages.Start:
+                    return "start";
+
+                case DirectMessages.Change:
+                    return "change";
+
+                case DirectMessages.Info:
+                    return "info";
+
+                case DirectMessages.End:
+                    return "end";
+
+                case DirectMessages.Finish:
+                    return "finish";
+
+                default:
+                    return "unknown";
+
+            }
+
+        }
+
+        #endregion
+
+
         #region AsStatusType(Text)
 
         public static StatusTypes AsStatusType(this String Text)
