@@ -658,8 +658,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetChargePointListXML()),
-                                                 "GetChargePointList",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetChargePointListRequest().ToXML()),
+                                                 "GetChargePointListRequest",
                                                  RequestLogDelegate:   OnGetChargePointListSOAPRequest,
                                                  ResponseLogDelegate:  OnGetChargePointListSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -837,8 +837,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetChargePointListUpdatesXML(LastUpdate)),
-                                                 "GetChargePointListUpdates",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetChargePointListUpdatesRequest(LastUpdate).ToXML()),
+                                                 "GetChargePointListUpdatesRequest",
                                                  RequestLogDelegate:   OnGetChargePointListUpdatesSOAPRequest,
                                                  ResponseLogDelegate:  OnGetChargePointListUpdatesSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -1020,8 +1020,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetStatusXML(LastRequest,
-                                                                                                     StatusType)),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetStatusRequest(LastRequest,
+                                                                                         StatusType).ToXML()),
                                                  "GetStatusRequest",
                                                  RequestLogDelegate:   OnGetStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnGetStatusSOAPResponse,
@@ -1207,7 +1207,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.SetRoamingAuthorisationListXML(RoamingAuthorisationInfos)),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new SetRoamingAuthorisationListRequest(RoamingAuthorisationInfos).ToXML()),
                                                  "SetRoamingAuthorisationListRequest",
                                                  RequestLogDelegate:   OnSetRoamingAuthorisationListSOAPRequest,
                                                  ResponseLogDelegate:  OnSetRoamingAuthorisationListSOAPResponse,
@@ -1391,7 +1391,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.UpdateRoamingAuthorisationListXML(RoamingAuthorisationInfos)),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new UpdateRoamingAuthorisationListRequest(RoamingAuthorisationInfos).ToXML()),
                                                  "UpdateRoamingAuthorisationListRequest",
                                                  RequestLogDelegate:   OnUpdateRoamingAuthorisationListSOAPRequest,
                                                  ResponseLogDelegate:  OnUpdateRoamingAuthorisationListSOAPResponse,
@@ -1882,7 +1882,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetTariffUpdatesResponse>>
 
-            GetTariffUpdates(DateTime            LastUpdate,
+            GetTariffUpdates(DateTime?           LastUpdate,
 
                              DateTime?           Timestamp          = null,
                              CancellationToken?  CancellationToken  = null,
@@ -1942,8 +1942,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetChargePointListUpdatesXML(LastUpdate)),
-                                                 "GetTariffUpdates",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetTariffUpdatesRequest(LastUpdate).ToXML()),
+                                                 "GetTariffUpdatesRequest",
                                                  RequestLogDelegate:   OnGetTariffUpdatesSOAPRequest,
                                                  ResponseLogDelegate:  OnGetTariffUpdatesSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -2129,8 +2129,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.AddServiceEndpointsXML(ProviderEndpoints)),
-                                                 "AddServiceEndpoints",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new AddServiceEndpointsRequest(ProviderEndpoints).ToXML()),
+                                                 "AddServiceEndpointsRequest",
                                                  RequestLogDelegate:   OnAddServiceEndpointsSOAPRequest,
                                                  ResponseLogDelegate:  OnAddServiceEndpointsSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -2304,8 +2304,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetServiceEndpointsXML()),
-                                                 "GetServiceEndpoints",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetServiceEndpointsRequest().ToXML()),
+                                                 "GetServiceEndpointsRequest",
                                                  RequestLogDelegate:   OnGetServiceEndpointsSOAPRequest,
                                                  ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
                                                  CancellationToken:    CancellationToken,

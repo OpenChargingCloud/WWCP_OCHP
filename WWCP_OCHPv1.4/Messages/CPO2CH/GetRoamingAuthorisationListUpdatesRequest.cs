@@ -38,7 +38,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region Properties
 
         /// <summary>
-        /// An enumeration of charge point infos.
+        /// The timestamp of the last roaming authorisation list update.
         /// </summary>
         public DateTime  LastUpdate   { get; }
 

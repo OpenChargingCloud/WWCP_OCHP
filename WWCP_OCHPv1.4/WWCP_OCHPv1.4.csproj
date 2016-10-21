@@ -66,7 +66,14 @@
     <Compile Include="Messages\CPO2CH\AddCDRsRequest.cs" />
     <Compile Include="Messages\CPO2EMP\InformProviderRequest.cs" />
     <Compile Include="Messages\CPO2EMP\InformProviderResponse.cs" />
+    <Compile Include="Messages\EMP2CH\AddServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\EMP2CH\GetTariffUpdatesRequest.cs" />
+    <Compile Include="Messages\EMP2CH\GetStatusRequest.cs" />
+    <Compile Include="Messages\EMP2CH\GetChargePointListUpdatesRequest.cs" />
+    <Compile Include="Messages\EMP2CH\GetChargePointListRequest.cs" />
     <Compile Include="Messages\EMP2CH\GetServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\EMP2CH\UpdateRoamingAuthorisationListRequest.cs" />
+    <Compile Include="Messages\EMP2CH\SetRoamingAuthorisationListRequest.cs" />
     <Compile Include="Messages\EMP2CPO\ControlEVSERequest.cs" />
     <Compile Include="Messages\EMP2CPO\ControlEVSEResponse.cs" />
     <Compile Include="Messages\EMP2CPO\GetInformProviderRequest.cs" />
