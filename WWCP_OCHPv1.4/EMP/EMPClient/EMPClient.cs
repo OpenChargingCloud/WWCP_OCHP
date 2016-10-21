@@ -658,7 +658,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.GetChargePointListXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetChargePointListXML()),
                                                  "GetChargePointList",
                                                  RequestLogDelegate:   OnGetChargePointListSOAPRequest,
                                                  ResponseLogDelegate:  OnGetChargePointListSOAPResponse,
@@ -837,7 +837,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.GetChargePointListUpdatesXML(LastUpdate),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetChargePointListUpdatesXML(LastUpdate)),
                                                  "GetChargePointListUpdates",
                                                  RequestLogDelegate:   OnGetChargePointListUpdatesSOAPRequest,
                                                  ResponseLogDelegate:  OnGetChargePointListUpdatesSOAPResponse,
@@ -1020,8 +1020,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.GetStatusXML(LastRequest,
-                                                                                  StatusType),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetStatusXML(LastRequest,
+                                                                                                     StatusType)),
                                                  "GetStatusRequest",
                                                  RequestLogDelegate:   OnGetStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnGetStatusSOAPResponse,
@@ -1207,7 +1207,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.SetRoamingAuthorisationListXML(RoamingAuthorisationInfos),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.SetRoamingAuthorisationListXML(RoamingAuthorisationInfos)),
                                                  "SetRoamingAuthorisationListRequest",
                                                  RequestLogDelegate:   OnSetRoamingAuthorisationListSOAPRequest,
                                                  ResponseLogDelegate:  OnSetRoamingAuthorisationListSOAPResponse,
@@ -1391,7 +1391,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.UpdateRoamingAuthorisationListXML(RoamingAuthorisationInfos),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.UpdateRoamingAuthorisationListXML(RoamingAuthorisationInfos)),
                                                  "UpdateRoamingAuthorisationListRequest",
                                                  RequestLogDelegate:   OnUpdateRoamingAuthorisationListSOAPRequest,
                                                  ResponseLogDelegate:  OnUpdateRoamingAuthorisationListSOAPResponse,
@@ -1572,7 +1572,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.GetCDRsXML(CDRStatus),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetCDRsXML(CDRStatus)),
                                                  "GetCDRsRequest",
                                                  RequestLogDelegate:   OnGetCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnGetCDRsSOAPResponse,
@@ -1759,8 +1759,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.ConfirmCDRsXML(Approved,
-                                                                                    Declined),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.ConfirmCDRsXML(Approved,
+                                                                                                       Declined)),
                                                  "ConfirmCDRsRequest",
                                                  RequestLogDelegate:   OnConfirmCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnConfirmCDRsSOAPResponse,
@@ -1942,7 +1942,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.GetChargePointListUpdatesXML(LastUpdate),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetChargePointListUpdatesXML(LastUpdate)),
                                                  "GetTariffUpdates",
                                                  RequestLogDelegate:   OnGetTariffUpdatesSOAPRequest,
                                                  ResponseLogDelegate:  OnGetTariffUpdatesSOAPResponse,
@@ -2129,7 +2129,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.AddServiceEndpointsXML(ProviderEndpoints),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.AddServiceEndpointsXML(ProviderEndpoints)),
                                                  "AddServiceEndpoints",
                                                  RequestLogDelegate:   OnAddServiceEndpointsSOAPRequest,
                                                  ResponseLogDelegate:  OnAddServiceEndpointsSOAPResponse,
@@ -2304,7 +2304,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(EMPClientXMLMethods.GetServiceEndpointsXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetServiceEndpointsXML()),
                                                  "GetServiceEndpoints",
                                                  RequestLogDelegate:   OnGetServiceEndpointsSOAPRequest,
                                                  ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
@@ -2493,9 +2493,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(new SelectEVSERequest(EVSEId,
-                                                                       ContractId,
-                                                                       ReserveUntil).ToXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new SelectEVSERequest(EVSEId,
+                                                                                          ContractId,
+                                                                                          ReserveUntil).ToXML()),
                                                  "SelectEVSERequest",
                                                  RequestLogDelegate:   OnSelectEVSESOAPRequest,
                                                  ResponseLogDelegate:  OnSelectEVSESOAPResponse,
@@ -2705,14 +2705,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(new ControlEVSERequest(DirectId,
-                                                                        Operation,
-                                                                        MaxPower,
-                                                                        MaxCurrent,
-                                                                        OnePhase,
-                                                                        MaxEnergy,
-                                                                        MinEnergy,
-                                                                        Departure).ToXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new ControlEVSERequest(DirectId,
+                                                                                           Operation,
+                                                                                           MaxPower,
+                                                                                           MaxCurrent,
+                                                                                           OnePhase,
+                                                                                           MaxEnergy,
+                                                                                           MinEnergy,
+                                                                                           Departure).ToXML()),
                                                  "ControlEVSERequest",
                                                  RequestLogDelegate:   OnControlEVSESOAPRequest,
                                                  ResponseLogDelegate:  OnControlEVSESOAPResponse,
@@ -2905,7 +2905,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(new ReleaseEVSERequest(DirectId).ToXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new ReleaseEVSERequest(DirectId).ToXML()),
                                                  "ReleaseEVSERequest",
                                                  RequestLogDelegate:   OnReleaseEVSESOAPRequest,
                                                  ResponseLogDelegate:  OnReleaseEVSESOAPResponse,
@@ -3092,7 +3092,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(new GetEVSEStatusRequest(EVSEIds).ToXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetEVSEStatusRequest(EVSEIds).ToXML()),
                                                  "DirectEvseStatusRequest",
                                                  RequestLogDelegate:   OnGetEVSEStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnGetEVSEStatusSOAPResponse,
@@ -3284,8 +3284,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(new ReportDiscrepancyRequest(EVSEId,
-                                                                              Report).ToXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new ReportDiscrepancyRequest(EVSEId,
+                                                                                                 Report).ToXML()),
                                                  "ReportDiscrepancyRequest",
                                                  RequestLogDelegate:   OnReportDiscrepancySOAPRequest,
                                                  ResponseLogDelegate:  OnReportDiscrepancySOAPResponse,
@@ -3472,7 +3472,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(new ReleaseEVSERequest(DirectId).ToXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new ReleaseEVSERequest(DirectId).ToXML()),
                                                  "InformProviderRequest",
                                                  RequestLogDelegate:   OnGetInformProviderSOAPRequest,
                                                  ResponseLogDelegate:  OnGetInformProviderSOAPResponse,

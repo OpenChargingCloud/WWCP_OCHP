@@ -585,7 +585,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(CPOClientXMLMethods.SetChargePointListRequestXML(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint))),
+                    result = await _OCHPClient.Query(SOAP.Encapsulation(new SetChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint))).ToXML()),
                                                      "SetChargePointListRequest",
                                                      RequestLogDelegate:   OnSetChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
@@ -787,7 +787,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(CPOClientXMLMethods.UpdateChargePointListRequestXML(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint))),
+                    result = await _OCHPClient.Query(SOAP.Encapsulation(new UpdateChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint))).ToXML()),
                                                      "UpdateChargePointListRequest",
                                                      RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
@@ -977,9 +977,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.UpdateStatusXML(EVSEStatus,
-                                                                                     ParkingStatus,
-                                                                                     DefaultTTL),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new UpdateStatusRequest(EVSEStatus,
+                                                                                            ParkingStatus,
+                                                                                            DefaultTTL).ToXML()),
                                                  "UpdateStatusRequest",
                                                  RequestLogDelegate:   OnUpdateStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
@@ -1166,7 +1166,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.GetSingleRoamingAuthorisationXML(EMTId),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetSingleRoamingAuthorisationRequest(EMTId).ToXML()),
                                                  "GetSingleRoamingAuthorisationRequest",
                                                  RequestLogDelegate:   OnGetSingleRoamingAuthorisationSOAPRequest,
                                                  ResponseLogDelegate:  OnGetSingleRoamingAuthorisationSOAPResponse,
@@ -1341,7 +1341,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.GetRoamingAuthorisationListXML(),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetRoamingAuthorisationListRequest().ToXML()),
                                                  "GetRoamingAuthorisationListRequest",
                                                  RequestLogDelegate:   OnGetRoamingAuthorisationListSOAPRequest,
                                                  ResponseLogDelegate:  OnGetRoamingAuthorisationListSOAPResponse,
@@ -1520,7 +1520,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.GetRoamingAuthorisationListUpdatesXML(LastUpdate),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetRoamingAuthorisationListUpdatesRequest(LastUpdate).ToXML()),
                                                  "GetRoamingAuthorisationListUpdatesRequest",
                                                  RequestLogDelegate:   OnGetRoamingAuthorisationListUpdatesSOAPRequest,
                                                  ResponseLogDelegate:  OnGetRoamingAuthorisationListUpdatesSOAPResponse,
@@ -1705,7 +1705,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.AddCDRsXML(CDRInfos),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new AddCDRsRequest(CDRInfos).ToXML()),
                                                  "AddCDRsRequest",
                                                  RequestLogDelegate:   OnAddCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnAddCDRsSOAPResponse,
@@ -1885,7 +1885,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.CheckCDRsXML(CDRStatus),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new CheckCDRsRequest(CDRStatus).ToXML()),
                                                  "CheckCDRsRequest",
                                                  RequestLogDelegate:   OnCheckCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnCheckCDRsSOAPResponse,
@@ -2070,7 +2070,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.UpdateTariffsXML(TariffInfos),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new UpdateTariffsRequest(TariffInfos).ToXML()),
                                                  "UpdateTariffsRequest",
                                                  RequestLogDelegate:   OnUpdateTariffsSOAPRequest,
                                                  ResponseLogDelegate:  OnUpdateTariffsSOAPResponse,
@@ -2257,8 +2257,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.AddServiceEndpointsXML(OperatorEndpoints),
-                                                 "AddServiceEndpoints",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new AddServiceEndpointsRequest(OperatorEndpoints).ToXML()),
+                                                 "AddServiceEndpointsRequest",
                                                  RequestLogDelegate:   OnAddServiceEndpointsSOAPRequest,
                                                  ResponseLogDelegate:  OnAddServiceEndpointsSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -2432,8 +2432,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(CPOClientXMLMethods.GetServiceEndpointsXML(),
-                                                 "GetServiceEndpoints",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetServiceEndpointsRequest().ToXML()),
+                                                 "GetServiceEndpointsRequest",
                                                  RequestLogDelegate:   OnGetServiceEndpointsSOAPRequest,
                                                  ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -2678,26 +2678,26 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(new InformProviderRequest(DirectMessage,
-                                                                           EVSEId,
-                                                                           ContractId,
-                                                                           DirectId,
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new InformProviderRequest(DirectMessage,
+                                                                                              EVSEId,
+                                                                                              ContractId,
+                                                                                              DirectId,
 
-                                                                           SessionTimeoutAt,
-                                                                           StateOfCharge,
-                                                                           MaxPower,
-                                                                           MaxCurrent,
-                                                                           OnePhase,
-                                                                           MaxEnergy,
-                                                                           MinEnergy,
-                                                                           Departure,
-                                                                           CurrentPower,
-                                                                           ChargedEnergy,
-                                                                           MeterReading,
-                                                                           ChargingPeriods,
-                                                                           CurrentCost,
-                                                                           Currency
-                                                                          ).ToXML(),
+                                                                                              SessionTimeoutAt,
+                                                                                              StateOfCharge,
+                                                                                              MaxPower,
+                                                                                              MaxCurrent,
+                                                                                              OnePhase,
+                                                                                              MaxEnergy,
+                                                                                              MinEnergy,
+                                                                                              Departure,
+                                                                                              CurrentPower,
+                                                                                              ChargedEnergy,
+                                                                                              MeterReading,
+                                                                                              ChargingPeriods,
+                                                                                              CurrentCost,
+                                                                                              Currency
+                                                                                             ).ToXML()),
                                                  "InformProviderMessage",
                                                  RequestLogDelegate:   OnInformProviderSOAPRequest,
                                                  ResponseLogDelegate:  OnInformProviderSOAPResponse,

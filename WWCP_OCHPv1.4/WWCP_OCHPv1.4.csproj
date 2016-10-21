@@ -49,26 +49,37 @@
     <Compile Include="CPO\CPOClient\CPOClient.cs" />
     <Compile Include="CPO\CPOClient\CPOClientDelegates.cs" />
     <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
-    <Compile Include="CPO\CPOClient\CPOClientXMLMethods.cs" />
+    <Compile Include="EMP\EMPDelegates.cs" />
     <Compile Include="EMP\EMPServer\EMPServer.cs" />
     <Compile Include="EMP\EMPServer\EMPServerDelegates.cs" />
     <Compile Include="EMP\EMPServer\EMPServerLogger.cs" />
-    <Compile Include="IO\CPO2EMP\InformProviderRequest.cs" />
-    <Compile Include="IO\CPO2EMP\InformProviderResponse.cs" />
-    <Compile Include="IO\EMP2CPO\ControlEVSERequest.cs" />
-    <Compile Include="IO\EMP2CPO\ControlEVSEResponse.cs" />
-    <Compile Include="IO\EMP2CPO\GetInformProviderRequest.cs" />
-    <Compile Include="IO\EMP2CPO\GetInformProviderResponse.cs" />
-    <Compile Include="IO\EMP2CPO\ReportDiscrepancyRequest.cs" />
-    <Compile Include="IO\EMP2CPO\ReportDiscrepancyResponse.cs" />
+    <Compile Include="Messages\CPO2CH\CheckCDRsRequest.cs" />
+    <Compile Include="Messages\CPO2CH\GetServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\CPO2CH\GetRoamingAuthorisationListRequest.cs" />
+    <Compile Include="Messages\CPO2CH\GetRoamingAuthorisationListUpdatesRequest.cs" />
+    <Compile Include="Messages\CPO2CH\GetSingleRoamingAuthorisationRequest.cs" />
+    <Compile Include="Messages\CPO2CH\AddServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\CPO2CH\UpdateTariffsRequest.cs" />
+    <Compile Include="Messages\CPO2CH\UpdateStatusRequest.cs" />
+    <Compile Include="Messages\CPO2CH\UpdateChargePointListRequest.cs" />
+    <Compile Include="Messages\CPO2CH\SetChargePointListRequest.cs" />
+    <Compile Include="Messages\CPO2CH\AddCDRsRequest.cs" />
+    <Compile Include="Messages\CPO2EMP\InformProviderRequest.cs" />
+    <Compile Include="Messages\CPO2EMP\InformProviderResponse.cs" />
+    <Compile Include="Messages\EMP2CH\GetServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\EMP2CPO\ControlEVSERequest.cs" />
+    <Compile Include="Messages\EMP2CPO\ControlEVSEResponse.cs" />
+    <Compile Include="Messages\EMP2CPO\GetInformProviderRequest.cs" />
+    <Compile Include="Messages\EMP2CPO\GetInformProviderResponse.cs" />
+    <Compile Include="Messages\EMP2CPO\ReportDiscrepancyRequest.cs" />
+    <Compile Include="Messages\EMP2CPO\ReportDiscrepancyResponse.cs" />
     <Compile Include="IO\EndpointInfos.cs" />
     <Compile Include="IO\EndpointInfo.cs" />
-    <Compile Include="IO\CPO2Central\AddOperatorServiceEndpointsResponse.cs" />
-    <Compile Include="IO\CPO2Central\AddServiceEndpointsResponse.cs" />
-    <Compile Include="IO\CPO2Central\CheckCDRsResponse.cs" />
-    <Compile Include="IO\CPO2Central\GetServiceEndpointsResponse.cs" />
-    <Compile Include="IO\CPO2Central\UpdateTariffsResponse.cs" />
-    <Compile Include="IO\CPO2Central\UpdateStatusResponse.cs" />
+    <Compile Include="Messages\CPO2CH\AddServiceEndpointsResponse.cs" />
+    <Compile Include="Messages\CPO2CH\CheckCDRsResponse.cs" />
+    <Compile Include="Messages\CPO2CH\GetServiceEndpointsResponse.cs" />
+    <Compile Include="Messages\CPO2CH\UpdateTariffsResponse.cs" />
+    <Compile Include="Messages\CPO2CH\UpdateStatusResponse.cs" />
     <Compile Include="CPO\CPODelegates.cs" />
     <Compile Include="CPO\CPOServer\CPOServer.cs" />
     <Compile Include="CPO\CPOServer\CPOServerDelegates.cs" />
@@ -77,21 +88,21 @@
     <Compile Include="EMP\EMPClient\EMPClientDelegates.cs" />
     <Compile Include="EMP\EMPClient\EMPClientLogger.cs" />
     <Compile Include="EMP\EMPClient\EMPClientXMLMethods.cs" />
-    <Compile Include="IO\EMP2CPO\GetEVSEStatusRequest.cs" />
-    <Compile Include="IO\EMP2CPO\RelaseEVSERequest.cs" />
-    <Compile Include="IO\EMP2CPO\GetEVSEStatusResponse.cs" />
-    <Compile Include="IO\EMP2CPO\SelectEVSERequest.cs" />
-    <Compile Include="IO\EMP2Central\AddServiceEndpointsResponse.cs" />
-    <Compile Include="IO\EMP2Central\ConfirmCDRsResponse.cs" />
-    <Compile Include="IO\EMP2CPO\ReleaseEVSEResponse.cs" />
-    <Compile Include="IO\EMP2CPO\SelectEVSEResponse.cs" />
-    <Compile Include="IO\EMP2Central\GetServiceEndpointsResponse.cs" />
-    <Compile Include="IO\EMP2Central\GetTariffUpdatesResponse.cs" />
-    <Compile Include="IO\EMP2Central\GetStatusResponse.cs" />
-    <Compile Include="IO\EMP2Central\GetCDRsResponse.cs" />
-    <Compile Include="IO\EMP2Central\GetChargePointListUpdatesResponse.cs" />
-    <Compile Include="IO\EMP2Central\UpdateRoamingAuthorisationListResponse.cs" />
-    <Compile Include="IO\EMP2Central\SetRoamingAuthorisationListResponse.cs" />
+    <Compile Include="Messages\EMP2CPO\GetEVSEStatusRequest.cs" />
+    <Compile Include="Messages\EMP2CPO\RelaseEVSERequest.cs" />
+    <Compile Include="Messages\EMP2CPO\GetEVSEStatusResponse.cs" />
+    <Compile Include="Messages\EMP2CPO\SelectEVSERequest.cs" />
+    <Compile Include="Messages\EMP2CH\AddServiceEndpointsResponse.cs" />
+    <Compile Include="Messages\EMP2CH\ConfirmCDRsResponse.cs" />
+    <Compile Include="Messages\EMP2CPO\ReleaseEVSEResponse.cs" />
+    <Compile Include="Messages\EMP2CPO\SelectEVSEResponse.cs" />
+    <Compile Include="Messages\EMP2CH\GetServiceEndpointsResponse.cs" />
+    <Compile Include="Messages\EMP2CH\GetTariffUpdatesResponse.cs" />
+    <Compile Include="Messages\EMP2CH\GetStatusResponse.cs" />
+    <Compile Include="Messages\EMP2CH\GetCDRsResponse.cs" />
+    <Compile Include="Messages\EMP2CH\GetChargePointListUpdatesResponse.cs" />
+    <Compile Include="Messages\EMP2CH\UpdateRoamingAuthorisationListResponse.cs" />
+    <Compile Include="Messages\EMP2CH\SetRoamingAuthorisationListResponse.cs" />
     <Compile Include="Entities\Complex\OperatorEndpoint.cs" />
     <Compile Include="Entities\Complex\ProviderEndpoint.cs" />
     <Compile Include="Entities\Complex\EVSECDRPair.cs" />
@@ -102,8 +113,8 @@
     <Compile Include="Entities\Simple\Direct_Id.cs" />
     <Compile Include="Entities\Simple\DirectResultCodes.cs" />
     <Compile Include="Entities\Simple\StatusTypes.cs" />
-    <Compile Include="IO\AResponse.cs" />
-    <Compile Include="IO\EMP2Central\GetChargePointListResponse.cs" />
+    <Compile Include="Messages\AResponse.cs" />
+    <Compile Include="Messages\EMP2CH\GetChargePointListResponse.cs" />
     <Compile Include="IO\XML_IO.cs" />
     <Compile Include="IO\ObjectMapper.cs" />
     <Compile Include="IO\OCHPNS.cs" />
@@ -156,12 +167,12 @@
     <Compile Include="Entities\EVSEStatus.cs" />
     <Compile Include="Entities\Simple\EVSEMajorStatusTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IO\CPO2Central\AddCDRsResponse.cs" />
-    <Compile Include="IO\CPO2Central\GetRoamingAuthorisationListUpdatesResponse.cs" />
-    <Compile Include="IO\CPO2Central\GetRoamingAuthorisationListResponse.cs" />
-    <Compile Include="IO\CPO2Central\GetSingleRoamingAuthorisationResponse.cs" />
-    <Compile Include="IO\CPO2Central\UpdateChargePointListResponse.cs" />
-    <Compile Include="IO\CPO2Central\SetChargePointListResponse.cs" />
+    <Compile Include="Messages\CPO2CH\AddCDRsResponse.cs" />
+    <Compile Include="Messages\CPO2CH\GetRoamingAuthorisationListUpdatesResponse.cs" />
+    <Compile Include="Messages\CPO2CH\GetRoamingAuthorisationListResponse.cs" />
+    <Compile Include="Messages\CPO2CH\GetSingleRoamingAuthorisationResponse.cs" />
+    <Compile Include="Messages\CPO2CH\UpdateChargePointListResponse.cs" />
+    <Compile Include="Messages\CPO2CH\SetChargePointListResponse.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,7 +205,9 @@
     <None Include="LICENSE" />
     <None Include="README.md" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CH\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
