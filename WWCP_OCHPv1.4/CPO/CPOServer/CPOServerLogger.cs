@@ -153,66 +153,99 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            #region Register remote start/stop log events
 
-            //RegisterEvent("RemoteReservationStart",
-            //              handler => CPOServer.OnLogRemoteReservationStart   += handler,
-            //              handler => CPOServer.OnLogRemoteReservationStart   -= handler,
-            //              "Reservation", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            // OCHPdirect
 
-            //RegisterEvent("RemoteReservationStarted",
-            //              handler => CPOServer.OnLogRemoteReservationStarted += handler,
-            //              handler => CPOServer.OnLogRemoteReservationStarted -= handler,
-            //              "Reservation", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            #region SelectEVSE
 
-            //RegisterEvent("RemoteReservationStop",
-            //              handler => CPOServer.OnLogRemoteReservationStop    += handler,
-            //              handler => CPOServer.OnLogRemoteReservationStop    -= handler,
-            //              "Reservation", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            RegisterEvent("SelectEVSERequest",
+                          handler => CPOServer.OnSelectEVSESOAPRequest += handler,
+                          handler => CPOServer.OnSelectEVSESOAPRequest -= handler,
+                          "SelectEVSE", "OCHPdirect", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
 
-            //RegisterEvent("RemoteReservationStopped",
-            //              handler => CPOServer.OnLogRemoteReservationStopped += handler,
-            //              handler => CPOServer.OnLogRemoteReservationStopped -= handler,
-            //              "Reservation", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-
-            //RegisterEvent("RemoteStart",
-            //              handler => CPOServer.OnLogRemoteStart   += handler,
-            //              handler => CPOServer.OnLogRemoteStart   -= handler,
-            //              "Remote", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-            //RegisterEvent("RemoteStarted",
-            //              handler => CPOServer.OnLogRemoteStarted += handler,
-            //              handler => CPOServer.OnLogRemoteStarted -= handler,
-            //              "Remote", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-            //RegisterEvent("RemoteStop",
-            //              handler => CPOServer.OnLogRemoteStop    += handler,
-            //              handler => CPOServer.OnLogRemoteStop    -= handler,
-            //              "Remote", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-            //RegisterEvent("RemoteStopped",
-            //              handler => CPOServer.OnLogRemoteStopped += handler,
-            //              handler => CPOServer.OnLogRemoteStopped -= handler,
-            //              "Remote", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            RegisterEvent("SelectEVSEResponse",
+                          handler => CPOServer.OnSelectEVSESOAPResponse += handler,
+                          handler => CPOServer.OnSelectEVSESOAPResponse -= handler,
+                          "SelectEVSE", "OCHPdirect", "Responses", "All").
+               RegisterDefaultConsoleLogTarget(this).
+               RegisterDefaultDiscLogTarget(this);
 
             #endregion
+
+            #region ControlEVSE
+
+            RegisterEvent("ControlEVSERequest",
+                          handler => CPOServer.OnControlEVSESOAPRequest += handler,
+                          handler => CPOServer.OnControlEVSESOAPRequest -= handler,
+                          "ControlEVSE", "OCHPdirect", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("ControlEVSEResponse",
+                          handler => CPOServer.OnControlEVSESOAPResponse += handler,
+                          handler => CPOServer.OnControlEVSESOAPResponse -= handler,
+                          "ControlEVSE", "OCHPdirect", "Responses", "All").
+               RegisterDefaultConsoleLogTarget(this).
+               RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region ReleaseEVSE
+
+            RegisterEvent("ReleaseEVSERequest",
+                          handler => CPOServer.OnReleaseEVSESOAPRequest += handler,
+                          handler => CPOServer.OnReleaseEVSESOAPRequest -= handler,
+                          "ReleaseEVSE", "OCHPdirect", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("ReleaseEVSEResponse",
+                          handler => CPOServer.OnReleaseEVSESOAPResponse += handler,
+                          handler => CPOServer.OnReleaseEVSESOAPResponse -= handler,
+                          "ReleaseEVSE", "OCHPdirect", "Responses", "All").
+               RegisterDefaultConsoleLogTarget(this).
+               RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region GetEVSEStatus
+
+            RegisterEvent("GetEVSEStatusRequest",
+                          handler => CPOServer.OnGetEVSEStatusSOAPRequest += handler,
+                          handler => CPOServer.OnGetEVSEStatusSOAPRequest -= handler,
+                          "GetEVSEStatus", "OCHPdirect", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetEVSEStatusResponse",
+                          handler => CPOServer.OnGetEVSEStatusSOAPResponse += handler,
+                          handler => CPOServer.OnGetEVSEStatusSOAPResponse -= handler,
+                          "GetEVSEStatus", "OCHPdirect", "Responses", "All").
+               RegisterDefaultConsoleLogTarget(this).
+               RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region ReportDiscrepancy
+
+            RegisterEvent("ReportDiscrepancyRequest",
+                          handler => CPOServer.OnReportDiscrepancySOAPRequest += handler,
+                          handler => CPOServer.OnReportDiscrepancySOAPRequest -= handler,
+                          "ReportDiscrepancy", "OCHPdirect", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("ReportDiscrepancyResponse",
+                          handler => CPOServer.OnReportDiscrepancySOAPResponse += handler,
+                          handler => CPOServer.OnReportDiscrepancySOAPResponse -= handler,
+                          "ReportDiscrepancy", "OCHPdirect", "Responses", "All").
+               RegisterDefaultConsoleLogTarget(this).
+               RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
 
         }
 

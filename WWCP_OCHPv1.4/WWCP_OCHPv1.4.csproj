@@ -217,6 +217,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="CH\README.md" />
+    <None Include="CPO\README.md" />
+    <None Include="EMP\README.md" />
     <None Include="LICENSE" />
     <None Include="README.md" />
   </ItemGroup>

@@ -152,106 +152,234 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 #region Initial checks
 
                 if (CPOClient == null)
-                    throw new ArgumentNullException(nameof(CPOClient), "The given CPO client must not be null!");
+                    throw new ArgumentNullException(nameof(CPOClient),  "The given CPO client must not be null!");
 
                 this.CPOClient = CPOClient;
 
                 #endregion
 
-                #region Register EVSE data/status push log events
 
-                //RegisterEvent("EVSEDataPush",
-                //              handler => CPOClient.OnPushEVSEDataSOAPRequest    += handler,
-                //              handler => CPOClient.OnPushEVSEDataSOAPRequest    -= handler,
-                //              "EVSE", "EVSEData", "Request", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                // OCHP
 
-                //RegisterEvent("EVSEDataPushed",
-                //              handler => CPOClient.OnPushEVSEDataSOAPResponse   += handler,
-                //              handler => CPOClient.OnPushEVSEDataSOAPResponse   -= handler,
-                //              "EVSE", "EVSEData", "Response", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                #region SetChargePointList
 
+                RegisterEvent("SetChargePointListRequest",
+                              handler => CPOClient.OnSetChargePointListSOAPRequest += handler,
+                              handler => CPOClient.OnSetChargePointListSOAPRequest -= handler,
+                              "SetChargePointList", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("EVSEStatusPush",
-                //              handler => CPOClient.OnPushEVSEStatusSOAPRequest  += handler,
-                //              handler => CPOClient.OnPushEVSEStatusSOAPRequest  -= handler,
-                //              "EVSE", "EVSEStatus", "Request", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-                //RegisterEvent("EVSEStatusPushed",
-                //              handler => CPOClient.OnPushEVSEStatusSOAPResponse += handler,
-                //              handler => CPOClient.OnPushEVSEStatusSOAPResponse -= handler,
-                //              "EVSE", "EVSEStatus", "Response", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-
-
-                //RegisterEvent("AuthorizeStart",
-                //              handler => CPOClient.OnAuthorizeStartSOAPRequest += handler,
-                //              handler => CPOClient.OnAuthorizeStartSOAPRequest -= handler,
-                //              "Authorize", "Request", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-                //RegisterEvent("AuthorizeStarted",
-                //              handler => CPOClient.OnAuthorizeStartSOAPResponse += handler,
-                //              handler => CPOClient.OnAuthorizeStartSOAPResponse -= handler,
-                //              "Authorize", "Response", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-
-                //RegisterEvent("AuthorizeStop",
-                //              handler => CPOClient.OnAuthorizeStopSOAPRequest += handler,
-                //              handler => CPOClient.OnAuthorizeStopSOAPRequest -= handler,
-                //              "Authorize", "Request", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-                //RegisterEvent("AuthorizeStopped",
-                //              handler => CPOClient.OnAuthorizeStopSOAPResponse += handler,
-                //              handler => CPOClient.OnAuthorizeStopSOAPResponse -= handler,
-                //              "Authorize", "Response", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-
-
-                //RegisterEvent("SendChargeDetailRecord",
-                //              handler => CPOClient.OnSendChargeDetailRecordSOAPRequest += handler,
-                //              handler => CPOClient.OnSendChargeDetailRecordSOAPRequest -= handler,
-                //              "ChargeDetailRecord", "CDR", "Request", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-                //RegisterEvent("ChargeDetailRecordSent",
-                //              handler => CPOClient.OnSendChargeDetailRecordSOAPResponse += handler,
-                //              handler => CPOClient.OnSendChargeDetailRecordSOAPResponse -= handler,
-                //              "ChargeDetailRecord", "CDR", "Response", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-
-                //RegisterEvent("PullAuthenticationData",
-                //              handler => CPOClient.OnPullAuthenticationDataSOAPRequest += handler,
-                //              handler => CPOClient.OnPullAuthenticationDataSOAPRequest -= handler,
-                //              "AuthenticationData", "Request", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
-
-                //RegisterEvent("AuthenticationDataPulled",
-                //              handler => CPOClient.OnPullAuthenticationDataSOAPResponse += handler,
-                //              handler => CPOClient.OnPullAuthenticationDataSOAPResponse -= handler,
-                //              "AuthenticationData", "Response", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("SetChargePointListResponse",
+                              handler => CPOClient.OnSetChargePointListSOAPResponse += handler,
+                              handler => CPOClient.OnSetChargePointListSOAPResponse -= handler,
+                              "SetChargePointList", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
                 #endregion
+
+                #region UpdateChargePointList
+
+                RegisterEvent("UpdateChargePointListRequest",
+                              handler => CPOClient.OnUpdateChargePointListSOAPRequest += handler,
+                              handler => CPOClient.OnUpdateChargePointListSOAPRequest -= handler,
+                              "UpdateChargePointList", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("UpdateChargePointListResponse",
+                              handler => CPOClient.OnUpdateChargePointListSOAPResponse += handler,
+                              handler => CPOClient.OnUpdateChargePointListSOAPResponse -= handler,
+                              "UpdateChargePointList", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region UpdateStatusRequest
+
+                RegisterEvent("UpdateStatusRequest",
+                              handler => CPOClient.OnUpdateStatusSOAPRequest += handler,
+                              handler => CPOClient.OnUpdateStatusSOAPRequest -= handler,
+                              "UpdateStatus", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("UpdateStatusResponse",
+                              handler => CPOClient.OnUpdateStatusSOAPResponse += handler,
+                              handler => CPOClient.OnUpdateStatusSOAPResponse -= handler,
+                              "UpdateStatus", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region GetSingleRoamingAuthorisation
+
+                RegisterEvent("GetSingleRoamingAuthorisationRequest",
+                              handler => CPOClient.OnGetSingleRoamingAuthorisationSOAPRequest += handler,
+                              handler => CPOClient.OnGetSingleRoamingAuthorisationSOAPRequest -= handler,
+                              "GetSingleRoamingAuthorisation", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("GetSingleRoamingAuthorisationResponse",
+                              handler => CPOClient.OnGetSingleRoamingAuthorisationSOAPResponse += handler,
+                              handler => CPOClient.OnGetSingleRoamingAuthorisationSOAPResponse -= handler,
+                              "GetSingleRoamingAuthorisation", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region GetRoamingAuthorisationList
+
+                RegisterEvent("GetRoamingAuthorisationListRequest",
+                              handler => CPOClient.OnGetRoamingAuthorisationListSOAPRequest += handler,
+                              handler => CPOClient.OnGetRoamingAuthorisationListSOAPRequest -= handler,
+                              "GetRoamingAuthorisationList", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("GetRoamingAuthorisationListResponse",
+                              handler => CPOClient.OnGetRoamingAuthorisationListSOAPResponse += handler,
+                              handler => CPOClient.OnGetRoamingAuthorisationListSOAPResponse -= handler,
+                              "GetRoamingAuthorisationList", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region GetRoamingAuthorisationListUpdates
+
+                RegisterEvent("GetRoamingAuthorisationListUpdatesRequest",
+                              handler => CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPRequest += handler,
+                              handler => CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPRequest -= handler,
+                              "GetRoamingAuthorisationListUpdates", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("GetRoamingAuthorisationListUpdatesResponse",
+                              handler => CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPResponse += handler,
+                              handler => CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPResponse -= handler,
+                              "GetRoamingAuthorisationListUpdates", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region AddCDRs
+
+                RegisterEvent("AddCDRsRequest",
+                              handler => CPOClient.OnAddCDRsSOAPRequest += handler,
+                              handler => CPOClient.OnAddCDRsSOAPRequest -= handler,
+                              "AddCDRs", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("AddCDRsResponse",
+                              handler => CPOClient.OnAddCDRsSOAPResponse += handler,
+                              handler => CPOClient.OnAddCDRsSOAPResponse -= handler,
+                              "AddCDRs", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region CheckCDRs
+
+                RegisterEvent("CheckCDRsRequest",
+                              handler => CPOClient.OnCheckCDRsSOAPRequest += handler,
+                              handler => CPOClient.OnCheckCDRsSOAPRequest -= handler,
+                              "CheckCDRs", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("CheckCDRsResponse",
+                              handler => CPOClient.OnCheckCDRsSOAPResponse += handler,
+                              handler => CPOClient.OnCheckCDRsSOAPResponse -= handler,
+                              "CheckCDRs", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region UpdateTariffs
+
+                RegisterEvent("UpdateTariffsRequest",
+                              handler => CPOClient.OnUpdateTariffsSOAPRequest += handler,
+                              handler => CPOClient.OnUpdateTariffsSOAPRequest -= handler,
+                              "UpdateTariffs", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("UpdateTariffsResponse",
+                              handler => CPOClient.OnUpdateTariffsSOAPResponse += handler,
+                              handler => CPOClient.OnUpdateTariffsSOAPResponse -= handler,
+                              "UpdateTariffs", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+
+                // OCHPdirect
+
+                #region AddServiceEndpoints
+
+                RegisterEvent("AddServiceEndpointsRequest",
+                              handler => CPOClient.OnAddServiceEndpointsSOAPRequest += handler,
+                              handler => CPOClient.OnAddServiceEndpointsSOAPRequest -= handler,
+                              "AddServiceEndpoints", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("AddServiceEndpointsResponse",
+                              handler => CPOClient.OnAddServiceEndpointsSOAPResponse += handler,
+                              handler => CPOClient.OnAddServiceEndpointsSOAPResponse -= handler,
+                              "AddServiceEndpoints", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region GetServiceEndpoints
+
+                RegisterEvent("GetServiceEndpointsRequest",
+                              handler => CPOClient.OnGetServiceEndpointsSOAPRequest += handler,
+                              handler => CPOClient.OnGetServiceEndpointsSOAPRequest -= handler,
+                              "GetServiceEndpoints", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("GetServiceEndpointsResponse",
+                              handler => CPOClient.OnGetServiceEndpointsSOAPResponse += handler,
+                              handler => CPOClient.OnGetServiceEndpointsSOAPResponse -= handler,
+                              "GetServiceEndpoints", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region InformProvider
+
+                RegisterEvent("InformProviderRequest",
+                              handler => CPOClient.OnInformProviderSOAPRequest += handler,
+                              handler => CPOClient.OnInformProviderSOAPRequest -= handler,
+                              "InformProvider", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("InformProviderResponse",
+                              handler => CPOClient.OnInformProviderSOAPResponse += handler,
+                              handler => CPOClient.OnInformProviderSOAPResponse -= handler,
+                              "InformProvider", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
 
             }
 

@@ -68,12 +68,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a select EVSE HTTP request was received.
         /// </summary>
-        public event RequestLogHandler            OnSelectEVSEHTTPRequest;
+        public event RequestLogHandler            OnSelectEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a select EVSE HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler             OnSelectEVSEHTTPResponse;
+        public event AccessLogHandler             OnSelectEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a select EVSE request was received.
@@ -87,12 +87,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a control EVSE HTTP request was received.
         /// </summary>
-        public event RequestLogHandler             OnControlEVSEHTTPRequest;
+        public event RequestLogHandler             OnControlEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a control EVSE HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler              OnControlEVSEHTTPResponse;
+        public event AccessLogHandler              OnControlEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a control EVSE request was received.
@@ -106,12 +106,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a release EVSE HTTP request was received.
         /// </summary>
-        public event RequestLogHandler             OnReleaseEVSEHTTPRequest;
+        public event RequestLogHandler             OnReleaseEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a release EVSE HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler              OnReleaseEVSEHTTPResponse;
+        public event AccessLogHandler              OnReleaseEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a release EVSE request was received.
@@ -125,12 +125,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a get EVSE status HTTP request was received.
         /// </summary>
-        public event RequestLogHandler               OnGetEVSEStatusHTTPRequest;
+        public event RequestLogHandler               OnGetEVSEStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get EVSE status HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                OnGetEVSEStatusHTTPResponse;
+        public event AccessLogHandler                OnGetEVSEStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get EVSE status request was received.
@@ -144,12 +144,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a report discrepancy HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                   OnReportDiscrepancyHTTPRequest;
+        public event RequestLogHandler                   OnReportDiscrepancySOAPRequest;
 
         /// <summary>
         /// An event sent whenever a report discrepancy HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                    OnReportDiscrepancyHTTPResponse;
+        public event AccessLogHandler                    OnReportDiscrepancySOAPResponse;
 
         /// <summary>
         /// An event sent whenever a report discrepancy request was received.
@@ -285,19 +285,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     #endregion
 
-                    #region Send OnSelectEVSEHTTPRequest event
+                    #region Send OnSelectEVSESOAPRequest event
 
                     try
                     {
 
-                        OnSelectEVSEHTTPRequest?.Invoke(DateTime.Now,
+                        OnSelectEVSESOAPRequest?.Invoke(DateTime.Now,
                                                         this.SOAPServer,
                                                         Request);
 
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnSelectEVSEHTTPRequest));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnSelectEVSESOAPRequest));
                     }
 
                     #endregion
@@ -355,12 +355,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    #region Send OnSelectEVSEHTTPResponse event
+                    #region Send OnSelectEVSESOAPResponse event
 
                     try
                     {
 
-                        OnSelectEVSEHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                        OnSelectEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                          this.SOAPServer,
                                                          Request,
                                                          HTTPResponse);
@@ -368,7 +368,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnSelectEVSEHTTPResponse));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnSelectEVSESOAPResponse));
                     }
 
                     #endregion
@@ -429,19 +429,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     #endregion
 
-                    #region Send OnControlEVSEHTTPRequest event
+                    #region Send OnControlEVSESOAPRequest event
 
                     try
                     {
 
-                        OnControlEVSEHTTPRequest?.Invoke(DateTime.Now,
+                        OnControlEVSESOAPRequest?.Invoke(DateTime.Now,
                                                          this.SOAPServer,
                                                          Request);
 
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnControlEVSEHTTPRequest));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnControlEVSESOAPRequest));
                     }
 
                     #endregion
@@ -504,12 +504,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    #region Send OnControlEVSEHTTPResponse event
+                    #region Send OnControlEVSESOAPResponse event
 
                     try
                     {
 
-                        OnControlEVSEHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                        OnControlEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                           this.SOAPServer,
                                                           Request,
                                                           HTTPResponse);
@@ -517,7 +517,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnControlEVSEHTTPResponse));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnControlEVSESOAPResponse));
                     }
 
                     #endregion
@@ -554,19 +554,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     #endregion
 
-                    #region Send OnReleaseEVSEHTTPRequest event
+                    #region Send OnReleaseEVSESOAPRequest event
 
                     try
                     {
 
-                        OnReleaseEVSEHTTPRequest?.Invoke(DateTime.Now,
+                        OnReleaseEVSESOAPRequest?.Invoke(DateTime.Now,
                                                          this.SOAPServer,
                                                          Request);
 
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnReleaseEVSEHTTPRequest));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnReleaseEVSESOAPRequest));
                     }
 
                     #endregion
@@ -622,12 +622,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    #region Send OnReleaseEVSEHTTPResponse event
+                    #region Send OnReleaseEVSESOAPResponse event
 
                     try
                     {
 
-                        OnReleaseEVSEHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                        OnReleaseEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                           this.SOAPServer,
                                                           Request,
                                                           HTTPResponse);
@@ -635,7 +635,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnReleaseEVSEHTTPResponse));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnReleaseEVSESOAPResponse));
                     }
 
                     #endregion
@@ -673,19 +673,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     #endregion
 
-                    #region Send OnGetEVSEStatusHTTPRequest event
+                    #region Send OnGetEVSEStatusSOAPRequest event
 
                     try
                     {
 
-                        OnGetEVSEStatusHTTPRequest?.Invoke(DateTime.Now,
+                        OnGetEVSEStatusSOAPRequest?.Invoke(DateTime.Now,
                                                            this.SOAPServer,
                                                            Request);
 
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnGetEVSEStatusHTTPRequest));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnGetEVSEStatusSOAPRequest));
                     }
 
                     #endregion
@@ -741,12 +741,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    #region Send OnGetEVSEStatusHTTPResponse event
+                    #region Send OnGetEVSEStatusSOAPResponse event
 
                     try
                     {
 
-                        OnGetEVSEStatusHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                        OnGetEVSEStatusSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                             this.SOAPServer,
                                                             Request,
                                                             HTTPResponse);
@@ -754,7 +754,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnGetEVSEStatusHTTPResponse));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnGetEVSEStatusSOAPResponse));
                     }
 
                     #endregion
@@ -792,19 +792,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     #endregion
 
-                    #region Send OnReportDiscrepancyHTTPRequest event
+                    #region Send OnReportDiscrepancySOAPRequest event
 
                     try
                     {
 
-                        OnReportDiscrepancyHTTPRequest?.Invoke(DateTime.Now,
+                        OnReportDiscrepancySOAPRequest?.Invoke(DateTime.Now,
                                                                this.SOAPServer,
                                                                Request);
 
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnReportDiscrepancyHTTPRequest));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnReportDiscrepancySOAPRequest));
                     }
 
                     #endregion
@@ -861,12 +861,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     #endregion
 
 
-                    #region Send OnReportDiscrepancyHTTPResponse event
+                    #region Send OnReportDiscrepancySOAPResponse event
 
                     try
                     {
 
-                        OnReportDiscrepancyHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                        OnReportDiscrepancySOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                                 this.SOAPServer,
                                                                 Request,
                                                                 HTTPResponse);
@@ -874,7 +874,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnReportDiscrepancyHTTPResponse));
+                        e.Log(nameof(CPOServer) + "." + nameof(OnReportDiscrepancySOAPResponse));
                     }
 
                     #endregion

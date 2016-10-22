@@ -31,6 +31,10 @@ using org.GraphDefined.WWCP.OCHPv1_4.EMP;
 namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
+    // OCHPdirect
+
+    #region OnSelectEVSE
+
     /// <summary>
     /// Initiate a select EVSE request at the given EVSE and for the given e-mobility contract.
     /// </summary>
@@ -53,6 +57,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                     DateTime?            ReserveUntil,
                                     TimeSpan?            RequestTimeout  = null);
 
+    #endregion
+
+    #region OnControlEVSE
 
     /// <summary>
     /// Initiate a control EVSE request for the given charging process session identification.
@@ -86,6 +93,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                      DateTime?            Departure,
                                      TimeSpan?            RequestTimeout  = null);
 
+    #endregion
+
+    #region OnReleaseEVSE
 
     /// <summary>
     /// Initiate a release EVSE request for the given direct charging session identification.
@@ -105,6 +115,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                      Direct_Id            DirectId,
                                      TimeSpan?            RequestTimeout  = null);
 
+    #endregion
+
+    #region OnGetEVSEStatus
 
     /// <summary>
     /// Initiate a get EVSE status request for the given enumeration of EVSE identifications.
@@ -124,6 +137,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        IEnumerable<EVSE_Id>    EVSEIds,
                                        TimeSpan?               RequestTimeout  = null);
 
+    #endregion
+
+    #region OnReportDiscrepancy
 
     /// <summary>
     /// Initiate a report discrepancy request for the given EVSE identification.
@@ -145,5 +161,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                            String               Report,
                                            TimeSpan?            RequestTimeout  = null);
 
+    #endregion
 
 }

@@ -30,13 +30,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
     // OCHP
 
-    /// <summary>
-    /// A delegate for filtering charge points.
-    /// </summary>
-    /// <param name="ChargePointInfo">A charge point.</param>
-    public delegate Boolean IncludeChargePointsDelegate(ChargePointInfo  ChargePointInfo);
-
-
     #region On(Set|Update)ChargePointList
 
     /// <summary>
@@ -348,7 +341,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     #endregion
 
 
-    #region InformProvider
+    #region OnInformProvider
 
     /// <summary>
     /// A delegate called whenever an inform provider message will be send to an e-mobility provider.

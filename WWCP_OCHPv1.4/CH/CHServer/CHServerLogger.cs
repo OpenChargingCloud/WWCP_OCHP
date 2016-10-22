@@ -152,53 +152,357 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
             #endregion
 
-            #region Register AuthorizeStart/Stop and SendCDR log events
 
-            //RegisterEvent("AuthorizeStart",
-            //              handler => CHServer.OnLogAuthorizeStart += handler,
-            //              handler => CHServer.OnLogAuthorizeStart -= handler,
-            //              "Authorize", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            // Shared event logs...
 
-            //RegisterEvent("AuthorizeStarted",
-            //              handler => CHServer.OnLogAuthorizeStarted += handler,
-            //              handler => CHServer.OnLogAuthorizeStarted -= handler,
-            //              "Authorize", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            #region AddServiceEndpoints
 
+            RegisterEvent("AddServiceEndpointsRequest",
+                          handler => CHServer.OnAddServiceEndpointsSOAPRequest += handler,
+                          handler => CHServer.OnAddServiceEndpointsSOAPRequest -= handler,
+                          "AddServiceEndpoints", "OCHPdirect", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
 
-            //RegisterEvent("AuthorizeStop",
-            //              handler => CHServer.OnLogAuthorizeStop += handler,
-            //              handler => CHServer.OnLogAuthorizeStop -= handler,
-            //              "Authorize", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-            //RegisterEvent("AuthorizeStopped",
-            //              handler => CHServer.OnLogAuthorizeStopped += handler,
-            //              handler => CHServer.OnLogAuthorizeStopped -= handler,
-            //              "Authorize", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-
-            //RegisterEvent("ChargeDetailRecordSend",
-            //              handler => CHServer.OnLogChargeDetailRecordSend += handler,
-            //              handler => CHServer.OnLogChargeDetailRecordSend -= handler,
-            //              "CDR", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-            //RegisterEvent("ChargeDetailRecordSent",
-            //              handler => CHServer.OnLogChargeDetailRecordSent += handler,
-            //              handler => CHServer.OnLogChargeDetailRecordSent -= handler,
-            //              "CDR", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            RegisterEvent("AddServiceEndpointsResponse",
+                          handler => CHServer.OnAddServiceEndpointsSOAPResponse += handler,
+                          handler => CHServer.OnAddServiceEndpointsSOAPResponse -= handler,
+                          "AddServiceEndpoints", "OCHPdirect", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
 
             #endregion
+
+            #region GetServiceEndpoints
+
+            RegisterEvent("GetServiceEndpointsRequest",
+                          handler => CHServer.OnGetServiceEndpointsSOAPRequest += handler,
+                          handler => CHServer.OnGetServiceEndpointsSOAPRequest -= handler,
+                          "GetServiceEndpoints", "OCHPdirect", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetServiceEndpointsResponse",
+                          handler => CHServer.OnGetServiceEndpointsSOAPResponse += handler,
+                          handler => CHServer.OnGetServiceEndpointsSOAPResponse -= handler,
+                          "GetServiceEndpoints", "OCHPdirect", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+
+            // CPO event logs...
+
+            #region SetChargePointList
+
+            RegisterEvent("SetChargePointListRequest",
+                          handler => CHServer.OnSetChargePointListSOAPRequest += handler,
+                          handler => CHServer.OnSetChargePointListSOAPRequest -= handler,
+                          "SetChargePointList", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("SetChargePointListResponse",
+                          handler => CHServer.OnSetChargePointListSOAPResponse += handler,
+                          handler => CHServer.OnSetChargePointListSOAPResponse -= handler,
+                          "SetChargePointList", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region UpdateChargePointList
+
+            RegisterEvent("UpdateChargePointListRequest",
+                          handler => CHServer.OnUpdateChargePointListSOAPRequest += handler,
+                          handler => CHServer.OnUpdateChargePointListSOAPRequest -= handler,
+                          "UpdateChargePointList", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("UpdateChargePointListResponse",
+                          handler => CHServer.OnUpdateChargePointListSOAPResponse += handler,
+                          handler => CHServer.OnUpdateChargePointListSOAPResponse -= handler,
+                          "UpdateChargePointList", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region UpdateStatusRequest
+
+            RegisterEvent("UpdateStatusRequest",
+                          handler => CHServer.OnUpdateStatusSOAPRequest += handler,
+                          handler => CHServer.OnUpdateStatusSOAPRequest -= handler,
+                          "UpdateStatus", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("UpdateStatusResponse",
+                          handler => CHServer.OnUpdateStatusSOAPResponse += handler,
+                          handler => CHServer.OnUpdateStatusSOAPResponse -= handler,
+                          "UpdateStatus", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region GetSingleRoamingAuthorisation
+
+            RegisterEvent("GetSingleRoamingAuthorisationRequest",
+                          handler => CHServer.OnGetSingleRoamingAuthorisationSOAPRequest += handler,
+                          handler => CHServer.OnGetSingleRoamingAuthorisationSOAPRequest -= handler,
+                          "GetSingleRoamingAuthorisation", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetSingleRoamingAuthorisationResponse",
+                          handler => CHServer.OnGetSingleRoamingAuthorisationSOAPResponse += handler,
+                          handler => CHServer.OnGetSingleRoamingAuthorisationSOAPResponse -= handler,
+                          "GetSingleRoamingAuthorisation", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region GetRoamingAuthorisationList
+
+            RegisterEvent("GetRoamingAuthorisationListRequest",
+                          handler => CHServer.OnGetRoamingAuthorisationListSOAPRequest += handler,
+                          handler => CHServer.OnGetRoamingAuthorisationListSOAPRequest -= handler,
+                          "GetRoamingAuthorisationList", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetRoamingAuthorisationListResponse",
+                          handler => CHServer.OnGetRoamingAuthorisationListSOAPResponse += handler,
+                          handler => CHServer.OnGetRoamingAuthorisationListSOAPResponse -= handler,
+                          "GetRoamingAuthorisationList", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region GetRoamingAuthorisationListUpdates
+
+            RegisterEvent("GetRoamingAuthorisationListUpdatesRequest",
+                          handler => CHServer.OnGetRoamingAuthorisationListUpdatesSOAPRequest += handler,
+                          handler => CHServer.OnGetRoamingAuthorisationListUpdatesSOAPRequest -= handler,
+                          "GetRoamingAuthorisationListUpdates", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetRoamingAuthorisationListUpdatesResponse",
+                          handler => CHServer.OnGetRoamingAuthorisationListUpdatesSOAPResponse += handler,
+                          handler => CHServer.OnGetRoamingAuthorisationListUpdatesSOAPResponse -= handler,
+                          "GetRoamingAuthorisationListUpdates", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region AddCDRs
+
+            RegisterEvent("AddCDRsRequest",
+                          handler => CHServer.OnAddCDRsSOAPRequest += handler,
+                          handler => CHServer.OnAddCDRsSOAPRequest -= handler,
+                          "AddCDRs", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("AddCDRsResponse",
+                          handler => CHServer.OnAddCDRsSOAPResponse += handler,
+                          handler => CHServer.OnAddCDRsSOAPResponse -= handler,
+                          "AddCDRs", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region CheckCDRs
+
+            RegisterEvent("CheckCDRsRequest",
+                          handler => CHServer.OnCheckCDRsSOAPRequest += handler,
+                          handler => CHServer.OnCheckCDRsSOAPRequest -= handler,
+                          "CheckCDRs", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("CheckCDRsResponse",
+                          handler => CHServer.OnCheckCDRsSOAPResponse += handler,
+                          handler => CHServer.OnCheckCDRsSOAPResponse -= handler,
+                          "CheckCDRs", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region UpdateTariffs
+
+            RegisterEvent("UpdateTariffsRequest",
+                          handler => CHServer.OnUpdateTariffsSOAPRequest += handler,
+                          handler => CHServer.OnUpdateTariffsSOAPRequest -= handler,
+                          "UpdateTariffs", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("UpdateTariffsResponse",
+                          handler => CHServer.OnUpdateTariffsSOAPResponse += handler,
+                          handler => CHServer.OnUpdateTariffsSOAPResponse -= handler,
+                          "UpdateTariffs", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+
+            // EMP event logs...
+
+            #region GetChargePointList
+
+            RegisterEvent("GetChargePointListRequest",
+                          handler => CHServer.OnGetChargePointListSOAPRequest += handler,
+                          handler => CHServer.OnGetChargePointListSOAPRequest -= handler,
+                          "GetChargePointList", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetChargePointListResponse",
+                          handler => CHServer.OnGetChargePointListSOAPResponse += handler,
+                          handler => CHServer.OnGetChargePointListSOAPResponse -= handler,
+                          "GetChargePointList", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region GetChargePointListUpdates
+
+            RegisterEvent("GetChargePointListUpdatesRequest",
+                          handler => CHServer.OnGetChargePointListUpdatesSOAPRequest += handler,
+                          handler => CHServer.OnGetChargePointListUpdatesSOAPRequest -= handler,
+                          "GetChargePointListUpdates", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetChargePointListUpdatesResponse",
+                          handler => CHServer.OnGetChargePointListUpdatesSOAPResponse += handler,
+                          handler => CHServer.OnGetChargePointListUpdatesSOAPResponse -= handler,
+                          "GetChargePointListUpdates", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region GetStatus
+
+            RegisterEvent("GetStatusRequest",
+                          handler => CHServer.OnGetStatusSOAPRequest += handler,
+                          handler => CHServer.OnGetStatusSOAPRequest -= handler,
+                          "GetStatus", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetStatusResponse",
+                          handler => CHServer.OnGetStatusSOAPResponse += handler,
+                          handler => CHServer.OnGetStatusSOAPResponse -= handler,
+                          "GetStatus", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region SetRoamingAuthorisationList
+
+            RegisterEvent("SetRoamingAuthorisationListRequest",
+                          handler => CHServer.OnSetRoamingAuthorisationListSOAPRequest += handler,
+                          handler => CHServer.OnSetRoamingAuthorisationListSOAPRequest -= handler,
+                          "SetRoamingAuthorisationList", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("SetRoamingAuthorisationListResponse",
+                          handler => CHServer.OnSetRoamingAuthorisationListSOAPResponse += handler,
+                          handler => CHServer.OnSetRoamingAuthorisationListSOAPResponse -= handler,
+                          "SetRoamingAuthorisationList", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region UpdateRoamingAuthorisationList
+
+            RegisterEvent("UpdateRoamingAuthorisationListRequest",
+                          handler => CHServer.OnUpdateRoamingAuthorisationListSOAPRequest += handler,
+                          handler => CHServer.OnUpdateRoamingAuthorisationListSOAPRequest -= handler,
+                          "UpdateRoamingAuthorisationList", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("UpdateRoamingAuthorisationListResponse",
+                          handler => CHServer.OnUpdateRoamingAuthorisationListSOAPResponse += handler,
+                          handler => CHServer.OnUpdateRoamingAuthorisationListSOAPResponse -= handler,
+                          "UpdateRoamingAuthorisationList", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region GetCDRs
+
+            RegisterEvent("GetCDRsRequest",
+                          handler => CHServer.OnGetCDRsSOAPRequest += handler,
+                          handler => CHServer.OnGetCDRsSOAPRequest -= handler,
+                          "GetCDRs", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetCDRsResponse",
+                          handler => CHServer.OnGetCDRsSOAPResponse += handler,
+                          handler => CHServer.OnGetCDRsSOAPResponse -= handler,
+                          "GetCDRs", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region ConfirmCDRs
+
+            RegisterEvent("ConfirmCDRsRequest",
+                          handler => CHServer.OnConfirmCDRsSOAPRequest += handler,
+                          handler => CHServer.OnConfirmCDRsSOAPRequest -= handler,
+                          "ConfirmCDRs", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("ConfirmCDRsResponse",
+                          handler => CHServer.OnConfirmCDRsSOAPResponse += handler,
+                          handler => CHServer.OnConfirmCDRsSOAPResponse -= handler,
+                          "ConfirmCDRs", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
+            #region GetTariffUpdates
+
+            RegisterEvent("GetTariffUpdatesRequest",
+                          handler => CHServer.OnGetTariffUpdatesSOAPRequest += handler,
+                          handler => CHServer.OnGetTariffUpdatesSOAPRequest -= handler,
+                          "GetTariffUpdates", "OCHP", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            RegisterEvent("GetTariffUpdatesResponse",
+                          handler => CHServer.OnGetTariffUpdatesSOAPResponse += handler,
+                          handler => CHServer.OnGetTariffUpdatesSOAPResponse -= handler,
+                          "GetTariffUpdates", "OCHP", "Responses", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
+
+            #endregion
+
 
         }
 

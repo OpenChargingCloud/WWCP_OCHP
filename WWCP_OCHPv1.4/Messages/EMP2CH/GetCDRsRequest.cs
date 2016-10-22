@@ -36,7 +36,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region Properties
 
         /// <summary>
-        /// A status type filter.
+        /// The optional status of the requested charge detail records.
         /// </summary>
         public CDRStatus?  CDRStatus   { get; }
 
@@ -47,7 +47,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create an OCHP GetCDRsRequest XML/SOAP request.
         /// </summary>
-        /// <param name="CDRStatus">The status of the requested charge detail records.</param>
+        /// <param name="CDRStatus">The optional status of the requested charge detail records.</param>
         public GetCDRsRequest(CDRStatus? CDRStatus = null)
         {
 

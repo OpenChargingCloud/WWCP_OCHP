@@ -71,12 +71,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an add service endpoints HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                     OnAddServiceEndpointsHTTPRequest;
+        public event RequestLogHandler                     OnAddServiceEndpointsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an add service endpoints HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                      OnAddServiceEndpointsHTTPResponse;
+        public event AccessLogHandler                      OnAddServiceEndpointsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an add service endpoints request was received.
@@ -90,12 +90,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get service endpoints HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                     OnGetServiceEndpointsHTTPRequest;
+        public event RequestLogHandler                     OnGetServiceEndpointsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get service endpoints HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                      OnGetServiceEndpointsHTTPResponse;
+        public event AccessLogHandler                      OnGetServiceEndpointsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get service endpoints request was received.
@@ -112,12 +112,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an add charge detail records HTTP request was received.
         /// </summary>
-        public event RequestLogHandler         OnAddCDRsHTTPRequest;
+        public event RequestLogHandler         OnAddCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an add charge detail records HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler          OnAddCDRsHTTPResponse;
+        public event AccessLogHandler          OnAddCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an add charge detail records request was received.
@@ -131,12 +131,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a check charge detail records HTTP request was received.
         /// </summary>
-        public event RequestLogHandler           OnCheckCDRsHTTPRequest;
+        public event RequestLogHandler           OnCheckCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a check charge detail records HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler            OnCheckCDRsHTTPResponse;
+        public event AccessLogHandler            OnCheckCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a check charge detail records request was received.
@@ -150,12 +150,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get roaming authorisation list HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                             OnGetRoamingAuthorisationListHTTPRequest;
+        public event RequestLogHandler                             OnGetRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                              OnGetRoamingAuthorisationListHTTPResponse;
+        public event AccessLogHandler                              OnGetRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list request was received.
@@ -169,12 +169,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                                    OnGetRoamingAuthorisationListUpdatesHTTPRequest;
+        public event RequestLogHandler                                    OnGetRoamingAuthorisationListUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                                     OnGetRoamingAuthorisationListUpdatesHTTPResponse;
+        public event AccessLogHandler                                     OnGetRoamingAuthorisationListUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates request was received.
@@ -188,12 +188,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get single roaming authorisation HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                               OnGetSingleRoamingAuthorisationHTTPRequest;
+        public event RequestLogHandler                               OnGetSingleRoamingAuthorisationSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get single roaming authorisation HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                                OnGetSingleRoamingAuthorisationHTTPResponse;
+        public event AccessLogHandler                                OnGetSingleRoamingAuthorisationSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get single roaming authorisation request was received.
@@ -207,12 +207,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a set charge point list HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                    OnSetChargePointListHTTPRequest;
+        public event RequestLogHandler                    OnSetChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a set charge point list HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                     OnSetChargePointListHTTPResponse;
+        public event AccessLogHandler                     OnSetChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a set charge point list request was received.
@@ -226,12 +226,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a update charge point list HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                       OnUpdateChargePointListHTTPRequest;
+        public event RequestLogHandler                       OnUpdateChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a update charge point list HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                        OnUpdateChargePointListHTTPResponse;
+        public event AccessLogHandler                        OnUpdateChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a update charge point list request was received.
@@ -245,12 +245,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status HTTP request was received.
         /// </summary>
-        public event RequestLogHandler              OnUpdateStatusHTTPRequest;
+        public event RequestLogHandler              OnUpdateStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler               OnUpdateStatusHTTPResponse;
+        public event AccessLogHandler               OnUpdateStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status request was received.
@@ -264,12 +264,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update charging tariffs HTTP request was received.
         /// </summary>
-        public event RequestLogHandler               OnUpdateTariffsHTTPRequest;
+        public event RequestLogHandler               OnUpdateTariffsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update charging tariffs HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                OnUpdateTariffsHTTPResponse;
+        public event AccessLogHandler                OnUpdateTariffsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update charging tariffs request was received.
@@ -281,17 +281,36 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         // EMP events...
 
+        #region OnGetCDRs
+
+        /// <summary>
+        /// An event sent whenever a get charge detail records HTTP request was received.
+        /// </summary>
+        public event RequestLogHandler         OnGetCDRsSOAPRequest;
+
+        /// <summary>
+        /// An event sent whenever a get charge detail records HTTP response was sent.
+        /// </summary>
+        public event AccessLogHandler          OnGetCDRsSOAPResponse;
+
+        /// <summary>
+        /// An event sent whenever a get charge detail records request was received.
+        /// </summary>
+        public event OnGetCDRsRequestDelegate  OnGetCDRsRequest;
+
+        #endregion
+
         #region OnConfirmCDRs
 
         /// <summary>
         /// An event sent whenever a confirm charge detail records HTTP request was received.
         /// </summary>
-        public event RequestLogHandler             OnConfirmCDRsHTTPRequest;
+        public event RequestLogHandler             OnConfirmCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a confirm charge detail records HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler              OnConfirmCDRsHTTPResponse;
+        public event AccessLogHandler              OnConfirmCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a confirm charge detail records request was received.
@@ -305,12 +324,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charge point list HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                    OnGetChargePointListHTTPRequest;
+        public event RequestLogHandler                    OnGetChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charge point list HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                     OnGetChargePointListHTTPResponse;
+        public event AccessLogHandler                     OnGetChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charge point list request was received.
@@ -324,12 +343,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charge point list updates HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                           OnGetChargePointListUpdatesHTTPRequest;
+        public event RequestLogHandler                           OnGetChargePointListUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charge point list updates HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                            OnGetChargePointListUpdatesHTTPResponse;
+        public event AccessLogHandler                            OnGetChargePointListUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charge point list updates request was received.
@@ -343,12 +362,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get EVSE and parking status HTTP request was received.
         /// </summary>
-        public event RequestLogHandler           OnGetStatusHTTPRequest;
+        public event RequestLogHandler           OnGetStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get EVSE and parking status HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler            OnGetStatusHTTPResponse;
+        public event AccessLogHandler            OnGetStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get EVSE and parking status request was received.
@@ -362,12 +381,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charging tariffs updates HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                  OnGetTariffUpdatesHTTPRequest;
+        public event RequestLogHandler                  OnGetTariffUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charging tariffs updates HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                   OnGetTariffUpdatesHTTPResponse;
+        public event AccessLogHandler                   OnGetTariffUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charging tariffs updates request was received.
@@ -381,12 +400,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                             OnSetRoamingAuthorisationListHTTPRequest;
+        public event RequestLogHandler                             OnSetRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                              OnSetRoamingAuthorisationListHTTPResponse;
+        public event AccessLogHandler                              OnSetRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos request was received.
@@ -400,12 +419,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos HTTP request was received.
         /// </summary>
-        public event RequestLogHandler                                OnUpdateRoamingAuthorisationListHTTPRequest;
+        public event RequestLogHandler                                OnUpdateRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos HTTP response was sent.
         /// </summary>
-        public event AccessLogHandler                                 OnUpdateRoamingAuthorisationListHTTPResponse;
+        public event AccessLogHandler                                 OnUpdateRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos request was received.
@@ -519,19 +538,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "AddServiceEndpointsRequest").FirstOrDefault(),
                                             async (Request, AddServiceEndpointsXML) => {
 
-                #region Send OnAddServiceEndpointsHTTPRequest event
+                #region Send OnAddServiceEndpointsSOAPRequest event
 
                 try
                 {
 
-                    OnAddServiceEndpointsHTTPRequest?.Invoke(DateTime.Now,
+                    OnAddServiceEndpointsSOAPRequest?.Invoke(DateTime.Now,
                                                              this.SOAPServer,
                                                              Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnAddServiceEndpointsHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnAddServiceEndpointsSOAPRequest));
                 }
 
                 #endregion
@@ -593,7 +612,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnAddServiceEndpointsHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnAddServiceEndpointsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                               this.SOAPServer,
                                                               Request,
                                                               HTTPResponse);
@@ -601,7 +620,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnAddServiceEndpointsHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnAddServiceEndpointsSOAPResponse));
                 }
 
                 #endregion
@@ -620,19 +639,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "GetServiceEndpointsRequest").FirstOrDefault(),
                                             async (Request, GetServiceEndpointsXML) => {
 
-                #region Send OnGetServiceEndpointsHTTPRequest event
+                #region Send OnGetServiceEndpointsSOAPRequest event
 
                 try
                 {
 
-                    OnGetServiceEndpointsHTTPRequest?.Invoke(DateTime.Now,
+                    OnGetServiceEndpointsSOAPRequest?.Invoke(DateTime.Now,
                                                              this.SOAPServer,
                                                              Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetServiceEndpointsHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetServiceEndpointsSOAPRequest));
                 }
 
                 #endregion
@@ -692,7 +711,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetServiceEndpointsHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnGetServiceEndpointsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                               this.SOAPServer,
                                                               Request,
                                                               HTTPResponse);
@@ -700,7 +719,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetServiceEndpointsHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetServiceEndpointsSOAPResponse));
                 }
 
                 #endregion
@@ -722,19 +741,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "AddCDRsRequest").FirstOrDefault(),
                                             async (Request, AddCDRsXML) => {
 
-                #region Send OnAddCDRsHTTPRequest event
+                #region Send OnAddCDRsSOAPRequest event
 
                 try
                 {
 
-                    OnAddCDRsHTTPRequest?.Invoke(DateTime.Now,
+                    OnAddCDRsSOAPRequest?.Invoke(DateTime.Now,
                                                  this.SOAPServer,
                                                  Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnAddCDRsHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnAddCDRsSOAPRequest));
                 }
 
                 #endregion
@@ -795,7 +814,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnAddCDRsHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnAddCDRsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                   this.SOAPServer,
                                                   Request,
                                                   HTTPResponse);
@@ -803,7 +822,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnAddCDRsHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnAddCDRsSOAPResponse));
                 }
 
                 #endregion
@@ -822,19 +841,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "CheckCDRsRequest").FirstOrDefault(),
                                             async (Request, CheckCDRsXML) => {
 
-                #region Send OnCheckCDRsHTTPRequest event
+                #region Send OnCheckCDRsSOAPRequest event
 
                 try
                 {
 
-                    OnCheckCDRsHTTPRequest?.Invoke(DateTime.Now,
+                    OnCheckCDRsSOAPRequest?.Invoke(DateTime.Now,
                                                  this.SOAPServer,
                                                  Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnCheckCDRsHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnCheckCDRsSOAPRequest));
                 }
 
                 #endregion
@@ -895,7 +914,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnCheckCDRsHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnCheckCDRsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                     this.SOAPServer,
                                                     Request,
                                                     HTTPResponse);
@@ -903,7 +922,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnCheckCDRsHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnCheckCDRsSOAPResponse));
                 }
 
                 #endregion
@@ -922,19 +941,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "GetRoamingAuthorisationListRequest").FirstOrDefault(),
                                             async (Request, GetRoamingAuthorisationListXML) => {
 
-                #region Send OnGetRoamingAuthorisationListHTTPRequest event
+                #region Send OnGetRoamingAuthorisationListSOAPRequest event
 
                 try
                 {
 
-                    OnGetRoamingAuthorisationListHTTPRequest?.Invoke(DateTime.Now,
+                    OnGetRoamingAuthorisationListSOAPRequest?.Invoke(DateTime.Now,
                                                                      this.SOAPServer,
                                                                      Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListSOAPRequest));
                 }
 
                 #endregion
@@ -994,7 +1013,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetRoamingAuthorisationListHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnGetRoamingAuthorisationListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                                       this.SOAPServer,
                                                                       Request,
                                                                       HTTPResponse);
@@ -1002,7 +1021,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListSOAPResponse));
                 }
 
                 #endregion
@@ -1021,19 +1040,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "GetRoamingAuthorisationListUpdatesRequest").FirstOrDefault(),
                                             async (Request, GetRoamingAuthorisationListUpdatesXML) => {
 
-                #region Send OnGetRoamingAuthorisationListUpdatesHTTPRequest event
+                #region Send OnGetRoamingAuthorisationListUpdatesSOAPRequest event
 
                 try
                 {
 
-                    OnGetRoamingAuthorisationListUpdatesHTTPRequest?.Invoke(DateTime.Now,
+                    OnGetRoamingAuthorisationListUpdatesSOAPRequest?.Invoke(DateTime.Now,
                                                                             this.SOAPServer,
                                                                             Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListUpdatesHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListUpdatesSOAPRequest));
                 }
 
                 #endregion
@@ -1094,7 +1113,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetRoamingAuthorisationListUpdatesHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnGetRoamingAuthorisationListUpdatesSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                                              this.SOAPServer,
                                                                              Request,
                                                                              HTTPResponse);
@@ -1102,7 +1121,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListUpdatesHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListUpdatesSOAPResponse));
                 }
 
                 #endregion
@@ -1121,19 +1140,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "GetSingleRoamingAuthorisationRequest").FirstOrDefault(),
                                             async (Request, GetSingleRoamingAuthorisationXML) => {
 
-                #region Send OnGetSingleRoamingAuthorisationHTTPRequest event
+                #region Send OnGetSingleRoamingAuthorisationSOAPRequest event
 
                 try
                 {
 
-                    OnGetSingleRoamingAuthorisationHTTPRequest?.Invoke(DateTime.Now,
+                    OnGetSingleRoamingAuthorisationSOAPRequest?.Invoke(DateTime.Now,
                                                                        this.SOAPServer,
                                                                        Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetSingleRoamingAuthorisationHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetSingleRoamingAuthorisationSOAPRequest));
                 }
 
                 #endregion
@@ -1194,7 +1213,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetSingleRoamingAuthorisationHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnGetSingleRoamingAuthorisationSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                                         this.SOAPServer,
                                                                         Request,
                                                                         HTTPResponse);
@@ -1202,7 +1221,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetSingleRoamingAuthorisationHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetSingleRoamingAuthorisationSOAPResponse));
                 }
 
                 #endregion
@@ -1221,19 +1240,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "SetChargePointListRequest").FirstOrDefault(),
                                             async (Request, SetChargePointListXML) => {
 
-                #region Send OnSetChargePointListHTTPRequest event
+                #region Send OnSetChargePointListSOAPRequest event
 
                 try
                 {
 
-                    OnSetChargePointListHTTPRequest?.Invoke(DateTime.Now,
+                    OnSetChargePointListSOAPRequest?.Invoke(DateTime.Now,
                                                             this.SOAPServer,
                                                             Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnSetChargePointListHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnSetChargePointListSOAPRequest));
                 }
 
                 #endregion
@@ -1294,7 +1313,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnSetChargePointListHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnSetChargePointListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                              this.SOAPServer,
                                                              Request,
                                                              HTTPResponse);
@@ -1302,7 +1321,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnSetChargePointListHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnSetChargePointListSOAPResponse));
                 }
 
                 #endregion
@@ -1321,19 +1340,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateChargePointListRequest").FirstOrDefault(),
                                             async (Request, UpdateChargePointListXML) => {
 
-                #region Send OnUpdateChargePointListHTTPRequest event
+                #region Send OnUpdateChargePointListSOAPRequest event
 
                 try
                 {
 
-                    OnUpdateChargePointListHTTPRequest?.Invoke(DateTime.Now,
+                    OnUpdateChargePointListSOAPRequest?.Invoke(DateTime.Now,
                                                                this.SOAPServer,
                                                                Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateChargePointListHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateChargePointListSOAPRequest));
                 }
 
                 #endregion
@@ -1394,7 +1413,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateChargePointListHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnUpdateChargePointListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                                 this.SOAPServer,
                                                                 Request,
                                                                 HTTPResponse);
@@ -1402,7 +1421,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateChargePointListHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateChargePointListSOAPResponse));
                 }
 
                 #endregion
@@ -1421,19 +1440,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateStatusRequest").FirstOrDefault(),
                                             async (Request, UpdateStatusXML) => {
 
-                #region Send OnUpdateStatusHTTPRequest event
+                #region Send OnUpdateStatusSOAPRequest event
 
                 try
                 {
 
-                    OnUpdateStatusHTTPRequest?.Invoke(DateTime.Now,
+                    OnUpdateStatusSOAPRequest?.Invoke(DateTime.Now,
                                                       this.SOAPServer,
                                                       Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateStatusHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateStatusSOAPRequest));
                 }
 
                 #endregion
@@ -1496,7 +1515,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateStatusHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnUpdateStatusSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                        this.SOAPServer,
                                                        Request,
                                                        HTTPResponse);
@@ -1504,7 +1523,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateStatusHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateStatusSOAPResponse));
                 }
 
                 #endregion
@@ -1523,19 +1542,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateTariffsRequest").FirstOrDefault(),
                                             async (Request, UpdateTariffsXML) => {
 
-                #region Send OnUpdateTariffsHTTPRequest event
+                #region Send OnUpdateTariffsSOAPRequest event
 
                 try
                 {
 
-                    OnUpdateTariffsHTTPRequest?.Invoke(DateTime.Now,
+                    OnUpdateTariffsSOAPRequest?.Invoke(DateTime.Now,
                                                        this.SOAPServer,
                                                        Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateTariffsHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateTariffsSOAPRequest));
                 }
 
                 #endregion
@@ -1596,7 +1615,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateTariffsHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnUpdateTariffsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                         this.SOAPServer,
                                                         Request,
                                                         HTTPResponse);
@@ -1604,7 +1623,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateTariffsHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateTariffsSOAPResponse));
                 }
 
                 #endregion
@@ -1618,6 +1637,106 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
             // EMP messages...
 
+            #region / - GetCDRsRequest
+
+            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+                                            URIPrefix + "/",
+                                            "GetCDRsRequest",
+                                            XML => XML.Descendants(OCHPNS.Default + "GetCDRsRequest").FirstOrDefault(),
+                                            async (Request, GetCDRsXML) => {
+
+                #region Send OnGetCDRsSOAPRequest event
+
+                try
+                {
+
+                    OnGetCDRsSOAPRequest?.Invoke(DateTime.Now,
+                                                 this.SOAPServer,
+                                                 Request);
+
+                }
+                catch (Exception e)
+                {
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetCDRsSOAPRequest));
+                }
+
+                #endregion
+
+
+                var _GetCDRsRequest = GetCDRsRequest.Parse(GetCDRsXML);
+
+                GetCDRsResponse response = null;
+
+
+                #region Call async subscribers
+
+                if (response == null)
+                {
+
+                    var results = OnGetCDRsRequest?.
+                                      GetInvocationList()?.
+                                      SafeSelect(subscriber => (subscriber as OnGetCDRsRequestDelegate)
+                                          (DateTime.Now,
+                                           this,
+                                           Request.CancellationToken,
+                                           Request.EventTrackingId,
+                                           _GetCDRsRequest.CDRStatus,
+                                           DefaultQueryTimeout)).
+                                      ToArray();
+
+                    if (results.Length > 0)
+                    {
+
+                        await Task.WhenAll(results);
+
+                        response = results.FirstOrDefault()?.Result;
+
+                    }
+
+                    if (results.Length == 0 || response == null)
+                        response = GetCDRsResponse.Server("Could not process the incoming GetCDRs request!");
+
+                }
+
+                #endregion
+
+                #region Create SOAPResponse
+
+                var HTTPResponse = new HTTPResponseBuilder(Request) {
+                    HTTPStatusCode  = HTTPStatusCode.OK,
+                    Server          = SOAPServer.DefaultServerName,
+                    Date            = DateTime.Now,
+                    ContentType     = HTTPContentType.XMLTEXT_UTF8,
+                    Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
+                };
+
+                #endregion
+
+
+                #region Send OnGetCDRsHTTPResponse event
+
+                try
+                {
+
+                    OnGetCDRsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
+                                                  this.SOAPServer,
+                                                  Request,
+                                                  HTTPResponse);
+
+                }
+                catch (Exception e)
+                {
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetCDRsSOAPResponse));
+                }
+
+                #endregion
+
+                return HTTPResponse;
+
+            });
+
+            #endregion
+
             #region / - ConfirmCDRsRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
@@ -1626,19 +1745,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "ConfirmCDRsRequest").FirstOrDefault(),
                                             async (Request, ConfirmCDRsXML) => {
 
-                #region Send OnConfirmCDRsHTTPRequest event
+                #region Send OnConfirmCDRsSOAPRequest event
 
                 try
                 {
 
-                    OnConfirmCDRsHTTPRequest?.Invoke(DateTime.Now,
+                    OnConfirmCDRsSOAPRequest?.Invoke(DateTime.Now,
                                                      this.SOAPServer,
                                                      Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnConfirmCDRsHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnConfirmCDRsSOAPRequest));
                 }
 
                 #endregion
@@ -1700,7 +1819,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnConfirmCDRsHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnConfirmCDRsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                       this.SOAPServer,
                                                       Request,
                                                       HTTPResponse);
@@ -1708,7 +1827,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnConfirmCDRsHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnConfirmCDRsSOAPResponse));
                 }
 
                 #endregion
@@ -1727,19 +1846,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "GetChargePointListRequest").FirstOrDefault(),
                                             async (Request, GetChargePointListXML) => {
 
-                #region Send OnGetChargePointListHTTPRequest event
+                #region Send OnGetChargePointListSOAPRequest event
 
                 try
                 {
 
-                    OnGetChargePointListHTTPRequest?.Invoke(DateTime.Now,
+                    OnGetChargePointListSOAPRequest?.Invoke(DateTime.Now,
                                                             this.SOAPServer,
                                                             Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListSOAPRequest));
                 }
 
                 #endregion
@@ -1799,7 +1918,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetChargePointListHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnGetChargePointListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                              this.SOAPServer,
                                                              Request,
                                                              HTTPResponse);
@@ -1807,7 +1926,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListSOAPResponse));
                 }
 
                 #endregion
@@ -1826,19 +1945,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "GetChargePointListUpdatesRequest").FirstOrDefault(),
                                             async (Request, GetChargePointListUpdatesXML) => {
 
-                #region Send OnGetChargePointListUpdatesHTTPRequest event
+                #region Send OnGetChargePointListUpdatesSOAPRequest event
 
                 try
                 {
 
-                    OnGetChargePointListUpdatesHTTPRequest?.Invoke(DateTime.Now,
+                    OnGetChargePointListUpdatesSOAPRequest?.Invoke(DateTime.Now,
                                                                    this.SOAPServer,
                                                                    Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListUpdatesHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListUpdatesSOAPRequest));
                 }
 
                 #endregion
@@ -1899,7 +2018,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetChargePointListUpdatesHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnGetChargePointListUpdatesSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                                     this.SOAPServer,
                                                                     Request,
                                                                     HTTPResponse);
@@ -1907,7 +2026,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListUpdatesHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListUpdatesSOAPResponse));
                 }
 
                 #endregion
@@ -1926,19 +2045,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "GetStatusRequest").FirstOrDefault(),
                                             async (Request, GetStatusXML) => {
 
-                #region Send OnGetStatusHTTPRequest event
+                #region Send OnGetStatusSOAPRequest event
 
                 try
                 {
 
-                    OnGetStatusHTTPRequest?.Invoke(DateTime.Now,
+                    OnGetStatusSOAPRequest?.Invoke(DateTime.Now,
                                                    this.SOAPServer,
                                                    Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetStatusHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetStatusSOAPRequest));
                 }
 
                 #endregion
@@ -2000,7 +2119,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetStatusHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnGetStatusSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                     this.SOAPServer,
                                                     Request,
                                                     HTTPResponse);
@@ -2008,7 +2127,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetStatusHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetStatusSOAPResponse));
                 }
 
                 #endregion
@@ -2027,19 +2146,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "GetTariffUpdatesRequest").FirstOrDefault(),
                                             async (Request, GetTariffUpdatesXML) => {
 
-                #region Send OnGetTariffUpdatesHTTPRequest event
+                #region Send OnGetTariffUpdatesSOAPRequest event
 
                 try
                 {
 
-                    OnGetTariffUpdatesHTTPRequest?.Invoke(DateTime.Now,
+                    OnGetTariffUpdatesSOAPRequest?.Invoke(DateTime.Now,
                                                           this.SOAPServer,
                                                           Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetTariffUpdatesHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetTariffUpdatesSOAPRequest));
                 }
 
                 #endregion
@@ -2100,7 +2219,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetTariffUpdatesHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnGetTariffUpdatesSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                            this.SOAPServer,
                                                            Request,
                                                            HTTPResponse);
@@ -2108,7 +2227,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetTariffUpdatesHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnGetTariffUpdatesSOAPResponse));
                 }
 
                 #endregion
@@ -2127,19 +2246,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "SetRoamingAuthorisationListRequest").FirstOrDefault(),
                                             async (Request, SetRoamingAuthorisationListXML) => {
 
-                #region Send OnSetRoamingAuthorisationListHTTPRequest event
+                #region Send OnSetRoamingAuthorisationListSOAPRequest event
 
                 try
                 {
 
-                    OnSetRoamingAuthorisationListHTTPRequest?.Invoke(DateTime.Now,
+                    OnSetRoamingAuthorisationListSOAPRequest?.Invoke(DateTime.Now,
                                                                      this.SOAPServer,
                                                                      Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnSetRoamingAuthorisationListHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnSetRoamingAuthorisationListSOAPRequest));
                 }
 
                 #endregion
@@ -2200,7 +2319,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnSetRoamingAuthorisationListHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnSetRoamingAuthorisationListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                                       this.SOAPServer,
                                                                       Request,
                                                                       HTTPResponse);
@@ -2208,7 +2327,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnSetRoamingAuthorisationListHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnSetRoamingAuthorisationListSOAPResponse));
                 }
 
                 #endregion
@@ -2227,19 +2346,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateRoamingAuthorisationListRequest").FirstOrDefault(),
                                             async (Request, UpdateRoamingAuthorisationListXML) => {
 
-                #region Send OnUpdateRoamingAuthorisationListHTTPRequest event
+                #region Send OnUpdateRoamingAuthorisationListSOAPRequest event
 
                 try
                 {
 
-                    OnUpdateRoamingAuthorisationListHTTPRequest?.Invoke(DateTime.Now,
+                    OnUpdateRoamingAuthorisationListSOAPRequest?.Invoke(DateTime.Now,
                                                                         this.SOAPServer,
                                                                         Request);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateRoamingAuthorisationListHTTPRequest));
+                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateRoamingAuthorisationListSOAPRequest));
                 }
 
                 #endregion
@@ -2300,7 +2419,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateRoamingAuthorisationListHTTPResponse?.Invoke(HTTPResponse.Timestamp,
+                    OnUpdateRoamingAuthorisationListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
                                                                          this.SOAPServer,
                                                                          Request,
                                                                          HTTPResponse);
@@ -2308,7 +2427,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateRoamingAuthorisationListHTTPResponse));
+                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateRoamingAuthorisationListSOAPResponse));
                 }
 
                 #endregion

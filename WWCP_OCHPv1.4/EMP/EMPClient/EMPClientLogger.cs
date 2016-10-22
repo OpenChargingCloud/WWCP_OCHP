@@ -159,178 +159,299 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 #endregion
 
 
-                // Register EVSE data/status push log events
+                // OCHP
 
-                //#region PullEVSEData
+                #region GetChargePointList
 
-                //RegisterEvent("PullEVSEDataRequest",
-                //              handler => EMPClient.OnPullEVSEDataSOAPRequest += handler,
-                //              handler => EMPClient.OnPullEVSEDataSOAPRequest -= handler,
-                //              "PullEVSEData", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("GetChargePointListRequest",
+                              handler => EMPClient.OnGetChargePointListSOAPRequest += handler,
+                              handler => EMPClient.OnGetChargePointListSOAPRequest -= handler,
+                              "GetChargePointList", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("PullEVSEDataResponse",
-                //              handler => EMPClient.OnPullEVSEDataSOAPResponse += handler,
-                //              handler => EMPClient.OnPullEVSEDataSOAPResponse -= handler,
-                //              "PullEVSEData", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("GetChargePointListResponse",
+                              handler => EMPClient.OnGetChargePointListSOAPResponse += handler,
+                              handler => EMPClient.OnGetChargePointListSOAPResponse -= handler,
+                              "GetChargePointList", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //#endregion
+                #endregion
 
-                //#region SearchEVSE
+                #region GetChargePointListUpdates
 
-                //RegisterEvent("SearchEVSERequest",
-                //              handler => EMPClient.OnSearchEVSESOAPRequest += handler,
-                //              handler => EMPClient.OnSearchEVSESOAPRequest -= handler,
-                //              "SearchEVSE", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("GetChargePointListUpdatesRequest",
+                              handler => EMPClient.OnGetChargePointListUpdatesSOAPRequest += handler,
+                              handler => EMPClient.OnGetChargePointListUpdatesSOAPRequest -= handler,
+                              "GetChargePointListUpdates", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("SearchEVSEResponse",
-                //              handler => EMPClient.OnSearchEVSESOAPResponse += handler,
-                //              handler => EMPClient.OnSearchEVSESOAPResponse -= handler,
-                //              "SearchEVSE", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("GetChargePointListUpdatesResponse",
+                              handler => EMPClient.OnGetChargePointListUpdatesSOAPResponse += handler,
+                              handler => EMPClient.OnGetChargePointListUpdatesSOAPResponse -= handler,
+                              "GetChargePointListUpdates", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //#endregion
+                #endregion
 
-                //#region PullEVSEStatus/-ById
+                #region GetStatus
 
-                //RegisterEvent("PullEVSEStatusRequest",
-                //              handler => EMPClient.OnPullEVSEStatusSOAPRequest += handler,
-                //              handler => EMPClient.OnPullEVSEStatusSOAPRequest -= handler,
-                //              "PullEVSEStatus", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("GetStatusRequest",
+                              handler => EMPClient.OnGetStatusSOAPRequest += handler,
+                              handler => EMPClient.OnGetStatusSOAPRequest -= handler,
+                              "GetStatus", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("PullEVSEStatusResponse",
-                //              handler => EMPClient.OnPullEVSEStatusSOAPResponse += handler,
-                //              handler => EMPClient.OnPullEVSEStatusSOAPResponse -= handler,
-                //              "PullEVSEStatus", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("GetStatusResponse",
+                              handler => EMPClient.OnGetStatusSOAPResponse += handler,
+                              handler => EMPClient.OnGetStatusSOAPResponse -= handler,
+                              "GetStatus", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region SetRoamingAuthorisationList
+
+                RegisterEvent("SetRoamingAuthorisationListRequest",
+                              handler => EMPClient.OnSetRoamingAuthorisationListSOAPRequest += handler,
+                              handler => EMPClient.OnSetRoamingAuthorisationListSOAPRequest -= handler,
+                              "SetRoamingAuthorisationList", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("SetRoamingAuthorisationListResponse",
+                              handler => EMPClient.OnSetRoamingAuthorisationListSOAPResponse += handler,
+                              handler => EMPClient.OnSetRoamingAuthorisationListSOAPResponse -= handler,
+                              "SetRoamingAuthorisationList", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region UpdateRoamingAuthorisationList
+
+                RegisterEvent("UpdateRoamingAuthorisationListRequest",
+                              handler => EMPClient.OnUpdateRoamingAuthorisationListSOAPRequest += handler,
+                              handler => EMPClient.OnUpdateRoamingAuthorisationListSOAPRequest -= handler,
+                              "UpdateRoamingAuthorisationList", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("UpdateRoamingAuthorisationListResponse",
+                              handler => EMPClient.OnUpdateRoamingAuthorisationListSOAPResponse += handler,
+                              handler => EMPClient.OnUpdateRoamingAuthorisationListSOAPResponse -= handler,
+                              "UpdateRoamingAuthorisationList", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region GetCDRs
+
+                RegisterEvent("GetCDRsRequest",
+                              handler => EMPClient.OnGetCDRsSOAPRequest += handler,
+                              handler => EMPClient.OnGetCDRsSOAPRequest -= handler,
+                              "GetCDRs", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("GetCDRsResponse",
+                              handler => EMPClient.OnGetCDRsSOAPResponse += handler,
+                              handler => EMPClient.OnGetCDRsSOAPResponse -= handler,
+                              "GetCDRs", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region ConfirmCDRs
+
+                RegisterEvent("ConfirmCDRsRequest",
+                              handler => EMPClient.OnConfirmCDRsSOAPRequest += handler,
+                              handler => EMPClient.OnConfirmCDRsSOAPRequest -= handler,
+                              "ConfirmCDRs", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("ConfirmCDRsResponse",
+                              handler => EMPClient.OnConfirmCDRsSOAPResponse += handler,
+                              handler => EMPClient.OnConfirmCDRsSOAPResponse -= handler,
+                              "ConfirmCDRs", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region GetTariffUpdates
+
+                RegisterEvent("GetTariffUpdatesRequest",
+                              handler => EMPClient.OnGetTariffUpdatesSOAPRequest += handler,
+                              handler => EMPClient.OnGetTariffUpdatesSOAPRequest -= handler,
+                              "GetTariffUpdates", "OCHP", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("GetTariffUpdatesResponse",
+                              handler => EMPClient.OnGetTariffUpdatesSOAPResponse += handler,
+                              handler => EMPClient.OnGetTariffUpdatesSOAPResponse -= handler,
+                              "GetTariffUpdates", "OCHP", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
 
 
-                //RegisterEvent("PullEVSEStatusByIdRequest",
-                //              handler => EMPClient.OnPullEVSEStatusByIdSOAPRequest += handler,
-                //              handler => EMPClient.OnPullEVSEStatusByIdSOAPRequest -= handler,
-                //              "PullEVSEStatusById", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                // OCHPdirect
 
-                //RegisterEvent("PullEVSEStatusByIdResponse",
-                //              handler => EMPClient.OnPullEVSEStatusByIdSOAPResponse += handler,
-                //              handler => EMPClient.OnPullEVSEStatusByIdSOAPResponse -= handler,
-                //              "PullEVSEStatusById", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                #region AddServiceEndpoints
 
-                //#endregion
+                RegisterEvent("AddServiceEndpointsRequest",
+                              handler => EMPClient.OnAddServiceEndpointsSOAPRequest += handler,
+                              handler => EMPClient.OnAddServiceEndpointsSOAPRequest -= handler,
+                              "AddServiceEndpoints", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //#region PushAuthenticationData
+                RegisterEvent("AddServiceEndpointsResponse",
+                              handler => EMPClient.OnAddServiceEndpointsSOAPResponse += handler,
+                              handler => EMPClient.OnAddServiceEndpointsSOAPResponse -= handler,
+                              "AddServiceEndpoints", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("PushAuthenticationDataRequest",
-                //              handler => EMPClient.OnPushAuthenticationDataSOAPRequest += handler,
-                //              handler => EMPClient.OnPushAuthenticationDataSOAPRequest -= handler,
-                //              "PushAuthenticationData", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                #endregion
 
-                //RegisterEvent("PushAuthenticationDataResponse",
-                //              handler => EMPClient.OnPushAuthenticationDataSOAPResponse += handler,
-                //              handler => EMPClient.OnPushAuthenticationDataSOAPResponse -= handler,
-                //              "PushAuthenticationData", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                #region GetServiceEndpoints
 
-                //#endregion
+                RegisterEvent("GetServiceEndpointsRequest",
+                              handler => EMPClient.OnGetServiceEndpointsSOAPRequest += handler,
+                              handler => EMPClient.OnGetServiceEndpointsSOAPRequest -= handler,
+                              "GetServiceEndpoints", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //#region ReservationStart/-Stop
+                RegisterEvent("GetServiceEndpointsResponse",
+                              handler => EMPClient.OnGetServiceEndpointsSOAPResponse += handler,
+                              handler => EMPClient.OnGetServiceEndpointsSOAPResponse -= handler,
+                              "GetServiceEndpoints", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("ReservationStartRequest",
-                //              handler => EMPClient.OnReservationStartSOAPRequest  += handler,
-                //              handler => EMPClient.OnReservationStartSOAPRequest  -= handler,
-                //              "ReservationStart", "Reservation", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                #endregion
 
-                //RegisterEvent("ReservationStartResponse",
-                //              handler => EMPClient.OnReservationStartSOAPResponse += handler,
-                //              handler => EMPClient.OnReservationStartSOAPResponse -= handler,
-                //              "ReservationStart", "Reservation", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                #region SelectEVSE
 
+                RegisterEvent("SelectEVSERequest",
+                              handler => EMPClient.OnSelectEVSESOAPRequest += handler,
+                              handler => EMPClient.OnSelectEVSESOAPRequest -= handler,
+                              "SelectEVSE", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("ReservationStopRequest",
-                //              handler => EMPClient.OnReservationStopSOAPRequest += handler,
-                //              handler => EMPClient.OnReservationStopSOAPRequest -= handler,
-                //              "ReservationStop", "Reservation", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("SelectEVSEResponse",
+                              handler => EMPClient.OnSelectEVSESOAPResponse += handler,
+                              handler => EMPClient.OnSelectEVSESOAPResponse -= handler,
+                              "SelectEVSE", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("ReservationStopResponse",
-                //              handler => EMPClient.OnReservationStopSOAPResponse += handler,
-                //              handler => EMPClient.OnReservationStopSOAPResponse -= handler,
-                //              "ReservationStop", "Reservation", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                #endregion
 
-                //#endregion
+                #region ControlEVSE
 
-                //#region AuthorizeRemoteStart/-Stop
+                RegisterEvent("ControlEVSERequest",
+                              handler => EMPClient.OnControlEVSESOAPRequest += handler,
+                              handler => EMPClient.OnControlEVSESOAPRequest -= handler,
+                              "ControlEVSE", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("AuthorizeRemoteStartRequest",
-                //              handler => EMPClient.OnAuthorizeRemoteStartSOAPRequest  += handler,
-                //              handler => EMPClient.OnAuthorizeRemoteStartSOAPRequest  -= handler,
-                //              "AuthorizeRemoteStart", "AuthorizeRemote", "Authorize", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("ControlEVSEResponse",
+                              handler => EMPClient.OnControlEVSESOAPResponse += handler,
+                              handler => EMPClient.OnControlEVSESOAPResponse -= handler,
+                              "ControlEVSE", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("AuthorizeRemoteStartResponse",
-                //              handler => EMPClient.OnAuthorizeRemoteStartSOAPResponse += handler,
-                //              handler => EMPClient.OnAuthorizeRemoteStartSOAPResponse -= handler,
-                //              "AuthorizeRemoteStart", "AuthorizeRemote", "Authorize", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                #endregion
 
+                #region ReleaseEVSE
 
-                //RegisterEvent("AuthorizeRemoteStopRequest",
-                //              handler => EMPClient.OnAuthorizeRemoteStopSOAPRequest += handler,
-                //              handler => EMPClient.OnAuthorizeRemoteStopSOAPRequest -= handler,
-                //              "AuthorizeRemoteStop", "AuthorizeRemote", "Authorize", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("ReleaseEVSERequest",
+                              handler => EMPClient.OnReleaseEVSESOAPRequest += handler,
+                              handler => EMPClient.OnReleaseEVSESOAPRequest -= handler,
+                              "ReleaseEVSE", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("AuthorizeRemoteStopResponse",
-                //              handler => EMPClient.OnAuthorizeRemoteStopSOAPResponse += handler,
-                //              handler => EMPClient.OnAuthorizeRemoteStopSOAPResponse -= handler,
-                //              "AuthorizeRemoteStop", "AuthorizeRemote", "Authorize", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("ReleaseEVSEResponse",
+                              handler => EMPClient.OnReleaseEVSESOAPResponse += handler,
+                              handler => EMPClient.OnReleaseEVSESOAPResponse -= handler,
+                              "ReleaseEVSE", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //#endregion
+                #endregion
 
-                //#region GetChargeDetailRecords
+                #region GetEVSEStatus
 
-                //RegisterEvent("GetChargeDetailRecordsRequest",
-                //              handler => EMPClient.OnGetChargeDetailRecordsSOAPRequest += handler,
-                //              handler => EMPClient.OnGetChargeDetailRecordsSOAPRequest -= handler,
-                //              "GetChargeDetailRecords", "Requests", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("GetEVSEStatusRequest",
+                              handler => EMPClient.OnGetEVSEStatusSOAPRequest += handler,
+                              handler => EMPClient.OnGetEVSEStatusSOAPRequest -= handler,
+                              "GetEVSEStatus", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //RegisterEvent("GetChargeDetailRecordsResponse",
-                //              handler => EMPClient.OnGetChargeDetailRecordsSOAPResponse += handler,
-                //              handler => EMPClient.OnGetChargeDetailRecordsSOAPResponse -= handler,
-                //              "GetChargeDetailRecords", "Responses", "All").
-                //    RegisterDefaultConsoleLogTarget(this).
-                //    RegisterDefaultDiscLogTarget(this);
+                RegisterEvent("GetEVSEStatusResponse",
+                              handler => EMPClient.OnGetEVSEStatusSOAPResponse += handler,
+                              handler => EMPClient.OnGetEVSEStatusSOAPResponse -= handler,
+                              "GetEVSEStatus", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
 
-                //#endregion
+                #endregion
+
+                #region GetEVSEStatus
+
+                RegisterEvent("ReportDiscrepancyRequest",
+                              handler => EMPClient.OnReportDiscrepancySOAPRequest += handler,
+                              handler => EMPClient.OnReportDiscrepancySOAPRequest -= handler,
+                              "ReportDiscrepancy", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("ReportDiscrepancyResponse",
+                              handler => EMPClient.OnReportDiscrepancySOAPResponse += handler,
+                              handler => EMPClient.OnReportDiscrepancySOAPResponse -= handler,
+                              "ReportDiscrepancy", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
+                #region GetInformProvider
+
+                RegisterEvent("GetInformProviderRequest",
+                              handler => EMPClient.OnGetInformProviderSOAPRequest += handler,
+                              handler => EMPClient.OnGetInformProviderSOAPRequest -= handler,
+                              "GetInformProvider", "OCHPdirect", "Requests", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                RegisterEvent("GetInformProviderResponse",
+                              handler => EMPClient.OnGetInformProviderSOAPResponse += handler,
+                              handler => EMPClient.OnGetInformProviderSOAPResponse -= handler,
+                              "GetInformProvider", "OCHPdirect", "Responses", "All").
+                    RegisterDefaultConsoleLogTarget(this).
+                    RegisterDefaultDiscLogTarget(this);
+
+                #endregion
+
 
             }
 

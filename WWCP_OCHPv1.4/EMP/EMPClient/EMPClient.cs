@@ -293,7 +293,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region OnAddServiceEndpointsRequest/-Response
+        #region OnGetServiceEndpointsRequest/-Response
 
         /// <summary>
         /// An event fired whenever a request to get service endpoints will be send.

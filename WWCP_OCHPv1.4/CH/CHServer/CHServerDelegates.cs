@@ -320,6 +320,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
     // EMP event delegates...
 
+    #region OnGetCDRs
+
+    /// <summary>
+    /// Get charge detail records.
+    /// </summary>
+    /// <param name="Timestamp">The timestamp of the request.</param>
+    /// <param name="Sender">The sender of the request.</param>
+    /// <param name="CancellationToken">A token to cancel this task.</param>
+    /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
+    /// 
+    /// <param name="CDRStatus">The optional status of the requested charge detail records.</param>
+    /// 
+    /// <param name="QueryTimeout">An optional timeout for this request.</param>
+    public delegate Task<GetCDRsResponse>
+
+        OnGetCDRsRequestDelegate(DateTime            Timestamp,
+                                 CHServer            Sender,
+                                 CancellationToken   CancellationToken,
+                                 EventTracking_Id    EventTrackingId,
+
+                                 CDRStatus?          CDRStatus = null,
+
+                                 TimeSpan?           QueryTimeout  = null);
+
+    #endregion
+
     #region OnConfirmCDRs
 
     /// <summary>

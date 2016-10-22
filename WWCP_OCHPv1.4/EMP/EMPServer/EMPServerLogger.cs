@@ -146,59 +146,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region Initial checks
 
             if (EMPServer == null)
-                throw new ArgumentNullException(nameof(EMPServer), "The given EMP server must not be null!");
+                throw new ArgumentNullException(nameof(EMPServer),  "The given EMP server must not be null!");
 
             this.EMPServer = EMPServer;
 
             #endregion
 
-            #region Register AuthorizeStart/Stop and SendCDR log events
 
-            //RegisterEvent("AuthorizeStart",
-            //              handler => EMPServer.OnLogAuthorizeStart += handler,
-            //              handler => EMPServer.OnLogAuthorizeStart -= handler,
-            //              "Authorize", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            // OCHPdirect
 
-            //RegisterEvent("AuthorizeStarted",
-            //              handler => EMPServer.OnLogAuthorizeStarted += handler,
-            //              handler => EMPServer.OnLogAuthorizeStarted -= handler,
-            //              "Authorize", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            #region InformProvider
 
+            RegisterEvent("InformProviderRequest",
+                          handler => EMPServer.OnInformProviderHTTPRequest += handler,
+                          handler => EMPServer.OnInformProviderHTTPRequest -= handler,
+                          "InformProvider", "OCHPdirect", "Requests", "All").
+                RegisterDefaultConsoleLogTarget(this).
+                RegisterDefaultDiscLogTarget(this);
 
-            //RegisterEvent("AuthorizeStop",
-            //              handler => EMPServer.OnLogAuthorizeStop += handler,
-            //              handler => EMPServer.OnLogAuthorizeStop -= handler,
-            //              "Authorize", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-            //RegisterEvent("AuthorizeStopped",
-            //              handler => EMPServer.OnLogAuthorizeStopped += handler,
-            //              handler => EMPServer.OnLogAuthorizeStopped -= handler,
-            //              "Authorize", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-
-            //RegisterEvent("ChargeDetailRecordSend",
-            //              handler => EMPServer.OnLogChargeDetailRecordSend += handler,
-            //              handler => EMPServer.OnLogChargeDetailRecordSend -= handler,
-            //              "CDR", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
-
-            //RegisterEvent("ChargeDetailRecordSent",
-            //              handler => EMPServer.OnLogChargeDetailRecordSent += handler,
-            //              handler => EMPServer.OnLogChargeDetailRecordSent -= handler,
-            //              "CDR", "All").
-            //    RegisterDefaultConsoleLogTarget(this).
-            //    RegisterDefaultDiscLogTarget(this);
+            RegisterEvent("InformProviderResponse",
+                          handler => EMPServer.OnInformProviderHTTPResponse += handler,
+                          handler => EMPServer.OnInformProviderHTTPResponse -= handler,
+                          "InformProvider", "OCHPdirect", "Responses", "All").
+               RegisterDefaultConsoleLogTarget(this).
+               RegisterDefaultDiscLogTarget(this);
 
             #endregion
+
 
         }
 

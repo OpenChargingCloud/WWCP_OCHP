@@ -17,6 +17,7 @@
 
 #region Usings
 
+using System;
 using System.Xml.Linq;
 
 #endregion
@@ -24,14 +25,30 @@ using System.Xml.Linq;
 namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
+    #region IncludeChargePoints
+
+    /// <summary>
+    /// A delegate for filtering charge points.
+    /// </summary>
+    /// <param name="ChargePointInfo">A charge point.</param>
+    public delegate Boolean IncludeChargePointsDelegate(ChargePointInfo ChargePointInfo);
+
+    #endregion
+
+    #region EVSE2ChargePointInfoDelegate
+
     /// <summary>
     /// A delegate which allows you to modify OCHP charge point information before
     /// sending them upstream.
     /// </summary>
     /// <param name="EVSE">A WWCP EVSE.</param>
     /// <param name="ChargePointInfo">A charge point information.</param>
-    public delegate ChargePointInfo EVSE2ChargePointInfoDelegate (EVSE              EVSE,
-                                                                  ChargePointInfo   ChargePointInfo);
+    public delegate ChargePointInfo EVSE2ChargePointInfoDelegate(EVSE              EVSE,
+                                                                 ChargePointInfo   ChargePointInfo);
+
+    #endregion
+
+    #region ChargePointInfo2XMLDelegate
 
     /// <summary>
     /// A delegate which allows you to modify the XML representation of charge point
@@ -40,9 +57,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="RoamingNetwork">A roaming network.</param>
     /// <param name="ChargePointInfo">A charge point information.</param>
     /// <param name="XML">The XML representation of a charge point information.</param>
-    public delegate XElement       ChargePointInfo2XMLDelegate  (RoamingNetwork     RoamingNetwork,
-                                                                 ChargePointInfo    ChargePointInfo,
-                                                                 XElement           XML);
+    public delegate XElement ChargePointInfo2XMLDelegate(RoamingNetwork    RoamingNetwork,
+                                                         ChargePointInfo   ChargePointInfo,
+                                                         XElement          XML);
+
+    #endregion
+
+    #region EVSEStatus2XMLDelegate
 
     /// <summary>
     /// A delegate which allows you to modify the XML representation
@@ -51,10 +72,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="RoamingNetwork">An EVSE roaming network.</param>
     /// <param name="EVSEStatus">An EVSE status.</param>
     /// <param name="XML">The XML representation of an EVSE status record.</param>
-    public delegate XElement       EVSEStatus2XMLDelegate       (RoamingNetwork     RoamingNetwork,
-                                                                 EVSEStatus         EVSEStatus,
-                                                                 XElement           XML);
+    public delegate XElement EVSEStatus2XMLDelegate(RoamingNetwork   RoamingNetwork,
+                                                    EVSEStatus       EVSEStatus,
+                                                    XElement         XML);
 
-    public delegate XElement       XMLPostProcessingDelegate    (XElement           XML);
+    #endregion
+
+    #region XMLPostProcessingDelegate
+
+    public delegate XElement XMLPostProcessingDelegate(XElement   XML);
+
+    #endregion
 
 }
