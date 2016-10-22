@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CH\CHServer\CHServer.cs" />
+    <Compile Include="CH\CHServer\CHServerDelegates.cs" />
+    <Compile Include="CH\CHServer\CHServerLogger.cs" />
     <Compile Include="CPO\CPOClient\CPOClient.cs" />
     <Compile Include="CPO\CPOClient\CPOClientDelegates.cs" />
     <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
@@ -53,6 +56,9 @@
     <Compile Include="EMP\EMPServer\EMPServer.cs" />
     <Compile Include="EMP\EMPServer\EMPServerDelegates.cs" />
     <Compile Include="EMP\EMPServer\EMPServerLogger.cs" />
+    <Compile Include="Messages\CH\AddServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\CH\AddServiceEndpointsResponse.cs" />
+    <Compile Include="Messages\CH\GetServiceEndpointsResponse.cs" />
     <Compile Include="Messages\CPO2CH\CheckCDRsRequest.cs" />
     <Compile Include="Messages\CPO2CH\GetServiceEndpointsRequest.cs" />
     <Compile Include="Messages\CPO2CH\GetRoamingAuthorisationListRequest.cs" />
@@ -66,12 +72,15 @@
     <Compile Include="Messages\CPO2CH\AddCDRsRequest.cs" />
     <Compile Include="Messages\CPO2EMP\InformProviderRequest.cs" />
     <Compile Include="Messages\CPO2EMP\InformProviderResponse.cs" />
+    <Compile Include="Messages\EMP2CH\ConfirmCDRsRequest.cs" />
     <Compile Include="Messages\EMP2CH\AddServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\EMP2CH\GetCDRsRequest.cs" />
+    <Compile Include="Messages\EMP2CH\GetServiceEndpointsRequest.cs" />
     <Compile Include="Messages\EMP2CH\GetTariffUpdatesRequest.cs" />
     <Compile Include="Messages\EMP2CH\GetStatusRequest.cs" />
     <Compile Include="Messages\EMP2CH\GetChargePointListUpdatesRequest.cs" />
     <Compile Include="Messages\EMP2CH\GetChargePointListRequest.cs" />
-    <Compile Include="Messages\EMP2CH\GetServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\CH\GetServiceEndpointsRequest.cs" />
     <Compile Include="Messages\EMP2CH\UpdateRoamingAuthorisationListRequest.cs" />
     <Compile Include="Messages\EMP2CH\SetRoamingAuthorisationListRequest.cs" />
     <Compile Include="Messages\EMP2CPO\ControlEVSERequest.cs" />
@@ -94,7 +103,6 @@
     <Compile Include="EMP\EMPClient\EMPClient.cs" />
     <Compile Include="EMP\EMPClient\EMPClientDelegates.cs" />
     <Compile Include="EMP\EMPClient\EMPClientLogger.cs" />
-    <Compile Include="EMP\EMPClient\EMPClientXMLMethods.cs" />
     <Compile Include="Messages\EMP2CPO\GetEVSEStatusRequest.cs" />
     <Compile Include="Messages\EMP2CPO\RelaseEVSERequest.cs" />
     <Compile Include="Messages\EMP2CPO\GetEVSEStatusResponse.cs" />
@@ -212,9 +220,7 @@
     <None Include="LICENSE" />
     <None Include="README.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CH\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

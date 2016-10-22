@@ -52,30 +52,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// The default HTTP/SOAP/XML server TCP port.
         /// </summary>
-        public new static readonly IPPort    DefaultHTTPServerPort  = new IPPort(2601);
+        public new static readonly IPPort    DefaultHTTPServerPort  = new IPPort(2602);
 
         /// <summary>
         /// The default query timeout.
         /// </summary>
         public new static readonly TimeSpan  DefaultQueryTimeout    = TimeSpan.FromMinutes(1);
-
-        #endregion
-
-        #region Properties
-
-        #region AuthorizatorId
-
-        private readonly Authorizator_Id _AuthorizatorId;
-
-        public Authorizator_Id AuthorizatorId
-        {
-            get
-            {
-                return _AuthorizatorId;
-            }
-        }
-
-        #endregion
 
         #endregion
 

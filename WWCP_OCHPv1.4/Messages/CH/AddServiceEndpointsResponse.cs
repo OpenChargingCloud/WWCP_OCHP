@@ -24,7 +24,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
+namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 {
 
     /// <summary>

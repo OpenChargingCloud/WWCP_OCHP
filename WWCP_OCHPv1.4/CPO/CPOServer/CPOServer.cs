@@ -52,7 +52,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default HTTP/SOAP/XML server TCP port.
         /// </summary>
-        public new static readonly IPPort    DefaultHTTPServerPort  = new IPPort(2600);
+        public new static readonly IPPort    DefaultHTTPServerPort  = new IPPort(2601);
 
         /// <summary>
         /// The default query timeout.

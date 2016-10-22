@@ -38,7 +38,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region Properties
 
         /// <summary>
-        /// The timestamp of the last tariff update.
+        /// An optional timestamp of the last tariff update.
         /// </summary>
         public DateTime?  LastUpdate   { get; }
 
@@ -49,7 +49,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create an OCHP GetTariffUpdatesRequest XML/SOAP request.
         /// </summary>
-        /// <param name="LastUpdate">The timestamp of the last tariff update.</param>
+        /// <param name="LastUpdate">An optional timestamp of the last tariff update.</param>
         public GetTariffUpdatesRequest(DateTime?  LastUpdate)
         {
 

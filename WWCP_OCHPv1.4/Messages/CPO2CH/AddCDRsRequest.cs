@@ -74,14 +74,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         //
         //    <soapenv:Header/>
         //    <soapenv:Body>
-        //      <ns:AddCDRsRequest>
+        //      <OCHP:AddCDRsRequest>
         //
         //         <!--1 or more repetitions:-->
-        //         <ns:cdrInfoArray>
+        //         <OCHP:cdrInfoArray>
         //           ...
-        //         </ns:cdrInfoArray>
+        //         </OCHP:cdrInfoArray>
         //
-        //      </ns:AddCDRsRequest>
+        //      </OCHP:AddCDRsRequest>
         //    </soapenv:Body>
         // </soapenv:Envelope>
 

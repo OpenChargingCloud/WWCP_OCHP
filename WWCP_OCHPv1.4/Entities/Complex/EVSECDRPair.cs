@@ -98,8 +98,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="EVSECDRPairXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static EVSECDRPair? Parse(XElement             EVSECDRPairXML,
-                                         OnExceptionDelegate  OnException = null)
+        public static EVSECDRPair Parse(XElement             EVSECDRPairXML,
+                                        OnExceptionDelegate  OnException = null)
         {
 
             EVSECDRPair _EVSECDRPair;
@@ -107,7 +107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (TryParse(EVSECDRPairXML, out _EVSECDRPair, OnException))
                 return _EVSECDRPair;
 
-            return new EVSECDRPair?();
+            return new EVSECDRPair();
 
         }
 
@@ -120,8 +120,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="EVSECDRPairText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static EVSECDRPair? Parse(String               EVSECDRPairText,
-                                         OnExceptionDelegate  OnException = null)
+        public static EVSECDRPair Parse(String               EVSECDRPairText,
+                                        OnExceptionDelegate  OnException = null)
         {
 
             EVSECDRPair _EVSECDRPair;
@@ -129,7 +129,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (TryParse(EVSECDRPairText, out _EVSECDRPair, OnException))
                 return _EVSECDRPair;
 
-            return new EVSECDRPair?();
+            return new EVSECDRPair();
 
         }
 

@@ -47,7 +47,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region Constructor(s)
 
         /// <summary>
-        /// Create an OCHP UpdateTariffs XML/SOAP request.
+        /// Create an OCHP SetRoamingAuthorisationList XML/SOAP request.
         /// </summary>
         /// <param name="RoamingAuthorisationInfos">An enumeration of roaming authorisation infos.</param>
         public SetRoamingAuthorisationListRequest(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos)

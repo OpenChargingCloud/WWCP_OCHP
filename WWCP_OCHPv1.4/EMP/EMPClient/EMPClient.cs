@@ -1572,7 +1572,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.GetCDRsXML(CDRStatus)),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetCDRsRequest(CDRStatus).ToXML()),
                                                  "GetCDRsRequest",
                                                  RequestLogDelegate:   OnGetCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnGetCDRsSOAPResponse,
@@ -1705,8 +1705,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Approved == null && Declined == null)
-                throw new ArgumentNullException(nameof(Approved) + " & " + nameof(Declined),  "At least one of the two enumerations of charge detail records must not be null!");
+            if (Approved.IsNullOrEmpty() && Declined.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(Approved) + " & " + nameof(Declined),  "At least one of the two enumerations of charge detail records must be neither null nor empty!");
 
 
             if (!Timestamp.HasValue)
@@ -1759,8 +1759,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(EMPClientXMLMethods.ConfirmCDRsXML(Approved,
-                                                                                                       Declined)),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(new ConfirmCDRsRequest(Approved,
+                                                                                           Declined).ToXML()),
                                                  "ConfirmCDRsRequest",
                                                  RequestLogDelegate:   OnConfirmCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnConfirmCDRsSOAPResponse,
@@ -2416,7 +2416,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Select an EVSE and create a new charging session.
         /// </summary>
-        /// <param name="ChargingStationOperatorId">The chage point operator to talk to.</param>
         /// <param name="EVSEId">The unique identification of an EVSE.</param>
         /// <param name="ContractId">The unique identification of an e-mobility contract.</param>
         /// <param name="ReserveUntil">An optional timestamp till when then given EVSE should be reserved.</param>
@@ -2427,15 +2426,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<SelectEVSEResponse>>
 
-            SelectEVSE(ChargingStationOperator_Id  ChargingStationOperatorId,
-                       EVSE_Id                     EVSEId,
-                       Contract_Id                 ContractId,
-                       DateTime?                   ReserveUntil       = null,
+            SelectEVSE(EVSE_Id             EVSEId,
+                       Contract_Id         ContractId,
+                       DateTime?           ReserveUntil       = null,
 
-                       DateTime?                   Timestamp          = null,
-                       CancellationToken?          CancellationToken  = null,
-                       EventTracking_Id            EventTrackingId    = null,
-                       TimeSpan?                   RequestTimeout     = null)
+                       DateTime?           Timestamp          = null,
+                       CancellationToken?  CancellationToken  = null,
+                       EventTracking_Id    EventTrackingId    = null,
+                       TimeSpan?           RequestTimeout     = null)
 
         {
 
@@ -3030,10 +3028,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             GetEVSEStatus(IEnumerable<EVSE_Id>  EVSEIds,
 
-                             DateTime?             Timestamp          = null,
-                             CancellationToken?    CancellationToken  = null,
-                             EventTracking_Id      EventTrackingId    = null,
-                             TimeSpan?             RequestTimeout     = null)
+                          DateTime?             Timestamp          = null,
+                          CancellationToken?    CancellationToken  = null,
+                          EventTracking_Id      EventTrackingId    = null,
+                          TimeSpan?             RequestTimeout     = null)
 
         {
 
