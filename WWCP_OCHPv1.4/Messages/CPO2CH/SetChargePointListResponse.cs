@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP set charge point list response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="RefusedChargePointInfos">An enumeration of refused charge points.</param>
         public SetChargePointListResponse(Result                        Result,
                                           IEnumerable<ChargePointInfo>  RefusedChargePointInfos = null)

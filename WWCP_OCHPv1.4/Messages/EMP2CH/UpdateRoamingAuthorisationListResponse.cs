@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP update roaming authorisation list response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="RefusedRoamingAuthorisationInfos">An enumeration of refused authorisation card info updates.</param>
         public UpdateRoamingAuthorisationListResponse(Result                                 Result,
                                                       IEnumerable<RoamingAuthorisationInfo>  RefusedRoamingAuthorisationInfos = null)

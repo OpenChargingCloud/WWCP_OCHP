@@ -97,7 +97,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP confirm charge details record response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         public ConfirmCDRsResponse(Result  Result)
             : base(Result)
         { }

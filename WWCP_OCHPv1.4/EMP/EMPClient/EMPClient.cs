@@ -54,6 +54,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         public new static readonly IPPort  DefaultRemotePort     = IPPort.Parse(443);
 
+        /// <summary>
+        /// The default URI prefix.
+        /// </summary>
+        public const               String  DefaultURIPrefix      = "";
+
         #endregion
 
         #region Properties
@@ -489,6 +494,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          RemoteCertificateValidationCallback  RemoteCertificateValidator  = null,
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
+                         String                               URIPrefix                   = DefaultURIPrefix,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout              = null,
                          DNSClient                            DNSClient                   = null,
@@ -501,6 +507,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    RemoteCertificateValidator,
                    ClientCert,
                    HTTPVirtualHost,
+                   URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
                    HTTPUserAgent,
                    RequestTimeout,
                    DNSClient)
@@ -548,6 +555,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          RemoteCertificateValidationCallback  RemoteCertificateValidator  = null,
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
+                         String                               URIPrefix                   = DefaultURIPrefix,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout              = null,
                          DNSClient                            DNSClient                   = null)
@@ -558,6 +566,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    RemoteCertificateValidator,
                    ClientCert,
                    HTTPVirtualHost,
+                   URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
                    HTTPUserAgent,
                    RequestTimeout,
                    DNSClient)
@@ -2050,12 +2059,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #endregion
 
 
-        // OHCPdirect
+        // OCHPdirect
 
         #region AddServiceEndpoints(ProviderEndpoints, ...)
 
         /// <summary>
-        /// Upload the given enumeration of OHCPdirect provider endpoints.
+        /// Upload the given enumeration of OCHPdirect provider endpoints.
         /// </summary>
         /// <param name="ProviderEndpoints">An enumeration of provider endpoints.</param>
         /// 
@@ -2239,7 +2248,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region GetServiceEndpoints(...)
 
         /// <summary>
-        /// Download OHCPdirect provider endpoints.
+        /// Download OCHPdirect provider endpoints.
         /// </summary>
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>

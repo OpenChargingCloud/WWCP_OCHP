@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP check charge details record response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="ChargeDetailRecords">An enumeration of charge detail records.</param>
         public CheckCDRsResponse(Result                Result,
                                  IEnumerable<CDRInfo>  ChargeDetailRecords = null)

@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP get service endpoints response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="ServiceEndpoints">An enumeration of provider service endpoints.</param>
         public GetServiceEndpointsResponse(Result                         Result,
                                            IEnumerable<ProviderEndpoint>  ServiceEndpoints = null)

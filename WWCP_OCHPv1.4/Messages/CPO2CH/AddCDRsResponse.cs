@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP add charge details record response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="ImplausibleCDRs">An enumeration of refused charge detail records.</param>
         public AddCDRsResponse(Result                Result,
                                IEnumerable<CDRInfo>  ImplausibleCDRs = null)

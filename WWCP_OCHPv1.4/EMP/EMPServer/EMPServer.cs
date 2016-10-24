@@ -66,12 +66,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region OnInformProvider
 
         /// <summary>
-        /// An event sent whenever an inform provider HTTP request was received.
+        /// An event sent whenever an inform provider SOAP request was received.
         /// </summary>
         public event RequestLogHandler                OnInformProviderHTTPRequest;
 
         /// <summary>
-        /// An event sent whenever an inform provider HTTP response was sent.
+        /// An event sent whenever an inform provider SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                 OnInformProviderHTTPResponse;
 
@@ -98,13 +98,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="AutoStart">Start the server immediately.</param>
         public EMPServer(String    HTTPServerName  = DefaultHTTPServerName,
                          IPPort    TCPPort         = null,
-                         String    URIPrefix       = "",
+                         String    URIPrefix       = DefaultURIPrefix,
                          DNSClient DNSClient       = null,
                          Boolean   AutoStart       = false)
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
                    TCPPort ?? DefaultHTTPServerPort,
-                   URIPrefix,
+                   URIPrefix.     IsNotNullOrEmpty() ? URIPrefix      : DefaultURIPrefix,
                    HTTPContentType.XMLTEXT_UTF8,
                    DNSClient,
                    AutoStart: false)
@@ -118,7 +118,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region EMPServer(SOAPServer, URIPrefix = "")
+        #region EMPServer(SOAPServer, URIPrefix = DefaultURIPrefix)
 
         /// <summary>
         /// Use the given HTTP server for the OCHP HTTP/SOAP/XML EMP Server API using IPAddress.Any.
@@ -126,10 +126,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="SOAPServer">A SOAP server.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
         public EMPServer(SOAPServer  SOAPServer,
-                         String      URIPrefix  = "")
+                         String      URIPrefix  = DefaultURIPrefix)
 
             : base(SOAPServer,
-                   URIPrefix)
+                   URIPrefix.IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix)
 
         { }
 

@@ -95,7 +95,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHPdirect inform provider response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         public InformProviderResponse(Result  Result)
             : base(Result)
         { }

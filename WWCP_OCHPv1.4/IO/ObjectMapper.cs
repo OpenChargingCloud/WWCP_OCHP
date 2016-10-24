@@ -25,7 +25,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// An OCHP Object Mapper.
+    /// An OCHP Object Mapper for WWCP data structures.
     /// </summary>
     public static class ObjectMapper
     {

@@ -29,7 +29,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// OCHP XML I/O for WWCP data structures.
+    /// OCHP XML I/O.
     /// </summary>
     public static class XML_IO
     {

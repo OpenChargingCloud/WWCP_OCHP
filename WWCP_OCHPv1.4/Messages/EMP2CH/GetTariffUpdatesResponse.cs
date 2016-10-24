@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP get tariff updates response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="TariffInfos">An enumeration of tariff infos.</param>
         public GetTariffUpdatesResponse(Result                   Result,
                                         IEnumerable<TariffInfo>  TariffInfos = null)

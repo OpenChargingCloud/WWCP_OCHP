@@ -25,7 +25,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     {
 
         /// <summary>
-        /// Unknowen OCHPdirect result code.
+        /// Unknown OCHPdirect result code.
         /// </summary>
         Unknown,
 

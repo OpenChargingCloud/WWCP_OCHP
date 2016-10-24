@@ -41,7 +41,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing a charge point identification.
         /// </summary>
-        public static readonly Regex EVSEId_RegEx    = new Regex(@"^[A-Za-z]{2}\*[A-Za-z0-9]{3}\*[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}$ |" +
+        public static readonly Regex CDRId_RegEx    = new Regex(@"^[A-Za-z]{2}\*[A-Za-z0-9]{3}\*[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}$ |" +
                                                                  @"^[A-Za-z]{2}[A-Za-z0-9]{3}[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region Parse(EVSEId)
+        #region Parse(CDRId)
 
         /// <summary>
         /// Parse the given string as a charge point identification.
@@ -121,7 +121,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #endregion
 
-            var _MatchCollection = EVSEId_RegEx.Matches(Text.Trim().ToUpper());
+            var _MatchCollection = CDRId_RegEx.Matches(Text.Trim().ToUpper());
 
             if (_MatchCollection.Count != 1)
                 throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
@@ -172,14 +172,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Parse the given string as an EVSE identification.
         /// </summary>
-        public static Boolean TryParse(String Text, out CDR_Id EVSEId)
+        public static Boolean TryParse(String Text, out CDR_Id CDRId)
         {
 
             #region Initial checks
 
             if (Text.IsNullOrEmpty())
             {
-                EVSEId = null;
+                CDRId = null;
                 return false;
             }
 
@@ -188,9 +188,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                EVSEId = null;
+                CDRId = null;
 
-                var _MatchCollection = EVSEId_RegEx.Matches(Text.Trim().ToUpper());
+                var _MatchCollection = CDRId_RegEx.Matches(Text.Trim().ToUpper());
 
                 if (_MatchCollection.Count != 1)
                     return false;
@@ -201,7 +201,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
                 {
 
-                    EVSEId = new CDR_Id(__EVSEOperatorId,
+                    CDRId = new CDR_Id(__EVSEOperatorId,
                                          _MatchCollection[0].Groups[2].Value);
 
                     return true;
@@ -212,7 +212,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 else if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
                 {
 
-                    EVSEId = new CDR_Id(__EVSEOperatorId,
+                    CDRId = new CDR_Id(__EVSEOperatorId,
                                          _MatchCollection[0].Groups[4].Value);
 
                     return true;
@@ -223,14 +223,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             { }
 
-            EVSEId = null;
+            CDRId = null;
             return false;
 
         }
 
         #endregion
 
-        #region TryParse(OperatorId, IdSuffix, out EVSEId)
+        #region TryParse(OperatorId, IdSuffix, out CDRId)
 
         ///// <summary>
         ///// Parse the given string as an EVSE identification.
@@ -268,116 +268,116 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Operator overloading
 
-        #region Operator == (EVSEId1, EVSEId2)
+        #region Operator == (CDRId1, CDRId2)
 
         /// <summary>
         /// Compares two instances of this object.
         /// </summary>
-        /// <param name="EVSEId1">A charge point identification.</param>
-        /// <param name="EVSEId2">Another charge point identification.</param>
+        /// <param name="CDRId1">A charge point identification.</param>
+        /// <param name="CDRId2">Another charge point identification.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator == (CDR_Id EVSEId1, CDR_Id EVSEId2)
+        public static Boolean operator == (CDR_Id CDRId1, CDR_Id CDRId2)
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(EVSEId1, EVSEId2))
+            if (Object.ReferenceEquals(CDRId1, CDRId2))
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) EVSEId1 == null) || ((Object) EVSEId2 == null))
+            if (((Object) CDRId1 == null) || ((Object) CDRId2 == null))
                 return false;
 
-            if ((Object) EVSEId1 == null)
-                throw new ArgumentNullException(nameof(EVSEId1),  "The given charge point identification must not be null!");
+            if ((Object) CDRId1 == null)
+                throw new ArgumentNullException(nameof(CDRId1),  "The given charge point identification must not be null!");
 
-            return EVSEId1.Equals(EVSEId2);
+            return CDRId1.Equals(CDRId2);
 
         }
 
         #endregion
 
-        #region Operator != (EVSEId1, EVSEId2)
+        #region Operator != (CDRId1, CDRId2)
 
         /// <summary>
         /// Compares two instances of this object.
         /// </summary>
-        /// <param name="EVSEId1">A charge point identification.</param>
-        /// <param name="EVSEId2">Another charge point identification.</param>
+        /// <param name="CDRId1">A charge point identification.</param>
+        /// <param name="CDRId2">Another charge point identification.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator != (CDR_Id EVSEId1, CDR_Id EVSEId2)
-            => !(EVSEId1 == EVSEId2);
+        public static Boolean operator != (CDR_Id CDRId1, CDR_Id CDRId2)
+            => !(CDRId1 == CDRId2);
 
         #endregion
 
-        #region Operator <  (EVSEId1, EVSEId2)
+        #region Operator <  (CDRId1, CDRId2)
 
         /// <summary>
         /// Compares two instances of this object.
         /// </summary>
-        /// <param name="EVSEId1">A charge point identification.</param>
-        /// <param name="EVSEId2">Another charge point identification.</param>
+        /// <param name="CDRId1">A charge point identification.</param>
+        /// <param name="CDRId2">Another charge point identification.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator < (CDR_Id EVSEId1, CDR_Id EVSEId2)
+        public static Boolean operator < (CDR_Id CDRId1, CDR_Id CDRId2)
         {
 
-            if ((Object) EVSEId1 == null)
-                throw new ArgumentNullException(nameof(EVSEId1),  "The given charge point identification must not be null!");
+            if ((Object) CDRId1 == null)
+                throw new ArgumentNullException(nameof(CDRId1),  "The given charge point identification must not be null!");
 
-            return EVSEId1.CompareTo(EVSEId2) < 0;
+            return CDRId1.CompareTo(CDRId2) < 0;
 
         }
 
         #endregion
 
-        #region Operator <= (EVSEId1, EVSEId2)
+        #region Operator <= (CDRId1, CDRId2)
 
         /// <summary>
         /// Compares two instances of this object.
         /// </summary>
-        /// <param name="EVSEId1">A charge point identification.</param>
-        /// <param name="EVSEId2">Another charge point identification.</param>
+        /// <param name="CDRId1">A charge point identification.</param>
+        /// <param name="CDRId2">Another charge point identification.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator <= (CDR_Id EVSEId1, CDR_Id EVSEId2)
-            => !(EVSEId1 > EVSEId2);
+        public static Boolean operator <= (CDR_Id CDRId1, CDR_Id CDRId2)
+            => !(CDRId1 > CDRId2);
 
         #endregion
 
-        #region Operator >  (EVSEId1, EVSEId2)
+        #region Operator >  (CDRId1, CDRId2)
 
         /// <summary>
         /// Compares two instances of this object.
         /// </summary>
-        /// <param name="EVSEId1">A charge point identification.</param>
-        /// <param name="EVSEId2">Another charge point identification.</param>
+        /// <param name="CDRId1">A charge point identification.</param>
+        /// <param name="CDRId2">Another charge point identification.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator > (CDR_Id EVSEId1, CDR_Id EVSEId2)
+        public static Boolean operator > (CDR_Id CDRId1, CDR_Id CDRId2)
         {
 
-            if ((Object) EVSEId1 == null)
-                throw new ArgumentNullException(nameof(EVSEId1),  "The given charge point identification must not be null!");
+            if ((Object) CDRId1 == null)
+                throw new ArgumentNullException(nameof(CDRId1),  "The given charge point identification must not be null!");
 
-            return EVSEId1.CompareTo(EVSEId2) > 0;
+            return CDRId1.CompareTo(CDRId2) > 0;
 
         }
 
         #endregion
 
-        #region Operator >= (EVSEId1, EVSEId2)
+        #region Operator >= (CDRId1, CDRId2)
 
         /// <summary>
         /// Compares two instances of this object.
         /// </summary>
-        /// <param name="EVSEId1">A charge point identification.</param>
-        /// <param name="EVSEId2">Another charge point identification.</param>
+        /// <param name="CDRId1">A charge point identification.</param>
+        /// <param name="CDRId2">Another charge point identification.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator >= (CDR_Id EVSEId1, CDR_Id EVSEId2)
-            => !(EVSEId1 < EVSEId2);
+        public static Boolean operator >= (CDR_Id CDRId1, CDR_Id CDRId2)
+            => !(CDRId1 < CDRId2);
 
         #endregion
 
         #endregion
 
-        #region IComparable<CDR_Id> Members
+        #region IComparable<CDRId> Members
 
         #region CompareTo(Object)
 
@@ -392,38 +392,38 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             // Check if the given object is a charge point identification.
-            var EVSEId = Object as CDR_Id;
-            if ((Object) EVSEId == null)
-                throw new ArgumentException("The given object is not a EVSEId!", nameof(Object));
+            var CDRId = Object as CDR_Id;
+            if ((Object) CDRId == null)
+                throw new ArgumentException("The given object is not a CDRId!", nameof(Object));
 
-            return CompareTo(EVSEId);
+            return CompareTo(CDRId);
 
         }
 
         #endregion
 
-        #region CompareTo(EVSEId)
+        #region CompareTo(CDRId)
 
         /// <summary>
         /// Compares two instances of this object.
         /// </summary>
-        /// <param name="EVSEId">An object to compare with.</param>
-        public Int32 CompareTo(CDR_Id EVSEId)
+        /// <param name="CDRId">An object to compare with.</param>
+        public Int32 CompareTo(CDR_Id CDRId)
         {
 
-            if ((Object) EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),  "The given charge point identification must not be null!");
+            if ((Object) CDRId == null)
+                throw new ArgumentNullException(nameof(CDRId),  "The given charge point identification must not be null!");
 
             // Compare the length of the charge point identifications
-            var _Result = this.Length.CompareTo(EVSEId.Length);
+            var _Result = this.Length.CompareTo(CDRId.Length);
 
             // If equal: Compare OperatorIds
             if (_Result == 0)
-                _Result = OperatorId.CompareTo(EVSEId.OperatorId);
+                _Result = OperatorId.CompareTo(CDRId.OperatorId);
 
             // If equal: Compare charge point identification suffix
             if (_Result == 0)
-                _Result = String.Compare(Suffix, EVSEId.Suffix, StringComparison.Ordinal);
+                _Result = String.Compare(Suffix, CDRId.Suffix, StringComparison.Ordinal);
 
             return _Result;
 
@@ -433,7 +433,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IEquatable<CDR_Id> Members
+        #region IEquatable<CDRId> Members
 
         #region Equals(Object)
 
@@ -449,31 +449,31 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a charge point identification.
-            var EVSEId = Object as CDR_Id;
-            if ((Object) EVSEId == null)
+            var CDRId = Object as CDR_Id;
+            if ((Object) CDRId == null)
                 return false;
 
-            return this.Equals(EVSEId);
+            return this.Equals(CDRId);
 
         }
 
         #endregion
 
-        #region Equals(EVSEId)
+        #region Equals(CDRId)
 
         /// <summary>
         /// Compares two charge point identifications for equality.
         /// </summary>
-        /// <param name="EVSEId">A charge point identification to compare with.</param>
+        /// <param name="CDRId">A charge point identification to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(CDR_Id EVSEId)
+        public Boolean Equals(CDR_Id CDRId)
         {
 
-            if ((Object) EVSEId == null)
+            if ((Object) CDRId == null)
                 return false;
 
-            return OperatorId.Equals(EVSEId.OperatorId) &&
-                   Suffix.    Equals(EVSEId.Suffix);
+            return OperatorId.Equals(CDRId.OperatorId) &&
+                   Suffix.    Equals(CDRId.Suffix);
 
         }
 

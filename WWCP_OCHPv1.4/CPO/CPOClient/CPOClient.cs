@@ -54,6 +54,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         public new static readonly IPPort  DefaultRemotePort     = IPPort.Parse(443);
 
+        /// <summary>
+        /// The default URI prefix.
+        /// </summary>
+        public const               String  DefaultURIPrefix      = "";
+
         #endregion
 
         #region Properties
@@ -394,6 +399,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          RemoteCertificateValidationCallback  RemoteCertificateValidator  = null,
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
+                         String                               URIPrefix                   = DefaultURIPrefix,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            QueryTimeout                = null,
                          DNSClient                            DNSClient                   = null,
@@ -406,6 +412,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    RemoteCertificateValidator,
                    ClientCert,
                    HTTPVirtualHost,
+                   URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
                    HTTPUserAgent,
                    QueryTimeout,
                    DNSClient)
@@ -453,6 +460,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          RemoteCertificateValidationCallback  RemoteCertificateValidator  = null,
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
+                         String                               URIPrefix                   = DefaultURIPrefix,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            QueryTimeout                = null,
                          DNSClient                            DNSClient                   = null)
@@ -463,6 +471,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    RemoteCertificateValidator,
                    ClientCert,
                    HTTPVirtualHost,
+                   URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
                    HTTPUserAgent,
                    QueryTimeout,
                    DNSClient)
@@ -2178,12 +2187,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        // OHCPdirect
+        // OCHPdirect
 
         #region AddServiceEndpoints(OperatorEndpoints, ...)
 
         /// <summary>
-        /// Upload the given enumeration of OHCPdirect provider endpoints.
+        /// Upload the given enumeration of OCHPdirect provider endpoints.
         /// </summary>
         /// <param name="OperatorEndpoints">An enumeration of provider endpoints.</param>
         /// 
@@ -2367,7 +2376,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region GetServiceEndpoints(...)
 
         /// <summary>
-        /// Download OHCPdirect provider endpoints.
+        /// Download OCHPdirect provider endpoints.
         /// </summary>
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2542,7 +2551,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region InformProvider(...)
 
         /// <summary>
-        /// Send an inform provider OHCPdirect message.
+        /// Send an inform provider OCHPdirect message.
         /// </summary>
         /// <param name="DirectMessage">The operation that triggered the operator to send this message.</param>
         /// <param name="EVSEId">The uqniue EVSE identification of the charge point which is used for this charging process.</param>

@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP get charge point list response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="ChargePoints">An enumeration of charge points.</param>
         public GetChargePointListResponse(Result                        Result,
                                           IEnumerable<ChargePointInfo>  ChargePoints = null)

@@ -50,7 +50,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Statics
 
         /// <summary>
-        /// Unknowen result code.
+        /// Unknown result code.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
         public static DirectResult Unknown(String Description = null)

@@ -106,7 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP get single roaming authorisation response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="RoamingAuthorisationInfo">The authorisation card info.</param>
         public GetSingleRoamingAuthorisationResponse(Result                    Result,
                                                      RoamingAuthorisationInfo  RoamingAuthorisationInfo = null)

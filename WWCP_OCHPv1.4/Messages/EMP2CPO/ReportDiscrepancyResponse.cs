@@ -95,7 +95,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect report discrepancy response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         public ReportDiscrepancyResponse(Result  Result)
             : base(Result)
         { }

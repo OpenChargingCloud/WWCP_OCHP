@@ -25,7 +25,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// OHCP XML Namespaces
+    /// OCHP XML Namespaces
     /// </summary>
     public static class OCHPNS
     {

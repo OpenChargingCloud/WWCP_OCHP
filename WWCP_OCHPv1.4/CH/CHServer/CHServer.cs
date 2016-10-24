@@ -69,12 +69,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnAddServiceEndpoints
 
         /// <summary>
-        /// An event sent whenever an add service endpoints HTTP request was received.
+        /// An event sent whenever an add service endpoints SOAP request was received.
         /// </summary>
         public event RequestLogHandler                     OnAddServiceEndpointsSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever an add service endpoints HTTP response was sent.
+        /// An event sent whenever an add service endpoints SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                      OnAddServiceEndpointsSOAPResponse;
 
@@ -88,12 +88,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetServiceEndpoints
 
         /// <summary>
-        /// An event sent whenever a get service endpoints HTTP request was received.
+        /// An event sent whenever a get service endpoints SOAP request was received.
         /// </summary>
         public event RequestLogHandler                     OnGetServiceEndpointsSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get service endpoints HTTP response was sent.
+        /// An event sent whenever a get service endpoints SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                      OnGetServiceEndpointsSOAPResponse;
 
@@ -110,12 +110,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnAddCDRs
 
         /// <summary>
-        /// An event sent whenever an add charge detail records HTTP request was received.
+        /// An event sent whenever an add charge detail records SOAP request was received.
         /// </summary>
         public event RequestLogHandler         OnAddCDRsSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever an add charge detail records HTTP response was sent.
+        /// An event sent whenever an add charge detail records SOAP response was sent.
         /// </summary>
         public event AccessLogHandler          OnAddCDRsSOAPResponse;
 
@@ -129,12 +129,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnCheckCDRs
 
         /// <summary>
-        /// An event sent whenever a check charge detail records HTTP request was received.
+        /// An event sent whenever a check charge detail records SOAP request was received.
         /// </summary>
         public event RequestLogHandler           OnCheckCDRsSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a check charge detail records HTTP response was sent.
+        /// An event sent whenever a check charge detail records SOAP response was sent.
         /// </summary>
         public event AccessLogHandler            OnCheckCDRsSOAPResponse;
 
@@ -148,12 +148,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetRoamingAuthorisationList
 
         /// <summary>
-        /// An event sent whenever a get roaming authorisation list HTTP request was received.
+        /// An event sent whenever a get roaming authorisation list SOAP request was received.
         /// </summary>
         public event RequestLogHandler                             OnGetRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get roaming authorisation list HTTP response was sent.
+        /// An event sent whenever a get roaming authorisation list SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                              OnGetRoamingAuthorisationListSOAPResponse;
 
@@ -167,12 +167,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetRoamingAuthorisationListUpdates
 
         /// <summary>
-        /// An event sent whenever a get roaming authorisation list updates HTTP request was received.
+        /// An event sent whenever a get roaming authorisation list updates SOAP request was received.
         /// </summary>
         public event RequestLogHandler                                    OnGetRoamingAuthorisationListUpdatesSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get roaming authorisation list updates HTTP response was sent.
+        /// An event sent whenever a get roaming authorisation list updates SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                                     OnGetRoamingAuthorisationListUpdatesSOAPResponse;
 
@@ -186,12 +186,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetSingleRoamingAuthorisation
 
         /// <summary>
-        /// An event sent whenever a get single roaming authorisation HTTP request was received.
+        /// An event sent whenever a get single roaming authorisation SOAP request was received.
         /// </summary>
         public event RequestLogHandler                               OnGetSingleRoamingAuthorisationSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get single roaming authorisation HTTP response was sent.
+        /// An event sent whenever a get single roaming authorisation SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                                OnGetSingleRoamingAuthorisationSOAPResponse;
 
@@ -205,12 +205,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnSetChargePointList
 
         /// <summary>
-        /// An event sent whenever a set charge point list HTTP request was received.
+        /// An event sent whenever a set charge point list SOAP request was received.
         /// </summary>
         public event RequestLogHandler                    OnSetChargePointListSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a set charge point list HTTP response was sent.
+        /// An event sent whenever a set charge point list SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                     OnSetChargePointListSOAPResponse;
 
@@ -224,12 +224,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnUpdateChargePointList
 
         /// <summary>
-        /// An event sent whenever a update charge point list HTTP request was received.
+        /// An event sent whenever a update charge point list SOAP request was received.
         /// </summary>
         public event RequestLogHandler                       OnUpdateChargePointListSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a update charge point list HTTP response was sent.
+        /// An event sent whenever a update charge point list SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                        OnUpdateChargePointListSOAPResponse;
 
@@ -243,12 +243,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnUpdateStatus
 
         /// <summary>
-        /// An event sent whenever an update EVSE and/or parking status HTTP request was received.
+        /// An event sent whenever an update EVSE and/or parking status SOAP request was received.
         /// </summary>
         public event RequestLogHandler              OnUpdateStatusSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever an update EVSE and/or parking status HTTP response was sent.
+        /// An event sent whenever an update EVSE and/or parking status SOAP response was sent.
         /// </summary>
         public event AccessLogHandler               OnUpdateStatusSOAPResponse;
 
@@ -262,12 +262,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnUpdateTariffs
 
         /// <summary>
-        /// An event sent whenever an update charging tariffs HTTP request was received.
+        /// An event sent whenever an update charging tariffs SOAP request was received.
         /// </summary>
         public event RequestLogHandler               OnUpdateTariffsSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever an update charging tariffs HTTP response was sent.
+        /// An event sent whenever an update charging tariffs SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                OnUpdateTariffsSOAPResponse;
 
@@ -284,12 +284,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetCDRs
 
         /// <summary>
-        /// An event sent whenever a get charge detail records HTTP request was received.
+        /// An event sent whenever a get charge detail records SOAP request was received.
         /// </summary>
         public event RequestLogHandler         OnGetCDRsSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get charge detail records HTTP response was sent.
+        /// An event sent whenever a get charge detail records SOAP response was sent.
         /// </summary>
         public event AccessLogHandler          OnGetCDRsSOAPResponse;
 
@@ -303,12 +303,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnConfirmCDRs
 
         /// <summary>
-        /// An event sent whenever a confirm charge detail records HTTP request was received.
+        /// An event sent whenever a confirm charge detail records SOAP request was received.
         /// </summary>
         public event RequestLogHandler             OnConfirmCDRsSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a confirm charge detail records HTTP response was sent.
+        /// An event sent whenever a confirm charge detail records SOAP response was sent.
         /// </summary>
         public event AccessLogHandler              OnConfirmCDRsSOAPResponse;
 
@@ -322,12 +322,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetChargePointList
 
         /// <summary>
-        /// An event sent whenever a get charge point list HTTP request was received.
+        /// An event sent whenever a get charge point list SOAP request was received.
         /// </summary>
         public event RequestLogHandler                    OnGetChargePointListSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get charge point list HTTP response was sent.
+        /// An event sent whenever a get charge point list SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                     OnGetChargePointListSOAPResponse;
 
@@ -341,12 +341,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetChargePointListUpdates
 
         /// <summary>
-        /// An event sent whenever a get charge point list updates HTTP request was received.
+        /// An event sent whenever a get charge point list updates SOAP request was received.
         /// </summary>
         public event RequestLogHandler                           OnGetChargePointListUpdatesSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get charge point list updates HTTP response was sent.
+        /// An event sent whenever a get charge point list updates SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                            OnGetChargePointListUpdatesSOAPResponse;
 
@@ -360,12 +360,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetStatus
 
         /// <summary>
-        /// An event sent whenever a get EVSE and parking status HTTP request was received.
+        /// An event sent whenever a get EVSE and parking status SOAP request was received.
         /// </summary>
         public event RequestLogHandler           OnGetStatusSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get EVSE and parking status HTTP response was sent.
+        /// An event sent whenever a get EVSE and parking status SOAP response was sent.
         /// </summary>
         public event AccessLogHandler            OnGetStatusSOAPResponse;
 
@@ -379,12 +379,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnGetTariffUpdates
 
         /// <summary>
-        /// An event sent whenever a get charging tariffs updates HTTP request was received.
+        /// An event sent whenever a get charging tariffs updates SOAP request was received.
         /// </summary>
         public event RequestLogHandler                  OnGetTariffUpdatesSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get charging tariffs updates HTTP response was sent.
+        /// An event sent whenever a get charging tariffs updates SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                   OnGetTariffUpdatesSOAPResponse;
 
@@ -398,12 +398,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnSetRoamingAuthorisationList
 
         /// <summary>
-        /// An event sent whenever a set roaming authorisation infos HTTP request was received.
+        /// An event sent whenever a set roaming authorisation infos SOAP request was received.
         /// </summary>
         public event RequestLogHandler                             OnSetRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a set roaming authorisation infos HTTP response was sent.
+        /// An event sent whenever a set roaming authorisation infos SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                              OnSetRoamingAuthorisationListSOAPResponse;
 
@@ -417,12 +417,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         #region OnUpdateRoamingAuthorisationList
 
         /// <summary>
-        /// An event sent whenever an update roaming authorisation infos HTTP request was received.
+        /// An event sent whenever an update roaming authorisation infos SOAP request was received.
         /// </summary>
         public event RequestLogHandler                                OnUpdateRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever an update roaming authorisation infos HTTP response was sent.
+        /// An event sent whenever an update roaming authorisation infos SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                                 OnUpdateRoamingAuthorisationListSOAPResponse;
 
@@ -437,7 +437,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #region Constructor(s)
 
-        #region CHServer(HTTPServerName, TCPPort = null, URIPrefix = "", DNSClient = null, AutoStart = false)
+        #region CHServer(HTTPServerName, TCPPort = null, URIPrefix = DefaultURIPrefix, DNSClient = null, AutoStart = false)
 
         /// <summary>
         /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML CH Server API using IPAddress.Any.
@@ -449,13 +449,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="AutoStart">Start the server immediately.</param>
         public CHServer(String    HTTPServerName  = DefaultHTTPServerName,
                         IPPort    TCPPort         = null,
-                        String    URIPrefix       = "",
+                        String    URIPrefix       = DefaultURIPrefix,
                         DNSClient DNSClient       = null,
                         Boolean   AutoStart       = false)
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
                    TCPPort ?? DefaultHTTPServerPort,
-                   URIPrefix,
+                   URIPrefix.     IsNotNullOrEmpty() ? URIPrefix      : DefaultURIPrefix,
                    HTTPContentType.XMLTEXT_UTF8,
                    DNSClient,
                    AutoStart: false)
@@ -469,7 +469,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #endregion
 
-        #region CHServer(SOAPServer, URIPrefix = "")
+        #region CHServer(SOAPServer, URIPrefix = DefaultURIPrefix)
 
         /// <summary>
         /// Use the given HTTP server for the OCHP HTTP/SOAP/XML CH Server API using IPAddress.Any.
@@ -477,10 +477,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="SOAPServer">A SOAP server.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
         public CHServer(SOAPServer  SOAPServer,
-                         String      URIPrefix  = "")
+                        String      URIPrefix  = DefaultURIPrefix)
 
             : base(SOAPServer,
-                   URIPrefix)
+                   URIPrefix.IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix)
 
         { }
 

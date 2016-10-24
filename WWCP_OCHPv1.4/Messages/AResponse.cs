@@ -49,7 +49,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Create a new generic OCHP response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         public AResponse(Result Result)
         {
             this.Result  = Result;

@@ -66,12 +66,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region OnSelectEVSERequest
 
         /// <summary>
-        /// An event sent whenever a select EVSE HTTP request was received.
+        /// An event sent whenever a select EVSE SOAP request was received.
         /// </summary>
         public event RequestLogHandler            OnSelectEVSESOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a select EVSE HTTP response was sent.
+        /// An event sent whenever a select EVSE SOAP response was sent.
         /// </summary>
         public event AccessLogHandler             OnSelectEVSESOAPResponse;
 
@@ -85,12 +85,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region OnControlEVSERequest
 
         /// <summary>
-        /// An event sent whenever a control EVSE HTTP request was received.
+        /// An event sent whenever a control EVSE SOAP request was received.
         /// </summary>
         public event RequestLogHandler             OnControlEVSESOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a control EVSE HTTP response was sent.
+        /// An event sent whenever a control EVSE SOAP response was sent.
         /// </summary>
         public event AccessLogHandler              OnControlEVSESOAPResponse;
 
@@ -104,12 +104,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region OnReleaseEVSERequest
 
         /// <summary>
-        /// An event sent whenever a release EVSE HTTP request was received.
+        /// An event sent whenever a release EVSE SOAP request was received.
         /// </summary>
         public event RequestLogHandler             OnReleaseEVSESOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a release EVSE HTTP response was sent.
+        /// An event sent whenever a release EVSE SOAP response was sent.
         /// </summary>
         public event AccessLogHandler              OnReleaseEVSESOAPResponse;
 
@@ -123,12 +123,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region OnGetEVSEStatusRequest
 
         /// <summary>
-        /// An event sent whenever a get EVSE status HTTP request was received.
+        /// An event sent whenever a get EVSE status SOAP request was received.
         /// </summary>
         public event RequestLogHandler               OnGetEVSEStatusSOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a get EVSE status HTTP response was sent.
+        /// An event sent whenever a get EVSE status SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                OnGetEVSEStatusSOAPResponse;
 
@@ -142,12 +142,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region OnReportDiscrepancyRequest
 
         /// <summary>
-        /// An event sent whenever a report discrepancy HTTP request was received.
+        /// An event sent whenever a report discrepancy SOAP request was received.
         /// </summary>
         public event RequestLogHandler                   OnReportDiscrepancySOAPRequest;
 
         /// <summary>
-        /// An event sent whenever a report discrepancy HTTP response was sent.
+        /// An event sent whenever a report discrepancy SOAP response was sent.
         /// </summary>
         public event AccessLogHandler                    OnReportDiscrepancySOAPResponse;
 
@@ -162,7 +162,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Constructor(s)
 
-        #region CPOServer(HTTPServerName, TCPPort = null, URIPrefix = "", DNSClient = null, AutoStart = false)
+        #region CPOServer(HTTPServerName, TCPPort = null, URIPrefix = DefaultURIPrefix, DNSClient = null, AutoStart = false)
 
         /// <summary>
         /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML CPO Server API using IPAddress.Any.
@@ -174,13 +174,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="AutoStart">Whether to start the server immediately or not.</param>
         public CPOServer(String    HTTPServerName  = DefaultHTTPServerName,
                          IPPort    TCPPort         = null,
-                         String    URIPrefix       = "",
+                         String    URIPrefix       = DefaultURIPrefix,
                          DNSClient DNSClient       = null,
                          Boolean   AutoStart       = false)
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
-                   TCPPort != null                   ? TCPPort        : DefaultHTTPServerPort,
-                   URIPrefix,
+                   TCPPort ?? DefaultHTTPServerPort,
+                   URIPrefix.     IsNotNullOrEmpty() ? URIPrefix      : DefaultURIPrefix,
                    HTTPContentType.XMLTEXT_UTF8,
                    DNSClient,
                    AutoStart: false)
@@ -194,7 +194,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region CPOServer(SOAPServer, URIPrefix = "")
+        #region CPOServer(SOAPServer, URIPrefix = DefaultURIPrefix)
 
         /// <summary>
         /// Use the given HTTP server for the OCHP HTTP/SOAP/XML CPO Server API using IPAddress.Any.
@@ -202,10 +202,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="SOAPServer">A SOAP server.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
         public CPOServer(SOAPServer  SOAPServer,
-                         String      URIPrefix  = "")
+                         String      URIPrefix  = DefaultURIPrefix)
 
             : base(SOAPServer,
-                   URIPrefix)
+                   URIPrefix.IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix)
 
         { }
 
@@ -260,30 +260,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                             "SelectEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "SelectEvseRequest").FirstOrDefault(),
                                             async (Request, SelectEVSEXML) => {
-
-
-                    #region Documentation
-
-                    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-                    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-                    //
-                    //    <soapenv:Header/>
-                    //    <soapenv:Body>
-                    //       <OCHP:SelectEvseRequest>
-                    //
-                    //          <OCHP:evseId>?</OCHP:evseId>
-                    //          <OCHP:contractId>?</OCHP:contractId>
-                    //
-                    //          <!--Optional:-->
-                    //          <OCHP:reserveUntil>
-                    //             <OCHP:DateTime>?</OCHP:DateTime>
-                    //          </OCHP:reserveUntil>
-                    //
-                    //       </OCHP:SelectEvseRequest>
-                    //    </soapenv:Body>
-                    // </soapenv:Envelope>
-
-                    #endregion
 
                     #region Send OnSelectEVSESOAPRequest event
 
@@ -386,48 +362,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                             "ControlEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ControlEvseRequest").FirstOrDefault(),
                                             async (Request, ControlEVSEXML) => {
-
-
-                    #region Documentation
-
-                    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-                    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-                    //
-                    //    <soapenv:Header/>
-                    //    <soapenv:Body>
-                    //       <OCHP:ControlEvseRequest>
-                    //
-                    //          <OCHP:directId>?</OCHP:directId>
-                    //
-                    //          <OCHP:operation>
-                    //             <OCHP:operation>?</OCHP:operation>
-                    //          </OCHP:operation>
-                    //
-                    //          <!--Optional:-->
-                    //          <OCHP:maxPower>?</OCHP:maxPower>
-                    //
-                    //          <!--Optional:-->
-                    //          <OCHP:maxCurrent>?</OCHP:maxCurrent>
-                    //
-                    //          <!--Optional:-->
-                    //          <OCHP:onePhase>?</OCHP:onePhase>
-                    //
-                    //          <!--Optional:-->
-                    //          <OCHP:maxEnergy>?</OCHP:maxEnergy>
-                    //
-                    //          <!--Optional:-->
-                    //          <OCHP:minEnergy>?</OCHP:minEnergy>
-                    //
-                    //          <!--Optional:-->
-                    //          <OCHP:departure>
-                    //             <OCHP:DateTime>?</OCHP:DateTime>
-                    //          </OCHP:departure>
-                    //
-                    //       </OCHP:ControlEvseRequest>
-                    //    </soapenv:Body>
-                    // </soapenv:Envelope>
-
-                    #endregion
 
                     #region Send OnControlEVSESOAPRequest event
 
@@ -536,24 +470,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                             XML => XML.Descendants(OCHPNS.Default + "ReleaseEvseRequest").FirstOrDefault(),
                                             async (Request, ReleaseEVSEXML) => {
 
-
-                    #region Documentation
-
-                    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-                    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-                    //
-                    //    <soapenv:Header/>
-                    //    <soapenv:Body>
-                    //       <OCHP:ReleaseEvseRequest>
-                    //
-                    //          <ns:directId>?</ns:directId>
-                    //
-                    //       </OCHP:ReleaseEvseRequest>
-                    //    </soapenv:Body>
-                    // </soapenv:Envelope>
-
-                    #endregion
-
                     #region Send OnReleaseEVSESOAPRequest event
 
                     try
@@ -654,25 +570,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                             XML => XML.Descendants(OCHPNS.Default + "DirectEvseStatusRequest").FirstOrDefault(),
                                             async (Request, GetEVSEStatusXML) => {
 
-
-                    #region Documentation
-
-                    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-                    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-                    //
-                    //    <soapenv:Header/>
-                    //    <soapenv:Body>
-                    //       <OCHP:DirectEvseStatusRequest>
-                    //
-                    //          <!--1 or more repetitions:-->
-                    //          <ns:requestedEvseId>?</ns:requestedEvseId>
-                    //
-                    //       </OCHP:DirectEvseStatusRequest>
-                    //    </soapenv:Body>
-                    // </soapenv:Envelope>
-
-                    #endregion
-
                     #region Send OnGetEVSEStatusSOAPRequest event
 
                     try
@@ -772,25 +669,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                             "ReportDiscrepancyRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ReportDiscrepancyRequest").FirstOrDefault(),
                                             async (Request, ReportDiscrepancyXML) => {
-
-
-                    #region Documentation
-
-                    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-                    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-                    //
-                    //    <soapenv:Header/>
-                    //    <soapenv:Body>
-                    //      <OCHP:ReportDiscrepancyRequest>
-                    //
-                    //         <OCHP:evseId>?</OCHP:evseId>
-                    //         <OCHP:report>?</OCHP:report>
-                    //
-                    //      </OCHP:ReportDiscrepancyRequest>
-                    //    </soapenv:Body>
-                    // </soapenv:Envelope>
-
-                    #endregion
 
                     #region Send OnReportDiscrepancySOAPRequest event
 

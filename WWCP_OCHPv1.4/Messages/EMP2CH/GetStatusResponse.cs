@@ -116,7 +116,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP get status response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="EVSEStatus">An enumeration of EVSE status.</param>
         /// <param name="ParkingStatus">An enumeration of parking status.</param>
         /// <param name="CombinedStatus">An enumeration of charge detail records.</param>

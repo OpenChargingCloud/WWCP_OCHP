@@ -109,7 +109,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect select EVSE response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="DirectId">The session identification for a direct charging process.</param>
         /// <param name="ReservedUntil">An optional timestamp until when the given EVSE is reserved.</param>
         public SelectEVSEResponse(Result     Result,
@@ -400,7 +400,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             if ((Object) SelectEVSEResponse == null)
                 return false;
 
-            return this.Result.Equals(SelectEVSEResponse.Result) &&
+            return Result.Equals(SelectEVSEResponse.Result) &&
 
                    (DirectId != null
                        ? DirectId.Equals(SelectEVSEResponse.DirectId)

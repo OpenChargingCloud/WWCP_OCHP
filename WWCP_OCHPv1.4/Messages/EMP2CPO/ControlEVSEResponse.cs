@@ -109,7 +109,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect control EVSE response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="DirectId">The session identification for a direct charging process.</param>
         /// <param name="SessionTimeout">An optional timestamp until when the session will timeout.</param>
         public ControlEVSEResponse(Result     Result,

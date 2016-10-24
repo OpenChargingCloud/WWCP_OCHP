@@ -195,7 +195,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect get inform provider response.
         /// </summary>
-        /// <param name="Result">A generic OHCP result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
         /// <param name="DirectMessage">The operation that triggered the operator to send this message.</param>
         /// <param name="EVSEId">The uqniue EVSE identification of the charge point which is used for this charging process.</param>
         /// <param name="ContractId">The current contract identification using the charge point.</param>
