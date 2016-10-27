@@ -48,14 +48,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<SelectEVSEResponse>
 
-        OnSelectEVSERequestDelegate(DateTime             Timestamp,
-                                    CPOServer            Sender,
-                                    CancellationToken    CancellationToken,
-                                    EventTracking_Id     EventTrackingId,
-                                    EVSE_Id              EVSEId,
-                                    Contract_Id          ContractId,
-                                    DateTime?            ReserveUntil,
-                                    TimeSpan?            RequestTimeout  = null);
+        OnSelectEVSEDelegate(DateTime             Timestamp,
+                             CPOServer            Sender,
+                             CancellationToken    CancellationToken,
+                             EventTracking_Id     EventTrackingId,
+                             EVSE_Id              EVSEId,
+                             Contract_Id          ContractId,
+                             DateTime?            ReserveUntil,
+                             TimeSpan?            RequestTimeout  = null);
 
     #endregion
 
@@ -79,19 +79,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<ControlEVSEResponse>
 
-        OnControlEVSERequestDelegate(DateTime             Timestamp,
-                                     CPOServer            Sender,
-                                     CancellationToken    CancellationToken,
-                                     EventTracking_Id     EventTrackingId,
-                                     Direct_Id            DirectId,
-                                     DirectOperations     Operation,
-                                     Single?              MaxPower,
-                                     Single?              MaxCurrent,
-                                     Boolean?             OnePhase,
-                                     Single?              MaxEnergy,
-                                     Single?              MinEnergy,
-                                     DateTime?            Departure,
-                                     TimeSpan?            RequestTimeout  = null);
+        OnControlEVSEDelegate(DateTime             Timestamp,
+                              CPOServer            Sender,
+                              CancellationToken    CancellationToken,
+                              EventTracking_Id     EventTrackingId,
+                              Direct_Id            DirectId,
+                              DirectOperations     Operation,
+                              Single?              MaxPower,
+                              Single?              MaxCurrent,
+                              Boolean?             OnePhase,
+                              Single?              MaxEnergy,
+                              Single?              MinEnergy,
+                              DateTime?            Departure,
+                              TimeSpan?            RequestTimeout  = null);
 
     #endregion
 
@@ -108,12 +108,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<ReleaseEVSEResponse>
 
-        OnReleaseEVSERequestDelegate(DateTime             Timestamp,
-                                     CPOServer            Sender,
-                                     CancellationToken    CancellationToken,
-                                     EventTracking_Id     EventTrackingId,
-                                     Direct_Id            DirectId,
-                                     TimeSpan?            RequestTimeout  = null);
+        OnReleaseEVSEDelegate(DateTime             Timestamp,
+                              CPOServer            Sender,
+                              CancellationToken    CancellationToken,
+                              EventTracking_Id     EventTrackingId,
+                              Direct_Id            DirectId,
+                              TimeSpan?            RequestTimeout  = null);
 
     #endregion
 
@@ -130,12 +130,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<GetEVSEStatusResponse>
 
-        OnGetEVSEStatusRequestDelegate(DateTime                Timestamp,
-                                       CPOServer               Sender,
-                                       CancellationToken       CancellationToken,
-                                       EventTracking_Id        EventTrackingId,
-                                       IEnumerable<EVSE_Id>    EVSEIds,
-                                       TimeSpan?               RequestTimeout  = null);
+        OnGetEVSEStatusDelegate(DateTime                Timestamp,
+                                CPOServer               Sender,
+                                CancellationToken       CancellationToken,
+                                EventTracking_Id        EventTrackingId,
+                                IEnumerable<EVSE_Id>    EVSEIds,
+                                TimeSpan?               RequestTimeout  = null);
 
     #endregion
 
@@ -153,13 +153,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<ReportDiscrepancyResponse>
 
-        OnReportDiscrepancyRequestDelegate(DateTime             Timestamp,
-                                           CPOServer            Sender,
-                                           CancellationToken    CancellationToken,
-                                           EventTracking_Id     EventTrackingId,
-                                           EVSE_Id              EVSEId,
-                                           String               Report,
-                                           TimeSpan?            RequestTimeout  = null);
+        OnReportDiscrepancyDelegate(DateTime             Timestamp,
+                                    CPOServer            Sender,
+                                    CancellationToken    CancellationToken,
+                                    EventTracking_Id     EventTrackingId,
+                                    EVSE_Id              EVSEId,
+                                    String               Report,
+                                    TimeSpan?            RequestTimeout  = null);
 
     #endregion
 

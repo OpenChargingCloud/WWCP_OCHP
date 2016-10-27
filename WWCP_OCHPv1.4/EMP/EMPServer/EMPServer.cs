@@ -68,17 +68,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// An event sent whenever an inform provider SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                OnInformProviderHTTPRequest;
+        public event RequestLogHandler         OnInformProviderHTTPRequest;
 
         /// <summary>
         /// An event sent whenever an inform provider SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                 OnInformProviderHTTPResponse;
+        public event AccessLogHandler          OnInformProviderHTTPResponse;
 
         /// <summary>
         /// An event sent whenever an inform provider request was received.
         /// </summary>
-        public event OnInformProviderRequestDelegate  OnInformProviderRequest;
+        public event OnInformProviderDelegate  OnInformProviderRequest;
 
         #endregion
 
@@ -312,7 +312,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                     var results = OnInformProviderRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnInformProviderRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnInformProviderDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,

@@ -66,32 +66,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<InformProviderResponse>
 
-        OnInformProviderRequestDelegate(DateTime                 Timestamp,
-                                        EMPServer                Sender,
-                                        CancellationToken        CancellationToken,
-                                        EventTracking_Id         EventTrackingId,
+        OnInformProviderDelegate(DateTime                 Timestamp,
+                                 EMPServer                Sender,
+                                 CancellationToken        CancellationToken,
+                                 EventTracking_Id         EventTrackingId,
 
-                                        DirectMessages           DirectMessage,
-                                        EVSE_Id                  EVSEId,
-                                        Contract_Id              ContractId,
-                                        Direct_Id                DirectId,
+                                 DirectMessages           DirectMessage,
+                                 EVSE_Id                  EVSEId,
+                                 Contract_Id              ContractId,
+                                 Direct_Id                DirectId,
 
-                                        DateTime?                SessionTimeoutAt,
-                                        Single?                  StateOfCharge,
-                                        Single?                  MaxPower,
-                                        Single?                  MaxCurrent,
-                                        Boolean?                 OnePhase,
-                                        Single?                  MaxEnergy,
-                                        Single?                  MinEnergy,
-                                        DateTime?                Departure,
-                                        Single?                  CurrentPower,
-                                        Single?                  ChargedEnergy,
-                                        Timestamped<Single>?     MeterReading,
-                                        IEnumerable<CDRPeriod>   ChargingPeriods,
-                                        Single?                  CurrentCost,
-                                        Currency                 Currency,
+                                 DateTime?                SessionTimeoutAt,
+                                 Single?                  StateOfCharge,
+                                 Single?                  MaxPower,
+                                 Single?                  MaxCurrent,
+                                 Boolean?                 OnePhase,
+                                 Single?                  MaxEnergy,
+                                 Single?                  MinEnergy,
+                                 DateTime?                Departure,
+                                 Single?                  CurrentPower,
+                                 Single?                  ChargedEnergy,
+                                 Timestamped<Single>?     MeterReading,
+                                 IEnumerable<CDRPeriod>   ChargingPeriods,
+                                 Single?                  CurrentCost,
+                                 Currency                 Currency,
 
-                                        TimeSpan?                QueryTimeout      = null);
+                                 TimeSpan?                QueryTimeout      = null);
 
     #endregion
 

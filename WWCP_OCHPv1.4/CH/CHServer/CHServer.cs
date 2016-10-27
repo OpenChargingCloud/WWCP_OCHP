@@ -71,17 +71,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an add service endpoints SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                     OnAddServiceEndpointsSOAPRequest;
+        public event RequestLogHandler              OnAddServiceEndpointsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an add service endpoints SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                      OnAddServiceEndpointsSOAPResponse;
+        public event AccessLogHandler               OnAddServiceEndpointsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an add service endpoints request was received.
         /// </summary>
-        public event OnAddServiceEndpointsRequestDelegate  OnAddServiceEndpointsRequest;
+        public event OnAddServiceEndpointsDelegate  OnAddServiceEndpointsRequest;
 
         #endregion
 
@@ -90,17 +90,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get service endpoints SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                     OnGetServiceEndpointsSOAPRequest;
+        public event RequestLogHandler              OnGetServiceEndpointsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get service endpoints SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                      OnGetServiceEndpointsSOAPResponse;
+        public event AccessLogHandler               OnGetServiceEndpointsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get service endpoints request was received.
         /// </summary>
-        public event OnGetServiceEndpointsRequestDelegate  OnGetServiceEndpointsRequest;
+        public event OnGetServiceEndpointsDelegate  OnGetServiceEndpointsRequest;
 
         #endregion
 
@@ -112,17 +112,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an add charge detail records SOAP request was received.
         /// </summary>
-        public event RequestLogHandler         OnAddCDRsSOAPRequest;
+        public event RequestLogHandler  OnAddCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an add charge detail records SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler          OnAddCDRsSOAPResponse;
+        public event AccessLogHandler   OnAddCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an add charge detail records request was received.
         /// </summary>
-        public event OnAddCDRsRequestDelegate  OnAddCDRsRequest;
+        public event OnAddCDRsDelegate  OnAddCDRsRequest;
 
         #endregion
 
@@ -131,17 +131,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a check charge detail records SOAP request was received.
         /// </summary>
-        public event RequestLogHandler           OnCheckCDRsSOAPRequest;
+        public event RequestLogHandler    OnCheckCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a check charge detail records SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler            OnCheckCDRsSOAPResponse;
+        public event AccessLogHandler     OnCheckCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a check charge detail records request was received.
         /// </summary>
-        public event OnCheckCDRsRequestDelegate  OnCheckCDRsRequest;
+        public event OnCheckCDRsDelegate  OnCheckCDRsRequest;
 
         #endregion
 
@@ -150,17 +150,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get roaming authorisation list SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                             OnGetRoamingAuthorisationListSOAPRequest;
+        public event RequestLogHandler                      OnGetRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                              OnGetRoamingAuthorisationListSOAPResponse;
+        public event AccessLogHandler                       OnGetRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list request was received.
         /// </summary>
-        public event OnGetRoamingAuthorisationListRequestDelegate  OnGetRoamingAuthorisationListRequest;
+        public event OnGetRoamingAuthorisationListDelegate  OnGetRoamingAuthorisationListRequest;
 
         #endregion
 
@@ -169,17 +169,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                                    OnGetRoamingAuthorisationListUpdatesSOAPRequest;
+        public event RequestLogHandler                             OnGetRoamingAuthorisationListUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                                     OnGetRoamingAuthorisationListUpdatesSOAPResponse;
+        public event AccessLogHandler                              OnGetRoamingAuthorisationListUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates request was received.
         /// </summary>
-        public event OnGetRoamingAuthorisationListUpdatesRequestDelegate  OnGetRoamingAuthorisationListUpdatesRequest;
+        public event OnGetRoamingAuthorisationListUpdatesDelegate  OnGetRoamingAuthorisationListUpdatesRequest;
 
         #endregion
 
@@ -188,17 +188,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get single roaming authorisation SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                               OnGetSingleRoamingAuthorisationSOAPRequest;
+        public event RequestLogHandler                        OnGetSingleRoamingAuthorisationSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get single roaming authorisation SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                                OnGetSingleRoamingAuthorisationSOAPResponse;
+        public event AccessLogHandler                         OnGetSingleRoamingAuthorisationSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get single roaming authorisation request was received.
         /// </summary>
-        public event OnGetSingleRoamingAuthorisationRequestDelegate  OnGetSingleRoamingAuthorisationRequest;
+        public event OnGetSingleRoamingAuthorisationDelegate  OnGetSingleRoamingAuthorisationRequest;
 
         #endregion
 
@@ -207,17 +207,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a set charge point list SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                    OnSetChargePointListSOAPRequest;
+        public event RequestLogHandler             OnSetChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a set charge point list SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                     OnSetChargePointListSOAPResponse;
+        public event AccessLogHandler              OnSetChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a set charge point list request was received.
         /// </summary>
-        public event OnSetChargePointListRequestDelegate  OnSetChargePointListRequest;
+        public event OnSetChargePointListDelegate  OnSetChargePointListRequest;
 
         #endregion
 
@@ -226,17 +226,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a update charge point list SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                       OnUpdateChargePointListSOAPRequest;
+        public event RequestLogHandler                OnUpdateChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a update charge point list SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                        OnUpdateChargePointListSOAPResponse;
+        public event AccessLogHandler                 OnUpdateChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a update charge point list request was received.
         /// </summary>
-        public event OnUpdateChargePointListRequestDelegate  OnUpdateChargePointListRequest;
+        public event OnUpdateChargePointListDelegate  OnUpdateChargePointListRequest;
 
         #endregion
 
@@ -245,17 +245,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status SOAP request was received.
         /// </summary>
-        public event RequestLogHandler              OnUpdateStatusSOAPRequest;
+        public event RequestLogHandler       OnUpdateStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler               OnUpdateStatusSOAPResponse;
+        public event AccessLogHandler        OnUpdateStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status request was received.
         /// </summary>
-        public event OnUpdateStatusRequestDelegate  OnUpdateStatusRequest;
+        public event OnUpdateStatusDelegate  OnUpdateStatusRequest;
 
         #endregion
 
@@ -264,17 +264,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update charging tariffs SOAP request was received.
         /// </summary>
-        public event RequestLogHandler               OnUpdateTariffsSOAPRequest;
+        public event RequestLogHandler        OnUpdateTariffsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update charging tariffs SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                OnUpdateTariffsSOAPResponse;
+        public event AccessLogHandler         OnUpdateTariffsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update charging tariffs request was received.
         /// </summary>
-        public event OnUpdateTariffsRequestDelegate  OnUpdateTariffsRequest;
+        public event OnUpdateTariffsDelegate  OnUpdateTariffsRequest;
 
         #endregion
 
@@ -286,17 +286,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charge detail records SOAP request was received.
         /// </summary>
-        public event RequestLogHandler         OnGetCDRsSOAPRequest;
+        public event RequestLogHandler  OnGetCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charge detail records SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler          OnGetCDRsSOAPResponse;
+        public event AccessLogHandler   OnGetCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charge detail records request was received.
         /// </summary>
-        public event OnGetCDRsRequestDelegate  OnGetCDRsRequest;
+        public event OnGetCDRsDelegate  OnGetCDRsRequest;
 
         #endregion
 
@@ -305,17 +305,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a confirm charge detail records SOAP request was received.
         /// </summary>
-        public event RequestLogHandler             OnConfirmCDRsSOAPRequest;
+        public event RequestLogHandler      OnConfirmCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a confirm charge detail records SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler              OnConfirmCDRsSOAPResponse;
+        public event AccessLogHandler       OnConfirmCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a confirm charge detail records request was received.
         /// </summary>
-        public event OnConfirmCDRsRequestDelegate  OnConfirmCDRsRequest;
+        public event OnConfirmCDRsDelegate  OnConfirmCDRsRequest;
 
         #endregion
 
@@ -324,17 +324,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charge point list SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                    OnGetChargePointListSOAPRequest;
+        public event RequestLogHandler             OnGetChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charge point list SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                     OnGetChargePointListSOAPResponse;
+        public event AccessLogHandler              OnGetChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charge point list request was received.
         /// </summary>
-        public event OnGetChargePointListRequestDelegate  OnGetChargePointListRequest;
+        public event OnGetChargePointListDelegate  OnGetChargePointListRequest;
 
         #endregion
 
@@ -343,17 +343,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charge point list updates SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                           OnGetChargePointListUpdatesSOAPRequest;
+        public event RequestLogHandler                    OnGetChargePointListUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charge point list updates SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                            OnGetChargePointListUpdatesSOAPResponse;
+        public event AccessLogHandler                     OnGetChargePointListUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charge point list updates request was received.
         /// </summary>
-        public event OnGetChargePointListUpdatesRequestDelegate  OnGetChargePointListUpdatesRequest;
+        public event OnGetChargePointListUpdatesDelegate  OnGetChargePointListUpdatesRequest;
 
         #endregion
 
@@ -362,17 +362,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get EVSE and parking status SOAP request was received.
         /// </summary>
-        public event RequestLogHandler           OnGetStatusSOAPRequest;
+        public event RequestLogHandler    OnGetStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get EVSE and parking status SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler            OnGetStatusSOAPResponse;
+        public event AccessLogHandler     OnGetStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get EVSE and parking status request was received.
         /// </summary>
-        public event OnGetStatusRequestDelegate  OnGetStatusRequest;
+        public event OnGetStatusDelegate  OnGetStatusRequest;
 
         #endregion
 
@@ -381,17 +381,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charging tariffs updates SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                  OnGetTariffUpdatesSOAPRequest;
+        public event RequestLogHandler           OnGetTariffUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charging tariffs updates SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                   OnGetTariffUpdatesSOAPResponse;
+        public event AccessLogHandler            OnGetTariffUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charging tariffs updates request was received.
         /// </summary>
-        public event OnGetTariffUpdatesRequestDelegate  OnGetTariffUpdatesRequest;
+        public event OnGetTariffUpdatesDelegate  OnGetTariffUpdatesRequest;
 
         #endregion
 
@@ -400,17 +400,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                             OnSetRoamingAuthorisationListSOAPRequest;
+        public event RequestLogHandler                      OnSetRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                              OnSetRoamingAuthorisationListSOAPResponse;
+        public event AccessLogHandler                       OnSetRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos request was received.
         /// </summary>
-        public event OnSetRoamingAuthorisationListRequestDelegate  OnSetRoamingAuthorisationListRequest;
+        public event OnSetRoamingAuthorisationListDelegate  OnSetRoamingAuthorisationListRequest;
 
         #endregion
 
@@ -419,17 +419,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                                OnUpdateRoamingAuthorisationListSOAPRequest;
+        public event RequestLogHandler                         OnUpdateRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                                 OnUpdateRoamingAuthorisationListSOAPResponse;
+        public event AccessLogHandler                          OnUpdateRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos request was received.
         /// </summary>
-        public event OnUpdateRoamingAuthorisationListRequestDelegate  OnUpdateRoamingAuthorisationListRequest;
+        public event OnUpdateRoamingAuthorisationListDelegate  OnUpdateRoamingAuthorisationListRequest;
 
         #endregion
 
@@ -568,7 +568,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnAddServiceEndpointsRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnAddServiceEndpointsRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnAddServiceEndpointsDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -669,7 +669,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetServiceEndpointsRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetServiceEndpointsRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetServiceEndpointsDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -771,7 +771,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnAddCDRsRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnAddCDRsRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnAddCDRsDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -871,7 +871,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnCheckCDRsRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnCheckCDRsRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnCheckCDRsDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -971,7 +971,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetRoamingAuthorisationListRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetRoamingAuthorisationListRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetRoamingAuthorisationListDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1070,7 +1070,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetRoamingAuthorisationListUpdatesRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetRoamingAuthorisationListUpdatesRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetRoamingAuthorisationListUpdatesDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1170,7 +1170,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetSingleRoamingAuthorisationRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetSingleRoamingAuthorisationRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetSingleRoamingAuthorisationDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1270,7 +1270,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnSetChargePointListRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnSetChargePointListRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnSetChargePointListDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1370,7 +1370,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnUpdateChargePointListRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnUpdateChargePointListRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnUpdateChargePointListDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1470,7 +1470,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnUpdateStatusRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnUpdateStatusRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnUpdateStatusDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1572,7 +1572,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnUpdateTariffsRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnUpdateTariffsRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnUpdateTariffsDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1675,7 +1675,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetCDRsRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetCDRsRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetCDRsDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1775,7 +1775,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnConfirmCDRsRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnConfirmCDRsRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnConfirmCDRsDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1876,7 +1876,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetChargePointListRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetChargePointListRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetChargePointListDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -1975,7 +1975,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetChargePointListUpdatesRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetChargePointListUpdatesRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetChargePointListUpdatesDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -2075,7 +2075,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetStatusRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetStatusRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetStatusDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -2176,7 +2176,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnGetTariffUpdatesRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnGetTariffUpdatesRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnGetTariffUpdatesDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -2276,7 +2276,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnSetRoamingAuthorisationListRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnSetRoamingAuthorisationListRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnSetRoamingAuthorisationListDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,
@@ -2376,7 +2376,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     var results = OnUpdateRoamingAuthorisationListRequest?.
                                       GetInvocationList()?.
-                                      SafeSelect(subscriber => (subscriber as OnUpdateRoamingAuthorisationListRequestDelegate)
+                                      SafeSelect(subscriber => (subscriber as OnUpdateRoamingAuthorisationListDelegate)
                                           (DateTime.Now,
                                            this,
                                            Request.CancellationToken,

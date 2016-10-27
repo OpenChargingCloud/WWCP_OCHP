@@ -68,17 +68,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a select EVSE SOAP request was received.
         /// </summary>
-        public event RequestLogHandler            OnSelectEVSESOAPRequest;
+        public event RequestLogHandler     OnSelectEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a select EVSE SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler             OnSelectEVSESOAPResponse;
+        public event AccessLogHandler      OnSelectEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a select EVSE request was received.
         /// </summary>
-        public event OnSelectEVSERequestDelegate  OnSelectEVSERequest;
+        public event OnSelectEVSEDelegate  OnSelectEVSERequest;
 
         #endregion
 
@@ -87,17 +87,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a control EVSE SOAP request was received.
         /// </summary>
-        public event RequestLogHandler             OnControlEVSESOAPRequest;
+        public event RequestLogHandler      OnControlEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a control EVSE SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler              OnControlEVSESOAPResponse;
+        public event AccessLogHandler       OnControlEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a control EVSE request was received.
         /// </summary>
-        public event OnControlEVSERequestDelegate  OnControlEVSERequest;
+        public event OnControlEVSEDelegate  OnControlEVSERequest;
 
         #endregion
 
@@ -106,17 +106,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a release EVSE SOAP request was received.
         /// </summary>
-        public event RequestLogHandler             OnReleaseEVSESOAPRequest;
+        public event RequestLogHandler      OnReleaseEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a release EVSE SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler              OnReleaseEVSESOAPResponse;
+        public event AccessLogHandler       OnReleaseEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a release EVSE request was received.
         /// </summary>
-        public event OnReleaseEVSERequestDelegate  OnReleaseEVSERequest;
+        public event OnReleaseEVSEDelegate  OnReleaseEVSERequest;
 
         #endregion
 
@@ -125,17 +125,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a get EVSE status SOAP request was received.
         /// </summary>
-        public event RequestLogHandler               OnGetEVSEStatusSOAPRequest;
+        public event RequestLogHandler        OnGetEVSEStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get EVSE status SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                OnGetEVSEStatusSOAPResponse;
+        public event AccessLogHandler         OnGetEVSEStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get EVSE status request was received.
         /// </summary>
-        public event OnGetEVSEStatusRequestDelegate  OnGetEVSEStatusRequest;
+        public event OnGetEVSEStatusDelegate  OnGetEVSEStatusRequest;
 
         #endregion
 
@@ -144,17 +144,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a report discrepancy SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                   OnReportDiscrepancySOAPRequest;
+        public event RequestLogHandler            OnReportDiscrepancySOAPRequest;
 
         /// <summary>
         /// An event sent whenever a report discrepancy SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                    OnReportDiscrepancySOAPResponse;
+        public event AccessLogHandler             OnReportDiscrepancySOAPResponse;
 
         /// <summary>
         /// An event sent whenever a report discrepancy request was received.
         /// </summary>
-        public event OnReportDiscrepancyRequestDelegate  OnReportDiscrepancyRequest;
+        public event OnReportDiscrepancyDelegate  OnReportDiscrepancyRequest;
 
         #endregion
 
@@ -291,7 +291,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                         var results = OnSelectEVSERequest?.
                                           GetInvocationList()?.
-                                          SafeSelect(subscriber => (subscriber as OnSelectEVSERequestDelegate)
+                                          SafeSelect(subscriber => (subscriber as OnSelectEVSEDelegate)
                                               (DateTime.Now,
                                                this,
                                                Request.CancellationToken,
@@ -393,7 +393,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                         var results = OnControlEVSERequest?.
                                           GetInvocationList()?.
-                                          SafeSelect(subscriber => (subscriber as OnControlEVSERequestDelegate)
+                                          SafeSelect(subscriber => (subscriber as OnControlEVSEDelegate)
                                               (DateTime.Now,
                                                this,
                                                Request.CancellationToken,
@@ -500,7 +500,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                         var results = OnReleaseEVSERequest?.
                                           GetInvocationList()?.
-                                          SafeSelect(subscriber => (subscriber as OnReleaseEVSERequestDelegate)
+                                          SafeSelect(subscriber => (subscriber as OnReleaseEVSEDelegate)
                                               (DateTime.Now,
                                                this,
                                                Request.CancellationToken,
@@ -600,7 +600,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                         var results = OnGetEVSEStatusRequest?.
                                           GetInvocationList()?.
-                                          SafeSelect(subscriber => (subscriber as OnGetEVSEStatusRequestDelegate)
+                                          SafeSelect(subscriber => (subscriber as OnGetEVSEStatusDelegate)
                                               (DateTime.Now,
                                                this,
                                                Request.CancellationToken,
@@ -700,7 +700,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                         var results = OnReportDiscrepancyRequest?.
                                           GetInvocationList()?.
-                                          SafeSelect(subscriber => (subscriber as OnReportDiscrepancyRequestDelegate)
+                                          SafeSelect(subscriber => (subscriber as OnReportDiscrepancyDelegate)
                                               (DateTime.Now,
                                                this,
                                                Request.CancellationToken,

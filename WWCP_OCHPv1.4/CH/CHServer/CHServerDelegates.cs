@@ -50,15 +50,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<AddServiceEndpointsResponse>
 
-        OnAddServiceEndpointsRequestDelegate(DateTime                       Timestamp,
-                                             CHServer                       Sender,
-                                             CancellationToken              CancellationToken,
-                                             EventTracking_Id               EventTrackingId,
+        OnAddServiceEndpointsDelegate(DateTime                       Timestamp,
+                                      CHServer                       Sender,
+                                      CancellationToken              CancellationToken,
+                                      EventTracking_Id               EventTrackingId,
 
-                                             IEnumerable<OperatorEndpoint>  OperatorEndpoints,
-                                             IEnumerable<ProviderEndpoint>  ProviderEndpoints,
+                                      IEnumerable<OperatorEndpoint>  OperatorEndpoints,
+                                      IEnumerable<ProviderEndpoint>  ProviderEndpoints,
 
-                                             TimeSpan?                      QueryTimeout = null);
+                                      TimeSpan?                      QueryTimeout = null);
 
     #endregion
 
@@ -74,11 +74,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetServiceEndpointsResponse>
 
-        OnGetServiceEndpointsRequestDelegate(DateTime            Timestamp,
-                                             CHServer            Sender,
-                                             CancellationToken   CancellationToken,
-                                             EventTracking_Id    EventTrackingId,
-                                             TimeSpan?           QueryTimeout  = null);
+        OnGetServiceEndpointsDelegate(DateTime            Timestamp,
+                                      CHServer            Sender,
+                                      CancellationToken   CancellationToken,
+                                      EventTracking_Id    EventTrackingId,
+                                      TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -100,14 +100,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<AddCDRsResponse>
 
-        OnAddCDRsRequestDelegate(DateTime               Timestamp,
-                                 CHServer               Sender,
-                                 CancellationToken      CancellationToken,
-                                 EventTracking_Id       EventTrackingId,
+        OnAddCDRsDelegate(DateTime               Timestamp,
+                          CHServer               Sender,
+                          CancellationToken      CancellationToken,
+                          EventTracking_Id       EventTrackingId,
 
-                                 IEnumerable<CDRInfo>   CDRInfos,
+                          IEnumerable<CDRInfo>   CDRInfos,
 
-                                 TimeSpan?              QueryTimeout = null);
+                          TimeSpan?              QueryTimeout = null);
 
     #endregion
 
@@ -126,14 +126,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<CheckCDRsResponse>
 
-        OnCheckCDRsRequestDelegate(DateTime            Timestamp,
-                                   CHServer            Sender,
-                                   CancellationToken   CancellationToken,
-                                   EventTracking_Id    EventTrackingId,
+        OnCheckCDRsDelegate(DateTime            Timestamp,
+                            CHServer            Sender,
+                            CancellationToken   CancellationToken,
+                            EventTracking_Id    EventTrackingId,
 
-                                   CDRStatus?          CDRStatus     = null,
+                            CDRStatus?          CDRStatus     = null,
 
-                                   TimeSpan?           QueryTimeout  = null);
+                            TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -149,11 +149,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetRoamingAuthorisationListResponse>
 
-        OnGetRoamingAuthorisationListRequestDelegate(DateTime            Timestamp,
-                                                     CHServer            Sender,
-                                                     CancellationToken   CancellationToken,
-                                                     EventTracking_Id    EventTrackingId,
-                                                     TimeSpan?           QueryTimeout  = null);
+        OnGetRoamingAuthorisationListDelegate(DateTime            Timestamp,
+                                              CHServer            Sender,
+                                              CancellationToken   CancellationToken,
+                                              EventTracking_Id    EventTrackingId,
+                                              TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -172,14 +172,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetRoamingAuthorisationListUpdatesResponse>
 
-        OnGetRoamingAuthorisationListUpdatesRequestDelegate(DateTime            Timestamp,
-                                                            CHServer            Sender,
-                                                            CancellationToken   CancellationToken,
-                                                            EventTracking_Id    EventTrackingId,
+        OnGetRoamingAuthorisationListUpdatesDelegate(DateTime            Timestamp,
+                                                     CHServer            Sender,
+                                                     CancellationToken   CancellationToken,
+                                                     EventTracking_Id    EventTrackingId,
 
-                                                            DateTime            LastUpdate,
+                                                     DateTime            LastUpdate,
 
-                                                            TimeSpan?           QueryTimeout  = null);
+                                                     TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -198,14 +198,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetSingleRoamingAuthorisationResponse>
 
-        OnGetSingleRoamingAuthorisationRequestDelegate(DateTime            Timestamp,
-                                                       CHServer            Sender,
-                                                       CancellationToken   CancellationToken,
-                                                       EventTracking_Id    EventTrackingId,
+        OnGetSingleRoamingAuthorisationDelegate(DateTime            Timestamp,
+                                                CHServer            Sender,
+                                                CancellationToken   CancellationToken,
+                                                EventTracking_Id    EventTrackingId,
 
-                                                       EMT_Id              EMTId,
+                                                EMT_Id              EMTId,
 
-                                                       TimeSpan?           QueryTimeout  = null);
+                                                TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -224,14 +224,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<SetChargePointListResponse>
 
-        OnSetChargePointListRequestDelegate(DateTime                       Timestamp,
-                                            CHServer                       Sender,
-                                            CancellationToken              CancellationToken,
-                                            EventTracking_Id               EventTrackingId,
+        OnSetChargePointListDelegate(DateTime                       Timestamp,
+                                     CHServer                       Sender,
+                                     CancellationToken              CancellationToken,
+                                     EventTracking_Id               EventTrackingId,
 
-                                            IEnumerable<ChargePointInfo>   ChargePointInfos,
+                                     IEnumerable<ChargePointInfo>   ChargePointInfos,
 
-                                            TimeSpan?                      QueryTimeout  = null);
+                                     TimeSpan?                      QueryTimeout  = null);
 
     #endregion
 
@@ -250,14 +250,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<UpdateChargePointListResponse>
 
-        OnUpdateChargePointListRequestDelegate(DateTime                       Timestamp,
-                                               CHServer                       Sender,
-                                               CancellationToken              CancellationToken,
-                                               EventTracking_Id               EventTrackingId,
+        OnUpdateChargePointListDelegate(DateTime                       Timestamp,
+                                        CHServer                       Sender,
+                                        CancellationToken              CancellationToken,
+                                        EventTracking_Id               EventTrackingId,
 
-                                               IEnumerable<ChargePointInfo>   ChargePointInfos,
+                                        IEnumerable<ChargePointInfo>   ChargePointInfos,
 
-                                               TimeSpan?                      QueryTimeout  = null);
+                                        TimeSpan?                      QueryTimeout  = null);
 
     #endregion
 
@@ -278,16 +278,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<UpdateStatusResponse>
 
-        OnUpdateStatusRequestDelegate(DateTime                     Timestamp,
-                                      CHServer                     Sender,
-                                      CancellationToken            CancellationToken,
-                                      EventTracking_Id             EventTrackingId,
+        OnUpdateStatusDelegate(DateTime                     Timestamp,
+                               CHServer                     Sender,
+                               CancellationToken            CancellationToken,
+                               EventTracking_Id             EventTrackingId,
 
-                                      IEnumerable<EVSEStatus>      EVSEStatus,
-                                      IEnumerable<ParkingStatus>   ParkingStatus,
-                                      DateTime?                    DefaultTTL,
+                               IEnumerable<EVSEStatus>      EVSEStatus,
+                               IEnumerable<ParkingStatus>   ParkingStatus,
+                               DateTime?                    DefaultTTL,
 
-                                      TimeSpan?                    QueryTimeout  = null);
+                               TimeSpan?                    QueryTimeout  = null);
 
     #endregion
 
@@ -306,14 +306,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<UpdateTariffsResponse>
 
-        OnUpdateTariffsRequestDelegate(DateTime                  Timestamp,
-                                       CHServer                  Sender,
-                                       CancellationToken         CancellationToken,
-                                       EventTracking_Id          EventTrackingId,
+        OnUpdateTariffsDelegate(DateTime                  Timestamp,
+                                CHServer                  Sender,
+                                CancellationToken         CancellationToken,
+                                EventTracking_Id          EventTrackingId,
 
-                                       IEnumerable<TariffInfo>   TariffInfos,
+                                IEnumerable<TariffInfo>   TariffInfos,
 
-                                       TimeSpan?                 QueryTimeout  = null);
+                                TimeSpan?                 QueryTimeout  = null);
 
     #endregion
 
@@ -335,14 +335,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetCDRsResponse>
 
-        OnGetCDRsRequestDelegate(DateTime            Timestamp,
-                                 CHServer            Sender,
-                                 CancellationToken   CancellationToken,
-                                 EventTracking_Id    EventTrackingId,
+        OnGetCDRsDelegate(DateTime            Timestamp,
+                          CHServer            Sender,
+                          CancellationToken   CancellationToken,
+                          EventTracking_Id    EventTrackingId,
 
-                                 CDRStatus?          CDRStatus = null,
+                          CDRStatus?          CDRStatus = null,
 
-                                 TimeSpan?           QueryTimeout  = null);
+                          TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -362,15 +362,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<ConfirmCDRsResponse>
 
-        OnConfirmCDRsRequestDelegate(DateTime                   Timestamp,
-                                     CHServer                   Sender,
-                                     CancellationToken          CancellationToken,
-                                     EventTracking_Id           EventTrackingId,
+        OnConfirmCDRsDelegate(DateTime                   Timestamp,
+                              CHServer                   Sender,
+                              CancellationToken          CancellationToken,
+                              EventTracking_Id           EventTrackingId,
 
-                                     IEnumerable<EVSECDRPair>   Approved,
-                                     IEnumerable<EVSECDRPair>   Declined,
+                              IEnumerable<EVSECDRPair>   Approved,
+                              IEnumerable<EVSECDRPair>   Declined,
 
-                                     TimeSpan?                  QueryTimeout  = null);
+                              TimeSpan?                  QueryTimeout  = null);
 
     #endregion
 
@@ -386,11 +386,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetChargePointListResponse>
 
-        OnGetChargePointListRequestDelegate(DateTime            Timestamp,
-                                            CHServer            Sender,
-                                            CancellationToken   CancellationToken,
-                                            EventTracking_Id    EventTrackingId,
-                                            TimeSpan?           QueryTimeout  = null);
+        OnGetChargePointListDelegate(DateTime            Timestamp,
+                                     CHServer            Sender,
+                                     CancellationToken   CancellationToken,
+                                     EventTracking_Id    EventTrackingId,
+                                     TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -409,14 +409,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetChargePointListUpdatesResponse>
 
-        OnGetChargePointListUpdatesRequestDelegate(DateTime            Timestamp,
-                                                   CHServer            Sender,
-                                                   CancellationToken   CancellationToken,
-                                                   EventTracking_Id    EventTrackingId,
+        OnGetChargePointListUpdatesDelegate(DateTime            Timestamp,
+                                            CHServer            Sender,
+                                            CancellationToken   CancellationToken,
+                                            EventTracking_Id    EventTrackingId,
 
-                                                   DateTime            LastUpdate,
+                                            DateTime            LastUpdate,
 
-                                                   TimeSpan?           QueryTimeout  = null);
+                                            TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -436,15 +436,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetStatusResponse>
 
-        OnGetStatusRequestDelegate(DateTime            Timestamp,
-                                   CHServer            Sender,
-                                   CancellationToken   CancellationToken,
-                                   EventTracking_Id    EventTrackingId,
+        OnGetStatusDelegate(DateTime            Timestamp,
+                            CHServer            Sender,
+                            CancellationToken   CancellationToken,
+                            EventTracking_Id    EventTrackingId,
 
-                                   DateTime?           LastRequest,
-                                   StatusTypes?        StatusType,
+                            DateTime?           LastRequest,
+                            StatusTypes?        StatusType,
 
-                                   TimeSpan?           QueryTimeout  = null);
+                            TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -463,14 +463,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetTariffUpdatesResponse>
 
-        OnGetTariffUpdatesRequestDelegate(DateTime            Timestamp,
-                                          CHServer            Sender,
-                                          CancellationToken   CancellationToken,
-                                          EventTracking_Id    EventTrackingId,
+        OnGetTariffUpdatesDelegate(DateTime            Timestamp,
+                                   CHServer            Sender,
+                                   CancellationToken   CancellationToken,
+                                   EventTracking_Id    EventTrackingId,
 
-                                          DateTime?           LastUpdate,
+                                   DateTime?           LastUpdate,
 
-                                          TimeSpan?           QueryTimeout  = null);
+                                   TimeSpan?           QueryTimeout  = null);
 
     #endregion
 
@@ -489,14 +489,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<SetRoamingAuthorisationListResponse>
 
-        OnSetRoamingAuthorisationListRequestDelegate(DateTime                                Timestamp,
-                                                     CHServer                                Sender,
-                                                     CancellationToken                       CancellationToken,
-                                                     EventTracking_Id                        EventTrackingId,
+        OnSetRoamingAuthorisationListDelegate(DateTime                                Timestamp,
+                                              CHServer                                Sender,
+                                              CancellationToken                       CancellationToken,
+                                              EventTracking_Id                        EventTrackingId,
 
-                                                     IEnumerable<RoamingAuthorisationInfo>   RoamingAuthorisationInfos,
+                                              IEnumerable<RoamingAuthorisationInfo>   RoamingAuthorisationInfos,
 
-                                                     TimeSpan?                               QueryTimeout  = null);
+                                              TimeSpan?                               QueryTimeout  = null);
 
     #endregion
 
@@ -515,14 +515,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<UpdateRoamingAuthorisationListResponse>
 
-        OnUpdateRoamingAuthorisationListRequestDelegate(DateTime                                Timestamp,
-                                                        CHServer                                Sender,
-                                                        CancellationToken                       CancellationToken,
-                                                        EventTracking_Id                        EventTrackingId,
+        OnUpdateRoamingAuthorisationListDelegate(DateTime                                Timestamp,
+                                                 CHServer                                Sender,
+                                                 CancellationToken                       CancellationToken,
+                                                 EventTracking_Id                        EventTrackingId,
 
-                                                        IEnumerable<RoamingAuthorisationInfo>   RoamingAuthorisationInfos,
+                                                 IEnumerable<RoamingAuthorisationInfo>   RoamingAuthorisationInfos,
 
-                                                        TimeSpan?                               QueryTimeout  = null);
+                                                 TimeSpan?                               QueryTimeout  = null);
 
     #endregion
 
