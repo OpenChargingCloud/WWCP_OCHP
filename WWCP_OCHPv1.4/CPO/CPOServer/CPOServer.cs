@@ -55,6 +55,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public new static readonly IPPort    DefaultHTTPServerPort  = new IPPort(2601);
 
         /// <summary>
+        /// The default HTTP/SOAP/XML server URI prefix.
+        /// </summary>
+        public new const           String    DefaultURIPrefix       = "";
+
+        /// <summary>
         /// The default query timeout.
         /// </summary>
         public new static readonly TimeSpan  DefaultQueryTimeout    = TimeSpan.FromMinutes(1);
