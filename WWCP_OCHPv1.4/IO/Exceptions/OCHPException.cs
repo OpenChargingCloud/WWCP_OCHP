@@ -30,10 +30,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     public class OCHPException : ApplicationException
     {
 
+        /// <summary>
+        /// Create a new OCHP exception.
+        /// </summary>
+        /// <param name="Message">A message that describes the error.</param>
         public OCHPException(String Message)
             : base(Message)
         { }
 
+        /// <summary>
+        /// Create a new OCHP exception.
+        /// </summary>
+        /// <param name="Message">A message that describes the error.</param>
+        /// <param name="InnerException">The exception that is the cause of the current exception.</param>
         public OCHPException(String Message, Exception InnerException)
             : base(Message, InnerException)
         { }

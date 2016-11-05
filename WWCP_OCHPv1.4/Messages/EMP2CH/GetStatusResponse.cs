@@ -260,7 +260,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                         Request,
 
                                         // Fake it until the specification will be updated!
-                                        new Result(ResultCodes.OK),
+                                        Result.OK(),
 
                                         GetStatusResponseXML.MapElements(OCHPNS.Default + "evse",
                                                                          OCHPv1_4.EVSEStatus.Parse,

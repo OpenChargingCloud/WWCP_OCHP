@@ -18,16 +18,14 @@
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
-    #region IllegalEVSEStatusCombinationException
-
     /// <summary>
-    /// An exception thrown whenever an illegal EVSE status occured.
+    /// An exception thrown whenever an illegal combination of EVSE major and minor status occured.
     /// </summary>
     public class IllegalEVSEStatusCombinationException : OCHPException
     {
 
         /// <summary>
-        /// Create a new illegal EVSE status combination exception.
+        /// Create a new illegal EVSE major and minor status combination exception.
         /// </summary>
         /// <param name="EVSEId">An EVSE identification.</param>
         /// <param name="MajorStatus">An EVSE major status.</param>
@@ -41,7 +39,5 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         { }
 
     }
-
-    #endregion
 
 }

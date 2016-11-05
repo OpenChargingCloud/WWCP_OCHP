@@ -56,7 +56,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public static DirectResult Unknown(String Description = null)
 
             => new DirectResult(DirectResultCodes.Unknown,
-                          Description);
+                                Description);
 
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static DirectResult OK(String Description = null)
 
-            => new DirectResult(DirectResultCodes.Unknown,
-                          Description);
+            => new DirectResult(DirectResultCodes.OK,
+                                Description);
 
 
         /// <summary>
@@ -75,28 +75,38 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static DirectResult Partly(String Description = null)
 
-            => new DirectResult(DirectResultCodes.Unknown,
-                          Description);
+            => new DirectResult(DirectResultCodes.Partly,
+                                Description);
 
 
         /// <summary>
-        /// Wrong username and/or password.
+        /// Given EVSEId is not known to the operator.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static DirectResult NotAuthorized(String Description = null)
+        public static DirectResult NotFound(String Description = null)
 
-            => new DirectResult(DirectResultCodes.Unknown,
-                          Description);
+            => new DirectResult(DirectResultCodes.NotFound,
+                                Description);
 
 
         /// <summary>
-        /// One or more ID (EVSE/Contract) were not valid for this user.
+        /// Given EVSEId does not support OCHPdirect.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static DirectResult NotSupported(String Description = null)
+
+            => new DirectResult(DirectResultCodes.NotSupported,
+                                Description);
+
+
+        /// <summary>
+        /// The DirectId is not valid or has expired.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
         public static DirectResult InvalidId(String Description = null)
 
-            => new DirectResult(DirectResultCodes.Unknown,
-                          Description);
+            => new DirectResult(DirectResultCodes.InvalidId,
+                                Description);
 
 
         /// <summary>
@@ -105,18 +115,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static DirectResult Server(String Description = null)
 
-            => new DirectResult(DirectResultCodes.Unknown,
-                          Description);
-
-
-        /// <summary>
-        /// Data has technical errors.
-        /// </summary>
-        /// <param name="Description">A human-readable error description.</param>
-        public static DirectResult Format(String Description = null)
-
-            => new DirectResult(DirectResultCodes.Unknown,
-                          Description);
+            => new DirectResult(DirectResultCodes.Server,
+                                Description);
 
         #endregion
 
@@ -127,15 +127,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="DirectResultCode">The machine-readable result code.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public DirectResult(DirectResultCodes  DirectResultCode,
-                            String             Description = null)
+        private DirectResult(DirectResultCodes  DirectResultCode,
+                             String             Description = null)
         {
 
-            this.DirectResultCode   = DirectResultCode;
+            this.DirectResultCode  = DirectResultCode;
 
-            this.Description  = Description.IsNotNullOrEmpty()
-                                    ? Description.Trim()
-                                    : "";
+            this.Description       = Description.IsNotNullOrEmpty()
+                                         ? Description.Trim()
+                                         : "";
 
         }
 
@@ -218,13 +218,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 DirectResult = new DirectResult(
 
-                             DirectResultXML.MapValueOrFail    (OCHPNS.Default + "resultCode",
-                                                                OCHPNS.Default + "resultCode",
-                                                                XML_IO.AsDirectResultCode),
+                                   DirectResultXML.MapValueOrFail       (OCHPNS.Default + "resultCode",
+                                                                         OCHPNS.Default + "resultCode",
+                                                                         XML_IO.AsDirectResultCode),
 
-                             DirectResultXML.ElementValueOrFail(OCHPNS.Default + "resultDescription")
+                                   DirectResultXML.ElementValueOrDefault(OCHPNS.Default + "resultDescription")
 
-                         );
+                               );
 
                 return true;
 
@@ -288,10 +288,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => new XElement(OCHPNS.Default + "result",
 
                    new XElement(OCHPNS.Default + "resultCode",
-                       new XElement(OCHPNS.Default + "resultCode", DirectResultCode.ToString())
+                       new XElement(OCHPNS.Default + "resultCode",     DirectResultCode.ToString())
                    ),
 
-                   new XElement(OCHPNS.Default + "resultDescription", Description)
+                   new XElement(OCHPNS.Default + "resultDescription",  Description)
 
                );
 

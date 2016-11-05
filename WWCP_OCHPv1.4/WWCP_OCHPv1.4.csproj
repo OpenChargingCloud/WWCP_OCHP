@@ -52,8 +52,8 @@
     <Compile Include="CPO\CPOClient\CPOClient.cs" />
     <Compile Include="CPO\CPOClient\CPOClientDelegates.cs" />
     <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
-    <Compile Include="IO\OCHPException.cs" />
-    <Compile Include="DataTypes\IllegalEVSEStatusCombinationException.cs" />
+    <Compile Include="IO\Exceptions\OCHPException.cs" />
+    <Compile Include="IO\Exceptions\IllegalEVSEStatusCombinationException.cs" />
     <Compile Include="EMP\EMPDelegates.cs" />
     <Compile Include="EMP\EMPServer\EMPServer.cs" />
     <Compile Include="EMP\EMPServer\EMPServerDelegates.cs" />
@@ -121,8 +121,8 @@
     <Compile Include="Messages\EMP2CH\GetChargePointListUpdatesResponse.cs" />
     <Compile Include="Messages\EMP2CH\UpdateRoamingAuthorisationListResponse.cs" />
     <Compile Include="Messages\EMP2CH\SetRoamingAuthorisationListResponse.cs" />
-    <Compile Include="DataTypes\Complex\OperatorEndpoint.cs" />
-    <Compile Include="DataTypes\Complex\ProviderEndpoint.cs" />
+    <Compile Include="DataTypes\OperatorEndpoint.cs" />
+    <Compile Include="DataTypes\ProviderEndpoint.cs" />
     <Compile Include="DataTypes\Complex\EVSECDRPair.cs" />
     <Compile Include="DataTypes\Complex\ADirectEndpoint.cs" />
     <Compile Include="DataTypes\DirectResult.cs" />

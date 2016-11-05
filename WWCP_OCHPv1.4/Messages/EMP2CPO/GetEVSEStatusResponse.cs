@@ -257,24 +257,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                 GetEVSEStatusResponse = new GetEVSEStatusResponse(
 
-                                               Request,
+                                            Request,
 
-                                               // Fake it until the specification will be updated!
-                                               new Result(ResultCodes.OK),
+                                            // Fake it until the specification will be updated!
+                                            Result.OK(),
 
-                                               GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "evse",
-                                                                                       OCHPv1_4.EVSEStatus.Parse,
-                                                                                       OnException),
+                                            GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "evse",
+                                                                                    OCHPv1_4.EVSEStatus.Parse,
+                                                                                    OnException),
 
-                                               GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "parking",
-                                                                                       OCHPv1_4.ParkingStatus.Parse,
-                                                                                       OnException),
+                                            GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "parking",
+                                                                                    OCHPv1_4.ParkingStatus.Parse,
+                                                                                    OnException),
 
-                                               GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "combined",
-                                                                                       OCHPv1_4.EVSEStatus.Parse,
-                                                                                       OnException)
+                                            GetEVSEStatusResponseXML.MapElements(OCHPNS.Default + "combined",
+                                                                                    OCHPv1_4.EVSEStatus.Parse,
+                                                                                    OnException)
 
-                                           );
+                                        );
 
                 return true;
 

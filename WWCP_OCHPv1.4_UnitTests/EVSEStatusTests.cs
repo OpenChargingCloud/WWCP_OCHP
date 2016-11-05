@@ -18,13 +18,10 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
 
 using NUnit.Framework;
 
-using org.GraphDefined.WWCP;
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -33,10 +30,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 {
 
     /// <summary>
-    /// Minimal Unit tests.
+    /// OCHP EVSE status unit tests.
     /// </summary>
     [TestFixture]
-    public class MinimalTests
+    public class EVSEStatusTests
     {
 
         #region EVSEStatus_IllegalStatusCombinationsTest()
@@ -45,7 +42,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
         public void EVSEStatus_IllegalStatusCombinationsTest()
         {
 
-            Assert.Throws<IllegalEVSEStatusCombinationException>(() => new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*1"), EVSEMajorStatusTypes.Available, EVSEMinorStatusTypes.Charging));
+            Assert.Throws<IllegalEVSEStatusCombinationException>(() => new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*1"), EVSEMajorStatusTypes.Available,    EVSEMinorStatusTypes.Charging));
+            Assert.Throws<IllegalEVSEStatusCombinationException>(() => new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*2"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Available));
 
         }
 
@@ -137,70 +135,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                 new XElement  (OCHPNS.Default + "evseId",  "DE*GEF*E1234")
                             ).ToString(),
                             EVSEStatus4.ToXML().ToString());
-
-
-        }
-
-        #endregion
-
-
-        #region ParkingStatus_EqualityTest()
-
-        [Test]
-        public void ParkingStatus_EqualityTest()
-        {
-
-            var Now = DateTime.Now;
-
-            Assert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
-                               new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available));
-
-            Assert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.NotAvailable),
-                               new ParkingStatus(Parking_Id.Parse("DEGEFP1234"),   ParkingStatusTypes.NotAvailable));
-
-            Assert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available, Now),
-                               new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available, Now));
-
-            Assert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
-                               new ParkingStatus(Parking_Id.Parse("DE*GEF*P5678"), ParkingStatusTypes.Available));
-
-            Assert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
-                               new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.NotAvailable));
-
-            Assert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
-                               new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available, DateTime.Now));
-
-        }
-
-        #endregion
-
-        #region ParkingStatus_XMLTest()
-
-        [Test]
-        public void ParkingStatus_XMLTest()
-        {
-
-            var Now = DateTime.Parse(DateTime.Now.ToIso8601()); // Avoid <ms issues!
-
-            var ParkingStatus1 = new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available);
-            Assert.AreEqual(ParkingStatus1, ParkingStatus.Parse(ParkingStatus1.ToXML()));
-
-            Assert.AreEqual(new XElement(OCHPNS.Default + "parking",
-                                new XAttribute(OCHPNS.Default + "status",    "available"),
-                                new XElement  (OCHPNS.Default + "parkingId", "DE*GEF*P1234")
-                            ).ToString(),
-                            ParkingStatus1.ToXML().ToString());
-
-
-            var ParkingStatus2 = new ParkingStatus(Parking_Id.Parse("DEGEFP1234"), ParkingStatusTypes.NotAvailable, Now);
-            Assert.AreEqual(ParkingStatus2, ParkingStatus.Parse(ParkingStatus2.ToXML()));
-
-            Assert.AreEqual(new XElement(OCHPNS.Default + "parking",
-                                new XAttribute(OCHPNS.Default + "status",    "not-available"),
-                                new XAttribute(OCHPNS.Default + "ttl",       Now.ToIso8601()),
-                                new XElement  (OCHPNS.Default + "parkingId", "DE*GEF*P1234")
-                            ).ToString(),
-                            ParkingStatus2.ToXML().ToString());
 
 
         }

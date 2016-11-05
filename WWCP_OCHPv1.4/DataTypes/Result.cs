@@ -65,7 +65,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static Result OK(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new Result(ResultCodes.OK,
                           Description);
 
 
@@ -75,7 +75,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static Result Partly(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new Result(ResultCodes.Partly,
                           Description);
 
 
@@ -85,7 +85,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static Result NotAuthorized(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new Result(ResultCodes.NotAuthorized,
                           Description);
 
 
@@ -95,7 +95,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static Result InvalidId(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new Result(ResultCodes.InvalidId,
                           Description);
 
 
@@ -105,7 +105,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static Result Server(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new Result(ResultCodes.Server,
                           Description);
 
 
@@ -115,7 +115,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Description">A human-readable error description.</param>
         public static Result Format(String Description = null)
 
-            => new Result(ResultCodes.Unknown,
+            => new Result(ResultCodes.Format,
                           Description);
 
         #endregion
@@ -127,8 +127,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="ResultCode">The machine-readable result code.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public Result(ResultCodes  ResultCode,
-                      String       Description = null)
+        private Result(ResultCodes  ResultCode,
+                       String       Description = null)
         {
 
             this.ResultCode   = ResultCode;
@@ -218,11 +218,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 Result = new Result(
 
-                             ResultXML.MapValueOrFail    (OCHPNS.Default + "resultCode",
-                                                          OCHPNS.Default + "resultCode",
-                                                          XML_IO.AsResultCode),
+                             ResultXML.MapValueOrFail       (OCHPNS.Default + "resultCode",
+                                                             OCHPNS.Default + "resultCode",
+                                                             XML_IO.AsResultCode),
 
-                             ResultXML.ElementValueOrFail(OCHPNS.Default + "resultDescription")
+                             ResultXML.ElementValueOrDefault(OCHPNS.Default + "resultDescription")
 
                          );
 

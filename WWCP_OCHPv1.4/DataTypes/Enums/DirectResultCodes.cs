@@ -40,12 +40,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         Partly,
 
         /// <summary>
-        /// Given EVSE-ID is not known to the operator.
+        /// Given EVSEId is not known to the operator.
         /// </summary>
         NotFound,
 
         /// <summary>
-        /// Given EVSE-ID does not support OCHP-direct.
+        /// Given EVSEId does not support OCHPdirect.
         /// </summary>
         NotSupported,
 
