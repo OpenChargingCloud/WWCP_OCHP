@@ -29,10 +29,59 @@ using org.GraphDefined.Vanaheimr.Illias;
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
+
+    /// <summary>
+    /// An abstract generic OCPP response.
+    /// </summary>
+    public abstract class AResponse<TRequest, TResponse> : AResponse<TResponse>
+
+        where TRequest  : class, IRequest
+        where TResponse : class, IResponse
+
+    {
+
+        #region Properties
+
+        /// <summary>
+        /// The OCHP request leading to this response.
+        /// </summary>
+        public TRequest  Request             { get; }
+
+        #endregion
+
+        #region Constructor(s)
+
+        /// <summary>
+        /// Create a new generic OCHP response.
+        /// </summary>
+        /// <param name="Request">The OCHP request leading to this result.</param>
+        /// <param name="Result">A generic OCHP result.</param>
+        public AResponse(TRequest  Request,
+                         Result    Result)
+
+            : base(Result)
+
+        {
+
+            this.Request            = Request;
+
+        }
+
+        #endregion
+
+    }
+
+
+
+
     /// <summary>
     /// A generic OCHP response.
     /// </summary>
-    public class AResponse
+    public abstract class AResponse<TResponse> : IResponse,
+                                                 IEquatable<TResponse>
+
+        where TResponse : class, IResponse
+
     {
 
         #region Properties
@@ -40,7 +89,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The machine-readable result code.
         /// </summary>
-        public Result Result  { get; }
+        public Result    Result              { get; }
+
+        /// <summary>
+        /// The timestamp of the response message creation.
+        /// </summary>
+        public DateTime  ResponseTimestamp   { get; }
 
         #endregion
 
@@ -52,7 +106,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Result">A generic OCHP result.</param>
         public AResponse(Result Result)
         {
-            this.Result  = Result;
+
+            this.Result             = Result;
+            this.ResponseTimestamp  = DateTime.Now;
+
         }
 
         #endregion
@@ -96,7 +153,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="AResponse1">A response.</param>
         /// <param name="AResponse2">Another response.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (AResponse AResponse1, AResponse AResponse2)
+        public static Boolean operator == (AResponse<TResponse> AResponse1, AResponse<TResponse> AResponse2)
         {
 
             // If both are null, or both are same instance, return true.
@@ -121,7 +178,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="AResponse1">A response.</param>
         /// <param name="AResponse2">Another response.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (AResponse AResponse1, AResponse AResponse2)
+        public static Boolean operator != (AResponse<TResponse> AResponse1, AResponse<TResponse> AResponse2)
 
             => !(AResponse1 == AResponse2);
 
@@ -145,7 +202,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a response.
-            var AResponse = Object as AResponse;
+            var AResponse = Object as AResponse<TResponse>;
             if ((Object) AResponse == null)
                 return false;
 
@@ -162,7 +219,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="AResponse">A response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(AResponse AResponse)
+        public Boolean Equals(AResponse<TResponse> AResponse)
         {
 
             if ((Object) AResponse == null)
@@ -171,6 +228,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             return this.Result.Equals(AResponse.Result);
 
         }
+
+        #endregion
+
+        #region IEquatable<AResponse> Members
+
+        /// <summary>
+        /// Compare two responses for equality.
+        /// </summary>
+        /// <param name="AResponse">Another abstract generic OCPP response.</param>
+        public abstract Boolean Equals(TResponse AResponse);
 
         #endregion
 

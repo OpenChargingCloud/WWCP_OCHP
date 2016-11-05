@@ -317,7 +317,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         }
 
                         if (results.Length == 0 || response == null)
-                            response = SelectEVSEResponse.Server("Could not process the incoming SelectEVSE request!");
+                            response = SelectEVSEResponse.Server(_SelectEVSERequest, "Could not process the incoming SelectEVSE request!");
 
                     }
 
@@ -424,7 +424,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         }
 
                         if (results.Length == 0 || response == null)
-                            response = ControlEVSEResponse.Server("Could not process the incoming ControlEVSE request!");
+                            response = ControlEVSEResponse.Server(_ControlEVSERequest, "Could not process the incoming ControlEVSE request!");
 
                     }
 
@@ -524,7 +524,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         }
 
                         if (results.Length == 0 || response == null)
-                            response = ReleaseEVSEResponse.Server("Could not process the incoming ReleaseEVSE request!");
+                            response = ReleaseEVSEResponse.Server(_ReleaseEVSERequest, "Could not process the incoming ReleaseEVSE request!");
 
                     }
 
@@ -624,7 +624,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         }
 
                         if (results.Length == 0 || response == null)
-                            response = GetEVSEStatusResponse.Server("Could not process the incoming GetEVSEStatus request!");
+                            response = GetEVSEStatusResponse.Server(_GetEVSEStatusRequest, "Could not process the incoming GetEVSEStatus request!");
 
                     }
 
@@ -725,7 +725,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         }
 
                         if (results.Length == 0 || response == null)
-                            response = ReportDiscrepancyResponse.Server("Could not process the incoming ReportDiscrepancy request!");
+                            response = ReportDiscrepancyResponse.Server(_ReportDiscrepancyRequest, "Could not process the incoming ReportDiscrepancy request!");
 
                     }
 

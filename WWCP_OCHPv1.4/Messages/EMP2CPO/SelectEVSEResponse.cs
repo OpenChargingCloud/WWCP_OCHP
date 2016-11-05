@@ -30,7 +30,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect select EVSE response.
     /// </summary>
-    public class SelectEVSEResponse : AResponse
+    public class SelectEVSEResponse : AResponse<SelectEVSERequest,
+                                                SelectEVSEResponse>
     {
 
         #region Properties
@@ -43,7 +44,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// An optional timestamp until when the given EVSE is reserved.
         /// </summary>
-        public DateTime?  ReservedUntil   { get; } 
+        public DateTime?  ReservedUntil   { get; }
 
         #endregion
 
@@ -52,55 +53,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SelectEVSEResponse OK(String Description = null)
+        public static SelectEVSEResponse OK(SelectEVSERequest  Request,
+                                            String             Description = null)
 
-            => new SelectEVSEResponse(Result.OK(Description));
+            => new SelectEVSEResponse(Request,
+                                      Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SelectEVSEResponse Partly(String Description = null)
+        public static SelectEVSEResponse Partly(SelectEVSERequest  Request,
+                                                String             Description = null)
 
-            => new SelectEVSEResponse(Result.Unknown(Description));
+            => new SelectEVSEResponse(Request,
+                                      Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SelectEVSEResponse NotAuthorized(String Description = null)
+        public static SelectEVSEResponse NotAuthorized(SelectEVSERequest  Request,
+                                                       String             Description = null)
 
-            => new SelectEVSEResponse(Result.Unknown(Description));
+            => new SelectEVSEResponse(Request,
+                                      Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SelectEVSEResponse InvalidId(String Description = null)
+        public static SelectEVSEResponse InvalidId(SelectEVSERequest  Request,
+                                                   String             Description = null)
 
-            => new SelectEVSEResponse(Result.Unknown(Description));
+            => new SelectEVSEResponse(Request,
+                                      Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SelectEVSEResponse Server(String Description = null)
+        public static SelectEVSEResponse Server(SelectEVSERequest  Request,
+                                                String             Description = null)
 
-            => new SelectEVSEResponse(Result.Unknown(Description));
+            => new SelectEVSEResponse(Request,
+                                      Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SelectEVSEResponse Format(String Description = null)
+        public static SelectEVSEResponse Format(SelectEVSERequest  Request,
+                                                String             Description = null)
 
-            => new SelectEVSEResponse(Result.Unknown(Description));
+            => new SelectEVSEResponse(Request,
+                                      Result.Format(Description));
 
         #endregion
 
@@ -109,14 +128,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect select EVSE response.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="DirectId">The session identification for a direct charging process.</param>
         /// <param name="ReservedUntil">An optional timestamp until when the given EVSE is reserved.</param>
-        public SelectEVSEResponse(Result     Result,
-                                  Direct_Id  DirectId       = null,
-                                  DateTime?  ReservedUntil  = null)
+        public SelectEVSEResponse(SelectEVSERequest  Request,
+                                  Result             Result,
+                                  Direct_Id          DirectId       = null,
+                                  DateTime?          ReservedUntil  = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -165,20 +186,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(SelectEVSEResponseXML,  OnException = null)
+        #region (static) Parse   (Request, SelectEVSEResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHPdirect select EVSE response.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="SelectEVSEResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static SelectEVSEResponse Parse(XElement             SelectEVSEResponseXML,
+        public static SelectEVSEResponse Parse(SelectEVSERequest    Request,
+                                               XElement             SelectEVSEResponseXML,
                                                OnExceptionDelegate  OnException = null)
         {
 
             SelectEVSEResponse _SelectEVSEResponse;
 
-            if (TryParse(SelectEVSEResponseXML, out _SelectEVSEResponse, OnException))
+            if (TryParse(Request, SelectEVSEResponseXML, out _SelectEVSEResponse, OnException))
                 return _SelectEVSEResponse;
 
             return null;
@@ -187,20 +210,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(SelectEVSEResponseText, OnException = null)
+        #region (static) Parse   (Request, SelectEVSEResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHPdirect select EVSE response.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="SelectEVSEResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static SelectEVSEResponse Parse(String               SelectEVSEResponseText,
+        public static SelectEVSEResponse Parse(SelectEVSERequest    Request,
+                                               String               SelectEVSEResponseText,
                                                OnExceptionDelegate  OnException = null)
         {
 
             SelectEVSEResponse _SelectEVSEResponse;
 
-            if (TryParse(SelectEVSEResponseText, out _SelectEVSEResponse, OnException))
+            if (TryParse(Request, SelectEVSEResponseText, out _SelectEVSEResponse, OnException))
                 return _SelectEVSEResponse;
 
             return null;
@@ -209,15 +234,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(SelectEVSEResponseXML,  out SelectEVSEResponse, OnException = null)
+        #region (static) TryParse(Request, SelectEVSEResponseXML,  out SelectEVSEResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHPdirect select EVSE response.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="SelectEVSEResponseXML">The XML to parse.</param>
         /// <param name="SelectEVSEResponse">The parsed select EVSE response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                SelectEVSEResponseXML,
+        public static Boolean TryParse(SelectEVSERequest       Request,
+                                       XElement                SelectEVSEResponseXML,
                                        out SelectEVSEResponse  SelectEVSEResponse,
                                        OnExceptionDelegate     OnException  = null)
         {
@@ -226,6 +253,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 SelectEVSEResponse = new SelectEVSEResponse(
+
+                                         Request,
 
                                          SelectEVSEResponseXML.MapElementOrFail  (OCHPNS.Default + "result",
                                                                                   Result.Parse,
@@ -257,15 +286,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(SelectEVSEResponseText, out SelectEVSEResponse, OnException = null)
+        #region (static) TryParse(Request, SelectEVSEResponseText, out SelectEVSEResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHPdirect select EVSE response.
         /// </summary>
+        /// <param name="Request">The select EVSE request leading to this response.</param>
         /// <param name="SelectEVSEResponseText">The text to parse.</param>
         /// <param name="SelectEVSEResponse">The parsed select EVSE response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                  SelectEVSEResponseText,
+        public static Boolean TryParse(SelectEVSERequest       Request,
+                                       String                  SelectEVSEResponseText,
                                        out SelectEVSEResponse  SelectEVSEResponse,
                                        OnExceptionDelegate     OnException  = null)
         {
@@ -273,7 +304,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(SelectEVSEResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(SelectEVSEResponseText).Root,
                              out SelectEVSEResponse,
                              OnException))
 
@@ -394,7 +426,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="SelectEVSEResponse">A select EVSE response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(SelectEVSEResponse SelectEVSEResponse)
+        public override Boolean Equals(SelectEVSEResponse SelectEVSEResponse)
         {
 
             if ((Object) SelectEVSEResponse == null)

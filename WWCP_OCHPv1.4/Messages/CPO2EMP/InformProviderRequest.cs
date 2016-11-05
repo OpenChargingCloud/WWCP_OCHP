@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHPdirect inform provider request.
     /// </summary>
-    public class InformProviderRequest
+    public class InformProviderRequest : ARequest<InformProviderRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The operation that triggered the operator to send this message.
-        /// </summary>
-        public DirectMessages          DirectMessage       { get; }
+    /// <summary>
+    /// The operation that triggered the operator to send this message.
+    /// </summary>
+    public DirectMessages          DirectMessage       { get; }
 
         /// <summary>
         /// The uqniue EVSE identification of the charge point which is used for this charging process.
@@ -650,7 +650,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="InformProviderRequest">A inform provider request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(InformProviderRequest InformProviderRequest)
+        public override Boolean Equals(InformProviderRequest InformProviderRequest)
         {
 
             if ((Object) InformProviderRequest == null)

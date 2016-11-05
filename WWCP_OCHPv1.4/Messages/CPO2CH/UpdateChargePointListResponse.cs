@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP update charge point list response.
     /// </summary>
-    public class UpdateChargePointListResponse : AResponse
+    public class UpdateChargePointListResponse : AResponse<UpdateChargePointListRequest,
+                                                           UpdateChargePointListResponse>
     {
 
         #region Properties
@@ -49,55 +50,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateChargePointListResponse OK(String Description = null)
+        public static UpdateChargePointListResponse OK(UpdateChargePointListRequest  Request,
+                                                       String                        Description = null)
 
-            => new UpdateChargePointListResponse(Result.OK(Description));
+            => new UpdateChargePointListResponse(Request,
+                                                 Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateChargePointListResponse Partly(String Description = null)
+        public static UpdateChargePointListResponse Partly(UpdateChargePointListRequest  Request,
+                                                           String                        Description = null)
 
-            => new UpdateChargePointListResponse(Result.Unknown(Description));
+            => new UpdateChargePointListResponse(Request,
+                                                 Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateChargePointListResponse NotAuthorized(String Description = null)
+        public static UpdateChargePointListResponse NotAuthorized(UpdateChargePointListRequest  Request,
+                                                                  String                        Description = null)
 
-            => new UpdateChargePointListResponse(Result.Unknown(Description));
+            => new UpdateChargePointListResponse(Request,
+                                                 Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateChargePointListResponse InvalidId(String Description = null)
+        public static UpdateChargePointListResponse InvalidId(UpdateChargePointListRequest  Request,
+                                                              String                        Description = null)
 
-            => new UpdateChargePointListResponse(Result.Unknown(Description));
+            => new UpdateChargePointListResponse(Request,
+                                                 Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateChargePointListResponse Server(String Description = null)
+        public static UpdateChargePointListResponse Server(UpdateChargePointListRequest  Request,
+                                                           String                        Description = null)
 
-            => new UpdateChargePointListResponse(Result.Unknown(Description));
+            => new UpdateChargePointListResponse(Request,
+                                                 Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateChargePointListResponse Format(String Description = null)
+        public static UpdateChargePointListResponse Format(UpdateChargePointListRequest  Request,
+                                                           String                        Description = null)
 
-            => new UpdateChargePointListResponse(Result.Unknown(Description));
+            => new UpdateChargePointListResponse(Request,
+                                                 Result.Format(Description));
 
         #endregion
 
@@ -106,12 +125,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP update charge point list response.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="RefusedChargePointInfos">An enumeration of refused charge point infos.</param>
-        public UpdateChargePointListResponse(Result                        Result,
+        public UpdateChargePointListResponse(UpdateChargePointListRequest  Request,
+                                             Result                        Result,
                                              IEnumerable<ChargePointInfo>  RefusedChargePointInfos = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -152,20 +173,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(UpdateChargePointListResponseXML,  OnException = null)
+        #region (static) Parse   (Request, UpdateChargePointListResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP update charge point list response.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="UpdateChargePointListResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static UpdateChargePointListResponse Parse(XElement             UpdateChargePointListResponseXML,
-                                                          OnExceptionDelegate  OnException = null)
+        public static UpdateChargePointListResponse Parse(UpdateChargePointListRequest  Request,
+                                                          XElement                      UpdateChargePointListResponseXML,
+                                                          OnExceptionDelegate           OnException = null)
         {
 
             UpdateChargePointListResponse _UpdateChargePointListResponse;
 
-            if (TryParse(UpdateChargePointListResponseXML, out _UpdateChargePointListResponse, OnException))
+            if (TryParse(Request, UpdateChargePointListResponseXML, out _UpdateChargePointListResponse, OnException))
                 return _UpdateChargePointListResponse;
 
             return null;
@@ -174,20 +197,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(UpdateChargePointListResponseText, OnException = null)
+        #region (static) Parse   (Request, UpdateChargePointListResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP update charge point list response.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="UpdateChargePointListResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static UpdateChargePointListResponse Parse(String               UpdateChargePointListResponseText,
-                                                          OnExceptionDelegate  OnException = null)
+        public static UpdateChargePointListResponse Parse(UpdateChargePointListRequest  Request,
+                                                          String                        UpdateChargePointListResponseText,
+                                                          OnExceptionDelegate           OnException = null)
         {
 
             UpdateChargePointListResponse _UpdateChargePointListResponse;
 
-            if (TryParse(UpdateChargePointListResponseText, out _UpdateChargePointListResponse, OnException))
+            if (TryParse(Request, UpdateChargePointListResponseText, out _UpdateChargePointListResponse, OnException))
                 return _UpdateChargePointListResponse;
 
             return null;
@@ -196,15 +221,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(UpdateChargePointListResponseXML,  out UpdateChargePointListResponse, OnException = null)
+        #region (static) TryParse(Request, UpdateChargePointListResponseXML,  out UpdateChargePointListResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP update charge point list response.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="UpdateChargePointListResponseXML">The XML to parse.</param>
         /// <param name="UpdateChargePointListResponse">The parsed update charge point list response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                           UpdateChargePointListResponseXML,
+        public static Boolean TryParse(UpdateChargePointListRequest       Request,
+                                       XElement                           UpdateChargePointListResponseXML,
                                        out UpdateChargePointListResponse  UpdateChargePointListResponse,
                                        OnExceptionDelegate                OnException  = null)
         {
@@ -213,6 +240,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 UpdateChargePointListResponse = new UpdateChargePointListResponse(
+
+                                                    Request,
 
                                                     UpdateChargePointListResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                                                       Result.Parse,
@@ -241,15 +270,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(UpdateChargePointListResponseText, out UpdateChargePointListResponse, OnException = null)
+        #region (static) TryParse(Request, UpdateChargePointListResponseText, out UpdateChargePointListResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP update charge point list response.
         /// </summary>
+        /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="UpdateChargePointListResponseText">The text to parse.</param>
         /// <param name="UpdateChargePointListResponse">The parsed update charge point list response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                             UpdateChargePointListResponseText,
+        public static Boolean TryParse(UpdateChargePointListRequest       Request,
+                                       String                             UpdateChargePointListResponseText,
                                        out UpdateChargePointListResponse  UpdateChargePointListResponse,
                                        OnExceptionDelegate                OnException  = null)
         {
@@ -257,7 +288,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                if (TryParse(XDocument.Parse(UpdateChargePointListResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(UpdateChargePointListResponseText).Root,
                              out UpdateChargePointListResponse,
                              OnException))
 
@@ -370,7 +402,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="UpdateChargePointListResponse">A update charge point list response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(UpdateChargePointListResponse UpdateChargePointListResponse)
+        public override Boolean Equals(UpdateChargePointListResponse UpdateChargePointListResponse)
         {
 
             if ((Object) UpdateChargePointListResponse == null)

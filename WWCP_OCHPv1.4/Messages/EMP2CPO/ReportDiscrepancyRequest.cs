@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// to report an issue concerning the data, compatibility or status of an
     /// EVSE to the charge point operator.
     /// </summary>
-    public class ReportDiscrepancyRequest
+    public class ReportDiscrepancyRequest : ARequest<ReportDiscrepancyRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The unique EVSE identification which is affected by the report.
-        /// </summary>
-        public EVSE_Id  EVSEId   { get; }
+    /// <summary>
+    /// The unique EVSE identification which is affected by the report.
+    /// </summary>
+    public EVSE_Id  EVSEId   { get; }
 
         /// <summary>
         /// The unique EVSE identification which is affected by the report.
@@ -310,7 +310,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ReportDiscrepancyRequest">A report discrepancy request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ReportDiscrepancyRequest ReportDiscrepancyRequest)
+        public override Boolean Equals(ReportDiscrepancyRequest ReportDiscrepancyRequest)
         {
 
             if ((Object) ReportDiscrepancyRequest == null)

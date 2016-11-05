@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP get status response.
     /// </summary>
-    public class GetStatusResponse: AResponse
+    public class GetStatusResponse: AResponse<GetStatusRequest,
+                                              GetStatusResponse>
     {
 
         #region Properties
@@ -59,55 +60,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetStatusResponse OK(String Description = null)
+        public static GetStatusResponse OK(GetStatusRequest  Request,
+                                           String            Description = null)
 
-            => new GetStatusResponse(Result.OK(Description));
+            => new GetStatusResponse(Request,
+                                     Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetStatusResponse Partly(String Description = null)
+        public static GetStatusResponse Partly(GetStatusRequest  Request,
+                                               String            Description = null)
 
-            => new GetStatusResponse(Result.Unknown(Description));
+            => new GetStatusResponse(Request,
+                                     Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetStatusResponse NotAuthorized(String Description = null)
+        public static GetStatusResponse NotAuthorized(GetStatusRequest  Request,
+                                                      String            Description = null)
 
-            => new GetStatusResponse(Result.Unknown(Description));
+            => new GetStatusResponse(Request,
+                                     Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetStatusResponse InvalidId(String Description = null)
+        public static GetStatusResponse InvalidId(GetStatusRequest  Request,
+                                                  String            Description = null)
 
-            => new GetStatusResponse(Result.Unknown(Description));
+            => new GetStatusResponse(Request,
+                                     Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetStatusResponse Server(String Description = null)
+        public static GetStatusResponse Server(GetStatusRequest  Request,
+                                               String            Description = null)
 
-            => new GetStatusResponse(Result.Unknown(Description));
+            => new GetStatusResponse(Request,
+                                     Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetStatusResponse Format(String Description = null)
+        public static GetStatusResponse Format(GetStatusRequest  Request,
+                                               String            Description = null)
 
-            => new GetStatusResponse(Result.Unknown(Description));
+            => new GetStatusResponse(Request,
+                                     Result.Format(Description));
 
         #endregion
 
@@ -116,16 +135,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP get status response.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>s
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="EVSEStatus">An enumeration of EVSE status.</param>
         /// <param name="ParkingStatus">An enumeration of parking status.</param>
         /// <param name="CombinedStatus">An enumeration of charge detail records.</param>
-        public GetStatusResponse(Result                      Result,
+        public GetStatusResponse(GetStatusRequest            Request,
+                                 Result                      Result,
                                  IEnumerable<EVSEStatus>     EVSEStatus      = null,
                                  IEnumerable<ParkingStatus>  ParkingStatus   = null,
                                  IEnumerable<EVSEStatus>     CombinedStatus  = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -168,20 +189,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetStatusResponseXML,  OnException = null)
+        #region (static) Parse   (Request, GetStatusResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP get status response.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="GetStatusResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetStatusResponse Parse(XElement             GetStatusResponseXML,
+        public static GetStatusResponse Parse(GetStatusRequest     Request,
+                                              XElement             GetStatusResponseXML,
                                               OnExceptionDelegate  OnException = null)
         {
 
             GetStatusResponse _GetStatusResponse;
 
-            if (TryParse(GetStatusResponseXML, out _GetStatusResponse, OnException))
+            if (TryParse(Request, GetStatusResponseXML, out _GetStatusResponse, OnException))
                 return _GetStatusResponse;
 
             return null;
@@ -190,20 +213,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetStatusResponseText, OnException = null)
+        #region (static) Parse   (Request, GetStatusResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP get status response.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="GetStatusResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetStatusResponse Parse(String               GetStatusResponseText,
+        public static GetStatusResponse Parse(GetStatusRequest     Request,
+                                              String               GetStatusResponseText,
                                               OnExceptionDelegate  OnException = null)
         {
 
             GetStatusResponse _GetStatusResponse;
 
-            if (TryParse(GetStatusResponseText, out _GetStatusResponse, OnException))
+            if (TryParse(Request, GetStatusResponseText, out _GetStatusResponse, OnException))
                 return _GetStatusResponse;
 
             return null;
@@ -212,15 +237,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetStatusResponseXML,  out GetStatusResponse, OnException = null)
+        #region (static) TryParse(Request, GetStatusResponseXML,  out GetStatusResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP get status response.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="GetStatusResponseXML">The XML to parse.</param>
         /// <param name="GetStatusResponse">The parsed get status response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement               GetStatusResponseXML,
+        public static Boolean TryParse(GetStatusRequest       Request,
+                                       XElement               GetStatusResponseXML,
                                        out GetStatusResponse  GetStatusResponse,
                                        OnExceptionDelegate    OnException  = null)
         {
@@ -229,6 +256,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 GetStatusResponse = new GetStatusResponse(
+
+                                        Request,
 
                                         // Fake it until the specification will be updated!
                                         new Result(ResultCodes.OK),
@@ -264,15 +293,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetStatusResponseText, out GetStatusResponse, OnException = null)
+        #region (static) TryParse(Request, GetStatusResponseText, out GetStatusResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP get status response.
         /// </summary>
+        /// <param name="Request">The get status request leading to this response.</param>
         /// <param name="GetStatusResponseText">The text to parse.</param>
         /// <param name="GetStatusResponse">The parsed get status response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                 GetStatusResponseText,
+        public static Boolean TryParse(GetStatusRequest       Request,
+                                       String                 GetStatusResponseText,
                                        out GetStatusResponse  GetStatusResponse,
                                        OnExceptionDelegate    OnException  = null)
         {
@@ -280,7 +311,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(GetStatusResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(GetStatusResponseText).Root,
                              out GetStatusResponse,
                              OnException))
 
@@ -393,7 +425,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetStatusResponse">A get status response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetStatusResponse GetStatusResponse)
+        public override Boolean Equals(GetStatusResponse GetStatusResponse)
         {
 
             if ((Object) GetStatusResponse == null)

@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP get service endpoints response.
     /// </summary>
-    public class GetServiceEndpointsResponse : AResponse
+    public class GetServiceEndpointsResponse : AResponse<GetServiceEndpointsRequest,
+                                                         GetServiceEndpointsResponse>
     {
 
         #region Properties
@@ -49,55 +50,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetServiceEndpointsResponse OK(String Description = null)
+        public static GetServiceEndpointsResponse OK(GetServiceEndpointsRequest  Request,
+                                                     String                      Description = null)
 
-            => new GetServiceEndpointsResponse(Result.OK(Description));
+            => new GetServiceEndpointsResponse(Request,
+                                               Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetServiceEndpointsResponse Partly(String Description = null)
+        public static GetServiceEndpointsResponse Partly(GetServiceEndpointsRequest  Request,
+                                                         String                      Description = null)
 
-            => new GetServiceEndpointsResponse(Result.Unknown(Description));
+            => new GetServiceEndpointsResponse(Request,
+                                               Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetServiceEndpointsResponse NotAuthorized(String Description = null)
+        public static GetServiceEndpointsResponse NotAuthorized(GetServiceEndpointsRequest  Request,
+                                                                String                      Description = null)
 
-            => new GetServiceEndpointsResponse(Result.Unknown(Description));
+            => new GetServiceEndpointsResponse(Request,
+                                               Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetServiceEndpointsResponse InvalidId(String Description = null)
+        public static GetServiceEndpointsResponse InvalidId(GetServiceEndpointsRequest  Request,
+                                                            String                      Description = null)
 
-            => new GetServiceEndpointsResponse(Result.Unknown(Description));
+            => new GetServiceEndpointsResponse(Request,
+                                               Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetServiceEndpointsResponse Server(String Description = null)
+        public static GetServiceEndpointsResponse Server(GetServiceEndpointsRequest  Request,
+                                                         String                      Description = null)
 
-            => new GetServiceEndpointsResponse(Result.Unknown(Description));
+            => new GetServiceEndpointsResponse(Request,
+                                               Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetServiceEndpointsResponse Format(String Description = null)
+        public static GetServiceEndpointsResponse Format(GetServiceEndpointsRequest  Request,
+                                                         String                      Description = null)
 
-            => new GetServiceEndpointsResponse(Result.Unknown(Description));
+            => new GetServiceEndpointsResponse(Request,
+                                               Result.Format(Description));
 
         #endregion
 
@@ -106,12 +125,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP get service endpoints response.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="ServiceEndpoints">An enumeration of operator service endpoints.</param>
-        public GetServiceEndpointsResponse(Result                         Result,
+        public GetServiceEndpointsResponse(GetServiceEndpointsRequest     Request,
+                                           Result                         Result,
                                            IEnumerable<OperatorEndpoint>  ServiceEndpoints = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -171,20 +192,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(GetServiceEndpointsResponseXML,  OnException = null)
+        #region (static) Parse   (Request, GetServiceEndpointsResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP get service endpoints response.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="GetServiceEndpointsResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetServiceEndpointsResponse Parse(XElement             GetServiceEndpointsResponseXML,
-                                                        OnExceptionDelegate  OnException = null)
+        public static GetServiceEndpointsResponse Parse(GetServiceEndpointsRequest  Request,
+                                                        XElement                    GetServiceEndpointsResponseXML,
+                                                        OnExceptionDelegate         OnException = null)
         {
 
             GetServiceEndpointsResponse _GetServiceEndpointsResponse;
 
-            if (TryParse(GetServiceEndpointsResponseXML, out _GetServiceEndpointsResponse, OnException))
+            if (TryParse(Request, GetServiceEndpointsResponseXML, out _GetServiceEndpointsResponse, OnException))
                 return _GetServiceEndpointsResponse;
 
             return null;
@@ -193,20 +216,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(GetServiceEndpointsResponseText, OnException = null)
+        #region (static) Parse   (Request, GetServiceEndpointsResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP get service endpoints response.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="GetServiceEndpointsResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetServiceEndpointsResponse Parse(String               GetServiceEndpointsResponseText,
-                                                        OnExceptionDelegate  OnException = null)
+        public static GetServiceEndpointsResponse Parse(GetServiceEndpointsRequest  Request,
+                                                        String                      GetServiceEndpointsResponseText,
+                                                        OnExceptionDelegate         OnException = null)
         {
 
             GetServiceEndpointsResponse _GetServiceEndpointsResponse;
 
-            if (TryParse(GetServiceEndpointsResponseText, out _GetServiceEndpointsResponse, OnException))
+            if (TryParse(Request, GetServiceEndpointsResponseText, out _GetServiceEndpointsResponse, OnException))
                 return _GetServiceEndpointsResponse;
 
             return null;
@@ -215,15 +240,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(GetServiceEndpointsResponseXML,  out GetServiceEndpointsResponse, OnException = null)
+        #region (static) TryParse(Request, GetServiceEndpointsResponseXML,  out GetServiceEndpointsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP get service endpoints response.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="GetServiceEndpointsResponseXML">The XML to parse.</param>
         /// <param name="GetServiceEndpointsResponse">The parsed get service endpoints response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                         GetServiceEndpointsResponseXML,
+        public static Boolean TryParse(GetServiceEndpointsRequest       Request,
+                                       XElement                         GetServiceEndpointsResponseXML,
                                        out GetServiceEndpointsResponse  GetServiceEndpointsResponse,
                                        OnExceptionDelegate              OnException  = null)
         {
@@ -232,6 +259,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 GetServiceEndpointsResponse = new GetServiceEndpointsResponse(
+
+                                                  Request,
 
                                                   GetServiceEndpointsResponseXML.MapElementOrFail (OCHPNS.Default + "result",
                                                                                                    Result.Parse,
@@ -260,15 +289,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(GetServiceEndpointsResponseText, out GetServiceEndpointsResponse, OnException = null)
+        #region (static) TryParse(Request, GetServiceEndpointsResponseText, out GetServiceEndpointsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP get service endpoints response.
         /// </summary>
+        /// <param name="Request">The get service endpoints request leading to this response.</param>
         /// <param name="GetServiceEndpointsResponseText">The text to parse.</param>
         /// <param name="GetServiceEndpointsResponse">The parsed get service endpoints response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                           GetServiceEndpointsResponseText,
+        public static Boolean TryParse(GetServiceEndpointsRequest       Request,
+                                       String                           GetServiceEndpointsResponseText,
                                        out GetServiceEndpointsResponse  GetServiceEndpointsResponse,
                                        OnExceptionDelegate              OnException  = null)
         {
@@ -276,7 +307,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                if (TryParse(XDocument.Parse(GetServiceEndpointsResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(GetServiceEndpointsResponseText).Root,
                              out GetServiceEndpointsResponse,
                              OnException))
 
@@ -389,7 +421,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetServiceEndpointsResponse">A get service endpoints response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetServiceEndpointsResponse GetServiceEndpointsResponse)
+        public override Boolean Equals(GetServiceEndpointsResponse GetServiceEndpointsResponse)
         {
 
             if ((Object) GetServiceEndpointsResponse == null)

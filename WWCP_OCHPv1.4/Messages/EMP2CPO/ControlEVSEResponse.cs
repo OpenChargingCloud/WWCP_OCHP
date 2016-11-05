@@ -30,7 +30,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect control EVSE response.
     /// </summary>
-    public class ControlEVSEResponse : AResponse
+    public class ControlEVSEResponse : AResponse<ControlEVSERequest,
+                                                 ControlEVSEResponse>
     {
 
         #region Properties
@@ -43,7 +44,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// An optional timestamp until when the session will timeout.
         /// </summary>
-        public DateTime?  SessionTimeout   { get; } 
+        public DateTime?  SessionTimeout   { get; }
 
         #endregion
 
@@ -52,55 +53,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse OK(String Description = null)
+        public static ControlEVSEResponse OK(ControlEVSERequest  Request,
+                                             String              Description = null)
 
-            => new ControlEVSEResponse(Result.OK(Description));
+            => new ControlEVSEResponse(Request,
+                                       Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse Partly(String Description = null)
+        public static ControlEVSEResponse Partly(ControlEVSERequest  Request,
+                                                 String              Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ControlEVSEResponse(Request,
+                                       Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse NotAuthorized(String Description = null)
+        public static ControlEVSEResponse NotAuthorized(ControlEVSERequest  Request,
+                                                        String              Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ControlEVSEResponse(Request,
+                                       Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse InvalidId(String Description = null)
+        public static ControlEVSEResponse InvalidId(ControlEVSERequest  Request,
+                                                    String              Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ControlEVSEResponse(Request,
+                                       Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse Server(String Description = null)
+        public static ControlEVSEResponse Server(ControlEVSERequest  Request,
+                                                 String              Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ControlEVSEResponse(Request,
+                                       Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ControlEVSEResponse Format(String Description = null)
+        public static ControlEVSEResponse Format(ControlEVSERequest  Request,
+                                                 String              Description = null)
 
-            => new ControlEVSEResponse(Result.Unknown(Description));
+            => new ControlEVSEResponse(Request,
+                                       Result.Format(Description));
 
         #endregion
 
@@ -109,14 +128,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect control EVSE response.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="DirectId">The session identification for a direct charging process.</param>
         /// <param name="SessionTimeout">An optional timestamp until when the session will timeout.</param>
-        public ControlEVSEResponse(Result     Result,
-                                   Direct_Id  DirectId        = null,
-                                   DateTime?  SessionTimeout  = null)
+        public ControlEVSEResponse(ControlEVSERequest  Request,
+                                   Result              Result,
+                                   Direct_Id           DirectId        = null,
+                                   DateTime?           SessionTimeout  = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -165,20 +186,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(ControlEVSEResponseXML,  OnException = null)
+        #region (static) Parse   (Request, ControlEVSEResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHPdirect control EVSE response.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="ControlEVSEResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ControlEVSEResponse Parse(XElement             ControlEVSEResponseXML,
+        public static ControlEVSEResponse Parse(ControlEVSERequest   Request,
+                                                XElement             ControlEVSEResponseXML,
                                                 OnExceptionDelegate  OnException = null)
         {
 
             ControlEVSEResponse _ControlEVSEResponse;
 
-            if (TryParse(ControlEVSEResponseXML, out _ControlEVSEResponse, OnException))
+            if (TryParse(Request, ControlEVSEResponseXML, out _ControlEVSEResponse, OnException))
                 return _ControlEVSEResponse;
 
             return null;
@@ -187,20 +210,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(ControlEVSEResponseText, OnException = null)
+        #region (static) Parse   (Request, ControlEVSEResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHPdirect control EVSE response.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="ControlEVSEResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ControlEVSEResponse Parse(String               ControlEVSEResponseText,
+        public static ControlEVSEResponse Parse(ControlEVSERequest   Request,
+                                                String               ControlEVSEResponseText,
                                                 OnExceptionDelegate  OnException = null)
         {
 
             ControlEVSEResponse _ControlEVSEResponse;
 
-            if (TryParse(ControlEVSEResponseText, out _ControlEVSEResponse, OnException))
+            if (TryParse(Request, ControlEVSEResponseText, out _ControlEVSEResponse, OnException))
                 return _ControlEVSEResponse;
 
             return null;
@@ -209,15 +234,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(ControlEVSEResponseXML,  out ControlEVSEResponse, OnException = null)
+        #region (static) TryParse(Request, ControlEVSEResponseXML,  out ControlEVSEResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHPdirect control EVSE response.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="ControlEVSEResponseXML">The XML to parse.</param>
         /// <param name="ControlEVSEResponse">The parsed control EVSE response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                 ControlEVSEResponseXML,
+        public static Boolean TryParse(ControlEVSERequest       Request,
+                                       XElement                 ControlEVSEResponseXML,
                                        out ControlEVSEResponse  ControlEVSEResponse,
                                        OnExceptionDelegate      OnException  = null)
         {
@@ -226,6 +253,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 ControlEVSEResponse = new ControlEVSEResponse(
+
+                                          Request,
 
                                           ControlEVSEResponseXML.MapElementOrFail  (OCHPNS.Default + "result",
                                                                                     Result.Parse,
@@ -257,15 +286,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(ControlEVSEResponseText, out ControlEVSEResponse, OnException = null)
+        #region (static) TryParse(Request, ControlEVSEResponseText, out ControlEVSEResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHPdirect control EVSE response.
         /// </summary>
+        /// <param name="Request">The control EVSE request leading to this response.</param>
         /// <param name="ControlEVSEResponseText">The text to parse.</param>
         /// <param name="ControlEVSEResponse">The parsed control EVSE response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                   ControlEVSEResponseText,
+        public static Boolean TryParse(ControlEVSERequest       Request,
+                                       String                   ControlEVSEResponseText,
                                        out ControlEVSEResponse  ControlEVSEResponse,
                                        OnExceptionDelegate      OnException  = null)
         {
@@ -273,7 +304,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(ControlEVSEResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(ControlEVSEResponseText).Root,
                              out ControlEVSEResponse,
                              OnException))
 
@@ -394,7 +426,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ControlEVSEResponse">A control EVSE response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ControlEVSEResponse ControlEVSEResponse)
+        public override Boolean Equals(ControlEVSEResponse ControlEVSEResponse)
         {
 
             if ((Object) ControlEVSEResponse == null)

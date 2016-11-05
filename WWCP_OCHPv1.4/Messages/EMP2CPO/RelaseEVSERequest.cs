@@ -30,15 +30,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect release EVSE request.
     /// </summary>
-    public class ReleaseEVSERequest
+    public class ReleaseEVSERequest : ARequest<ReleaseEVSERequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The session id referencing the direct charging process to be released.
-        /// </summary>
-        public Direct_Id  DirectId   { get; }
+    /// <summary>
+    /// The session id referencing the direct charging process to be released.
+    /// </summary>
+    public Direct_Id  DirectId   { get; }
 
         #endregion
 
@@ -293,7 +293,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ReleaseEVSERequest">A release EVSE request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ReleaseEVSERequest ReleaseEVSERequest)
+        public override Boolean Equals(ReleaseEVSERequest ReleaseEVSERequest)
         {
 
             if ((Object) ReleaseEVSERequest == null)

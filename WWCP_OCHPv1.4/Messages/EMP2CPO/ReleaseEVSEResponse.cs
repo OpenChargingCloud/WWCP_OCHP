@@ -30,7 +30,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect release EVSE response.
     /// </summary>
-    public class ReleaseEVSEResponse : AResponse
+    public class ReleaseEVSEResponse : AResponse<ReleaseEVSERequest,
+                                                 ReleaseEVSEResponse>
     {
 
         #region Properties
@@ -43,7 +44,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// An optional timestamp when the given charging session will be invalidated
         /// </summary>
-        public DateTime?  SessionTimeoutAt   { get; } 
+        public DateTime?  SessionTimeoutAt   { get; }
 
         #endregion
 
@@ -52,55 +53,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReleaseEVSEResponse OK(String Description = null)
+        public static ReleaseEVSEResponse OK(ReleaseEVSERequest  Request,
+                                             String              Description = null)
 
-            => new ReleaseEVSEResponse(Result.OK(Description));
+            => new ReleaseEVSEResponse(Request,
+                                       Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReleaseEVSEResponse Partly(String Description = null)
+        public static ReleaseEVSEResponse Partly(ReleaseEVSERequest  Request,
+                                                 String              Description = null)
 
-            => new ReleaseEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Request,
+                                       Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReleaseEVSEResponse NotAuthorized(String Description = null)
+        public static ReleaseEVSEResponse NotAuthorized(ReleaseEVSERequest  Request,
+                                                        String              Description = null)
 
-            => new ReleaseEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Request,
+                                       Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReleaseEVSEResponse InvalidId(String Description = null)
+        public static ReleaseEVSEResponse InvalidId(ReleaseEVSERequest  Request,
+                                                    String              Description = null)
 
-            => new ReleaseEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Request,
+                                       Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReleaseEVSEResponse Server(String Description = null)
+        public static ReleaseEVSEResponse Server(ReleaseEVSERequest  Request,
+                                                 String              Description = null)
 
-            => new ReleaseEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Request,
+                                       Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReleaseEVSEResponse Format(String Description = null)
+        public static ReleaseEVSEResponse Format(ReleaseEVSERequest  Request,
+                                                 String              Description = null)
 
-            => new ReleaseEVSEResponse(Result.Unknown(Description));
+            => new ReleaseEVSEResponse(Request,
+                                       Result.Format(Description));
 
         #endregion
 
@@ -109,14 +128,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect release EVSE response.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="DirectId">The session identification for a direct charging process.</param>
         /// <param name="SessionTimeoutAt">An optional timestamp when the given charging session will be invalidated.</param>
-        public ReleaseEVSEResponse(Result     Result,
-                                   Direct_Id  DirectId          = null,
-                                   DateTime?  SessionTimeoutAt  = null)
+        public ReleaseEVSEResponse(ReleaseEVSERequest  Request,
+                                   Result              Result,
+                                   Direct_Id           DirectId          = null,
+                                   DateTime?           SessionTimeoutAt  = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -165,20 +186,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(ReleaseEVSEResponseXML,  OnException = null)
+        #region (static) Parse   (Request, ReleaseEVSEResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHPdirect release EVSE response.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="ReleaseEVSEResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ReleaseEVSEResponse Parse(XElement             ReleaseEVSEResponseXML,
+        public static ReleaseEVSEResponse Parse(ReleaseEVSERequest   Request,
+                                                XElement             ReleaseEVSEResponseXML,
                                                 OnExceptionDelegate  OnException = null)
         {
 
             ReleaseEVSEResponse _ReleaseEVSEResponse;
 
-            if (TryParse(ReleaseEVSEResponseXML, out _ReleaseEVSEResponse, OnException))
+            if (TryParse(Request, ReleaseEVSEResponseXML, out _ReleaseEVSEResponse, OnException))
                 return _ReleaseEVSEResponse;
 
             return null;
@@ -187,20 +210,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(ReleaseEVSEResponseText, OnException = null)
+        #region (static) Parse   (Request, ReleaseEVSEResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHPdirect release EVSE response.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="ReleaseEVSEResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ReleaseEVSEResponse Parse(String               ReleaseEVSEResponseText,
+        public static ReleaseEVSEResponse Parse(ReleaseEVSERequest   Request,
+                                                String               ReleaseEVSEResponseText,
                                                 OnExceptionDelegate  OnException = null)
         {
 
             ReleaseEVSEResponse _ReleaseEVSEResponse;
 
-            if (TryParse(ReleaseEVSEResponseText, out _ReleaseEVSEResponse, OnException))
+            if (TryParse(Request, ReleaseEVSEResponseText, out _ReleaseEVSEResponse, OnException))
                 return _ReleaseEVSEResponse;
 
             return null;
@@ -209,23 +234,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(ReleaseEVSEResponseXML,  out ReleaseEVSEResponse, OnException = null)
+        #region (static) TryParse(Request, ReleaseEVSEResponseXML,  out ReleaseEVSEResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHPdirect release EVSE response.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="ReleaseEVSEResponseXML">The XML to parse.</param>
         /// <param name="ReleaseEVSEResponse">The parsed release EVSE response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                ReleaseEVSEResponseXML,
+        public static Boolean TryParse(ReleaseEVSERequest       Request,
+                                       XElement                 ReleaseEVSEResponseXML,
                                        out ReleaseEVSEResponse  ReleaseEVSEResponse,
-                                       OnExceptionDelegate     OnException  = null)
+                                       OnExceptionDelegate      OnException  = null)
         {
 
             try
             {
 
                 ReleaseEVSEResponse = new ReleaseEVSEResponse(
+
+                                          Request,
 
                                           ReleaseEVSEResponseXML.MapElementOrFail  (OCHPNS.Default + "result",
                                                                                     Result.Parse,
@@ -257,15 +286,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(ReleaseEVSEResponseText, out ReleaseEVSEResponse, OnException = null)
+        #region (static) TryParse(Request, ReleaseEVSEResponseText, out ReleaseEVSEResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHPdirect release EVSE response.
         /// </summary>
+        /// <param name="Request">The release EVSE request leading to this response.</param>
         /// <param name="ReleaseEVSEResponseText">The text to parse.</param>
         /// <param name="ReleaseEVSEResponse">The parsed release EVSE response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                   ReleaseEVSEResponseText,
+        public static Boolean TryParse(ReleaseEVSERequest       Request,
+                                       String                   ReleaseEVSEResponseText,
                                        out ReleaseEVSEResponse  ReleaseEVSEResponse,
                                        OnExceptionDelegate      OnException  = null)
         {
@@ -273,7 +304,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(ReleaseEVSEResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(ReleaseEVSEResponseText).Root,
                              out ReleaseEVSEResponse,
                              OnException))
 
@@ -394,7 +426,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ReleaseEVSEResponse">A release EVSE response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ReleaseEVSEResponse ReleaseEVSEResponse)
+        public override Boolean Equals(ReleaseEVSEResponse ReleaseEVSEResponse)
         {
 
             if ((Object) ReleaseEVSEResponse == null)

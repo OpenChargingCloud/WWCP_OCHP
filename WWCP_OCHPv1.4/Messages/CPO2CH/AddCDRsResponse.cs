@@ -30,9 +30,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
     /// <summary>
-    /// An OCHP add charge details record response.
+    /// An OCHP add charge details records response.
     /// </summary>
-    public class AddCDRsResponse : AResponse
+    public class AddCDRsResponse : AResponse<AddCDRsRequest,
+                                             AddCDRsResponse>
     {
 
         #region Properties
@@ -49,69 +50,89 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddCDRsResponse OK(String Description = null)
+        public static AddCDRsResponse OK(AddCDRsRequest  Request,
+                                         String          Description = null)
 
-            => new AddCDRsResponse(Result.OK(Description));
+            => new AddCDRsResponse(Request,
+                                   Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddCDRsResponse Partly(String Description = null)
+        public static AddCDRsResponse Partly(AddCDRsRequest  Request,
+                                             String          Description = null)
 
-            => new AddCDRsResponse(Result.Unknown(Description));
+            => new AddCDRsResponse(Request,
+                                   Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddCDRsResponse NotAuthorized(String Description = null)
+        public static AddCDRsResponse NotAuthorized(AddCDRsRequest  Request,
+                                                    String          Description = null)
 
-            => new AddCDRsResponse(Result.Unknown(Description));
+            => new AddCDRsResponse(Request,
+                                   Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddCDRsResponse InvalidId(String Description = null)
+        public static AddCDRsResponse InvalidId(AddCDRsRequest  Request,
+                                                String          Description = null)
 
-            => new AddCDRsResponse(Result.Unknown(Description));
+            => new AddCDRsResponse(Request,
+                                   Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddCDRsResponse Server(String Description = null)
+        public static AddCDRsResponse Server(AddCDRsRequest  Request,
+                                             String          Description = null)
 
-            => new AddCDRsResponse(Result.Unknown(Description));
+            => new AddCDRsResponse(Request,
+                                   Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddCDRsResponse Format(String Description = null)
+        public static AddCDRsResponse Format(AddCDRsRequest  Request,
+                                             String          Description = null)
 
-            => new AddCDRsResponse(Result.Unknown(Description));
+            => new AddCDRsResponse(Request,
+                                   Result.Format(Description));
 
         #endregion
 
         #region Constructor(s)
 
         /// <summary>
-        /// Create a new OCHP add charge details record response.
+        /// Create a new OCHP add charge details records response.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="ImplausibleCDRs">An enumeration of refused charge detail records.</param>
-        public AddCDRsResponse(Result                Result,
+        public AddCDRsResponse(AddCDRsRequest        Request,
+                               Result                Result,
                                IEnumerable<CDRInfo>  ImplausibleCDRs = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -147,20 +168,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(AddCDRsResponseXML,  OnException = null)
+        #region (static) Parse   (Request, AddCDRsResponseXML,  OnException = null)
 
         /// <summary>
-        /// Parse the given XML representation of an OCHP add charge details record response.
+        /// Parse the given XML representation of an OCHP add charge details records response.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="AddCDRsResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static AddCDRsResponse Parse(XElement             AddCDRsResponseXML,
+        public static AddCDRsResponse Parse(AddCDRsRequest       Request,
+                                            XElement             AddCDRsResponseXML,
                                             OnExceptionDelegate  OnException = null)
         {
 
             AddCDRsResponse _AddCDRsResponse;
 
-            if (TryParse(AddCDRsResponseXML, out _AddCDRsResponse, OnException))
+            if (TryParse(Request, AddCDRsResponseXML, out _AddCDRsResponse, OnException))
                 return _AddCDRsResponse;
 
             return null;
@@ -169,20 +192,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(AddCDRsResponseText, OnException = null)
+        #region (static) Parse   (Request, AddCDRsResponseText, OnException = null)
 
         /// <summary>
-        /// Parse the given text representation of an OCHP add charge details record response.
+        /// Parse the given text representation of an OCHP add charge details records response.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="AddCDRsResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static AddCDRsResponse Parse(String               AddCDRsResponseText,
+        public static AddCDRsResponse Parse(AddCDRsRequest       Request,
+                                            String               AddCDRsResponseText,
                                             OnExceptionDelegate  OnException = null)
         {
 
             AddCDRsResponse _AddCDRsResponse;
 
-            if (TryParse(AddCDRsResponseText, out _AddCDRsResponse, OnException))
+            if (TryParse(Request, AddCDRsResponseText, out _AddCDRsResponse, OnException))
                 return _AddCDRsResponse;
 
             return null;
@@ -191,15 +216,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(AddCDRsResponseXML,  out AddCDRsResponse, OnException = null)
+        #region (static) TryParse(Request, AddCDRsResponseXML,  out AddCDRsResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given XML representation of an OCHP add charge details record response.
+        /// Try to parse the given XML representation of an OCHP add charge details records response.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="AddCDRsResponseXML">The XML to parse.</param>
-        /// <param name="AddCDRsResponse">The parsed add charge details record response.</param>
+        /// <param name="AddCDRsResponse">The parsed add charge details records response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement             AddCDRsResponseXML,
+        public static Boolean TryParse(AddCDRsRequest       Request,
+                                       XElement             AddCDRsResponseXML,
                                        out AddCDRsResponse  AddCDRsResponse,
                                        OnExceptionDelegate  OnException  = null)
         {
@@ -208,6 +235,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 AddCDRsResponse = new AddCDRsResponse(
+
+                                      Request,
 
                                       AddCDRsResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                           Result.Parse,
@@ -236,15 +265,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(AddCDRsResponseText, out AddCDRsResponse, OnException = null)
+        #region (static) TryParse(Request, AddCDRsResponseText, out AddCDRsResponse, OnException = null)
 
         /// <summary>
-        /// Try to parse the given text representation of an OCHP add charge details record response.
+        /// Try to parse the given text representation of an OCHP add charge details records response.
         /// </summary>
+        /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="AddCDRsResponseText">The text to parse.</param>
-        /// <param name="AddCDRsResponse">The parsed add charge details record response.</param>
+        /// <param name="AddCDRsResponse">The parsed add charge details records response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String               AddCDRsResponseText,
+        public static Boolean TryParse(AddCDRsRequest       Request,
+                                       String               AddCDRsResponseText,
                                        out AddCDRsResponse  AddCDRsResponse,
                                        OnExceptionDelegate  OnException  = null)
         {
@@ -252,7 +283,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                if (TryParse(XDocument.Parse(AddCDRsResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(AddCDRsResponseText).Root,
                              out AddCDRsResponse,
                              OnException))
 
@@ -294,10 +326,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region Operator == (AddCDRsResponse1, AddCDRsResponse2)
 
         /// <summary>
-        /// Compares two add charge details record responses for equality.
+        /// Compares two add charge details records responses for equality.
         /// </summary>
-        /// <param name="AddCDRsResponse1">A add charge details record response.</param>
-        /// <param name="AddCDRsResponse2">Another add charge details record response.</param>
+        /// <param name="AddCDRsResponse1">A add charge details records response.</param>
+        /// <param name="AddCDRsResponse2">Another add charge details records response.</param>
         /// <returns>True if both match; False otherwise.</returns>
         public static Boolean operator == (AddCDRsResponse AddCDRsResponse1, AddCDRsResponse AddCDRsResponse2)
         {
@@ -319,10 +351,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region Operator != (AddCDRsResponse1, AddCDRsResponse2)
 
         /// <summary>
-        /// Compares two add charge details record responses for inequality.
+        /// Compares two add charge details records responses for inequality.
         /// </summary>
-        /// <param name="AddCDRsResponse1">A add charge details record response.</param>
-        /// <param name="AddCDRsResponse2">Another add charge details record response.</param>
+        /// <param name="AddCDRsResponse1">A add charge details records response.</param>
+        /// <param name="AddCDRsResponse2">Another add charge details records response.</param>
         /// <returns>False if both match; True otherwise.</returns>
         public static Boolean operator != (AddCDRsResponse AddCDRsResponse1, AddCDRsResponse AddCDRsResponse2)
 
@@ -347,7 +379,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (Object == null)
                 return false;
 
-            // Check if the given object is a add charge details record response.
+            // Check if the given object is a add charge details records response.
             var AddCDRsResponse = Object as AddCDRsResponse;
             if ((Object) AddCDRsResponse == null)
                 return false;
@@ -361,11 +393,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region Equals(AddCDRsResponse)
 
         /// <summary>
-        /// Compares two add charge details record responses for equality.
+        /// Compares two add charge details records responses for equality.
         /// </summary>
-        /// <param name="AddCDRsResponse">A add charge details record response to compare with.</param>
+        /// <param name="AddCDRsResponse">A add charge details records response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(AddCDRsResponse AddCDRsResponse)
+        public override Boolean Equals(AddCDRsResponse AddCDRsResponse)
         {
 
             if ((Object) AddCDRsResponse == null)

@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP get tariff updates request.
     /// </summary>
-    public class GetTariffUpdatesRequest
+    public class GetTariffUpdatesRequest : ARequest<GetTariffUpdatesRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An optional timestamp of the last tariff update.
-        /// </summary>
-        public DateTime?  LastUpdate   { get; }
+    /// <summary>
+    /// An optional timestamp of the last tariff update.
+    /// </summary>
+    public DateTime?  LastUpdate   { get; }
 
         #endregion
 
@@ -299,7 +299,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetTariffUpdatesRequest">A get tariff updates request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetTariffUpdatesRequest GetTariffUpdatesRequest)
+        public override Boolean Equals(GetTariffUpdatesRequest GetTariffUpdatesRequest)
         {
 
             if ((Object) GetTariffUpdatesRequest == null)

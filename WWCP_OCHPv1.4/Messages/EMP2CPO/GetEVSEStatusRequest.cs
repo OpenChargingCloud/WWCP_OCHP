@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect get EVSE status request.
     /// </summary>
-    public class GetEVSEStatusRequest
+    public class GetEVSEStatusRequest : ARequest<GetEVSEStatusRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An enumeration of EVSE identifications.
-        /// </summary>
-        public IEnumerable<EVSE_Id>  EVSEIds   { get; }
+    /// <summary>
+    /// An enumeration of EVSE identifications.
+    /// </summary>
+    public IEnumerable<EVSE_Id>  EVSEIds   { get; }
 
         #endregion
 
@@ -296,7 +296,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetEVSEStatusRequest">A direct EVSE status request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetEVSEStatusRequest GetEVSEStatusRequest)
+        public override Boolean Equals(GetEVSEStatusRequest GetEVSEStatusRequest)
         {
 
             if ((Object) GetEVSEStatusRequest == null)

@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP get single roaming authorisation response.
     /// </summary>
-    public class GetSingleRoamingAuthorisationResponse : AResponse
+    public class GetSingleRoamingAuthorisationResponse : AResponse<GetSingleRoamingAuthorisationRequest,
+                                                                   GetSingleRoamingAuthorisationResponse>
     {
 
         #region Properties
@@ -49,55 +50,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetSingleRoamingAuthorisationResponse OK(String Description = null)
+        public static GetSingleRoamingAuthorisationResponse OK(GetSingleRoamingAuthorisationRequest  Request,
+                                                               String                                Description = null)
 
-            => new GetSingleRoamingAuthorisationResponse(Result.OK(Description));
+            => new GetSingleRoamingAuthorisationResponse(Request,
+                                                         Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetSingleRoamingAuthorisationResponse Partly(String Description = null)
+        public static GetSingleRoamingAuthorisationResponse Partly(GetSingleRoamingAuthorisationRequest  Request,
+                                                                   String                                Description = null)
 
-            => new GetSingleRoamingAuthorisationResponse(Result.Unknown(Description));
+            => new GetSingleRoamingAuthorisationResponse(Request,
+                                                         Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetSingleRoamingAuthorisationResponse NotAuthorized(String Description = null)
+        public static GetSingleRoamingAuthorisationResponse NotAuthorized(GetSingleRoamingAuthorisationRequest  Request,
+                                                                          String                                Description = null)
 
-            => new GetSingleRoamingAuthorisationResponse(Result.Unknown(Description));
+            => new GetSingleRoamingAuthorisationResponse(Request,
+                                                         Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetSingleRoamingAuthorisationResponse InvalidId(String Description = null)
+        public static GetSingleRoamingAuthorisationResponse InvalidId(GetSingleRoamingAuthorisationRequest  Request,
+                                                                      String                                Description = null)
 
-            => new GetSingleRoamingAuthorisationResponse(Result.Unknown(Description));
+            => new GetSingleRoamingAuthorisationResponse(Request,
+                                                         Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetSingleRoamingAuthorisationResponse Server(String Description = null)
+        public static GetSingleRoamingAuthorisationResponse Server(GetSingleRoamingAuthorisationRequest  Request,
+                                                                   String                                Description = null)
 
-            => new GetSingleRoamingAuthorisationResponse(Result.Unknown(Description));
+            => new GetSingleRoamingAuthorisationResponse(Request,
+                                                         Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetSingleRoamingAuthorisationResponse Format(String Description = null)
+        public static GetSingleRoamingAuthorisationResponse Format(GetSingleRoamingAuthorisationRequest  Request,
+                                                                   String                                Description = null)
 
-            => new GetSingleRoamingAuthorisationResponse(Result.Unknown(Description));
+            => new GetSingleRoamingAuthorisationResponse(Request,
+                                                         Result.Format(Description));
 
         #endregion
 
@@ -106,12 +125,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP get single roaming authorisation response.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="RoamingAuthorisationInfo">The authorisation card info.</param>
-        public GetSingleRoamingAuthorisationResponse(Result                    Result,
-                                                     RoamingAuthorisationInfo  RoamingAuthorisationInfo = null)
+        public GetSingleRoamingAuthorisationResponse(GetSingleRoamingAuthorisationRequest  Request,
+                                                     Result                                Result,
+                                                     RoamingAuthorisationInfo              RoamingAuthorisationInfo = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -152,20 +173,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(GetSingleRoamingAuthorisationResponseXML,  OnException = null)
+        #region (static) Parse   (Request, GetSingleRoamingAuthorisationResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP get single roaming authorisation response.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="GetSingleRoamingAuthorisationResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetSingleRoamingAuthorisationResponse Parse(XElement             GetSingleRoamingAuthorisationResponseXML,
-                                                                  OnExceptionDelegate  OnException = null)
+        public static GetSingleRoamingAuthorisationResponse Parse(GetSingleRoamingAuthorisationRequest  Request,
+                                                                  XElement                              GetSingleRoamingAuthorisationResponseXML,
+                                                                  OnExceptionDelegate                   OnException = null)
         {
 
             GetSingleRoamingAuthorisationResponse _GetSingleRoamingAuthorisationResponse;
 
-            if (TryParse(GetSingleRoamingAuthorisationResponseXML, out _GetSingleRoamingAuthorisationResponse, OnException))
+            if (TryParse(Request, GetSingleRoamingAuthorisationResponseXML, out _GetSingleRoamingAuthorisationResponse, OnException))
                 return _GetSingleRoamingAuthorisationResponse;
 
             return null;
@@ -174,20 +197,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(GetSingleRoamingAuthorisationResponseText, OnException = null)
+        #region (static) Parse   (Request, GetSingleRoamingAuthorisationResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP get single roaming authorisation response.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="GetSingleRoamingAuthorisationResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetSingleRoamingAuthorisationResponse Parse(String               GetSingleRoamingAuthorisationResponseText,
-                                                                  OnExceptionDelegate  OnException = null)
+        public static GetSingleRoamingAuthorisationResponse Parse(GetSingleRoamingAuthorisationRequest  Request,
+                                                                  String                                GetSingleRoamingAuthorisationResponseText,
+                                                                  OnExceptionDelegate                   OnException = null)
         {
 
             GetSingleRoamingAuthorisationResponse _GetSingleRoamingAuthorisationResponse;
 
-            if (TryParse(GetSingleRoamingAuthorisationResponseText, out _GetSingleRoamingAuthorisationResponse, OnException))
+            if (TryParse(Request, GetSingleRoamingAuthorisationResponseText, out _GetSingleRoamingAuthorisationResponse, OnException))
                 return _GetSingleRoamingAuthorisationResponse;
 
             return null;
@@ -196,15 +221,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(GetSingleRoamingAuthorisationResponseXML,  out GetSingleRoamingAuthorisationResponse, OnException = null)
+        #region (static) TryParse(Request, GetSingleRoamingAuthorisationResponseXML,  out GetSingleRoamingAuthorisationResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP get single roaming authorisation response.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="GetSingleRoamingAuthorisationResponseXML">The XML to parse.</param>
         /// <param name="GetSingleRoamingAuthorisationResponse">The parsed get single roaming authorisation response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                                   GetSingleRoamingAuthorisationResponseXML,
+        public static Boolean TryParse(GetSingleRoamingAuthorisationRequest       Request,
+                                       XElement                                   GetSingleRoamingAuthorisationResponseXML,
                                        out GetSingleRoamingAuthorisationResponse  GetSingleRoamingAuthorisationResponse,
                                        OnExceptionDelegate                        OnException  = null)
         {
@@ -213,6 +240,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 GetSingleRoamingAuthorisationResponse = new GetSingleRoamingAuthorisationResponse(
+
+                                                            Request,
 
                                                             GetSingleRoamingAuthorisationResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                                                                       Result.Parse,
@@ -241,15 +270,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(GetSingleRoamingAuthorisationResponseText, out GetSingleRoamingAuthorisationResponse, OnException = null)
+        #region (static) TryParse(Request, GetSingleRoamingAuthorisationResponseText, out GetSingleRoamingAuthorisationResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP get single roaming authorisation response.
         /// </summary>
+        /// <param name="Request">The get single roaming authorisation request leading to this response.</param>
         /// <param name="GetSingleRoamingAuthorisationResponseText">The text to parse.</param>
         /// <param name="GetSingleRoamingAuthorisationResponse">The parsed get single roaming authorisation response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                                     GetSingleRoamingAuthorisationResponseText,
+        public static Boolean TryParse(GetSingleRoamingAuthorisationRequest       Request,
+                                       String                                     GetSingleRoamingAuthorisationResponseText,
                                        out GetSingleRoamingAuthorisationResponse  GetSingleRoamingAuthorisationResponse,
                                        OnExceptionDelegate                        OnException  = null)
         {
@@ -257,7 +288,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                if (TryParse(XDocument.Parse(GetSingleRoamingAuthorisationResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(GetSingleRoamingAuthorisationResponseText).Root,
                              out GetSingleRoamingAuthorisationResponse,
                              OnException))
 
@@ -370,7 +402,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetSingleRoamingAuthorisationResponse">A get single roaming authorisation response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetSingleRoamingAuthorisationResponse GetSingleRoamingAuthorisationResponse)
+        public override Boolean Equals(GetSingleRoamingAuthorisationResponse GetSingleRoamingAuthorisationResponse)
         {
 
             if ((Object) GetSingleRoamingAuthorisationResponse == null)

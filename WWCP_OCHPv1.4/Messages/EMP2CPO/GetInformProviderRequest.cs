@@ -30,15 +30,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect get inform provider request.
     /// </summary>
-    public class GetInformProviderRequest
+    public class GetInformProviderRequest : ARequest<GetInformProviderRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The session identification referencing a direct charging process.
-        /// </summary>
-        public Direct_Id  DirectId   { get; }
+    /// <summary>
+    /// The session identification referencing a direct charging process.
+    /// </summary>
+    public Direct_Id  DirectId   { get; }
 
         #endregion
 
@@ -293,7 +293,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetInformProviderRequest">A get inform provider request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetInformProviderRequest GetInformProviderRequest)
+        public override Boolean Equals(GetInformProviderRequest GetInformProviderRequest)
         {
 
             if ((Object) GetInformProviderRequest == null)

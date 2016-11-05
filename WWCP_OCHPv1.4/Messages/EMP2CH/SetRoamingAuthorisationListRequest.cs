@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP set roaming authorisation list request.
     /// </summary>
-    public class SetRoamingAuthorisationListRequest
+    public class SetRoamingAuthorisationListRequest : ARequest<SetRoamingAuthorisationListRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An enumeration of roaming authorisation infos.
-        /// </summary>
-        public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
+    /// <summary>
+    /// An enumeration of roaming authorisation infos.
+    /// </summary>
+    public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
 
         #endregion
 
@@ -300,7 +300,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="SetRoamingAuthorisationListRequest">A set roaming authorisation list request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(SetRoamingAuthorisationListRequest SetRoamingAuthorisationListRequest)
+        public override Boolean Equals(SetRoamingAuthorisationListRequest SetRoamingAuthorisationListRequest)
         {
 
             if ((Object) SetRoamingAuthorisationListRequest == null)

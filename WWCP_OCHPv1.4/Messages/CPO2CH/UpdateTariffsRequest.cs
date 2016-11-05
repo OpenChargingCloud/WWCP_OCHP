@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP update tariffs request.
     /// </summary>
-    public class UpdateTariffsRequest
+    public class UpdateTariffsRequest : ARequest<UpdateTariffsRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An enumeration of tariff infos.
-        /// </summary>
-        public IEnumerable<TariffInfo>  TariffInfos   { get; }
+    /// <summary>
+    /// An enumeration of tariff infos.
+    /// </summary>
+    public IEnumerable<TariffInfo>  TariffInfos   { get; }
 
         #endregion
 
@@ -351,7 +351,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="UpdateTariffsRequest">A update tariffs request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(UpdateTariffsRequest UpdateTariffsRequest)
+        public override Boolean Equals(UpdateTariffsRequest UpdateTariffsRequest)
         {
 
             if ((Object) UpdateTariffsRequest == null)

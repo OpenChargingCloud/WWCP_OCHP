@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP get roaming authorisation list updates request.
     /// </summary>
-    public class GetRoamingAuthorisationListUpdatesRequest
+    public class GetRoamingAuthorisationListUpdatesRequest : ARequest<GetRoamingAuthorisationListUpdatesRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The timestamp of the last roaming authorisation list update.
-        /// </summary>
-        public DateTime  LastUpdate   { get; }
+    /// <summary>
+    /// The timestamp of the last roaming authorisation list update.
+    /// </summary>
+    public DateTime  LastUpdate   { get; }
 
         #endregion
 
@@ -291,7 +291,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetRoamingAuthorisationListUpdatesRequest">A get roaming authorisation list updates request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetRoamingAuthorisationListUpdatesRequest GetRoamingAuthorisationListUpdatesRequest)
+        public override Boolean Equals(GetRoamingAuthorisationListUpdatesRequest GetRoamingAuthorisationListUpdatesRequest)
         {
 
             if ((Object) GetRoamingAuthorisationListUpdatesRequest == null)

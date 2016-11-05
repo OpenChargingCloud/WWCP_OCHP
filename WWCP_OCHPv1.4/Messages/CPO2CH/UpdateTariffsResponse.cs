@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP update tariffs response.
     /// </summary>
-    public class UpdateTariffsResponse : AResponse
+    public class UpdateTariffsResponse : AResponse<UpdateTariffsRequest,
+                                                   UpdateTariffsResponse>
     {
 
         #region Properties
@@ -49,55 +50,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateTariffsResponse OK(String Description = null)
+        public static UpdateTariffsResponse OK(UpdateTariffsRequest  Request,
+                                               String                Description = null)
 
-            => new UpdateTariffsResponse(Result.OK(Description));
+            => new UpdateTariffsResponse(Request,
+                                         Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateTariffsResponse Partly(String Description = null)
+        public static UpdateTariffsResponse Partly(UpdateTariffsRequest  Request,
+                                                   String                Description = null)
 
-            => new UpdateTariffsResponse(Result.Unknown(Description));
+            => new UpdateTariffsResponse(Request,
+                                         Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateTariffsResponse NotAuthorized(String Description = null)
+        public static UpdateTariffsResponse NotAuthorized(UpdateTariffsRequest  Request,
+                                                          String                Description = null)
 
-            => new UpdateTariffsResponse(Result.Unknown(Description));
+            => new UpdateTariffsResponse(Request,
+                                         Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateTariffsResponse InvalidId(String Description = null)
+        public static UpdateTariffsResponse InvalidId(UpdateTariffsRequest  Request,
+                                                      String                Description = null)
 
-            => new UpdateTariffsResponse(Result.Unknown(Description));
+            => new UpdateTariffsResponse(Request,
+                                         Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateTariffsResponse Server(String Description = null)
+        public static UpdateTariffsResponse Server(UpdateTariffsRequest  Request,
+                                                   String                Description = null)
 
-            => new UpdateTariffsResponse(Result.Unknown(Description));
+            => new UpdateTariffsResponse(Request,
+                                         Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateTariffsResponse Format(String Description = null)
+        public static UpdateTariffsResponse Format(UpdateTariffsRequest  Request,
+                                                   String                Description = null)
 
-            => new UpdateTariffsResponse(Result.Unknown(Description));
+            => new UpdateTariffsResponse(Request,
+                                         Result.Format(Description));
 
         #endregion
 
@@ -106,12 +125,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP update tariffs response.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="RefusedTariffInfos">An enumeration of refused tariff infos.</param>
-        public UpdateTariffsResponse(Result                   Result,
+        public UpdateTariffsResponse(UpdateTariffsRequest     Request,
+                                     Result                   Result,
                                      IEnumerable<TariffInfo>  RefusedTariffInfos = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -149,20 +170,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(UpdateTariffsResponseXML,  OnException = null)
+        #region (static) Parse   (Request, UpdateTariffsResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP update tariffs response.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="UpdateTariffsResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static UpdateTariffsResponse Parse(XElement             UpdateTariffsResponseXML,
-                                                  OnExceptionDelegate  OnException = null)
+        public static UpdateTariffsResponse Parse(UpdateTariffsRequest  Request,
+                                                  XElement              UpdateTariffsResponseXML,
+                                                  OnExceptionDelegate   OnException = null)
         {
 
             UpdateTariffsResponse _UpdateTariffsResponse;
 
-            if (TryParse(UpdateTariffsResponseXML, out _UpdateTariffsResponse, OnException))
+            if (TryParse(Request, UpdateTariffsResponseXML, out _UpdateTariffsResponse, OnException))
                 return _UpdateTariffsResponse;
 
             return null;
@@ -171,20 +194,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(UpdateTariffsResponseText, OnException = null)
+        #region (static) Parse   (Request, UpdateTariffsResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP update tariffs response.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="UpdateTariffsResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static UpdateTariffsResponse Parse(String               UpdateTariffsResponseText,
-                                                  OnExceptionDelegate  OnException = null)
+        public static UpdateTariffsResponse Parse(UpdateTariffsRequest  Request,
+                                                  String                UpdateTariffsResponseText,
+                                                  OnExceptionDelegate   OnException = null)
         {
 
             UpdateTariffsResponse _UpdateTariffsResponse;
 
-            if (TryParse(UpdateTariffsResponseText, out _UpdateTariffsResponse, OnException))
+            if (TryParse(Request, UpdateTariffsResponseText, out _UpdateTariffsResponse, OnException))
                 return _UpdateTariffsResponse;
 
             return null;
@@ -193,15 +218,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(UpdateTariffsResponseXML,  out UpdateTariffsResponse, OnException = null)
+        #region (static) TryParse(Request, UpdateTariffsResponseXML,  out UpdateTariffsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP update tariffs response.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="UpdateTariffsResponseXML">The XML to parse.</param>
         /// <param name="UpdateTariffsResponse">The parsed update tariffs response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                   UpdateTariffsResponseXML,
+        public static Boolean TryParse(UpdateTariffsRequest       Request,
+                                       XElement                   UpdateTariffsResponseXML,
                                        out UpdateTariffsResponse  UpdateTariffsResponse,
                                        OnExceptionDelegate        OnException  = null)
         {
@@ -210,6 +237,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 UpdateTariffsResponse = new UpdateTariffsResponse(
+
+                                            Request,
 
                                             UpdateTariffsResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                                       Result.Parse,
@@ -238,15 +267,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(UpdateTariffsResponseText, out UpdateTariffsResponse, OnException = null)
+        #region (static) TryParse(Request, UpdateTariffsResponseText, out UpdateTariffsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP update tariffs response.
         /// </summary>
+        /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="UpdateTariffsResponseText">The text to parse.</param>
         /// <param name="UpdateTariffsResponse">The parsed update tariffs response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                     UpdateTariffsResponseText,
+        public static Boolean TryParse(UpdateTariffsRequest       Request,
+                                       String                     UpdateTariffsResponseText,
                                        out UpdateTariffsResponse  UpdateTariffsResponse,
                                        OnExceptionDelegate        OnException  = null)
         {
@@ -254,7 +285,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                if (TryParse(XDocument.Parse(UpdateTariffsResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(UpdateTariffsResponseText).Root,
                              out UpdateTariffsResponse,
                              OnException))
 
@@ -367,7 +399,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="UpdateTariffsResponse">An update tariffs response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(UpdateTariffsResponse UpdateTariffsResponse)
+        public override Boolean Equals(UpdateTariffsResponse UpdateTariffsResponse)
         {
 
             if ((Object) UpdateTariffsResponse == null)

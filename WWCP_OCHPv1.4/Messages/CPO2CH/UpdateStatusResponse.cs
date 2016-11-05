@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP update status response.
     /// </summary>
-    public class UpdateStatusResponse : AResponse
+    public class UpdateStatusResponse : AResponse<UpdateStatusRequest,
+                                                  UpdateStatusResponse>
     {
 
         #region Statics
@@ -40,55 +41,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateStatusResponse OK(String Description = null)
+        public static UpdateStatusResponse OK(UpdateStatusRequest  Request,
+                                              String               Description = null)
 
-            => new UpdateStatusResponse(Result.OK(Description));
+            => new UpdateStatusResponse(Request,
+                                        Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateStatusResponse Partly(String Description = null)
+        public static UpdateStatusResponse Partly(UpdateStatusRequest  Request,
+                                                  String               Description = null)
 
-            => new UpdateStatusResponse(Result.Unknown(Description));
+            => new UpdateStatusResponse(Request,
+                                        Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateStatusResponse NotAuthorized(String Description = null)
+        public static UpdateStatusResponse NotAuthorized(UpdateStatusRequest  Request,
+                                                         String               Description = null)
 
-            => new UpdateStatusResponse(Result.Unknown(Description));
+            => new UpdateStatusResponse(Request,
+                                        Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateStatusResponse InvalidId(String Description = null)
+        public static UpdateStatusResponse InvalidId(UpdateStatusRequest  Request,
+                                                     String               Description = null)
 
-            => new UpdateStatusResponse(Result.Unknown(Description));
+            => new UpdateStatusResponse(Request,
+                                        Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateStatusResponse Server(String Description = null)
+        public static UpdateStatusResponse Server(UpdateStatusRequest  Request,
+                                                  String               Description = null)
 
-            => new UpdateStatusResponse(Result.Unknown(Description));
+            => new UpdateStatusResponse(Request,
+                                        Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static UpdateStatusResponse Format(String Description = null)
+        public static UpdateStatusResponse Format(UpdateStatusRequest  Request,
+                                                  String               Description = null)
 
-            => new UpdateStatusResponse(Result.Unknown(Description));
+            => new UpdateStatusResponse(Request,
+                                        Result.Format(Description));
 
         #endregion
 
@@ -97,9 +116,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP update status response.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
-        public UpdateStatusResponse(Result  Result)
-            : base(Result)
+        public UpdateStatusResponse(UpdateStatusRequest  Request,
+                                    Result               Result)
+
+            : base(Request, Result)
+
         { }
 
         #endregion
@@ -127,20 +150,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(UpdateStatusResponseXML,  OnException = null)
+        #region (static) Parse   (Request, UpdateStatusResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP update status response.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="UpdateStatusResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static UpdateStatusResponse Parse(XElement             UpdateStatusResponseXML,
+        public static UpdateStatusResponse Parse(UpdateStatusRequest  Request,
+                                                 XElement             UpdateStatusResponseXML,
                                                  OnExceptionDelegate  OnException = null)
         {
 
             UpdateStatusResponse _UpdateStatusResponse;
 
-            if (TryParse(UpdateStatusResponseXML, out _UpdateStatusResponse, OnException))
+            if (TryParse(Request, UpdateStatusResponseXML, out _UpdateStatusResponse, OnException))
                 return _UpdateStatusResponse;
 
             return null;
@@ -149,20 +174,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(UpdateStatusResponseText, OnException = null)
+        #region (static) Parse   (Request, UpdateStatusResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP update status response.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="UpdateStatusResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static UpdateStatusResponse Parse(String               UpdateStatusResponseText,
+        public static UpdateStatusResponse Parse(UpdateStatusRequest  Request,
+                                                 String               UpdateStatusResponseText,
                                                  OnExceptionDelegate  OnException = null)
         {
 
             UpdateStatusResponse _UpdateStatusResponse;
 
-            if (TryParse(UpdateStatusResponseText, out _UpdateStatusResponse, OnException))
+            if (TryParse(Request, UpdateStatusResponseText, out _UpdateStatusResponse, OnException))
                 return _UpdateStatusResponse;
 
             return null;
@@ -171,15 +198,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(UpdateStatusResponseXML,  out UpdateStatusResponse, OnException = null)
+        #region (static) TryParse(Request, UpdateStatusResponseXML,  out UpdateStatusResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP update status response.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="UpdateStatusResponseXML">The XML to parse.</param>
         /// <param name="UpdateStatusResponse">The parsed update status response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                  UpdateStatusResponseXML,
+        public static Boolean TryParse(UpdateStatusRequest       Request,
+                                       XElement                  UpdateStatusResponseXML,
                                        out UpdateStatusResponse  UpdateStatusResponse,
                                        OnExceptionDelegate       OnException  = null)
         {
@@ -188,6 +217,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 UpdateStatusResponse = new UpdateStatusResponse(
+
+                                           Request,
 
                                            UpdateStatusResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                                     Result.Parse,
@@ -212,15 +243,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(UpdateStatusResponseText, out UpdateStatusResponse, OnException = null)
+        #region (static) TryParse(Request, UpdateStatusResponseText, out UpdateStatusResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP update status response.
         /// </summary>
+        /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="UpdateStatusResponseText">The text to parse.</param>
         /// <param name="UpdateStatusResponse">The parsed update status response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                    UpdateStatusResponseText,
+        public static Boolean TryParse(UpdateStatusRequest       Request,
+                                       String                    UpdateStatusResponseText,
                                        out UpdateStatusResponse  UpdateStatusResponse,
                                        OnExceptionDelegate       OnException  = null)
         {
@@ -228,7 +261,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                if (TryParse(XDocument.Parse(UpdateStatusResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(UpdateStatusResponseText).Root,
                              out UpdateStatusResponse,
                              OnException))
 
@@ -337,7 +371,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="UpdateStatusResponse">An update status response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(UpdateStatusResponse UpdateStatusResponse)
+        public override Boolean Equals(UpdateStatusResponse UpdateStatusResponse)
         {
 
             if ((Object) UpdateStatusResponse == null)

@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP get charge details record response.
     /// </summary>
-    public class GetCDRsResponse : AResponse
+    public class GetCDRsResponse : AResponse<GetCDRsRequest,
+                                             GetCDRsResponse>
     {
 
         #region Properties
@@ -49,55 +50,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetCDRsResponse OK(String Description = null)
+        public static GetCDRsResponse OK(GetCDRsRequest  Request,
+                                         String          Description = null)
 
-            => new GetCDRsResponse(Result.OK(Description));
+            => new GetCDRsResponse(Request,
+                                   Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetCDRsResponse Partly(String Description = null)
+        public static GetCDRsResponse Partly(GetCDRsRequest  Request,
+                                             String          Description = null)
 
-            => new GetCDRsResponse(Result.Unknown(Description));
+            => new GetCDRsResponse(Request,
+                                   Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetCDRsResponse NotAuthorized(String Description = null)
+        public static GetCDRsResponse NotAuthorized(GetCDRsRequest  Request,
+                                                    String          Description = null)
 
-            => new GetCDRsResponse(Result.Unknown(Description));
+            => new GetCDRsResponse(Request,
+                                   Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetCDRsResponse InvalidId(String Description = null)
+        public static GetCDRsResponse InvalidId(GetCDRsRequest  Request,
+                                                String          Description = null)
 
-            => new GetCDRsResponse(Result.Unknown(Description));
+            => new GetCDRsResponse(Request,
+                                   Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetCDRsResponse Server(String Description = null)
+        public static GetCDRsResponse Server(GetCDRsRequest  Request,
+                                             String          Description = null)
 
-            => new GetCDRsResponse(Result.Unknown(Description));
+            => new GetCDRsResponse(Request,
+                                   Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetCDRsResponse Format(String Description = null)
+        public static GetCDRsResponse Format(GetCDRsRequest  Request,
+                                             String          Description = null)
 
-            => new GetCDRsResponse(Result.Unknown(Description));
+            => new GetCDRsResponse(Request,
+                                   Result.Format(Description));
 
         #endregion
 
@@ -106,12 +125,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP get charge details record response.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="ChargeDetailRecords">An enumeration of charge detail records.</param>
-        public GetCDRsResponse(Result                Result,
+        public GetCDRsResponse(GetCDRsRequest        Request,
+                               Result                Result,
                                IEnumerable<CDRInfo>  ChargeDetailRecords = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -147,20 +168,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetCDRsResponseXML,  OnException = null)
+        #region (static) Parse   (Request, GetCDRsResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP get charge details record response.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="GetCDRsResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetCDRsResponse Parse(XElement             GetCDRsResponseXML,
+        public static GetCDRsResponse Parse(GetCDRsRequest       Request,
+                                            XElement             GetCDRsResponseXML,
                                             OnExceptionDelegate  OnException = null)
         {
 
             GetCDRsResponse _GetCDRsResponse;
 
-            if (TryParse(GetCDRsResponseXML, out _GetCDRsResponse, OnException))
+            if (TryParse(Request, GetCDRsResponseXML, out _GetCDRsResponse, OnException))
                 return _GetCDRsResponse;
 
             return null;
@@ -169,20 +192,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetCDRsResponseText, OnException = null)
+        #region (static) Parse   (Request, GetCDRsResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP get charge details record response.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="GetCDRsResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetCDRsResponse Parse(String               GetCDRsResponseText,
+        public static GetCDRsResponse Parse(GetCDRsRequest       Request,
+                                            String               GetCDRsResponseText,
                                             OnExceptionDelegate  OnException = null)
         {
 
             GetCDRsResponse _GetCDRsResponse;
 
-            if (TryParse(GetCDRsResponseText, out _GetCDRsResponse, OnException))
+            if (TryParse(Request, GetCDRsResponseText, out _GetCDRsResponse, OnException))
                 return _GetCDRsResponse;
 
             return null;
@@ -191,15 +216,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetCDRsResponseXML,  out GetCDRsResponse, OnException = null)
+        #region (static) TryParse(Request, GetCDRsResponseXML,  out GetCDRsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP get charge details record response.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="GetCDRsResponseXML">The XML to parse.</param>
         /// <param name="GetCDRsResponse">The parsed get charge details record response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement             GetCDRsResponseXML,
+        public static Boolean TryParse(GetCDRsRequest       Request,
+                                       XElement             GetCDRsResponseXML,
                                        out GetCDRsResponse  GetCDRsResponse,
                                        OnExceptionDelegate  OnException  = null)
         {
@@ -208,6 +235,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 GetCDRsResponse = new GetCDRsResponse(
+
+                                      Request,
 
                                       GetCDRsResponseXML.MapElementOrFail (OCHPNS.Default + "result",
                                                                            Result.Parse,
@@ -236,15 +265,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetCDRsResponseText, out GetCDRsResponse, OnException = null)
+        #region (static) TryParse(Request, GetCDRsResponseText, out GetCDRsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP get charge details record response.
         /// </summary>
+        /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="GetCDRsResponseText">The text to parse.</param>
         /// <param name="GetCDRsResponse">The parsed get charge details record response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String               GetCDRsResponseText,
+        public static Boolean TryParse(GetCDRsRequest       Request,
+                                       String               GetCDRsResponseText,
                                        out GetCDRsResponse  GetCDRsResponse,
                                        OnExceptionDelegate  OnException  = null)
         {
@@ -252,7 +283,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(GetCDRsResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(GetCDRsResponseText).Root,
                              out GetCDRsResponse,
                              OnException))
 
@@ -365,7 +397,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetCDRsResponse">A get charge details record response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetCDRsResponse GetCDRsResponse)
+        public override Boolean Equals(GetCDRsResponse GetCDRsResponse)
         {
 
             if ((Object) GetCDRsResponse == null)

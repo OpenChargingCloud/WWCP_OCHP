@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP set set roaming authorisation list response response.
     /// </summary>
-    public class SetRoamingAuthorisationListResponse : AResponse
+    public class SetRoamingAuthorisationListResponse : AResponse<SetRoamingAuthorisationListRequest,
+                                                                 SetRoamingAuthorisationListResponse>
     {
 
         #region Properties
@@ -49,55 +50,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SetRoamingAuthorisationListResponse OK(String Description = null)
+        public static SetRoamingAuthorisationListResponse OK(SetRoamingAuthorisationListRequest  Request,
+                                                             String                              Description = null)
 
-            => new SetRoamingAuthorisationListResponse(Result.OK(Description));
+            => new SetRoamingAuthorisationListResponse(Request,
+                                                       Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SetRoamingAuthorisationListResponse Partly(String Description = null)
+        public static SetRoamingAuthorisationListResponse Partly(SetRoamingAuthorisationListRequest  Request,
+                                                                 String                              Description = null)
 
-            => new SetRoamingAuthorisationListResponse(Result.Unknown(Description));
+            => new SetRoamingAuthorisationListResponse(Request,
+                                                       Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SetRoamingAuthorisationListResponse NotAuthorized(String Description = null)
+        public static SetRoamingAuthorisationListResponse NotAuthorized(SetRoamingAuthorisationListRequest  Request,
+                                                                        String                              Description = null)
 
-            => new SetRoamingAuthorisationListResponse(Result.Unknown(Description));
+            => new SetRoamingAuthorisationListResponse(Request,
+                                                       Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SetRoamingAuthorisationListResponse InvalidId(String Description = null)
+        public static SetRoamingAuthorisationListResponse InvalidId(SetRoamingAuthorisationListRequest  Request,
+                                                                    String                              Description = null)
 
-            => new SetRoamingAuthorisationListResponse(Result.Unknown(Description));
+            => new SetRoamingAuthorisationListResponse(Request,
+                                                       Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SetRoamingAuthorisationListResponse Server(String Description = null)
+        public static SetRoamingAuthorisationListResponse Server(SetRoamingAuthorisationListRequest  Request,
+                                                                 String                              Description = null)
 
-            => new SetRoamingAuthorisationListResponse(Result.Unknown(Description));
+            => new SetRoamingAuthorisationListResponse(Request,
+                                                       Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static SetRoamingAuthorisationListResponse Format(String Description = null)
+        public static SetRoamingAuthorisationListResponse Format(SetRoamingAuthorisationListRequest  Request,
+                                                                 String                              Description = null)
 
-            => new SetRoamingAuthorisationListResponse(Result.Unknown(Description));
+            => new SetRoamingAuthorisationListResponse(Request,
+                                                       Result.Format(Description));
 
         #endregion
 
@@ -106,12 +125,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP set set roaming authorisation list response response.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="RefusedRoamingAuthorisationInfos">An enumeration of authorisation card infos.</param>
-        public SetRoamingAuthorisationListResponse(Result                                 Result,
+        public SetRoamingAuthorisationListResponse(SetRoamingAuthorisationListRequest     Request,
+                                                   Result                                 Result,
                                                    IEnumerable<RoamingAuthorisationInfo>  RefusedRoamingAuthorisationInfos = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -165,20 +186,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(SetRoamingAuthorisationListResponseXML,  OnException = null)
+        #region (static) Parse   (Request, SetRoamingAuthorisationListResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP set roaming authorisation list response.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="SetRoamingAuthorisationListResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static SetRoamingAuthorisationListResponse Parse(XElement             SetRoamingAuthorisationListResponseXML,
-                                                                OnExceptionDelegate  OnException = null)
+        public static SetRoamingAuthorisationListResponse Parse(SetRoamingAuthorisationListRequest  Request,
+                                                                XElement                            SetRoamingAuthorisationListResponseXML,
+                                                                OnExceptionDelegate                 OnException = null)
         {
 
             SetRoamingAuthorisationListResponse _SetRoamingAuthorisationListResponse;
 
-            if (TryParse(SetRoamingAuthorisationListResponseXML, out _SetRoamingAuthorisationListResponse, OnException))
+            if (TryParse(Request, SetRoamingAuthorisationListResponseXML, out _SetRoamingAuthorisationListResponse, OnException))
                 return _SetRoamingAuthorisationListResponse;
 
             return null;
@@ -187,20 +210,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(SetRoamingAuthorisationListResponseText, OnException = null)
+        #region (static) Parse   (Request, SetRoamingAuthorisationListResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP set roaming authorisation list response.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="SetRoamingAuthorisationListResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static SetRoamingAuthorisationListResponse Parse(String               SetRoamingAuthorisationListResponseText,
-                                                                OnExceptionDelegate  OnException = null)
+        public static SetRoamingAuthorisationListResponse Parse(SetRoamingAuthorisationListRequest  Request,
+                                                                String                              SetRoamingAuthorisationListResponseText,
+                                                                OnExceptionDelegate                 OnException = null)
         {
 
             SetRoamingAuthorisationListResponse _SetRoamingAuthorisationListResponse;
 
-            if (TryParse(SetRoamingAuthorisationListResponseText, out _SetRoamingAuthorisationListResponse, OnException))
+            if (TryParse(Request, SetRoamingAuthorisationListResponseText, out _SetRoamingAuthorisationListResponse, OnException))
                 return _SetRoamingAuthorisationListResponse;
 
             return null;
@@ -209,15 +234,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(SetRoamingAuthorisationListResponseXML,  out SetRoamingAuthorisationListResponse, OnException = null)
+        #region (static) TryParse(Request, SetRoamingAuthorisationListResponseXML,  out SetRoamingAuthorisationListResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP set roaming authorisation list response.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="SetRoamingAuthorisationListResponseXML">The XML to parse.</param>
         /// <param name="SetRoamingAuthorisationListResponse">The parsed set roaming authorisation list response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                                 SetRoamingAuthorisationListResponseXML,
+        public static Boolean TryParse(SetRoamingAuthorisationListRequest       Request,
+                                       XElement                                 SetRoamingAuthorisationListResponseXML,
                                        out SetRoamingAuthorisationListResponse  SetRoamingAuthorisationListResponse,
                                        OnExceptionDelegate                      OnException  = null)
         {
@@ -226,6 +253,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 SetRoamingAuthorisationListResponse = new SetRoamingAuthorisationListResponse(
+
+                                                          Request,
 
                                                           SetRoamingAuthorisationListResponseXML.MapElementOrFail (OCHPNS.Default + "result",
                                                                                                                    Result.Parse,
@@ -254,15 +283,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(SetRoamingAuthorisationListResponseText, out SetRoamingAuthorisationListResponse, OnException = null)
+        #region (static) TryParse(Request, SetRoamingAuthorisationListResponseText, out SetRoamingAuthorisationListResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP set roaming authorisation list response.
         /// </summary>
+        /// <param name="Request">The set roaming authorisation list request leading to this response.</param>
         /// <param name="SetRoamingAuthorisationListResponseText">The text to parse.</param>
         /// <param name="SetRoamingAuthorisationListResponse">The parsed set roaming authorisation list response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                                   SetRoamingAuthorisationListResponseText,
+        public static Boolean TryParse(SetRoamingAuthorisationListRequest       Request,
+                                       String                                   SetRoamingAuthorisationListResponseText,
                                        out SetRoamingAuthorisationListResponse  SetRoamingAuthorisationListResponse,
                                        OnExceptionDelegate                      OnException  = null)
         {
@@ -270,7 +301,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(SetRoamingAuthorisationListResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(SetRoamingAuthorisationListResponseText).Root,
                              out SetRoamingAuthorisationListResponse,
                              OnException))
 
@@ -383,7 +415,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="SetRoamingAuthorisationListResponse">A set roaming authorisation list response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(SetRoamingAuthorisationListResponse SetRoamingAuthorisationListResponse)
+        public override Boolean Equals(SetRoamingAuthorisationListResponse SetRoamingAuthorisationListResponse)
         {
 
             if ((Object) SetRoamingAuthorisationListResponse == null)

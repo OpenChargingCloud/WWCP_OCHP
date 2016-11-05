@@ -30,15 +30,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP get status request.
     /// </summary>
-    public class GetStatusRequest
+    public class GetStatusRequest : ARequest<GetStatusRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// Only return status data newer than the given timestamp.
-        /// </summary>
-        public DateTime?     LastRequest   { get; }
+    /// <summary>
+    /// Only return status data newer than the given timestamp.
+    /// </summary>
+    public DateTime?     LastRequest   { get; }
 
         /// <summary>
         /// A status type filter.
@@ -312,7 +312,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetStatusRequest">A get status request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetStatusRequest GetStatusRequest)
+        public override Boolean Equals(GetStatusRequest GetStatusRequest)
         {
 
             if ((Object) GetStatusRequest == null)

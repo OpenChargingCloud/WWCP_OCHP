@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP confirm charge detail records request.
     /// </summary>
-    public class ConfirmCDRsRequest
+    public class ConfirmCDRsRequest : ARequest<ConfirmCDRsRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An enumeration of approved charge detail records.
-        /// </summary>
-        public IEnumerable<EVSECDRPair>  Approved   { get; }
+    /// <summary>
+    /// An enumeration of approved charge detail records.
+    /// </summary>
+    public IEnumerable<EVSECDRPair>  Approved   { get; }
 
         /// <summary>
         /// An enumeration of provider endpoints.
@@ -322,7 +322,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ConfirmCDRsRequest">A confirm charge detail records request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ConfirmCDRsRequest ConfirmCDRsRequest)
+        public override Boolean Equals(ConfirmCDRsRequest ConfirmCDRsRequest)
         {
 
             if ((Object) ConfirmCDRsRequest == null)

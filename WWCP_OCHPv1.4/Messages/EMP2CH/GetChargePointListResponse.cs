@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP get charge point list response.
     /// </summary>
-    public class GetChargePointListResponse : AResponse
+    public class GetChargePointListResponse : AResponse<GetChargePointListRequest,
+                                                        GetChargePointListResponse>
     {
 
         #region Properties
@@ -49,55 +50,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetChargePointListResponse OK(String Description = null)
+        public static GetChargePointListResponse OK(GetChargePointListRequest  Request,
+                                                    String                     Description = null)
 
-            => new GetChargePointListResponse(Result.OK(Description));
+            => new GetChargePointListResponse(Request,
+                                              Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetChargePointListResponse Partly(String Description = null)
+        public static GetChargePointListResponse Partly(GetChargePointListRequest  Request,
+                                                        String                     Description = null)
 
-            => new GetChargePointListResponse(Result.Unknown(Description));
+            => new GetChargePointListResponse(Request,
+                                              Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetChargePointListResponse NotAuthorized(String Description = null)
+        public static GetChargePointListResponse NotAuthorized(GetChargePointListRequest  Request,
+                                                               String                     Description = null)
 
-            => new GetChargePointListResponse(Result.Unknown(Description));
+            => new GetChargePointListResponse(Request,
+                                              Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetChargePointListResponse InvalidId(String Description = null)
+        public static GetChargePointListResponse InvalidId(GetChargePointListRequest  Request,
+                                                           String                     Description = null)
 
-            => new GetChargePointListResponse(Result.Unknown(Description));
+            => new GetChargePointListResponse(Request,
+                                              Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetChargePointListResponse Server(String Description = null)
+        public static GetChargePointListResponse Server(GetChargePointListRequest  Request,
+                                                        String                     Description = null)
 
-            => new GetChargePointListResponse(Result.Unknown(Description));
+            => new GetChargePointListResponse(Request,
+                                              Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetChargePointListResponse Format(String Description = null)
+        public static GetChargePointListResponse Format(GetChargePointListRequest  Request,
+                                                        String                     Description = null)
 
-            => new GetChargePointListResponse(Result.Unknown(Description));
+            => new GetChargePointListResponse(Request,
+                                              Result.Format(Description));
 
         #endregion
 
@@ -106,12 +125,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP get charge point list response.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="ChargePoints">An enumeration of charge points.</param>
-        public GetChargePointListResponse(Result                        Result,
+        public GetChargePointListResponse(GetChargePointListRequest     Request,
+                                          Result                        Result,
                                           IEnumerable<ChargePointInfo>  ChargePoints = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -152,20 +173,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetChargePointListResponseXML,  OnException = null)
+        #region (static) Parse   (Request, GetChargePointListResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP get charge point list response.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="GetChargePointListResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetChargePointListResponse Parse(XElement             GetChargePointListResponseXML,
-                                                       OnExceptionDelegate  OnException = null)
+        public static GetChargePointListResponse Parse(GetChargePointListRequest  Request,
+                                                       XElement                   GetChargePointListResponseXML,
+                                                       OnExceptionDelegate        OnException = null)
         {
 
             GetChargePointListResponse _GetChargePointListResponse;
 
-            if (TryParse(GetChargePointListResponseXML, out _GetChargePointListResponse, OnException))
+            if (TryParse(Request, GetChargePointListResponseXML, out _GetChargePointListResponse, OnException))
                 return _GetChargePointListResponse;
 
             return null;
@@ -174,20 +197,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetChargePointListResponseText, OnException = null)
+        #region (static) Parse   (Request, GetChargePointListResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP get charge point list response.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="GetChargePointListResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetChargePointListResponse Parse(String               GetChargePointListResponseText,
-                                                       OnExceptionDelegate  OnException = null)
+        public static GetChargePointListResponse Parse(GetChargePointListRequest  Request,
+                                                       String                     GetChargePointListResponseText,
+                                                       OnExceptionDelegate        OnException = null)
         {
 
             GetChargePointListResponse _GetChargePointListResponse;
 
-            if (TryParse(GetChargePointListResponseText, out _GetChargePointListResponse, OnException))
+            if (TryParse(Request, GetChargePointListResponseText, out _GetChargePointListResponse, OnException))
                 return _GetChargePointListResponse;
 
             return null;
@@ -196,15 +221,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetChargePointListResponseXML,  out GetChargePointListResponse, OnException = null)
+        #region (static) TryParse(Request, GetChargePointListResponseXML,  out GetChargePointListResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP get charge point list response.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="GetChargePointListResponseXML">The XML to parse.</param>
         /// <param name="GetChargePointListResponse">The parsed get charge point list response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                        GetChargePointListResponseXML,
+        public static Boolean TryParse(GetChargePointListRequest       Request,
+                                       XElement                        GetChargePointListResponseXML,
                                        out GetChargePointListResponse  GetChargePointListResponse,
                                        OnExceptionDelegate             OnException  = null)
         {
@@ -213,6 +240,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 GetChargePointListResponse = new GetChargePointListResponse(
+
+                                                 Request,
 
                                                  GetChargePointListResponseXML.MapElementOrFail (OCHPNS.Default + "result",
                                                                                                  Result.Parse,
@@ -241,15 +270,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetChargePointListResponseText, out GetChargePointListResponse, OnException = null)
+        #region (static) TryParse(Request, GetChargePointListResponseText, out GetChargePointListResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP get charge point list response.
         /// </summary>
+        /// <param name="Request">The get charge point list request leading to this response.</param>
         /// <param name="GetChargePointListResponseText">The text to parse.</param>
         /// <param name="GetChargePointListResponse">The parsed get charge point list response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                          GetChargePointListResponseText,
+        public static Boolean TryParse(GetChargePointListRequest       Request,
+                                       String                          GetChargePointListResponseText,
                                        out GetChargePointListResponse  GetChargePointListResponse,
                                        OnExceptionDelegate             OnException  = null)
         {
@@ -257,7 +288,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(GetChargePointListResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(GetChargePointListResponseText).Root,
                              out GetChargePointListResponse,
                              OnException))
 
@@ -370,7 +402,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetChargePointListResponse">A get charge point list response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetChargePointListResponse GetChargePointListResponse)
+        public override Boolean Equals(GetChargePointListResponse GetChargePointListResponse)
         {
 
             if ((Object) GetChargePointListResponse == null)

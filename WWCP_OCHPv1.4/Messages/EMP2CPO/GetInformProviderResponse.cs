@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect get inform provider response.
     /// </summary>
-    public class GetInformProviderResponse : AResponse
+    public class GetInformProviderResponse : AResponse<GetInformProviderRequest,
+                                                       GetInformProviderResponse>
     {
 
         #region Properties
@@ -134,67 +135,90 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetInformProviderResponse OK(String Description = null)
+        public static GetInformProviderResponse OK(GetInformProviderRequest  Request,
+                                                   String                    Description = null)
 
-            => new GetInformProviderResponse(Result.OK(Description));
+            => new GetInformProviderResponse(Request,
+                                             Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetInformProviderResponse Partly(String Description = null)
+        public static GetInformProviderResponse Partly(GetInformProviderRequest  Request,
+                                                       String                    Description = null)
 
-            => new GetInformProviderResponse(Result.Partly(Description));
+            => new GetInformProviderResponse(Request,
+                                             Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetInformProviderResponse NotAuthorized(String Description = null)
+        public static GetInformProviderResponse NotAuthorized(GetInformProviderRequest  Request,
+                                                              String                    Description = null)
 
-            => new GetInformProviderResponse(Result.NotAuthorized(Description));
+            => new GetInformProviderResponse(Request,
+                                             Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetInformProviderResponse InvalidId(String Description = null)
+        public static GetInformProviderResponse InvalidId(GetInformProviderRequest  Request,
+                                                          String                    Description = null)
 
-            => new GetInformProviderResponse(Result.InvalidId(Description));
+            => new GetInformProviderResponse(Request,
+                                             Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetInformProviderResponse Server(String Description = null)
+        public static GetInformProviderResponse Server(GetInformProviderRequest  Request,
+                                                       String                    Description = null)
 
-            => new GetInformProviderResponse(Result.Server(Description));
+            => new GetInformProviderResponse(Request,
+                                             Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetInformProviderResponse Format(String Description = null)
+        public static GetInformProviderResponse Format(GetInformProviderRequest  Request,
+                                                       String                    Description = null)
 
-            => new GetInformProviderResponse(Result.Format(Description));
+            => new GetInformProviderResponse(Request,
+                                             Result.Format(Description));
 
         #endregion
 
         #region Constructor(s)
 
-        private GetInformProviderResponse(Result Result)
-            : base(Result)
+        private GetInformProviderResponse(GetInformProviderRequest  Request,
+                                          Result                    Result)
+
+            : base(Request, Result)
+
         { }
 
         /// <summary>
         /// Create a new OCHPdirect get inform provider response.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
+        /// 
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="DirectMessage">The operation that triggered the operator to send this message.</param>
         /// <param name="EVSEId">The uqniue EVSE identification of the charge point which is used for this charging process.</param>
@@ -215,28 +239,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="ChargingPeriods">Can be used to transfer billing information to the provider in near real time.</param>
         /// <param name="CurrentCost">The total cost of the charging process that will be billed by the operator up to this point.</param>
         /// <param name="Currency">The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.</param>
-        public GetInformProviderResponse(Result                  Result,
-                                         DirectMessages          DirectMessage,
-                                         EVSE_Id                 EVSEId,
-                                         Contract_Id             ContractId,
-                                         Direct_Id               DirectId,
+        public GetInformProviderResponse(GetInformProviderRequest  Request,
 
-                                         DateTime?               SessionTimeoutAt  = null,
-                                         Single?                 StateOfCharge     = null,
-                                         Single?                 MaxPower          = null,
-                                         Single?                 MaxCurrent        = null,
-                                         Boolean?                OnePhase          = null,
-                                         Single?                 MaxEnergy         = null,
-                                         Single?                 MinEnergy         = null,
-                                         DateTime?               Departure         = null,
-                                         Single?                 CurrentPower      = null,
-                                         Single?                 ChargedEnergy     = null,
-                                         Timestamped<Single>?    MeterReading      = null,
-                                         IEnumerable<CDRPeriod>  ChargingPeriods   = null,
-                                         Single?                 CurrentCost       = null,
-                                         Currency                Currency          = null)
+                                         Result                    Result,
+                                         DirectMessages            DirectMessage,
+                                         EVSE_Id                   EVSEId,
+                                         Contract_Id               ContractId,
+                                         Direct_Id                 DirectId,
 
-            : base(Result)
+                                         DateTime?                 SessionTimeoutAt  = null,
+                                         Single?                   StateOfCharge     = null,
+                                         Single?                   MaxPower          = null,
+                                         Single?                   MaxCurrent        = null,
+                                         Boolean?                  OnePhase          = null,
+                                         Single?                   MaxEnergy         = null,
+                                         Single?                   MinEnergy         = null,
+                                         DateTime?                 Departure         = null,
+                                         Single?                   CurrentPower      = null,
+                                         Single?                   ChargedEnergy     = null,
+                                         Timestamped<Single>?      MeterReading      = null,
+                                         IEnumerable<CDRPeriod>    ChargingPeriods   = null,
+                                         Single?                   CurrentCost       = null,
+                                         Currency                  Currency          = null)
+
+            : base(Request, Result)
 
         {
 
@@ -382,20 +408,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetInformProviderResponseXML,  OnException = null)
+        #region (static) Parse   (Request, GetInformProviderResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHPdirect get inform provider response.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="GetInformProviderResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetInformProviderResponse Parse(XElement             GetInformProviderResponseXML,
-                                                      OnExceptionDelegate  OnException = null)
+        public static GetInformProviderResponse Parse(GetInformProviderRequest  Request,
+                                                      XElement                  GetInformProviderResponseXML,
+                                                      OnExceptionDelegate       OnException = null)
         {
 
             GetInformProviderResponse _GetInformProviderResponse;
 
-            if (TryParse(GetInformProviderResponseXML, out _GetInformProviderResponse, OnException))
+            if (TryParse(Request, GetInformProviderResponseXML, out _GetInformProviderResponse, OnException))
                 return _GetInformProviderResponse;
 
             return null;
@@ -404,20 +432,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetInformProviderResponseText, OnException = null)
+        #region (static) Parse   (Request, GetInformProviderResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHPdirect get inform provider response.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="GetInformProviderResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetInformProviderResponse Parse(String               GetInformProviderResponseText,
-                                                      OnExceptionDelegate  OnException = null)
+        public static GetInformProviderResponse Parse(GetInformProviderRequest  Request,
+                                                      String                    GetInformProviderResponseText,
+                                                      OnExceptionDelegate       OnException = null)
         {
 
             GetInformProviderResponse _GetInformProviderResponse;
 
-            if (TryParse(GetInformProviderResponseText, out _GetInformProviderResponse, OnException))
+            if (TryParse(Request, GetInformProviderResponseText, out _GetInformProviderResponse, OnException))
                 return _GetInformProviderResponse;
 
             return null;
@@ -426,15 +456,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetInformProviderResponseXML,  out GetInformProviderResponse, OnException = null)
+        #region (static) TryParse(Request, GetInformProviderResponseXML,  out GetInformProviderResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHPdirect get inform provider response.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="GetInformProviderResponseXML">The XML to parse.</param>
         /// <param name="GetInformProviderResponse">The parsed get inform provider response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                       GetInformProviderResponseXML,
+        public static Boolean TryParse(GetInformProviderRequest       Request,
+                                       XElement                       GetInformProviderResponseXML,
                                        out GetInformProviderResponse  GetInformProviderResponse,
                                        OnExceptionDelegate            OnException  = null)
         {
@@ -443,6 +475,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 GetInformProviderResponse = new GetInformProviderResponse(
+
+                                                Request,
 
                                                 GetInformProviderResponseXML.MapElementOrFail  (OCHPNS.Default + "result",
                                                                                                 Result.Parse,
@@ -541,15 +575,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetInformProviderResponseText, out GetInformProviderResponse, OnException = null)
+        #region (static) TryParse(Request, GetInformProviderResponseText, out GetInformProviderResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHPdirect get inform provider response.
         /// </summary>
+        /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="GetInformProviderResponseText">The text to parse.</param>
         /// <param name="GetInformProviderResponse">The parsed get inform provider response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                         GetInformProviderResponseText,
+        public static Boolean TryParse(GetInformProviderRequest       Request,
+                                       String                         GetInformProviderResponseText,
                                        out GetInformProviderResponse  GetInformProviderResponse,
                                        OnExceptionDelegate            OnException  = null)
         {
@@ -557,7 +593,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(GetInformProviderResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(GetInformProviderResponseText).Root,
                              out GetInformProviderResponse,
                              OnException))
 
@@ -729,7 +766,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetInformProviderResponse">A get inform provider response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetInformProviderResponse GetInformProviderResponse)
+        public override Boolean Equals(GetInformProviderResponse GetInformProviderResponse)
         {
 
             if ((Object) GetInformProviderResponse == null)

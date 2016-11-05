@@ -56,6 +56,7 @@
     <Compile Include="EMP\EMPServer\EMPServer.cs" />
     <Compile Include="EMP\EMPServer\EMPServerDelegates.cs" />
     <Compile Include="EMP\EMPServer\EMPServerLogger.cs" />
+    <Compile Include="Messages\ARequest.cs" />
     <Compile Include="Messages\CH\AddServiceEndpointsRequest.cs" />
     <Compile Include="Messages\CH\AddServiceEndpointsResponse.cs" />
     <Compile Include="Messages\CH\GetServiceEndpointsResponse.cs" />
@@ -181,6 +182,8 @@
     <Compile Include="DataTypes\Result.cs" />
     <Compile Include="DataTypes\EVSEStatus.cs" />
     <Compile Include="DataTypes\Simple\EVSEMajorStatusTypes.cs" />
+    <Compile Include="Messages\IRequest.cs" />
+    <Compile Include="Messages\IResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Messages\CPO2CH\AddCDRsResponse.cs" />
     <Compile Include="Messages\CPO2CH\GetRoamingAuthorisationListUpdatesResponse.cs" />

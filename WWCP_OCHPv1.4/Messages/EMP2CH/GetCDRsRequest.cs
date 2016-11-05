@@ -30,15 +30,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP get charge detail records request.
     /// </summary>
-    public class GetCDRsRequest
+    public class GetCDRsRequest : ARequest<GetCDRsRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The optional status of the requested charge detail records.
-        /// </summary>
-        public CDRStatus?  CDRStatus   { get; }
+    /// <summary>
+    /// The optional status of the requested charge detail records.
+    /// </summary>
+    public CDRStatus?  CDRStatus   { get; }
 
         #endregion
 
@@ -296,7 +296,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetCDRsRequest">A get charge detail records request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetCDRsRequest GetCDRsRequest)
+        public override Boolean Equals(GetCDRsRequest GetCDRsRequest)
         {
 
             if ((Object) GetCDRsRequest == null)

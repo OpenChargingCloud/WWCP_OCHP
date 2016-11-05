@@ -30,7 +30,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <summary>
     /// An OCHP add service endpoints response.
     /// </summary>
-    public class AddServiceEndpointsResponse : AResponse
+    public class AddServiceEndpointsResponse : AResponse<AddServiceEndpointsRequest,
+                                                         AddServiceEndpointsResponse>
     {
 
         #region Statics
@@ -38,55 +39,72 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddServiceEndpointsResponse OK(String Description = null)
+        public static AddServiceEndpointsResponse OK(AddServiceEndpointsRequest  Request,
+                                                     String                      Description = null)
 
-            => new AddServiceEndpointsResponse(Result.OK(Description));
+            => new AddServiceEndpointsResponse(Request,
+                                               Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddServiceEndpointsResponse Partly(String Description = null)
+        public static AddServiceEndpointsResponse Partly(AddServiceEndpointsRequest  Request,
+                                                         String                      Description = null)
 
-            => new AddServiceEndpointsResponse(Result.Unknown(Description));
+            => new AddServiceEndpointsResponse(Request,
+                                               Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddServiceEndpointsResponse NotAuthorized(String Description = null)
+        public static AddServiceEndpointsResponse NotAuthorized(AddServiceEndpointsRequest  Request,
+                                                                String                      Description = null)
 
-            => new AddServiceEndpointsResponse(Result.Unknown(Description));
+            => new AddServiceEndpointsResponse(Request,
+                                               Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddServiceEndpointsResponse InvalidId(String Description = null)
+        public static AddServiceEndpointsResponse InvalidId(AddServiceEndpointsRequest  Request,
+                                                            String                      Description = null)
 
-            => new AddServiceEndpointsResponse(Result.Unknown(Description));
+            => new AddServiceEndpointsResponse(Request,
+                                               Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddServiceEndpointsResponse Server(String Description = null)
+        public static AddServiceEndpointsResponse Server(AddServiceEndpointsRequest  Request,
+                                                         String                      Description = null)
 
-            => new AddServiceEndpointsResponse(Result.Unknown(Description));
+            => new AddServiceEndpointsResponse(Request,
+                                               Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static AddServiceEndpointsResponse Format(String Description = null)
+        public static AddServiceEndpointsResponse Format(AddServiceEndpointsRequest  Request,
+                                                         String                      Description = null)
 
-            => new AddServiceEndpointsResponse(Result.Unknown(Description));
+            => new AddServiceEndpointsResponse(Request,
+                                               Result.Format(Description));
 
         #endregion
 
@@ -95,9 +113,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// Create a new OCHP add service endpoints response.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
-        public AddServiceEndpointsResponse(Result  Result)
-            : base(Result)
+        public AddServiceEndpointsResponse(AddServiceEndpointsRequest  Request,
+                                           Result                      Result)
+
+            : base(Request, Result)
+
         { }
 
         #endregion
@@ -125,20 +147,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #endregion
 
-        #region (static) Parse(AddServiceEndpointsResponseXML,  OnException = null)
+        #region (static) Parse   (Request, AddServiceEndpointsResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP add service endpoints response.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="AddServiceEndpointsResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static AddServiceEndpointsResponse Parse(XElement             AddServiceEndpointsResponseXML,
-                                                                OnExceptionDelegate  OnException = null)
+        public static AddServiceEndpointsResponse Parse(AddServiceEndpointsRequest  Request,
+                                                        XElement                    AddServiceEndpointsResponseXML,
+                                                        OnExceptionDelegate         OnException = null)
         {
 
             AddServiceEndpointsResponse _AddServiceEndpointsResponse;
 
-            if (TryParse(AddServiceEndpointsResponseXML, out _AddServiceEndpointsResponse, OnException))
+            if (TryParse(Request, AddServiceEndpointsResponseXML, out _AddServiceEndpointsResponse, OnException))
                 return _AddServiceEndpointsResponse;
 
             return null;
@@ -147,20 +171,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #endregion
 
-        #region (static) Parse(AddServiceEndpointsResponseText, OnException = null)
+        #region (static) Parse   (Request, AddServiceEndpointsResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP add service endpoints response.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="AddServiceEndpointsResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static AddServiceEndpointsResponse Parse(String               AddServiceEndpointsResponseText,
-                                                                OnExceptionDelegate  OnException = null)
+        public static AddServiceEndpointsResponse Parse(AddServiceEndpointsRequest  Request,
+                                                        String                      AddServiceEndpointsResponseText,
+                                                        OnExceptionDelegate         OnException = null)
         {
 
             AddServiceEndpointsResponse _AddServiceEndpointsResponse;
 
-            if (TryParse(AddServiceEndpointsResponseText, out _AddServiceEndpointsResponse, OnException))
+            if (TryParse(Request, AddServiceEndpointsResponseText, out _AddServiceEndpointsResponse, OnException))
                 return _AddServiceEndpointsResponse;
 
             return null;
@@ -169,23 +195,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #endregion
 
-        #region (static) TryParse(AddServiceEndpointsResponseXML,  out AddServiceEndpointsResponse, OnException = null)
+        #region (static) TryParse(Request, AddServiceEndpointsResponseXML,  out AddServiceEndpointsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP add service endpoints response.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="AddServiceEndpointsResponseXML">The XML to parse.</param>
         /// <param name="AddServiceEndpointsResponse">The parsed add service endpoints response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                                 AddServiceEndpointsResponseXML,
+        public static Boolean TryParse(AddServiceEndpointsRequest       Request,
+                                       XElement                         AddServiceEndpointsResponseXML,
                                        out AddServiceEndpointsResponse  AddServiceEndpointsResponse,
-                                       OnExceptionDelegate                      OnException  = null)
+                                       OnExceptionDelegate              OnException  = null)
         {
 
             try
             {
 
                 AddServiceEndpointsResponse = new AddServiceEndpointsResponse(
+
+                                                  Request,
 
                                                   AddServiceEndpointsResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                                                   Result.Parse,
@@ -210,23 +240,26 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #endregion
 
-        #region (static) TryParse(AddServiceEndpointsResponseText, out AddServiceEndpointsResponse, OnException = null)
+        #region (static) TryParse(Request, AddServiceEndpointsResponseText, out AddServiceEndpointsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP add service endpoints response.
         /// </summary>
+        /// <param name="Request">The add service endpoints request leading to this response.</param>
         /// <param name="AddServiceEndpointsResponseText">The text to parse.</param>
         /// <param name="AddServiceEndpointsResponse">The parsed add service endpoints response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                                   AddServiceEndpointsResponseText,
+        public static Boolean TryParse(AddServiceEndpointsRequest       Request,
+                                       String                           AddServiceEndpointsResponseText,
                                        out AddServiceEndpointsResponse  AddServiceEndpointsResponse,
-                                       OnExceptionDelegate                      OnException  = null)
+                                       OnExceptionDelegate              OnException  = null)
         {
 
             try
             {
 
-                if (TryParse(XDocument.Parse(AddServiceEndpointsResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(AddServiceEndpointsResponseText).Root,
                              out AddServiceEndpointsResponse,
                              OnException))
 
@@ -335,7 +368,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// </summary>
         /// <param name="AddServiceEndpointsResponse">A add service endpoints response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(AddServiceEndpointsResponse AddServiceEndpointsResponse)
+        public override Boolean Equals(AddServiceEndpointsResponse AddServiceEndpointsResponse)
         {
 
             if ((Object) AddServiceEndpointsResponse == null)

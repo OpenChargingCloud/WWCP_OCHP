@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP add service endpoints request.
     /// </summary>
-    public class AddServiceEndpointsRequest
+    public class AddServiceEndpointsRequest : ARequest<AddServiceEndpointsRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An enumeration of operator endpoints.
-        /// </summary>
-        public IEnumerable<OperatorEndpoint>  OperatorEndpoints   { get; }
+    /// <summary>
+    /// An enumeration of operator endpoints.
+    /// </summary>
+    public IEnumerable<OperatorEndpoint>  OperatorEndpoints   { get; }
 
         #endregion
 
@@ -319,7 +319,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="AddServiceEndpointsRequest">A add service endpoints request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(AddServiceEndpointsRequest AddServiceEndpointsRequest)
+        public override Boolean Equals(AddServiceEndpointsRequest AddServiceEndpointsRequest)
         {
 
             if ((Object) AddServiceEndpointsRequest == null)

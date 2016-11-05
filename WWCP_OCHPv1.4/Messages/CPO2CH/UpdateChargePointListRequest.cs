@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP update charge point list request.
     /// </summary>
-    public class UpdateChargePointListRequest
+    public class UpdateChargePointListRequest : ARequest<UpdateChargePointListRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An enumeration of charge point infos.
-        /// </summary>
-        public IEnumerable<ChargePointInfo>  ChargePointInfos   { get; }
+    /// <summary>
+    /// An enumeration of charge point infos.
+    /// </summary>
+    public IEnumerable<ChargePointInfo>  ChargePointInfos   { get; }
 
         #endregion
 
@@ -300,7 +300,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="UpdateChargePointListRequest">A update charge point list request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(UpdateChargePointListRequest UpdateChargePointListRequest)
+        public override Boolean Equals(UpdateChargePointListRequest UpdateChargePointListRequest)
         {
 
             if ((Object) UpdateChargePointListRequest == null)

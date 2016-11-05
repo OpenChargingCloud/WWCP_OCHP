@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect EVSE status response.
     /// </summary>
-    public class GetEVSEStatusResponse : AResponse
+    public class GetEVSEStatusResponse : AResponse<GetEVSEStatusRequest,
+                                                   GetEVSEStatusResponse>
     {
 
         #region Properties
@@ -59,55 +60,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetEVSEStatusResponse OK(String Description = null)
+        public static GetEVSEStatusResponse OK(GetEVSEStatusRequest  Request,
+                                               String                Description = null)
 
-            => new GetEVSEStatusResponse(Result.OK(Description));
+            => new GetEVSEStatusResponse(Request,
+                                         Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetEVSEStatusResponse Partly(String Description = null)
+        public static GetEVSEStatusResponse Partly(GetEVSEStatusRequest  Request,
+                                                   String                Description = null)
 
-            => new GetEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Request,
+                                         Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetEVSEStatusResponse NotAuthorized(String Description = null)
+        public static GetEVSEStatusResponse NotAuthorized(GetEVSEStatusRequest  Request,
+                                                          String                Description = null)
 
-            => new GetEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Request,
+                                         Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetEVSEStatusResponse InvalidId(String Description = null)
+        public static GetEVSEStatusResponse InvalidId(GetEVSEStatusRequest  Request,
+                                                      String                Description = null)
 
-            => new GetEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Request,
+                                         Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetEVSEStatusResponse Server(String Description = null)
+        public static GetEVSEStatusResponse Server(GetEVSEStatusRequest  Request,
+                                                   String                Description = null)
 
-            => new GetEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Request,
+                                         Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetEVSEStatusResponse Format(String Description = null)
+        public static GetEVSEStatusResponse Format(GetEVSEStatusRequest  Request,
+                                                   String                Description = null)
 
-            => new GetEVSEStatusResponse(Result.Unknown(Description));
+            => new GetEVSEStatusResponse(Request,
+                                         Result.Format(Description));
 
         #endregion
 
@@ -116,16 +135,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect get status response.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="EVSEStatus">An enumeration of EVSE status.</param>
         /// <param name="ParkingStatus">An enumeration of parking status.</param>
         /// <param name="CombinedStatus">An enumeration of charge detail records.</param>
-        public GetEVSEStatusResponse(Result                      Result,
+        public GetEVSEStatusResponse(GetEVSEStatusRequest        Request,
+                                     Result                      Result,
                                      IEnumerable<EVSEStatus>     EVSEStatus      = null,
                                      IEnumerable<ParkingStatus>  ParkingStatus   = null,
                                      IEnumerable<EVSEStatus>     CombinedStatus  = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -168,20 +189,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetEVSEStatusResponseXML,  OnException = null)
+        #region (static) Parse   (Request, GetEVSEStatusResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHPdirect get status response.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="GetEVSEStatusResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetEVSEStatusResponse Parse(XElement             GetEVSEStatusResponseXML,
-                                                  OnExceptionDelegate  OnException = null)
+        public static GetEVSEStatusResponse Parse(GetEVSEStatusRequest  Request,
+                                                  XElement              GetEVSEStatusResponseXML,
+                                                  OnExceptionDelegate   OnException = null)
         {
 
             GetEVSEStatusResponse _GetEVSEStatusResponse;
 
-            if (TryParse(GetEVSEStatusResponseXML, out _GetEVSEStatusResponse, OnException))
+            if (TryParse(Request, GetEVSEStatusResponseXML, out _GetEVSEStatusResponse, OnException))
                 return _GetEVSEStatusResponse;
 
             return null;
@@ -190,20 +213,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(GetEVSEStatusResponseText, OnException = null)
+        #region (static) Parse   (Request, GetEVSEStatusResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHPdirect get status response.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="GetEVSEStatusResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetEVSEStatusResponse Parse(String               GetEVSEStatusResponseText,
-                                                  OnExceptionDelegate  OnException = null)
+        public static GetEVSEStatusResponse Parse(GetEVSEStatusRequest  Request,
+                                                  String                GetEVSEStatusResponseText,
+                                                  OnExceptionDelegate   OnException = null)
         {
 
             GetEVSEStatusResponse _GetEVSEStatusResponse;
 
-            if (TryParse(GetEVSEStatusResponseText, out _GetEVSEStatusResponse, OnException))
+            if (TryParse(Request, GetEVSEStatusResponseText, out _GetEVSEStatusResponse, OnException))
                 return _GetEVSEStatusResponse;
 
             return null;
@@ -212,15 +237,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetEVSEStatusResponseXML,  out GetEVSEStatusResponse, OnException = null)
+        #region (static) TryParse(Request, GetEVSEStatusResponseXML,  out GetEVSEStatusResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHPdirect get status response.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="GetEVSEStatusResponseXML">The XML to parse.</param>
         /// <param name="GetEVSEStatusResponse">The parsed get status response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                   GetEVSEStatusResponseXML,
+        public static Boolean TryParse(GetEVSEStatusRequest       Request,
+                                       XElement                   GetEVSEStatusResponseXML,
                                        out GetEVSEStatusResponse  GetEVSEStatusResponse,
                                        OnExceptionDelegate        OnException  = null)
         {
@@ -229,6 +256,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 GetEVSEStatusResponse = new GetEVSEStatusResponse(
+
+                                               Request,
 
                                                // Fake it until the specification will be updated!
                                                new Result(ResultCodes.OK),
@@ -264,15 +293,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(GetEVSEStatusResponseText, out GetEVSEStatusResponse, OnException = null)
+        #region (static) TryParse(Request, GetEVSEStatusResponseText, out GetEVSEStatusResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHPdirect get status response.
         /// </summary>
+        /// <param name="Request">The EVSE status request leading to this response.</param>
         /// <param name="GetEVSEStatusResponseText">The text to parse.</param>
         /// <param name="GetEVSEStatusResponse">The parsed get status response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                     GetEVSEStatusResponseText,
+        public static Boolean TryParse(GetEVSEStatusRequest       Request,
+                                       String                     GetEVSEStatusResponseText,
                                        out GetEVSEStatusResponse  GetEVSEStatusResponse,
                                        OnExceptionDelegate        OnException  = null)
         {
@@ -280,7 +311,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(GetEVSEStatusResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(GetEVSEStatusResponseText).Root,
                              out GetEVSEStatusResponse,
                              OnException))
 
@@ -393,7 +425,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetEVSEStatusResponse">A get status response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetEVSEStatusResponse GetEVSEStatusResponse)
+        public override Boolean Equals(GetEVSEStatusResponse GetEVSEStatusResponse)
         {
 
             if ((Object) GetEVSEStatusResponse == null)

@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP update roaming authorisation list request.
     /// </summary>
-    public class UpdateRoamingAuthorisationListRequest
+    public class UpdateRoamingAuthorisationListRequest : ARequest<UpdateRoamingAuthorisationListRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An enumeration of roaming authorisation infos.
-        /// </summary>
-        public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
+    /// <summary>
+    /// An enumeration of roaming authorisation infos.
+    /// </summary>
+    public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
 
         #endregion
 
@@ -300,7 +300,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="UpdateRoamingAuthorisationListRequest">A update roaming authorisation list request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(UpdateRoamingAuthorisationListRequest UpdateRoamingAuthorisationListRequest)
+        public override Boolean Equals(UpdateRoamingAuthorisationListRequest UpdateRoamingAuthorisationListRequest)
         {
 
             if ((Object) UpdateRoamingAuthorisationListRequest == null)

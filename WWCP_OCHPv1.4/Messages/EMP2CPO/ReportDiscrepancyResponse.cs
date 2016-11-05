@@ -30,7 +30,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect report discrepancy response.
     /// </summary>
-    public class ReportDiscrepancyResponse : AResponse
+    public class ReportDiscrepancyResponse : AResponse<ReportDiscrepancyRequest,
+                                                       ReportDiscrepancyResponse>
     {
 
         #region Statics
@@ -38,55 +39,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReportDiscrepancyResponse OK(String Description = null)
+        public static ReportDiscrepancyResponse OK(ReportDiscrepancyRequest  Request,
+                                                   String                    Description = null)
 
-            => new ReportDiscrepancyResponse(Result.OK(Description));
+            => new ReportDiscrepancyResponse(Request,
+                                             Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReportDiscrepancyResponse Partly(String Description = null)
+        public static ReportDiscrepancyResponse Partly(ReportDiscrepancyRequest  Request,
+                                                       String                    Description = null)
 
-            => new ReportDiscrepancyResponse(Result.Unknown(Description));
+            => new ReportDiscrepancyResponse(Request,
+                                             Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReportDiscrepancyResponse NotAuthorized(String Description = null)
+        public static ReportDiscrepancyResponse NotAuthorized(ReportDiscrepancyRequest  Request,
+                                                              String                    Description = null)
 
-            => new ReportDiscrepancyResponse(Result.Unknown(Description));
+            => new ReportDiscrepancyResponse(Request,
+                                             Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReportDiscrepancyResponse InvalidId(String Description = null)
+        public static ReportDiscrepancyResponse InvalidId(ReportDiscrepancyRequest  Request,
+                                                          String                    Description = null)
 
-            => new ReportDiscrepancyResponse(Result.Unknown(Description));
+            => new ReportDiscrepancyResponse(Request,
+                                             Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReportDiscrepancyResponse Server(String Description = null)
+        public static ReportDiscrepancyResponse Server(ReportDiscrepancyRequest  Request,
+                                                       String                    Description = null)
 
-            => new ReportDiscrepancyResponse(Result.Unknown(Description));
+            => new ReportDiscrepancyResponse(Request,
+                                             Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ReportDiscrepancyResponse Format(String Description = null)
+        public static ReportDiscrepancyResponse Format(ReportDiscrepancyRequest  Request,
+                                                       String                    Description = null)
 
-            => new ReportDiscrepancyResponse(Result.Unknown(Description));
+            => new ReportDiscrepancyResponse(Request,
+                                             Result.Format(Description));
 
         #endregion
 
@@ -95,9 +114,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHPdirect report discrepancy response.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
-        public ReportDiscrepancyResponse(Result  Result)
-            : base(Result)
+        public ReportDiscrepancyResponse(ReportDiscrepancyRequest  Request,
+                                         Result                    Result)
+
+            : base(Request, Result)
+
         { }
 
         #endregion
@@ -125,20 +148,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(ReportDiscrepancyResponseXML,  OnException = null)
+        #region (static) Parse   (Request, ReportDiscrepancyResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHPdirect report discrepancy response.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="ReportDiscrepancyResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ReportDiscrepancyResponse Parse(XElement             ReportDiscrepancyResponseXML,
-                                                      OnExceptionDelegate  OnException = null)
+        public static ReportDiscrepancyResponse Parse(ReportDiscrepancyRequest  Request,
+                                                      XElement                  ReportDiscrepancyResponseXML,
+                                                      OnExceptionDelegate       OnException = null)
         {
 
             ReportDiscrepancyResponse _ReportDiscrepancyResponse;
 
-            if (TryParse(ReportDiscrepancyResponseXML, out _ReportDiscrepancyResponse, OnException))
+            if (TryParse(Request, ReportDiscrepancyResponseXML, out _ReportDiscrepancyResponse, OnException))
                 return _ReportDiscrepancyResponse;
 
             return null;
@@ -147,20 +172,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(ReportDiscrepancyResponseText, OnException = null)
+        #region (static) Parse   (Request, ReportDiscrepancyResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHPdirect report discrepancy response.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="ReportDiscrepancyResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ReportDiscrepancyResponse Parse(String               ReportDiscrepancyResponseText,
-                                                      OnExceptionDelegate  OnException = null)
+        public static ReportDiscrepancyResponse Parse(ReportDiscrepancyRequest  Request,
+                                                      String                    ReportDiscrepancyResponseText,
+                                                      OnExceptionDelegate       OnException = null)
         {
 
             ReportDiscrepancyResponse _ReportDiscrepancyResponse;
 
-            if (TryParse(ReportDiscrepancyResponseText, out _ReportDiscrepancyResponse, OnException))
+            if (TryParse(Request, ReportDiscrepancyResponseText, out _ReportDiscrepancyResponse, OnException))
                 return _ReportDiscrepancyResponse;
 
             return null;
@@ -169,15 +196,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(ReportDiscrepancyResponseXML,  out ReportDiscrepancyResponse, OnException = null)
+        #region (static) TryParse(Request, ReportDiscrepancyResponseXML,  out ReportDiscrepancyResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHPdirect report discrepancy response.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="ReportDiscrepancyResponseXML">The XML to parse.</param>
         /// <param name="ReportDiscrepancyResponse">The parsed report discrepancy response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                       ReportDiscrepancyResponseXML,
+        public static Boolean TryParse(ReportDiscrepancyRequest       Request,
+                                       XElement                       ReportDiscrepancyResponseXML,
                                        out ReportDiscrepancyResponse  ReportDiscrepancyResponse,
                                        OnExceptionDelegate            OnException  = null)
         {
@@ -186,6 +215,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 ReportDiscrepancyResponse = new ReportDiscrepancyResponse(
+
+                                                Request,
 
                                                 ReportDiscrepancyResponseXML.MapElementOrFail  (OCHPNS.Default + "result",
                                                                                                 Result.Parse,
@@ -210,15 +241,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(ReportDiscrepancyResponseText, out ReportDiscrepancyResponse, OnException = null)
+        #region (static) TryParse(Request, ReportDiscrepancyResponseText, out ReportDiscrepancyResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHPdirect report discrepancy response.
         /// </summary>
+        /// <param name="Request">The report discrepancy request leading to this response.</param>
         /// <param name="ReportDiscrepancyResponseText">The text to parse.</param>
         /// <param name="ReportDiscrepancyResponse">The parsed report discrepancy response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                         ReportDiscrepancyResponseText,
+        public static Boolean TryParse(ReportDiscrepancyRequest       Request,
+                                       String                         ReportDiscrepancyResponseText,
                                        out ReportDiscrepancyResponse  ReportDiscrepancyResponse,
                                        OnExceptionDelegate            OnException  = null)
         {
@@ -226,7 +259,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(ReportDiscrepancyResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(ReportDiscrepancyResponseText).Root,
                              out ReportDiscrepancyResponse,
                              OnException))
 
@@ -337,7 +371,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ReportDiscrepancyResponse">A report discrepancy response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ReportDiscrepancyResponse ReportDiscrepancyResponse)
+        public override Boolean Equals(ReportDiscrepancyResponse ReportDiscrepancyResponse)
         {
 
             if ((Object) ReportDiscrepancyResponse == null)

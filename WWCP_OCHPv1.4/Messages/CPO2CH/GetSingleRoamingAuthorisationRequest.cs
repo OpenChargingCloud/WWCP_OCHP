@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP get single roaming authorisation request.
     /// </summary>
-    public class GetSingleRoamingAuthorisationRequest
+    public class GetSingleRoamingAuthorisationRequest : ARequest<GetSingleRoamingAuthorisationRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An e-mobility token.
-        /// </summary>
-        public EMT_Id  EMTId   { get; }
+    /// <summary>
+    /// An e-mobility token.
+    /// </summary>
+    public EMT_Id  EMTId   { get; }
 
         #endregion
 
@@ -302,7 +302,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetSingleRoamingAuthorisationRequest">A get single roaming authorisation request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetSingleRoamingAuthorisationRequest GetSingleRoamingAuthorisationRequest)
+        public override Boolean Equals(GetSingleRoamingAuthorisationRequest GetSingleRoamingAuthorisationRequest)
         {
 
             if ((Object) GetSingleRoamingAuthorisationRequest == null)

@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP get roaming authorisation list update response.
     /// </summary>
-    public class GetRoamingAuthorisationListUpdatesResponse : AResponse
+    public class GetRoamingAuthorisationListUpdatesResponse : AResponse<GetRoamingAuthorisationListUpdatesRequest,
+                                                                        GetRoamingAuthorisationListUpdatesResponse>
     {
 
         #region Properties
@@ -49,55 +50,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetRoamingAuthorisationListUpdatesResponse OK(String Description = null)
+        public static GetRoamingAuthorisationListUpdatesResponse OK(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                                    String                                     Description = null)
 
-            => new GetRoamingAuthorisationListUpdatesResponse(Result.OK(Description));
+            => new GetRoamingAuthorisationListUpdatesResponse(Request,
+                                                              Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetRoamingAuthorisationListUpdatesResponse Partly(String Description = null)
+        public static GetRoamingAuthorisationListUpdatesResponse Partly(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                                        String                                     Description = null)
 
-            => new GetRoamingAuthorisationListUpdatesResponse(Result.Unknown(Description));
+            => new GetRoamingAuthorisationListUpdatesResponse(Request,
+                                                              Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetRoamingAuthorisationListUpdatesResponse NotAuthorized(String Description = null)
+        public static GetRoamingAuthorisationListUpdatesResponse NotAuthorized(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                                               String                                     Description = null)
 
-            => new GetRoamingAuthorisationListUpdatesResponse(Result.Unknown(Description));
+            => new GetRoamingAuthorisationListUpdatesResponse(Request,
+                                                              Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetRoamingAuthorisationListUpdatesResponse InvalidId(String Description = null)
+        public static GetRoamingAuthorisationListUpdatesResponse InvalidId(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                                           String                                     Description = null)
 
-            => new GetRoamingAuthorisationListUpdatesResponse(Result.Unknown(Description));
+            => new GetRoamingAuthorisationListUpdatesResponse(Request,
+                                                              Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetRoamingAuthorisationListUpdatesResponse Server(String Description = null)
+        public static GetRoamingAuthorisationListUpdatesResponse Server(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                                        String                                     Description = null)
 
-            => new GetRoamingAuthorisationListUpdatesResponse(Result.Unknown(Description));
+            => new GetRoamingAuthorisationListUpdatesResponse(Request,
+                                                              Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static GetRoamingAuthorisationListUpdatesResponse Format(String Description = null)
+        public static GetRoamingAuthorisationListUpdatesResponse Format(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                                        String                                     Description = null)
 
-            => new GetRoamingAuthorisationListUpdatesResponse(Result.Unknown(Description));
+            => new GetRoamingAuthorisationListUpdatesResponse(Request,
+                                                              Result.Format(Description));
 
         #endregion
 
@@ -106,12 +125,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP get roaming authorisation list update response.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="RoamingAuthorisationInfos">An enumeration of authorisation card info updates.</param>
-        public GetRoamingAuthorisationListUpdatesResponse(Result                                 Result,
-                                                          IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos = null)
+        public GetRoamingAuthorisationListUpdatesResponse(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                          Result                                     Result,
+                                                          IEnumerable<RoamingAuthorisationInfo>      RoamingAuthorisationInfos = null)
 
-            : base(Result)
+            : base(Request, Result)
 
         {
 
@@ -165,20 +186,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(GetRoamingAuthorisationListUpdatesResponseXML,  OnException = null)
+        #region (static) Parse   (Request, GetRoamingAuthorisationListUpdatesResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP get roaming authorisation list update response.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="GetRoamingAuthorisationListUpdatesResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetRoamingAuthorisationListUpdatesResponse Parse(XElement             GetRoamingAuthorisationListUpdatesResponseXML,
-                                                                       OnExceptionDelegate  OnException = null)
+        public static GetRoamingAuthorisationListUpdatesResponse Parse(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                                       XElement                                   GetRoamingAuthorisationListUpdatesResponseXML,
+                                                                       OnExceptionDelegate                        OnException = null)
         {
 
             GetRoamingAuthorisationListUpdatesResponse _GetRoamingAuthorisationListUpdatesResponse;
 
-            if (TryParse(GetRoamingAuthorisationListUpdatesResponseXML, out _GetRoamingAuthorisationListUpdatesResponse, OnException))
+            if (TryParse(Request, GetRoamingAuthorisationListUpdatesResponseXML, out _GetRoamingAuthorisationListUpdatesResponse, OnException))
                 return _GetRoamingAuthorisationListUpdatesResponse;
 
             return null;
@@ -187,20 +210,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(GetRoamingAuthorisationListUpdatesResponseText, OnException = null)
+        #region (static) Parse   (Request, GetRoamingAuthorisationListUpdatesResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP get roaming authorisation list update response.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="GetRoamingAuthorisationListUpdatesResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetRoamingAuthorisationListUpdatesResponse Parse(String               GetRoamingAuthorisationListUpdatesResponseText,
-                                                                       OnExceptionDelegate  OnException = null)
+        public static GetRoamingAuthorisationListUpdatesResponse Parse(GetRoamingAuthorisationListUpdatesRequest  Request,
+                                                                       String                                     GetRoamingAuthorisationListUpdatesResponseText,
+                                                                       OnExceptionDelegate                        OnException = null)
         {
 
             GetRoamingAuthorisationListUpdatesResponse _GetRoamingAuthorisationListUpdatesResponse;
 
-            if (TryParse(GetRoamingAuthorisationListUpdatesResponseText, out _GetRoamingAuthorisationListUpdatesResponse, OnException))
+            if (TryParse(Request, GetRoamingAuthorisationListUpdatesResponseText, out _GetRoamingAuthorisationListUpdatesResponse, OnException))
                 return _GetRoamingAuthorisationListUpdatesResponse;
 
             return null;
@@ -209,15 +234,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(GetRoamingAuthorisationListUpdatesResponseXML,  out GetRoamingAuthorisationListUpdatesResponse, OnException = null)
+        #region (static) TryParse(Request, GetRoamingAuthorisationListUpdatesResponseXML,  out GetRoamingAuthorisationListUpdatesResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP get roaming authorisation list update response.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="GetRoamingAuthorisationListUpdatesResponseXML">The XML to parse.</param>
         /// <param name="GetRoamingAuthorisationListUpdatesResponse">The parsed get roaming authorisation list update response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                                        GetRoamingAuthorisationListUpdatesResponseXML,
+        public static Boolean TryParse(GetRoamingAuthorisationListUpdatesRequest       Request,
+                                       XElement                                        GetRoamingAuthorisationListUpdatesResponseXML,
                                        out GetRoamingAuthorisationListUpdatesResponse  GetRoamingAuthorisationListUpdatesResponse,
                                        OnExceptionDelegate                             OnException  = null)
         {
@@ -226,6 +253,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 GetRoamingAuthorisationListUpdatesResponse = new GetRoamingAuthorisationListUpdatesResponse(
+
+                                                                 Request,
 
                                                                  GetRoamingAuthorisationListUpdatesResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                                                                                 Result.Parse,
@@ -254,15 +283,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(GetRoamingAuthorisationListUpdatesResponseText, out GetRoamingAuthorisationListUpdatesResponse, OnException = null)
+        #region (static) TryParse(Request, GetRoamingAuthorisationListUpdatesResponseText, out GetRoamingAuthorisationListUpdatesResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP get roaming authorisation list update response.
         /// </summary>
+        /// <param name="Request">The get roaming authorisation list update request leading to this response.</param>
         /// <param name="GetRoamingAuthorisationListUpdatesResponseText">The text to parse.</param>
         /// <param name="GetRoamingAuthorisationListUpdatesResponse">The parsed get roaming authorisation list update response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                                          GetRoamingAuthorisationListUpdatesResponseText,
+        public static Boolean TryParse(GetRoamingAuthorisationListUpdatesRequest       Request,
+                                       String                                          GetRoamingAuthorisationListUpdatesResponseText,
                                        out GetRoamingAuthorisationListUpdatesResponse  GetRoamingAuthorisationListUpdatesResponse,
                                        OnExceptionDelegate                             OnException  = null)
         {
@@ -270,7 +301,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                if (TryParse(XDocument.Parse(GetRoamingAuthorisationListUpdatesResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(GetRoamingAuthorisationListUpdatesResponseText).Root,
                              out GetRoamingAuthorisationListUpdatesResponse,
                              OnException))
 
@@ -383,7 +415,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetRoamingAuthorisationListUpdatesResponse">A roaming authorisation list update to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetRoamingAuthorisationListUpdatesResponse GetRoamingAuthorisationListUpdatesResponse)
+        public override Boolean Equals(GetRoamingAuthorisationListUpdatesResponse GetRoamingAuthorisationListUpdatesResponse)
         {
 
             if ((Object) GetRoamingAuthorisationListUpdatesResponse == null)

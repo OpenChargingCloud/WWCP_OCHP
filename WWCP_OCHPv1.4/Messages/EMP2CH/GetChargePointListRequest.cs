@@ -30,32 +30,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP get charge point list request.
     /// </summary>
-    public class GetChargePointListRequest
+    public class GetChargePointListRequest : ARequest<GetChargePointListRequest>
     {
 
         #region Documentation
 
-        // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-        //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-        //
-        //    <soapenv:Header/>
-        //    <soapenv:Body>
-        //
-        //      <ns:GetChargePointListRequest />
-        //
-        //    </soapenv:Body>
-        // </soapenv:Envelope>
+    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+    //
+    //    <soapenv:Header/>
+    //    <soapenv:Body>
+    //
+    //      <ns:GetChargePointListRequest />
+    //
+    //    </soapenv:Body>
+    // </soapenv:Envelope>
 
-        #endregion
+    #endregion
 
-        #region (static) Parse(GetChargePointListRequestXML,  OnException = null)
+    #region (static) Parse(GetChargePointListRequestXML,  OnException = null)
 
-        /// <summary>
-        /// Parse the given XML representation of an OCHP get charge point list request.
-        /// </summary>
-        /// <param name="GetChargePointListRequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static GetChargePointListRequest Parse(XElement             GetChargePointListRequestXML,
+    /// <summary>
+    /// Parse the given XML representation of an OCHP get charge point list request.
+    /// </summary>
+    /// <param name="GetChargePointListRequestXML">The XML to parse.</param>
+    /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+    public static GetChargePointListRequest Parse(XElement             GetChargePointListRequestXML,
                                                       OnExceptionDelegate  OnException = null)
         {
 
@@ -253,7 +253,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetChargePointListRequest">A get charge point list request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetChargePointListRequest GetChargePointListRequest)
+        public override Boolean Equals(GetChargePointListRequest GetChargePointListRequest)
         {
 
             if ((Object) GetChargePointListRequest == null)

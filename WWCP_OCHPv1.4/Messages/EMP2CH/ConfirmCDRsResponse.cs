@@ -32,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP confirm charge details record response.
     /// </summary>
-    public class ConfirmCDRsResponse : AResponse
+    public class ConfirmCDRsResponse : AResponse<ConfirmCDRsRequest,
+                                                 ConfirmCDRsResponse>
     {
 
         #region Statics
@@ -40,55 +41,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ConfirmCDRsResponse OK(String Description = null)
+        public static ConfirmCDRsResponse OK(ConfirmCDRsRequest  Request,
+                                             String              Description = null)
 
-            => new ConfirmCDRsResponse(Result.OK(Description));
+            => new ConfirmCDRsResponse(Request,
+                                       Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ConfirmCDRsResponse Partly(String Description = null)
+        public static ConfirmCDRsResponse Partly(ConfirmCDRsRequest  Request,
+                                                 String              Description = null)
 
-            => new ConfirmCDRsResponse(Result.Unknown(Description));
+            => new ConfirmCDRsResponse(Request,
+                                       Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ConfirmCDRsResponse NotAuthorized(String Description = null)
+        public static ConfirmCDRsResponse NotAuthorized(ConfirmCDRsRequest  Request,
+                                                        String              Description = null)
 
-            => new ConfirmCDRsResponse(Result.Unknown(Description));
+            => new ConfirmCDRsResponse(Request,
+                                       Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ConfirmCDRsResponse InvalidId(String Description = null)
+        public static ConfirmCDRsResponse InvalidId(ConfirmCDRsRequest  Request,
+                                                    String              Description = null)
 
-            => new ConfirmCDRsResponse(Result.Unknown(Description));
+            => new ConfirmCDRsResponse(Request,
+                                       Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ConfirmCDRsResponse Server(String Description = null)
+        public static ConfirmCDRsResponse Server(ConfirmCDRsRequest  Request,
+                                                 String              Description = null)
 
-            => new ConfirmCDRsResponse(Result.Unknown(Description));
+            => new ConfirmCDRsResponse(Request,
+                                       Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static ConfirmCDRsResponse Format(String Description = null)
+        public static ConfirmCDRsResponse Format(ConfirmCDRsRequest  Request,
+                                                 String              Description = null)
 
-            => new ConfirmCDRsResponse(Result.Unknown(Description));
+            => new ConfirmCDRsResponse(Request,
+                                       Result.Format(Description));
 
         #endregion
 
@@ -97,9 +116,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Create a new OCHP confirm charge details record response.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
-        public ConfirmCDRsResponse(Result  Result)
-            : base(Result)
+        public ConfirmCDRsResponse(ConfirmCDRsRequest  Request,
+                                   Result              Result)
+
+            : base(Request, Result)
+
         { }
 
         #endregion
@@ -127,20 +150,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(ConfirmCDRsResponseXML,  OnException = null)
+        #region (static) Parse   (Request, ConfirmCDRsResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHP confirm charge details record response.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="ConfirmCDRsResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ConfirmCDRsResponse Parse(XElement             ConfirmCDRsResponseXML,
+        public static ConfirmCDRsResponse Parse(ConfirmCDRsRequest   Request,
+                                                XElement             ConfirmCDRsResponseXML,
                                                 OnExceptionDelegate  OnException = null)
         {
 
             ConfirmCDRsResponse _ConfirmCDRsResponse;
 
-            if (TryParse(ConfirmCDRsResponseXML, out _ConfirmCDRsResponse, OnException))
+            if (TryParse(Request, ConfirmCDRsResponseXML, out _ConfirmCDRsResponse, OnException))
                 return _ConfirmCDRsResponse;
 
             return null;
@@ -149,20 +174,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) Parse(ConfirmCDRsResponseText, OnException = null)
+        #region (static) Parse   (Request, ConfirmCDRsResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHP confirm charge details record response.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="ConfirmCDRsResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static ConfirmCDRsResponse Parse(String               ConfirmCDRsResponseText,
+        public static ConfirmCDRsResponse Parse(ConfirmCDRsRequest   Request,
+                                                String               ConfirmCDRsResponseText,
                                                 OnExceptionDelegate  OnException = null)
         {
 
             ConfirmCDRsResponse _ConfirmCDRsResponse;
 
-            if (TryParse(ConfirmCDRsResponseText, out _ConfirmCDRsResponse, OnException))
+            if (TryParse(Request, ConfirmCDRsResponseText, out _ConfirmCDRsResponse, OnException))
                 return _ConfirmCDRsResponse;
 
             return null;
@@ -171,15 +198,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(ConfirmCDRsResponseXML,  out ConfirmCDRsResponse, OnException = null)
+        #region (static) TryParse(Request, ConfirmCDRsResponseXML,  out ConfirmCDRsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHP confirm charge details record response.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="ConfirmCDRsResponseXML">The XML to parse.</param>
         /// <param name="ConfirmCDRsResponse">The parsed confirm charge details record response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                 ConfirmCDRsResponseXML,
+        public static Boolean TryParse(ConfirmCDRsRequest       Request,
+                                       XElement                 ConfirmCDRsResponseXML,
                                        out ConfirmCDRsResponse  ConfirmCDRsResponse,
                                        OnExceptionDelegate      OnException  = null)
         {
@@ -188,6 +217,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 ConfirmCDRsResponse = new ConfirmCDRsResponse(
+
+                                          Request,
 
                                           ConfirmCDRsResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                                   Result.Parse,
@@ -212,15 +243,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region (static) TryParse(ConfirmCDRsResponseText, out ConfirmCDRsResponse, OnException = null)
+        #region (static) TryParse(Request, ConfirmCDRsResponseText, out ConfirmCDRsResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHP confirm charge details record response.
         /// </summary>
+        /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="ConfirmCDRsResponseText">The text to parse.</param>
         /// <param name="ConfirmCDRsResponse">The parsed confirm charge details record response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                   ConfirmCDRsResponseText,
+        public static Boolean TryParse(ConfirmCDRsRequest       Request,
+                                       String                   ConfirmCDRsResponseText,
                                        out ConfirmCDRsResponse  ConfirmCDRsResponse,
                                        OnExceptionDelegate      OnException  = null)
         {
@@ -228,7 +261,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                if (TryParse(XDocument.Parse(ConfirmCDRsResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(ConfirmCDRsResponseText).Root,
                              out ConfirmCDRsResponse,
                              OnException))
 
@@ -337,7 +371,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ConfirmCDRsResponse">A confirm charge details record response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ConfirmCDRsResponse ConfirmCDRsResponse)
+        public override Boolean Equals(ConfirmCDRsResponse ConfirmCDRsResponse)
         {
 
             if ((Object) ConfirmCDRsResponse == null)

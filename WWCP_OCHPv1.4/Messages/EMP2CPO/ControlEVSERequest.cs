@@ -30,15 +30,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect control EVSE request.
     /// </summary>
-    public class ControlEVSERequest
+    public class ControlEVSERequest : ARequest<ControlEVSERequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The unique session identification of the direct charging process to be controlled.
-        /// </summary>
-        public Direct_Id         DirectId       { get; }
+    /// <summary>
+    /// The unique session identification of the direct charging process to be controlled.
+    /// </summary>
+    public Direct_Id         DirectId       { get; }
 
         /// <summary>
         /// The operation to be performed for the selected charge point.
@@ -425,7 +425,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ControlEVSERequest">A control EVSE request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(ControlEVSERequest ControlEVSERequest)
+        public override Boolean Equals(ControlEVSERequest ControlEVSERequest)
         {
 
             if ((Object) ControlEVSERequest == null)

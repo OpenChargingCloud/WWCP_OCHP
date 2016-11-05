@@ -593,7 +593,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = AddServiceEndpointsResponse.Server("Could not process the incoming AddServiceEndpoints request!");
+                        response = AddServiceEndpointsResponse.Server(_AddServiceEndpointsRequest, "Could not process the incoming AddServiceEndpoints request!");
 
                 }
 
@@ -692,7 +692,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetServiceEndpointsResponse.Server("Could not process the incoming GetServiceEndpoints request!");
+                        response = GetServiceEndpointsResponse.Server(_GetServiceEndpointsRequest, "Could not process the incoming GetServiceEndpoints request!");
 
                 }
 
@@ -795,7 +795,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = AddCDRsResponse.Server("Could not process the incoming AddCDRs request!");
+                        response = AddCDRsResponse.Server(_AddCDRsRequest, "Could not process the incoming AddCDRs request!");
 
                 }
 
@@ -895,7 +895,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = CheckCDRsResponse.Server("Could not process the incoming CheckCDRs request!");
+                        response = CheckCDRsResponse.Server(_CheckCDRsRequest, "Could not process the incoming CheckCDRs request!");
 
                 }
 
@@ -994,7 +994,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetRoamingAuthorisationListResponse.Server("Could not process the incoming GetRoamingAuthorisationList request!");
+                        response = GetRoamingAuthorisationListResponse.Server(_GetRoamingAuthorisationListRequest, "Could not process the incoming GetRoamingAuthorisationList request!");
 
                 }
 
@@ -1094,7 +1094,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetRoamingAuthorisationListUpdatesResponse.Server("Could not process the incoming GetRoamingAuthorisationListUpdates request!");
+                        response = GetRoamingAuthorisationListUpdatesResponse.Server(_GetRoamingAuthorisationListUpdatesRequest, "Could not process the incoming GetRoamingAuthorisationListUpdates request!");
 
                 }
 
@@ -1194,7 +1194,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetSingleRoamingAuthorisationResponse.Server("Could not process the incoming GetSingleRoamingAuthorisation request!");
+                        response = GetSingleRoamingAuthorisationResponse.Server(_GetSingleRoamingAuthorisationRequest, "Could not process the incoming GetSingleRoamingAuthorisation request!");
 
                 }
 
@@ -1294,7 +1294,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = SetChargePointListResponse.Server("Could not process the incoming SetChargePointList request!");
+                        response = SetChargePointListResponse.Server(_SetChargePointListRequest, "Could not process the incoming SetChargePointList request!");
 
                 }
 
@@ -1394,7 +1394,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = UpdateChargePointListResponse.Server("Could not process the incoming UpdateChargePointList request!");
+                        response = UpdateChargePointListResponse.Server(_UpdateChargePointListRequest, "Could not process the incoming UpdateChargePointList request!");
 
                 }
 
@@ -1496,7 +1496,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = UpdateStatusResponse.Server("Could not process the incoming UpdateStatus request!");
+                        response = UpdateStatusResponse.Server(_UpdateStatusRequest, "Could not process the incoming UpdateStatus request!");
 
                 }
 
@@ -1596,7 +1596,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = UpdateTariffsResponse.Server("Could not process the incoming UpdateTariffs request!");
+                        response = UpdateTariffsResponse.Server(_UpdateTariffsRequest, "Could not process the incoming UpdateTariffs request!");
 
                 }
 
@@ -1699,7 +1699,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetCDRsResponse.Server("Could not process the incoming GetCDRs request!");
+                        response = GetCDRsResponse.Server(_GetCDRsRequest, "Could not process the incoming GetCDRs request!");
 
                 }
 
@@ -1800,7 +1800,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = ConfirmCDRsResponse.Server("Could not process the incoming ConfirmCDRs request!");
+                        response = ConfirmCDRsResponse.Server(_ConfirmCDRsRequest, "Could not process the incoming ConfirmCDRs request!");
 
                 }
 
@@ -1899,7 +1899,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetChargePointListResponse.Server("Could not process the incoming GetChargePointList request!");
+                        response = GetChargePointListResponse.Server(_GetChargePointListRequest, "Could not process the incoming GetChargePointList request!");
 
                 }
 
@@ -1999,7 +1999,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetChargePointListUpdatesResponse.Server("Could not process the incoming GetChargePointListUpdates request!");
+                        response = GetChargePointListUpdatesResponse.Server(_GetChargePointListUpdatesRequest, "Could not process the incoming GetChargePointListUpdates request!");
 
                 }
 
@@ -2100,7 +2100,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetStatusResponse.Server("Could not process the incoming GetStatus request!");
+                        response = GetStatusResponse.Server(_GetStatusRequest, "Could not process the incoming GetStatus request!");
 
                 }
 
@@ -2200,7 +2200,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = GetTariffUpdatesResponse.Server("Could not process the incoming GetTariffUpdates request!");
+                        response = GetTariffUpdatesResponse.Server(_GetTariffUpdatesRequest, "Could not process the incoming GetTariffUpdates request!");
 
                 }
 
@@ -2300,7 +2300,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = SetRoamingAuthorisationListResponse.Server("Could not process the incoming SetRoamingAuthorisationList request!");
+                        response = SetRoamingAuthorisationListResponse.Server(_SetRoamingAuthorisationListRequest, "Could not process the incoming SetRoamingAuthorisationList request!");
 
                 }
 
@@ -2400,7 +2400,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                     }
 
                     if (results.Length == 0 || response == null)
-                        response = UpdateRoamingAuthorisationListResponse.Server("Could not process the incoming UpdateRoamingAuthorisationList request!");
+                        response = UpdateRoamingAuthorisationListResponse.Server(_UpdateRoamingAuthorisationListRequest, "Could not process the incoming UpdateRoamingAuthorisationList request!");
 
                 }
 

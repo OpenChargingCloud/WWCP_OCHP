@@ -32,15 +32,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP update status request.
     /// </summary>
-    public class UpdateStatusRequest
+    public class UpdateStatusRequest : ARequest<UpdateStatusRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// An enumeration of EVSE status.
-        /// </summary>
-        public IEnumerable<EVSEStatus>     EVSEStatus      { get; }
+    /// <summary>
+    /// An enumeration of EVSE status.
+    /// </summary>
+    public IEnumerable<EVSEStatus>     EVSEStatus      { get; }
 
         /// <summary>
         /// An enumeration of parking status.
@@ -332,7 +332,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="UpdateStatusRequest">A update status request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(UpdateStatusRequest UpdateStatusRequest)
+        public override Boolean Equals(UpdateStatusRequest UpdateStatusRequest)
         {
 
             if ((Object) UpdateStatusRequest == null)

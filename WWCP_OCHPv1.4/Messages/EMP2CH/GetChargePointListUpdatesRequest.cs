@@ -30,15 +30,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP get charge point list updates request.
     /// </summary>
-    public class GetChargePointListUpdatesRequest
+    public class GetChargePointListUpdatesRequest : ARequest<GetChargePointListUpdatesRequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The timestamp of the last charge point list update.
-        /// </summary>
-        public DateTime  LastUpdate   { get; }
+    /// <summary>
+    /// The timestamp of the last charge point list update.
+    /// </summary>
+    public DateTime  LastUpdate   { get; }
 
         #endregion
 
@@ -289,7 +289,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetChargePointListUpdatesRequest">A get charge point list updates request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetChargePointListUpdatesRequest GetChargePointListUpdatesRequest)
+        public override Boolean Equals(GetChargePointListUpdatesRequest GetChargePointListUpdatesRequest)
         {
 
             if ((Object) GetChargePointListUpdatesRequest == null)

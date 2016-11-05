@@ -30,7 +30,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHPdirect inform provider response.
     /// </summary>
-    public class InformProviderResponse : AResponse
+    public class InformProviderResponse : AResponse<InformProviderRequest,
+                                                    InformProviderResponse>
     {
 
         #region Statics
@@ -38,55 +39,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Data accepted and processed.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static InformProviderResponse OK(String Description = null)
+        public static InformProviderResponse OK(InformProviderRequest  Request,
+                                                String                 Description = null)
 
-            => new InformProviderResponse(Result.OK(Description));
+            => new InformProviderResponse(Request,
+                                          Result.OK(Description));
 
 
         /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static InformProviderResponse Partly(String Description = null)
+        public static InformProviderResponse Partly(InformProviderRequest  Request,
+                                                    String                 Description = null)
 
-            => new InformProviderResponse(Result.Unknown(Description));
+            => new InformProviderResponse(Request,
+                                          Result.Partly(Description));
 
 
         /// <summary>
         /// Wrong username and/or password.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static InformProviderResponse NotAuthorized(String Description = null)
+        public static InformProviderResponse NotAuthorized(InformProviderRequest  Request,
+                                                           String                 Description = null)
 
-            => new InformProviderResponse(Result.Unknown(Description));
+            => new InformProviderResponse(Request,
+                                          Result.NotAuthorized(Description));
 
 
         /// <summary>
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static InformProviderResponse InvalidId(String Description = null)
+        public static InformProviderResponse InvalidId(InformProviderRequest  Request,
+                                                       String                 Description = null)
 
-            => new InformProviderResponse(Result.Unknown(Description));
+            => new InformProviderResponse(Request,
+                                          Result.InvalidId(Description));
 
 
         /// <summary>
         /// Internal server error.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static InformProviderResponse Server(String Description = null)
+        public static InformProviderResponse Server(InformProviderRequest  Request,
+                                                    String                 Description = null)
 
-            => new InformProviderResponse(Result.Unknown(Description));
+            => new InformProviderResponse(Request,
+                                          Result.Server(Description));
 
 
         /// <summary>
         /// Data has technical errors.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="Description">A human-readable error description.</param>
-        public static InformProviderResponse Format(String Description = null)
+        public static InformProviderResponse Format(InformProviderRequest  Request,
+                                                    String                 Description = null)
 
-            => new InformProviderResponse(Result.Unknown(Description));
+            => new InformProviderResponse(Request,
+                                          Result.Format(Description));
 
         #endregion
 
@@ -95,9 +114,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHPdirect inform provider response.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
-        public InformProviderResponse(Result  Result)
-            : base(Result)
+        public InformProviderResponse(InformProviderRequest  Request,
+                                      Result                 Result)
+
+            : base(Request, Result)
+
         { }
 
         #endregion
@@ -125,20 +148,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(InformProviderResponseXML,  OnException = null)
+        #region (static) Parse   (Request, InformProviderResponseXML,  OnException = null)
 
         /// <summary>
         /// Parse the given XML representation of an OCHPdirect inform provider response.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="InformProviderResponseXML">The XML to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static InformProviderResponse Parse(XElement             InformProviderResponseXML,
-                                                   OnExceptionDelegate  OnException = null)
+        public static InformProviderResponse Parse(InformProviderRequest  Request,
+                                                   XElement               InformProviderResponseXML,
+                                                   OnExceptionDelegate    OnException = null)
         {
 
             InformProviderResponse _InformProviderResponse;
 
-            if (TryParse(InformProviderResponseXML, out _InformProviderResponse, OnException))
+            if (TryParse(Request, InformProviderResponseXML, out _InformProviderResponse, OnException))
                 return _InformProviderResponse;
 
             return null;
@@ -147,20 +172,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) Parse(InformProviderResponseText, OnException = null)
+        #region (static) Parse   (Request, InformProviderResponseText, OnException = null)
 
         /// <summary>
         /// Parse the given text representation of an OCHPdirect inform provider response.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="InformProviderResponseText">The text to parse.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static InformProviderResponse Parse(String               InformProviderResponseText,
-                                                   OnExceptionDelegate  OnException = null)
+        public static InformProviderResponse Parse(InformProviderRequest  Request,
+                                                   String                 InformProviderResponseText,
+                                                   OnExceptionDelegate    OnException = null)
         {
 
             InformProviderResponse _InformProviderResponse;
 
-            if (TryParse(InformProviderResponseText, out _InformProviderResponse, OnException))
+            if (TryParse(Request, InformProviderResponseText, out _InformProviderResponse, OnException))
                 return _InformProviderResponse;
 
             return null;
@@ -169,15 +196,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(InformProviderResponseXML,  out InformProviderResponse, OnException = null)
+        #region (static) TryParse(Request, InformProviderResponseXML,  out InformProviderResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given XML representation of an OCHPdirect inform provider response.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="InformProviderResponseXML">The XML to parse.</param>
         /// <param name="InformProviderResponse">The parsed inform provider response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(XElement                    InformProviderResponseXML,
+        public static Boolean TryParse(InformProviderRequest       Request,
+                                       XElement                    InformProviderResponseXML,
                                        out InformProviderResponse  InformProviderResponse,
                                        OnExceptionDelegate         OnException  = null)
         {
@@ -186,6 +215,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 InformProviderResponse = new InformProviderResponse(
+
+                                             Request,
 
                                              InformProviderResponseXML.MapElementOrFail(OCHPNS.Default + "result",
                                                                                         Result.Parse,
@@ -210,15 +241,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (static) TryParse(InformProviderResponseText, out InformProviderResponse, OnException = null)
+        #region (static) TryParse(Request, InformProviderResponseText, out InformProviderResponse, OnException = null)
 
         /// <summary>
         /// Try to parse the given text representation of an OCHPdirect inform provider response.
         /// </summary>
+        /// <param name="Request">The inform provider request leading to this response.</param>
         /// <param name="InformProviderResponseText">The text to parse.</param>
         /// <param name="InformProviderResponse">The parsed inform provider response.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-        public static Boolean TryParse(String                      InformProviderResponseText,
+        public static Boolean TryParse(InformProviderRequest       Request,
+                                       String                      InformProviderResponseText,
                                        out InformProviderResponse  InformProviderResponse,
                                        OnExceptionDelegate         OnException  = null)
         {
@@ -226,7 +259,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                if (TryParse(XDocument.Parse(InformProviderResponseText).Root,
+                if (TryParse(Request,
+                             XDocument.Parse(InformProviderResponseText).Root,
                              out InformProviderResponse,
                              OnException))
 
@@ -335,7 +369,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="InformProviderResponse">An inform provider response to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(InformProviderResponse InformProviderResponse)
+        public override Boolean Equals(InformProviderResponse InformProviderResponse)
         {
 
             if ((Object) InformProviderResponse == null)

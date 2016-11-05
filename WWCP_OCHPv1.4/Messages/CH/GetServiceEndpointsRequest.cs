@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <summary>
     /// An OCHP get service endpoints request.
     /// </summary>
-    public class GetServiceEndpointsRequest
+    public class GetServiceEndpointsRequest : ARequest<GetServiceEndpointsRequest>
     {
 
         #region Documentation
@@ -253,7 +253,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// </summary>
         /// <param name="GetServiceEndpointsRequest">A get service endpoints request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(GetServiceEndpointsRequest GetServiceEndpointsRequest)
+        public override Boolean Equals(GetServiceEndpointsRequest GetServiceEndpointsRequest)
         {
 
             if ((Object) GetServiceEndpointsRequest == null)

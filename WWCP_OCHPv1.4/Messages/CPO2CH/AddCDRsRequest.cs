@@ -32,7 +32,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP add charge detail records request.
     /// </summary>
-    public class AddCDRsRequest
+    public class AddCDRsRequest : ARequest<AddCDRsRequest>
     {
 
         #region Properties
@@ -299,7 +299,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="AddCDRsRequest">A add charge detail records request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(AddCDRsRequest AddCDRsRequest)
+        public override Boolean Equals(AddCDRsRequest AddCDRsRequest)
         {
 
             if ((Object) AddCDRsRequest == null)

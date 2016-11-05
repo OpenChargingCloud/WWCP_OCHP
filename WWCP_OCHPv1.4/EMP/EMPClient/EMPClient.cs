@@ -657,6 +657,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new GetChargePointListRequest();
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -667,7 +670,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetChargePointListRequest().ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "GetChargePointListRequest",
                                                  RequestLogDelegate:   OnGetChargePointListSOAPRequest,
                                                  ResponseLogDelegate:  OnGetChargePointListSOAPResponse,
@@ -677,7 +680,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetChargePointListResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetChargePointListResponse.Parse),
 
                                                  #endregion
 
@@ -689,6 +692,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetChargePointListResponse>(httpresponse,
                                                                                                          new GetChargePointListResponse(
+                                                                                                             Request,
                                                                                                              Result.Format(
                                                                                                                  "Invalid SOAP => " +
                                                                                                                  httpresponse.HTTPBody.ToUTF8String()
@@ -708,6 +712,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetChargePointListResponse>(httpresponse,
                                                                                                          new GetChargePointListResponse(
+                                                                                                             Request,
                                                                                                              Result.Server(
                                                                                                                   httpresponse.HTTPStatusCode.ToString() +
                                                                                                                   " => " +
@@ -727,6 +732,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<GetChargePointListResponse>.ExceptionThrown(new GetChargePointListResponse(
+                                                                                                                         Request,
                                                                                                                          Result.Format(exception.Message +
                                                                                                                                        " => " +
                                                                                                                                        exception.StackTrace)),
@@ -741,7 +747,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<GetChargePointListResponse>.OK(new GetChargePointListResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetChargePointListResponse>.OK(new GetChargePointListResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnGetChargePointListResponse event
@@ -836,6 +842,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new GetChargePointListUpdatesRequest(LastUpdate);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -846,7 +855,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetChargePointListUpdatesRequest(LastUpdate).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "GetChargePointListUpdatesRequest",
                                                  RequestLogDelegate:   OnGetChargePointListUpdatesSOAPRequest,
                                                  ResponseLogDelegate:  OnGetChargePointListUpdatesSOAPResponse,
@@ -856,7 +865,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetChargePointListUpdatesResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetChargePointListUpdatesResponse.Parse),
 
                                                  #endregion
 
@@ -868,6 +877,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetChargePointListUpdatesResponse>(httpresponse,
                                                                                                                 new GetChargePointListUpdatesResponse(
+                                                                                                                    Request,
                                                                                                                     Result.Format(
                                                                                                                         "Invalid SOAP => " +
                                                                                                                         httpresponse.HTTPBody.ToUTF8String()
@@ -887,6 +897,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetChargePointListUpdatesResponse>(httpresponse,
                                                                                                                 new GetChargePointListUpdatesResponse(
+                                                                                                                    Request,
                                                                                                                     Result.Server(
                                                                                                                          httpresponse.HTTPStatusCode.ToString() +
                                                                                                                          " => " +
@@ -906,6 +917,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<GetChargePointListUpdatesResponse>.ExceptionThrown(new GetChargePointListUpdatesResponse(
+                                                                                                                                Request,
                                                                                                                                 Result.Format(exception.Message +
                                                                                                                                               " => " +
                                                                                                                                               exception.StackTrace)),
@@ -920,7 +932,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<GetChargePointListUpdatesResponse>.OK(new GetChargePointListUpdatesResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetChargePointListUpdatesResponse>.OK(new GetChargePointListUpdatesResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnGetChargePointListUpdatesResponse event
@@ -1019,6 +1031,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new GetStatusRequest(LastRequest,
+                                               StatusType);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -1029,8 +1045,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetStatusRequest(LastRequest,
-                                                                                         StatusType).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "GetStatusRequest",
                                                  RequestLogDelegate:   OnGetStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnGetStatusSOAPResponse,
@@ -1040,7 +1055,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetStatusResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetStatusResponse.Parse),
 
                                                  #endregion
 
@@ -1052,6 +1067,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetStatusResponse>(httpresponse,
                                                                                                 new GetStatusResponse(
+                                                                                                    Request,
                                                                                                     Result.Format(
                                                                                                         "Invalid SOAP => " +
                                                                                                         httpresponse.HTTPBody.ToUTF8String()
@@ -1071,6 +1087,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetStatusResponse>(httpresponse,
                                                                                                 new GetStatusResponse(
+                                                                                                    Request,
                                                                                                     Result.Server(
                                                                                                          httpresponse.HTTPStatusCode.ToString() +
                                                                                                          " => " +
@@ -1090,6 +1107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<GetStatusResponse>.ExceptionThrown(new GetStatusResponse(
+                                                                                                                Request,
                                                                                                                 Result.Format(exception.Message +
                                                                                                                               " => " +
                                                                                                                               exception.StackTrace)),
@@ -1104,7 +1122,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<GetStatusResponse>.OK(new GetStatusResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetStatusResponse>.OK(new GetStatusResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnGetStatusResponse event
@@ -1206,6 +1224,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new SetRoamingAuthorisationListRequest(RoamingAuthorisationInfos);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -1216,7 +1237,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new SetRoamingAuthorisationListRequest(RoamingAuthorisationInfos).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "SetRoamingAuthorisationListRequest",
                                                  RequestLogDelegate:   OnSetRoamingAuthorisationListSOAPRequest,
                                                  ResponseLogDelegate:  OnSetRoamingAuthorisationListSOAPResponse,
@@ -1226,7 +1247,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(SetRoamingAuthorisationListResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, SetRoamingAuthorisationListResponse.Parse),
 
                                                  #endregion
 
@@ -1238,6 +1259,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<SetRoamingAuthorisationListResponse>(httpresponse,
                                                                                                                   new SetRoamingAuthorisationListResponse(
+                                                                                                                      Request,
                                                                                                                       Result.Format(
                                                                                                                           "Invalid SOAP => " +
                                                                                                                           httpresponse.HTTPBody.ToUTF8String()
@@ -1257,6 +1279,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<SetRoamingAuthorisationListResponse>(httpresponse,
                                                                                                                   new SetRoamingAuthorisationListResponse(
+                                                                                                                      Request,
                                                                                                                       Result.Server(
                                                                                                                            httpresponse.HTTPStatusCode.ToString() +
                                                                                                                            " => " +
@@ -1276,6 +1299,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<SetRoamingAuthorisationListResponse>.ExceptionThrown(new SetRoamingAuthorisationListResponse(
+                                                                                                                                  Request,
                                                                                                                                   Result.Format(exception.Message +
                                                                                                                                                 " => " +
                                                                                                                                                 exception.StackTrace)),
@@ -1290,7 +1314,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(new SetRoamingAuthorisationListResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(new SetRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnGetRoamingAuthorisationListResponse event
@@ -1390,6 +1414,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new UpdateRoamingAuthorisationListRequest(RoamingAuthorisationInfos);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -1400,7 +1427,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new UpdateRoamingAuthorisationListRequest(RoamingAuthorisationInfos).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "UpdateRoamingAuthorisationListRequest",
                                                  RequestLogDelegate:   OnUpdateRoamingAuthorisationListSOAPRequest,
                                                  ResponseLogDelegate:  OnUpdateRoamingAuthorisationListSOAPResponse,
@@ -1410,7 +1437,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(UpdateRoamingAuthorisationListResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, UpdateRoamingAuthorisationListResponse.Parse),
 
                                                  #endregion
 
@@ -1422,6 +1449,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<UpdateRoamingAuthorisationListResponse>(httpresponse,
                                                                                                                      new UpdateRoamingAuthorisationListResponse(
+                                                                                                                         Request,
                                                                                                                          Result.Format(
                                                                                                                              "Invalid SOAP => " +
                                                                                                                              httpresponse.HTTPBody.ToUTF8String()
@@ -1441,6 +1469,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<UpdateRoamingAuthorisationListResponse>(httpresponse,
                                                                                                                      new UpdateRoamingAuthorisationListResponse(
+                                                                                                                         Request,
                                                                                                                          Result.Server(
                                                                                                                               httpresponse.HTTPStatusCode.ToString() +
                                                                                                                               " => " +
@@ -1460,6 +1489,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<UpdateRoamingAuthorisationListResponse>.ExceptionThrown(new UpdateRoamingAuthorisationListResponse(
+                                                                                                                                     Request,
                                                                                                                                      Result.Format(exception.Message +
                                                                                                                                                    " => " +
                                                                                                                                                    exception.StackTrace)),
@@ -1474,7 +1504,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<UpdateRoamingAuthorisationListResponse>.OK(new UpdateRoamingAuthorisationListResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<UpdateRoamingAuthorisationListResponse>.OK(new UpdateRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnUpdateRoamingAuthorisationListResponse event
@@ -1571,6 +1601,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new GetCDRsRequest(CDRStatus);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -1581,7 +1614,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetCDRsRequest(CDRStatus).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "GetCDRsRequest",
                                                  RequestLogDelegate:   OnGetCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnGetCDRsSOAPResponse,
@@ -1591,7 +1624,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetCDRsResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetCDRsResponse.Parse),
 
                                                  #endregion
 
@@ -1603,6 +1636,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetCDRsResponse>(httpresponse,
                                                                                               new GetCDRsResponse(
+                                                                                                  Request,
                                                                                                   Result.Format(
                                                                                                       "Invalid SOAP => " +
                                                                                                       httpresponse.HTTPBody.ToUTF8String()
@@ -1622,6 +1656,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetCDRsResponse>(httpresponse,
                                                                                               new GetCDRsResponse(
+                                                                                                  Request,
                                                                                                   Result.Server(
                                                                                                        httpresponse.HTTPStatusCode.ToString() +
                                                                                                        " => " +
@@ -1641,6 +1676,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<GetCDRsResponse>.ExceptionThrown(new GetCDRsResponse(
+                                                                                                              Request,
                                                                                                               Result.Format(exception.Message +
                                                                                                                             " => " +
                                                                                                                             exception.StackTrace)),
@@ -1655,7 +1691,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<GetCDRsResponse>.OK(new GetCDRsResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetCDRsResponse>.OK(new GetCDRsResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnGetCDRsResponse event
@@ -1758,6 +1794,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new ConfirmCDRsRequest(Approved,
+                                                 Declined);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -1768,8 +1808,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new ConfirmCDRsRequest(Approved,
-                                                                                           Declined).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "ConfirmCDRsRequest",
                                                  RequestLogDelegate:   OnConfirmCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnConfirmCDRsSOAPResponse,
@@ -1779,7 +1818,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(ConfirmCDRsResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, ConfirmCDRsResponse.Parse),
 
                                                  #endregion
 
@@ -1791,6 +1830,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<ConfirmCDRsResponse>(httpresponse,
                                                                                                   new ConfirmCDRsResponse(
+                                                                                                      Request,
                                                                                                       Result.Format(
                                                                                                           "Invalid SOAP => " +
                                                                                                           httpresponse.HTTPBody.ToUTF8String()
@@ -1810,6 +1850,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<ConfirmCDRsResponse>(httpresponse,
                                                                                                   new ConfirmCDRsResponse(
+                                                                                                      Request,
                                                                                                       Result.Server(
                                                                                                            httpresponse.HTTPStatusCode.ToString() +
                                                                                                            " => " +
@@ -1829,6 +1870,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<ConfirmCDRsResponse>.ExceptionThrown(new ConfirmCDRsResponse(
+                                                                                                                  Request,
                                                                                                                   Result.Format(exception.Message +
                                                                                                                                 " => " +
                                                                                                                                 exception.StackTrace)),
@@ -1843,7 +1885,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<ConfirmCDRsResponse>.OK(new ConfirmCDRsResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<ConfirmCDRsResponse>.OK(new ConfirmCDRsResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnConfirmCDRsResponse event
@@ -1941,6 +1983,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new GetTariffUpdatesRequest(LastUpdate);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -1951,7 +1996,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetTariffUpdatesRequest(LastUpdate).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "GetTariffUpdatesRequest",
                                                  RequestLogDelegate:   OnGetTariffUpdatesSOAPRequest,
                                                  ResponseLogDelegate:  OnGetTariffUpdatesSOAPResponse,
@@ -1961,7 +2006,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetTariffUpdatesResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetTariffUpdatesResponse.Parse),
 
                                                  #endregion
 
@@ -1973,6 +2018,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetTariffUpdatesResponse>(httpresponse,
                                                                                                        new GetTariffUpdatesResponse(
+                                                                                                           Request,
                                                                                                            Result.Format(
                                                                                                                "Invalid SOAP => " +
                                                                                                                httpresponse.HTTPBody.ToUTF8String()
@@ -1992,6 +2038,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetTariffUpdatesResponse>(httpresponse,
                                                                                                        new GetTariffUpdatesResponse(
+                                                                                                           Request,
                                                                                                            Result.Server(
                                                                                                                 httpresponse.HTTPStatusCode.ToString() +
                                                                                                                 " => " +
@@ -2011,6 +2058,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<GetTariffUpdatesResponse>.ExceptionThrown(new GetTariffUpdatesResponse(
+                                                                                                                       Request,
                                                                                                                        Result.Format(exception.Message +
                                                                                                                                      " => " +
                                                                                                                                      exception.StackTrace)),
@@ -2025,7 +2073,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<GetTariffUpdatesResponse>.OK(new GetTariffUpdatesResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetTariffUpdatesResponse>.OK(new GetTariffUpdatesResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnGetTariffUpdatesResponse event
@@ -2128,6 +2176,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new AddServiceEndpointsRequest(ProviderEndpoints);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -2138,7 +2189,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new AddServiceEndpointsRequest(ProviderEndpoints).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "AddServiceEndpointsRequest",
                                                  RequestLogDelegate:   OnAddServiceEndpointsSOAPRequest,
                                                  ResponseLogDelegate:  OnAddServiceEndpointsSOAPResponse,
@@ -2148,7 +2199,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(AddServiceEndpointsResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, AddServiceEndpointsResponse.Parse),
 
                                                  #endregion
 
@@ -2160,6 +2211,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<AddServiceEndpointsResponse>(httpresponse,
                                                                                                           new AddServiceEndpointsResponse(
+                                                                                                              Request,
                                                                                                               Result.Format(
                                                                                                                   "Invalid SOAP => " +
                                                                                                                   httpresponse.HTTPBody.ToUTF8String()
@@ -2179,6 +2231,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<AddServiceEndpointsResponse>(httpresponse,
                                                                                                           new AddServiceEndpointsResponse(
+                                                                                                              Request,
                                                                                                               Result.Server(
                                                                                                                    httpresponse.HTTPStatusCode.ToString() +
                                                                                                                    " => " +
@@ -2198,6 +2251,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<AddServiceEndpointsResponse>.ExceptionThrown(new AddServiceEndpointsResponse(
+                                                                                                                          Request,
                                                                                                                           Result.Format(exception.Message +
                                                                                                                                         " => " +
                                                                                                                                         exception.StackTrace)),
@@ -2212,7 +2266,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<AddServiceEndpointsResponse>.OK(new AddServiceEndpointsResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<AddServiceEndpointsResponse>.OK(new AddServiceEndpointsResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnAddServiceEndpointsResponse event
@@ -2303,6 +2357,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new GetServiceEndpointsRequest();
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -2313,7 +2370,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetServiceEndpointsRequest().ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "GetServiceEndpointsRequest",
                                                  RequestLogDelegate:   OnGetServiceEndpointsSOAPRequest,
                                                  ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
@@ -2323,7 +2380,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetServiceEndpointsResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetServiceEndpointsResponse.Parse),
 
                                                  #endregion
 
@@ -2335,6 +2392,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetServiceEndpointsResponse>(httpresponse,
                                                                                                           new GetServiceEndpointsResponse(
+                                                                                                              Request,
                                                                                                               Result.Format(
                                                                                                                   "Invalid SOAP => " +
                                                                                                                   httpresponse.HTTPBody.ToUTF8String()
@@ -2354,6 +2412,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetServiceEndpointsResponse>(httpresponse,
                                                                                                           new GetServiceEndpointsResponse(
+                                                                                                              Request,
                                                                                                               Result.Server(
                                                                                                                    httpresponse.HTTPStatusCode.ToString() +
                                                                                                                    " => " +
@@ -2373,6 +2432,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<GetServiceEndpointsResponse>.ExceptionThrown(new GetServiceEndpointsResponse(
+                                                                                                                          Request,
                                                                                                                           Result.Format(exception.Message +
                                                                                                                                         " => " +
                                                                                                                                         exception.StackTrace)),
@@ -2387,7 +2447,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<GetServiceEndpointsResponse>.OK(new GetServiceEndpointsResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetServiceEndpointsResponse>.OK(new GetServiceEndpointsResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnGetServiceEndpointsResponse event
@@ -2488,7 +2548,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
-            var ep = _EndpointInfos.Get(EVSEId);
+
+            var ep      = _EndpointInfos.Get(EVSEId);
+            var Request = new SelectEVSERequest(EVSEId,
+                                                ContractId,
+                                                ReserveUntil);
+
 
             using (var _OCHPClient = new SOAPClient(ep.First().URL,
                                                     RemotePort,
@@ -2500,9 +2565,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new SelectEVSERequest(EVSEId,
-                                                                                          ContractId,
-                                                                                          ReserveUntil).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "SelectEVSERequest",
                                                  RequestLogDelegate:   OnSelectEVSESOAPRequest,
                                                  ResponseLogDelegate:  OnSelectEVSESOAPResponse,
@@ -2512,7 +2575,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(SelectEVSEResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, SelectEVSEResponse.Parse),
 
                                                  #endregion
 
@@ -2524,6 +2587,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<SelectEVSEResponse>(httpresponse,
                                                                                                  new SelectEVSEResponse(
+                                                                                                     Request,
                                                                                                      Result.Format(
                                                                                                          "Invalid SOAP => " +
                                                                                                          httpresponse.HTTPBody.ToUTF8String()
@@ -2543,6 +2607,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<SelectEVSEResponse>(httpresponse,
                                                                                                  new SelectEVSEResponse(
+                                                                                                     Request,
                                                                                                      Result.Server(
                                                                                                           httpresponse.HTTPStatusCode.ToString() +
                                                                                                           " => " +
@@ -2562,6 +2627,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<SelectEVSEResponse>.ExceptionThrown(new SelectEVSEResponse(
+                                                                                                                 Request,
                                                                                                                  Result.Format(exception.Message +
                                                                                                                                " => " +
                                                                                                                                exception.StackTrace)),
@@ -2576,7 +2642,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<SelectEVSEResponse>.OK(new SelectEVSEResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<SelectEVSEResponse>.OK(new SelectEVSEResponse(Request, Result.OK("Nothing to upload!")));
 
 
             _EndpointInfos.Add(result.Content.DirectId, ep);
@@ -2700,7 +2766,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
-            var ep = _EndpointInfos.Get(DirectId);
+
+            var ep      = _EndpointInfos.Get(DirectId);
+            var Request = new ControlEVSERequest(DirectId,
+                                                 Operation,
+                                                 MaxPower,
+                                                 MaxCurrent,
+                                                 OnePhase,
+                                                 MaxEnergy,
+                                                 MinEnergy,
+                                                 Departure);
+
 
             using (var _OCHPClient = new SOAPClient(ep.First().URL,
                                                     RemotePort,
@@ -2712,14 +2788,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new ControlEVSERequest(DirectId,
-                                                                                           Operation,
-                                                                                           MaxPower,
-                                                                                           MaxCurrent,
-                                                                                           OnePhase,
-                                                                                           MaxEnergy,
-                                                                                           MinEnergy,
-                                                                                           Departure).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "ControlEVSERequest",
                                                  RequestLogDelegate:   OnControlEVSESOAPRequest,
                                                  ResponseLogDelegate:  OnControlEVSESOAPResponse,
@@ -2729,7 +2798,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(ControlEVSEResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, ControlEVSEResponse.Parse),
 
                                                  #endregion
 
@@ -2741,6 +2810,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<ControlEVSEResponse>(httpresponse,
                                                                                                   new ControlEVSEResponse(
+                                                                                                      Request,
                                                                                                       Result.Format(
                                                                                                           "Invalid SOAP => " +
                                                                                                           httpresponse.HTTPBody.ToUTF8String()
@@ -2760,6 +2830,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<ControlEVSEResponse>(httpresponse,
                                                                                                   new ControlEVSEResponse(
+                                                                                                      Request,
                                                                                                       Result.Server(
                                                                                                            httpresponse.HTTPStatusCode.ToString() +
                                                                                                            " => " +
@@ -2779,6 +2850,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<ControlEVSEResponse>.ExceptionThrown(new ControlEVSEResponse(
+                                                                                                                  Request,
                                                                                                                   Result.Format(exception.Message +
                                                                                                                                 " => " +
                                                                                                                                 exception.StackTrace)),
@@ -2793,7 +2865,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<ControlEVSEResponse>.OK(new ControlEVSEResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<ControlEVSEResponse>.OK(new ControlEVSEResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnControlEVSEResponse event
@@ -2900,7 +2972,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
-            var ep = _EndpointInfos.Get(DirectId);
+            var ep      = _EndpointInfos.Get(DirectId);
+            var Request = new ReleaseEVSERequest(DirectId);
+
 
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
@@ -2912,7 +2986,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new ReleaseEVSERequest(DirectId).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "ReleaseEVSERequest",
                                                  RequestLogDelegate:   OnReleaseEVSESOAPRequest,
                                                  ResponseLogDelegate:  OnReleaseEVSESOAPResponse,
@@ -2922,7 +2996,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(ReleaseEVSEResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, ReleaseEVSEResponse.Parse),
 
                                                  #endregion
 
@@ -2934,6 +3008,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<ReleaseEVSEResponse>(httpresponse,
                                                                                                   new ReleaseEVSEResponse(
+                                                                                                      Request,
                                                                                                       Result.Format(
                                                                                                           "Invalid SOAP => " +
                                                                                                           httpresponse.HTTPBody.ToUTF8String()
@@ -2953,6 +3028,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<ReleaseEVSEResponse>(httpresponse,
                                                                                                   new ReleaseEVSEResponse(
+                                                                                                      Request,
                                                                                                       Result.Server(
                                                                                                            httpresponse.HTTPStatusCode.ToString() +
                                                                                                            " => " +
@@ -2972,6 +3048,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<ReleaseEVSEResponse>.ExceptionThrown(new ReleaseEVSEResponse(
+                                                                                                                  Request,
                                                                                                                   Result.Format(exception.Message +
                                                                                                                                 " => " +
                                                                                                                                 exception.StackTrace)),
@@ -2986,7 +3063,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<ReleaseEVSEResponse>.OK(new ReleaseEVSEResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<ReleaseEVSEResponse>.OK(new ReleaseEVSEResponse(Request, Result.OK("Nothing to upload!")));
 
 
             _EndpointInfos.Delete(DirectId);
@@ -3089,6 +3166,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new GetEVSEStatusRequest(EVSEIds);
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -3099,7 +3178,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new GetEVSEStatusRequest(EVSEIds).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "DirectEvseStatusRequest",
                                                  RequestLogDelegate:   OnGetEVSEStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnGetEVSEStatusSOAPResponse,
@@ -3109,7 +3188,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetEVSEStatusResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetEVSEStatusResponse.Parse),
 
                                                  #endregion
 
@@ -3121,6 +3200,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetEVSEStatusResponse>(httpresponse,
                                                                                                        new GetEVSEStatusResponse(
+                                                                                                           Request,
                                                                                                            Result.Format(
                                                                                                                "Invalid SOAP => " +
                                                                                                                httpresponse.HTTPBody.ToUTF8String()
@@ -3140,6 +3220,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetEVSEStatusResponse>(httpresponse,
                                                                                                        new GetEVSEStatusResponse(
+                                                                                                           Request,
                                                                                                            Result.Server(
                                                                                                                 httpresponse.HTTPStatusCode.ToString() +
                                                                                                                 " => " +
@@ -3159,10 +3240,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<GetEVSEStatusResponse>.ExceptionThrown(new GetEVSEStatusResponse(
-                                                                                                                       Result.Format(exception.Message +
-                                                                                                                                     " => " +
-                                                                                                                                     exception.StackTrace)),
-                                                                                                                   exception);
+                                                                                                                   Request,
+                                                                                                                   Result.Format(exception.Message +
+                                                                                                                                 " => " +
+                                                                                                                                 exception.StackTrace)),
+                                                                                                               exception);
 
                                                  }
 
@@ -3173,7 +3255,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<GetEVSEStatusResponse>.OK(new GetEVSEStatusResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetEVSEStatusResponse>.OK(new GetEVSEStatusResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnGetEVSEStatusResponse event
@@ -3281,6 +3363,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
+            var Request = new ReportDiscrepancyRequest(EVSEId,
+                                                       Report);
+
+
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
@@ -3291,8 +3377,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new ReportDiscrepancyRequest(EVSEId,
-                                                                                                 Report).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "ReportDiscrepancyRequest",
                                                  RequestLogDelegate:   OnReportDiscrepancySOAPRequest,
                                                  ResponseLogDelegate:  OnReportDiscrepancySOAPResponse,
@@ -3302,7 +3387,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(ReportDiscrepancyResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, ReportDiscrepancyResponse.Parse),
 
                                                  #endregion
 
@@ -3314,6 +3399,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<ReportDiscrepancyResponse>(httpresponse,
                                                                                                         new ReportDiscrepancyResponse(
+                                                                                                            Request,
                                                                                                             Result.Format(
                                                                                                                 "Invalid SOAP => " +
                                                                                                                 httpresponse.HTTPBody.ToUTF8String()
@@ -3333,6 +3419,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<ReportDiscrepancyResponse>(httpresponse,
                                                                                                         new ReportDiscrepancyResponse(
+                                                                                                            Request,
                                                                                                             Result.Server(
                                                                                                                  httpresponse.HTTPStatusCode.ToString() +
                                                                                                                  " => " +
@@ -3352,6 +3439,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<ReportDiscrepancyResponse>.ExceptionThrown(new ReportDiscrepancyResponse(
+                                                                                                                        Request,
                                                                                                                         Result.Format(exception.Message +
                                                                                                                                       " => " +
                                                                                                                                       exception.StackTrace)),
@@ -3366,7 +3454,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<ReportDiscrepancyResponse>.OK(new ReportDiscrepancyResponse(Result.OK("Nothing to upload!")));
+                result = HTTPResponse<ReportDiscrepancyResponse>.OK(new ReportDiscrepancyResponse(Request, Result.OK("Nothing to upload!")));
 
 
             #region Send OnReportDiscrepancyResponse event
@@ -3467,7 +3555,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
-            var ep = _EndpointInfos.Get(DirectId);
+            var ep      = _EndpointInfos.Get(DirectId);
+            var Request = new GetInformProviderRequest(DirectId);
+
 
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
@@ -3479,7 +3569,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(new ReleaseEVSERequest(DirectId).ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
                                                  "InformProviderRequest",
                                                  RequestLogDelegate:   OnGetInformProviderSOAPRequest,
                                                  ResponseLogDelegate:  OnGetInformProviderSOAPResponse,
@@ -3489,7 +3579,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(GetInformProviderResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetInformProviderResponse.Parse),
 
                                                  #endregion
 
@@ -3501,6 +3591,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetInformProviderResponse>(httpresponse,
                                                                                                         GetInformProviderResponse.Format(
+                                                                                                            Request,
                                                                                                             "Invalid SOAP => " +
                                                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                                                         ),
@@ -3518,6 +3609,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      return new HTTPResponse<GetInformProviderResponse>(httpresponse,
                                                                                                         GetInformProviderResponse.Server(
+                                                                                                             Request,
                                                                                                              httpresponse.HTTPStatusCode.ToString() +
                                                                                                              " => " +
                                                                                                              httpresponse.HTTPBody.      ToUTF8String()
@@ -3535,6 +3627,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      SendException(timestamp, sender, exception);
 
                                                      return HTTPResponse<GetInformProviderResponse>.ExceptionThrown(GetInformProviderResponse.Format(
+                                                                                                                        Request,
                                                                                                                         exception.Message +
                                                                                                                         " => " +
                                                                                                                         exception.StackTrace),
@@ -3549,7 +3642,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             if (result == null)
-                result = HTTPResponse<GetInformProviderResponse>.OK(GetInformProviderResponse.OK("Nothing to upload!"));
+                result = HTTPResponse<GetInformProviderResponse>.OK(GetInformProviderResponse.OK(Request, "Nothing to upload!"));
 
 
             _EndpointInfos.Delete(DirectId);

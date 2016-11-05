@@ -30,15 +30,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHPdirect select EVSE request.
     /// </summary>
-    public class SelectEVSERequest
+    public class SelectEVSERequest : ARequest<SelectEVSERequest>
     {
 
         #region Properties
 
-        /// <summary>
-        /// The unique identification of the selected EVSE.
-        /// </summary>
-        public EVSE_Id      EVSEId          { get; }
+    /// <summary>
+    /// The unique identification of the selected EVSE.
+    /// </summary>
+    public EVSE_Id      EVSEId          { get; }
 
         /// <summary>
         /// The unique identification of an e-mobility contract.
@@ -335,7 +335,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="SelectEVSERequest">A select EVSE request to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(SelectEVSERequest SelectEVSERequest)
+        public override Boolean Equals(SelectEVSERequest SelectEVSERequest)
         {
 
             if ((Object) SelectEVSERequest == null)
