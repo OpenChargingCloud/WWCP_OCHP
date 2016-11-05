@@ -92,8 +92,7 @@
     <Compile Include="Messages\EMP2CPO\GetInformProviderResponse.cs" />
     <Compile Include="Messages\EMP2CPO\ReportDiscrepancyRequest.cs" />
     <Compile Include="Messages\EMP2CPO\ReportDiscrepancyResponse.cs" />
-    <Compile Include="IO\EndpointInfos.cs" />
-    <Compile Include="IO\EndpointInfo.cs" />
+    <Compile Include="DataTypes\Additional\EndpointInfos.cs" />
     <Compile Include="Messages\CPO2CH\AddServiceEndpointsResponse.cs" />
     <Compile Include="Messages\CPO2CH\CheckCDRsResponse.cs" />
     <Compile Include="Messages\CPO2CH\GetServiceEndpointsResponse.cs" />
