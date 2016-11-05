@@ -95,9 +95,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (ParkingId == null)
-                throw new ArgumentNullException(nameof(ParkingId),            "The given unique identification of a parking space must not be null!");
-
             if (ParkingRestrictions.HasValue && ParkingRestrictions == RestrictionTypes.Unknown)
                 throw new ArgumentNullException(nameof(ParkingRestrictions),  "The given parking restrictions must not be null!");
 

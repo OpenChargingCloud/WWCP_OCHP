@@ -400,7 +400,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    End.         Equals(CDRPeriod.End)          &&
                    BillingItem. Equals(CDRPeriod.BillingItem)  &&
                    BillingValue.Equals(CDRPeriod.BillingValue) &&
-                   ItemPrice.   Equals(CDRPeriod.ItemPrice);
+                   ItemPrice.   Equals(CDRPeriod.ItemPrice)    &&
+
+                   ((!PeriodCost.HasValue && !CDRPeriod.PeriodCost.HasValue) ||
+                     (PeriodCost.HasValue &&  CDRPeriod.PeriodCost.HasValue && PeriodCost.Value.Equals(CDRPeriod.PeriodCost.Value))) &&
+
+                   ((!TaxRate.   HasValue && !CDRPeriod.TaxRate.   HasValue) ||
+                     (TaxRate.   HasValue &&  CDRPeriod.TaxRate.   HasValue && TaxRate.   Value.Equals(CDRPeriod.TaxRate.   Value)));
 
         }
 
@@ -421,9 +427,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 return Start.       GetHashCode() * 31 ^
                        End.         GetHashCode() * 23 ^
-                       BillingItem. GetHashCode() * 17 ^
-                       BillingValue.GetHashCode() * 11 ^
-                       ItemPrice.   GetHashCode();
+                       BillingItem. GetHashCode() * 19 ^
+                       BillingValue.GetHashCode() * 17 ^
+                       ItemPrice.   GetHashCode() * 11 ^
+
+                       (PeriodCost.HasValue
+                            ? PeriodCost.GetHashCode()
+                            : 0) * 7 ^
+
+                       (TaxRate.HasValue
+                            ? TaxRate.GetHashCode()
+                            : 0) * 5;
+
 
             }
         }
@@ -437,7 +452,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(BillingItem.ToString(), " at ", BillingValue, " from ", Start.ToIso8601(), " -> ", End.ToIso8601());
+            => String.Concat(BillingItem.ToString(),
+                             " at ",   BillingValue,
+                             " from ", Start.ToIso8601(),
+                             " -> ",   End.  ToIso8601());
 
         #endregion
 

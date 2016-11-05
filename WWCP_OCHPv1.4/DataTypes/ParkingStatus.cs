@@ -28,9 +28,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// The the major status, minor status and TTL of these status of an OCHP parking space.
+    /// The the status and an optional timeout of this status of an OCHP parking space.
     /// </summary>
-    public class ParkingStatus
+    public struct ParkingStatus
     {
 
         #region Properties
@@ -64,19 +64,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="TTL">The time to live is set as the deadline until which the status value is to be considered valid. Should be set to the expected status change.</param>
         public ParkingStatus(Parking_Id          ParkingId,
                              ParkingStatusTypes  Status,
-                             DateTime?           TTL)
+                             DateTime?           TTL = null)
         {
-
-            #region Initial checks
-
-            if (ParkingId == null)
-                throw new ArgumentNullException(nameof(ParkingId),  "The given unique identification of a parking space must not be null!");
-
-            #endregion
 
             this.ParkingId  = ParkingId;
             this.Status     = Status;
-            this.TTL        = TTL;
+            this.TTL        = TTL ?? new DateTime?();
 
         }
 
@@ -107,7 +100,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (TryParse(ParkingStatusXML, out _ParkingStatus, OnException))
                 return _ParkingStatus;
 
-            return null;
+            return default(ParkingStatus);
 
         }
 
@@ -129,7 +122,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (TryParse(ParkingStatusText, out _ParkingStatus, OnException))
                 return _ParkingStatus;
 
-            return null;
+            return default(ParkingStatus);
 
         }
 
@@ -172,7 +165,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 OnException?.Invoke(DateTime.Now, ParkingStatusXML, e);
 
-                ParkingStatus = null;
+                ParkingStatus = default(ParkingStatus);
                 return false;
 
             }
@@ -209,7 +202,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 OnException?.Invoke(DateTime.Now, ParkingStatusText, e);
             }
 
-            ParkingStatus = null;
+            ParkingStatus = default(ParkingStatus);
             return false;
 
         }
@@ -298,11 +291,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a parking status.
-            var ParkingStatus = Object as ParkingStatus;
-            if ((Object) ParkingStatus == null)
+            if (!(Object is ParkingStatus))
                 return false;
 
-            return this.Equals(ParkingStatus);
+            return Equals((ParkingStatus) Object);
 
         }
 
@@ -344,8 +336,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             unchecked
             {
 
-                return Status.   GetHashCode() * 11 ^
-                       ParkingId.GetHashCode();
+                return Status.   GetHashCode() * 7 ^
+                       ParkingId.GetHashCode() * 5 ^
+
+                       (TTL.HasValue
+                            ? TTL.GetHashCode()
+                            : 0);
 
             }
         }
@@ -359,7 +355,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(ParkingId, " has ", Status, TTL.HasValue ? " till " + TTL.Value.ToIso8601() : "");
+            => String.Concat("'", ParkingId, "' is '", Status, "'",
+                             TTL.HasValue
+                                 ? " till " + TTL.Value.ToIso8601()
+                                 : "");
 
         #endregion
 

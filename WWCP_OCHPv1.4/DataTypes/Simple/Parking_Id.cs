@@ -1,12 +1,12 @@
 ﻿/*
- * Copyright (c) 2014-2016 GraphDefined GmbH <achim.friedland@graphdefined.com>
- * This file is part of WWCP Core <https://github.com/OpenChargingCloud/WWCP_Core>
+ * Copyright (c) 2014-2016 GraphDefined GmbH
+ * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
- * Licensed under the Affero GPL license, Version 3.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.gnu.org/licenses/agpl.html
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,9 +30,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP parking spot.
     /// </summary>
-    public class Parking_Id : IId,
-                              IEquatable <Parking_Id>,
-                              IComparable<Parking_Id>
+    public struct Parking_Id : IId,
+                               IEquatable <Parking_Id>,
+                               IComparable<Parking_Id>
 
     {
 
@@ -41,13 +41,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing a parking identification.
         /// </summary>
-        public static readonly Regex ParkingId_RegEx  = new Regex(@"^([A-Za-z]{2}\*[A-Za-z0-9]{3}\*[Pp][A-Za-z0-9][A-Za-z0-9\*]{0,30})$ | ^([A-Za-z]{2}[A-Za-z0-9]{3}[Pp][A-Za-z0-9][A-Za-z0-9\*]{0,30})$",
+        public static readonly Regex ParkingId_RegEx  = new Regex(@"^([A-Za-z]{2}\*[A-Za-z0-9]{3})\*[Pp]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$ | ^([A-Za-z]{2}[A-Za-z0-9]{3})[Pp]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$",
                                                                   RegexOptions.IgnorePatternWhitespace);
 
         /// <summary>
         /// The regular expression for parsing a parking identification suffix.
         /// </summary>
-        public static readonly Regex IdSuffix_RegEx   = new Regex(@"^[Pp][A-Za-z0-9][A-Za-z0-9\*]{0,30}$",
+        public static readonly Regex IdSuffix_RegEx   = new Regex(@"^[A-Za-z0-9][A-Za-z0-9\*]{0,30}$",
                                                                   RegexOptions.IgnorePatternWhitespace);
 
         #endregion
@@ -55,12 +55,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Properties
 
         /// <summary>
-        /// The internal identification.
+        /// The charging station operator identification.
         /// </summary>
         public ChargingStationOperator_Id  OperatorId   { get; }
 
         /// <summary>
-        /// The suffix of the identification.
+        /// The suffix of the parking spot identification.
         /// </summary>
         public String                      Suffix       { get; }
 
@@ -76,67 +76,69 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Generate a new parking spot identification based on the given string.
+        /// Generate a new parking spot identification based on the given
+        /// charging station operator and identification suffix.
         /// </summary>
-        private Parking_Id(ChargingStationOperator_Id   OperatorId,
-                           String                       IdSuffix)
+        /// <param name="OperatorId">The unique identification of a charging station operator.</param>
+        /// <param name="IdSuffix">The suffix of the parking spot identification.</param>
+        private Parking_Id(ChargingStationOperator_Id  OperatorId,
+                           String                      IdSuffix)
         {
 
             #region Initial checks
 
             if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The parameter must not be null!");
+                throw new ArgumentNullException(nameof(OperatorId),  "The charging station operator identification must not be null!");
 
             if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
+                throw new ArgumentNullException(nameof(IdSuffix),    "The parking identification suffix must not be null or empty!");
 
             #endregion
 
-            var _MatchCollection = IdSuffix_RegEx.Matches(IdSuffix.Trim());
-
-            if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal EVSE identification '" + OperatorId + "' with suffix '" + IdSuffix + "'!");
+            if (!IdSuffix_RegEx.IsMatch(IdSuffix))
+                throw new ArgumentException("Illegal parking spot identification '" + OperatorId + "' with suffix '" + IdSuffix + "'!");
 
             this.OperatorId  = OperatorId;
-            this.Suffix      = _MatchCollection[0].Value;
+            this.Suffix      = IdSuffix;
 
         }
 
         #endregion
 
 
-        #region Parse(ParkingId)
+        #region Parse(Text)
 
         /// <summary>
         /// Parse the given string as a parking spot identification.
         /// </summary>
+        /// <param name="Text">A text representation of a parking spot identification.</param>
         public static Parking_Id Parse(String Text)
         {
 
             #region Initial checks
 
             if (Text.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Text), "The given text must not be null or empty!");
+                throw new ArgumentNullException(nameof(Text), "The given text representation of a parking identification must not be null or empty!");
 
             #endregion
 
-            var _MatchCollection = ParkingId_RegEx.Matches(Text.Trim());
+            var MatchCollection = ParkingId_RegEx.Matches(Text.Trim());
 
-            if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
+            if (MatchCollection.Count != 1)
+                throw new ArgumentException("Illegal parking identification '" + Text + "'!");
 
-            ChargingStationOperator_Id __EVSEOperatorId = null;
+            ChargingStationOperator_Id ParkingOperatorId = null;
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
-                return new Parking_Id(__EVSEOperatorId,
-                                   _MatchCollection[0].Groups[2].Value);
+            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out ParkingOperatorId))
+                return new Parking_Id(ParkingOperatorId,
+                                      MatchCollection[0].Groups[2].Value);
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
-                return new Parking_Id(__EVSEOperatorId,
-                                   _MatchCollection[0].Groups[4].Value);
+            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[3].Value, out ParkingOperatorId))
+                return new Parking_Id(ParkingOperatorId,
+                                      MatchCollection[0].Groups[4].Value);
 
 
-            throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
+            throw new ArgumentException("Illegal parking identification '" + Text + "'!");
 
         }
 
@@ -147,30 +149,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Parse the given string as a parking spot identification.
         /// </summary>
-        public static Parking_Id Parse(ChargingStationOperator_Id OperatorId, String IdSuffix)
-        {
+        /// <param name="OperatorId">The unique identification of a charging station operator.</param>
+        /// <param name="IdSuffix">The suffix of the parking spot identification.</param>
+        public static Parking_Id Parse(ChargingStationOperator_Id  OperatorId,
+                                       String                      IdSuffix)
 
-            #region Initial checks
-
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The Charging Station Operator identification must not be null or empty!");
-
-            if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
-
-            #endregion
-
-            return Parking_Id.Parse(OperatorId + "*" + IdSuffix);
-
-        }
+            => new Parking_Id(OperatorId,
+                              IdSuffix);
 
         #endregion
 
-        #region TryParse(Text, out Parking_Id)
+        #region TryParse(Text, out ParkingId)
 
         /// <summary>
         /// Parse the given string as a parking spot identification.
         /// </summary>
+        /// <param name="Text">A text representation of a parking spot identification.</param>
+        /// <param name="ParkingId">The parsed parking spot identification.</param>
         public static Boolean TryParse(String Text, out Parking_Id ParkingId)
         {
 
@@ -178,7 +173,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (Text.IsNullOrEmpty())
             {
-                ParkingId = null;
+                ParkingId = default(Parking_Id);
                 return false;
             }
 
@@ -187,32 +182,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                ParkingId = null;
+                ParkingId = default(Parking_Id);
 
-                var _MatchCollection = ParkingId_RegEx.Matches(Text.Trim());
+                var MatchCollection = ParkingId_RegEx.Matches(Text);
 
-                if (_MatchCollection.Count != 1)
+                if (MatchCollection.Count != 1)
                     return false;
 
-                ChargingStationOperator_Id __EVSEOperatorId = null;
+                ChargingStationOperator_Id ParkingOperatorId = null;
 
                 // New format...
-                if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
+                if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out ParkingOperatorId))
                 {
 
-                    ParkingId = new Parking_Id(__EVSEOperatorId,
-                                         _MatchCollection[0].Groups[2].Value);
+                    ParkingId = new Parking_Id(ParkingOperatorId,
+                                               MatchCollection[0].Groups[2].Value);
 
                     return true;
 
                 }
 
                 // Old format...
-                else if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
+                else if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[3].Value, out ParkingOperatorId))
                 {
 
-                    ParkingId = new Parking_Id(__EVSEOperatorId,
-                                         _MatchCollection[0].Groups[4].Value);
+                    ParkingId = new Parking_Id(ParkingOperatorId,
+                                               MatchCollection[0].Groups[4].Value);
 
                     return true;
 
@@ -222,45 +217,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             { }
 
-            ParkingId = null;
+            ParkingId = default(Parking_Id);
             return false;
 
         }
-
-        #endregion
-
-        #region TryParse(OperatorId, IdSuffix, out ParkingId)
-
-        ///// <summary>
-        ///// Parse the given string as an EVSE identification.
-        ///// </summary>
-        //public static Boolean TryParse(EVSEOperator_Id OperatorId, String IdSuffix, out Parking_Id Parking_Id)
-        //{
-
-        //    try
-        //    {
-        //        Parking_Id = new Parking_Id(OperatorId, IdSuffix);
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    { }
-
-        //    Parking_Id = null;
-        //    return false;
-
-        //}
-
-        #endregion
-
-        #region Clone
-
-        /// <summary>
-        /// Clone this parking spot identification.
-        /// </summary>
-        public Parking_Id Clone
-
-            => new Parking_Id(OperatorId.Clone,
-                              new String(Suffix.ToCharArray()));
 
         #endregion
 
@@ -376,7 +336,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IComparable<Parking_Id> Members
+        #region IComparable<ParkingId> Members
 
         #region CompareTo(Object)
 
@@ -391,11 +351,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             // Check if the given object is a parking spot identification.
-            var ParkingId = Object as Parking_Id;
-            if ((Object) ParkingId == null)
-                throw new ArgumentException("The given object is not a ParkingId!", nameof(Object));
+            if (!(Object is Parking_Id))
+                throw new ArgumentException("The given object is not a parking spot identification!", nameof(Object));
 
-            return CompareTo(ParkingId);
+            return CompareTo((Parking_Id) Object);
 
         }
 
@@ -432,7 +391,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IEquatable<Parking_Id> Members
+        #region IEquatable<ParkingId> Members
 
         #region Equals(Object)
 
@@ -448,11 +407,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a parking spot identification.
-            var ParkingId = Object as Parking_Id;
-            if ((Object) ParkingId == null)
+            if (!(Object is Parking_Id))
                 return false;
 
-            return this.Equals(ParkingId);
+            return this.Equals((Parking_Id) Object);
 
         }
 
@@ -487,7 +445,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
-            => OperatorId.GetHashCode() ^ Suffix.GetHashCode();
+            => OperatorId.GetHashCode() ^
+               Suffix.    GetHashCode();
 
         #endregion
 

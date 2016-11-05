@@ -62,9 +62,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),  "The given EVSE identification must not be null!");
-
             if (Report == null || Report.Trim().IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Report),  "The given EVSE report must not be null or empty!");
 

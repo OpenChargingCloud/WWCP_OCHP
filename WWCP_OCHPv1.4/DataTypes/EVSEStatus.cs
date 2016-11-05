@@ -28,9 +28,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// The the major status, minor status and TTL of these status of an OCHP EVSE.
+    /// The the major status, minor status and an optional timeout of this status of an OCHP EVSE.
     /// </summary>
-    public class EVSEStatus
+    public struct EVSEStatus
     {
 
         #region Properties
@@ -46,7 +46,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public EVSEMajorStatusTypes   MajorStatus   { get; }
 
         /// <summary>
-        /// The current minor status of the EVSE.
+        /// An optional current minor status of the EVSE.
         /// </summary>
         public EVSEMinorStatusTypes?  MinorStatus   { get; }
 
@@ -66,28 +66,77 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="EVSEId">The unique identification of the EVSE.</param>
         /// <param name="MajorStatus">The current major status of the given EVSE.</param>
-        /// <param name="MinorStatus">The current minor status of the given EVSE.</param>
+        /// <param name="MinorStatus">An optional current minor status of the given EVSE.</param>
         /// <param name="TTL">The time to live is set as the deadline until which the status value is to be considered valid. Should be set to the expected status change.</param>
         public EVSEStatus(EVSE_Id                EVSEId,
                           EVSEMajorStatusTypes   MajorStatus,
-                          EVSEMinorStatusTypes?  MinorStatus,
-                          DateTime?              TTL)
+                          EVSEMinorStatusTypes?  MinorStatus  = null,
+                          DateTime?              TTL          = null)
         {
-
-            #region Initial checks
-
-            if (EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),  "The given unique identification of an EVSE must not be null!");
-
-            //if (!Definitions.EVSEIdRegExpr.IsMatch(Id.ToString()))
-            //    throw new ArgumentException("The given EVSE identification '" + Id + "' does not match the OCHP definition!", nameof(Id));
-
-            #endregion
 
             this.EVSEId       = EVSEId;
             this.MajorStatus  = MajorStatus;
-            this.MinorStatus  = MinorStatus;
-            this.TTL          = TTL;
+            this.MinorStatus  = MinorStatus ?? new EVSEMinorStatusTypes?();
+            this.TTL          = TTL         ?? new DateTime?();
+
+            #region Check EVSE major/minor status combination
+
+            if (MinorStatus.HasValue)
+            {
+                switch (MajorStatus)
+                {
+
+                    #region Available
+
+                    case EVSEMajorStatusTypes.Available:
+
+                        switch (MinorStatus)
+                        {
+
+                            case EVSEMinorStatusTypes.Available:
+                            case EVSEMinorStatusTypes.Unknown:
+                                break;
+
+                            default:
+                                throw new IllegalEVSEStatusCombinationException(EVSEId,
+                                                                                MajorStatus,
+                                                                                MinorStatus.Value);
+
+                        }
+
+                        break;
+
+                    #endregion
+
+                    #region NotAvailable
+
+                    case EVSEMajorStatusTypes.NotAvailable:
+
+                        switch (MinorStatus)
+                        {
+
+                            case EVSEMinorStatusTypes.Blocked:
+                            case EVSEMinorStatusTypes.Charging:
+                            case EVSEMinorStatusTypes.OutOfOrder:
+                            case EVSEMinorStatusTypes.Reserved:
+                            case EVSEMinorStatusTypes.Unknown:
+                                break;
+
+                            default:
+                                throw new IllegalEVSEStatusCombinationException(EVSEId,
+                                                                                MajorStatus,
+                                                                                MinorStatus.Value);
+
+                        }
+
+                        break;
+
+                        #endregion
+
+                }
+            }
+
+            #endregion
 
         }
 
@@ -118,7 +167,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (TryParse(EVSEStatusXML, out _EVSEStatus, OnException))
                 return _EVSEStatus;
 
-            return null;
+            return default(EVSEStatus);
 
         }
 
@@ -140,7 +189,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (TryParse(EVSEStatusText, out _EVSEStatus, OnException))
                 return _EVSEStatus;
 
-            return null;
+            return default(EVSEStatus);
 
         }
 
@@ -155,7 +204,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="EVSEStatus">The parsed EVSE status.</param>
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
         public static Boolean TryParse(XElement             EVSEStatusXML,
-                                       out EVSEStatus          EVSEStatus,
+                                       out EVSEStatus       EVSEStatus,
                                        OnExceptionDelegate  OnException  = null)
         {
 
@@ -186,7 +235,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 OnException?.Invoke(DateTime.Now, EVSEStatusXML, e);
 
-                EVSEStatus = null;
+                EVSEStatus = default(EVSEStatus);
                 return false;
 
             }
@@ -223,7 +272,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 OnException?.Invoke(DateTime.Now, EVSEStatusText, e);
             }
 
-            EVSEStatus = null;
+            EVSEStatus = default(EVSEStatus);
             return false;
 
         }
@@ -243,7 +292,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    new XAttribute(OCHPNS.Default + "major",         XML_IO.AsText(MajorStatus)),
 
                    MinorStatus.HasValue
-                       ? new XAttribute(OCHPNS.Default + "minor",   XML_IO.AsText(MajorStatus))
+                       ? new XAttribute(OCHPNS.Default + "minor",   XML_IO.AsText(MinorStatus.Value))
                        : null,
 
                    TTL.HasValue
@@ -316,11 +365,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is an EVSE status.
-            var EVSEStatus = Object as EVSEStatus;
-            if ((Object) EVSEStatus == null)
+            if (!(Object is EVSEStatus))
                 return false;
 
-            return this.Equals(EVSEStatus);
+            return this.Equals((EVSEStatus) Object);
 
         }
 
@@ -365,8 +413,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             unchecked
             {
 
-                return MajorStatus.GetHashCode() * 11 ^
-                       EVSEId.     GetHashCode();
+                return MajorStatus.GetHashCode() * 17 ^
+                       EVSEId.     GetHashCode() * 11 ^
+
+                       (MinorStatus.HasValue
+                            ? MinorStatus.GetHashCode()
+                            : 0) * 5 ^
+
+                       (TTL.HasValue
+                            ? TTL.GetHashCode()
+                            : 0);
 
             }
         }
@@ -380,7 +436,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(EVSEId, " has ", MajorStatus, MinorStatus.HasValue ? " / " + MinorStatus.Value : "", TTL.HasValue ? " till " + TTL.Value.ToIso8601() : "");
+            => String.Concat(EVSEId,
+                             " has ", MajorStatus,
+
+                             MinorStatus.HasValue
+                                 ? " / " + MinorStatus.Value
+                                 : "",
+
+                             TTL.HasValue
+                                 ? " till " + TTL.Value.ToIso8601()
+                                 : "");
 
         #endregion
 

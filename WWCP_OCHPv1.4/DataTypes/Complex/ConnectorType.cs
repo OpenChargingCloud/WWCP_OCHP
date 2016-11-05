@@ -329,8 +329,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if ((Object) ConnectorType == null)
                 return false;
 
-            return this.Standard.Equals(ConnectorType.Standard) &&
-                   this.Format.  Equals(ConnectorType.Format);
+            return Standard.Equals(ConnectorType.Standard) &&
+                   Format.  Equals(ConnectorType.Format)   &&
+
+                   ((TariffId == null && ConnectorType.TariffId == null) ||
+                    (TariffId != null && ConnectorType.TariffId != null && TariffId.Equals(ConnectorType.TariffId)));
 
         }
 
@@ -349,8 +352,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             unchecked
             {
 
-                return Standard.GetHashCode() * 11 ^
-                       Format.  GetHashCode();
+                return Standard.GetHashCode() * 7 ^
+                       Format.  GetHashCode() * 5 ^
+
+                       (TariffId != null
+                           ? TariffId.GetHashCode()
+                           : 0);
 
             }
         }
@@ -364,7 +371,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(Standard, " / ", Format, TariffId != null ? " with tariff " + TariffId : "");
+            => String.Concat(Standard, " / ", Format,
+
+                             TariffId != null
+                                 ? " with tariff " + TariffId
+                                 : "");
 
         #endregion
 

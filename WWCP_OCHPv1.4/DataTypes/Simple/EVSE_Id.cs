@@ -1,12 +1,12 @@
 ﻿/*
- * Copyright (c) 2014-2016 GraphDefined GmbH <achim.friedland@graphdefined.com>
- * This file is part of WWCP Core <https://github.com/OpenChargingCloud/WWCP_Core>
+ * Copyright (c) 2014-2016 GraphDefined GmbH
+ * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
- * Licensed under the Affero GPL license, Version 3.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.gnu.org/licenses/agpl.html
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,9 +30,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP charge point.
     /// </summary>
-    public class EVSE_Id : IId,
-                           IEquatable <EVSE_Id>,
-                           IComparable<EVSE_Id>
+    public struct EVSE_Id : IId,
+                            IEquatable <EVSE_Id>,
+                            IComparable<EVSE_Id>
 
     {
 
@@ -41,14 +41,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing a charge point identification.
         /// </summary>
-        public static readonly Regex EVSEId_RegEx    = new Regex(@"^[A-Za-z]{2}\*[A-Za-z0-9]{3}\*[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}$ |" +
-                                                                 @"^[A-Za-z]{2}[A-Za-z0-9]{3}[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}$",
+        public static readonly Regex EVSEId_RegEx    = new Regex(@"^([A-Za-z]{2}\*[A-Za-z0-9]{3})\*[Ee]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$ |" +
+                                                                 @"^([A-Za-z]{2}[A-Za-z0-9]{3})[Ee]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
         /// <summary>
         /// The regular expression for parsing an charge point identification suffix.
         /// </summary>
-        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[Tt][A-Za-z0-9][A-Za-z0-9\*]{0,9}$",
+        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Za-z0-9][A-Za-z0-9\*]{0,9}$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
         #endregion
@@ -56,12 +56,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Properties
 
         /// <summary>
-        /// The internal identification.
+        /// The charging station operator identification.
         /// </summary>
         public ChargingStationOperator_Id  OperatorId   { get; }
 
         /// <summary>
-        /// The suffix of the identification.
+        /// The suffix of the EVSE identification.
         /// </summary>
         public String                      Suffix       { get; }
 
@@ -77,8 +77,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Generate a charge point identification based on the given string.
+        /// Generate a new EVSE identification based on the given
+        /// charging station operator and identification suffix.
         /// </summary>
+        /// <param name="OperatorId">The unique identification of a charging station operator.</param>
+        /// <param name="IdSuffix">The suffix of the EVSE identification.</param>
         private EVSE_Id(ChargingStationOperator_Id  OperatorId,
                         String                      IdSuffix)
         {
@@ -93,13 +96,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #endregion
 
-            var _MatchCollection = IdSuffix_RegEx.Matches(IdSuffix.Trim());
-
-            if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal charge point identification '" + OperatorId + "' with suffix '" + IdSuffix + "'!");
+            if (!IdSuffix_RegEx.IsMatch(IdSuffix))
+                throw new ArgumentException("Illegal EVSE identification '" + OperatorId + "' with suffix '" + IdSuffix + "'!");
 
             this.OperatorId  = OperatorId;
-            this.Suffix      = _MatchCollection[0].Value;
+            this.Suffix      = IdSuffix;
 
         }
 
@@ -111,17 +112,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Parse the given string as a charge point identification.
         /// </summary>
+        /// <param name="Text">A text representation of an EVSE identification.</param>
         public static EVSE_Id Parse(String Text)
         {
 
             #region Initial checks
 
             if (Text.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Text), "The parameter must not be null or empty!");
+                throw new ArgumentNullException(nameof(Text), "The given text representation of an EVSE identification must not be null or empty!");
 
             #endregion
 
-            var _MatchCollection = EVSEId_RegEx.Matches(Text.Trim().ToUpper());
+            var _MatchCollection = EVSEId_RegEx.Matches(Text.Trim());
 
             if (_MatchCollection.Count != 1)
                 throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
@@ -148,30 +150,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Parse the given string as an EVSE identification.
         /// </summary>
-        public static EVSE_Id Parse(ChargingStationOperator_Id OperatorId, String IdSuffix)
-        {
+        /// <param name="OperatorId">The unique identification of a charging station operator.</param>
+        /// <param name="IdSuffix">The suffix of the EVSE identification.</param>
+        public static EVSE_Id Parse(ChargingStationOperator_Id  OperatorId,
+                                    String                      IdSuffix)
 
-            #region Initial checks
-
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The charging station operator identification must not be null or empty!");
-
-            if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The suffix must not be null or empty!");
-
-            #endregion
-
-            return EVSE_Id.Parse(OperatorId + "*" + IdSuffix);
-
-        }
+            => new EVSE_Id(OperatorId,
+                           IdSuffix);
 
         #endregion
 
-        #region TryParse(Text, out EVSE_Id)
+        #region TryParse(Text, out EVSEId)
 
         /// <summary>
         /// Parse the given string as an EVSE identification.
         /// </summary>
+        /// <param name="Text">A text representation of an EVSE identification.</param>
+        /// <param name="EVSEId">The parsed EVSE identification.</param>
         public static Boolean TryParse(String Text, out EVSE_Id EVSEId)
         {
 
@@ -179,7 +174,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (Text.IsNullOrEmpty())
             {
-                EVSEId = null;
+                EVSEId = default(EVSE_Id);
                 return false;
             }
 
@@ -188,7 +183,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                EVSEId = null;
+                EVSEId = default(EVSE_Id);
 
                 var _MatchCollection = EVSEId_RegEx.Matches(Text.Trim().ToUpper());
 
@@ -223,45 +218,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             { }
 
-            EVSEId = null;
+            EVSEId = default(EVSE_Id);
             return false;
 
         }
-
-        #endregion
-
-        #region TryParse(OperatorId, IdSuffix, out EVSEId)
-
-        ///// <summary>
-        ///// Parse the given string as an EVSE identification.
-        ///// </summary>
-        //public static Boolean TryParse(EVSEOperator_Id OperatorId, String IdSuffix, out EVSE_Id EVSE_Id)
-        //{
-
-        //    try
-        //    {
-        //        EVSE_Id = new EVSE_Id(OperatorId, IdSuffix);
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    { }
-
-        //    EVSE_Id = null;
-        //    return false;
-
-        //}
-
-        #endregion
-
-        #region Clone
-
-        /// <summary>
-        /// Clone this charge point identification.
-        /// </summary>
-        public EVSE_Id Clone
-
-            => new EVSE_Id(OperatorId.Clone,
-                             new String(Suffix.ToCharArray()));
 
         #endregion
 
@@ -377,7 +337,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IComparable<EVSE_Id> Members
+        #region IComparable<EVSEId> Members
 
         #region CompareTo(Object)
 
@@ -392,11 +352,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             // Check if the given object is a charge point identification.
-            var EVSEId = Object as EVSE_Id;
-            if ((Object) EVSEId == null)
+            if (!(Object is EVSE_Id))
                 throw new ArgumentException("The given object is not a EVSEId!", nameof(Object));
 
-            return CompareTo(EVSEId);
+            return CompareTo((EVSE_Id) Object);
 
         }
 
@@ -433,7 +392,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IEquatable<EVSE_Id> Members
+        #region IEquatable<EVSEId> Members
 
         #region Equals(Object)
 
@@ -449,11 +408,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a charge point identification.
-            var EVSEId = Object as EVSE_Id;
-            if ((Object) EVSEId == null)
+            if (!(Object is EVSE_Id))
                 return false;
 
-            return this.Equals(EVSEId);
+            return this.Equals((EVSE_Id) Object);
 
         }
 
@@ -488,7 +446,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
-            => OperatorId.GetHashCode() ^ Suffix.GetHashCode();
+            => OperatorId.GetHashCode() ^
+               Suffix.    GetHashCode();
 
         #endregion
 

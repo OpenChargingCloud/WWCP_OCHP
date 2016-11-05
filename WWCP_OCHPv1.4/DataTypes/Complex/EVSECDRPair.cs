@@ -64,9 +64,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (CDRId == null)
                 throw new ArgumentNullException(nameof(CDRId),   "The given charge detail record identification must not be null!");
 
-            if (EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),  "The given EVSE identification must not be null!");
-
             #endregion
 
             this.CDRId   = CDRId;

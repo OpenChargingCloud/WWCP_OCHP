@@ -115,8 +115,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.URI       = URI;
             this.Class     = Class;
             this.Type      = Type;
-            this.Width     = Width;
-            this.Height    = Height;
+            this.Width     = Width  ?? new UInt16?();
+            this.Height    = Height ?? new UInt16?();
             this.ThumbURI  = ThumbURI;
 
         }
@@ -377,7 +377,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             return URI.  Equals(EVSEImageURL.URI)   &&
                    Class.Equals(EVSEImageURL.Class) &&
-                   Type. Equals(EVSEImageURL.Type);
+                   Type. Equals(EVSEImageURL.Type)  &&
+
+                   ((!Width. HasValue && !EVSEImageURL.Width. HasValue) ||
+                     (Width. HasValue &&  EVSEImageURL.Width. HasValue && Width. Value.Equals(EVSEImageURL.Width. Value))) &&
+
+                   ((!Height.HasValue && !EVSEImageURL.Height.HasValue) ||
+                     (Height.HasValue &&  EVSEImageURL.Height.HasValue && Height.Value.Equals(EVSEImageURL.Height.Value))) &&
+
+                   ((ThumbURI == null && EVSEImageURL.ThumbURI == null) ||
+                    (ThumbURI != null && EVSEImageURL.ThumbURI != null && ThumbURI.Equals(EVSEImageURL.ThumbURI)));
+
 
         }
 
@@ -397,8 +407,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             {
 
                 return URI.  GetHashCode() * 17 ^
-                       Class.GetHashCode() * 11 ^
-                       Type. GetHashCode();
+                       Class.GetHashCode() * 13 ^
+                       Type. GetHashCode() * 11 ^
+
+                       (Width.HasValue
+                           ? Width.GetHashCode()
+                           : 0) * 7 ^
+
+                       (Height.HasValue
+                           ? Height.GetHashCode()
+                           : 0) * 5 ^
+
+                       (ThumbURI != null
+                           ? ThumbURI.GetHashCode()
+                           : 0);
 
             }
         }

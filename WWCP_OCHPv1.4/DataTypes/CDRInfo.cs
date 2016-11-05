@@ -175,9 +175,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (CDRId == null)
                 throw new ArgumentNullException(nameof(CDRId),            "The given unique identification of a charge detail record must not be null!");
 
-            if (EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),           "The given unique identification of an EVSE must not be null!");
-
             if (EMTId == null)
                 throw new ArgumentNullException(nameof(EMTId),            "The given unique identification of a e-mobility token must not be null!");
 

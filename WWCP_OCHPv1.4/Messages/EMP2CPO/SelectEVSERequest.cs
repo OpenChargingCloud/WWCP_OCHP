@@ -67,9 +67,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),      "The given identification of the EVSE to select must not be null!");
-
             if (ContractId == null)
                 throw new ArgumentNullException(nameof(ContractId),  "The given identification of the e-mobility contract must not be null!");
 

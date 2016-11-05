@@ -2508,6 +2508,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #region Initial checks
 
+            if (ContractId == null)
+                throw new ArgumentNullException(nameof(ContractId),  "The given identification of the e-mobility contract must not be null!");
+
+            if (ReserveUntil.HasValue && ReserveUntil.Value <= DateTime.Now)
+                throw new ArgumentException("The given reservation end time must be after than the current time!");
+
+
             if (!Timestamp.HasValue)
                 Timestamp = DateTime.Now;
 
@@ -3315,9 +3322,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         {
 
             #region Initial checks
-
-            if (EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),  "The given EVSE identification must not be null!");
 
             if (Report == null || Report.Trim().IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Report),  "The given EVSE report must not be null or empty!");

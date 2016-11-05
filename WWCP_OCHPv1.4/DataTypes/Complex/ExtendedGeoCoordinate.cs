@@ -56,6 +56,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="Name">Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number.</param>
         /// <param name="GeoCoordinateType">The type of this geo point for categorization and right usage.</param>
+        /// 
+        /// <param name="Latitude">The Latitude (south to nord).</param>
+        /// <param name="Longitude">The Longitude (parallel to equator).</param>
+        /// <param name="Altitude">The (optional) Altitude.</param>
+        /// <param name="Projection">The gravitational model or projection of the geo coordinates.</param>
+        /// <param name="Planet">The planet.</param>
         public ExtendedGeoCoordinate(String              Name,
                                      GeoCoordinateTypes  GeoCoordinateType,
                                      Latitude            Latitude,

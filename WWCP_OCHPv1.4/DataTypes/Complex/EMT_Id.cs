@@ -1,12 +1,12 @@
 ﻿/*
- * Copyright (c) 2014-2016 GraphDefined GmbH <achim.friedland@graphdefined.com>
- * This file is part of WWCP Core <https://github.com/OpenChargingCloud/WWCP_Core>
+ * Copyright (c) 2014-2016 GraphDefined GmbH
+ * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
- * Licensed under the Affero GPL license, Version 3.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.gnu.org/licenses/agpl.html
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -95,7 +95,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.Instance        = Instance;
             this.Representation  = Representation;
             this.Type            = Type;
-            this.SubType         = SubType;
+            this.SubType         = SubType ?? new TokenSubTypes?();
 
         }
 
@@ -378,7 +378,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IComparable<EMT_Id> Members
+        #region IComparable<EMTId> Members
 
         #region CompareTo(Object)
 
@@ -423,7 +423,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IEquatable<EMT_Id> Members
+        #region IEquatable<EMTId> Members
 
         #region Equals(Object)
 
@@ -465,7 +465,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             return Instance.      Equals(EMTId.Instance)       &&
                    Representation.Equals(EMTId.Representation) &&
                    Type.          Equals(EMTId.Type)           &&
-                   SubType.       Equals(EMTId.SubType);
+
+                   ((!SubType.HasValue && !EMTId.SubType.HasValue) ||
+                     (SubType.HasValue &&  EMTId.SubType.HasValue && SubType.Value.Equals(EMTId.SubType.Value)));
 
         }
 
@@ -503,7 +505,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Return a string representation of this object.
         /// </summary>
         public override String ToString()
-            => String.Concat(Instance, " - ", Representation, ", ", Type, SubType.HasValue ? ", " + SubType : "");
+
+            => String.Concat(Instance,       " - ",
+                             Representation, ", ",
+                             Type,
+
+                             SubType.HasValue
+                                 ? ", " + SubType
+                                 : "");
 
         #endregion
 

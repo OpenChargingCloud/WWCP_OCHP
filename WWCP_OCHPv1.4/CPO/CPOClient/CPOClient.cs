@@ -2674,9 +2674,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (EVSEId     == null)
-                throw new ArgumentNullException(nameof(EVSEId),      "The given identification of an EVSE must not be null!");
-
             if (ContractId == null)
                 throw new ArgumentNullException(nameof(ContractId),  "The given identification of an e-mobility contract must not be null!");
 

@@ -247,9 +247,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (EVSEId == null)
-                throw new ArgumentNullException(nameof(EVSEId),              "The given unique identification of an EVSE must not be null!");
-
             if (LocationId.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(LocationId),          "The given unique identification of a charging location must not be null!");
 
