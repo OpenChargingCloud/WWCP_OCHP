@@ -590,7 +590,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 using (var _OCHPClient = new SOAPClient(Hostname,
                                                         RemotePort,
                                                         HTTPVirtualHost,
-                                                        "/service/ochp/v1.4",
+                                                        DefaultURIPrefix,
                                                         RemoteCertificateValidator,
                                                         ClientCert,
                                                         UserAgent,
@@ -798,7 +798,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 using (var _OCHPClient = new SOAPClient(Hostname,
                                                         RemotePort,
                                                         HTTPVirtualHost,
-                                                        "/service/ochp/v1.4",
+                                                        DefaultURIPrefix,
                                                         RemoteCertificateValidator,
                                                         ClientCert,
                                                         UserAgent,
@@ -919,7 +919,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatusRequest(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, ...)
+        #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, ...)
 
         /// <summary>
         /// Upload the given enumeration of EVSE and/or parking status.
@@ -934,14 +934,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<UpdateStatusResponse>>
 
-            UpdateStatusRequest(IEnumerable<EVSEStatus>     EVSEStatus         = null,
-                                IEnumerable<ParkingStatus>  ParkingStatus      = null,
-                                DateTime?                   DefaultTTL         = null,
+            UpdateStatus(IEnumerable<EVSEStatus>     EVSEStatus         = null,
+                         IEnumerable<ParkingStatus>  ParkingStatus      = null,
+                         DateTime?                   DefaultTTL         = null,
 
-                                DateTime?                   Timestamp          = null,
-                                CancellationToken?          CancellationToken  = null,
-                                EventTracking_Id            EventTrackingId    = null,
-                                TimeSpan?                   RequestTimeout     = null)
+                         DateTime?                   Timestamp          = null,
+                         CancellationToken?          CancellationToken  = null,
+                         EventTracking_Id            EventTrackingId    = null,
+                         TimeSpan?                   RequestTimeout     = null)
 
         {
 
@@ -996,7 +996,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1189,7 +1189,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1306,7 +1306,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region GetRoamingAuthorisationListRequest(...)
+        #region GetRoamingAuthorisationList(...)
 
         /// <summary>
         /// Get the entire current version of the roaming authorisation list.
@@ -1317,10 +1317,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
 
-            GetRoamingAuthorisationListRequest(DateTime?           Timestamp          = null,
-                                               CancellationToken?  CancellationToken  = null,
-                                               EventTracking_Id    EventTrackingId    = null,
-                                               TimeSpan?           RequestTimeout     = null)
+            GetRoamingAuthorisationList(DateTime?           Timestamp          = null,
+                                        CancellationToken?  CancellationToken  = null,
+                                        EventTracking_Id    EventTrackingId    = null,
+                                        TimeSpan?           RequestTimeout     = null)
 
         {
 
@@ -1370,7 +1370,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1486,7 +1486,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region GetRoamingAuthorisationListUpdatesRequest(LastUpdate, ...)
+        #region GetRoamingAuthorisationListUpdates(LastUpdate, ...)
 
         /// <summary>
         /// Get the entire current version of the roaming authorisation list.
@@ -1499,12 +1499,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>>
 
-            GetRoamingAuthorisationListUpdatesRequest(DateTime            LastUpdate,
+            GetRoamingAuthorisationListUpdates(DateTime            LastUpdate,
 
-                                                      DateTime?           Timestamp          = null,
-                                                      CancellationToken?  CancellationToken  = null,
-                                                      EventTracking_Id    EventTrackingId    = null,
-                                                      TimeSpan?           RequestTimeout     = null)
+                                               DateTime?           Timestamp          = null,
+                                               CancellationToken?  CancellationToken  = null,
+                                               EventTracking_Id    EventTrackingId    = null,
+                                               TimeSpan?           RequestTimeout     = null)
 
         {
 
@@ -1555,7 +1555,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1673,7 +1673,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region AddCDRsRequest(CDRInfos, ...)
+        #region AddCDRs(CDRInfos, ...)
 
         /// <summary>
         /// Upload the given enumeration of charge detail records.
@@ -1686,12 +1686,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<AddCDRsResponse>>
 
-            AddCDRsRequest(IEnumerable<CDRInfo>  CDRInfos,
+            AddCDRs(IEnumerable<CDRInfo>  CDRInfos,
 
-                           DateTime?             Timestamp          = null,
-                           CancellationToken?    CancellationToken  = null,
-                           EventTracking_Id      EventTrackingId    = null,
-                           TimeSpan?             RequestTimeout     = null)
+                    DateTime?             Timestamp          = null,
+                    CancellationToken?    CancellationToken  = null,
+                    EventTracking_Id      EventTrackingId    = null,
+                    TimeSpan?             RequestTimeout     = null)
 
         {
 
@@ -1746,7 +1746,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1863,7 +1863,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region CheckCDRsRequest(CDRStatus = null, ...)
+        #region CheckCDRs(CDRStatus = null, ...)
 
         /// <summary>
         /// Check charge detail records having the given optional status.
@@ -1876,12 +1876,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<CheckCDRsResponse>>
 
-            CheckCDRsRequest(CDRStatus?            CDRStatus          = null,
+            CheckCDRs(CDRStatus?            CDRStatus          = null,
 
-                             DateTime?             Timestamp          = null,
-                             CancellationToken?    CancellationToken  = null,
-                             EventTracking_Id      EventTrackingId    = null,
-                             TimeSpan?             RequestTimeout     = null)
+                      DateTime?             Timestamp          = null,
+                      CancellationToken?    CancellationToken  = null,
+                      EventTracking_Id      EventTrackingId    = null,
+                      TimeSpan?             RequestTimeout     = null)
 
         {
 
@@ -1932,7 +1932,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2050,7 +2050,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region UpdateTariffsRequest(TariffInfos, ...)
+        #region UpdateTariffs(TariffInfos, ...)
 
         /// <summary>
         /// Upload the given enumeration of tariff infos.
@@ -2063,12 +2063,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<UpdateTariffsResponse>>
 
-            UpdateTariffsRequest(IEnumerable<TariffInfo>  TariffInfos,
+            UpdateTariffs(IEnumerable<TariffInfo>  TariffInfos,
 
-                                 DateTime?                Timestamp          = null,
-                                 CancellationToken?       CancellationToken  = null,
-                                 EventTracking_Id         EventTrackingId    = null,
-                                 TimeSpan?                RequestTimeout     = null)
+                          DateTime?                Timestamp          = null,
+                          CancellationToken?       CancellationToken  = null,
+                          EventTracking_Id         EventTrackingId    = null,
+                          TimeSpan?                RequestTimeout     = null)
 
         {
 
@@ -2123,7 +2123,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2316,7 +2316,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2497,7 +2497,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2764,7 +2764,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,

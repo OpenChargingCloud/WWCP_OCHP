@@ -89,10 +89,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             #region Initial checks
 
             if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The parameter must not be null!");
+                throw new ArgumentNullException(nameof(OperatorId),  "The given charging station operator identification must not be null!");
 
             if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
+                throw new ArgumentNullException(nameof(IdSuffix),    "The identification suffix must not be null or empty!");
 
             #endregion
 
@@ -128,14 +128,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (_MatchCollection.Count != 1)
                 throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
 
-            ChargingStationOperator_Id __EVSEOperatorId = null;
+            ChargingStationOperator_Id _OperatorId;
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
-                return new EVSE_Id(__EVSEOperatorId,
+            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _OperatorId))
+                return new EVSE_Id(_OperatorId,
                                    _MatchCollection[0].Groups[2].Value);
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
-                return new EVSE_Id(__EVSEOperatorId,
+            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out _OperatorId))
+                return new EVSE_Id(_OperatorId,
                                    _MatchCollection[0].Groups[4].Value);
 
 
@@ -190,7 +190,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 if (_MatchCollection.Count != 1)
                     return false;
 
-                ChargingStationOperator_Id __EVSEOperatorId = null;
+                ChargingStationOperator_Id __EVSEOperatorId;
 
                 // New format...
                 if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))

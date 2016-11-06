@@ -288,7 +288,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => new XElement(OCHPNS.Default + "result",
 
                    new XElement(OCHPNS.Default + "resultCode",
-                       new XElement(OCHPNS.Default + "resultCode",     DirectResultCode.ToString())
+                       new XElement(OCHPNS.Default + "resultCode",     XML_IO.AsText(DirectResultCode))
                    ),
 
                    new XElement(OCHPNS.Default + "resultDescription",  Description)

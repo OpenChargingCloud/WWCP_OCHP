@@ -436,11 +436,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(EVSEId,
-                             " has ", MajorStatus,
+            => String.Concat("'", EVSEId,
+                             "' is '", MajorStatus, "'",
 
                              MinorStatus.HasValue
-                                 ? " / " + MinorStatus.Value
+                                 ? " / '" + MinorStatus.Value + "'"
                                  : "",
 
                              TTL.HasValue

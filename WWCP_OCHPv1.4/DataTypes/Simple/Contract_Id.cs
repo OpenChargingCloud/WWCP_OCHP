@@ -30,27 +30,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP contract (also knwon as EVCO Id or eMA Id).
     /// </summary>
-    public class Contract_Id : IId,
-                               IEquatable <Contract_Id>,
-                               IComparable<Contract_Id>
+    public struct Contract_Id : IId,
+                                IEquatable <Contract_Id>,
+                                IComparable<Contract_Id>
 
     {
 
         #region Data
 
         /// <summary>
-        /// The regular expression for parsing a contract identification.
+        /// The regular expression for parsing an e-mobility contract identification.
         /// </summary>
-        public static readonly Regex ContractId_RegEx  = new Regex(@"^[A-Za-z]{2}-[A-Za-z0-9]{3}-[A-Za-z0-9]{9}-[A-Za-z0-9]$ |" +
-                                                                   @"^[A-Za-z]{2}[A-Za-z0-9]{3}[A-Za-z0-9]{9}[A-Za-z0-9]$ |" +
-                                                                   @"^[A-Za-z]{2}-[A-Za-z0-9]{3}-[A-Za-z0-9]{9}$ |" +
-                                                                   @"^[A-Za-z]{2}[A-Za-z0-9]{3}[A-Za-z0-9]{9}$",
+        public static readonly Regex ContractId_RegEx  = new Regex(@"^([A-Za-z]{2}-[A-Za-z0-9]{3})-([A-Za-z0-9]{9})-([A-Za-z0-9])$ |" +
+                                                                   @"^([A-Za-z]{2}[A-Za-z0-9]{3})([A-Za-z0-9]{9})([A-Za-z0-9])$ |" +
+                                                                   @"^([A-Za-z]{2}-[A-Za-z0-9]{3})-([A-Za-z0-9]{9})$ |" +
+                                                                   @"^([A-Za-z]{2}[A-Za-z0-9]{3})([A-Za-z0-9]{9})$",
                                                                    RegexOptions.IgnorePatternWhitespace);
 
         /// <summary>
-        /// The regular expression for parsing an contract identification suffix.
+        /// The regular expression for parsing an e-mobility contract identification suffix.
         /// </summary>
-        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[Tt][A-Za-z0-9][A-Za-z0-9\*]{0,9}$",
+        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Za-z0-9]{9}-[A-Za-z0-9]$ | ^[A-Za-z0-9]{9}[A-Za-z0-9]$ | ^[A-Za-z0-9]{9}$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
         #endregion
@@ -58,51 +58,62 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Properties
 
         /// <summary>
-        /// The internal identification.
+        /// The e-mobility provider identification.
         /// </summary>
-        public ChargingStationOperator_Id  OperatorId   { get; }
+        public eMobilityProvider_Id  ProviderId    { get; }
 
         /// <summary>
         /// The suffix of the identification.
         /// </summary>
-        public String                      Suffix       { get; }
+        public String                Suffix        { get; }
+
+        /// <summary>
+        /// An optional check digit of the e-mobility contract identification.
+        /// </summary>
+        public Char?                 CheckDigit    { get; }
 
         /// <summary>
         /// Returns the length of the identificator.
         /// </summary>
         public UInt64 Length
 
-            => OperatorId.Length + 1 + (UInt64) Suffix.Length;
+            => ProviderId.Length +
+               1UL +
+               (UInt64) Suffix.Length +
+               (CheckDigit.HasValue ? 2UL : 0UL);
 
         #endregion
 
         #region Constructor(s)
 
         /// <summary>
-        /// Generate a new Electric Vehicle Supply Equipment (EVSE) identification
+        /// Generate a new e-mobility contract identification
         /// based on the given string.
         /// </summary>
-        private Contract_Id(ChargingStationOperator_Id   OperatorId,
-                          String            IdSuffix)
+        /// <param name="ProviderId">The unique identification of an e-mobility provider.</param>
+        /// <param name="IdSuffix">The suffix of the e-mobility contract identification.</param>
+        /// <param name="CheckDigit">An optional check digit of the e-mobility contract identification.</param>
+        private Contract_Id(eMobilityProvider_Id  ProviderId,
+                            String                IdSuffix,
+                            Char?                 CheckDigit = null)
         {
 
             #region Initial checks
 
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The parameter must not be null!");
+            if (ProviderId == null)
+                throw new ArgumentNullException(nameof(ProviderId),  "The given e-mobility provider identification must not be null!");
 
             if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
+                throw new ArgumentNullException(nameof(IdSuffix),    "The identification suffix must not be null or empty!");
 
             #endregion
 
-            var _MatchCollection = IdSuffix_RegEx.Matches(IdSuffix.Trim());
+            if (!IdSuffix_RegEx.IsMatch(IdSuffix))
+                throw new ArgumentException("Illegal e-mobility contract identification '" + ProviderId + "' with suffix '" + IdSuffix + "'!");
 
-            if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal EVSE identification '" + OperatorId.ToString() + "' with suffix '" + IdSuffix + "'!");
-
-            this.OperatorId  = OperatorId;
-            this.Suffix      = _MatchCollection[0].Value;
+            this.ProviderId  = ProviderId;
+            this.Suffix      = IdSuffix;
+            this.CheckDigit  = CheckDigit;
 
         }
 
@@ -124,57 +135,52 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #endregion
 
-            var _MatchCollection = ContractId_RegEx.Matches(Text.Trim().ToUpper());
+            var _MatchCollection = ContractId_RegEx.Matches(Text);
 
             if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
+                throw new ArgumentException("Illegal contract identification '" + Text + "'!");
 
-            ChargingStationOperator_Id __EVSEOperatorId = null;
+            eMobilityProvider_Id _ProviderId;
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
-                return new Contract_Id(__EVSEOperatorId,
-                                   _MatchCollection[0].Groups[2].Value);
+            if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _ProviderId))
+                return new Contract_Id(_ProviderId,
+                                       _MatchCollection[0].Groups[2].Value,
+                                       _MatchCollection[0].Groups[3].Value[0]);
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
-                return new Contract_Id(__EVSEOperatorId,
-                                   _MatchCollection[0].Groups[4].Value);
+            if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[4].Value, out _ProviderId))
+                return new Contract_Id(_ProviderId,
+                                       _MatchCollection[0].Groups[5].Value,
+                                       _MatchCollection[0].Groups[6].Value[0]);
 
 
-            throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
+            throw new ArgumentException("Illegal contract identification '" + Text + "'!");
 
         }
 
         #endregion
 
-        #region Parse(OperatorId, IdSuffix)
+        #region Parse(ProviderId, IdSuffix)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as an contract identification.
         /// </summary>
-        public static Contract_Id Parse(ChargingStationOperator_Id OperatorId, String IdSuffix)
-        {
+        /// <param name="ProviderId">The unique identification of an e-mobility provider.</param>
+        /// <param name="IdSuffix">The suffix of the e-mobility contract identification.</param>
+        public static Contract_Id Parse(eMobilityProvider_Id  ProviderId,
+                                        String                IdSuffix)
 
-            #region Initial checks
-
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The Charging Station Operator identification must not be null or empty!");
-
-            if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
-
-            #endregion
-
-            return Contract_Id.Parse(OperatorId.ToString() + "*" + IdSuffix);
-
-        }
+            => new Contract_Id(ProviderId,
+                               IdSuffix);
 
         #endregion
 
         #region TryParse(Text, out Contract_Id)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as an e-mobility contract identification.
         /// </summary>
+        /// <param name="Text">A text representation of an e-mobility contract identification.</param>
+        /// <param name="ContractId">The parsed e-mobility contract identification.</param>
         public static Boolean TryParse(String Text, out Contract_Id ContractId)
         {
 
@@ -182,7 +188,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (Text.IsNullOrEmpty())
             {
-                ContractId = null;
+                ContractId = default(Contract_Id);
                 return false;
             }
 
@@ -191,32 +197,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                ContractId = null;
+                ContractId = default(Contract_Id);
 
                 var _MatchCollection = ContractId_RegEx.Matches(Text.Trim().ToUpper());
 
                 if (_MatchCollection.Count != 1)
                     return false;
 
-                ChargingStationOperator_Id __EVSEOperatorId = null;
+                eMobilityProvider_Id _Provider;
 
                 // New format...
-                if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
+                if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _Provider))
                 {
 
-                    ContractId = new Contract_Id(__EVSEOperatorId,
-                                         _MatchCollection[0].Groups[2].Value);
+                    ContractId = new Contract_Id(_Provider,
+                                                 _MatchCollection[0].Groups[2].Value);
 
                     return true;
 
                 }
 
                 // Old format...
-                else if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
+                else if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[3].Value, out _Provider))
                 {
 
-                    ContractId = new Contract_Id(__EVSEOperatorId,
-                                         _MatchCollection[0].Groups[4].Value);
+                    ContractId = new Contract_Id(_Provider,
+                                                 _MatchCollection[0].Groups[4].Value);
 
                     return true;
 
@@ -226,45 +232,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             { }
 
-            ContractId = null;
+            ContractId = default(Contract_Id);
             return false;
 
         }
-
-        #endregion
-
-        #region TryParse(OperatorId, IdSuffix, out ContractId)
-
-        ///// <summary>
-        ///// Parse the given string as an EVSE identification.
-        ///// </summary>
-        //public static Boolean TryParse(EVSEOperator_Id OperatorId, String IdSuffix, out Contract_Id Contract_Id)
-        //{
-
-        //    try
-        //    {
-        //        Contract_Id = new Contract_Id(OperatorId, IdSuffix);
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    { }
-
-        //    Contract_Id = null;
-        //    return false;
-
-        //}
-
-        #endregion
-
-        #region Clone
-
-        /// <summary>
-        /// Clone this contract identification.
-        /// </summary>
-        public Contract_Id Clone
-
-            => new Contract_Id(OperatorId.Clone,
-                             new String(Suffix.ToCharArray()));
 
         #endregion
 
@@ -380,7 +351,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IComparable<Contract_Id> Members
+        #region IComparable<ContractId> Members
 
         #region CompareTo(Object)
 
@@ -395,11 +366,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             // Check if the given object is a contract identification.
-            var ContractId = Object as Contract_Id;
-            if ((Object) ContractId == null)
+            if (!(Object is Contract_Id))
                 throw new ArgumentException("The given object is not a ContractId!", nameof(Object));
 
-            return CompareTo(ContractId);
+            return CompareTo((Contract_Id) Object);
 
         }
 
@@ -422,11 +392,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             // If equal: Compare OperatorIds
             if (_Result == 0)
-                _Result = OperatorId.CompareTo(ContractId.OperatorId);
+                _Result = ProviderId.CompareTo(ContractId.ProviderId);
 
             // If equal: Compare contract identification suffix
             if (_Result == 0)
                 _Result = String.Compare(Suffix, ContractId.Suffix, StringComparison.Ordinal);
+
+            // If equal: Compare contract check digit
+            if (_Result == 0)
+            {
+
+                if (!CheckDigit.HasValue && !ContractId.CheckDigit.HasValue)
+                    _Result = 0;
+
+                if ( CheckDigit.HasValue &&  ContractId.CheckDigit.HasValue)
+                    _Result = CheckDigit.Value.CompareTo(ContractId.CheckDigit.Value);
+
+            }
 
             return _Result;
 
@@ -436,7 +418,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region IEquatable<Contract_Id> Members
+        #region IEquatable<ContractId> Members
 
         #region Equals(Object)
 
@@ -452,11 +434,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return false;
 
             // Check if the given object is a contract identification.
-            var ContractId = Object as Contract_Id;
-            if ((Object) ContractId == null)
+            if (!(Object is Contract_Id))
                 return false;
 
-            return this.Equals(ContractId);
+            return this.Equals((Contract_Id) Object);
 
         }
 
@@ -475,8 +456,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if ((Object) ContractId == null)
                 return false;
 
-            return OperatorId.Equals(ContractId.OperatorId) &&
-                   Suffix.    Equals(ContractId.Suffix);
+            return ProviderId.Equals(ContractId.ProviderId) &&
+                   Suffix.    Equals(ContractId.Suffix)     &&
+
+                   ((!CheckDigit.HasValue && !ContractId.CheckDigit.HasValue) ||
+                     (CheckDigit.HasValue &&  ContractId.CheckDigit.HasValue && CheckDigit.Value.Equals(ContractId.CheckDigit.Value)));
 
         }
 
@@ -491,7 +475,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
-            => OperatorId.GetHashCode() ^ Suffix.GetHashCode();
+        {
+            unchecked
+            {
+
+                return ProviderId.GetHashCode() * 7 ^
+                       Suffix.    GetHashCode() * 5 ^
+
+                       (CheckDigit.HasValue
+                            ? CheckDigit.GetHashCode()
+                            : 0);
+
+            }
+        }
 
         #endregion
 
@@ -501,7 +497,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Return a string representation of this object.
         /// </summary>
         public override String ToString()
-            => String.Concat(OperatorId, "-", Suffix);
+
+            => String.Concat(ProviderId.CountryCode.Alpha2Code, "-",
+                             ProviderId.ProviderId, "-",
+                             Suffix,
+                             CheckDigit.HasValue
+                                 ? "-" + CheckDigit
+                                 : "");
 
         #endregion
 

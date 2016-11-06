@@ -127,14 +127,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (MatchCollection.Count != 1)
                 throw new ArgumentException("Illegal parking identification '" + Text + "'!");
 
-            ChargingStationOperator_Id ParkingOperatorId = null;
+            ChargingStationOperator_Id _OperatorId;
 
-            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out ParkingOperatorId))
-                return new Parking_Id(ParkingOperatorId,
+            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out _OperatorId))
+                return new Parking_Id(_OperatorId,
                                       MatchCollection[0].Groups[2].Value);
 
-            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[3].Value, out ParkingOperatorId))
-                return new Parking_Id(ParkingOperatorId,
+            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[3].Value, out _OperatorId))
+                return new Parking_Id(_OperatorId,
                                       MatchCollection[0].Groups[4].Value);
 
 
@@ -189,7 +189,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 if (MatchCollection.Count != 1)
                     return false;
 
-                ChargingStationOperator_Id ParkingOperatorId = null;
+                ChargingStationOperator_Id ParkingOperatorId;
 
                 // New format...
                 if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out ParkingOperatorId))

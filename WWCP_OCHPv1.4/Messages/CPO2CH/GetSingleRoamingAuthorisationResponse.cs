@@ -319,7 +319,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                    new XElement(OCHPNS.Default + "result", Result.ToXML()),
 
-                   RoamingAuthorisationInfo.ToXML()
+                   RoamingAuthorisationInfo != null
+                       ? RoamingAuthorisationInfo.ToXML()
+                       : null
 
                );
 

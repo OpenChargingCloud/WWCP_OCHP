@@ -79,10 +79,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Representation">The token instance may be represented by its hash value (hexadecimal representation of the hash value). This specifies in which representation the token instance is set.</param>
         /// <param name="Type">The type of the supplied instance.</param>
         /// <param name="SubType">The exact type of the supplied instance.</param>
-        private EMT_Id(String                Instance,
-                       TokenRepresentations  Representation,
-                       TokenTypes            Type,
-                       TokenSubTypes?        SubType = null)
+        public EMT_Id(String                Instance,
+                      TokenRepresentations  Representation,
+                      TokenTypes            Type,
+                      TokenSubTypes?        SubType = null)
         {
 
             #region Initial checks

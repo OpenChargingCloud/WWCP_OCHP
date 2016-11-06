@@ -175,9 +175,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 UpdateStatusRequest = new UpdateStatusRequest(
 
-                                          UpdateStatusRequestXML.MapElements(OCHPNS.Default + "UpdateStatusRequest",
-                                                                             OCHPv1_4.EVSEStatus.Parse,
-                                                                             OnException)
+                                          UpdateStatusRequestXML.MapElements       (OCHPNS.Default + "evse",
+                                                                                    OCHPv1_4.EVSEStatus.Parse,
+                                                                                    OnException),
+
+                                          UpdateStatusRequestXML.MapElements       (OCHPNS.Default + "parking",
+                                                                                    OCHPv1_4.ParkingStatus.Parse,
+                                                                                    OnException),
+
+                                          UpdateStatusRequestXML.MapValueOrNullable(OCHPNS.Default + "ttl",
+                                                                                    OCHPNS.Default + "ttl",
+                                                                                    DateTime.Parse)
 
                                       );
 

@@ -456,7 +456,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                         IPPort    TCPPort         = null,
                         String    URIPrefix       = DefaultURIPrefix,
                         DNSClient DNSClient       = null,
-                        Boolean   AutoStart       = false)
+                        Boolean   AutoStart       = true)
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
                    TCPPort ?? DefaultHTTPServerPort,
@@ -501,34 +501,34 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
             #region / (HTTPRoot)
 
-            SOAPServer.AddMethodCallback(HTTPHostname.Any,
-                                         HTTPMethod.GET,
-                                         new String[] { "/", URIPrefix + "/" },
-                                         HTTPContentType.TEXT_UTF8,
-                                         HTTPDelegate: Request => {
-
-                                             return Task.FromResult(
-                                                 new HTTPResponseBuilder(Request) {
-
-                                                     HTTPStatusCode  = HTTPStatusCode.BadGateway,
-                                                     ContentType     = HTTPContentType.TEXT_UTF8,
-                                                     Content         = ("Welcome at " + DefaultHTTPServerName + Environment.NewLine +
-                                                                        "This is a HTTP/SOAP/XML endpoint!" + Environment.NewLine + Environment.NewLine +
-                                                                        "Defined endpoints: " + Environment.NewLine + Environment.NewLine +
-                                                                        SOAPServer.
-                                                                            SOAPDispatchers.
-                                                                            Select(group => " - " + group.Key + Environment.NewLine +
-                                                                                            "   " + group.SelectMany(dispatcher => dispatcher.SOAPDispatches).
-                                                                                                          Select    (dispatch   => dispatch.  Description).
-                                                                                                          AggregateWith(", ")
-                                                                                  ).AggregateWith(Environment.NewLine + Environment.NewLine)
-                                                                       ).ToUTF8Bytes(),
-                                                     Connection      = "close"
-
-                                                 }.AsImmutable());
-
-                                         },
-                                         AllowReplacement: URIReplacement.Allow);
+         //   SOAPServer.AddMethodCallback(HTTPHostname.Any,
+         //                                HTTPMethod.GET,
+         //                                new String[] { "/", URIPrefix + "/" },
+         //                                HTTPContentType.TEXT_UTF8,
+         //                                HTTPDelegate: Request => {
+         //
+         //                                    return Task.FromResult(
+         //                                        new HTTPResponseBuilder(Request) {
+         //
+         //                                            HTTPStatusCode  = HTTPStatusCode.BadGateway,
+         //                                            ContentType     = HTTPContentType.TEXT_UTF8,
+         //                                            Content         = ("Welcome at " + DefaultHTTPServerName + Environment.NewLine +
+         //                                                               "This is a HTTP/SOAP/XML endpoint!" + Environment.NewLine + Environment.NewLine +
+         //                                                               "Defined endpoints: " + Environment.NewLine + Environment.NewLine +
+         //                                                               SOAPServer.
+         //                                                                   SOAPDispatchers.
+         //                                                                   Select(group => " - " + group.Key + Environment.NewLine +
+         //                                                                                   "   " + group.SelectMany(dispatcher => dispatcher.SOAPDispatches).
+         //                                                                                                 Select    (dispatch   => dispatch.  Description).
+         //                                                                                                 AggregateWith(", ")
+         //                                                                         ).AggregateWith(Environment.NewLine + Environment.NewLine)
+         //                                                              ).ToUTF8Bytes(),
+         //                                            Connection      = "close"
+         //
+         //                                        }.AsImmutable());
+         //
+         //                                },
+         //                                AllowReplacement: URIReplacement.Allow);
 
             #endregion
 
@@ -1184,7 +1184,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            DefaultQueryTimeout)).
                                       ToArray();
 
-                    if (results.Length > 0)
+                    if (results != null && results.Length > 0)
                     {
 
                         await Task.WhenAll(results);
@@ -1193,7 +1193,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (response == null || results.Length == 0)
                         response = GetSingleRoamingAuthorisationResponse.Server(_GetSingleRoamingAuthorisationRequest, "Could not process the incoming GetSingleRoamingAuthorisation request!");
 
                 }
@@ -1486,7 +1486,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            DefaultQueryTimeout)).
                                       ToArray();
 
-                    if (results.Length > 0)
+                    if (results != null && results.Length > 0)
                     {
 
                         await Task.WhenAll(results);
@@ -1495,7 +1495,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (response == null || results.Length == 0)
                         response = UpdateStatusResponse.Server(_UpdateStatusRequest, "Could not process the incoming UpdateStatus request!");
 
                 }

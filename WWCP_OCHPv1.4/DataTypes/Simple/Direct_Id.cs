@@ -128,7 +128,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (_MatchCollection.Count != 1)
                 throw new ArgumentException("Illegal charging process identification '" + Text + "'!");
 
-            ChargingStationOperator_Id __EVSEOperatorId = null;
+            ChargingStationOperator_Id __EVSEOperatorId;
 
             if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
                 return new Direct_Id(__EVSEOperatorId,
@@ -197,7 +197,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 if (_MatchCollection.Count != 1)
                     return false;
 
-                ChargingStationOperator_Id __EVSEOperatorId = null;
+                ChargingStationOperator_Id __EVSEOperatorId;
 
                 // New format...
                 if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))

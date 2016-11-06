@@ -289,7 +289,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public XElement ToXML()
 
             => new XElement(OCHPNS.Default + "UpdateStatusResponse",
-                   new XElement(OCHPNS.Default + "result", Result.ToXML())
+                   Result.ToXML()
                );
 
         #endregion
