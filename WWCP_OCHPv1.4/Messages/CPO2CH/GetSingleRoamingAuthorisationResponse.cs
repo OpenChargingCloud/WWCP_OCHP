@@ -18,9 +18,7 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -247,9 +245,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                                                                       Result.Parse,
                                                                                                                       OnException),
 
-                                                            GetSingleRoamingAuthorisationResponseXML.MapElementOrFail(OCHPNS.Default + "roamingAuthorisationInfo",
-                                                                                                                      RoamingAuthorisationInfo.Parse,
-                                                                                                                      OnException)
+                                                            GetSingleRoamingAuthorisationResponseXML.MapElement      (OCHPNS.Default + "roamingAuthorisationInfo",
+                                                                                                                      RoamingAuthorisationInfo.Parse)
 
                                                         );
 
@@ -317,7 +314,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             => new XElement(OCHPNS.Default + "GetSingleRoamingAuthorisationResponse",
 
-                   new XElement(OCHPNS.Default + "result", Result.ToXML()),
+                   Result.ToXML(),
 
                    RoamingAuthorisationInfo != null
                        ? RoamingAuthorisationInfo.ToXML()

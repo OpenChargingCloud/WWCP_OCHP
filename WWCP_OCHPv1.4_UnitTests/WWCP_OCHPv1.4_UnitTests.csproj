@@ -49,10 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContractIdTests.cs" />
-    <Compile Include="HTTPTests.cs" />
-    <Compile Include="ParkingStatusTests.cs" />
-    <Compile Include="EVSEStatusTests.cs" />
+    <Compile Include="DataStructuresTests\ContractIdTests.cs" />
+    <Compile Include="HTTPTests\AHTTPTests.cs" />
+    <Compile Include="HTTPTests\UpdateStatusTests.cs" />
+    <Compile Include="HTTPTests\GetSingleRoamingAuthorisationTests.cs" />
+    <Compile Include="DataStructuresTests\ParkingStatusTests.cs" />
+    <Compile Include="DataStructuresTests\EVSEStatusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

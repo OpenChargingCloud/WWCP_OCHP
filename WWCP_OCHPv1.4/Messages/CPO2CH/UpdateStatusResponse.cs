@@ -18,9 +18,7 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -353,7 +351,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (Object == null)
                 return false;
 
-            // Check if the given object is an update status response.
             var UpdateStatusResponse = Object as UpdateStatusResponse;
             if ((Object) UpdateStatusResponse == null)
                 return false;

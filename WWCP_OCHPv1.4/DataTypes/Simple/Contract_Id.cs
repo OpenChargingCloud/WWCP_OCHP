@@ -152,6 +152,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                        _MatchCollection[0].Groups[5].Value,
                                        _MatchCollection[0].Groups[6].Value[0]);
 
+            if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[7].Value, out _ProviderId))
+                return new Contract_Id(_ProviderId,
+                                       _MatchCollection[0].Groups[8].Value);
+
 
             throw new ArgumentException("Illegal contract identification '" + Text + "'!");
 
@@ -211,18 +215,31 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 {
 
                     ContractId = new Contract_Id(_Provider,
-                                                 _MatchCollection[0].Groups[2].Value);
+                                                 _MatchCollection[0].Groups[2].Value,
+                                                 _MatchCollection[0].Groups[3].Value[0]);
 
                     return true;
 
                 }
 
                 // Old format...
-                else if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[3].Value, out _Provider))
+                else if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[4].Value, out _Provider))
                 {
 
                     ContractId = new Contract_Id(_Provider,
-                                                 _MatchCollection[0].Groups[4].Value);
+                                                 _MatchCollection[0].Groups[5].Value,
+                                                 _MatchCollection[0].Groups[6].Value[0]);
+
+                    return true;
+
+                }
+
+                // Without check digit...
+                else if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[7].Value, out _Provider))
+                {
+
+                    ContractId = new Contract_Id(_Provider,
+                                                 _MatchCollection[0].Groups[8].Value);
 
                     return true;
 

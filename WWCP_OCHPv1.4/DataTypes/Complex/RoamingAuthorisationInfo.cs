@@ -250,8 +250,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "roamingAuthorisationInfo",
 
-                   new XElement(OCHPNS.Default + "EmtId",       EMTId.ToXML()),
-                   new XElement(OCHPNS.Default + "contractId",  ContractId.ToString()),
+                   EMTId.ToXML(OCHPNS.Default + "EmtId"),
+                   new XElement(OCHPNS.Default + "contractId",           ContractId.ToString()),
 
                    PrintedNumber.IsNotNullOrEmpty()
                        ? new XElement(OCHPNS.Default + "printedNumber",  PrintedNumber)
@@ -385,7 +385,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(EMTId, " / ", ContractId, PrintedNumber.IsNotNullOrEmpty() ? " (" + PrintedNumber + ")" : "", " expires ", ExpiryDate.ToIso8601());
+            => String.Concat(EMTId, " / ", ContractId,
+
+                             PrintedNumber.IsNotNullOrEmpty()
+                                 ? " (" + PrintedNumber + ")"
+                                 : "",
+
+                             " expires ", ExpiryDate.ToIso8601());
 
         #endregion
 

@@ -322,7 +322,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (Object == null)
                 return false;
 
-            // Check if the given object is a update status request.
             var UpdateStatusRequest = Object as UpdateStatusRequest;
             if ((Object) UpdateStatusRequest == null)
                 return false;

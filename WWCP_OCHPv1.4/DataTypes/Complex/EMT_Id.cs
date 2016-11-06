@@ -30,9 +30,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP token.
     /// </summary>
-    public class EMT_Id : IId,
-                          IEquatable <EMT_Id>,
-                          IComparable<EMT_Id>
+    public struct EMT_Id : IId,
+                           IEquatable <EMT_Id>,
+                           IComparable<EMT_Id>
 
     {
 
@@ -132,7 +132,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (TryParse(EMTIdXML, out _EMTId, OnException))
                 return _EMTId;
 
-            return null;
+            return default(EMT_Id);
 
         }
 
@@ -154,7 +154,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (TryParse(EMTIdText, out _EMTId, OnException))
                 return _EMTId;
 
-            return null;
+            return default(EMT_Id);
 
         }
 
@@ -199,7 +199,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 OnException?.Invoke(DateTime.Now, EMTIdXML, e);
 
-                EMTId = null;
+                EMTId = default(EMT_Id);
                 return false;
 
             }
@@ -236,7 +236,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 OnException?.Invoke(DateTime.Now, EMTIdText, e);
             }
 
-            EMTId = null;
+            EMTId = default(EMT_Id);
             return false;
 
         }
@@ -259,7 +259,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    new XElement  (OCHPNS.Default + "tokenType",         XML_IO.AsText(Type)),
 
                    SubType.HasValue
-                       ? new XElement(OCHPNS.Default + "tokenSubType",  SubType.Value)
+                       ? new XElement(OCHPNS.Default + "tokenSubType",  XML_IO.AsText(SubType.Value))
                        : null
 
                );
@@ -392,12 +392,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
-            // Check if the given object is a token identification.
-            var EMTId = Object as EMT_Id;
-            if ((Object) EMTId == null)
+            if (!(Object is EMT_Id))
                 throw new ArgumentException("The given object is not a token identification!", nameof(Object));
 
-            return CompareTo(EMTId);
+            return CompareTo((EMT_Id) Object);
 
         }
 
@@ -438,12 +436,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is a token identification.
-            var EMTId = Object as EMT_Id;
-            if ((Object) EMTId == null)
+            if (!(Object is EMT_Id))
                 return false;
 
-            return this.Equals(EMTId);
+            return this.Equals((EMT_Id) Object);
 
         }
 
