@@ -34,6 +34,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
     public class GetSingleRoamingAuthorisationTests : ASOAPTests
     {
 
+        #region Constructor(s)
+
         public GetSingleRoamingAuthorisationTests()
         {
 
@@ -77,23 +79,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
         }
 
+        #endregion
+
 
         #region GetSingleRoamingAuthorisationTest1()
 
         [Test]
-        public void GetSingleRoamingAuthorisationTest1()
+        public async Task GetSingleRoamingAuthorisationTest1()
         {
 
-            var Task1 = CPOClient.GetSingleRoamingAuthorisation(new EMT_Id("1234",
-                                                                           TokenRepresentations.Plain,
-                                                                           TokenTypes.RFID,
-                                                                           TokenSubTypes.MifareClassic));
+            var Response = await CPOClient.GetSingleRoamingAuthorisation(new EMT_Id("1234",
+                                                                                    TokenRepresentations.Plain,
+                                                                                    TokenTypes.RFID,
+                                                                                    TokenSubTypes.MifareClassic));
 
-            Task1.Wait(TimeSpan.FromSeconds(30));
-
-            var Response = Task1.Result.Content;
-
-            Assert.AreEqual(ResultCodes.OK, Response.Result.ResultCode);
+            Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
 
         }
 
@@ -102,19 +102,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
         #region GetSingleRoamingAuthorisationTest2()
 
         [Test]
-        public void GetSingleRoamingAuthorisationTest2()
+        public async Task GetSingleRoamingAuthorisationTest2()
         {
 
-            var Task1 = CPOClient.GetSingleRoamingAuthorisation(new EMT_Id("567891",
-                                                                           TokenRepresentations.Plain,
-                                                                           TokenTypes.RFID,
-                                                                           TokenSubTypes.MifareClassic));
+            var Response = await CPOClient.GetSingleRoamingAuthorisation(new EMT_Id("567891",
+                                                                                    TokenRepresentations.Plain,
+                                                                                    TokenTypes.RFID,
+                                                                                    TokenSubTypes.MifareClassic));
 
-            Task1.Wait(TimeSpan.FromSeconds(30));
-
-            var Response = Task1.Result.Content;
-
-            Assert.AreEqual(ResultCodes.InvalidId, Response.Result.ResultCode);
+            Assert.AreEqual(ResultCodes.InvalidId, Response.Content.Result.ResultCode);
 
         }
 

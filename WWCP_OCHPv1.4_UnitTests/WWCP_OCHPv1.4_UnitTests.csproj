@@ -50,9 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataStructuresTests\ContractIdTests.cs" />
-    <Compile Include="HTTPTests\AHTTPTests.cs" />
-    <Compile Include="HTTPTests\UpdateStatusTests.cs" />
-    <Compile Include="HTTPTests\GetSingleRoamingAuthorisationTests.cs" />
+    <Compile Include="SOAPTests\ASOAPTests.cs" />
+    <Compile Include="SOAPTests\UpdateStatusTests.cs" />
+    <Compile Include="SOAPTests\GetSingleRoamingAuthorisationTests.cs" />
     <Compile Include="DataStructuresTests\ParkingStatusTests.cs" />
     <Compile Include="DataStructuresTests\EVSEStatusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

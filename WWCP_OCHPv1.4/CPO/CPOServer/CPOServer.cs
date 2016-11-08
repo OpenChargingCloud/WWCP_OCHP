@@ -226,34 +226,34 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region / (HTTPRoot)
 
-            SOAPServer.AddMethodCallback(HTTPHostname.Any,
-                                         HTTPMethod.GET,
-                                         new String[] { "/", URIPrefix + "/" },
-                                         HTTPContentType.TEXT_UTF8,
-                                         HTTPDelegate: Request => {
+            //SOAPServer.AddMethodCallback(HTTPHostname.Any,
+            //                             HTTPMethod.GET,
+            //                             new String[] { "/", URIPrefix + "/" },
+            //                             HTTPContentType.TEXT_UTF8,
+            //                             HTTPDelegate: Request => {
 
-                                             return Task.FromResult(
-                                                 new HTTPResponseBuilder(Request) {
+            //                                 return Task.FromResult(
+            //                                     new HTTPResponseBuilder(Request) {
 
-                                                     HTTPStatusCode  = HTTPStatusCode.BadGateway,
-                                                     ContentType     = HTTPContentType.TEXT_UTF8,
-                                                     Content         = ("Welcome at " + DefaultHTTPServerName + Environment.NewLine +
-                                                                        "This is a HTTP/SOAP/XML endpoint!" + Environment.NewLine + Environment.NewLine +
-                                                                        "Defined endpoints: " + Environment.NewLine + Environment.NewLine +
-                                                                        SOAPServer.
-                                                                            SOAPDispatchers.
-                                                                            Select(group => " - " + group.Key + Environment.NewLine +
-                                                                                            "   " + group.SelectMany(dispatcher => dispatcher.SOAPDispatches).
-                                                                                                          Select    (dispatch   => dispatch.  Description).
-                                                                                                          AggregateWith(", ")
-                                                                                  ).AggregateWith(Environment.NewLine + Environment.NewLine)
-                                                                       ).ToUTF8Bytes(),
-                                                     Connection      = "close"
+            //                                         HTTPStatusCode  = HTTPStatusCode.BadGateway,
+            //                                         ContentType     = HTTPContentType.TEXT_UTF8,
+            //                                         Content         = ("Welcome at " + DefaultHTTPServerName + Environment.NewLine +
+            //                                                            "This is a HTTP/SOAP/XML endpoint!" + Environment.NewLine + Environment.NewLine +
+            //                                                            "Defined endpoints: " + Environment.NewLine + Environment.NewLine +
+            //                                                            SOAPServer.
+            //                                                                SOAPDispatchers.
+            //                                                                Select(group => " - " + group.Key + Environment.NewLine +
+            //                                                                                "   " + group.SelectMany(dispatcher => dispatcher.SOAPDispatches).
+            //                                                                                              Select    (dispatch   => dispatch.  Description).
+            //                                                                                              AggregateWith(", ")
+            //                                                                      ).AggregateWith(Environment.NewLine + Environment.NewLine)
+            //                                                           ).ToUTF8Bytes(),
+            //                                         Connection      = "close"
 
-                                                 }.AsImmutable());
+            //                                     }.AsImmutable());
 
-                                         },
-                                         AllowReplacement: URIReplacement.Allow);
+            //                             },
+            //                             AllowReplacement: URIReplacement.Allow);
 
             #endregion
 

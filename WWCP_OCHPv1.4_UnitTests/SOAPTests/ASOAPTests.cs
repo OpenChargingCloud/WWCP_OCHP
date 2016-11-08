@@ -17,6 +17,9 @@
 
 #region Usings
 
+using System.Linq;
+using System.Collections.Concurrent;
+
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 
@@ -33,16 +36,26 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
         #region Data
 
-        protected readonly CH.CHServer    ClearingHouseServer;
-        protected readonly IPPort         ClearingHouseTCPPort  = IPPort.Parse(10000);
+        //protected readonly IPPort                                              ClearingHouseTCPPort;
+        protected readonly CH.CHServer                                         ClearingHouseServer;
 
-        protected readonly CPO.CPOClient  CPOClient;
-        protected readonly CPO.CPOServer  CPOServer;
-        protected readonly IPPort         CPOServerTCPPort      = IPPort.Parse(10001);
+        protected readonly CPO.CPOClient                                       CPOClient;
+        protected readonly CPO.CPOServer                                       CPOServer;
+        //protected readonly IPPort                                              CPOServerTCPPort;
 
-        protected readonly EMP.EMPClient  EMPClient;
-        protected readonly EMP.EMPServer  EMPServer;
-        protected readonly IPPort         EMPServerTCPPort      = IPPort.Parse(10002);
+        protected readonly EMP.EMPClient                                       EMPClient;
+        protected readonly EMP.EMPServer                                       EMPServer;
+        //protected readonly IPPort                                              EMPServerTCPPort;
+
+        protected readonly ConcurrentDictionary<EVSE_Id,    ChargePointInfo>   ClearingHouseChargePointInfos;
+        protected readonly ConcurrentDictionary<EVSE_Id,    EVSEStatus>        ClearingHouseEVSEStatus;
+        protected readonly ConcurrentDictionary<Parking_Id, ParkingSpotInfo>   ClearingHouseParkingSpotInfos;
+        protected readonly ConcurrentDictionary<Parking_Id, ParkingStatus>     ClearingHouseParkingStatus;
+        protected readonly ConcurrentDictionary<Tariff_Id,  TariffInfo>        ClearingHouseTariffInfos;
+        protected readonly ConcurrentDictionary<CDR_Id,     CDRInfo>           ClearingHouseCDRInfos;
+
+        protected readonly ConcurrentBag<OperatorEndpoint>                     ClearingHouseOperatorEndpoints;
+        protected readonly ConcurrentBag<ProviderEndpoint>                     ClearingHouseProviderEndpoints;
 
         #endregion
 
@@ -51,28 +64,43 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
             var DNSClient = new DNSClient(SearchForIPv6DNSServers: false);
 
-            // ClearingHouse
-            this.ClearingHouseServer = new CH. CHServer (TCPPort:    ClearingHouseTCPPort,
-                                                         DNSClient:  DNSClient);
 
-            // CPO
-            this.CPOClient           = new CPO.CPOClient("CPOClient #1",
-                                                         "127.0.0.1",
-                                                         ClearingHouseTCPPort,
-                                                         DNSClient:  DNSClient);
+            //- ClearingHouse ----------------------------------------------------------------------------
 
-            this.CPOServer           = new CPO.CPOServer(TCPPort:    CPOServerTCPPort,
-                                                         DNSClient:  DNSClient);
+            ClearingHouseServer              = new CH. CHServer (TCPPort:    IPPort.Parse(10000),
+                                                                 DNSClient:  DNSClient);
 
-            // EMP
-            this.EMPClient           = new EMP.EMPClient("EMPClient #1",
-                                                         "127.0.0.1",
-                                                         ClearingHouseTCPPort,
-                                                         DNSClient:  DNSClient);
+            ClearingHouseEVSEStatus          = new ConcurrentDictionary<EVSE_Id,    EVSEStatus>();
+            ClearingHouseChargePointInfos    = new ConcurrentDictionary<EVSE_Id,    ChargePointInfo>();
+            ClearingHouseParkingStatus       = new ConcurrentDictionary<Parking_Id, ParkingStatus>();
+            ClearingHouseParkingSpotInfos    = new ConcurrentDictionary<Parking_Id, ParkingSpotInfo>();
+            ClearingHouseTariffInfos         = new ConcurrentDictionary<Tariff_Id,  TariffInfo>();
+            ClearingHouseCDRInfos            = new ConcurrentDictionary<CDR_Id,     CDRInfo>();
 
-            this.EMPServer           = new EMP.EMPServer(TCPPort:    EMPServerTCPPort,
-                                                         DNSClient:  DNSClient);
+            ClearingHouseOperatorEndpoints   = new ConcurrentBag<OperatorEndpoint>();
+            ClearingHouseProviderEndpoints   = new ConcurrentBag<ProviderEndpoint>();
 
+
+            //- CPO --------------------------------------------------------------------------------------
+
+            CPOClient                        = new CPO.CPOClient("CPOClient #1",
+                                                                 "127.0.0.1",
+                                                                 ClearingHouseServer.IPPorts.First(),
+                                                                 DNSClient:  DNSClient);
+
+            CPOServer                        = new CPO.CPOServer(TCPPort:    IPPort.Parse(10001),
+                                                                 DNSClient:  DNSClient);
+
+
+            //- EMP --------------------------------------------------------------------------------------
+
+            EMPClient                        = new EMP.EMPClient("EMPClient #1",
+                                                                 "127.0.0.1",
+                                                                 ClearingHouseServer.IPPorts.First(),
+                                                                 DNSClient:  DNSClient);
+
+            EMPServer                        = new EMP.EMPServer(TCPPort:    IPPort.Parse(10002),
+                                                                 DNSClient:  DNSClient);
 
         }
 
