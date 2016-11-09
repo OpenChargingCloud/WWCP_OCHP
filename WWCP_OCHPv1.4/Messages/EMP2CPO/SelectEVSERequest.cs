@@ -35,10 +35,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// The unique identification of the selected EVSE.
-    /// </summary>
-    public EVSE_Id      EVSEId          { get; }
+        /// <summary>
+        /// The unique identification of the selected EVSE.
+        /// </summary>
+        public EVSE_Id      EVSEId          { get; }
 
         /// <summary>
         /// The unique identification of an e-mobility contract.
@@ -66,9 +66,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         {
 
             #region Initial checks
-
-            if (ContractId == null)
-                throw new ArgumentNullException(nameof(ContractId),  "The given identification of the e-mobility contract must not be null!");
 
             if (ReserveUntil.HasValue && ReserveUntil.Value <= DateTime.Now)
                 throw new ArgumentException("The given reservation end time must be after than the current time!");

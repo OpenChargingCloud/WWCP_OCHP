@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of operator endpoints.
-    /// </summary>
-    public IEnumerable<OperatorEndpoint>  OperatorEndpoints   { get; }
+        /// <summary>
+        /// An enumeration of operator endpoints.
+        /// </summary>
+        public IEnumerable<OperatorEndpoint>  OperatorEndpoints   { get; }
 
         /// <summary>
         /// An enumeration of provider endpoints.
@@ -57,7 +57,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="OperatorEndpoints">An enumeration of operator endpoints.</param>
         /// <param name="ProviderEndpoints">An enumeration of provider endpoints.</param>
         public AddServiceEndpointsRequest(IEnumerable<OperatorEndpoint>  OperatorEndpoints = null,
-                                            IEnumerable<ProviderEndpoint>  ProviderEndpoints = null)
+                                          IEnumerable<ProviderEndpoint>  ProviderEndpoints = null)
         {
 
             #region Initial checks

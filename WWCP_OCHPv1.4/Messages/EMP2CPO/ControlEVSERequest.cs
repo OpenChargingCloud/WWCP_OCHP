@@ -35,10 +35,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// The unique session identification of the direct charging process to be controlled.
-    /// </summary>
-    public Direct_Id         DirectId       { get; }
+        /// <summary>
+        /// The unique session identification of the direct charging process to be controlled.
+        /// </summary>
+        public Direct_Id         DirectId       { get; }
 
         /// <summary>
         /// The operation to be performed for the selected charge point.

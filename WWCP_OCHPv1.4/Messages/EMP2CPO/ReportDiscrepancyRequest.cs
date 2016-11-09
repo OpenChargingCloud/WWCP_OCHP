@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// The unique EVSE identification which is affected by the report.
-    /// </summary>
-    public EVSE_Id  EVSEId   { get; }
+        /// <summary>
+        /// The unique EVSE identification which is affected by the report.
+        /// </summary>
+        public EVSE_Id  EVSEId   { get; }
 
         /// <summary>
         /// The unique EVSE identification which is affected by the report.

@@ -35,10 +35,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// The session id referencing the direct charging process to be released.
-    /// </summary>
-    public Direct_Id  DirectId   { get; }
+        /// <summary>
+        /// The session id referencing the direct charging process to be released.
+        /// </summary>
+        public Direct_Id  DirectId   { get; }
 
         #endregion
 

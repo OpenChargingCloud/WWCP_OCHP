@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Properties
 
-    /// <summary>
-    /// The operation that triggered the operator to send this message.
-    /// </summary>
-    public DirectMessages          DirectMessage       { get; }
+        /// <summary>
+        /// The operation that triggered the operator to send this message.
+        /// </summary>
+        public DirectMessages          DirectMessage       { get; }
 
         /// <summary>
         /// The uqniue EVSE identification of the charge point which is used for this charging process.
@@ -175,12 +175,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         {
 
             #region Initial checks
-
-            if (EVSEId     == null)
-                throw new ArgumentNullException(nameof(EVSEId),      "The given identification of an EVSE must not be null!");
-
-            if (ContractId == null)
-                throw new ArgumentNullException(nameof(ContractId),  "The given identification of an e-mobility contract must not be null!");
 
             if (DirectId   == null)
                 throw new ArgumentNullException(nameof(DirectId),    "The given identification of an direct charging process must not be null!");
