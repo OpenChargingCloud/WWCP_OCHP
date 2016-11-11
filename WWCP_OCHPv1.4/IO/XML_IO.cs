@@ -19,6 +19,7 @@
 
 using System;
 using System.Xml.Linq;
+using System.Globalization;
 
 using org.GraphDefined.Vanaheimr.Aegir;
 using org.GraphDefined.Vanaheimr.Illias;
@@ -1722,8 +1723,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             {
 
                 return new GeoCoordinate(
-                           new Latitude (Double.Parse(XML.Attribute(OCHPNS.Default + "lat").Value)),
-                           new Longitude(Double.Parse(XML.Attribute(OCHPNS.Default + "lon").Value))
+                           new Latitude (Double.Parse(XML.Attribute(OCHPNS.Default + "lat").Value, NumberStyles.Any, CultureInfo.InvariantCulture)),
+                           new Longitude(Double.Parse(XML.Attribute(OCHPNS.Default + "lon").Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                        );
 
             }

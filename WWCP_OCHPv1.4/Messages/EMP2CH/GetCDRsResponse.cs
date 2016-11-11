@@ -312,7 +312,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             => new XElement(OCHPNS.Default + "GetCDRsResponse",
 
-                   new XElement(OCHPNS.Default + "result", Result.ToXML()),
+                   Result.ToXML(),
 
                    ChargeDetailRecords.Select(cdr => cdr.ToXML(OCHPNS.Default + "cdrInfoArray"))
 

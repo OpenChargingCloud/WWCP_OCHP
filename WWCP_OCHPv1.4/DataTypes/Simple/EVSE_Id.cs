@@ -48,7 +48,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing an charge point identification suffix.
         /// </summary>
-        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Za-z0-9][A-Za-z0-9\*]{0,9}$",
+        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Za-z0-9][A-Za-z0-9\*]{0,30}$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
         #endregion

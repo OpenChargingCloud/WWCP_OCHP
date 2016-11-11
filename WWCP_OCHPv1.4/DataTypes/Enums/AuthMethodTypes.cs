@@ -15,74 +15,81 @@
  * limitations under the License.
  */
 
+#region Usings
+
+using System;
+
+#endregion
+
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
     /// OCHP authentication methods.
     /// </summary>
+    [Flags]
     public enum AuthMethodTypes
     {
 
         /// <summary>
         /// The authentication method is unknown.
         /// </summary>
-        Unknown,
+        Unknown             = 0,
 
         /// <summary>
         /// Public accessible, no authorisation required.
         /// </summary>
-        Public,
+        Public              = 1,
 
         /// <summary>
         /// A key or token can be received at the location.(i.e. at the hotel reception or in the restaurant).
         /// </summary>
-        LocalKey,
+        LocalKey            = 1 << 1,
 
         /// <summary>
         /// The EVSE can be accessed through direct payment in cash.
         /// </summary>
-        DirectCash,
+        DirectCash          = 1 << 2,
 
         /// <summary>
         /// The EVSE can be accessed through direct payment with credit card.
         /// </summary>
-        DirectCreditcard,
+        DirectCreditcard    = 1 << 3,
 
         /// <summary>
         /// The EVSE can be accessed through direct payment with debit card.
         /// </summary>
-        DirectDebitcard,
+        DirectDebitcard     = 1 << 4,
 
         /// <summary>
         /// Personal RFID token with roaming relation (Mifare Classic).
         /// </summary>
-        RFIDMifareClassic,
+        RFIDMifareClassic   = 1 << 5,
 
         /// <summary>
         /// Personal token with roaming relation (Mifare Desfire).
         /// </summary>
-        RFIDMifareDESFire,
+        RFIDMifareDESFire   = 1 << 6,
 
         /// <summary>
         /// Personal RFID token with roaming relation (Calypso).
         /// </summary>
-        RFIDCalypso,
+        RFIDCalypso         = 1 << 7,
 
         /// <summary>
         /// In-car access token as specified in IEC-15118.
         /// </summary>
-        IEC15118,
+        IEC15118            = 1 << 8,
 
         /// <summary>
         /// The EVSE can be accessed through a OCHP-direct capable provider app.
         /// </summary>
-        OCHPDirectAuth,
+        OCHPDirectAuth      = 1 << 9,
 
         /// <summary>
         /// The EVSE can be accessed through a direct online payment to the operator.
         /// </summary>
-        OperatorAuth
+        OperatorAuth        = 1 << 10,
 
     }
 

@@ -330,7 +330,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             => new XElement(OCHPNS.Default + "SetRoamingAuthorisationListResponse",
 
-                   new XElement(OCHPNS.Default + "result", Result.ToXML()),
+                   Result.ToXML(),
 
                    RefusedRoamingAuthorisationInfos.Select(info => info.ToXML(OCHPNS.Default + "refusedRoamingAuthorisationInfo"))
 

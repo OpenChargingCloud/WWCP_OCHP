@@ -281,8 +281,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 throw new ArgumentNullException(nameof(ChargePointType),     "The given charge point type is invalid!");
 
 
-            if (TelephoneNumber.IsNotNullOrEmpty() && !TelephoneNumber_RegEx.IsMatch(LocationId))
-                throw new ArgumentException("The given service hotline telephone number is invalid!", nameof(LocationId));
+            if (TelephoneNumber.IsNotNullOrEmpty() && !TelephoneNumber_RegEx.IsMatch(TelephoneNumber))
+                throw new ArgumentException("The given service hotline telephone number is invalid!", nameof(TelephoneNumber));
 
             #endregion
 
@@ -632,7 +632,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                                OCHPNS.Default + "GeneralLocationType",
                                                                                XML_IO.AsGeneralLocationType),
 
-                                      ChargePointInfoXML.MapEnumValuesOrFail  (OCHPNS.Default + "authMethods",
+                                      ChargePointInfoXML.MapEnumValuesOrFail2 (OCHPNS.Default + "authMethods",
                                                                                OCHPNS.Default + "AuthMethodType",
                                                                                XML_IO.AsAuthMethodType),
 
@@ -779,7 +779,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ChargePointAddress.ToXML(),
 
                    new XElement(OCHPNS.Default + "chargePointLocation",
-                       new XAttribute(OCHPNS.Default + "lat", ChargePointLocation.Latitude.Value),
+                       new XAttribute(OCHPNS.Default + "lat", ChargePointLocation.Latitude. Value),
                        new XAttribute(OCHPNS.Default + "lon", ChargePointLocation.Longitude.Value)
                    ),
 
@@ -816,15 +816,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        : null,
 
                    Restrictions.HasValue
-                       ? AllRestrictions.Select(restriction => new XElement(OCHPNS.Default + "restriction",
-                                                                   new XElement(OCHPNS.Default + "RestrictionType", restriction)
-                                                               ))
+                       ? Restrictions.Value.ToEnumeration().Select(restriction =>
+                             new XElement(OCHPNS.Default + "restriction",
+                                 new XElement(OCHPNS.Default + "RestrictionType",  XML_IO.AsText(restriction))
+                             )
+                         )
                        : null,
 
                    AuthMethods != AuthMethodTypes.Unknown
-                       ? AllAuthMethods.Select(method => new XElement(OCHPNS.Default + "authMethods",
-                                                                  new XElement(OCHPNS.Default + "AuthMethodType", method)
-                                                              ))
+                       ? AuthMethods.ToEnumeration().Select(method =>
+                             new XElement(OCHPNS.Default + "authMethods",
+                                 new XElement(OCHPNS.Default + "AuthMethodType",  XML_IO.AsText(method))
+                             )
+                         )
                        : null,
 
                    Connectors.SafeSelect(connector => connector.ToXML(OCHPNS.Default + "connectors")),

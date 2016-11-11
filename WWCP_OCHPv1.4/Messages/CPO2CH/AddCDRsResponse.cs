@@ -312,7 +312,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             => new XElement(OCHPNS.Default + "AddCDRsResponse",
 
-                   new XElement(OCHPNS.Default + "result", Result.ToXML()),
+                   Result.ToXML(),
 
                    ImplausibleCDRs.Select(cdr => cdr.ToXML(OCHPNS.Default + "implausibleCdrsArray"))
 

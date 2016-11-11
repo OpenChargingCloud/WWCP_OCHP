@@ -336,7 +336,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
             => new XElement(OCHPNS.Default + "GetServiceEndpointsResponse",
 
-                   new XElement(OCHPNS.Default + "result", Result.ToXML()),
+                   Result.ToXML(),
 
                    ServiceEndpoints.SafeSelect(endpoint => endpoint.ToXML(OCHPNS.Default + "operatorEndpointArray"))
 

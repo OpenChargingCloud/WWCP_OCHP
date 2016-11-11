@@ -73,6 +73,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        public static Hours Open24_7
+            => new Hours(true);
+
         #region Constructor(s)
 
         #region Hours(ClosedCharging, ExceptionalOpenings = null, ExceptionalClosings= null)
@@ -136,6 +139,39 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
 
         #region Documentation
+
+        // <ns:openingTimes>
+        //
+        //    <!--You have a CHOICE of the next 2 items at this level-->
+        //
+        //    <!--1 to 7 repetitions:-->
+        //    <ns:regularHours weekday = "?" periodBegin="?" periodEnd="?"/>
+        //
+        //    <ns:twentyfourseven>?</ns:twentyfourseven>
+        //
+        //    <!--Zero or more repetitions:-->
+        //    <ns:exceptionalOpenings>
+        //       <ns:periodBegin>
+        //          <ns:DateTime>?</ns:DateTime>
+        //       </ns:periodBegin>
+        //       <ns:periodEnd>
+        //          <ns:DateTime>?</ns:DateTime>
+        //       </ns:periodEnd>
+        //    </ns:exceptionalOpenings>
+        //
+        //    <!--Zero or more repetitions:-->
+        //    <ns:exceptionalClosings>
+        //       <ns:periodBegin>
+        //          <ns:DateTime>?</ns:DateTime>
+        //       </ns:periodBegin>
+        //       <ns:periodEnd>
+        //          <ns:DateTime>?</ns:DateTime>
+        //       </ns:periodEnd>
+        //    </ns:exceptionalClosings>
+        //
+        //    <ns:closedCharging>?</ns:closedCharging>
+        //
+        // </ns:openingTimes>
 
         // -- Operating 24/7 except for New Year 2015 -------------------------------
         //
@@ -263,10 +299,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                            s => s == "true",
                                                            false),
 
-                                HoursXML.MapElementsOrFail(OCHPNS.Default + "exceptionalOpenings",
+                                HoursXML.MapElements      (OCHPNS.Default + "exceptionalOpenings",
                                                            XML_IO.ParseExceptionalPeriod),
 
-                                HoursXML.MapElementsOrFail(OCHPNS.Default + "exceptionalClosings",
+                                HoursXML.MapElements      (OCHPNS.Default + "exceptionalClosings",
                                                            XML_IO.ParseExceptionalPeriod)
                             );
 
@@ -284,10 +320,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                            s => s == "true",
                                                            false),
 
-                                HoursXML.MapElementsOrFail(OCHPNS.Default + "exceptionalOpenings",
+                                HoursXML.MapElements      (OCHPNS.Default + "exceptionalOpenings",
                                                            XML_IO.ParseExceptionalPeriod),
 
-                                HoursXML.MapElementsOrFail(OCHPNS.Default + "exceptionalClosings",
+                                HoursXML.MapElements      (OCHPNS.Default + "exceptionalClosings",
                                                            XML_IO.ParseExceptionalPeriod)
 
                             );

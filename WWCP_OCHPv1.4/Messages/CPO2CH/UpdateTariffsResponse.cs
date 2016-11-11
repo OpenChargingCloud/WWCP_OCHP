@@ -314,7 +314,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             => new XElement(OCHPNS.Default + "UpdateTariffsResponse",
 
-                   new XElement(OCHPNS.Default + "result", Result.ToXML()),
+                   Result.ToXML(),
 
                    RefusedTariffInfos.SafeSelect(tariffinfos => tariffinfos.ToXML(OCHPNS.Default + "refusedTariffInfo"))
 

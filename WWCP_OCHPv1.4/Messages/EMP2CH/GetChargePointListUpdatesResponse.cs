@@ -317,7 +317,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             => new XElement(OCHPNS.Default + "GetChargePointListUpdatesResponse",
 
-                   new XElement(OCHPNS.Default + "result", Result.ToXML()),
+                   Result.ToXML(),
 
                    ChargePoints.SafeSelect(chargepoint => chargepoint.ToXML(OCHPNS.Default + "chargePointInfoArray"))
 

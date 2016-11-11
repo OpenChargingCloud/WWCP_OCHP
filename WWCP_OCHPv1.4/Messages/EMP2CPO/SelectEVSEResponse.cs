@@ -333,7 +333,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             => new XElement(OCHPNS.Default + "SelectEVSEResponse",
 
-                   new XElement(OCHPNS.Default + "result", Result.ToXML()),
+                   Result.ToXML(),
 
                    DirectId != null
                        ? new XElement(OCHPNS.Default + "directId",  DirectId.ToString())
