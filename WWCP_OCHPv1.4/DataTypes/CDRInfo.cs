@@ -154,7 +154,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        EVSE_Id                 EVSEId,
                        EMT_Id                  EMTId,
                        Contract_Id             ContractId,
-                       LiveAuth_Id             LiveAuthId,
+                    //   LiveAuth_Id             LiveAuthId,
                        CDRStatus               Status,
                        DateTime                StartDateTime,
                        DateTime                EndDateTime,
@@ -199,7 +199,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.EVSEId              = EVSEId;
             this.EMTId               = EMTId;
             this.ContractId          = ContractId;
-            this.LiveAuthId          = LiveAuthId;
+   //         this.LiveAuthId          = LiveAuthId;
             this.Status              = Status;
             this.StartDateTime       = StartDateTime;
             this.EndDateTime         = EndDateTime;
@@ -391,8 +391,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "contractId",
                                                                Contract_Id.Parse),
 
-                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "LiveAuthId",
-                                                               LiveAuth_Id.Parse),
+                             // CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "LiveAuthId",
+                             //                                  LiveAuth_Id.Parse),
 
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "status",
                                                                OCHPNS.Default + "CdrStatusType",

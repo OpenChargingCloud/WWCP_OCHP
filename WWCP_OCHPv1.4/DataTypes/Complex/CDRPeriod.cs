@@ -89,8 +89,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                          BillingItems  BillingItem,
                          Single        BillingValue,
                          Single        ItemPrice,
-                         Single?       PeriodCost,
-                         Single?       TaxRate)
+                         Single?       PeriodCost  = null,
+                         Single?       TaxRate     = null)
 
         {
 
@@ -99,8 +99,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.BillingItem   = BillingItem;
             this.BillingValue  = BillingValue;
             this.ItemPrice     = ItemPrice;
-            this.PeriodCost    = PeriodCost;
-            this.TaxRate       = TaxRate;
+            this.PeriodCost    = PeriodCost ?? new Single?();
+            this.TaxRate       = TaxRate    ?? new Single?();
 
         }
 

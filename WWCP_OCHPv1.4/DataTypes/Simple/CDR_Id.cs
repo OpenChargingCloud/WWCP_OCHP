@@ -30,9 +30,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP charge detail record.
     /// </summary>
-    public class CDR_Id : IId,
-                          IEquatable <CDR_Id>,
-                          IComparable<CDR_Id>
+    public struct CDR_Id : IId,
+                           IEquatable <CDR_Id>,
+                           IComparable<CDR_Id>
 
     {
 
@@ -41,14 +41,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing a charge point identification.
         /// </summary>
-        public static readonly Regex CDRId_RegEx    = new Regex(@"^[A-Za-z]{2}\*[A-Za-z0-9]{3}\*[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}$ |" +
-                                                                 @"^[A-Za-z]{2}[A-Za-z0-9]{3}[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}$",
+        public static readonly Regex CDRId_RegEx     = new Regex(@"^([A-Z]{2}[A-Z0-9]{3})([A-Z0-9][A-Z0-9]{0,30})$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
         /// <summary>
         /// The regular expression for parsing an charge point identification suffix.
         /// </summary>
-        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[Tt][A-Za-z0-9][A-Za-z0-9\*]{0,9}$",
+        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Z0-9][A-Z0-9]{0,31}$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
         #endregion
@@ -69,7 +68,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Returns the length of the identificator.
         /// </summary>
         public UInt64 Length
-
             => OperatorId.Length + 2 + (UInt64) Suffix.Length;
 
         #endregion
@@ -124,20 +122,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             var _MatchCollection = CDRId_RegEx.Matches(Text.Trim().ToUpper());
 
             if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
+                throw new ArgumentException("Illegal charge detail record identification '" + Text + "'!");
 
-            ChargingStationOperator_Id __EVSEOperatorId;
+            ChargingStationOperator_Id _OperatorId;
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
-                return new CDR_Id(__EVSEOperatorId,
+            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _OperatorId))
+                return new CDR_Id(_OperatorId,
                                    _MatchCollection[0].Groups[2].Value);
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
-                return new CDR_Id(__EVSEOperatorId,
+            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out _OperatorId))
+                return new CDR_Id(_OperatorId,
                                    _MatchCollection[0].Groups[4].Value);
 
 
-            throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
+            throw new ArgumentException("Illegal charge detail record identification '" + Text + "'!");
 
         }
 
@@ -146,31 +144,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Parse(OperatorId, IdSuffix)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as an charge detail record identification.
         /// </summary>
-        public static CDR_Id Parse(ChargingStationOperator_Id OperatorId, String IdSuffix)
-        {
+        public static CDR_Id Parse(ChargingStationOperator_Id  OperatorId,
+                                   String                      IdSuffix)
 
-            #region Initial checks
-
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The Charging Station Operator identification must not be null or empty!");
-
-            if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
-
-            #endregion
-
-            return CDR_Id.Parse(OperatorId.ToString() + "*" + IdSuffix);
-
-        }
+            => new CDR_Id(OperatorId,
+                          IdSuffix);
 
         #endregion
 
         #region TryParse(Text, out CDR_Id)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as an charge detail record identification.
         /// </summary>
         public static Boolean TryParse(String Text, out CDR_Id CDRId)
         {
@@ -179,7 +166,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (Text.IsNullOrEmpty())
             {
-                CDRId = null;
+                CDRId = default(CDR_Id);
                 return false;
             }
 
@@ -188,32 +175,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                CDRId = null;
+                CDRId = default(CDR_Id);
 
-                var _MatchCollection = CDRId_RegEx.Matches(Text.Trim().ToUpper());
+                var MatchCollection = CDRId_RegEx.Matches(Text.Trim().ToUpper());
 
-                if (_MatchCollection.Count != 1)
+                if (MatchCollection.Count != 1)
                     return false;
 
-                ChargingStationOperator_Id __EVSEOperatorId;
+                ChargingStationOperator_Id _OperatorId;
 
                 // New format...
-                if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
+                if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out _OperatorId))
                 {
 
-                    CDRId = new CDR_Id(__EVSEOperatorId,
-                                         _MatchCollection[0].Groups[2].Value);
+                    CDRId = new CDR_Id(_OperatorId,
+                                       MatchCollection[0].Groups[2].Value);
 
                     return true;
 
                 }
 
                 // Old format...
-                else if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
+                else if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[3].Value, out _OperatorId))
                 {
 
-                    CDRId = new CDR_Id(__EVSEOperatorId,
-                                         _MatchCollection[0].Groups[4].Value);
+                    CDRId = new CDR_Id(_OperatorId,
+                                       MatchCollection[0].Groups[4].Value);
 
                     return true;
 
@@ -223,45 +210,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             { }
 
-            CDRId = null;
+            CDRId = default(CDR_Id);
             return false;
 
         }
-
-        #endregion
-
-        #region TryParse(OperatorId, IdSuffix, out CDRId)
-
-        ///// <summary>
-        ///// Parse the given string as an EVSE identification.
-        ///// </summary>
-        //public static Boolean TryParse(EVSEOperator_Id OperatorId, String IdSuffix, out CDR_Id CDR_Id)
-        //{
-
-        //    try
-        //    {
-        //        CDR_Id = new CDR_Id(OperatorId, IdSuffix);
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    { }
-
-        //    CDR_Id = null;
-        //    return false;
-
-        //}
-
-        #endregion
-
-        #region Clone
-
-        /// <summary>
-        /// Clone this charge point identification.
-        /// </summary>
-        public CDR_Id Clone
-
-            => new CDR_Id(OperatorId.Clone,
-                             new String(Suffix.ToCharArray()));
 
         #endregion
 
@@ -391,12 +343,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
-            // Check if the given object is a charge point identification.
-            var CDRId = Object as CDR_Id;
-            if ((Object) CDRId == null)
+            if (!(Object is CDR_Id))
                 throw new ArgumentException("The given object is not a CDRId!", nameof(Object));
 
-            return CompareTo(CDRId);
+            return CompareTo((CDR_Id) Object);
 
         }
 
@@ -421,7 +371,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (_Result == 0)
                 _Result = OperatorId.CompareTo(CDRId.OperatorId);
 
-            // If equal: Compare charge point identification suffix
+            // If equal: Compare identification suffix
             if (_Result == 0)
                 _Result = String.Compare(Suffix, CDRId.Suffix, StringComparison.Ordinal);
 
@@ -448,12 +398,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is a charge point identification.
-            var CDRId = Object as CDR_Id;
-            if ((Object) CDRId == null)
+            if (!(Object is CDR_Id))
                 return false;
 
-            return this.Equals(CDRId);
+            return this.Equals((CDR_Id) Object);
 
         }
 
@@ -488,7 +436,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
-            => OperatorId.GetHashCode() ^ Suffix.GetHashCode();
+            => OperatorId.GetHashCode() ^
+               Suffix.GetHashCode();
 
         #endregion
 
@@ -498,7 +447,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Return a string representation of this object.
         /// </summary>
         public override String ToString()
-            => String.Concat(OperatorId, "*E", Suffix);
+
+            => String.Concat(OperatorId.CountryCode.Alpha2Code,
+                             OperatorId.OperatorId,
+                             Suffix);
 
         #endregion
 

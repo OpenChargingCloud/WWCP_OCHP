@@ -136,7 +136,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         {
 
-            this.ImplausibleCDRs  = ImplausibleCDRs;
+            this.ImplausibleCDRs  = ImplausibleCDRs ?? new CDRInfo[0];
 
         }
 
@@ -314,7 +314,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                    Result.ToXML(),
 
-                   ImplausibleCDRs.Select(cdr => cdr.ToXML(OCHPNS.Default + "implausibleCdrsArray"))
+                   ImplausibleCDRs.Any()
+                       ? ImplausibleCDRs.SafeSelect(cdr => cdr.ToXML(OCHPNS.Default + "implausibleCdrsArray"))
+                       : null
 
                );
 
