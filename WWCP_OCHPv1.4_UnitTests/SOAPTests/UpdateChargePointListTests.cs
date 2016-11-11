@@ -32,60 +32,60 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 {
 
     /// <summary>
-    /// OCHP SetChargePointList unit tests.
+    /// OCHP UpdateChargePointList unit tests.
     /// </summary>
     [TestFixture]
-    public class SetChargePointListTests : ASOAPTests
+    public class UpdateChargePointListTests : ASOAPTests
     {
 
         #region Constructor(s)
 
-        public SetChargePointListTests()
+        public UpdateChargePointListTests()
         {
 
-            ClearingHouseServer.OnSetChargePointListRequest += (Timestamp,
-                                                                Sender,
-                                                                CancellationToken,
-                                                                EventTrackingId,
+            ClearingHouseServer.OnUpdateChargePointListRequest += (Timestamp,
+                                                                   Sender,
+                                                                   CancellationToken,
+                                                                   EventTrackingId,
 
-                                                                ChargePointInfos,
+                                                                   ChargePointInfos,
 
-                                                                Timeout) => {
+                                                                   Timeout) => {
 
-                                                                    foreach (var chargepointinfo in ChargePointInfos)
-                                                                        ClearingHouseChargePointInfos.AddOrUpdate(chargepointinfo.EVSEId,
-                                                                                                                  chargepointinfo,
-                                                                                                                  (a, b) => b);
+                                                                       foreach (var chargepointinfo in ChargePointInfos)
+                                                                           ClearingHouseChargePointInfos.AddOrUpdate(chargepointinfo.EVSEId,
+                                                                                                                     chargepointinfo,
+                                                                                                                     (a, b) => b);
 
-                                                                    return Task.FromResult(
-                                                                               new CPO.SetChargePointListResponse(
-                                                                                   new CPO.SetChargePointListRequest(ChargePointInfos),
-                                                                                   Result.OK()
-                                                                               )
-                                                                           );
+                                                                       return Task.FromResult(
+                                                                                  new CPO.UpdateChargePointListResponse(
+                                                                                      new CPO.UpdateChargePointListRequest(ChargePointInfos),
+                                                                                      Result.OK()
+                                                                                  )
+                                                                              );
 
-                                                                };
+                                                                   };
 
         }
 
         #endregion
 
 
-        #region SetChargePointListTest1()
+        #region UpdateChargePointListTest1()
 
         [Test]
-        public async Task SetChargePointListTest1()
+        public async Task UpdateChargePointListTest1()
         {
 
             var Now = DateTime.Parse(DateTime.Now.ToIso8601());
 
-            var Response = await CPOClient.SetChargePointList(
+            var Response = await CPOClient.UpdateChargePointList(
                                new ChargePointInfo[] {
 
                                    new ChargePointInfo(
                                        EVSE_Id.Parse("DE*GEF*E123456789*1"),
-                                       "HERE",
-                                       "HERE",
+                                       "HERE2",
+                                       "HERE2",
                                        "DEU",
                                        new Address("18", "Bibergweg", "Jena", "07749", Country.Germany),
                                        new GeoCoordinate(Latitude.Parse(12.1), Longitude.Parse(23.1)),
