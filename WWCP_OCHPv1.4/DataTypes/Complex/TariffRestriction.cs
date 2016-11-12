@@ -45,12 +45,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Start date, for example: 2015-12-24, valid from this day (midnight, i.e. including this day).
         /// </summary>
-        public HourMin?                   StartDate      { get; }
+        public DateTime?                  StartDate      { get; }
 
         /// <summary>
         /// End date, for example: 2015-12-27, valid until this day (midnight, i.e. excluding this day).
         /// </summary>
-        public HourMin?                   EndDate        { get; }
+        public DateTime?                  EndDate        { get; }
 
         /// <summary>
         /// Minimum used energy in kWh, for example 20.0, valid from this amount of energy is used.
@@ -99,8 +99,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="MinDuration">Minimum duration, valid for the given amount of time.</param>
         /// <param name="MaxDuration">Maximum duration, valid for the given amount of time.</param>
         public TariffRestriction(IEnumerable<RegularHours>  RegularHours,
-                                 HourMin?                   StartDate,
-                                 HourMin?                   EndDate,
+                                 DateTime?                  StartDate,
+                                 DateTime?                  EndDate,
                                  Single?                    MinEnergy,
                                  Single?                    MaxEnergy,
                                  Single?                    MinPower,
@@ -219,11 +219,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                         TariffRestrictionXML.MapValueOrNullable(OCHPNS.Default + "startDateTime",
                                                                                 OCHPNS.Default + "DateTime",
-                                                                                HourMin.Parse),
+                                                                                DateTime.Parse),
 
                                         TariffRestrictionXML.MapValueOrNullable(OCHPNS.Default + "endDateTime",
                                                                                 OCHPNS.Default + "DateTime",
-                                                                                HourMin.Parse),
+                                                                                DateTime.Parse),
 
                                         TariffRestrictionXML.MapValueOrNullable(OCHPNS.Default + "minEnergy",
                                                                                 Single.Parse),
@@ -313,13 +313,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                    StartDate.HasValue
                        ? new XElement(OCHPNS.Default + "startDateTime",
-                             new XElement(OCHPNS.Default + "DateTime",  StartDate.Value)
+                             new XElement(OCHPNS.Default + "DateTime",  StartDate.Value.ToString("yyyy-MM-dd"))
                          )
                        : null,
 
                    EndDate.HasValue
                        ? new XElement(OCHPNS.Default + "endDateTime",
-                             new XElement(OCHPNS.Default + "DateTime",  EndDate.Value)
+                             new XElement(OCHPNS.Default + "DateTime",  EndDate.  Value.ToString("yyyy-MM-dd"))
                          )
                        : null,
 

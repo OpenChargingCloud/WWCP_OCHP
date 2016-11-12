@@ -243,13 +243,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                Request,
 
-                                               GetTariffUpdatesResponseXML.MapElementOrFail (OCHPNS.Default + "result",
-                                                                                              Result.Parse,
-                                                                                              OnException),
+                                               GetTariffUpdatesResponseXML.MapElementOrFail(OCHPNS.Default + "result",
+                                                                                             Result.Parse,
+                                                                                             OnException),
 
-                                               GetTariffUpdatesResponseXML.MapElementsOrFail(OCHPNS.Default + "TariffInfoArray",
-                                                                                              TariffInfo.Parse,
-                                                                                              OnException)
+                                               GetTariffUpdatesResponseXML.MapElements      (OCHPNS.Default + "TariffInfoArray",
+                                                                                             TariffInfo.Parse,
+                                                                                             OnException)
 
                                            );
 
@@ -319,7 +319,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                    Result.ToXML(),
 
-                   TariffInfos.SafeSelect(tariffinfo => tariffinfo.ToXML(OCHPNS.Default + "TariffInfoArray"))
+                   TariffInfos.Any()
+                       ? TariffInfos.SafeSelect(tariffinfo => tariffinfo.ToXML(OCHPNS.Default + "TariffInfoArray"))
+                       : null
 
                );
 

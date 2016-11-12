@@ -48,7 +48,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// References an optional tariff uploaded by the CPO to be used with this connector.
         /// </summary>
-        public Tariff_Id           TariffId    { get; }
+        public Tariff_Id?          TariffId    { get; }
 
         #endregion
 
@@ -62,12 +62,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="TariffId">References an optional tariff uploaded by the CPO to be used with this connector.</param>
         public ConnectorType(ConnectorStandards  Standard,
                              ConnectorFormats    Format,
-                             Tariff_Id           TariffId  = null)
+                             Tariff_Id?          TariffId  = null)
         {
 
             this.Standard  = Standard;
             this.Format    = Format;
-            this.TariffId  = TariffId;
+            this.TariffId  = TariffId ?? new Tariff_Id?();
 
         }
 
@@ -155,16 +155,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 ConnectorType = new ConnectorType(
 
-                                    ConnectorTypeXML.MapValueOrFail   (OCHPNS.Default + "connectorStandard",
-                                                                       OCHPNS.Default + "ConnectorStandard",
-                                                                       XML_IO.AsConnectorStandard),
+                                    ConnectorTypeXML.MapValueOrFail    (OCHPNS.Default + "connectorStandard",
+                                                                        OCHPNS.Default + "ConnectorStandard",
+                                                                        XML_IO.AsConnectorStandard),
 
-                                    ConnectorTypeXML.MapValueOrFail   (OCHPNS.Default + "connectorFormat",
-                                                                       OCHPNS.Default + "ConnectorFormat",
-                                                                       XML_IO.AsConnectorFormat),
+                                    ConnectorTypeXML.MapValueOrFail    (OCHPNS.Default + "connectorFormat",
+                                                                        OCHPNS.Default + "ConnectorFormat",
+                                                                        XML_IO.AsConnectorFormat),
 
-                                    ConnectorTypeXML.MapValueOrDefault(OCHPNS.Default + "tariffId",
-                                                                       Tariff_Id.Parse)
+                                    ConnectorTypeXML.MapValueOrNullable(OCHPNS.Default + "tariffId",
+                                                                        Tariff_Id.Parse)
 
                                 );
 
@@ -238,7 +238,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        new XElement(OCHPNS.Default + "ConnectorFormat",    XML_IO.AsText(Format))
                    ),
 
-                   TariffId != null
+                   TariffId.HasValue
                        ? new XElement(OCHPNS.Default + "tariffId", TariffId.ToString())
                        : null
 
@@ -332,8 +332,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             return Standard.Equals(ConnectorType.Standard) &&
                    Format.  Equals(ConnectorType.Format)   &&
 
-                   ((TariffId == null && ConnectorType.TariffId == null) ||
-                    (TariffId != null && ConnectorType.TariffId != null && TariffId.Equals(ConnectorType.TariffId)));
+                   ((!TariffId.HasValue && !ConnectorType.TariffId.HasValue) ||
+                     (TariffId.HasValue &&  ConnectorType.TariffId.HasValue && TariffId.Value.Equals(ConnectorType.TariffId.Value)));
 
         }
 
@@ -355,7 +355,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return Standard.GetHashCode() * 7 ^
                        Format.  GetHashCode() * 5 ^
 
-                       (TariffId != null
+                       (TariffId.HasValue
                            ? TariffId.GetHashCode()
                            : 0);
 
@@ -373,7 +373,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => String.Concat(Standard, " / ", Format,
 
-                             TariffId != null
+                             TariffId.HasValue
                                  ? " with tariff " + TariffId
                                  : "");
 

@@ -129,8 +129,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
             {
 
                 Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(0, Response.Content.EVSEStatus.   Count(), "The number of charge point status at the clearing house is invalid!");
-                Assert.AreEqual(0, Response.Content.ParkingStatus.Count(), "The number of parking status at the clearing house is invalid!");
+                Assert.AreEqual(0, Response.Content.EVSEStatus.    Count(), "The number of charge point status at the clearing house is invalid!");
+                Assert.AreEqual(0, Response.Content.ParkingStatus. Count(), "The number of parking status at the clearing house is invalid!");
+                Assert.AreEqual(0, Response.Content.CombinedStatus.Count(), "The number of combined status at the clearing house is invalid!");
 
             }
 
@@ -139,7 +140,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
             #region Set
 
-            var Now                 = DateTime.Parse(DateTime.Now.ToIso8601());
+            var Now1                = DateTime.Parse(DateTime.Now.ToIso8601());
 
             var EVSEId1             = EVSE_Id.Parse("DE*GEF*E1234*1");
             var EVSEMajorStatus1_1  = EVSEMajorStatusTypes.Available;
@@ -156,7 +157,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
             using (var Response = await CPOClient.UpdateStatus(new List<EVSEStatus> {
                                                                    new EVSEStatus   (EVSEId1, EVSEMajorStatus1_1),
                                                                    new EVSEStatus   (EVSEId2, EVSEMajorStatus2_1, EVSEMinorStatus2_1),
-                                                                   new EVSEStatus   (EVSEId3, EVSEMajorStatus3_1, EVSEMinorStatus3_1, Now + TimeSpan.FromHours(1))
+                                                                   new EVSEStatus   (EVSEId3, EVSEMajorStatus3_1, EVSEMinorStatus3_1, Now1 + TimeSpan.FromHours(1))
                                                                },
                                                                new List<ParkingStatus> {
                                                                    new ParkingStatus(Parking_Id.Parse("DE*GEF*P5555*1"), ParkingStatusTypes.Available),
@@ -165,8 +166,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
             {
 
                 Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(3, ClearingHouse_EVSEStatus.   Count, "The number of charge point status at the clearing house is invalid!");
-                Assert.AreEqual(2, ClearingHouse_ParkingStatus.Count, "The number of parking status at the clearing house is invalid!");
+                Assert.AreEqual(3, ClearingHouse_EVSEStatus.    Count, "The number of charge point status at the clearing house is invalid!");
+                Assert.AreEqual(2, ClearingHouse_ParkingStatus. Count, "The number of parking status at the clearing house is invalid!");
 
                 Assert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId1));
                 Assert.AreEqual(EVSEMajorStatus1_1, ClearingHouse_EVSEStatus[EVSEId1].Value.MajorStatus);
@@ -184,20 +185,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                 Assert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId3].Value.MinorStatus.HasValue);
                 Assert.AreEqual(EVSEMinorStatus3_1, ClearingHouse_EVSEStatus[EVSEId3].Value.MinorStatus);
                 Assert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId3].Value.TTL.HasValue);
-                Assert.AreEqual(Now + TimeSpan.FromHours(1), ClearingHouse_EVSEStatus[EVSEId3].Value.TTL);
+                Assert.AreEqual(Now1 + TimeSpan.FromHours(1), ClearingHouse_EVSEStatus[EVSEId3].Value.TTL);
 
             }
 
             #endregion
 
-            #region Get - should be empty!
+            #region Get - should be three/two/zero!
 
             using (var Response = await EMPClient.GetStatus())
             {
 
                 Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(3, Response.Content.EVSEStatus.   Count(), "The number of charge point status at the clearing house is invalid!");
-                Assert.AreEqual(2, Response.Content.ParkingStatus.Count(), "The number of parking status at the clearing house is invalid!");
+                Assert.AreEqual(3, Response.Content.EVSEStatus.    Count(), "The number of charge point status at the clearing house is invalid!");
+                Assert.AreEqual(2, Response.Content.ParkingStatus. Count(), "The number of parking status at the clearing house is invalid!");
+                Assert.AreEqual(0, Response.Content.CombinedStatus.Count(), "The number of combined status at the clearing house is invalid!");
 
             }
 

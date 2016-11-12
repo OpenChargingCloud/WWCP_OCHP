@@ -50,7 +50,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Create an OCHP GetTariffUpdatesRequest XML/SOAP request.
         /// </summary>
         /// <param name="LastUpdate">An optional timestamp of the last tariff update.</param>
-        public GetTariffUpdatesRequest(DateTime?  LastUpdate)
+        public GetTariffUpdatesRequest(DateTime?  LastUpdate = null)
         {
 
             this.LastUpdate = LastUpdate ?? new DateTime?();
@@ -69,6 +69,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         //    <soapenv:Body>
         //      <ns:GetTariffUpdatesRequest>
         //
+        //         <!--Optional:-->
         //         <ns:lastUpdate>
         //            <ns:DateTime>?</ns:DateTime>
         //         </ns:lastUpdate>
@@ -141,9 +142,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                 GetTariffUpdatesRequest = new GetTariffUpdatesRequest(
 
-                                              GetTariffUpdatesRequestXML.MapValueOrFail(OCHPNS.Default + "lastUpdate",
-                                                                                        OCHPNS.Default + "DateTime",
-                                                                                        DateTime.Parse)
+                                              GetTariffUpdatesRequestXML.MapValueOrNullable(OCHPNS.Default + "lastUpdate",
+                                                                                            OCHPNS.Default + "DateTime",
+                                                                                            DateTime.Parse)
 
                                           );
 

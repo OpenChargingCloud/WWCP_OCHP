@@ -1943,7 +1943,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetTariffUpdatesResponse>>
 
-            GetTariffUpdates(DateTime?           LastUpdate,
+            GetTariffUpdates(DateTime?           LastUpdate         = null,
 
                              DateTime?           Timestamp          = null,
                              CancellationToken?  CancellationToken  = null,
@@ -1953,6 +1953,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         {
 
             #region Initial checks
+
+            if (LastUpdate == null)
+                LastUpdate = new DateTime?();
 
             if (!Timestamp.HasValue)
                 Timestamp = DateTime.Now;

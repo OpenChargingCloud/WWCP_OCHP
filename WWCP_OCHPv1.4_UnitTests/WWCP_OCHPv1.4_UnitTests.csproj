@@ -52,6 +52,7 @@
     <Compile Include="DataStructuresTests\ContractIdTests.cs" />
     <Compile Include="SOAPTests\ASOAPTests.cs" />
     <Compile Include="SOAPTests\CDRsTests.cs" />
+    <Compile Include="SOAPTests\TariffInfoListTests.cs" />
     <Compile Include="SOAPTests\RoamingAuthorisationListTests.cs" />
     <Compile Include="SOAPTests\ChargePointListTests.cs" />
     <Compile Include="SOAPTests\UpdateStatusTests.cs" />

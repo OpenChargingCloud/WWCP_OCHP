@@ -123,20 +123,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #endregion
 
-            var _MatchCollection = EVSEId_RegEx.Matches(Text.Trim());
+            var MatchCollection = EVSEId_RegEx.Matches(Text.Trim());
 
-            if (_MatchCollection.Count != 1)
+            if (MatchCollection.Count != 1)
                 throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
 
             ChargingStationOperator_Id _OperatorId;
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _OperatorId))
+            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out _OperatorId))
                 return new EVSE_Id(_OperatorId,
-                                   _MatchCollection[0].Groups[2].Value);
+                                   MatchCollection[0].Groups[2].Value);
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out _OperatorId))
+            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[3].Value, out _OperatorId))
                 return new EVSE_Id(_OperatorId,
-                                   _MatchCollection[0].Groups[4].Value);
+                                   MatchCollection[0].Groups[4].Value);
 
 
             throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");

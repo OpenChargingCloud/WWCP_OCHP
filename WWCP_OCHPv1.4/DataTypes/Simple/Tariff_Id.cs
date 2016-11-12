@@ -30,9 +30,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP tariff.
     /// </summary>
-    public class Tariff_Id : IId,
-                             IEquatable <Tariff_Id>,
-                             IComparable<Tariff_Id>
+    public struct Tariff_Id : IId,
+                              IEquatable <Tariff_Id>,
+                              IComparable<Tariff_Id>
 
     {
 
@@ -41,13 +41,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing a tariff identification.
         /// </summary>
-        public static readonly Regex TariffId_RegEx  = new Regex(@"^[A-Za-z]{2}\*[A-Za-z0-9]{3}\*[Tt][A-Za-z0-9][A-Za-z0-9\*]{0,9}$ | ^[A-Za-z]{2}[A-Za-z0-9]{3}[Tt][A-Za-z0-9][A-Za-z0-9\*]{0,9}$",
+        public static readonly Regex TariffId_RegEx  = new Regex(@"^([A-Za-z]{2}\*[A-Za-z0-9]{3})\*[Tt]([A-Za-z0-9][A-Za-z0-9\*]{0,9})$ |" +
+                                                                 @"^([A-Za-z]{2}[A-Za-z0-9]{3})[Tt]([A-Za-z0-9][A-Za-z0-9\*]{0,9})$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
         /// <summary>
         /// The regular expression for parsing an tariff identification suffix.
         /// </summary>
-        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[Tt][A-Za-z0-9][A-Za-z0-9\*]{0,9}$",
+        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Za-z0-9][A-Za-z0-9\*]{0,9}$",
                                                                  RegexOptions.IgnorePatternWhitespace);
 
         #endregion
@@ -68,7 +69,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Returns the length of the identificator.
         /// </summary>
         public UInt64 Length
-
             => OperatorId.Length + 2 + (UInt64) Suffix.Length;
 
         #endregion
@@ -76,68 +76,67 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Generate a new Electric Vehicle Supply Equipment (EVSE) identification
+        /// Generate a new charging tariff identification
         /// based on the given string.
         /// </summary>
-        private Tariff_Id(ChargingStationOperator_Id   OperatorId,
-                          String            IdSuffix)
+        private Tariff_Id(ChargingStationOperator_Id  OperatorId,
+                          String                      IdSuffix)
         {
 
             #region Initial checks
 
             if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The parameter must not be null!");
+                throw new ArgumentNullException(nameof(OperatorId),  "The given charging station operator identification must not be null!");
 
             if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
+                throw new ArgumentNullException(nameof(IdSuffix),    "The identification suffix must not be null or empty!");
 
             #endregion
 
-            var _MatchCollection = IdSuffix_RegEx.Matches(IdSuffix.Trim());
-
-            if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal EVSE identification '" + OperatorId.ToString() + "' with suffix '" + IdSuffix + "'!");
+            if (!IdSuffix_RegEx.IsMatch(IdSuffix))
+                throw new ArgumentException("Illegal charging tariff identification '" + OperatorId + "' with suffix '" + IdSuffix + "'!");
 
             this.OperatorId  = OperatorId;
-            this.Suffix      = _MatchCollection[0].Value;
+            this.Suffix      = IdSuffix;
 
         }
 
         #endregion
 
 
-        #region Parse(TariffId)
+        #region Parse(EVSEId)
 
         /// <summary>
-        /// Parse the given string as a tariff identification.
+        /// Parse the given string as a charge point identification.
         /// </summary>
+        /// <param name="Text">A text representation of a charging tariff identification.</param>
         public static Tariff_Id Parse(String Text)
         {
 
             #region Initial checks
 
             if (Text.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Text), "The parameter must not be null or empty!");
+                throw new ArgumentNullException(nameof(Text), "The given text representation of a charging tariff identification must not be null or empty!");
 
             #endregion
 
-            var _MatchCollection = TariffId_RegEx.Matches(Text.Trim().ToUpper());
+            var _MatchCollection = TariffId_RegEx.Matches(Text.Trim());
 
             if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
+                throw new ArgumentException("Illegal charging tariff identification '" + Text + "'!");
 
-            ChargingStationOperator_Id __EVSEOperatorId;
+            ChargingStationOperator_Id _OperatorId;
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
-                return new Tariff_Id(__EVSEOperatorId,
-                                   _MatchCollection[0].Groups[2].Value);
+            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _OperatorId))
+                return new Tariff_Id(_OperatorId,
+                                     _MatchCollection[0].Groups[2].Value);
 
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
-                return new Tariff_Id(__EVSEOperatorId,
-                                   _MatchCollection[0].Groups[4].Value);
+            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out _OperatorId))
+                return new Tariff_Id(_OperatorId,
+                                     _MatchCollection[0].Groups[4].Value);
 
 
-            throw new ArgumentException("Illegal EVSE identification '" + Text + "'!");
+            throw new ArgumentException("Illegal charging tariff identification '" + Text + "'!");
 
         }
 
@@ -146,32 +145,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Parse(OperatorId, IdSuffix)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as a charging tariff identification.
         /// </summary>
-        public static Tariff_Id Parse(ChargingStationOperator_Id OperatorId, String IdSuffix)
-        {
+        /// <param name="OperatorId">The unique identification of a charging station operator.</param>
+        /// <param name="IdSuffix">The suffix of the charging tariff identification.</param>
+        public static Tariff_Id Parse(ChargingStationOperator_Id  OperatorId,
+                                      String                      IdSuffix)
 
-            #region Initial checks
-
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The Charging Station Operator identification must not be null or empty!");
-
-            if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
-
-            #endregion
-
-            return Tariff_Id.Parse(OperatorId.ToString() + "*" + IdSuffix);
-
-        }
+            => new Tariff_Id(OperatorId,
+                             IdSuffix);
 
         #endregion
 
-        #region TryParse(Text, out Tariff_Id)
+        #region TryParse(Text, out TariffId)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as a charging tariff identification.
         /// </summary>
+        /// <param name="Text">A text representation of a charging tariff identification.</param>
+        /// <param name="TariffId">The parsed charging tariff identification.</param>
         public static Boolean TryParse(String Text, out Tariff_Id TariffId)
         {
 
@@ -179,7 +171,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (Text.IsNullOrEmpty())
             {
-                TariffId = null;
+                TariffId = default(Tariff_Id);
                 return false;
             }
 
@@ -188,32 +180,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                TariffId = null;
+                TariffId = default(Tariff_Id);
 
                 var _MatchCollection = TariffId_RegEx.Matches(Text.Trim().ToUpper());
 
                 if (_MatchCollection.Count != 1)
                     return false;
 
-                ChargingStationOperator_Id __EVSEOperatorId;
+                ChargingStationOperator_Id _OperatorId;
 
                 // New format...
-                if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
+                if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _OperatorId))
                 {
 
-                    TariffId = new Tariff_Id(__EVSEOperatorId,
-                                         _MatchCollection[0].Groups[2].Value);
+                    TariffId = new Tariff_Id(_OperatorId,
+                                             _MatchCollection[0].Groups[2].Value);
 
                     return true;
 
                 }
 
                 // Old format...
-                else if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
+                else if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out _OperatorId))
                 {
 
-                    TariffId = new Tariff_Id(__EVSEOperatorId,
-                                         _MatchCollection[0].Groups[4].Value);
+                    TariffId = new Tariff_Id(_OperatorId,
+                                             _MatchCollection[0].Groups[4].Value);
 
                     return true;
 
@@ -223,45 +215,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             { }
 
-            TariffId = null;
+            TariffId = default(Tariff_Id);
             return false;
 
         }
-
-        #endregion
-
-        #region TryParse(OperatorId, IdSuffix, out TariffId)
-
-        ///// <summary>
-        ///// Parse the given string as an EVSE identification.
-        ///// </summary>
-        //public static Boolean TryParse(EVSEOperator_Id OperatorId, String IdSuffix, out Tariff_Id Tariff_Id)
-        //{
-
-        //    try
-        //    {
-        //        Tariff_Id = new Tariff_Id(OperatorId, IdSuffix);
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    { }
-
-        //    Tariff_Id = null;
-        //    return false;
-
-        //}
-
-        #endregion
-
-        #region Clone
-
-        /// <summary>
-        /// Clone this tariff identification.
-        /// </summary>
-        public Tariff_Id Clone
-
-            => new Tariff_Id(OperatorId.Clone,
-                             new String(Suffix.ToCharArray()));
 
         #endregion
 
@@ -391,12 +348,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
-            // Check if the given object is a tariff identification.
-            var TariffId = Object as Tariff_Id;
-            if ((Object) TariffId == null)
-                throw new ArgumentException("The given object is not a TariffId!", nameof(Object));
+            if (!(Object  is Tariff_Id))
+                throw new ArgumentException("The given object is not a charging tariff identification!", nameof(Object));
 
-            return CompareTo(TariffId);
+            return CompareTo((Tariff_Id) Object);
 
         }
 
@@ -448,12 +403,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is a tariff identification.
-            var TariffId = Object as Tariff_Id;
-            if ((Object) TariffId == null)
+            if (!(Object is Tariff_Id))
                 return false;
 
-            return this.Equals(TariffId);
+            return this.Equals((Tariff_Id) Object);
 
         }
 
@@ -488,7 +441,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
-            => OperatorId.GetHashCode() ^ Suffix.GetHashCode();
+            => OperatorId.GetHashCode() ^
+               Suffix.    GetHashCode();
 
         #endregion
 

@@ -155,12 +155,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 TariffInfo = new TariffInfo(
 
-                                 TariffInfoXML.MapValueOrFail(OCHPNS.Default + "recipient",
-                                                              Tariff_Id.Parse),
+                                 TariffInfoXML.MapValueOrFail   (OCHPNS.Default + "tariffId",
+                                                                 Tariff_Id.Parse),
 
-                                 TariffInfoXML.MapElements   (OCHPNS.Default + "individualTariff",
-                                                              OCHPv1_4.IndividualTariff.Parse,
-                                                              OnException)
+                                 TariffInfoXML.MapElementsOrFail(OCHPNS.Default + "individualTariff",
+                                                                 OCHPv1_4.IndividualTariff.Parse,
+                                                                 OnException)
 
                              );
 
