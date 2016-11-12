@@ -243,13 +243,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  Request,
 
-                                                 GetChargePointListResponseXML.MapElementOrFail (OCHPNS.Default + "result",
-                                                                                                 Result.Parse,
-                                                                                                 OnException),
+                                                 GetChargePointListResponseXML.MapElementOrFail(OCHPNS.Default + "result",
+                                                                                                Result.Parse,
+                                                                                                OnException),
 
-                                                 GetChargePointListResponseXML.MapElementsOrFail(OCHPNS.Default + "chargePointInfoArray",
-                                                                                                 ChargePointInfo.Parse,
-                                                                                                 OnException)
+                                                 GetChargePointListResponseXML.MapElements     (OCHPNS.Default + "chargePointInfoArray",
+                                                                                                ChargePointInfo.Parse,
+                                                                                                OnException)
 
                                              );
 
@@ -319,7 +319,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                    Result.ToXML(),
 
-                   ChargePoints.SafeSelect(chargepoint => chargepoint.ToXML(OCHPNS.Default + "chargePointInfoArray"))
+                   ChargePoints.Any()
+                       ? ChargePoints.SafeSelect(chargepoint => chargepoint.ToXML(OCHPNS.Default + "chargePointInfoArray"))
+                       : null
 
                );
 

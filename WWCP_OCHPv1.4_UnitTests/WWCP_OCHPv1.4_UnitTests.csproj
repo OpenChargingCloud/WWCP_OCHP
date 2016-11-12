@@ -51,9 +51,9 @@
   <ItemGroup>
     <Compile Include="DataStructuresTests\ContractIdTests.cs" />
     <Compile Include="SOAPTests\ASOAPTests.cs" />
-    <Compile Include="SOAPTests\AddCDRsTests.cs" />
-    <Compile Include="SOAPTests\UpdateChargePointListTests.cs" />
-    <Compile Include="SOAPTests\SetChargePointListTests.cs" />
+    <Compile Include="SOAPTests\CDRsTests.cs" />
+    <Compile Include="SOAPTests\RoamingAuthorisationListTests.cs" />
+    <Compile Include="SOAPTests\ChargePointListTests.cs" />
     <Compile Include="SOAPTests\UpdateStatusTests.cs" />
     <Compile Include="SOAPTests\GetSingleRoamingAuthorisationTests.cs" />
     <Compile Include="DataStructuresTests\ParkingStatusTests.cs" />

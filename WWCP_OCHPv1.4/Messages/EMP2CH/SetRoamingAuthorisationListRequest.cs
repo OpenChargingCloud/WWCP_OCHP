@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of roaming authorisation infos.
-    /// </summary>
-    public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
+        /// <summary>
+        /// An enumeration of roaming authorisation infos.
+        /// </summary>
+        public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
 
         #endregion
 
@@ -55,8 +55,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (RoamingAuthorisationInfos.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(RoamingAuthorisationInfos),  "The given enumeration of roaming authorisation infos must not be null or empty!");
+            if (RoamingAuthorisationInfos == null)
+                throw new ArgumentNullException(nameof(RoamingAuthorisationInfos),  "The given enumeration of roaming authorisation infos must not be null!");
 
             #endregion
 
@@ -76,7 +76,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         //    <soapenv:Body>
         //       <OCHP:SetRoamingAuthorisationListRequest>
         //
-        //          <!--1 or more repetitions:-->
+        //          <!--1 or more repetitions / We allow also 0 :-->
         //          <OCHP:roamingAuthorisationInfoArray>
         //             ...
         //          </OCHP:roamingAuthorisationInfoArray>
@@ -216,8 +216,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             => new XElement(OCHPNS.Default + "SetRoamingAuthorisationListRequest",
 
-                                RoamingAuthorisationInfos.Select(infos => infos.ToXML(OCHPNS.Default + "roamingAuthorisationInfoArray")).
-                                                          ToArray()
+                                RoamingAuthorisationInfos.Any()
+                                    ? RoamingAuthorisationInfos.SafeSelect(infos => infos.ToXML(OCHPNS.Default + "roamingAuthorisationInfoArray"))
+                                    : null
 
                            );
 

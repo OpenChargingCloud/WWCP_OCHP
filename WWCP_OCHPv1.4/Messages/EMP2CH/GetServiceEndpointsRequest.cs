@@ -35,27 +35,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Documentation
 
-    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-    //
-    //    <soapenv:Header/>
-    //    <soapenv:Body>
-    //
-    //      <ns:GetServiceEndpointsRequest />
-    //
-    //    </soapenv:Body>
-    // </soapenv:Envelope>
+        // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+        //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+        //
+        //    <soapenv:Header/>
+        //    <soapenv:Body>
+        //
+        //      <ns:GetServiceEndpointsRequest />
+        //
+        //    </soapenv:Body>
+        // </soapenv:Envelope>
 
-    #endregion
+        #endregion
 
-    #region (static) Parse(GetServiceEndpointsRequestXML,  OnException = null)
+        #region (static) Parse(GetServiceEndpointsRequestXML,  OnException = null)
 
-    /// <summary>
-    /// Parse the given XML representation of an OCHP get service endpoints request.
-    /// </summary>
-    /// <param name="GetServiceEndpointsRequestXML">The XML to parse.</param>
-    /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
-    public static GetServiceEndpointsRequest Parse(XElement             GetServiceEndpointsRequestXML,
+        /// <summary>
+        /// Parse the given XML representation of an OCHP get service endpoints request.
+        /// </summary>
+        /// <param name="GetServiceEndpointsRequestXML">The XML to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static GetServiceEndpointsRequest Parse(XElement             GetServiceEndpointsRequestXML,
                                                        OnExceptionDelegate  OnException = null)
         {
 

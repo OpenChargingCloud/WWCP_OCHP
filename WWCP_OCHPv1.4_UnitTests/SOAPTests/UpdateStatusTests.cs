@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -31,7 +32,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 {
 
     /// <summary>
-    /// OCHP UpdateStatus unit tests.
+    /// Unit tests for manipulating and requesting the list
+    /// of charge points status at the clearing house.
     /// </summary>
     [TestFixture]
     public class UpdateStatusTests : ASOAPTests
@@ -39,8 +41,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
         #region Constructor(s)
 
+        /// <summary>
+        /// Unit tests for manipulating and requesting the list
+        /// of charge points status at the clearing house.
+        /// </summary>
         public UpdateStatusTests()
         {
+
+            #region OnUpdateStatusRequest...
 
             ClearingHouseServer.OnUpdateStatusRequest += (Timestamp,
                                                           Sender,
@@ -53,15 +61,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
                                                           Timeout) => {
 
+                                                              var Now = DateTime.Now;
+
                                                               foreach (var status in EVSEStatus)
-                                                                  ClearingHouseEVSEStatus.   AddOrUpdate(status.EVSEId,
-                                                                                                         status,
-                                                                                                         (a, b) => b);
+                                                                  ClearingHouse_EVSEStatus.   AddOrUpdate(status.EVSEId,
+                                                                                                          new Timestamped<EVSEStatus>   (Now, status),
+                                                                                                          (a, b) => b);
 
                                                               foreach (var status in ParkingStatus)
-                                                                  ClearingHouseParkingStatus.AddOrUpdate(status.ParkingId,
-                                                                                                         status,
-                                                                                                         (a, b) => b);
+                                                                  ClearingHouse_ParkingStatus.AddOrUpdate(status.ParkingId,
+                                                                                                          new Timestamped<ParkingStatus>(Now, status),
+                                                                                                          (a, b) => b);
 
                                                               return Task.FromResult(
                                                                          new CPO.UpdateStatusResponse(
@@ -74,16 +84,60 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
                                                           };
 
+            #endregion
+
+            #region OnGetStatusRequest...
+
+            ClearingHouseServer.OnGetStatusRequest += (Timestamp,
+                                                       Sender,
+                                                       CancellationToken,
+                                                       EventTrackingId,
+
+                                                       LastRequest,
+                                                       StatusType,
+
+                                                       QueryTimeout) => {
+
+                                                                            return Task.FromResult(
+                                                                                new EMP.GetStatusResponse(
+                                                                                    new EMP.GetStatusRequest(LastRequest,
+                                                                                                             StatusType),
+                                                                                    Result.OK(),
+                                                                                    ClearingHouse_EVSEStatus.   Values.Select(item => item.Value),
+                                                                                    ClearingHouse_ParkingStatus.Values.Select(item => item.Value)
+                                                                                )
+                                                                            );
+
+                                                                        };
+
+            #endregion
+
         }
 
         #endregion
 
 
-        #region UpdateStatusTest1()
+        #region UpdateStatusTest()
 
         [Test]
-        public async Task UpdateStatusTest1()
+        public async Task UpdateStatusTest()
         {
+
+            #region Get - should be empty!
+
+            using (var Response = await EMPClient.GetStatus())
+            {
+
+                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                Assert.AreEqual(0, Response.Content.EVSEStatus.   Count(), "The number of charge point status at the clearing house is invalid!");
+                Assert.AreEqual(0, Response.Content.ParkingStatus.Count(), "The number of parking status at the clearing house is invalid!");
+
+            }
+
+            #endregion
+
+
+            #region Set
 
             var Now                 = DateTime.Parse(DateTime.Now.ToIso8601());
 
@@ -98,44 +152,62 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
             var EVSEMajorStatus3_1  = EVSEMajorStatusTypes.NotAvailable;
             var EVSEMinorStatus3_1  = EVSEMinorStatusTypes.Blocked;
 
-            var Response = await CPOClient.UpdateStatus(new List<EVSEStatus> {
-                                                            new EVSEStatus   (EVSEId1, EVSEMajorStatus1_1),
-                                                            new EVSEStatus   (EVSEId2, EVSEMajorStatus2_1, EVSEMinorStatus2_1),
-                                                            new EVSEStatus   (EVSEId3, EVSEMajorStatus3_1, EVSEMinorStatus3_1, Now + TimeSpan.FromHours(1))
-                                                        },
-                                                        new List<ParkingStatus> {
-                                                            new ParkingStatus(Parking_Id.Parse("DE*GEF*P5555*1"), ParkingStatusTypes.Available),
-                                                            new ParkingStatus(Parking_Id.Parse("DE*GEF*P5555*2"), ParkingStatusTypes.NotAvailable)
-                                                        });
 
-            Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+            using (var Response = await CPOClient.UpdateStatus(new List<EVSEStatus> {
+                                                                   new EVSEStatus   (EVSEId1, EVSEMajorStatus1_1),
+                                                                   new EVSEStatus   (EVSEId2, EVSEMajorStatus2_1, EVSEMinorStatus2_1),
+                                                                   new EVSEStatus   (EVSEId3, EVSEMajorStatus3_1, EVSEMinorStatus3_1, Now + TimeSpan.FromHours(1))
+                                                               },
+                                                               new List<ParkingStatus> {
+                                                                   new ParkingStatus(Parking_Id.Parse("DE*GEF*P5555*1"), ParkingStatusTypes.Available),
+                                                                   new ParkingStatus(Parking_Id.Parse("DE*GEF*P5555*2"), ParkingStatusTypes.NotAvailable)
+                                                               }))
+            {
 
+                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                Assert.AreEqual(3, ClearingHouse_EVSEStatus.   Count, "The number of charge point status at the clearing house is invalid!");
+                Assert.AreEqual(2, ClearingHouse_ParkingStatus.Count, "The number of parking status at the clearing house is invalid!");
 
-            Assert.AreEqual(3, ClearingHouseEVSEStatus.Count, "The number of EVSE status at the clearing house is invalid!");
+                Assert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId1));
+                Assert.AreEqual(EVSEMajorStatus1_1, ClearingHouse_EVSEStatus[EVSEId1].Value.MajorStatus);
+                Assert.IsFalse (ClearingHouse_EVSEStatus[EVSEId1].Value.MinorStatus.HasValue);
+                Assert.IsFalse (ClearingHouse_EVSEStatus[EVSEId1].Value.TTL.HasValue);
 
-            Assert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId1));
-            Assert.AreEqual(EVSEMajorStatus1_1, ClearingHouseEVSEStatus[EVSEId1].MajorStatus);
-            Assert.IsFalse (ClearingHouseEVSEStatus[EVSEId1].MinorStatus.HasValue);
-            Assert.IsFalse (ClearingHouseEVSEStatus[EVSEId1].TTL.        HasValue);
+                Assert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId2));
+                Assert.AreEqual(EVSEMajorStatus2_1, ClearingHouse_EVSEStatus[EVSEId2].Value.MajorStatus);
+                Assert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId2].Value.MinorStatus.HasValue);
+                Assert.AreEqual(EVSEMinorStatus2_1, ClearingHouse_EVSEStatus[EVSEId2].Value.MinorStatus);
+                Assert.IsFalse  (ClearingHouse_EVSEStatus[EVSEId2].Value.TTL.HasValue);
 
-            Assert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId2));
-            Assert.AreEqual(EVSEMajorStatus2_1, ClearingHouseEVSEStatus[EVSEId2].MajorStatus);
-            Assert.IsTrue  (ClearingHouseEVSEStatus[EVSEId2].MinorStatus.HasValue);
-            Assert.AreEqual(EVSEMinorStatus2_1, ClearingHouseEVSEStatus[EVSEId2].MinorStatus);
-            Assert.IsFalse (ClearingHouseEVSEStatus[EVSEId2].TTL.        HasValue);
+                Assert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId3));
+                Assert.AreEqual(EVSEMajorStatus3_1, ClearingHouse_EVSEStatus[EVSEId3].Value.MajorStatus);
+                Assert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId3].Value.MinorStatus.HasValue);
+                Assert.AreEqual(EVSEMinorStatus3_1, ClearingHouse_EVSEStatus[EVSEId3].Value.MinorStatus);
+                Assert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId3].Value.TTL.HasValue);
+                Assert.AreEqual(Now + TimeSpan.FromHours(1), ClearingHouse_EVSEStatus[EVSEId3].Value.TTL);
 
-            Assert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId3));
-            Assert.AreEqual(EVSEMajorStatus3_1, ClearingHouseEVSEStatus[EVSEId3].MajorStatus);
-            Assert.IsTrue  (ClearingHouseEVSEStatus[EVSEId3].MinorStatus.HasValue);
-            Assert.AreEqual(EVSEMinorStatus3_1, ClearingHouseEVSEStatus[EVSEId3].MinorStatus);
-            Assert.IsTrue  (ClearingHouseEVSEStatus[EVSEId3].TTL.        HasValue);
-            Assert.AreEqual(Now + TimeSpan.FromHours(1), ClearingHouseEVSEStatus[EVSEId3].TTL);
+            }
+
+            #endregion
+
+            #region Get - should be empty!
+
+            using (var Response = await EMPClient.GetStatus())
+            {
+
+                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                Assert.AreEqual(3, Response.Content.EVSEStatus.   Count(), "The number of charge point status at the clearing house is invalid!");
+                Assert.AreEqual(2, Response.Content.ParkingStatus.Count(), "The number of parking status at the clearing house is invalid!");
+
+            }
+
+            #endregion
+
 
 
         }
 
         #endregion
-
 
     }
 

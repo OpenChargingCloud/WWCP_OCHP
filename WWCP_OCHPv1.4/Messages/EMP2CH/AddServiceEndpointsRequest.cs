@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of provider endpoints.
-    /// </summary>
-    public IEnumerable<ProviderEndpoint>  ProviderEndpoints   { get; }
+        /// <summary>
+        /// An enumeration of provider endpoints.
+        /// </summary>
+        public IEnumerable<ProviderEndpoint>  ProviderEndpoints   { get; }
 
         #endregion
 

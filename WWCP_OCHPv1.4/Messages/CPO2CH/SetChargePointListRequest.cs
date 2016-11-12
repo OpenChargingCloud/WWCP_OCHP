@@ -55,8 +55,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (ChargePointInfos.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(ChargePointInfos),  "The given enumeration of charge point infos must not be null or empty!");
+            if (ChargePointInfos == null)
+                throw new ArgumentNullException(nameof(ChargePointInfos),  "The given enumeration of charge point infos must not be null!");
 
             #endregion
 
@@ -76,7 +76,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         //    <soapenv:Body>
         //       <OCHP:SetChargePointListRequest>
         //
-        //          <!--1 or more repetitions:-->
+        //          <!--1 or more repetitions / We allow also 0:-->
         //          <OCHP:chargePointInfoArray>
         //             ...
         //          </OCHP:chargePointInfoArray>
@@ -149,9 +149,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 SetChargePointListRequest = new SetChargePointListRequest(
 
-                                                SetChargePointListRequestXML.MapElementsOrFail(OCHPNS.Default + "chargePointInfoArray",
-                                                                                               ChargePointInfo.Parse,
-                                                                                               OnException)
+                                                SetChargePointListRequestXML.MapElements(OCHPNS.Default + "chargePointInfoArray",
+                                                                                         ChargePointInfo.Parse,
+                                                                                         OnException)
 
                                             );
 
@@ -216,8 +216,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             => new XElement(OCHPNS.Default + "SetChargePointListRequest",
 
-                                ChargePointInfos.Select(chargepointinfo => chargepointinfo.ToXML()).
-                                                 ToArray()
+                                ChargePointInfos.Any()
+                                    ? ChargePointInfos.SafeSelect(chargepointinfo => chargepointinfo.ToXML())
+                                    : null
 
                            );
 

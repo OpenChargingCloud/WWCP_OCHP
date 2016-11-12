@@ -256,13 +256,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                              Request,
 
-                                                             UpdateRoamingAuthorisationListResponseXML.MapElementOrFail (OCHPNS.Default + "result",
-                                                                                                                         Result.Parse,
-                                                                                                                         OnException),
+                                                             UpdateRoamingAuthorisationListResponseXML.MapElementOrFail(OCHPNS.Default + "result",
+                                                                                                                        Result.Parse,
+                                                                                                                        OnException),
 
-                                                             UpdateRoamingAuthorisationListResponseXML.MapElementsOrFail(OCHPNS.Default + "refusedRoamingAuthorisationInfo",
-                                                                                                                         RoamingAuthorisationInfo.Parse,
-                                                                                                                         OnException)
+                                                             UpdateRoamingAuthorisationListResponseXML.MapElements     (OCHPNS.Default + "refusedRoamingAuthorisationInfo",
+                                                                                                                        RoamingAuthorisationInfo.Parse,
+                                                                                                                        OnException)
 
                                                          );
 

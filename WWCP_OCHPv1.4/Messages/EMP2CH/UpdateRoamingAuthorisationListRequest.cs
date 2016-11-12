@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of roaming authorisation infos.
-    /// </summary>
-    public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
+        /// <summary>
+        /// An enumeration of roaming authorisation infos.
+        /// </summary>
+        public IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos   { get; }
 
         #endregion
 

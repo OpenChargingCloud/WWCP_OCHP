@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of approved charge detail records.
-    /// </summary>
-    public IEnumerable<EVSECDRPair>  Approved   { get; }
+        /// <summary>
+        /// An enumeration of approved charge detail records.
+        /// </summary>
+        public IEnumerable<EVSECDRPair>  Approved   { get; }
 
         /// <summary>
         /// An enumeration of provider endpoints.

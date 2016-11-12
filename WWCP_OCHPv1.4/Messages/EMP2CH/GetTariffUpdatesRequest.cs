@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// An optional timestamp of the last tariff update.
-    /// </summary>
-    public DateTime?  LastUpdate   { get; }
+        /// <summary>
+        /// An optional timestamp of the last tariff update.
+        /// </summary>
+        public DateTime?  LastUpdate   { get; }
 
         #endregion
 

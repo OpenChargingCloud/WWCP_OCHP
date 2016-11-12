@@ -35,10 +35,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// The optional status of the requested charge detail records.
-    /// </summary>
-    public CDRStatus?  CDRStatus   { get; }
+        /// <summary>
+        /// The optional status of the requested charge detail records.
+        /// </summary>
+        public CDRStatus?  CDRStatus   { get; }
 
         #endregion
 

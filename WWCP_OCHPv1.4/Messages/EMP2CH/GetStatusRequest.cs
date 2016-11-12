@@ -35,10 +35,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// Only return status data newer than the given timestamp.
-    /// </summary>
-    public DateTime?     LastRequest   { get; }
+        /// <summary>
+        /// Only return status data newer than the given timestamp.
+        /// </summary>
+        public DateTime?     LastRequest   { get; }
 
         /// <summary>
         /// A status type filter.

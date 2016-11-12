@@ -32,16 +32,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 {
 
     /// <summary>
-    /// OCHP AddCDRs unit tests.
+    /// Unit tests for manipulating and requesting the list
+    /// of charge detail records at the clearing house.
     /// </summary>
     [TestFixture]
-    public class AddCDRsTests : ASOAPTests
+    public class CDRsTests : ASOAPTests
     {
 
         #region Constructor(s)
 
-        public AddCDRsTests()
+        /// <summary>
+        /// Unit tests for manipulating and requesting the list
+        /// of charge detail records at the clearing house.
+        /// </summary>
+        public CDRsTests()
         {
+
+            #region OnAddCDRsRequest...
 
             ClearingHouseServer.OnAddCDRsRequest += (Timestamp,
                                                      Sender,
@@ -52,10 +59,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
                                                      Timeout) => {
 
+                                                         var Now = DateTime.Now;
+
                                                          foreach (var cdrinfo in CDRInfos)
-                                                             ClearingHouseCDRInfos.AddOrUpdate(cdrinfo.CDRId,
-                                                                                               cdrinfo,
-                                                                                               (a, b) => b);
+                                                             ClearingHouse_CDRInfos.AddOrUpdate(cdrinfo.CDRId,
+                                                                                                new Timestamped<CDRInfo>(Now, cdrinfo),
+                                                                                                (a, b) => b);
 
                                                          return Task.FromResult(
                                                                     new CPO.AddCDRsResponse(
@@ -65,6 +74,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                                                 );
 
                                                      };
+
+            #endregion
 
         }
 
@@ -131,7 +142,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
             Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
 
 
-            Assert.AreEqual(1, ClearingHouseCDRInfos.Count, "The number of charge detail records at the clearing house is invalid!");
+            Assert.AreEqual(1, ClearingHouse_CDRInfos.Count, "The number of charge detail records at the clearing house is invalid!");
 
             //Assert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId1));
             //Assert.AreEqual(EVSEMajorStatus1_1, ClearingHouseEVSEStatus[EVSEId1].MajorStatus);

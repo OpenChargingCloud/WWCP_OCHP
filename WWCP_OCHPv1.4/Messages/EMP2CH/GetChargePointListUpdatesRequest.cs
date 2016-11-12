@@ -35,10 +35,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Properties
 
-    /// <summary>
-    /// The timestamp of the last charge point list update.
-    /// </summary>
-    public DateTime  LastUpdate   { get; }
+        /// <summary>
+        /// The timestamp of the last charge point list update.
+        /// </summary>
+        public DateTime  LastUpdate   { get; }
 
         #endregion
 

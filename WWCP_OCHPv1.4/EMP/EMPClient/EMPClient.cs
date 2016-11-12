@@ -524,11 +524,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
-            this.Logger = new EMPClientLogger(this,
-                                              LoggingContext,
-                                              LogFileCreator);
+            this.Logger          = new EMPClientLogger(this,
+                                                       LoggingContext,
+                                                       LogFileCreator);
 
-            this._EndpointInfos = new EndpointInfos();
+            this._EndpointInfos  = new EndpointInfos();
 
         }
 
@@ -663,7 +663,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -848,7 +848,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1038,7 +1038,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1230,7 +1230,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1392,6 +1392,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
+            #region Get effective number of roaming authorisation infos to upload
+
+            var NumberOfRoamingAuthorisationInfos = RoamingAuthorisationInfos.Count();
+
+            #endregion
+
             #region Send OnSetRoamingAuthorisationListRequest event
 
             try
@@ -1416,90 +1422,94 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             var Request = new UpdateRoamingAuthorisationListRequest(RoamingAuthorisationInfos);
 
+            if (NumberOfRoamingAuthorisationInfos > 0)
+            {
 
-            using (var _OCHPClient = new SOAPClient(Hostname,
+                using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
                                                     DNSClient))
-            {
+                {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
-                                                 "UpdateRoamingAuthorisationListRequest",
-                                                 RequestLogDelegate:   OnUpdateRoamingAuthorisationListSOAPRequest,
-                                                 ResponseLogDelegate:  OnUpdateRoamingAuthorisationListSOAPResponse,
-                                                 CancellationToken:    CancellationToken,
-                                                 EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                    result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
+                                                     "UpdateRoamingAuthorisationListRequest",
+                                                     RequestLogDelegate:   OnUpdateRoamingAuthorisationListSOAPRequest,
+                                                     ResponseLogDelegate:  OnUpdateRoamingAuthorisationListSOAPResponse,
+                                                     CancellationToken:    CancellationToken,
+                                                     EventTrackingId:      EventTrackingId,
+                                                     QueryTimeout:         RequestTimeout,
 
-                                                 #region OnSuccess
+                                                     #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, UpdateRoamingAuthorisationListResponse.Parse),
+                                                     OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, UpdateRoamingAuthorisationListResponse.Parse),
 
-                                                 #endregion
+                                                     #endregion
 
-                                                 #region OnSOAPFault
+                                                     #region OnSOAPFault
 
-                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+                                                     OnSOAPFault: (timestamp, soapclient, httpresponse) => {
 
-                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+                                                         SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<UpdateRoamingAuthorisationListResponse>(httpresponse,
-                                                                                                                     new UpdateRoamingAuthorisationListResponse(
-                                                                                                                         Request,
-                                                                                                                         Result.Format(
-                                                                                                                             "Invalid SOAP => " +
-                                                                                                                             httpresponse.HTTPBody.ToUTF8String()
-                                                                                                                         )
-                                                                                                                     ),
-                                                                                                                     IsFault: true);
+                                                         return new HTTPResponse<UpdateRoamingAuthorisationListResponse>(httpresponse,
+                                                                                                                         new UpdateRoamingAuthorisationListResponse(
+                                                                                                                             Request,
+                                                                                                                             Result.Format(
+                                                                                                                                 "Invalid SOAP => " +
+                                                                                                                                 httpresponse.HTTPBody.ToUTF8String()
+                                                                                                                             )
+                                                                                                                         ),
+                                                                                                                         IsFault: true);
 
-                                                 },
+                                                     },
 
-                                                 #endregion
+                                                     #endregion
 
-                                                 #region OnHTTPError
+                                                     #region OnHTTPError
 
-                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+                                                     OnHTTPError: (timestamp, soapclient, httpresponse) => {
 
-                                                     SendHTTPError(timestamp, this, httpresponse);
+                                                         SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<UpdateRoamingAuthorisationListResponse>(httpresponse,
-                                                                                                                     new UpdateRoamingAuthorisationListResponse(
-                                                                                                                         Request,
-                                                                                                                         Result.Server(
-                                                                                                                              httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                              " => " +
-                                                                                                                              httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                                         )
-                                                                                                                     ),
-                                                                                                                     IsFault: true);
+                                                         return new HTTPResponse<UpdateRoamingAuthorisationListResponse>(httpresponse,
+                                                                                                                         new UpdateRoamingAuthorisationListResponse(
+                                                                                                                             Request,
+                                                                                                                             Result.Server(
+                                                                                                                                  httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                                  " => " +
+                                                                                                                                  httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                                             )
+                                                                                                                         ),
+                                                                                                                         IsFault: true);
 
-                                                 },
+                                                     },
 
-                                                 #endregion
+                                                     #endregion
 
-                                                 #region OnException
+                                                     #region OnException
 
-                                                 OnException: (timestamp, sender, exception) => {
+                                                     OnException: (timestamp, sender, exception) => {
 
-                                                     SendException(timestamp, sender, exception);
+                                                         SendException(timestamp, sender, exception);
 
-                                                     return HTTPResponse<UpdateRoamingAuthorisationListResponse>.ExceptionThrown(new UpdateRoamingAuthorisationListResponse(
-                                                                                                                                     Request,
-                                                                                                                                     Result.Format(exception.Message +
-                                                                                                                                                   " => " +
-                                                                                                                                                   exception.StackTrace)),
-                                                                                                                                 exception);
+                                                         return HTTPResponse<UpdateRoamingAuthorisationListResponse>.ExceptionThrown(new UpdateRoamingAuthorisationListResponse(
+                                                                                                                                         Request,
+                                                                                                                                         Result.Format(exception.Message +
+                                                                                                                                                       " => " +
+                                                                                                                                                       exception.StackTrace)),
+                                                                                                                                     exception);
 
-                                                 }
+                                                     }
 
-                                                 #endregion
+                                                     #endregion
 
-                                                );
+                                                    );
+
+                }
 
             }
 
@@ -1607,7 +1617,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1801,7 +1811,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -1989,7 +1999,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2182,7 +2192,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2363,7 +2373,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2565,7 +2575,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(ep.First().URL,
                                                     RemotePort,
                                                     ep.First().URL,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2788,7 +2798,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(ep.First().URL,
                                                     RemotePort,
                                                     ep.First().URL,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -2986,7 +2996,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -3178,7 +3188,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -3374,7 +3384,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
@@ -3566,7 +3576,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    "/service/ochp/v1.4",
+                                                    DefaultURIPrefix,
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,

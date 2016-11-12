@@ -66,11 +66,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The attached OCHP CPO client (HTTP/SOAP client) logger.
         /// </summary>
-        public CPOClientLogger                              Logger                       { get; }
+        public CPOClientLogger  Logger           { get; }
 
-        public RoamingNetwork                               RoamingNetwork               { get; }
-
-        public ChargingStationOperatorNameSelectorDelegate  DefaultOperatorNameSelector  { get; }
+        public RoamingNetwork   RoamingNetwork   { get; }
 
         #endregion
 
@@ -429,11 +427,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            this.Logger                       = new CPOClientLogger(this,
-                                                                    LoggingContext,
-                                                                    LogFileCreator);
-
-            this.DefaultOperatorNameSelector  = I18N => I18N.FirstText;
+            this.Logger  = new CPOClientLogger(this,
+                                               LoggingContext,
+                                               LogFileCreator);
 
         }
 
@@ -491,8 +487,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            this.Logger                       = Logger;
-            this.DefaultOperatorNameSelector  = I18N => I18N.FirstText;
+            this.Logger = Logger;
 
         }
 
@@ -548,11 +543,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (!RequestTimeout.HasValue)
                 RequestTimeout = this.RequestTimeout;
 
-            #endregion
-
-            #region Get effective number of charge point infos to upload
-
-            var NumberOfChargePoints = ChargePointInfos.Count(chargepoint => IncludeChargePoints(chargepoint));
 
             HTTPResponse<SetChargePointListResponse> result = null;
 
@@ -569,7 +559,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     ClientId,
                                                     EventTrackingId,
                                                     ChargePointInfos,
-                                                    (UInt32) NumberOfChargePoints,
+                                                    (UInt32) ChargePointInfos.Count(),
                                                     RequestTimeout);
 
             }
@@ -584,97 +574,91 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             var Request = new SetChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint)));
 
 
-            if (NumberOfChargePoints > 0)
+            using (var _OCHPClient = new SOAPClient(Hostname,
+                                                    RemotePort,
+                                                    HTTPVirtualHost,
+                                                    DefaultURIPrefix,
+                                                    RemoteCertificateValidator,
+                                                    ClientCert,
+                                                    UserAgent,
+                                                    DNSClient))
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
-                                                        HTTPVirtualHost,
-                                                        DefaultURIPrefix,
-                                                        RemoteCertificateValidator,
-                                                        ClientCert,
-                                                        UserAgent,
-                                                        DNSClient))
-                {
+                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
+                                                 "SetChargePointListRequest",
+                                                 RequestLogDelegate:   OnSetChargePointListSOAPRequest,
+                                                 ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
+                                                 CancellationToken:    CancellationToken,
+                                                 EventTrackingId:      EventTrackingId,
+                                                 QueryTimeout:         RequestTimeout,
 
-                    result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
-                                                     "SetChargePointListRequest",
-                                                     RequestLogDelegate:   OnSetChargePointListSOAPRequest,
-                                                     ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
-                                                     CancellationToken:    CancellationToken,
-                                                     EventTrackingId:      EventTrackingId,
-                                                     QueryTimeout:         RequestTimeout,
+                                                 #region OnSuccess
 
-                                                     #region OnSuccess
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, SetChargePointListResponse.Parse),
 
-                                                     OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, SetChargePointListResponse.Parse),
+                                                 #endregion
 
-                                                     #endregion
+                                                 #region OnSOAPFault
 
-                                                     #region OnSOAPFault
+                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
 
-                                                     OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+                                                     SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         SendSOAPError(timestamp, this, httpresponse.Content);
+                                                     return new HTTPResponse<SetChargePointListResponse>(httpresponse,
+                                                                                                         new SetChargePointListResponse(
+                                                                                                             Request,
+                                                                                                             Result.Format(
+                                                                                                                 "Invalid SOAP => " +
+                                                                                                                 httpresponse.HTTPBody.ToUTF8String()
+                                                                                                             )
+                                                                                                         ),
+                                                                                                         IsFault: true);
 
-                                                         return new HTTPResponse<SetChargePointListResponse>(httpresponse,
-                                                                                                             new SetChargePointListResponse(
-                                                                                                                 Request,
-                                                                                                                 Result.Format(
-                                                                                                                     "Invalid SOAP => " +
-                                                                                                                     httpresponse.HTTPBody.ToUTF8String()
-                                                                                                                 )
-                                                                                                             ),
-                                                                                                             IsFault: true);
+                                                 },
 
-                                                     },
+                                                 #endregion
 
-                                                     #endregion
+                                                 #region OnHTTPError
 
-                                                     #region OnHTTPError
+                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
 
-                                                     OnHTTPError: (timestamp, soapclient, httpresponse) => {
+                                                     SendHTTPError(timestamp, this, httpresponse);
 
-                                                         SendHTTPError(timestamp, this, httpresponse);
+                                                     return new HTTPResponse<SetChargePointListResponse>(httpresponse,
+                                                                                                         new SetChargePointListResponse(
+                                                                                                             Request,
+                                                                                                             Result.Server(
+                                                                                                                  httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                  " => " +
+                                                                                                                  httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                             )
+                                                                                                         ),
+                                                                                                         IsFault: true);
 
-                                                         return new HTTPResponse<SetChargePointListResponse>(httpresponse,
-                                                                                                             new SetChargePointListResponse(
-                                                                                                                 Request,
-                                                                                                                 Result.Server(
-                                                                                                                      httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                      " => " +
-                                                                                                                      httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                                 )
-                                                                                                             ),
-                                                                                                             IsFault: true);
+                                                 },
 
-                                                     },
+                                                 #endregion
 
-                                                     #endregion
+                                                 #region OnException
 
-                                                     #region OnException
+                                                 OnException: (timestamp, sender, exception) => {
 
-                                                     OnException: (timestamp, sender, exception) => {
+                                                     SendException(timestamp, sender, exception);
 
-                                                         SendException(timestamp, sender, exception);
+                                                     return HTTPResponse<SetChargePointListResponse>.ExceptionThrown(new SetChargePointListResponse(
+                                                                                                                         Request,
+                                                                                                                         Result.Format(exception.Message +
+                                                                                                                                       " => " +
+                                                                                                                                       exception.StackTrace)),
+                                                                                                                     exception);
 
-                                                         return HTTPResponse<SetChargePointListResponse>.ExceptionThrown(new SetChargePointListResponse(
-                                                                                                                             Request,
-                                                                                                                             Result.Format(exception.Message +
-                                                                                                                                           " => " +
-                                                                                                                                           exception.StackTrace)),
-                                                                                                                         exception);
+                                                 }
 
-                                                     }
+                                                 #endregion
 
-                                                     #endregion
-
-                                                    );
-
-                }
+                                                );
 
             }
-
 
             if (result == null)
                 result = HTTPResponse<SetChargePointListResponse>.OK(new SetChargePointListResponse(Request, Result.OK("Nothing to upload!")));
@@ -691,7 +675,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ClientId,
                                                      EventTrackingId,
                                                      ChargePointInfos,
-                                                     (UInt32) NumberOfChargePoints,
+                                                     (UInt32) ChargePointInfos.Count(),
                                                      RequestTimeout,
                                                      result.Content,
                                                      DateTime.Now - Timestamp.Value);

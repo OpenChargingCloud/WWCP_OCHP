@@ -150,9 +150,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         {
 
-            this.EVSEStatus      = EVSEStatus;
-            this.ParkingStatus   = ParkingStatus;
-            this.CombinedStatus  = CombinedStatus;
+            this.EVSEStatus      = EVSEStatus     ?? new EVSEStatus[0];
+            this.ParkingStatus   = ParkingStatus  ?? new ParkingStatus[0];
+            this.CombinedStatus  = CombinedStatus ?? new EVSEStatus[0];
 
         }
 
@@ -340,9 +340,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             => new XElement(OCHPNS.Default + "GetStatusResponse",
 
-                   EVSEStatus.    Select(evse     => evse.    ToXML(OCHPNS.Default + "combined")),
-                   ParkingStatus. Select(parking  => parking. ToXML(OCHPNS.Default + "parking")),
-                   CombinedStatus.Select(combined => combined.ToXML(OCHPNS.Default + "evse"))
+                   EVSEStatus.Any()
+                       ? EVSEStatus.    SafeSelect(evse     => evse.    ToXML(OCHPNS.Default + "evse"))
+                       : null,
+
+                   ParkingStatus.Any()
+                       ? ParkingStatus. SafeSelect(parking  => parking. ToXML(OCHPNS.Default + "parking"))
+                       : null,
+
+                   CombinedStatus.Any()
+                       ? CombinedStatus.SafeSelect(combined => combined.ToXML(OCHPNS.Default + "combined"))
+                       : null
 
                );
 
