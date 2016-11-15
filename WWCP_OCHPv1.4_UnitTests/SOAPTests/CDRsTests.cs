@@ -137,7 +137,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                    )
 
                                }
-                           );
+                           ).ConfigureAwait(false);
 
             Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
 
