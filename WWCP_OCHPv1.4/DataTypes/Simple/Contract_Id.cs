@@ -100,11 +100,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (ProviderId == null)
-                throw new ArgumentNullException(nameof(ProviderId),  "The given e-mobility provider identification must not be null!");
-
             if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The identification suffix must not be null or empty!");
+                throw new ArgumentNullException(nameof(IdSuffix),  "The identification suffix must not be null or empty!");
 
             #endregion
 
@@ -120,7 +117,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region Parse(ContractId)
+        #region Parse(Text)
 
         /// <summary>
         /// Parse the given string as a contract identification.
@@ -253,6 +250,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             return false;
 
         }
+
+        #endregion
+
+        #region Clone
+
+        /// <summary>
+        /// Clone this EVSE identification.
+        /// </summary>
+        public Contract_Id Clone
+
+            => new Contract_Id(ProviderId.Clone,
+                               Suffix);
 
         #endregion
 
