@@ -393,8 +393,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    (( MinorStatus.HasValue &&  EVSEStatus.MinorStatus.HasValue && MinorStatus.Value == EVSEStatus.MinorStatus.Value) ||
                     (!MinorStatus.HasValue && !EVSEStatus.MinorStatus.HasValue)) &&
 
-                   (( TTL.HasValue &&  EVSEStatus.TTL.HasValue && TTL.Value == EVSEStatus.TTL.Value) ||
-                    (!TTL.HasValue && !EVSEStatus.TTL.HasValue));
+                   (( TTL.        HasValue &&  EVSEStatus.TTL.        HasValue && TTL.        Value == EVSEStatus.TTL.        Value) ||
+                    (!TTL.        HasValue && !EVSEStatus.TTL.        HasValue));
 
         }
 

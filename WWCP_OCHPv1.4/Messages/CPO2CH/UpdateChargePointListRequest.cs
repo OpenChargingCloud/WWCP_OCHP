@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of charge point infos.
-    /// </summary>
-    public IEnumerable<ChargePointInfo>  ChargePointInfos   { get; }
+        /// <summary>
+        /// An enumeration of charge point infos.
+        /// </summary>
+        public IEnumerable<ChargePointInfo>  ChargePointInfos   { get; }
 
         #endregion
 

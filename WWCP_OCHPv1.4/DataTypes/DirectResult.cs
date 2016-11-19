@@ -380,8 +380,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if ((Object) DirectResult == null)
                 return false;
 
-            return this.DirectResultCode. Equals(DirectResult.DirectResultCode) &&
-                   this.Description.Equals(DirectResult.Description);
+            return DirectResultCode.Equals(DirectResult.DirectResultCode) &&
+                   Description.     Equals(DirectResult.Description);
 
         }
 

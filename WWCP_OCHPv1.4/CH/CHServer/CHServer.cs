@@ -48,22 +48,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// The default HTTP/SOAP/XML server name.
         /// </summary>
-        public new const           String    DefaultHTTPServerName  = "GraphDefined OCHP " + Version.Number + " HTTP/SOAP/XML CH Server API";
+        public new const           String           DefaultHTTPServerName  = "GraphDefined OCHP " + Version.Number + " HTTP/SOAP/XML Clearing House API";
 
         /// <summary>
         /// The default HTTP/SOAP/XML server TCP port.
         /// </summary>
-        public new static readonly IPPort    DefaultHTTPServerPort  = new IPPort(2600);
+        public new static readonly IPPort           DefaultHTTPServerPort  = new IPPort(2600);
 
         /// <summary>
         /// The default HTTP/SOAP/XML server URI prefix.
         /// </summary>
-        public new const           String    DefaultURIPrefix       = "";
+        public new const           String           DefaultURIPrefix       = "";
 
         /// <summary>
-        /// The default query timeout.
+        /// The default HTTP/SOAP/XML content type.
         /// </summary>
-        public new static readonly TimeSpan  DefaultQueryTimeout    = TimeSpan.FromMinutes(1);
+        public new static readonly HTTPContentType  DefaultContentType     = HTTPContentType.XMLTEXT_UTF8;
+
+        /// <summary>
+        /// The default request timeout.
+        /// </summary>
+        public new static readonly TimeSpan         DefaultRequestTimeout  = TimeSpan.FromMinutes(1);
 
         #endregion
 
@@ -442,26 +447,31 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #region Constructor(s)
 
-        #region CHServer(HTTPServerName, TCPPort = null, URIPrefix = DefaultURIPrefix, DNSClient = null, AutoStart = false)
+        #region CHServer(HTTPServerName, TCPPort = default, URIPrefix = default, ContentType = default, DNSClient = null, AutoStart = false)
 
         /// <summary>
-        /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML CH Server API using IPAddress.Any.
+        /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML CH Server API.
         /// </summary>
         /// <param name="HTTPServerName">An optional identification string for the HTTP server.</param>
         /// <param name="TCPPort">An optional TCP port for the HTTP server.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="ContentType">An optional HTTP content type to use.</param>
+        /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
-        public CHServer(String    HTTPServerName  = DefaultHTTPServerName,
-                        IPPort    TCPPort         = null,
-                        String    URIPrefix       = DefaultURIPrefix,
-                        DNSClient DNSClient       = null,
-                        Boolean   AutoStart       = true)
+        public CHServer(String          HTTPServerName           = DefaultHTTPServerName,
+                        IPPort          TCPPort                  = null,
+                        String          URIPrefix                = DefaultURIPrefix,
+                        HTTPContentType ContentType              = null,
+                        Boolean         RegisterHTTPRootService  = true,
+                        DNSClient       DNSClient                = null,
+                        Boolean         AutoStart                = false)
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
-                   TCPPort ?? DefaultHTTPServerPort,
-                   URIPrefix.     IsNotNullOrEmpty() ? URIPrefix      : DefaultURIPrefix,
-                   HTTPContentType.XMLTEXT_UTF8,
+                   TCPPort     ?? DefaultHTTPServerPort,
+                   URIPrefix   ?? DefaultURIPrefix,
+                   ContentType ?? DefaultContentType,
+                   RegisterHTTPRootService,
                    DNSClient,
                    AutoStart: false)
 
@@ -474,10 +484,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #endregion
 
-        #region CHServer(SOAPServer, URIPrefix = DefaultURIPrefix)
+        #region CHServer(SOAPServer, URIPrefix = default)
 
         /// <summary>
-        /// Use the given HTTP server for the OCHP HTTP/SOAP/XML CH Server API using IPAddress.Any.
+        /// Use the given HTTP server for the OCHP HTTP/SOAP/XML CH Server API.
         /// </summary>
         /// <param name="SOAPServer">A SOAP server.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
@@ -485,7 +495,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                         String      URIPrefix  = DefaultURIPrefix)
 
             : base(SOAPServer,
-                   URIPrefix.IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix)
+                   URIPrefix ?? DefaultURIPrefix)
 
         { }
 
@@ -496,42 +506,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #region (override) RegisterURITemplates()
 
+        /// <summary>
+        /// Register all URI templates for this SOAP API.
+        /// </summary>
         protected override void RegisterURITemplates()
         {
-
-            #region / (HTTPRoot)
-
-         //   SOAPServer.AddMethodCallback(HTTPHostname.Any,
-         //                                HTTPMethod.GET,
-         //                                new String[] { "/", URIPrefix + "/" },
-         //                                HTTPContentType.TEXT_UTF8,
-         //                                HTTPDelegate: Request => {
-         //
-         //                                    return Task.FromResult(
-         //                                        new HTTPResponseBuilder(Request) {
-         //
-         //                                            HTTPStatusCode  = HTTPStatusCode.BadGateway,
-         //                                            ContentType     = HTTPContentType.TEXT_UTF8,
-         //                                            Content         = ("Welcome at " + DefaultHTTPServerName + Environment.NewLine +
-         //                                                               "This is a HTTP/SOAP/XML endpoint!" + Environment.NewLine + Environment.NewLine +
-         //                                                               "Defined endpoints: " + Environment.NewLine + Environment.NewLine +
-         //                                                               SOAPServer.
-         //                                                                   SOAPDispatchers.
-         //                                                                   Select(group => " - " + group.Key + Environment.NewLine +
-         //                                                                                   "   " + group.SelectMany(dispatcher => dispatcher.SOAPDispatches).
-         //                                                                                                 Select    (dispatch   => dispatch.  Description).
-         //                                                                                                 AggregateWith(", ")
-         //                                                                         ).AggregateWith(Environment.NewLine + Environment.NewLine)
-         //                                                              ).ToUTF8Bytes(),
-         //                                            Connection      = "close"
-         //
-         //                                        }.AsImmutable());
-         //
-         //                                },
-         //                                AllowReplacement: URIReplacement.Allow);
-
-            #endregion
-
 
             // Shared messages...
 
@@ -580,7 +559,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.EventTrackingId,
                                            _AddServiceEndpointsRequest.OperatorEndpoints,
                                            _AddServiceEndpointsRequest.ProviderEndpoints,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -679,7 +658,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -782,7 +761,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _AddCDRsRequest.CDRInfos,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -882,7 +861,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _CheckCDRsRequest.CDRStatus,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -981,7 +960,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -1081,7 +1060,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _GetRoamingAuthorisationListUpdatesRequest.LastUpdate,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -1181,7 +1160,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _GetSingleRoamingAuthorisationRequest.EMTId,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results != null && results.Length > 0)
@@ -1281,7 +1260,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _SetChargePointListRequest.ChargePointInfos,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -1381,7 +1360,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _UpdateChargePointListRequest.ChargePointInfos,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -1483,7 +1462,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            _UpdateStatusRequest.EVSEStatus,
                                            _UpdateStatusRequest.ParkingStatus,
                                            _UpdateStatusRequest.DefaultTTL,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results != null && results.Length > 0)
@@ -1583,7 +1562,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _UpdateTariffsRequest.TariffInfos,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -1686,7 +1665,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _GetCDRsRequest.CDRStatus,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -1787,7 +1766,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.EventTrackingId,
                                            _ConfirmCDRsRequest.Approved,
                                            _ConfirmCDRsRequest.Declined,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -1886,7 +1865,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -1986,7 +1965,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _GetChargePointListUpdatesRequest.LastUpdate,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -2087,7 +2066,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.EventTrackingId,
                                            _GetStatusRequest.LastRequest,
                                            _GetStatusRequest.StatusType,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -2187,7 +2166,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _GetTariffUpdatesRequest.LastUpdate,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -2287,7 +2266,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _SetRoamingAuthorisationListRequest.RoamingAuthorisationInfos,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)
@@ -2387,7 +2366,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
                                            _UpdateRoamingAuthorisationListRequest.RoamingAuthorisationInfos,
-                                           DefaultQueryTimeout)).
+                                           DefaultRequestTimeout)).
                                       ToArray();
 
                     if (results.Length > 0)

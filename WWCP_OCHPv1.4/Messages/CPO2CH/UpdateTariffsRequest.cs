@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of tariff infos.
-    /// </summary>
-    public IEnumerable<TariffInfo>  TariffInfos   { get; }
+        /// <summary>
+        /// An enumeration of tariff infos.
+        /// </summary>
+        public IEnumerable<TariffInfo>  TariffInfos   { get; }
 
         #endregion
 

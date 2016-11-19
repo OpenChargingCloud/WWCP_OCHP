@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of EVSE status.
-    /// </summary>
-    public IEnumerable<EVSEStatus>     EVSEStatus      { get; }
+        /// <summary>
+        /// An enumeration of EVSE status.
+        /// </summary>
+        public IEnumerable<EVSEStatus>     EVSEStatus      { get; }
 
         /// <summary>
         /// An enumeration of parking status.
