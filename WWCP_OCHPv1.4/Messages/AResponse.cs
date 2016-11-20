@@ -45,7 +45,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The OCHP request leading to this response.
         /// </summary>
-        public TRequest  Request             { get; }
+        public TRequest                             Request      { get; }
 
         #endregion
 
@@ -56,14 +56,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="Request">The OCHP request leading to this result.</param>
         /// <param name="Result">A generic OCHP result.</param>
-        public AResponse(TRequest  Request,
-                         Result    Result)
+        /// <param name="CustomData">Optional customer-specific semi-structured data.</param>
+        public AResponse(TRequest                             Request,
+                         Result                               Result,
+                         IReadOnlyDictionary<String, Object>  CustomData  = null)
 
-            : base(Result)
+            : base(Result,
+                   CustomData)
 
         {
 
-            this.Request            = Request;
+            this.Request = Request;
 
         }
 
@@ -89,12 +92,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The machine-readable result code.
         /// </summary>
-        public Result    Result              { get; }
+        public Result                               Result              { get; }
+
+        /// <summary>
+        /// Customer-specific semi-structured data.
+        /// </summary>
+        public IReadOnlyDictionary<String, Object>  CustomData          { get; }
+
+        /// <summary>
+        /// Whether the response has customer-specific data defined.
+        /// </summary>
+        public Boolean HasCustomData
+            => CustomData != null;
 
         /// <summary>
         /// The timestamp of the response message creation.
         /// </summary>
-        public DateTime  ResponseTimestamp   { get; }
+        public DateTime                             ResponseTimestamp   { get; }
 
         #endregion
 
@@ -104,10 +118,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Create a new generic OCHP response.
         /// </summary>
         /// <param name="Result">A generic OCHP result.</param>
-        public AResponse(Result Result)
+        /// <param name="CustomData">Optional customer-specific semi-structured data.</param>
+        public AResponse(Result                               Result,
+                         IReadOnlyDictionary<String, Object>  CustomData  = null)
         {
 
             this.Result             = Result;
+            this.CustomData         = CustomData;
             this.ResponseTimestamp  = DateTime.Now;
 
         }
