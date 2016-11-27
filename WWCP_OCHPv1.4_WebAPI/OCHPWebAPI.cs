@@ -72,7 +72,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
 
             #endregion
 
-            RoamingNetwork_Id RoamingNetworkId  = null;
+            RoamingNetwork_Id RoamingNetworkId;
                               RoamingNetwork    = null;
                               HTTPResponse      = null;
 
