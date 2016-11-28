@@ -449,7 +449,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public override String ToString()
 
             => String.Concat(OperatorId.CountryCode.Alpha2Code,
-                             OperatorId.OperatorId,
+                             OperatorId.Suffix,
                              Suffix);
 
         #endregion
