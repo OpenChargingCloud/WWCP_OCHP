@@ -31,7 +31,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// OCHP geo coordinate with additional information.
     /// </summary>
-    public class ExtendedGeoCoordinate : GeoCoordinate
+    public class ExtendedGeoCoordinate
     {
 
         #region Properties
@@ -47,6 +47,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public GeoCoordinateTypes  GeoCoordinateType    { get; }
 
+        /// <summary>
+        /// The geo coordinate.
+        /// </summary>
+        public GeoCoordinate       GeoCoordinate        { get; }
+
         #endregion
 
         #region Constructor(s)
@@ -56,26 +61,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="Name">Name of the point in local language or as written at the location. For example the street name of a parking lot entrance or it's number.</param>
         /// <param name="GeoCoordinateType">The type of this geo point for categorization and right usage.</param>
-        /// 
-        /// <param name="Latitude">The Latitude (south to nord).</param>
-        /// <param name="Longitude">The Longitude (parallel to equator).</param>
-        /// <param name="Altitude">The (optional) Altitude.</param>
-        /// <param name="Projection">The gravitational model or projection of the geo coordinates.</param>
-        /// <param name="Planet">The planet.</param>
+        /// <param name="GeoCoordiante">The geo coordinate.</param>
         public ExtendedGeoCoordinate(String              Name,
                                      GeoCoordinateTypes  GeoCoordinateType,
-                                     Latitude            Latitude,
-                                     Longitude           Longitude,
-                                     Altitude?           Altitude    = null,
-                                     GravitationalModel  Projection  = GravitationalModel.WGS84,
-                                     Planets             Planet      = Planets.Earth)
-
-            : base(Latitude,
-                   Longitude,
-                   Altitude,
-                   Projection,
-                   Planet)
-
+                                     GeoCoordinate       GeoCoordiante)
         {
 
             #region Initial checks
@@ -87,6 +76,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             this.Name               = Name;
             this.GeoCoordinateType  = GeoCoordinateType;
+            this.GeoCoordinate      = GeoCoordiante;
 
         }
 
@@ -169,11 +159,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                             ExtendedGeoCoordinateXML.MapAttributeValueOrFail(OCHPNS.Default + "type",
                                                                                              XML_IO.AsGeoCoordinateType),
 
-                                            ExtendedGeoCoordinateXML.MapAttributeValueOrFail(OCHPNS.Default + "lat",
-                                                                                             Latitude.Parse),
+                                            GeoCoordinate.Create(
 
-                                            ExtendedGeoCoordinateXML.MapAttributeValueOrFail(OCHPNS.Default + "lon",
-                                                                                             Longitude.Parse)
+                                                ExtendedGeoCoordinateXML.MapAttributeValueOrFail(OCHPNS.Default + "lat",
+                                                                                                 Latitude.Parse),
+
+                                                ExtendedGeoCoordinateXML.MapAttributeValueOrFail(OCHPNS.Default + "lon",
+                                                                                                 Longitude.Parse)
+
+                                            )
 
                                         );
 
@@ -237,8 +231,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public XElement ToXML()
 
             => new XElement(OCHPNS.Default + "relatedLocation",
-                               new XAttribute(OCHPNS.Default + "lat",   Latitude.Value),
-                               new XAttribute(OCHPNS.Default + "lon",   Longitude.Value),
+                               new XAttribute(OCHPNS.Default + "lat",   GeoCoordinate.Latitude. Value),
+                               new XAttribute(OCHPNS.Default + "lon",   GeoCoordinate.Longitude.Value),
                                new XAttribute(OCHPNS.Default + "name",  Name),
                                new XAttribute(OCHPNS.Default + "type",  XML_IO.AsText(GeoCoordinateType))
                            );
@@ -253,7 +247,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(base.ToString(),
+            => String.Concat(GeoCoordinate,
                              ", Name = ", Name,
                              ", Type = ", GeoCoordinateType);
 

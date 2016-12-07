@@ -1733,7 +1733,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 OnException?.Invoke(DateTime.Now, XML, e);
 
-                return null;
+                return default(GeoCoordinate);
 
             }
 
