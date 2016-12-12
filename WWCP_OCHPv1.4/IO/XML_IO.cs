@@ -18,8 +18,10 @@
 #region Usings
 
 using System;
+using System.Linq;
 using System.Xml.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Aegir;
 using org.GraphDefined.Vanaheimr.Illias;
@@ -1702,6 +1704,29 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         }
 
         #endregion
+
+
+
+
+        // Helpers
+
+        public static IEnumerable<AuthMethodTypes> ToEnumeration(this AuthMethodTypes e)
+        {
+
+            return Enum.GetValues(typeof(AuthMethodTypes)).
+                        Cast<AuthMethodTypes>().
+                        Where(flag => e.HasFlag(flag) && flag != AuthMethodTypes.Unknown);
+
+        }
+
+        public static IEnumerable<RestrictionTypes> ToEnumeration(this RestrictionTypes e)
+        {
+
+            return Enum.GetValues(typeof(RestrictionTypes)).
+                        Cast<RestrictionTypes>().
+                        Where(flag => e.HasFlag(flag) && flag != RestrictionTypes.Unknown);
+
+        }
 
 
 

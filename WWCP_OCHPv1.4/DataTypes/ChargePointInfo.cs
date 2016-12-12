@@ -228,20 +228,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                IEnumerable<ConnectorType>          Connectors,
                                ChargePointTypes                    ChargePointType,
 
-                               DateTime?                           Timestamp            = null,
-                               IEnumerable<EVSEImageURL>           Images               = null,
-                               IEnumerable<RelatedResource>        RelatedResources     = null,
-                               IEnumerable<ExtendedGeoCoordinate>  RelatedLocations     = null,
-                               String                              TimeZone             = null,
-                               Hours                               OpeningTimes         = null,
-                               ChargePointStatus?                  Status               = ChargePointStatus.Unknown,
-                               IEnumerable<ChargePointSchedule>    ChargePointSchedule  = null,
-                               String                              TelephoneNumber      = null,
-                               IEnumerable<ParkingSpotInfo>        ParkingSpots         = null,
-                               RestrictionTypes?                   Restrictions         = RestrictionTypes.Unknown,
-                               Ratings                             Ratings              = null,
-                               IEnumerable<String>                 UserInterfaceLang    = null,
-                               TimeSpan?                           MaxReservation       = null)
+                               DateTime?                           Timestamp             = null,
+                               IEnumerable<EVSEImageURL>           Images                = null,
+                               IEnumerable<RelatedResource>        RelatedResources      = null,
+                               IEnumerable<ExtendedGeoCoordinate>  RelatedLocations      = null,
+                               String                              TimeZone              = null,
+                               Hours                               OpeningTimes          = null,
+                               ChargePointStatus?                  Status                = ChargePointStatus.Operative,
+                               IEnumerable<ChargePointSchedule>    ChargePointSchedule   = null,
+                               String                              TelephoneNumber       = null,
+                               IEnumerable<ParkingSpotInfo>        ParkingSpots          = null,
+                               RestrictionTypes?                   Restrictions          = RestrictionTypes.Unknown,
+                               Ratings                             Ratings               = null,
+                               IEnumerable<String>                 UserInterfaceLang     = null,
+                               TimeSpan?                           MaxReservation        = null)
 
         {
 

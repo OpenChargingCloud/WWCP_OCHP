@@ -137,7 +137,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="EVSEId">The unique identification of the EVSE of the charging process.</param>
         /// <param name="EMTId">Utilized token for this charging session.</param>
         /// <param name="ContractId">Identifies a customer in the electric mobility charging context.</param>
-        /// <param name="LiveAuthId">References a live authorisation request to the clearing house. </param>
         /// <param name="Status">Current status of the CDR. Must be set to "new" by the issuing CMS. Shall not be changed by any partner but only by the CHS.</param>
         /// <param name="StartDateTime">Start date and time of the charge session (login with the RFID badge). Local time of the charge point is used.</param>
         /// <param name="EndDateTime">End date and time of the charge session (log-off with the RFID badge or physical disconnect). Must be set in the local time of the charge point.</param>
@@ -145,53 +144,42 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="ChargePointAddress">Optional address information of the charging point.</param>
         /// <param name="ChargePointType">The type of the charge point "AC" or "DC".</param>
         /// <param name="ConnectorType">Type of the utilized socket or connector.</param>
-        /// <param name="MaxSocketPower">Maximum available power at the socket in kilowatts. Example: "3.7", "11", "22".</param>
         /// <param name="MeterId">Written identification number of the physical energy meter, provided by the manufacturer.</param>
         /// <param name="ChargingPeriods">An enumeration of periods per item on the bill.</param>
         /// <param name="TotalCosts">Total costs for the entire charging process. Should always equal the sum of the individual periodCosts.</param>
         /// <param name="Currency">The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.</param>
         public CDRInfo(CDR_Id                  CDRId,
-                       EVSE_Id                 EVSEId,
                        EMT_Id                  EMTId,
                        Contract_Id             ContractId,
-                    //   LiveAuth_Id             LiveAuthId,
+
+                       EVSE_Id                 EVSEId,
+                       ChargePointTypes        ChargePointType,
+                       ConnectorType           ConnectorType,
+
                        CDRStatus               Status,
                        DateTime                StartDateTime,
                        DateTime                EndDateTime,
-                       TimeSpan?               Duration,
-                       Address                 ChargePointAddress,
-                       ChargePointTypes        ChargePointType,
-                       ConnectorType           ConnectorType,
-                    //   Single                  MaxSocketPower,  //Note: Seems to be a bug in the documentation!
-                       String                  MeterId,
                        IEnumerable<CDRPeriod>  ChargingPeriods,
-                       Single?                 TotalCosts,
-                       Currency                Currency)
+
+                       TimeSpan?               Duration            = null,
+                       Address                 ChargePointAddress  = null,
+                       Ratings                 Ratings             = null,
+                       String                  MeterId             = null,
+                       Single?                 TotalCosts          = null,
+                       Currency                Currency            = null)
 
         {
 
             #region Initial checks
 
-            if (CDRId == null)
-                throw new ArgumentNullException(nameof(CDRId),            "The given unique identification of a charge detail record must not be null!");
-
-            if (EMTId == null)
-                throw new ArgumentNullException(nameof(EMTId),            "The given unique identification of a e-mobility token must not be null!");
-
-            if (ContractId == null)
-                throw new ArgumentNullException(nameof(ContractId),       "The given unique identification of a contract must not be null!");
-
             if (ChargePointType == ChargePointTypes.Unknown)
                 throw new ArgumentNullException(nameof(ChargePointType),  "The given charge point type information must not be null or empty!");
 
-            if (ChargingPeriods == null)
-                throw new ArgumentNullException(nameof(ChargingPeriods),  "The given enumeration of charge detail record periods must not be null!");
+            if (ConnectorType == null)
+                throw new ArgumentNullException(nameof(ConnectorType),    "The given charge point connector type must not be null!");
 
-            if (ChargingPeriods.Count() < 1)
-                throw new ArgumentException("The given enumeration of charge detail record periods must have at least one item!", nameof(ChargingPeriods));
-
-            if (Currency == null)
-                throw new ArgumentNullException(nameof(Currency),         "The given currency information must not be null or empty!");
+            if (ChargingPeriods == null || !ChargingPeriods.Any())
+                throw new ArgumentNullException(nameof(ChargingPeriods),  "The given enumeration of charge detail record periods must not be null or empty!");
 
             #endregion
 
@@ -382,17 +370,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "CdrId",
                                                                CDR_Id.Parse),
 
-                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "evseId",
-                                                               EVSE_Id.Parse),
-
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "emtId",
                                                                EMT_Id.Parse),
 
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "contractId",
                                                                Contract_Id.Parse),
 
-                             // CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "LiveAuthId",
-                             //                                  LiveAuth_Id.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "evseId",
+                                                               EVSE_Id.Parse),
+
+                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "chargePointType",
+                                                               XML_IO.AsChargePointType),
+
+                              CDRInfoXML.MapElementOrFail     (OCHPNS.Default + "connectorType",
+                                                               ConnectorType.Parse),
+
 
                               CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "status",
                                                                OCHPNS.Default + "CdrStatusType",
@@ -406,27 +399,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                OCHPNS.Default + "LocalDateTime",
                                                                DateTime.Parse),
 
+                              CDRInfoXML.MapElementsOrFail    (OCHPNS.Default + "chargingPeriods",
+                                                               CDRPeriod.Parse),
+
+
                               CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "duration",
                                                                TimeSpan.Parse),
 
-                              CDRInfoXML.MapElementOrFail     (OCHPNS.Default + "chargePointAddress",
+                              CDRInfoXML.MapElement           (OCHPNS.Default + "chargePointAddress",
                                                                Address.Parse),
 
-                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "chargePointType",
-                                                               XML_IO.AsChargePointType),
-
-                              CDRInfoXML.MapElementOrFail     (OCHPNS.Default + "connectorType",
-                                                               ConnectorType.Parse),
+                              CDRInfoXML.MapElement           (OCHPNS.Default + "chargingPeriods",
+                                                               Ratings.Parse),
 
                               CDRInfoXML.ElementValueOrDefault(OCHPNS.Default + "meterId"),
-
-                              CDRInfoXML.MapElementsOrFail    (OCHPNS.Default + "chargingPeriods",
-                                                               CDRPeriod.Parse),
 
                               CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "totalCost",
                                                                Single.Parse),
 
-                              CDRInfoXML.MapValueOrFail       (OCHPNS.Default + "currency",
+                              CDRInfoXML.MapValueOrNull       (OCHPNS.Default + "currency",
                                                                Currency.ParseString)
 
                           );

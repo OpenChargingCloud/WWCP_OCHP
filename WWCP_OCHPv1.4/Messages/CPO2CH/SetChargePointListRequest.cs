@@ -340,7 +340,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         public override String ToString()
 
-            => String.Concat(ChargePointInfos.Count(), " charge point(s)");
+            => String.Concat(ChargePointInfos.Count(), " charge point info(s)");
 
         #endregion
 

@@ -95,7 +95,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
                                    new CDRInfo(
                                        CDR_Id. Parse("DEGEF1234AABBCC5678"),
-                                       EVSE_Id.Parse("DE*GEF*E123456789*1"),
                                        new EMT_Id(
                                            "CAFEBABE23",
                                            TokenRepresentations.Plain,
@@ -103,24 +102,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                            TokenSubTypes.MifareClassic
                                        ),
                                        Contract_Id.Parse("DE-GDF-123456789"),
-                                       //LiveAuth_Id.Parse(""),
-                                       CDRStatus.New,
-                                       DateTime.Now - TimeSpan.FromHours(1),
-                                       DateTime.Now,
-                                       TimeSpan.FromHours(1),
-                                       new Address(
-                                           "18",
-                                           "Biberweg",
-                                           "Jena",
-                                           "07749",
-                                           Country.Germany
-                                       ),
+
+                                       EVSE_Id.Parse("DE*GEF*E123456789*1"),
                                        ChargePointTypes.AC,
                                        new ConnectorType(
                                            ConnectorStandards.IEC_62196_T2,
                                            ConnectorFormats.Socket
                                        ),
-                                       "MeterId #2305",
+
+                                       CDRStatus.New,
+                                       DateTime.Now - TimeSpan.FromHours(1),
+                                       DateTime.Now,
                                        new CDRPeriod[] {
 
                                            new CDRPeriod(
@@ -132,6 +124,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                            )
 
                                        },
+
+                                       TimeSpan.FromHours(1),
+                                       new Address(
+                                           "18",
+                                           "Biberweg",
+                                           "Jena",
+                                           "07749",
+                                           Country.Germany
+                                       ),
+                                       new Ratings(0.0f, 1.0f, 240),
+                                       "MeterId #2305",
                                        23.5f,
                                        Currency.EUR
                                    )

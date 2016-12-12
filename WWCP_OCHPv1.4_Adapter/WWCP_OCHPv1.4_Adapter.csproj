@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EC1B878F-E3AA-49E5-A556-F2200588449B}</ProjectGuid>
+    <ProjectGuid>{47BC1969-41B9-4C94-AE0E-FF7E78223F99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>org.GraphDefined.WWCP.OCHPv1_4.WebAPI</RootNamespace>
-    <AssemblyName>org.GraphDefined.WWCP.OCHPv1_4.WebAPI</AssemblyName>
+    <RootNamespace>WWCP_OCHPv1._4_Adapter</RootNamespace>
+    <AssemblyName>WWCP_OCHPv1.4_Adapter</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -21,8 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\org.GraphDefined.WWCP.OCHPv1_4.WebAPI.XML</DocumentationFile>
     <CodeAnalysisRuleSet>..\..\WWCP_Core\WWCP.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\WWCP_OCHPv1.4_Adapter.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Hermod\libs\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,11 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OCHPPlusNS.cs" />
-    <Compile Include="OCHPWebAPI.cs" />
-    <Compile Include="OCHPPlus_XML_IO.cs" />
+    <Compile Include="CPO\CPODelegates.cs" />
+    <Compile Include="CPO\CPOExtentions.cs" />
+    <Compile Include="CPO\WWCPCPOAdapter.cs" />
+    <Compile Include="ObjectMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Version.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LICENSE" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Aegir\Aegir\Aegir.csproj">
@@ -82,31 +83,6 @@
       <Project>{76016948-1e48-41a4-bbe8-57774768529a}</Project>
       <Name>WWCP_OCHPv1.4</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WWCP_OCHPv1.4_Adapter\WWCP_OCHPv1.4_Adapter.csproj">
-      <Project>{47bc1969-41b9-4c94-ae0e-ff7e78223f99}</Project>
-      <Name>WWCP_OCHPv1.4_Adapter</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="compilerconfig.json" />
-    <None Include="compilerconfig.json.defaults">
-      <DependentUpon>compilerconfig.json</DependentUpon>
-    </None>
-    <None Include="HTTPRoot\styles.scss" />
-    <None Include="LICENSE" />
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="HTTPRoot\index.html" />
-    <EmbeddedResource Include="HTTPRoot\styles.min.css">
-      <DependentUpon>styles.css</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HTTPRoot\styles.css">
-      <DependentUpon>styles.scss</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HTTPRoot\Logos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

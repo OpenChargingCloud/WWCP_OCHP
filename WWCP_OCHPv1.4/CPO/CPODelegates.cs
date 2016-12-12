@@ -35,19 +35,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
     #endregion
 
-    #region EVSE2ChargePointInfoDelegate
-
-    /// <summary>
-    /// A delegate which allows you to modify OCHP charge point information before
-    /// sending them upstream.
-    /// </summary>
-    /// <param name="EVSE">A WWCP EVSE.</param>
-    /// <param name="ChargePointInfo">A charge point information.</param>
-    public delegate ChargePointInfo EVSE2ChargePointInfoDelegate(EVSE              EVSE,
-                                                                 ChargePointInfo   ChargePointInfo);
-
-    #endregion
-
     #region ChargePointInfo2XMLDelegate
 
     /// <summary>

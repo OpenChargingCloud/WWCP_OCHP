@@ -1124,10 +1124,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (EMTId == null)
-                throw new ArgumentNullException(nameof(EMTId),  "The given e-mobility token must not be null!");
-
-
             if (!Timestamp.HasValue)
                 Timestamp = DateTime.Now;
 

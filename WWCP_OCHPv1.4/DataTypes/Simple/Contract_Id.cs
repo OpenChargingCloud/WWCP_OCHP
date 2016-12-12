@@ -60,7 +60,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The e-mobility provider identification.
         /// </summary>
-        public eMobilityProvider_Id  ProviderId    { get; }
+        public Provider_Id           ProviderId    { get; }
 
         /// <summary>
         /// The suffix of the identification.
@@ -73,7 +73,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public Char?                 CheckDigit    { get; }
 
         /// <summary>
-        /// Returns the length of the identificator.
+        /// Returns the length of the identification.
         /// </summary>
         public UInt64 Length
 
@@ -93,9 +93,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="ProviderId">The unique identification of an e-mobility provider.</param>
         /// <param name="IdSuffix">The suffix of the e-mobility contract identification.</param>
         /// <param name="CheckDigit">An optional check digit of the e-mobility contract identification.</param>
-        private Contract_Id(eMobilityProvider_Id  ProviderId,
-                            String                IdSuffix,
-                            Char?                 CheckDigit = null)
+        private Contract_Id(Provider_Id  ProviderId,
+                            String       IdSuffix,
+                            Char?        CheckDigit = null)
         {
 
             #region Initial checks
@@ -137,19 +137,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (_MatchCollection.Count != 1)
                 throw new ArgumentException("Illegal contract identification '" + Text + "'!");
 
-            eMobilityProvider_Id _ProviderId;
+            Provider_Id _ProviderId;
 
-            if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _ProviderId))
+            if (Provider_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _ProviderId))
                 return new Contract_Id(_ProviderId,
                                        _MatchCollection[0].Groups[2].Value,
                                        _MatchCollection[0].Groups[3].Value[0]);
 
-            if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[4].Value, out _ProviderId))
+            if (Provider_Id.TryParse(_MatchCollection[0].Groups[4].Value, out _ProviderId))
                 return new Contract_Id(_ProviderId,
                                        _MatchCollection[0].Groups[5].Value,
                                        _MatchCollection[0].Groups[6].Value[0]);
 
-            if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[7].Value, out _ProviderId))
+            if (Provider_Id.TryParse(_MatchCollection[0].Groups[7].Value, out _ProviderId))
                 return new Contract_Id(_ProviderId,
                                        _MatchCollection[0].Groups[8].Value);
 
@@ -167,7 +167,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="ProviderId">The unique identification of an e-mobility provider.</param>
         /// <param name="IdSuffix">The suffix of the e-mobility contract identification.</param>
-        public static Contract_Id Parse(eMobilityProvider_Id  ProviderId,
+        public static Contract_Id Parse(Provider_Id  ProviderId,
                                         String                IdSuffix)
 
             => new Contract_Id(ProviderId,
@@ -205,10 +205,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 if (_MatchCollection.Count != 1)
                     return false;
 
-                eMobilityProvider_Id _Provider;
+                Provider_Id _Provider;
 
                 // New format...
-                if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _Provider))
+                if (Provider_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _Provider))
                 {
 
                     ContractId = new Contract_Id(_Provider,
@@ -220,7 +220,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 }
 
                 // Old format...
-                else if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[4].Value, out _Provider))
+                else if (Provider_Id.TryParse(_MatchCollection[0].Groups[4].Value, out _Provider))
                 {
 
                     ContractId = new Contract_Id(_Provider,
@@ -232,7 +232,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 }
 
                 // Without check digit...
-                else if (eMobilityProvider_Id.TryParse(_MatchCollection[0].Groups[7].Value, out _Provider))
+                else if (Provider_Id.TryParse(_MatchCollection[0].Groups[7].Value, out _Provider))
                 {
 
                     ContractId = new Contract_Id(_Provider,
@@ -416,7 +416,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             // Compare the length of the contract identifications
             var _Result = this.Length.CompareTo(ContractId.Length);
 
-            // If equal: Compare OperatorIds
+            // If equal: Compare charging operator identifications
             if (_Result == 0)
                 _Result = ProviderId.CompareTo(ContractId.ProviderId);
 
@@ -524,8 +524,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(ProviderId.CountryCode.Alpha2Code, "-",
-                             ProviderId.ProviderId, "-",
+            => String.Concat(ProviderId, "-",
                              Suffix,
                              CheckDigit.HasValue
                                  ? "-" + CheckDigit
