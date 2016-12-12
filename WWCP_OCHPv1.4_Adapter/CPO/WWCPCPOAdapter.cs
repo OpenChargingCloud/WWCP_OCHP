@@ -1108,7 +1108,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        private async Task<WWCP.Acknowledgement>
+        private async Task<Acknowledgement>
 
             SetChargePointInfos(IEnumerable<EVSE>   EVSEs,
 
@@ -1161,9 +1161,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                               return null;
 
                                           }).
+                                          Where(chargepointinfo => chargepointinfo != null).
                                           ToArray();
 
-            WWCP.Acknowledgement result;
+            Acknowledgement result;
 
             #endregion
 
@@ -1240,17 +1241,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 OnSetChargePointInfosWWCPResponse?.Invoke(Endtime,
-                                                           Timestamp.Value,
-                                                           this,
-                                                           Id,
-                                                           EventTrackingId,
-                                                           RoamingNetwork.Id,
-                                                           _ChargePointInfos.ULongCount(),
-                                                           _ChargePointInfos,
-                                                           Warnings.Where(warning => warning.IsNotNullOrEmpty()),
-                                                           RequestTimeout,
-                                                           result,
-                                                           Runtime);
+                                                          Timestamp.Value,
+                                                          this,
+                                                          Id,
+                                                          EventTrackingId,
+                                                          RoamingNetwork.Id,
+                                                          _ChargePointInfos.ULongCount(),
+                                                          _ChargePointInfos,
+                                                          Warnings.Where(warning => warning.IsNotNullOrEmpty()),
+                                                          RequestTimeout,
+                                                          result,
+                                                          Runtime);
 
             }
             catch (Exception e)
@@ -1330,6 +1331,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                               return null;
 
                                           }).
+                                          Where(chargepointinfo => chargepointinfo != null).
                                           ToArray();
 
             WWCP.Acknowledgement result;
@@ -1508,7 +1510,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                       return default(EVSEStatus);
 
-                                  }).ToArray();
+                                  }).
+                                  Where(evsestatus => evsestatus != default(EVSEStatus)).
+                                  ToArray();
 
             WWCP.Acknowledgement result = null;
 

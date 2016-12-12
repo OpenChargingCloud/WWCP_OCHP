@@ -397,8 +397,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         {
 
             var _ChargePointInfo = new ChargePointInfo(EVSE.Id.ToOCHP(),
-                                                       EVSE.ChargingStation.ChargingPool.Id.ToString(),
-                                                       EVSE.ChargingStation.ChargingPool.Name.FirstText,
+                                                       ChargePointInfo.LocationIdInverse_RegEx.Replace(EVSE.ChargingStation.ChargingPool.Id.ToString(), "").SubstringMax(15),
+                                                       EVSE.ChargingStation.ChargingPool.Name.FirstText.ToUpper(),
                                                        EVSE.ChargingStation.ChargingPool.Name.First().Language.ToString(),
                                                        EVSE.ChargingStation.Address.ToOCHP(),
                                                        EVSE.ChargingStation.GeoLocation.Value,
@@ -408,18 +408,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                                 Where (mode => mode != AuthMethodTypes.Unknown).
                                                                                 Reduce(),
                                                        EVSE.SocketOutlets.SafeSelect(socketoutlet => socketoutlet.ToOCHP()),
-                                                       ChargePointTypes.Unknown,
-                                                       DateTime.Now, // timestamp of last edit
+                                                       ChargePointTypes.AC,                 // FixMe: ChargePointTypes.AC!
+                                                       DateTime.Now,                        // timestamp of last edit
                                                        new EVSEImageURL[0],
                                                        new RelatedResource[0],
                                                        new ExtendedGeoCoordinate[0],
                                                        null,  // Timezone
-                                                       null,  // OpeningTimes
+                                                       Hours.Open24_7,
                                                        ChargePointStatus.Operative,
                                                        new ChargePointSchedule[0],
                                                        EVSE.ChargingStation.HotlinePhoneNumber,
                                                        new ParkingSpotInfo[0],
-                                                       RestrictionTypes.Unknown,
+                                                       RestrictionTypes.EVOnly,
                                                        null,  // Ratings
                                                        null,  // UserInterface language
                                                        null); // Max Reservation Time

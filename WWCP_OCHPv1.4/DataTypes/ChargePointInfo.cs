@@ -40,16 +40,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Data
 
         /// <summary>
-        /// The regular expression for parsing a charge point identification.
+        /// The regular expression for parsing a location identification.
         /// </summary>
-        public static readonly Regex LocationId_RegEx       = new Regex(@"^[A-Z0-9 ]{1,15}$",
-                                                                        RegexOptions.IgnorePatternWhitespace);
+        public static readonly Regex LocationId_RegEx         = new Regex(@"^[A-Z0-9\ ]{1,15}$",
+                                                                          RegexOptions.IgnorePatternWhitespace);
+
+        /// <summary>
+        /// The regular expression for parsing a location identification.
+        /// </summary>
+        public static readonly Regex LocationIdInverse_RegEx  = new Regex(@"[^A-Z0-9\ ]");
 
         /// <summary>
         /// The regular expression for parsing an optional service hotline telephone number.
         /// </summary>
-        public static readonly Regex TelephoneNumber_RegEx  = new Regex(@"^[\+]{0,1}[1-9]{0,1}[0-9 \-]{1,17}$",
-                                                                        RegexOptions.IgnorePatternWhitespace);
+        public static readonly Regex TelephoneNumber_RegEx    = new Regex(@"^[\+]{0,1}[1-9]{0,1}[0-9 \-]{1,17}$",
+                                                                          RegexOptions.IgnorePatternWhitespace);
 
         #endregion
 
@@ -262,12 +267,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (ChargePointAddress == null)
                 throw new ArgumentNullException(nameof(ChargePointAddress),  "The given address must not be null!");
 
-            if (ChargePointLocation == null)
-                throw new ArgumentNullException(nameof(ChargePointLocation), "The given charge point geo coordinate must not be null!");
-
-            if (OpeningTimes == null)
-                throw new ArgumentNullException(nameof(OpeningTimes),        "The given opening times must not be null!");
-
             if (Location == GeneralLocationTypes.Unknown)
                 throw new ArgumentNullException(nameof(Location),            "The given general location type must have at least one item!");
 
@@ -280,6 +279,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (ChargePointType == ChargePointTypes.Unknown)
                 throw new ArgumentNullException(nameof(ChargePointType),     "The given charge point type is invalid!");
 
+            if (OpeningTimes == null)
+                throw new ArgumentNullException(nameof(OpeningTimes),        "The given opening times must not be null!");
 
             if (TelephoneNumber.IsNotNullOrEmpty() && !TelephoneNumber_RegEx.IsMatch(TelephoneNumber))
                 throw new ArgumentException("The given service hotline telephone number is invalid!", nameof(TelephoneNumber));
@@ -301,11 +302,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.Images               = Images               ?? new EVSEImageURL[0];
             this.RelatedResources     = RelatedResources     ?? new RelatedResource[0];
             this.RelatedLocations     = RelatedLocations     ?? new ExtendedGeoCoordinate[0];
-            this.TimeZone             = TimeZone.Trim();
+            this.TimeZone             = TimeZone.       IsNotNullOrEmpty() ? TimeZone.       Trim() : TimeZone;
             this.OpeningTimes         = OpeningTimes         ?? new Hours(ClosedCharging: true);
             this.Status               = Status               ?? new ChargePointStatus?();
             this.ChargePointSchedule  = ChargePointSchedule  ?? new ChargePointSchedule[0];
-            this.TelephoneNumber      = TelephoneNumber.Trim();
+            this.TelephoneNumber      = TelephoneNumber.IsNotNullOrEmpty() ? TelephoneNumber.Trim() : TelephoneNumber;
             this.ParkingSpots         = ParkingSpots         ?? new ParkingSpotInfo[0];
             this.Restrictions         = Restrictions         ?? new RestrictionTypes?();
             this.Ratings              = Ratings;
