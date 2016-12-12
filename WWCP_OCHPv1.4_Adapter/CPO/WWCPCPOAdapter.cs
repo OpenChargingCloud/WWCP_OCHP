@@ -37,74 +37,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
     /// <summary>
-    /// A delegate called whenever new charge point infos will be send upstream.
-    /// </summary>
-    public delegate void OnSetChargePointInfosWWCPRequestDelegate   (DateTime                         LogTimestamp,
-                                                              DateTime                         RequestTimestamp,
-                                                              Object                           Sender,
-                                                              CSORoamingProvider_Id            SenderId,
-                                                              EventTracking_Id                 EventTrackingId,
-                                                              RoamingNetwork_Id                RoamingNetworkId,
-                                                //              ActionTypes                      ServerAction,
-                                                              UInt64                           NumberOfChargePointInfos,
-                                                              IEnumerable<ChargePointInfo>      ChargePointInfos,
-                                                              IEnumerable<String>              Warnings,
-                                                              TimeSpan?                        RequestTimeout);
-
-
-    /// <summary>
-    /// A delegate called whenever new charge point infos had been send upstream.
-    /// </summary>
-    public delegate void OnSetChargePointInfosWWCPResponseDelegate  (DateTime                         LogTimestamp,
-                                                              DateTime                         RequestTimestamp,
-                                                              Object                           Sender,
-                                                              CSORoamingProvider_Id            SenderId,
-                                                              EventTracking_Id                 EventTrackingId,
-                                                              RoamingNetwork_Id                RoamingNetworkId,
-                                                  //            ActionTypes                      ServerAction,
-                                                              UInt64                           NumberOfChargePointInfos,
-                                                              IEnumerable<ChargePointInfo>      ChargePointInfos,
-                                                              IEnumerable<String>              Warnings,
-                                                              TimeSpan?                        RequestTimeout,
-                                                              WWCP.Acknowledgement             Result,
-                                                              TimeSpan                         Runtime);
-
-
-    /// <summary>
-    /// A delegate called whenever new EVSE status will be send upstream.
-    /// </summary>
-    public delegate void OnPushEVSEStatusWWCPRequestDelegate (DateTime                         LogTimestamp,
-                                                              DateTime                         RequestTimestamp,
-                                                              Object                           Sender,
-                                                              CSORoamingProvider_Id            SenderId,
-                                                              EventTracking_Id                 EventTrackingId,
-                                                              RoamingNetwork_Id                RoamingNetworkId,
-                                                  //            ActionTypes                      ServerAction,
-                                                              UInt64                           NumberOfChargePointInfos,
-                                                              IEnumerable<EVSEStatus>    ChargePointInfos,
-                                                              IEnumerable<String>              Warnings,
-                                                              TimeSpan?                        RequestTimeout);
-
-
-    /// <summary>
-    /// A delegate called whenever new EVSE status had been send upstream.
-    /// </summary>
-    public delegate void OnPushEVSEStatusWWCPResponseDelegate(DateTime                         LogTimestamp,
-                                                              DateTime                         RequestTimestamp,
-                                                              Object                           Sender,
-                                                              CSORoamingProvider_Id            SenderId,
-                                                              EventTracking_Id                 EventTrackingId,
-                                                              RoamingNetwork_Id                RoamingNetworkId,
-                                                //              ActionTypes                      ServerAction,
-                                                              UInt64                           NumberOfChargePointInfos,
-                                                              IEnumerable<EVSEStatus>    ChargePointInfos,
-                                                              IEnumerable<String>              Warnings,
-                                                              TimeSpan?                        RequestTimeout,
-                                                              WWCP.Acknowledgement             Result,
-                                                              TimeSpan                         Runtime);
-
-
-    /// <summary>
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
@@ -121,13 +53,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         private        readonly  IRemotePushStatus                             _IRemotePushStatus;
 
-        private        readonly  EVSE2ChargePointInfoDelegate                   _EVSE2ChargePointInfo;
+        private        readonly  CustomEVSEIdMapperDelegate                    _CustomEVSEIdMapper;
 
-        private        readonly  EVSEStatusUpdate2EVSEStatusDelegate     _EVSEStatusUpdate2EVSEStatus;
+        private        readonly  EVSE2ChargePointInfoDelegate                  _EVSE2ChargePointInfo;
 
-        private        readonly  ChargePointInfo2XMLDelegate                    _ChargePointInfo2XML;
+        private        readonly  EVSEStatusUpdate2EVSEStatusDelegate           _EVSEStatusUpdate2EVSEStatus;
 
-        private        readonly  EVSEStatus2XMLDelegate                  _EVSEStatus2XML;
+        private        readonly  ChargePointInfo2XMLDelegate                   _ChargePointInfo2XML;
+
+        private        readonly  EVSEStatus2XMLDelegate                        _EVSEStatus2XML;
 
         private        readonly  ChargingStationOperatorNameSelectorDelegate   _OperatorNameSelector;
 
@@ -295,28 +229,42 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region OnSetChargePointInfosWWCPRequest/-Response
 
         /// <summary>
-        /// An event fired whenever new EVSE data will be send upstream.
+        /// An event fired whenever new charge point infos will be send upstream.
         /// </summary>
-        public event OnSetChargePointInfosWWCPRequestDelegate   OnSetChargePointInfosWWCPRequest;
+        public event OnSetChargePointInfosWWCPRequestDelegate      OnSetChargePointInfosWWCPRequest;
 
         /// <summary>
-        /// An event fired whenever new EVSE data had been sent upstream.
+        /// An event fired whenever new charge point infos had been sent upstream.
         /// </summary>
-        public event OnSetChargePointInfosWWCPResponseDelegate  OnSetChargePointInfosWWCPResponse;
+        public event OnSetChargePointInfosWWCPResponseDelegate     OnSetChargePointInfosWWCPResponse;
 
         #endregion
 
-        #region OnPushEVSEStatusWWCPRequest/-Response
+        #region OnUpdateChargePointInfosWWCPRequest/-Response
 
         /// <summary>
-        /// An event fired whenever new EVSE status will be send upstream.
+        /// An event fired whenever charge point info updates will be send upstream.
         /// </summary>
-        public event OnPushEVSEStatusWWCPRequestDelegate   OnPushEVSEStatusWWCPRequest;
+        public event OnUpdateChargePointInfosWWCPRequestDelegate   OnUpdateChargePointInfosWWCPRequest;
 
         /// <summary>
-        /// An event fired whenever new EVSE status had been sent upstream.
+        /// An event fired whenever charge point info updates had been sent upstream.
         /// </summary>
-        public event OnPushEVSEStatusWWCPResponseDelegate  OnPushEVSEStatusWWCPResponse;
+        public event OnUpdateChargePointInfosWWCPResponseDelegate  OnUpdateChargePointInfosWWCPResponse;
+
+        #endregion
+
+        #region OnUpdateEVSEStatusWWCPRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever EVSE status updates will be send upstream.
+        /// </summary>
+        public event OnUpdateEVSEStatusWWCPRequestDelegate OnUpdateEVSEStatusWWCPRequest;
+
+        /// <summary>
+        /// An event fired whenever EVSE status updates had been sent upstream.
+        /// </summary>
+        public event OnUpdateEVSEStatusWWCPResponseDelegate OnUpdateEVSEStatusWWCPResponse;
 
         #endregion
 
@@ -462,8 +410,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="EVSE2ChargePointInfo">A delegate to process an charge point info, e.g. before pushing it to the roaming provider.</param>
         /// <param name="ChargePointInfo2XML">A delegate to process the XML representation of an charge point info, e.g. before pushing it to the roaming provider.</param>
         /// 
-        /// <param name="DefaultOperator">An optional Charging Station Operator, which will be copied into the main OperatorID-section of the OCHP SOAP request.</param>
-        /// <param name="OperatorNameSelector">An optional delegate to select an Charging Station Operator name, which will be copied into the OperatorName-section of the OCHP SOAP request.</param>
         /// <param name="IncludeEVSEs">Only include the EVSEs matching the given delegate.</param>
         /// <param name="ServiceCheckEvery">The service check intervall.</param>
         /// <param name="StatusCheckEvery">The status check intervall.</param>
@@ -473,6 +419,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               RoamingNetwork                               RoamingNetwork,
 
                               CPORoaming                                   CPORoaming,
+                              CustomEVSEIdMapperDelegate                   CustomEVSEIdMapper            = null,
                               EVSE2ChargePointInfoDelegate                 EVSE2ChargePointInfo          = null,
                               EVSEStatusUpdate2EVSEStatusDelegate          EVSEStatusUpdate2EVSEStatus   = null,
                               ChargePointInfo2XMLDelegate                  ChargePointInfo2XML           = null,
@@ -505,6 +452,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             this._IRemotePushStatus                   = this as IRemotePushStatus;
 
             this.CPORoaming                           = CPORoaming;
+            this._CustomEVSEIdMapper                  = CustomEVSEIdMapper;
             this._EVSE2ChargePointInfo                = EVSE2ChargePointInfo;
             this._EVSEStatusUpdate2EVSEStatus         = EVSEStatusUpdate2EVSEStatus;
             this._ChargePointInfo2XML                 = ChargePointInfo2XML;
@@ -534,7 +482,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
 
             this.EVSEsToAddQueue                      = new HashSet<EVSE>();
-            this.EVSEsToUpdateQueue                 = new HashSet<EVSE>();
+            this.EVSEsToUpdateQueue                   = new HashSet<EVSE>();
             this.EVSEStatusChangesFastQueue           = new List<EVSEStatusUpdate>();
             this.EVSEStatusChangesDelayedQueue        = new List<EVSEStatusUpdate>();
             this.EVSEsToRemoveQueue                   = new HashSet<EVSE>();
@@ -930,6 +878,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               String                                       ServerLoggingContext          = CPOServerLogger.DefaultContext,
                               Func<String, String, String>                 LogFileCreator                = null,
 
+                              CustomEVSEIdMapperDelegate                   CustomEVSEIdMapper            = null,
                               EVSE2ChargePointInfoDelegate                 EVSE2ChargePointInfo          = null,
                               EVSEStatusUpdate2EVSEStatusDelegate          EVSEStatusUpdate2EVSEStatus   = null,
                               ChargePointInfo2XMLDelegate                  ChargePointInfo2XML           = null,
@@ -951,6 +900,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   ServerLoggingContext,
                                   LogFileCreator),
 
+                   CustomEVSEIdMapper,
                    EVSE2ChargePointInfo,
                    EVSEStatusUpdate2EVSEStatus,
                    ChargePointInfo2XML,
@@ -1028,6 +978,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               String                                       ServerLoggingContext                = CPOServerLogger.DefaultContext,
                               Func<String, String, String>                 LogFileCreator                      = null,
 
+                              CustomEVSEIdMapperDelegate                   CustomEVSEIdMapper                  = null,
                               EVSE2ChargePointInfoDelegate                 EVSE2ChargePointInfo                = null,
                               EVSEStatusUpdate2EVSEStatusDelegate          EVSEStatusUpdate2EVSEStatus         = null,
                               ChargePointInfo2XMLDelegate                  ChargePointInfo2XML                 = null,
@@ -1069,6 +1020,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                   DNSClient),
 
+                   CustomEVSEIdMapper,
                    EVSE2ChargePointInfo,
                    EVSEStatusUpdate2EVSEStatus,
                    ChargePointInfo2XML,
@@ -1149,7 +1101,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                               try
                                               {
 
-                                                  return evse.ToOCHP(_EVSE2ChargePointInfo);
+                                                  return evse.ToOCHP(_CustomEVSEIdMapper,
+                                                                     _EVSE2ChargePointInfo);
 
                                               }
                                               catch (Exception e)
@@ -1235,7 +1188,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                   Runtime);
 
 
-            #region Send OnSetChargePointInfosResponse event
+            #region Send OnSetChargePointInfosWWCPResponse event
 
             try
             {
@@ -1319,7 +1272,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                               try
                                               {
 
-                                                  return evse.ToOCHP(_EVSE2ChargePointInfo);
+                                                  return evse.ToOCHP(_CustomEVSEIdMapper,
+                                                                     _EVSE2ChargePointInfo);
 
                                               }
                                               catch (Exception e)
@@ -1345,16 +1299,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                OnSetChargePointInfosWWCPRequest?.Invoke(StartTime,
-                                                          Timestamp.Value,
-                                                          this,
-                                                          Id,
-                                                          EventTrackingId,
-                                                          RoamingNetwork.Id,
-                                                          _ChargePointInfos.ULongCount(),
-                                                          _ChargePointInfos,
-                                                          Warnings.Where(warning => warning.IsNotNullOrEmpty()),
-                                                          RequestTimeout);
+                OnUpdateChargePointInfosWWCPRequest?.Invoke(StartTime,
+                                                            Timestamp.Value,
+                                                            this,
+                                                            Id,
+                                                            EventTrackingId,
+                                                            RoamingNetwork.Id,
+                                                            _ChargePointInfos.ULongCount(),
+                                                            _ChargePointInfos,
+                                                            Warnings.Where(warning => warning.IsNotNullOrEmpty()),
+                                                            RequestTimeout);
 
             }
             catch (Exception e)
@@ -1405,28 +1359,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                   Runtime);
 
 
-            #region Send OnSetChargePointInfosResponse event
+            #region Send OnUpdateChargePointInfosWWCPResponse event
 
             try
             {
 
-                OnSetChargePointInfosWWCPResponse?.Invoke(Endtime,
-                                                           Timestamp.Value,
-                                                           this,
-                                                           Id,
-                                                           EventTrackingId,
-                                                           RoamingNetwork.Id,
-                                                           _ChargePointInfos.ULongCount(),
-                                                           _ChargePointInfos,
-                                                           Warnings.Where(warning => warning.IsNotNullOrEmpty()),
-                                                           RequestTimeout,
-                                                           result,
-                                                           Runtime);
+                OnUpdateChargePointInfosWWCPResponse?.Invoke(Endtime,
+                                                             Timestamp.Value,
+                                                             this,
+                                                             Id,
+                                                             EventTrackingId,
+                                                             RoamingNetwork.Id,
+                                                             _ChargePointInfos.ULongCount(),
+                                                             _ChargePointInfos,
+                                                             Warnings.Where(warning => warning.IsNotNullOrEmpty()),
+                                                             RequestTimeout,
+                                                             result,
+                                                             Runtime);
 
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSetChargePointInfosWWCPResponse));
+                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnUpdateChargePointInfosWWCPResponse));
             }
 
             #endregion
@@ -1495,10 +1449,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                       {
 
                                           // Only push the current major/minor status of the latest status update!
-                                          return new EVSEStatus(
-                                                     evsestatusupdate.Key.ToOCHP(),
-                                                     evsestatusupdate.Value.First().NewStatus.Value.AsEVSEMajorStatus(),
-                                                     evsestatusupdate.Value.First().NewStatus.Value.AsEVSEMinorStatus()
+                                          return new EVSEStatus?(
+                                                     new EVSEStatus(
+                                                         _CustomEVSEIdMapper != null
+                                                             ? _CustomEVSEIdMapper(evsestatusupdate.Key)
+                                                             : evsestatusupdate.Key.ToOCHP(),
+                                                         evsestatusupdate.Value.First().NewStatus.Value.AsEVSEMajorStatus(),
+                                                         evsestatusupdate.Value.First().NewStatus.Value.AsEVSEMinorStatus()
+                                                     )
                                                  );
 
                                       }
@@ -1508,38 +1466,39 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                           Warnings.Add(e.Message);
                                       }
 
-                                      return default(EVSEStatus);
+                                      return null;
 
                                   }).
-                                  Where(evsestatus => evsestatus != default(EVSEStatus)).
+                                  Where (evsestatus => evsestatus != null).
+                                  Select(evsestatus => evsestatus.Value).
                                   ToArray();
 
             WWCP.Acknowledgement result = null;
 
             #endregion
 
-            #region Send OnEVSEStatusPush event
+            #region Send OnUpdateEVSEStatusWWCPRequest event
 
             var StartTime = DateTime.Now;
 
             try
             {
 
-                OnPushEVSEStatusWWCPRequest?.Invoke(StartTime,
-                                                    Timestamp.Value,
-                                                    this,
-                                                    Id,
-                                                    EventTrackingId,
-                                                    RoamingNetwork.Id,
-                                                    _EVSEStatus.ULongCount(),
-                                                    _EVSEStatus,
-                                                    Warnings.Where(warning => warning.IsNotNullOrEmpty()),
-                                                    RequestTimeout);
+                OnUpdateEVSEStatusWWCPRequest?.Invoke(StartTime,
+                                                      Timestamp.Value,
+                                                      this,
+                                                      Id,
+                                                      EventTrackingId,
+                                                      RoamingNetwork.Id,
+                                                      _EVSEStatus.ULongCount(),
+                                                      _EVSEStatus,
+                                                      Warnings.Where(warning => warning.IsNotNullOrEmpty()),
+                                                      RequestTimeout);
 
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnPushEVSEStatusWWCPRequest));
+                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPRequest));
             }
 
             #endregion
@@ -1586,28 +1545,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                   Runtime);
 
 
-            #region Send OnPushEVSEStatusResponse event
+            #region Send OnUpdateEVSEStatusWWCPResponse event
 
             try
             {
 
-                OnPushEVSEStatusWWCPResponse?.Invoke(Endtime,
-                                                     Timestamp.Value,
-                                                     this,
-                                                     Id,
-                                                     EventTrackingId,
-                                                     RoamingNetwork.Id,
-                                                     _EVSEStatus.ULongCount(),
-                                                     _EVSEStatus,
-                                                     Warnings.Where(warning => warning.IsNotNullOrEmpty()),
-                                                     RequestTimeout,
-                                                     result,
-                                                     Runtime);
+                OnUpdateEVSEStatusWWCPResponse?.Invoke(Endtime,
+                                                       Timestamp.Value,
+                                                       this,
+                                                       Id,
+                                                       EventTrackingId,
+                                                       RoamingNetwork.Id,
+                                                       _EVSEStatus.ULongCount(),
+                                                       _EVSEStatus,
+                                                       Warnings.Where(warning => warning.IsNotNullOrEmpty()),
+                                                       RequestTimeout,
+                                                       result,
+                                                       Runtime);
 
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnPushEVSEStatusWWCPResponse));
+                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPResponse));
             }
 
             #endregion

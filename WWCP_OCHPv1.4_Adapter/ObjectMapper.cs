@@ -229,7 +229,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => WWCP.EVSE_Id.Parse(EVSEId.ToString());
 
 
-        public static Provider_Id ToOICP(this WWCP.eMobilityProvider_Id ProviderId)
+        public static Provider_Id ToOCHP(this WWCP.eMobilityProvider_Id ProviderId)
             => Provider_Id.Parse(ProviderId.ToString());
 
         public static WWCP.eMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)
@@ -241,7 +241,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region ToOCHP(AuthenticationModes)
 
         /// <summary>
-        /// Maps a WWCP authentication mode to an OICP authentication mode.
+        /// Maps a WWCP authentication mode to an OCHP authentication mode.
         /// </summary>
         /// <param name="WWCPAuthMode">A WWCP-representation of an authentication mode.</param>
         public static AuthMethodTypes ToOCHP(this WWCP.AuthenticationModes AuthenticationModes)
@@ -313,7 +313,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        public static AuthMethodTypes AsOICPAuthenticationModes(this IEnumerable<WWCP.AuthenticationModes> WWCPAuthenticationModes)
+        public static AuthMethodTypes AsOCHPAuthenticationModes(this IEnumerable<WWCP.AuthenticationModes> WWCPAuthenticationModes)
         {
 
             var _AuthMethodTypes = AuthMethodTypes.Unknown;
@@ -384,19 +384,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                  WWCPSocketOutlet.Plug.ToOCHPConnectorFormat());
 
 
-        #region ToOICP(this EVSE, EVSE2ChargePointInfo = null)
+        #region ToOCHP(this EVSE, CustomEVSEIdMapper = null, EVSE2ChargePointInfo = null)
 
         /// <summary>
-        /// Convert a WWCP into a corresponding OICP EVSE data record.
+        /// Convert a WWCP EVSE into a corresponding OCHP charge point info.
         /// </summary>
         /// <param name="EVSE">A WWCP EVSE.</param>
-        /// <param name="EVSE2ChargePointInfo">A delegate to process an EVSE data record, e.g. before pushing it to a roaming provider.</param>
-        /// <returns>The corresponding OICP EVSE data record.</returns>
-        public static ChargePointInfo ToOCHP(this EVSE EVSE,
-                                             CPO.EVSE2ChargePointInfoDelegate EVSE2ChargePointInfo = null)
+        /// <param name="CustomEVSEIdMapper">A custom WWCP EVSE Id to OCHP EVSE Id mapper.</param>
+        /// <param name="EVSE2ChargePointInfo">A delegate to process an OCHP charge point info, e.g. before pushing it to a roaming provider.</param>
+        public static ChargePointInfo ToOCHP(this EVSE                         EVSE,
+                                             CPO.CustomEVSEIdMapperDelegate    CustomEVSEIdMapper    = null,
+                                             CPO.EVSE2ChargePointInfoDelegate  EVSE2ChargePointInfo  = null)
         {
 
-            var _ChargePointInfo = new ChargePointInfo(EVSE.Id.ToOCHP(),
+            var _ChargePointInfo = new ChargePointInfo(CustomEVSEIdMapper != null ? CustomEVSEIdMapper(EVSE.Id) : EVSE.Id.ToOCHP(),
                                                        ChargePointInfo.LocationIdInverse_RegEx.Replace(EVSE.ChargingStation.ChargingPool.Id.ToString(), "").SubstringMax(15),
                                                        EVSE.ChargingStation.ChargingPool.Name.FirstText.ToUpper(),
                                                        EVSE.ChargingStation.ChargingPool.Name.First().Language.ToString(),
@@ -413,16 +414,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                        new EVSEImageURL[0],
                                                        new RelatedResource[0],
                                                        new ExtendedGeoCoordinate[0],
-                                                       null,  // Timezone
+                                                       null,                                // Timezone
                                                        Hours.Open24_7,
                                                        ChargePointStatus.Operative,
                                                        new ChargePointSchedule[0],
                                                        EVSE.ChargingStation.HotlinePhoneNumber,
                                                        new ParkingSpotInfo[0],
                                                        RestrictionTypes.EVOnly,
-                                                       null,  // Ratings
-                                                       null,  // UserInterface language
-                                                       null); // Max Reservation Time
+                                                       null,                                // Ratings
+                                                       null,                                // UserInterface language
+                                                       null);                               // Max Reservation Time
 
             return EVSE2ChargePointInfo != null
                        ? EVSE2ChargePointInfo(EVSE, _ChargePointInfo)

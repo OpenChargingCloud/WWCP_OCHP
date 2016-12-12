@@ -15,8 +15,25 @@
  * limitations under the License.
  */
 
+#region Usings
+
+using System;
+using System.Collections.Generic;
+
+using org.GraphDefined.Vanaheimr.Illias;
+
+#endregion
+
 namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
+
+    /// <summary>
+    /// A delegate which allows you to customize the mapping between WWCP EVSE identifications
+    /// and OCHP EVSE identifications.
+    /// </summary>
+    /// <param name="EVSEId">A WWCP EVSE identification.</param>
+    public delegate EVSE_Id          CustomEVSEIdMapperDelegate         (WWCP.EVSE_Id      EVSEId);
+
 
     /// <summary>
     /// A delegate which allows you to modify OCHP charge point infos before sending them upstream.
@@ -34,5 +51,102 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <param name="EVSEStatus">An OCHP EVSE status.</param>
     public delegate EVSEStatus       EVSEStatusUpdate2EVSEStatusDelegate(EVSEStatusUpdate  EVSEStatusUpdate,
                                                                          EVSEStatus        EVSEStatus);
+
+
+
+    /// <summary>
+    /// A delegate called whenever new charge point infos will be send upstream.
+    /// </summary>
+    public delegate void OnSetChargePointInfosWWCPRequestDelegate (DateTime                         LogTimestamp,
+                                                                   DateTime                         RequestTimestamp,
+                                                                   Object                           Sender,
+                                                                   CSORoamingProvider_Id            SenderId,
+                                                                   EventTracking_Id                 EventTrackingId,
+                                                                   RoamingNetwork_Id                RoamingNetworkId,
+                                                                   UInt64                           NumberOfChargePointInfos,
+                                                                   IEnumerable<ChargePointInfo>     ChargePointInfos,
+                                                                   IEnumerable<String>              Warnings,
+                                                                   TimeSpan?                        RequestTimeout);
+
+
+    /// <summary>
+    /// A delegate called whenever new charge point infos had been send upstream.
+    /// </summary>
+    public delegate void OnSetChargePointInfosWWCPResponseDelegate(DateTime                         LogTimestamp,
+                                                                   DateTime                         RequestTimestamp,
+                                                                   Object                           Sender,
+                                                                   CSORoamingProvider_Id            SenderId,
+                                                                   EventTracking_Id                 EventTrackingId,
+                                                                   RoamingNetwork_Id                RoamingNetworkId,
+                                                                   UInt64                           NumberOfChargePointInfos,
+                                                                   IEnumerable<ChargePointInfo>     ChargePointInfos,
+                                                                   IEnumerable<String>              Warnings,
+                                                                   TimeSpan?                        RequestTimeout,
+                                                                   WWCP.Acknowledgement             Result,
+                                                                   TimeSpan                         Runtime);
+
+
+    /// <summary>
+    /// A delegate called whenever charge point info updates will be send upstream.
+    /// </summary>
+    public delegate void OnUpdateChargePointInfosWWCPRequestDelegate (DateTime                         LogTimestamp,
+                                                                      DateTime                         RequestTimestamp,
+                                                                      Object                           Sender,
+                                                                      CSORoamingProvider_Id            SenderId,
+                                                                      EventTracking_Id                 EventTrackingId,
+                                                                      RoamingNetwork_Id                RoamingNetworkId,
+                                                                      UInt64                           NumberOfChargePointInfos,
+                                                                      IEnumerable<ChargePointInfo>     ChargePointInfos,
+                                                                      IEnumerable<String>              Warnings,
+                                                                      TimeSpan?                        RequestTimeout);
+
+
+    /// <summary>
+    /// A delegate called whenever charge point info updates had been send upstream.
+    /// </summary>
+    public delegate void OnUpdateChargePointInfosWWCPResponseDelegate(DateTime                         LogTimestamp,
+                                                                      DateTime                         RequestTimestamp,
+                                                                      Object                           Sender,
+                                                                      CSORoamingProvider_Id            SenderId,
+                                                                      EventTracking_Id                 EventTrackingId,
+                                                                      RoamingNetwork_Id                RoamingNetworkId,
+                                                                      UInt64                           NumberOfChargePointInfos,
+                                                                      IEnumerable<ChargePointInfo>     ChargePointInfos,
+                                                                      IEnumerable<String>              Warnings,
+                                                                      TimeSpan?                        RequestTimeout,
+                                                                      WWCP.Acknowledgement             Result,
+                                                                      TimeSpan                         Runtime);
+
+
+    /// <summary>
+    /// A delegate called whenever EVSE status updates will be send upstream.
+    /// </summary>
+    public delegate void OnUpdateEVSEStatusWWCPRequestDelegate (DateTime                         LogTimestamp,
+                                                                DateTime                         RequestTimestamp,
+                                                                Object                           Sender,
+                                                                CSORoamingProvider_Id            SenderId,
+                                                                EventTracking_Id                 EventTrackingId,
+                                                                RoamingNetwork_Id                RoamingNetworkId,
+                                                                UInt64                           NumberOfChargePointInfos,
+                                                                IEnumerable<EVSEStatus>          ChargePointInfos,
+                                                                IEnumerable<String>              Warnings,
+                                                                TimeSpan?                        RequestTimeout);
+
+
+    /// <summary>
+    /// A delegate called whenever EVSE status updates had been send upstream.
+    /// </summary>
+    public delegate void OnUpdateEVSEStatusWWCPResponseDelegate(DateTime                         LogTimestamp,
+                                                                DateTime                         RequestTimestamp,
+                                                                Object                           Sender,
+                                                                CSORoamingProvider_Id            SenderId,
+                                                                EventTracking_Id                 EventTrackingId,
+                                                                RoamingNetwork_Id                RoamingNetworkId,
+                                                                UInt64                           NumberOfChargePointInfos,
+                                                                IEnumerable<EVSEStatus>          ChargePointInfos,
+                                                                IEnumerable<String>              Warnings,
+                                                                TimeSpan?                        RequestTimeout,
+                                                                WWCP.Acknowledgement             Result,
+                                                                TimeSpan                         Runtime);
 
 }

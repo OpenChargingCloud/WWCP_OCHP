@@ -106,6 +106,7 @@ namespace org.GraphDefined.WWCP
                                               String                                                  ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
                                               Func<String, String, String>                            LogFileCreator                      = null,
 
+                                              OCHPv1_4.CPO.CustomEVSEIdMapperDelegate                 CustomEVSEIdMapper                  = null,
                                               OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate               EVSE2ChargePointInfo                = null,
                                               OCHPv1_4.CPO.EVSEStatusUpdate2EVSEStatusDelegate        EVSEStatusUpdate2EVSEStatus         = null,
                                               OCHPv1_4.CPO.ChargePointInfo2XMLDelegate                ChargePointInfo2XML                 = null,
@@ -162,6 +163,7 @@ namespace org.GraphDefined.WWCP
                                                                      ServerLoggingContext,
                                                                      LogFileCreator,
 
+                                                                     CustomEVSEIdMapper,
                                                                      EVSE2ChargePointInfo,
                                                                      EVSEStatusUpdate2EVSEStatus,
                                                                      ChargePointInfo2XML,
@@ -244,6 +246,7 @@ namespace org.GraphDefined.WWCP
                                               String                                                  ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
                                               Func<String, String, String>                            LogFileCreator                      = null,
 
+                                              OCHPv1_4.CPO.CustomEVSEIdMapperDelegate                 CustomEVSEIdMapper                  = null,
                                               OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate               EVSE2ChargePointInfo                = null,
                                               OCHPv1_4.CPO.EVSEStatusUpdate2EVSEStatusDelegate        EVSEStatusUpdate2EVSEStatus         = null,
                                               OCHPv1_4.CPO.ChargePointInfo2XMLDelegate                ChargePointInfo2XML                 = null,
@@ -303,6 +306,7 @@ namespace org.GraphDefined.WWCP
                                                                      ServerLoggingContext,
                                                                      LogFileCreator,
 
+                                                                     CustomEVSEIdMapper,
                                                                      EVSE2ChargePointInfo,
                                                                      EVSEStatusUpdate2EVSEStatus,
                                                                      ChargePointInfo2XML,
