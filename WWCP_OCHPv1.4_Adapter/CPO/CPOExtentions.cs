@@ -75,7 +75,11 @@ namespace org.GraphDefined.WWCP
         /// <param name="IncludeEVSEs">Only include the EVSEs matching the given delegate.</param>
         /// <param name="ServiceCheckEvery">The service check intervall.</param>
         /// <param name="StatusCheckEvery">The status check intervall.</param>
-        /// <param name="DisableAutoUploads">This service can be disabled, e.g. for debugging reasons.</param>
+        /// 
+        /// <param name="DisablePushData">This service can be disabled, e.g. for debugging reasons.</param>
+        /// <param name="DisablePushStatus">This service can be disabled, e.g. for debugging reasons.</param>
+        /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
+        /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
         /// 
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
@@ -115,7 +119,11 @@ namespace org.GraphDefined.WWCP
                                               IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,
-                                              Boolean                                                 DisableAutoUploads                  = false,
+
+                                              Boolean                                                 DisablePushData                     = false,
+                                              Boolean                                                 DisablePushStatus                   = false,
+                                              Boolean                                                 DisableAuthentication               = false,
+                                              Boolean                                                 DisableSendChargeDetailRecords      = false,
 
                                               Action<OCHPv1_4.CPO.WWCPCPOAdapter>                     OCHPConfigurator                    = null,
                                               Action<ICSORoamingProvider>                             Configurator                        = null,
@@ -172,7 +180,11 @@ namespace org.GraphDefined.WWCP
                                                                      IncludeEVSEs,
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
-                                                                     DisableAutoUploads,
+
+                                                                     DisablePushData,
+                                                                     DisablePushStatus,
+                                                                     DisableAuthentication,
+                                                                     DisableSendChargeDetailRecords,
 
                                                                      DNSClient);
 
@@ -219,7 +231,11 @@ namespace org.GraphDefined.WWCP
         /// <param name="IncludeEVSEs">Only include the EVSEs matching the given delegate.</param>
         /// <param name="ServiceCheckEvery">The service check intervall.</param>
         /// <param name="StatusCheckEvery">The status check intervall.</param>
-        /// <param name="DisableAutoUploads">This service can be disabled, e.g. for debugging reasons.</param>
+        /// 
+        /// <param name="DisablePushData">This service can be disabled, e.g. for debugging reasons.</param>
+        /// <param name="DisablePushStatus">This service can be disabled, e.g. for debugging reasons.</param>
+        /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
+        /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
         /// 
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
@@ -255,7 +271,11 @@ namespace org.GraphDefined.WWCP
                                               IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,
-                                              Boolean                                                 DisableAutoUploads                  = false,
+
+                                              Boolean                                                 DisablePushData                     = false,
+                                              Boolean                                                 DisablePushStatus                   = false,
+                                              Boolean                                                 DisableAuthentication               = false,
+                                              Boolean                                                 DisableSendChargeDetailRecords      = false,
 
                                               Action<OCHPv1_4.CPO.WWCPCPOAdapter>                     OCHPConfigurator                    = null,
                                               Action<ICSORoamingProvider>                             Configurator                        = null,
@@ -315,7 +335,11 @@ namespace org.GraphDefined.WWCP
                                                                      IncludeEVSEs,
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
-                                                                     DisableAutoUploads);
+
+                                                                     DisablePushData,
+                                                                     DisablePushStatus,
+                                                                     DisableAuthentication,
+                                                                     DisableSendChargeDetailRecords);
 
             OCHPConfigurator?.Invoke(NewRoamingProvider);
 

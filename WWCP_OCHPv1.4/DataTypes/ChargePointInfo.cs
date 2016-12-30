@@ -757,17 +757,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "chargePointInfoArray",
 
-                   new XElement(OCHPNS.Default + "evseId", EVSEId.ToString()),
-                   new XElement(OCHPNS.Default + "locationId", LocationId),
+                   new XElement(OCHPNS.Default + "evseId",      EVSEId.ToString()),
+                   new XElement(OCHPNS.Default + "locationId",  LocationId),
 
                    Timestamp.HasValue
                        ? new XElement(OCHPNS.Default + "timestamp",
-                             new XElement(OCHPNS.Default + "DateTime", Timestamp.Value)
+                             new XElement(OCHPNS.Default + "DateTime",  Timestamp.Value.ToIso8601(false))
                          )
                        : null,
 
-                   new XElement(OCHPNS.Default + "locationName", LocationName),
-                   new XElement(OCHPNS.Default + "locationNameLang", LocationNameLang),
+                   new XElement(OCHPNS.Default + "locationName",      LocationName),
+                   new XElement(OCHPNS.Default + "locationNameLang",  LocationNameLang.ToUpper()),
 
                    Images != null
                        ? Images.SafeSelect(image => image.ToXML())
@@ -780,8 +780,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ChargePointAddress.ToXML(),
 
                    new XElement(OCHPNS.Default + "chargePointLocation",
-                       new XAttribute(OCHPNS.Default + "lat", ChargePointLocation.Latitude. Value),
-                       new XAttribute(OCHPNS.Default + "lon", ChargePointLocation.Longitude.Value)
+                       new XAttribute("lat",  String.Format("{0:0.000000}", ChargePointLocation.Latitude. Value)),
+                       new XAttribute("lon",  String.Format("{0:0.000000}", ChargePointLocation.Longitude.Value))
                    ),
 
                    RelatedLocations != null
@@ -789,14 +789,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        : null,
 
                    TimeZone.IsNotNullOrEmpty()
-                       ? new XElement(OCHPNS.Default + "timeZone", TimeZone)
+                       ? new XElement(OCHPNS.Default + "timeZone",  TimeZone)
                        : null,
 
                    OpeningTimes.ToXML(),
 
                    Status.HasValue
                        ? new XElement(OCHPNS.Default + "status",
-                             new XElement(OCHPNS.Default + "status", TimeZone)
+                             new XElement(OCHPNS.Default + "ChargePointStatusType", Status.Value.ToString())
                          )
                        : null,
 
