@@ -289,14 +289,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "evse",
 
-                   new XAttribute(OCHPNS.Default + "major",         XML_IO.AsText(MajorStatus)),
+                   new XAttribute("major",         XML_IO.AsText(MajorStatus)),
 
                    MinorStatus.HasValue
-                       ? new XAttribute(OCHPNS.Default + "minor",   XML_IO.AsText(MinorStatus.Value))
+                       ? new XAttribute("minor",   XML_IO.AsText(MinorStatus.Value))
                        : null,
 
                    TTL.HasValue
-                       ? new XAttribute(OCHPNS.Default + "ttl",     TTL.Value.ToIso8601())
+                       ? new XAttribute("ttl",     TTL.Value.ToIso8601())
                        : null,
 
                    new XElement  (OCHPNS.Default + "evseId",        EVSEId.ToString())

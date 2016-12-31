@@ -200,6 +200,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
+        public IncludeChargePointsDelegate IncludeChargePoints { get; set; }
+
+
         #region DisablePushData
 
         /// <summary>
@@ -1200,7 +1203,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             var response = await CPORoaming.
                                      SetChargePointList(_ChargePointInfos,
-                                                        null,
+                                                        IncludeChargePoints,
 
                                                         Timestamp,
                                                         CancellationToken,
@@ -1371,12 +1374,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             var response = await CPORoaming.
                                      UpdateChargePointList(_ChargePointInfos,
-                                                        null,
+                                                           IncludeChargePoints,
 
-                                                        Timestamp,
-                                                        CancellationToken,
-                                                        EventTrackingId,
-                                                        RequestTimeout).
+                                                           Timestamp,
+                                                           CancellationToken,
+                                                           EventTrackingId,
+                                                           RequestTimeout).
                                      ConfigureAwait(false);
 
 
@@ -3498,13 +3501,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region AuthorizeStart/-Stop  directly...
 
-        #region AuthorizeStart(AuthToken,                    ChargingProductId = null, SessionId = null, OperatorId = null, ...)
+        #region AuthorizeStart(AuthToken,                    ChargingProduct = null, SessionId = null, OperatorId = null, ...)
 
         /// <summary>
         /// Create an authorize start request.
         /// </summary>
         /// <param name="AuthToken">A (RFID) user identification.</param>
-        /// <param name="ChargingProductId">An optional charging product identification.</param>
+        /// <param name="ChargingProduct">An optional charging product.</param>
         /// <param name="SessionId">An optional session identification.</param>
         /// <param name="OperatorId">An optional charging station operator identification.</param>
         /// 
@@ -3515,7 +3518,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public async Task<AuthStartResult>
 
             AuthorizeStart(Auth_Token                   AuthToken,
-                           ChargingProduct_Id?          ChargingProductId   = null,
+                           ChargingProduct              ChargingProduct     = null,
                            ChargingSession_Id?          SessionId           = null,
                            ChargingStationOperator_Id?  OperatorId          = null,
 
@@ -3559,7 +3562,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                 RoamingNetwork.Id,
                                                 OperatorId,
                                                 AuthToken,
-                                                ChargingProductId,
+                                                ChargingProduct,
                                                 SessionId,
                                                 RequestTimeout);
 
@@ -3633,7 +3636,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                  RoamingNetwork.Id,
                                                  OperatorId,
                                                  AuthToken,
-                                                 ChargingProductId,
+                                                 ChargingProduct,
                                                  SessionId,
                                                  RequestTimeout,
                                                  result,
@@ -3653,14 +3656,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region AuthorizeStart(AuthToken, EVSEId,            ChargingProductId = null, SessionId = null, OperatorId = null, ...)
+        #region AuthorizeStart(AuthToken, EVSEId,            ChargingProduct = null, SessionId = null, OperatorId = null, ...)
 
         /// <summary>
         /// Create an authorize start request at the given EVSE.
         /// </summary>
         /// <param name="AuthToken">A (RFID) user identification.</param>
         /// <param name="EVSEId">The unique identification of an EVSE.</param>
-        /// <param name="ChargingProductId">An optional charging product identification.</param>
+        /// <param name="ChargingProduct">An optional charging product.</param>
         /// <param name="SessionId">An optional session identification.</param>
         /// <param name="OperatorId">An optional charging station operator identification.</param>
         /// 
@@ -3672,7 +3675,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             AuthorizeStart(Auth_Token                   AuthToken,
                            WWCP.EVSE_Id                 EVSEId,
-                           ChargingProduct_Id?          ChargingProductId   = null,   // [maxlength: 100]
+                           ChargingProduct              ChargingProduct     = null,   // [maxlength: 100]
                            ChargingSession_Id?          SessionId           = null,
                            ChargingStationOperator_Id?  OperatorId          = null,
 
@@ -3718,7 +3721,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     OperatorId,
                                                     AuthToken,
                                                     EVSEId,
-                                                    ChargingProductId,
+                                                    ChargingProduct,
                                                     SessionId,
                                                     RequestTimeout);
 
@@ -3793,7 +3796,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      OperatorId,
                                                      AuthToken,
                                                      EVSEId,
-                                                     ChargingProductId,
+                                                     ChargingProduct,
                                                      SessionId,
                                                      RequestTimeout,
                                                      result,
@@ -3813,14 +3816,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region AuthorizeStart(AuthToken, ChargingStationId, ChargingProductId = null, SessionId = null, OperatorId = null, ...)
+        #region AuthorizeStart(AuthToken, ChargingStationId, ChargingProduct = null, SessionId = null, OperatorId = null, ...)
 
         /// <summary>
         /// Create an authorize start request at the given charging station.
         /// </summary>
         /// <param name="AuthToken">A (RFID) user identification.</param>
         /// <param name="ChargingStationId">The unique identification charging station.</param>
-        /// <param name="ChargingProductId">An optional charging product identification.</param>
+        /// <param name="ChargingProduct">An optional charging product.</param>
         /// <param name="SessionId">An optional session identification.</param>
         /// <param name="OperatorId">An optional charging station operator identification.</param>
         /// 
@@ -3832,7 +3835,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             AuthorizeStart(Auth_Token                   AuthToken,
                            ChargingStation_Id           ChargingStationId,
-                           ChargingProduct_Id?          ChargingProductId   = null,   // [maxlength: 100]
+                           ChargingProduct              ChargingProduct     = null,   // [maxlength: 100]
                            ChargingSession_Id?          SessionId           = null,
                            ChargingStationOperator_Id?  OperatorId          = null,
 
@@ -3878,7 +3881,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                OperatorId,
                                                                AuthToken,
                                                                ChargingStationId,
-                                                               ChargingProductId,
+                                                               ChargingProduct,
                                                                SessionId,
                                                                RequestTimeout);
 
@@ -3941,7 +3944,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                 OperatorId,
                                                                 AuthToken,
                                                                 ChargingStationId,
-                                                                ChargingProductId,
+                                                                ChargingProduct,
                                                                 SessionId,
                                                                 RequestTimeout,
                                                                 result,
@@ -3961,14 +3964,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region AuthorizeStart(AuthToken, ChargingPoolId,    ChargingProductId = null, SessionId = null, OperatorId = null, ...)
+        #region AuthorizeStart(AuthToken, ChargingPoolId,    ChargingProduct = null, SessionId = null, OperatorId = null, ...)
 
         /// <summary>
         /// Create an authorize start request at the given charging pool.
         /// </summary>
         /// <param name="AuthToken">A (RFID) user identification.</param>
         /// <param name="ChargingPoolId">The unique identification charging pool.</param>
-        /// <param name="ChargingProductId">An optional charging product identification.</param>
+        /// <param name="ChargingProduct">An optional charging product.</param>
         /// <param name="SessionId">An optional session identification.</param>
         /// <param name="OperatorId">An optional charging station operator identification.</param>
         /// 
@@ -3980,7 +3983,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             AuthorizeStart(Auth_Token                   AuthToken,
                            ChargingPool_Id              ChargingPoolId,
-                           ChargingProduct_Id?          ChargingProductId   = null,   // [maxlength: 100]
+                           ChargingProduct              ChargingProduct     = null,   // [maxlength: 100]
                            ChargingSession_Id?          SessionId           = null,
                            ChargingStationOperator_Id?  OperatorId          = null,
 
@@ -4026,7 +4029,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                             OperatorId,
                                                             AuthToken,
                                                             ChargingPoolId,
-                                                            ChargingProductId,
+                                                            ChargingProduct,
                                                             SessionId,
                                                             RequestTimeout);
 
@@ -4089,7 +4092,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                              OperatorId,
                                                              AuthToken,
                                                              ChargingPoolId,
-                                                             ChargingProductId,
+                                                             ChargingProduct,
                                                              SessionId,
                                                              RequestTimeout,
                                                              result,

@@ -57,7 +57,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default URI prefix.
         /// </summary>
-        public const               String  DefaultURIPrefix      = "";
+        public const               String  DefaultURIPrefix      = "/service/ochp/v1.4/";
 
         #endregion
 
@@ -584,8 +584,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
-                                                 "SetChargePointListRequest",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(LoginPassword.Item1, LoginPassword.Item2, Request.ToXML()),
+                                                 "http://ochp.eu/1.4/SetChargepointList",
                                                  RequestLogDelegate:   OnSetChargePointListSOAPRequest,
                                                  ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -789,8 +789,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
-                                                     "UpdateChargePointListRequest",
+                    result = await _OCHPClient.Query(SOAP.Encapsulation(LoginPassword.Item1, LoginPassword.Item2, Request.ToXML()),
+                                                     "http://ochp.eu/1.4/UpdateChargePointList",
                                                      RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
                                                      CancellationToken:    CancellationToken,
@@ -980,15 +980,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             using (var _OCHPClient = new SOAPClient(Hostname,
                                                     RemotePort,
                                                     HTTPVirtualHost,
-                                                    DefaultURIPrefix,
+                                                    "/live/ochp/v1.4",
                                                     RemoteCertificateValidator,
                                                     ClientCert,
                                                     UserAgent,
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
-                                                 "UpdateStatusRequest",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(LoginPassword.Item1, LoginPassword.Item2, Request.ToXML()),
+                                                 "http://ochp.e-clearing.net/service/UpdateStatus",
                                                  RequestLogDelegate:   OnUpdateStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
                                                  CancellationToken:    CancellationToken,
@@ -1176,8 +1176,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
-                                                 "GetSingleRoamingAuthorisationRequest",
+                result = await _OCHPClient.Query(SOAP.Encapsulation(LoginPassword.Item1, LoginPassword.Item2, Request.ToXML()),
+                                                 "http://ochp.eu/1.4/GetSingleRoamingAuthorisation",
                                                  RequestLogDelegate:   OnGetSingleRoamingAuthorisationSOAPRequest,
                                                  ResponseLogDelegate:  OnGetSingleRoamingAuthorisationSOAPResponse,
                                                  CancellationToken:    CancellationToken,
