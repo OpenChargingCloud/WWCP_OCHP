@@ -18,11 +18,13 @@
 #region Usings
 
 using System;
-using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
+using System.Security.Cryptography;
 
 using SOAPNS = org.GraphDefined.Vanaheimr.Hermod.SOAP;
+
+using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
@@ -66,65 +68,83 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         }
 
+        #region Encapsulation(WSSUsername, WSSPassword, SOAPBody, XMLNamespaces = null)
+
         /// <summary>
         /// Encapsulate the given XML within a XML SOAP frame.
         /// </summary>
+        /// <param name="WSSUsername">The webservice-security username.</param>
+        /// <param name="WSSPassword">The webservice-security password.</param>
         /// <param name="SOAPBody">The internal XML for the SOAP body.</param>
         /// <param name="XMLNamespaces">An optional delegate to process the XML namespaces.</param>
-        public static XElement Encapsulation(String                        Username,
-                                             String                        Password,
+        public static XElement Encapsulation(String                        WSSUsername,
+                                             String                        WSSPassword,
                                              XElement                      SOAPBody,
                                              SOAPNS.XMLNamespacesDelegate  XMLNamespaces = null)
         {
 
             #region Initial checks
 
-            if (Username == null)
-                throw new ArgumentNullException(nameof(Username),  "The given XML must not be null!");
+            if (WSSUsername == null)
+                throw new ArgumentNullException(nameof(WSSUsername),  "The given XML must not be null!");
 
-            if (Password == null)
-                throw new ArgumentNullException(nameof(Password),  "The given XML must not be null!");
+            if (WSSPassword == null)
+                throw new ArgumentNullException(nameof(WSSPassword),  "The given XML must not be null!");
 
             if (SOAPBody == null)
-                throw new ArgumentNullException(nameof(SOAPBody),  "The given XML must not be null!");
+                throw new ArgumentNullException(nameof(SOAPBody),     "The given XML must not be null!");
 
             if (XMLNamespaces == null)
                 XMLNamespaces = xml => xml;
 
             #endregion
 
+            #region Namespaces and data
 
-            var WSSE = XNamespace.Get("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
-            var WSU  = XNamespace.Get("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
+            XNamespace WSSE       = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
+            XNamespace WSU        = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd";
 
+            var Nonce             = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 16);
+            var CreatedTimestamp  = DateTime.Now.ToIso8601();
+            var HashedPassword    = Convert.ToBase64String(new SHA1CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(Nonce + CreatedTimestamp + WSSPassword)));
 
-            var created         = DateTime.Now.ToUniversalTime();
-            var nonce           = getNonce();
-            var nonceToSend     = Convert.ToBase64String(Encoding.UTF8.GetBytes(nonce));
-            var createdStr      = created.ToString("yyyy-MM-ddTHH:mm:ssZ");
-            var passwordToSend  = GetSHA1String(nonce + createdStr + Password);
+            #endregion
 
 
             return XMLNamespaces(
                 new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Envelope",
+
                     new XAttribute(XNamespace.Xmlns + "SOAP",  SOAPNS.NS.SOAPEnvelope_v1_1.NamespaceName),
                     new XAttribute(XNamespace.Xmlns + "OCHP",  OCHPNS.Default.             NamespaceName),
 
                     new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Header",
+
                         new XElement(WSSE + "Security",
                             new XAttribute(SOAPNS.NS.SOAPEnvelope_v1_1 + "mustUnderstand", 1),
-                            new XElement(WSSE + "UsernameToken", new XAttribute(WSU + "id", "UsernameToken-27777511"),
-                                new XElement(WSSE + "Username", Username),
+                            new XAttribute(XNamespace.Xmlns + "WSSE", WSSE.NamespaceName),
+                            new XAttribute(XNamespace.Xmlns + "WSU",  WSU. NamespaceName),
+
+                            new XElement(WSSE + "UsernameToken",
+                                         new XAttribute(WSU + "Id", "UsernameToken-" + Nonce),
+
+                                new XElement(WSSE + "Username",
+                                             WSSUsername),
+
                                 new XElement(WSSE + "Password",
-                                    new XAttribute("Type", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"),
-                                    Password),
+                                             new XAttribute("Type",         "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"),
+                                             WSSPassword),
+
                                 new XElement(WSSE + "Nonce",
-                                    new XAttribute("EncodingType", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"),
-                                    nonceToSend),
+                                             new XAttribute("EncodingType", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"),
+                                             Convert.ToBase64String(Encoding.UTF8.GetBytes(Nonce))),
+
                                 new XElement(WSU + "Created",
-                                    createdStr)
+                                             CreatedTimestamp)
+
                             )
-                        )),
+
+                        )
+                    ),
 
                     new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Body", SOAPBody)
 
@@ -133,19 +153,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         }
 
-
-        private static string getNonce()
-            => Guid.NewGuid().ToString();
-
-        private static string GetSHA1String(string phrase)
-        {
-
-            var hashedDataBytes = new SHA1CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(phrase));
-            var test            = Convert.ToString(hashedDataBytes);
-
-            return Convert.ToBase64String(hashedDataBytes);
-
-        }
+        #endregion
 
     }
 

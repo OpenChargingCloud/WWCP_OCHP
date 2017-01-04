@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2016 GraphDefined GmbH
+ * Copyright (c) 2014-2017 GraphDefined GmbH
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -148,7 +148,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //    <ns:minDuration>?</ns:minDuration>
         //    <ns:maxDuration>?</ns:maxDuration>
         //
-        // </ns:tariffRestriction>
+        // </ns:tariffRestriction>
+
         #endregion
 
         #region (static) Parse(TariffRestrictionXML,  OnException = null)

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2016 GraphDefined GmbH
+ * Copyright (c) 2014-2017 GraphDefined GmbH
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -202,6 +202,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         public IncludeChargePointsDelegate IncludeChargePoints { get; set; }
 
+        public IncludeEVSEIdsDelegate IncludeEVSEIds { get; set; }
+
 
         #region DisablePushData
 
@@ -387,17 +389,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event fired whenever a charge detail record was enqueued for later sending upstream.
         /// </summary>
-        public event OnSendCDRRequestDelegate   OnEnqueueSendCDRRequest;
+        public event OnSendCDRRequestDelegate   OnEnqueueSendCDRsRequest;
 
         /// <summary>
         /// An event fired whenever a charge detail record will be send upstream.
         /// </summary>
-        public event OnSendCDRRequestDelegate   OnSendCDRRequest;
+        public event OnSendCDRRequestDelegate   OnSendCDRsRequest;
 
         /// <summary>
         /// An event fired whenever a charge detail record had been sent upstream.
         /// </summary>
-        public event OnSendCDRResponseDelegate  OnSendCDRResponse;
+        public event OnSendCDRResponseDelegate  OnSendCDRsResponse;
 
         #endregion
 
@@ -972,6 +974,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
+        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
         /// 
@@ -1009,6 +1013,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               X509Certificate                              ClientCert                          = null,
                               String                                       RemoteHTTPVirtualHost               = null,
                               String                                       URIPrefix                           = CPOClient.DefaultURIPrefix,
+                              Tuple<String, String>                        WSSLoginPassword                    = null,
                               String                                       HTTPUserAgent                       = CPOClient.DefaultHTTPUserAgent,
                               TimeSpan?                                    RequestTimeout                      = null,
 
@@ -1053,6 +1058,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   ClientCert,
                                   RemoteHTTPVirtualHost,
                                   URIPrefix,
+                                  WSSLoginPassword,
                                   HTTPUserAgent,
                                   RequestTimeout,
 
@@ -1204,6 +1210,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             var response = await CPORoaming.
                                      SetChargePointList(_ChargePointInfos,
                                                         IncludeChargePoints,
+                                                        //IncludeEVSEIds,
 
                                                         Timestamp,
                                                         CancellationToken,
@@ -1561,6 +1568,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                      UpdateStatus(_EVSEStatus,
                                                   null,
                                                   null,
+                                                  IncludeEVSEIds,
 
                                                   Timestamp,
                                                   CancellationToken,
@@ -4581,12 +4589,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region SendChargeDetailRecord(ChargeDetailRecord, TransmissionType = Enqueued, ...)
+        #region SendChargeDetailRecords(ChargeDetailRecords, TransmissionType = Enqueued, ...)
 
         /// <summary>
         /// Send a charge detail record to an OCHP server.
         /// </summary>
-        /// <param name="ChargeDetailRecord">A charge detail record.</param>
+        /// <param name="ChargeDetailRecords">An enumeration of charge detail records.</param>
         /// <param name="TransmissionType">Whether to send the CDR directly or enqueue it for a while.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
@@ -4595,20 +4603,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<SendCDRsResult>
 
-            SendChargeDetailRecord(WWCP.ChargeDetailRecord  ChargeDetailRecord,
-                                   TransmissionTypes        TransmissionType    = TransmissionTypes.Enqueued,
+            SendChargeDetailRecords(IEnumerable<ChargeDetailRecord>  ChargeDetailRecords,
+                                    TransmissionTypes                TransmissionType    = TransmissionTypes.Enqueued,
 
-                                   DateTime?                Timestamp           = null,
-                                   CancellationToken?       CancellationToken   = null,
-                                   EventTracking_Id         EventTrackingId     = null,
-                                   TimeSpan?                RequestTimeout      = null)
+                                    DateTime?                        Timestamp           = null,
+                                    CancellationToken?               CancellationToken   = null,
+                                    EventTracking_Id                 EventTrackingId     = null,
+                                    TimeSpan?                        RequestTimeout      = null)
 
         {
 
             #region Initial checks
 
-            if (ChargeDetailRecord == null)
-                throw new ArgumentNullException(nameof(ChargeDetailRecord),  "The given charge detail record must not be null!");
+            if (ChargeDetailRecords == null)
+                throw new ArgumentNullException(nameof(ChargeDetailRecords),  "The given enumeration of charge detail records must not be null!");
 
 
             if (!Timestamp.HasValue)
@@ -4630,23 +4638,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (TransmissionType == TransmissionTypes.Enqueued)
             {
 
-                #region Send OnEnqueueSendCDRRequest event
+                #region Send OnEnqueueSendCDRsRequest event
 
                 try
                 {
 
-                    OnEnqueueSendCDRRequest?.Invoke(DateTime.Now,
-                                                    Timestamp.Value,
-                                                    this,
-                                                    EventTrackingId,
-                                                    RoamingNetwork.Id,
-                                                    ChargeDetailRecord,
-                                                    RequestTimeout);
+                    OnEnqueueSendCDRsRequest?.Invoke(DateTime.Now,
+                                                     Timestamp.Value,
+                                                     this,
+                                                     EventTrackingId,
+                                                     RoamingNetwork.Id,
+                                                     ChargeDetailRecords,
+                                                     RequestTimeout);
 
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRRequest));
+                    e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRsRequest));
                 }
 
                 #endregion
@@ -4654,7 +4662,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 lock (ServiceCheckLock)
                 {
 
-                    ChargeDetailRecordQueue.Add(ChargeDetailRecord);
+                    ChargeDetailRecordQueue.AddRange(ChargeDetailRecords);
 
                     ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -4666,25 +4674,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            #region Send OnSendCDRRequest event
+            #region Send OnSendCDRsRequest event
 
             var StartTime = DateTime.Now;
 
             try
             {
 
-                OnSendCDRRequest?.Invoke(StartTime,
-                                         Timestamp.Value,
-                                         this,
-                                         EventTrackingId,
-                                         RoamingNetwork.Id,
-                                         ChargeDetailRecord,
-                                         RequestTimeout);
+                OnSendCDRsRequest?.Invoke(StartTime,
+                                          Timestamp.Value,
+                                          this,
+                                          EventTrackingId,
+                                          RoamingNetwork.Id,
+                                          ChargeDetailRecords,
+                                          RequestTimeout);
 
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRRequest));
+                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRsRequest));
             }
 
             #endregion
@@ -4704,7 +4712,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else
             {
 
-                var response = await CPORoaming.AddCDRs(new CDRInfo[] { ChargeDetailRecord.ToOCHP() },
+                var response = await CPORoaming.AddCDRs(ChargeDetailRecords.Select(cdr => cdr.ToOCHP()),
 
                                                         Timestamp,
                                                         CancellationToken,
@@ -4716,40 +4724,57 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 Runtime  = Endtime - StartTime;
 
                 if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                    response.Content        != null              &&
-                    response.Content.Result.ResultCode == ResultCodes.OK)
+                    response.Content        != null)
                 {
 
-                    result = SendCDRsResult.Forwarded(Id);
+                    switch (response.Content.Result.ResultCode)
+                    {
+
+                        case ResultCodes.OK:
+                            result = SendCDRsResult.Forwarded(Id);
+                            break;
+
+                        case ResultCodes.Partly:
+                            result = SendCDRsResult.Partly(Id,
+                                                           response.Content.ImplausibleCDRs.Select(cdr => cdr.ToWWCP()));
+                            break;
+
+                        default:
+                            result = SendCDRsResult.Error(Id,
+                                                          response.Content.ImplausibleCDRs.Select(cdr => cdr.ToWWCP()));
+                            break;
+
+                    }
 
                 }
 
                 else
                     result = SendCDRsResult.NotForwared(Id,
-                                                       response?.Content?.Result.Description);
+                                                        ChargeDetailRecords,
+                                                        response?.Content?.Result.Description);
 
             }
 
 
-            #region Send OnSendCDRResponse event
+            #region Send OnSendCDRsResponse event
 
             try
             {
 
-                OnSendCDRResponse?.Invoke(Endtime,
-                                          Timestamp.Value,
-                                          this,
-                                          EventTrackingId,
-                                          RoamingNetwork.Id,
-                                          ChargeDetailRecord,
-                                          RequestTimeout,
-                                          result,
-                                          Runtime);
+                OnSendCDRsResponse?.Invoke(Endtime,
+                                           Timestamp.Value,
+                                           this,
+                                           EventTrackingId,
+                                           RoamingNetwork.Id,
+                                           ChargeDetailRecords,
+                                           RequestTimeout,
+                                           result,
+                                           Runtime);
 
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRResponse));
+                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRsResponse));
             }
 
             #endregion
@@ -4759,7 +4784,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         }
 
         #endregion
-
 
 
         #region Delayed upstream methods...
@@ -5054,20 +5078,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 if (ChargeDetailRecordQueueCopy.Value.Count > 0)
                 {
 
-                    var SendCDRResults   = new Dictionary<WWCP.ChargeDetailRecord, SendCDRsResult>();
-
-                    foreach (var _ChargeDetailRecord in ChargeDetailRecordQueueCopy.Value)
-                    {
-
-                        SendCDRResults.Add(_ChargeDetailRecord,
-                                           await SendChargeDetailRecord(_ChargeDetailRecord,
-                                                                        TransmissionTypes.Direct,
-                                                                        DateTime.Now,
-                                                                        new CancellationTokenSource().Token,
-                                                                        EventTrackingId,
-                                                                        DefaultRequestTimeout).ConfigureAwait(false));
-
-                    }
+                    var SendCDRResults   = await SendChargeDetailRecords(ChargeDetailRecordQueueCopy.Value,
+                                                                         TransmissionTypes.Direct,
+                                                                         DateTime.Now,
+                                                                         new CancellationTokenSource().Token,
+                                                                         EventTrackingId,
+                                                                         DefaultRequestTimeout).ConfigureAwait(false);
 
                     //ToDo: Send results events...
                     //ToDo: Read to queue if it could not be sent...

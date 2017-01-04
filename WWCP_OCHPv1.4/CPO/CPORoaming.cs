@@ -196,6 +196,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
+        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
         /// 
@@ -218,6 +220,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                           X509Certificate                      ClientCert                      = null,
                           String                               RemoteHTTPVirtualHost           = null,
                           String                               URIPrefix                       = CPOClient.DefaultURIPrefix,
+                          Tuple<String, String>                WSSLoginPassword                = null,
                           String                               HTTPUserAgent                   = CPOClient.DefaultHTTPUserAgent,
                           TimeSpan?                            RequestTimeout                  = null,
 
@@ -241,6 +244,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                  ClientCert,
                                  RemoteHTTPVirtualHost,
                                  URIPrefix,
+                                 WSSLoginPassword,
                                  HTTPUserAgent,
                                  RequestTimeout,
                                  DNSClient,
@@ -338,7 +342,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, ...)
+        #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, IncludeEVSEIds = null, ...)
 
         /// <summary>
         /// Upload the given enumeration of EVSE and/or parking status.
@@ -346,6 +350,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="EVSEStatus">An optional enumeration of EVSE status.</param>
         /// <param name="ParkingStatus">An optional enumeration of parking status.</param>
         /// <param name="DefaultTTL">The default time to live for these status.</param>
+        /// <param name="IncludeEVSEIds">An optional delegate for filtering EVSE status based on their EVSE identification before pushing them to the server.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -356,6 +361,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             UpdateStatus(IEnumerable<EVSEStatus>     EVSEStatus         = null,
                          IEnumerable<ParkingStatus>  ParkingStatus      = null,
                          DateTime?                   DefaultTTL         = null,
+                         IncludeEVSEIdsDelegate      IncludeEVSEIds     = null,
 
                          DateTime?                   Timestamp          = null,
                          CancellationToken?          CancellationToken  = null,
@@ -366,6 +372,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 => await CPOClient.UpdateStatus(EVSEStatus,
                                                 ParkingStatus,
                                                 DefaultTTL,
+                                                IncludeEVSEIds,
 
                                                 Timestamp,
                                                 CancellationToken,

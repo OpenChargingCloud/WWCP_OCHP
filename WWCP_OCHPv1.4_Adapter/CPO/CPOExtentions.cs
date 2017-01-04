@@ -55,6 +55,8 @@ namespace org.GraphDefined.WWCP
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
+        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="QueryTimeout">An optional timeout for upstream queries.</param>
         /// 
@@ -96,6 +98,7 @@ namespace org.GraphDefined.WWCP
                                               RemoteCertificateValidationCallback                     RemoteCertificateValidator          = null,
                                               X509Certificate                                         ClientCert                          = null,
                                               String                                                  URIPrefix                           = OCHPv1_4.CPO.CPOClient.DefaultURIPrefix,
+                                              Tuple<String, String>                                   WSSLoginPassword                    = null,
                                               String                                                  HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
                                               TimeSpan?                                               QueryTimeout                        = null,
 
@@ -157,6 +160,7 @@ namespace org.GraphDefined.WWCP
                                                                      ClientCert,
                                                                      RemoteHTTPVirtualHost,
                                                                      URIPrefix,
+                                                                     WSSLoginPassword,
                                                                      HTTPUserAgent,
                                                                      QueryTimeout,
 
@@ -218,6 +222,8 @@ namespace org.GraphDefined.WWCP
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
+        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="QueryTimeout">An optional timeout for upstream queries.</param>
         /// 
@@ -253,6 +259,7 @@ namespace org.GraphDefined.WWCP
                                               X509Certificate                                         ClientCert                          = null,
                                               String                                                  RemoteHTTPVirtualHost               = null,
                                               String                                                  URIPrefix                           = OCHPv1_4.CPO.CPOClient.DefaultURIPrefix,
+                                              Tuple<String, String>                                   WSSLoginPassword                    = null,
                                               String                                                  HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
                                               TimeSpan?                                               QueryTimeout                        = null,
 
@@ -314,6 +321,7 @@ namespace org.GraphDefined.WWCP
                                                                                                 ClientCert,
                                                                                                 RemoteHTTPVirtualHost,
                                                                                                 URIPrefix,
+                                                                                                WSSLoginPassword,
                                                                                                 HTTPUserAgent,
                                                                                                 QueryTimeout,
                                                                                                 DNSClient,

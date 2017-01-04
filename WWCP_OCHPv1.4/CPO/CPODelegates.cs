@@ -35,6 +35,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
     #endregion
 
+    #region IncludeEVSEIds
+
+    /// <summary>
+    /// A delegate for filtering EVSE identifications.
+    /// </summary>
+    /// <param name="EVSEId">An EVSE identification.</param>
+    public delegate Boolean IncludeEVSEIdsDelegate(EVSE_Id EVSEId);
+
+    #endregion
+
     #region ChargePointInfo2XMLDelegate
 
     /// <summary>

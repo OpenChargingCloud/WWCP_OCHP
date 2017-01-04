@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2016 GraphDefined GmbH
+ * Copyright (c) 2014-2017 GraphDefined GmbH
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -216,6 +216,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ChargeDetailRecord.EnergyMeterId?.ToString()
                    // TotalCosts
                    // Currency
+               );
+
+        #endregion
+
+        #region ToWWCP(this CDRInfo)
+
+        /// <summary>
+        /// Convert an OCHP charge detail record info into a corresponding WWCP charge detail record.
+        /// </summary>
+        /// <param name="CDRInfo">A WWCP charge detail record.</param>
+        public static ChargeDetailRecord ToWWCP(this CDRInfo CDRInfo)
+
+            => new ChargeDetailRecord(
+                   ChargingSession_Id.Parse(CDRInfo.CDRId.ToString()),
+                   new StartEndDateTime(CDRInfo.StartDateTime, CDRInfo.EndDateTime),
+                   Duration:             CDRInfo.Duration,
+                   EVSEId:               CDRInfo.EVSEId.ToWWCP(),
+                   IdentificationStart:  AuthInfo.FromRemoteIdentification(eMobilityAccount_Id.Parse(CDRInfo.ContractId.ToString()))
                );
 
         #endregion

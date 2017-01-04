@@ -483,6 +483,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="HTTPVirtualHost">An optional HTTP virtual host name to use.</param>
+        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent to use.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
         /// <param name="DNSClient">An optional DNS client.</param>
@@ -495,6 +497,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
                          String                               URIPrefix                   = DefaultURIPrefix,
+                         Tuple<String, String>                WSSLoginPassword            = null,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout              = null,
                          DNSClient                            DNSClient                   = null,
@@ -508,6 +511,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    ClientCert,
                    HTTPVirtualHost,
                    URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
+                   WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
                    DNSClient)
@@ -545,6 +549,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="HTTPVirtualHost">An optional HTTP virtual host name to use.</param>
+        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent to use.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
         /// <param name="DNSClient">An optional DNS client.</param>
@@ -556,6 +562,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
                          String                               URIPrefix                   = DefaultURIPrefix,
+                         Tuple<String, String>                WSSLoginPassword            = null,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout              = null,
                          DNSClient                            DNSClient                   = null)
@@ -567,6 +574,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    ClientCert,
                    HTTPVirtualHost,
                    URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
+                   WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
                    DNSClient)

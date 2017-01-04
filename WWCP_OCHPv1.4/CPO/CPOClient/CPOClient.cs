@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2016 GraphDefined GmbH
+ * Copyright (c) 2014-2017 GraphDefined GmbH
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -386,6 +386,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="HTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
+        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="QueryTimeout">An optional timeout for upstream queries.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
@@ -398,6 +400,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
                          String                               URIPrefix                   = DefaultURIPrefix,
+                         Tuple<String, String>                WSSLoginPassword            = null,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            QueryTimeout                = null,
                          DNSClient                            DNSClient                   = null,
@@ -411,6 +414,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    ClientCert,
                    HTTPVirtualHost,
                    URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
+                   WSSLoginPassword,
                    HTTPUserAgent,
                    QueryTimeout,
                    DNSClient)
@@ -446,6 +450,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="HTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
+        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="QueryTimeout">An optional timeout for upstream queries.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
@@ -457,6 +463,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
                          String                               URIPrefix                   = DefaultURIPrefix,
+                         Tuple<String, String>                WSSLoginPassword            = null,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            QueryTimeout                = null,
                          DNSClient                            DNSClient                   = null)
@@ -468,6 +475,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    ClientCert,
                    HTTPVirtualHost,
                    URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
+                   WSSLoginPassword,
                    HTTPUserAgent,
                    QueryTimeout,
                    DNSClient)
@@ -584,7 +592,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(LoginPassword.Item1, LoginPassword.Item2, Request.ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
                                                  "http://ochp.eu/1.4/SetChargepointList",
                                                  RequestLogDelegate:   OnSetChargePointListSOAPRequest,
                                                  ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
@@ -789,7 +797,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(SOAP.Encapsulation(LoginPassword.Item1, LoginPassword.Item2, Request.ToXML()),
+                    result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
                                                      "http://ochp.eu/1.4/UpdateChargePointList",
                                                      RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
@@ -903,7 +911,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, ...)
+        #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, IncludeEVSEIds = null, ...)
 
         /// <summary>
         /// Upload the given enumeration of EVSE and/or parking status.
@@ -911,6 +919,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="EVSEStatus">An optional enumeration of EVSE status.</param>
         /// <param name="ParkingStatus">An optional enumeration of parking status.</param>
         /// <param name="DefaultTTL">The default time to live for these status.</param>
+        /// <param name="IncludeEVSEIds">An optional delegate for filtering EVSE status based on their EVSE identification before pushing them to the server.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -921,6 +930,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             UpdateStatus(IEnumerable<EVSEStatus>     EVSEStatus         = null,
                          IEnumerable<ParkingStatus>  ParkingStatus      = null,
                          DateTime?                   DefaultTTL         = null,
+                         IncludeEVSEIdsDelegate      IncludeEVSEIds     = null,
 
                          DateTime?                   Timestamp          = null,
                          CancellationToken?          CancellationToken  = null,
@@ -930,6 +940,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         {
 
             #region Initial checks
+
+            if (IncludeEVSEIds == null)
+                IncludeEVSEIds = evseid => true;
+
 
             if (!Timestamp.HasValue)
                 Timestamp = DateTime.Now;
@@ -972,7 +986,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            var Request = new UpdateStatusRequest(EVSEStatus,
+            var Request = new UpdateStatusRequest(EVSEStatus.   Where(evsestatus => IncludeEVSEIds(evsestatus.EVSEId)),
                                                   ParkingStatus,
                                                   DefaultTTL);
 
@@ -987,7 +1001,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(LoginPassword.Item1, LoginPassword.Item2, Request.ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
                                                  "http://ochp.e-clearing.net/service/UpdateStatus",
                                                  RequestLogDelegate:   OnUpdateStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
@@ -1176,7 +1190,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(LoginPassword.Item1, LoginPassword.Item2, Request.ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
                                                  "http://ochp.eu/1.4/GetSingleRoamingAuthorisation",
                                                  RequestLogDelegate:   OnGetSingleRoamingAuthorisationSOAPRequest,
                                                  ResponseLogDelegate:  OnGetSingleRoamingAuthorisationSOAPResponse,
@@ -2751,7 +2765,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
                                                  "InformProviderMessage",
                                                  RequestLogDelegate:   OnInformProviderSOAPRequest,
                                                  ResponseLogDelegate:  OnInformProviderSOAPResponse,
