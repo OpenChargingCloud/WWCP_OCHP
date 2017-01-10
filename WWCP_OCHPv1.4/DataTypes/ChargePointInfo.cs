@@ -760,11 +760,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    new XElement(OCHPNS.Default + "evseId",      EVSEId.ToString()),
                    new XElement(OCHPNS.Default + "locationId",  LocationId),
 
-                   Timestamp.HasValue
-                       ? new XElement(OCHPNS.Default + "timestamp",
-                             new XElement(OCHPNS.Default + "DateTime",  Timestamp.Value.ToIso8601(false))
-                         )
-                       : null,
+                   //Timestamp.HasValue
+                   //    ? new XElement(OCHPNS.Default + "timestamp",
+                   //          new XElement(OCHPNS.Default + "DateTime",  Timestamp.Value.ToIso8601(false))
+                   //      )
+                   //    : null,
 
                    new XElement(OCHPNS.Default + "locationName",      LocationName),
                    new XElement(OCHPNS.Default + "locationNameLang",  LocationNameLang.ToUpper()),

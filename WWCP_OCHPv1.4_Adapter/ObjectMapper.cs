@@ -364,42 +364,99 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        public static ConnectorStandards ToOCHPConnectorStandard(this PlugTypes PlugType)
-        {
-
-            switch (PlugType)
-            {
-
-                case PlugTypes.Type2Outlet:
-                    return ConnectorStandards.IEC_62196_T2;
-
-                default:
-                    return ConnectorStandards.Unknown;
-
-            }
-
-        }
-
-        public static ConnectorFormats ToOCHPConnectorFormat(this PlugTypes PlugType)
-        {
-
-            switch (PlugType)
-            {
-
-                case PlugTypes.Type2Outlet:
-                    return ConnectorFormats.Socket;
-
-                default:
-                    return ConnectorFormats.Unknown;
-
-            }
-
-        }
-
         public static ConnectorType ToOCHP(this SocketOutlet WWCPSocketOutlet)
+        {
 
-            => new ConnectorType(WWCPSocketOutlet.Plug.ToOCHPConnectorStandard(),
-                                 WWCPSocketOutlet.Plug.ToOCHPConnectorFormat());
+            switch (WWCPSocketOutlet.Plug)
+            {
+
+                //case PlugTypes.SmallPaddleInductive:
+                //case PlugTypes.LargePaddleInductive:
+                //case PlugTypes.AVCONConnector:
+
+                case PlugTypes.TESLA_Roadster:
+                    return new ConnectorType(ConnectorStandards.TESLA_R,
+                                             ConnectorFormats.Socket);
+
+                case PlugTypes.TESLA_ModelS:
+                    return new ConnectorType(ConnectorStandards.TESLA_S,
+                                             ConnectorFormats.Socket);
+
+                //case PlugTypes.NEMA5_20:
+
+                case PlugTypes.TypeEFrenchStandard:
+                    return new ConnectorType(ConnectorStandards.DOMESTIC_E,
+                                             ConnectorFormats.Socket);
+
+                case PlugTypes.TypeFSchuko:
+                    return new ConnectorType(ConnectorStandards.DOMESTIC_F,
+                                             ConnectorFormats.Socket);
+
+                case PlugTypes.TypeGBritishStandard:
+                    return new ConnectorType(ConnectorStandards.DOMESTIC_G,
+                                             ConnectorFormats.Socket);
+
+                case PlugTypes.TypeJSwissStandard:
+                    return new ConnectorType(ConnectorStandards.DOMESTIC_J,
+                                             ConnectorFormats.Socket);
+
+                case PlugTypes.Type1Connector_CableAttached:
+                    return new ConnectorType(ConnectorStandards.IEC_62196_T1,
+                                             ConnectorFormats.Socket);
+
+                case PlugTypes.Type2Outlet:
+                    return new ConnectorType(ConnectorStandards.IEC_62196_T2,
+                                             ConnectorFormats.Socket);
+
+                case PlugTypes.Type2Connector_CableAttached:
+                    return new ConnectorType(ConnectorStandards.IEC_62196_T2,
+                                             ConnectorFormats.Cable);
+
+                //case PlugTypes.Type3Outlet:
+                //return ConnectorStandards.IEC_62196_T3A;
+                //return ConnectorStandards.IEC_62196_T3C;
+
+                case PlugTypes.IEC60309SinglePhase:
+                    return new ConnectorType(ConnectorStandards.IEC_60309_2_single_16,
+                                             ConnectorFormats.Socket);
+
+                case PlugTypes.IEC60309ThreePhase:
+                    return new ConnectorType(ConnectorStandards.IEC_60309_2_three_16,
+                                             ConnectorFormats.Socket);
+                //return ConnectorStandards.IEC_60309_2_three_32;
+                //return ConnectorStandards.IEC_60309_2_three_64;
+
+                case PlugTypes.CCSCombo1Plug_CableAttached:
+                    return new ConnectorType(ConnectorStandards.IEC_62196_T1_COMBO,
+                                             ConnectorFormats.Cable);
+
+                case PlugTypes.CCSCombo2Plug_CableAttached:
+                    return new ConnectorType(ConnectorStandards.IEC_62196_T2_COMBO,
+                                             ConnectorFormats.Cable);
+
+                case PlugTypes.CHAdeMO:
+                    return new ConnectorType(ConnectorStandards.Chademo,
+                                             ConnectorFormats.Socket);
+
+
+                //return ConnectorStandards.DOMESTIC_A;
+                //return ConnectorStandards.DOMESTIC_B;
+                //return ConnectorStandards.DOMESTIC_C;
+                //return ConnectorStandards.DOMESTIC_D;
+                //return ConnectorStandards.DOMESTIC_H;
+                //return ConnectorStandards.DOMESTIC_I;
+                //return ConnectorStandards.DOMESTIC_K;
+                //return ConnectorStandards.DOMESTIC_L;
+
+
+                default:
+                    return new ConnectorType(ConnectorStandards.Unknown,
+                                             ConnectorFormats.Unknown);
+
+            }
+
+
+        }
 
 
         #region ToOCHP(this EVSE, CustomEVSEIdMapper = null, EVSE2ChargePointInfo = null)
