@@ -30,6 +30,7 @@ using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
+using System.Xml.Linq;
 
 #endregion
 
@@ -39,7 +40,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP CPO Client.
     /// </summary>
-    public partial class CPOClient : ASOAPClient
+    public partial class CPOClient : ASOAPClient,
+                                     ICPOClient
     {
 
         #region Data
@@ -373,6 +375,162 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+        #region Custom request mappers
+
+        #region CustomUpdateStatusMapper
+
+        #region CustomUpdateStatusRequestMapper
+
+        private Func<UpdateStatusRequest, UpdateStatusRequest> _CustomUpdateStatusRequestMapper = _ => _;
+
+        public Func<UpdateStatusRequest, UpdateStatusRequest> CustomUpdateStatusRequestMapper
+        {
+
+            get
+            {
+                return _CustomUpdateStatusRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomUpdateStatusRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomUpdateStatusSOAPRequestMapper
+
+        private Func<UpdateStatusRequest, XElement, XElement> _CustomUpdateStatusSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<UpdateStatusRequest, XElement, XElement> CustomUpdateStatusSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomUpdateStatusSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomUpdateStatusSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomMapperDelegate<UpdateStatusResponse, UpdateStatusResponse.Builder> CustomUpdateStatusResponseMapper { get; set; }
+
+        #endregion
+
+
+        #region CustomGetSingleRoamingAuthorisationMapper
+
+        #region CustomGetSingleRoamingAuthorisationRequestMapper
+
+        private Func<GetSingleRoamingAuthorisationRequest, GetSingleRoamingAuthorisationRequest> _CustomGetSingleRoamingAuthorisationRequestMapper = _ => _;
+
+        public Func<GetSingleRoamingAuthorisationRequest, GetSingleRoamingAuthorisationRequest> CustomGetSingleRoamingAuthorisationRequestMapper
+        {
+
+            get
+            {
+                return _CustomGetSingleRoamingAuthorisationRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomGetSingleRoamingAuthorisationRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomGetSingleRoamingAuthorisationSOAPRequestMapper
+
+        private Func<GetSingleRoamingAuthorisationRequest, XElement, XElement> _CustomGetSingleRoamingAuthorisationSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<GetSingleRoamingAuthorisationRequest, XElement, XElement> CustomGetSingleRoamingAuthorisationSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomGetSingleRoamingAuthorisationSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomGetSingleRoamingAuthorisationSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomMapperDelegate<GetSingleRoamingAuthorisationResponse, GetSingleRoamingAuthorisationResponse.Builder> CustomGetSingleRoamingAuthorisationResponseMapper { get; set; }
+
+        #endregion
+
+
+        #region CustomAddCDRsMapper
+
+        #region CustomAddCDRsRequestMapper
+
+        private Func<AddCDRsRequest, AddCDRsRequest> _CustomAddCDRsRequestMapper = _ => _;
+
+        public Func<AddCDRsRequest, AddCDRsRequest> CustomAddCDRsRequestMapper
+        {
+
+            get
+            {
+                return _CustomAddCDRsRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomAddCDRsRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomAddCDRsSOAPRequestMapper
+
+        private Func<AddCDRsRequest, XElement, XElement> _CustomAddCDRsSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<AddCDRsRequest, XElement, XElement> CustomAddCDRsSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomAddCDRsSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomAddCDRsSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomMapperDelegate<AddCDRsResponse, AddCDRsResponse.Builder> CustomAddCDRsResponseMapper { get; set; }
+
+        #endregion
+
+        #endregion
+
         #region Constructor(s)
 
         #region CPOClient(ClientId, Hostname, ..., LoggingContext = CPOClientLogger.DefaultContext, ...)
@@ -592,7 +750,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
+                result = await _OCHPClient.Query(SOAP.Encapsulation(
+                                                     WSSLoginPassword.Item1,
+                                                     WSSLoginPassword.Item2,
+                                                     Request.ToXML()
+                                                 ),
                                                  "http://ochp.eu/1.4/SetChargepointList",
                                                  RequestLogDelegate:   OnSetChargePointListSOAPRequest,
                                                  ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
@@ -911,51 +1073,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, IncludeEVSEIds = null, ...)
+        #region UpdateStatus(...)
 
         /// <summary>
         /// Upload the given enumeration of EVSE and/or parking status.
         /// </summary>
-        /// <param name="EVSEStatus">An optional enumeration of EVSE status.</param>
-        /// <param name="ParkingStatus">An optional enumeration of parking status.</param>
-        /// <param name="DefaultTTL">The default time to live for these status.</param>
-        /// <param name="IncludeEVSEIds">An optional delegate for filtering EVSE status based on their EVSE identification before pushing them to the server.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request"></param>
         public async Task<HTTPResponse<UpdateStatusResponse>>
 
-            UpdateStatus(IEnumerable<EVSEStatus>     EVSEStatus         = null,
-                         IEnumerable<ParkingStatus>  ParkingStatus      = null,
-                         DateTime?                   DefaultTTL         = null,
-                         IncludeEVSEIdsDelegate      IncludeEVSEIds     = null,
-
-                         DateTime?                   Timestamp          = null,
-                         CancellationToken?          CancellationToken  = null,
-                         EventTracking_Id            EventTrackingId    = null,
-                         TimeSpan?                   RequestTimeout     = null)
+            UpdateStatus(UpdateStatusRequest Request)
 
         {
 
             #region Initial checks
 
-            if (IncludeEVSEIds == null)
-                IncludeEVSEIds = evseid => true;
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The given UpdateStatus request must not be null!");
 
+            Request = _CustomUpdateStatusRequestMapper(Request);
 
-            if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The mapped UpdateStatus request must not be null!");
 
 
             HTTPResponse<UpdateStatusResponse> result = null;
@@ -964,18 +1102,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnUpdateStatusRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnUpdateStatusRequest?.Invoke(DateTime.Now,
-                                              Timestamp.Value,
+                OnUpdateStatusRequest?.Invoke(StartTime,
+                                              Request.Timestamp.Value,
                                               this,
                                               ClientId,
-                                              EventTrackingId,
-                                              EVSEStatus,
-                                              ParkingStatus,
-                                              DefaultTTL,
-                                              RequestTimeout);
+                                              Request.EventTrackingId,
+                                              Request.EVSEStatus,
+                                              Request.ParkingStatus,
+                                              Request.DefaultTTL,
+                                              Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout);
 
             }
             catch (Exception e)
@@ -984,11 +1124,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
 
             #endregion
-
-
-            var Request = new UpdateStatusRequest(EVSEStatus.   Where(evsestatus => IncludeEVSEIds(evsestatus.EVSEId)),
-                                                  ParkingStatus,
-                                                  DefaultTTL);
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
@@ -1001,13 +1136,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
+                result = await _OCHPClient.Query(_CustomUpdateStatusSOAPRequestMapper(Request,
+                                                                                      SOAP.Encapsulation(
+                                                                                          WSSLoginPassword.Item1,
+                                                                                          WSSLoginPassword.Item2,
+                                                                                          Request.ToXML()
+                                                                                      )),
                                                  "http://ochp.e-clearing.net/service/UpdateStatus",
                                                  RequestLogDelegate:   OnUpdateStatusSOAPRequest,
                                                  ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
-                                                 CancellationToken:    CancellationToken,
-                                                 EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 CancellationToken:    Request.CancellationToken,
+                                                 EventTrackingId:      Request.EventTrackingId,
+                                                 QueryTimeout:         Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -1083,20 +1223,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnAddCDRsResponse event
 
+            var Endtime = DateTime.Now;
+
             try
             {
 
-                OnUpdateStatusResponse?.Invoke(DateTime.Now,
-                                               Timestamp.Value,
+                OnUpdateStatusResponse?.Invoke(Endtime,
+                                               Request.Timestamp.Value,
                                                this,
                                                ClientId,
-                                               EventTrackingId,
-                                               EVSEStatus,
-                                               ParkingStatus,
-                                               DefaultTTL,
-                                               RequestTimeout,
+                                               Request.EventTrackingId,
+                                               Request.EVSEStatus,
+                                               Request.ParkingStatus,
+                                               Request.DefaultTTL,
+                                               Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
                                                result.Content,
-                                               DateTime.Now - Timestamp.Value);
+                                               Endtime - StartTime);
 
             }
             catch (Exception e)
@@ -1106,7 +1248,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-
             return result;
 
         }
@@ -1114,41 +1255,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region GetSingleRoamingAuthorisation(EMTId, ...)
+        #region GetSingleRoamingAuthorisation(...)
 
         /// <summary>
-        /// Authenticate the given e-mobility token.
+        /// Authenticate the given token.
         /// </summary>
-        /// <param name="EMTId">An e-mobility token.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A GetSingleRoamingAuthorisation request.</param>
         public async Task<HTTPResponse<GetSingleRoamingAuthorisationResponse>>
 
-            GetSingleRoamingAuthorisation(EMT_Id              EMTId,
-
-                                          DateTime?           Timestamp          = null,
-                                          CancellationToken?  CancellationToken  = null,
-                                          EventTracking_Id    EventTrackingId    = null,
-                                          TimeSpan?           RequestTimeout     = null)
+            GetSingleRoamingAuthorisation(GetSingleRoamingAuthorisationRequest Request)
 
         {
 
             #region Initial checks
 
-            if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The given GetSingleRoamingAuthorisation request must not be null!");
 
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
+            Request = _CustomGetSingleRoamingAuthorisationRequestMapper(Request);
 
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The mapped GetSingleRoamingAuthorisation request must not be null!");
 
 
             HTTPResponse<GetSingleRoamingAuthorisationResponse> result = null;
@@ -1157,16 +1284,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetSingleRoamingAuthorisationRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnGetSingleRoamingAuthorisationRequest?.Invoke(DateTime.Now,
-                                                               Timestamp.Value,
+                OnGetSingleRoamingAuthorisationRequest?.Invoke(StartTime,
+                                                               Request.Timestamp.Value,
                                                                this,
                                                                ClientId,
-                                                               EventTrackingId,
-                                                               EMTId,
-                                                               RequestTimeout);
+                                                               Request.EventTrackingId,
+                                                               Request.EMTId,
+                                                               Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout);
 
             }
             catch (Exception e)
@@ -1175,9 +1304,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
 
             #endregion
-
-
-            var Request = new GetSingleRoamingAuthorisationRequest(EMTId);
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
@@ -1190,13 +1316,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
+                result = await _OCHPClient.Query(_CustomGetSingleRoamingAuthorisationSOAPRequestMapper(Request,
+                                                                                                       SOAP.Encapsulation(
+                                                                                                           WSSLoginPassword.Item1,
+                                                                                                           WSSLoginPassword.Item2,
+                                                                                                           Request.ToXML()
+                                                                                                       )),
                                                  "http://ochp.eu/1.4/GetSingleRoamingAuthorisation",
                                                  RequestLogDelegate:   OnGetSingleRoamingAuthorisationSOAPRequest,
                                                  ResponseLogDelegate:  OnGetSingleRoamingAuthorisationSOAPResponse,
-                                                 CancellationToken:    CancellationToken,
-                                                 EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 CancellationToken:    Request.CancellationToken,
+                                                 EventTrackingId:      Request.EventTrackingId,
+                                                 QueryTimeout:         Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -1267,23 +1398,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
 
             if (result == null)
-                result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.OK(new GetSingleRoamingAuthorisationResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.OK(
+                             new GetSingleRoamingAuthorisationResponse(Request,
+                                                                       Result.OK("Nothing to upload!"))
+                         );
 
 
             #region Send OnGetSingleRoamingAuthorisationResponse event
+
+            var Endtime = DateTime.Now;
 
             try
             {
 
                 OnGetSingleRoamingAuthorisationResponse?.Invoke(DateTime.Now,
-                                                                Timestamp.Value,
+                                                                Request.Timestamp.Value,
                                                                 this,
                                                                 ClientId,
-                                                                EventTrackingId,
-                                                                EMTId,
-                                                                RequestTimeout,
+                                                                Request.EventTrackingId,
+                                                                Request.EMTId,
+                                                                Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
                                                                 result.Content,
-                                                                DateTime.Now - Timestamp.Value);
+                                                                Endtime - StartTime);
 
             }
             catch (Exception e)
@@ -1292,7 +1428,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
 
             #endregion
-
 
             return result;
 
@@ -1672,40 +1807,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Upload the given enumeration of charge detail records.
         /// </summary>
-        /// <param name="CDRInfos">An enumeration of charge detail records.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A AddCDRs request.</param>
         public async Task<HTTPResponse<AddCDRsResponse>>
 
-            AddCDRs(IEnumerable<CDRInfo>  CDRInfos,
-
-                    DateTime?             Timestamp          = null,
-                    CancellationToken?    CancellationToken  = null,
-                    EventTracking_Id      EventTrackingId    = null,
-                    TimeSpan?             RequestTimeout     = null)
+            AddCDRs(AddCDRsRequest Request)
 
         {
 
             #region Initial checks
 
-            if (CDRInfos == null || !CDRInfos.Any())
-                throw new ArgumentNullException(nameof(CDRInfos),  "The given enumeration of charge detail records must not be null or empty!");
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The given AddCDRs request must not be null!");
 
+            Request = _CustomAddCDRsRequestMapper(Request);
 
-            if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The mapped AddCDRs request must not be null!");
 
 
             HTTPResponse<AddCDRsResponse> result = null;
@@ -1714,16 +1831,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnAddCDRsRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnAddCDRsRequest?.Invoke(DateTime.Now,
-                                         Timestamp.Value,
+                OnAddCDRsRequest?.Invoke(StartTime,
+                                         Request.Timestamp.Value,
                                          this,
                                          ClientId,
-                                         EventTrackingId,
-                                         CDRInfos,
-                                         RequestTimeout);
+                                         Request.EventTrackingId,
+                                         Request.CDRInfos,
+                                         Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout);
 
             }
             catch (Exception e)
@@ -1732,9 +1851,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
 
             #endregion
-
-
-            var Request = new AddCDRsRequest(CDRInfos);
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
@@ -1747,13 +1863,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
-                                                 "AddCDRsRequest",
+                result = await _OCHPClient.Query(_CustomAddCDRsSOAPRequestMapper(Request,
+                                                                                 SOAP.Encapsulation(
+                                                                                     WSSLoginPassword.Item1,
+                                                                                     WSSLoginPassword.Item2,
+                                                                                     Request.ToXML()
+                                                                                 )),
+                                                 "http://ochp.eu/1.4/AddCDRs",
                                                  RequestLogDelegate:   OnAddCDRsSOAPRequest,
                                                  ResponseLogDelegate:  OnAddCDRsSOAPResponse,
-                                                 CancellationToken:    CancellationToken,
-                                                 EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 CancellationToken:    Request.CancellationToken,
+                                                 EventTrackingId:      Request.EventTrackingId,
+                                                 QueryTimeout:         Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -1829,18 +1950,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnAddCDRsResponse event
 
+            var Endtime = DateTime.Now;
+
             try
             {
 
-                OnAddCDRsResponse?.Invoke(DateTime.Now,
-                                          Timestamp.Value,
+                OnAddCDRsResponse?.Invoke(Endtime,
+                                          Request.Timestamp.Value,
                                           this,
                                           ClientId,
-                                          EventTrackingId,
-                                          CDRInfos,
-                                          RequestTimeout,
+                                          Request.EventTrackingId,
+                                          Request.CDRInfos,
+                                          Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
                                           result.Content,
-                                          DateTime.Now - Timestamp.Value);
+                                          Endtime - StartTime);
 
             }
             catch (Exception e)
@@ -1849,7 +1972,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
 
             #endregion
-
 
             return result;
 

@@ -22,6 +22,8 @@ using System.Threading.Tasks;
 
 using NUnit.Framework;
 
+using org.GraphDefined.WWCP.OCHPv1_4.CPO;
+
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests

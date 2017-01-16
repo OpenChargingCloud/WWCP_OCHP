@@ -405,6 +405,36 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+
+        public class Builder : ABuilder
+        {
+
+            public Builder(UpdateStatusResponse UpdateStatusResponse = null)
+            {
+
+                if (UpdateStatusResponse != null)
+                {
+
+                    if (UpdateStatusResponse.CustomData != null)
+                        foreach (var item in UpdateStatusResponse.CustomData)
+                            CustomData.Add(item.Key, item.Value);
+
+                }
+
+            }
+
+
+            //public Acknowledgement<T> ToImmutable()
+
+            //    => new Acknowledgement<T>(Request,
+            //                              Result,
+            //                              StatusCode,
+            //                              SessionId,
+            //                              PartnerSessionId,
+            //                              CustomData);
+
+        }
+
     }
 
 }

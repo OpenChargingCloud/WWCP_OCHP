@@ -18,7 +18,6 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Threading;
 using System.Net.Security;
 using System.Threading.Tasks;
@@ -29,18 +28,11 @@ using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
-using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
-
-    public interface ICPOClient
-    {
-
-    }
-
 
     /// <summary>
     /// An OCHP CPO Client.
@@ -347,37 +339,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Upload the given enumeration of EVSE and/or parking status.
         /// </summary>
-        /// <param name="EVSEStatus">An optional enumeration of EVSE status.</param>
-        /// <param name="ParkingStatus">An optional enumeration of parking status.</param>
-        /// <param name="DefaultTTL">The default time to live for these status.</param>
-        /// <param name="IncludeEVSEIds">An optional delegate for filtering EVSE status based on their EVSE identification before pushing them to the server.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A UpdateStatus request.</param>
         public async Task<HTTPResponse<UpdateStatusResponse>>
 
-            UpdateStatus(IEnumerable<EVSEStatus>     EVSEStatus         = null,
-                         IEnumerable<ParkingStatus>  ParkingStatus      = null,
-                         DateTime?                   DefaultTTL         = null,
-                         IncludeEVSEIdsDelegate      IncludeEVSEIds     = null,
-
-                         DateTime?                   Timestamp          = null,
-                         CancellationToken?          CancellationToken  = null,
-                         EventTracking_Id            EventTrackingId    = null,
-                         TimeSpan?                   RequestTimeout     = null)
+            UpdateStatus(UpdateStatusRequest Request)
 
 
-                => await CPOClient.UpdateStatus(EVSEStatus,
-                                                ParkingStatus,
-                                                DefaultTTL,
-                                                IncludeEVSEIds,
+                => await CPOClient.UpdateStatus(Request);
 
-                                                Timestamp,
-                                                CancellationToken,
-                                                EventTrackingId,
-                                                RequestTimeout);
 
         #endregion
 
@@ -385,30 +354,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region GetSingleRoamingAuthorisation(EMTId, ...)
 
         /// <summary>
-        /// Authenticate the given e-mobility token.
+        /// Create a new OCHP GetSingleRoamingAuthorisation request.
         /// </summary>
-        /// <param name="EMTId">An e-mobility token.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A GetSingleRoamingAuthorisation request.</param>
         public async Task<HTTPResponse<GetSingleRoamingAuthorisationResponse>>
 
-            GetSingleRoamingAuthorisation(EMT_Id              EMTId,
-
-                                          DateTime?           Timestamp          = null,
-                                          CancellationToken?  CancellationToken  = null,
-                                          EventTracking_Id    EventTrackingId    = null,
-                                          TimeSpan?           RequestTimeout     = null)
+            GetSingleRoamingAuthorisation(GetSingleRoamingAuthorisationRequest Request)
 
 
-                => await CPOClient.GetSingleRoamingAuthorisation(EMTId,
+                => await CPOClient.GetSingleRoamingAuthorisation(Request);
 
-                                                                 Timestamp,
-                                                                 CancellationToken,
-                                                                 EventTrackingId,
-                                                                 RequestTimeout);
 
         #endregion
 
@@ -472,28 +427,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Upload the given enumeration of charge detail records.
         /// </summary>
-        /// <param name="CDRInfos">An enumeration of charge detail records.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A AddCDRs request.</param>
         public async Task<HTTPResponse<AddCDRsResponse>>
 
-            AddCDRs(IEnumerable<CDRInfo>  CDRInfos,
-
-                    DateTime?             Timestamp          = null,
-                    CancellationToken?    CancellationToken  = null,
-                    EventTracking_Id      EventTrackingId    = null,
-                    TimeSpan?             RequestTimeout     = null)
+            AddCDRs(AddCDRsRequest Request)
 
 
-                => await CPOClient.AddCDRs(CDRInfos,
+                => await CPOClient.AddCDRs(Request);
 
-                                           Timestamp,
-                                           CancellationToken,
-                                           EventTrackingId,
-                                           RequestTimeout);
 
         #endregion
 

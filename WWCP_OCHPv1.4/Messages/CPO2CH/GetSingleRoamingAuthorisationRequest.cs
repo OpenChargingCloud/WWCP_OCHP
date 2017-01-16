@@ -19,6 +19,7 @@
 
 using System;
 using System.Xml.Linq;
+using System.Threading;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -48,7 +49,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Create an OCHP GetSingleRoamingAuthorisation XML/SOAP request.
         /// </summary>
         /// <param name="EMTId">An e-mobility token.</param>
-        public GetSingleRoamingAuthorisationRequest(EMT_Id  EMTId)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public GetSingleRoamingAuthorisationRequest(EMT_Id              EMTId,
+
+                                                    DateTime?           Timestamp           = null,
+                                                    CancellationToken?  CancellationToken   = null,
+                                                    EventTracking_Id    EventTrackingId     = null,
+                                                    TimeSpan?           RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
 
             #region Initial checks
@@ -342,7 +359,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             => EMTId.ToString();
 
         #endregion
-
 
     }
 

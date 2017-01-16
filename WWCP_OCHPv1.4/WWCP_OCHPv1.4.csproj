@@ -49,10 +49,13 @@
     <Compile Include="CH\CHServer\CHServer.cs" />
     <Compile Include="CH\CHServer\CHServerDelegates.cs" />
     <Compile Include="CH\CHServer\CHServerLogger.cs" />
+    <Compile Include="CPO\CPOClient\ICPOClient.cs" />
+    <Compile Include="CPO\CPOClient\ICPOClientExtentions.cs" />
     <Compile Include="CPO\CPORoaming.cs" />
     <Compile Include="CPO\CPOClient\CPOClient.cs" />
     <Compile Include="CPO\CPOClient\CPOClientDelegates.cs" />
     <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
+    <Compile Include="DataTypes\Simple\Operator_Id.cs" />
     <Compile Include="DataTypes\Simple\Provider_Id.cs" />
     <Compile Include="IO\Exceptions\OCHPException.cs" />
     <Compile Include="IO\Exceptions\IllegalEVSEStatusCombinationException.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Messages\CPO2CH\GetRoamingAuthorisationListUpdatesRequest.cs" />
     <Compile Include="Messages\CPO2CH\GetSingleRoamingAuthorisationRequest.cs" />
     <Compile Include="Messages\CPO2CH\AddServiceEndpointsRequest.cs" />
+    <Compile Include="Messages\ABuilder.cs" />
     <Compile Include="Messages\CPO2CH\UpdateTariffsRequest.cs" />
     <Compile Include="Messages\CPO2CH\UpdateStatusRequest.cs" />
     <Compile Include="Messages\CPO2CH\UpdateChargePointListRequest.cs" />

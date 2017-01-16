@@ -47,12 +47,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                    @"^([A-Za-z]{2}[A-Za-z0-9]{3})([A-Za-z0-9]{9})$",
                                                                    RegexOptions.IgnorePatternWhitespace);
 
-        /// <summary>
-        /// The regular expression for parsing an e-mobility contract identification suffix.
-        /// </summary>
-        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Za-z0-9]{9}-[A-Za-z0-9]$ | ^[A-Za-z0-9]{9}[A-Za-z0-9]$ | ^[A-Za-z0-9]{9}$",
-                                                                 RegexOptions.IgnorePatternWhitespace);
-
         #endregion
 
         #region Properties
@@ -87,8 +81,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// Generate a new e-mobility contract identification
-        /// based on the given string.
+        /// Create a new e-mobility contract identification.
         /// </summary>
         /// <param name="ProviderId">The unique identification of an e-mobility provider.</param>
         /// <param name="IdSuffix">The suffix of the e-mobility contract identification.</param>
@@ -104,9 +97,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 throw new ArgumentNullException(nameof(IdSuffix),  "The identification suffix must not be null or empty!");
 
             #endregion
-
-            if (!IdSuffix_RegEx.IsMatch(IdSuffix))
-                throw new ArgumentException("Illegal e-mobility contract identification '" + ProviderId + "' with suffix '" + IdSuffix + "'!");
 
             this.ProviderId  = ProviderId;
             this.Suffix      = IdSuffix;
@@ -160,18 +150,46 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        #region Parse(ProviderId, IdSuffix)
+        #region Parse(ProviderId, Suffix)
 
         /// <summary>
         /// Parse the given string as an contract identification.
         /// </summary>
         /// <param name="ProviderId">The unique identification of an e-mobility provider.</param>
-        /// <param name="IdSuffix">The suffix of the e-mobility contract identification.</param>
+        /// <param name="Suffix">The suffix of the e-mobility contract identification.</param>
         public static Contract_Id Parse(Provider_Id  ProviderId,
-                                        String                IdSuffix)
+                                        String       Suffix)
+        {
 
-            => new Contract_Id(ProviderId,
-                               IdSuffix);
+            #region Initial checks
+
+            if (Suffix.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(Suffix), "The given electric mobility account identification suffix must not be null or empty!");
+
+            #endregion
+
+            switch (ProviderId.Format)
+            {
+
+                case ProviderIdFormats.DIN:
+                    return Parse(ProviderId +       Suffix);
+
+                case ProviderIdFormats.DIN_STAR:
+                    return Parse(ProviderId + "*" + Suffix);
+
+                case ProviderIdFormats.DIN_HYPHEN:
+                    return Parse(ProviderId + "-" + Suffix);
+
+
+                case ProviderIdFormats.ISO:
+                    return Parse(ProviderId +       Suffix);
+
+                default: // ISO_HYPHEN
+                    return Parse(ProviderId + "-" + Suffix);
+
+            }
+
+        }
 
         #endregion
 
@@ -523,12 +541,50 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Return a string representation of this object.
         /// </summary>
         public override String ToString()
+        {
 
-            => String.Concat(ProviderId, "-",
-                             Suffix,
-                             CheckDigit.HasValue
-                                 ? "-" + CheckDigit
-                                 : "");
+            switch (ProviderId.Format)
+            {
+
+                case ProviderIdFormats.DIN:
+                    return String.Concat(ProviderId,
+                                         Suffix,
+                                         CheckDigit.HasValue
+                                             ? "" + CheckDigit
+                                             : "");
+
+                case ProviderIdFormats.DIN_STAR:
+                    return String.Concat(ProviderId, "*",
+                                         Suffix,
+                                         CheckDigit.HasValue
+                                             ? "*" + CheckDigit
+                                             : "");
+
+                case ProviderIdFormats.DIN_HYPHEN:
+                    return String.Concat(ProviderId, "-",
+                                         Suffix,
+                                         CheckDigit.HasValue
+                                             ? "-" + CheckDigit
+                                             : "");
+
+
+                case ProviderIdFormats.ISO:
+                    return String.Concat(ProviderId,
+                                         "C", Suffix,
+                                         CheckDigit.HasValue
+                                             ? "" + CheckDigit
+                                             : "");
+
+                default: // ISO_HYPHEN
+                    return String.Concat(ProviderId, "-",
+                                         "C", Suffix,
+                                         CheckDigit.HasValue
+                                             ? "-" + CheckDigit
+                                             : "");
+
+            }
+
+        }
 
         #endregion
 

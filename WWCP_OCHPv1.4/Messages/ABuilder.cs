@@ -18,31 +18,22 @@
 #region Usings
 
 using System;
-using System.Xml.Linq;
+using System.Collections.Generic;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
-    public delegate TB CustomMapperDelegate<T, TB>(XElement XML, TB ResponseBuilder);
-
-
-    /// <summary>
-    /// The common interface of an OCHP response message.
-    /// </summary>
-    public interface IResponse
+    public abstract class ABuilder
     {
 
-        /// <summary>
-        /// The machine-readable result code.
-        /// </summary>
-        Result    Result              { get; }
+        public Dictionary<String, Object>  CustomData   { get; set; }
 
-        /// <summary>
-        /// The timestamp of the response message creation.
-        /// </summary>
-        DateTime  ResponseTimestamp   { get; }
+        public ABuilder()
+        {
+            this.CustomData = new Dictionary<String, Object>();
+        }
 
     }
 

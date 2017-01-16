@@ -102,6 +102,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Properties
 
+        IId IRemoteAuthorizeStartStop.AuthId
+            => Id;
+
         #region Name
 
         /// <summary>

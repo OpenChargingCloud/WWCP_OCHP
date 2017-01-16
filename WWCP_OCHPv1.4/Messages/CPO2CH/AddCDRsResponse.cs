@@ -450,6 +450,48 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+
+
+        public class Builder : ABuilder
+        {
+
+            #region Properties
+
+            /// <summary>
+            /// An enumeration of refused charge detail records.
+            /// </summary>
+            public IEnumerable<CDRInfo>  ImplausibleCDRs   { get; set; }
+
+            #endregion
+
+            public Builder(AddCDRsResponse AddCDRsResponse = null)
+            {
+
+                if (AddCDRsResponse != null)
+                {
+
+                    this.ImplausibleCDRs = AddCDRsResponse.ImplausibleCDRs;
+
+                    if (AddCDRsResponse.CustomData != null)
+                        foreach (var item in AddCDRsResponse.CustomData)
+                            CustomData.Add(item.Key, item.Value);
+
+                }
+
+            }
+
+
+            //public Acknowledgement<T> ToImmutable()
+
+            //    => new Acknowledgement<T>(Request,
+            //                              Result,
+            //                              StatusCode,
+            //                              SessionId,
+            //                              PartnerSessionId,
+            //                              CustomData);
+
+        }
+
     }
 
 }

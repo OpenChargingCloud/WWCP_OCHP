@@ -20,6 +20,7 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
+using System.Threading;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -62,9 +63,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="EVSEStatus">An enumeration of EVSE status.</param>
         /// <param name="ParkingStatus">An enumeration of parking status.</param>
         /// <param name="DefaultTTL">The default time to live for these status.</param>
-        public UpdateStatusRequest(IEnumerable<EVSEStatus>     EVSEStatus     = null,
-                                   IEnumerable<ParkingStatus>  ParkingStatus  = null,
-                                   DateTime?                   DefaultTTL     = null)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public UpdateStatusRequest(IEnumerable<EVSEStatus>     EVSEStatus          = null,
+                                   IEnumerable<ParkingStatus>  ParkingStatus       = null,
+                                   DateTime?                   DefaultTTL          = null,
+
+                                   DateTime?                   Timestamp           = null,
+                                   CancellationToken?          CancellationToken   = null,
+                                   EventTracking_Id            EventTrackingId     = null,
+                                   TimeSpan?                   RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
 
             #region Initial checks

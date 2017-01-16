@@ -253,7 +253,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "emtId",
 
-                   new XAttribute(OCHPNS.Default + "representation",    XML_IO.AsText(Representation)),
+                   new XAttribute("representation",                     XML_IO.AsText(Representation)),
 
                    new XElement  (OCHPNS.Default + "instance",          Instance),
                    new XElement  (OCHPNS.Default + "tokenType",         XML_IO.AsText(Type)),

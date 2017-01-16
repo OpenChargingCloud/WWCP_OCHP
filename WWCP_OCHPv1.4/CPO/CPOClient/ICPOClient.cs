@@ -18,31 +18,44 @@
 #region Usings
 
 using System;
-using System.Xml.Linq;
+using System.Threading.Tasks;
+
+using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
-    public delegate TB CustomMapperDelegate<T, TB>(XElement XML, TB ResponseBuilder);
-
-
     /// <summary>
-    /// The common interface of an OCHP response message.
+    /// The common interface of all OCHP CPO clients.
     /// </summary>
-    public interface IResponse
+    public interface ICPOClient
     {
 
-        /// <summary>
-        /// The machine-readable result code.
-        /// </summary>
-        Result    Result              { get; }
+        #region Properties
 
         /// <summary>
-        /// The timestamp of the response message creation.
+        /// The default request timeout for this client.
         /// </summary>
-        DateTime  ResponseTimestamp   { get; }
+        TimeSpan? RequestTimeout { get; }
+
+        #endregion
+
+
+        Task<HTTPResponse<UpdateStatusResponse>>
+
+            UpdateStatus(UpdateStatusRequest Request);
+
+
+        Task<HTTPResponse<GetSingleRoamingAuthorisationResponse>>
+
+            GetSingleRoamingAuthorisation(GetSingleRoamingAuthorisationRequest Request);
+
+
+        Task<HTTPResponse<AddCDRsResponse>>
+
+            AddCDRs(AddCDRsRequest Request);
 
     }
 

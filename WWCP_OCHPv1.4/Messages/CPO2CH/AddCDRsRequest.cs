@@ -23,6 +23,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using System.Threading;
 
 #endregion
 
@@ -50,13 +51,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Create an OCHP AddCDRs XML/SOAP request.
         /// </summary>
         /// <param name="CDRInfos">An enumeration of charge detail records.</param>
-        public AddCDRsRequest(IEnumerable<CDRInfo>  CDRInfos)
+        public AddCDRsRequest(IEnumerable<CDRInfo>  CDRInfos,
+
+                              DateTime?             Timestamp           = null,
+                              CancellationToken?    CancellationToken   = null,
+                              EventTracking_Id      EventTrackingId     = null,
+                              TimeSpan?             RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
 
             #region Initial checks
 
             if (CDRInfos.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(CDRInfos),  "The given enumeration of charge detail records must not be null or empty!");
+                throw new ArgumentNullException(nameof(CDRInfos), "The given enumeration of charge detail records must not be null or empty!");
 
             #endregion
 

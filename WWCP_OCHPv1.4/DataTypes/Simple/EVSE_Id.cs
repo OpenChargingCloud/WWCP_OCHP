@@ -28,10 +28,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
     /// <summary>
-    /// The unique identification of an OCHP Electric Vehicle Supply Equipment (EVSE).
+    /// The unique identification of an OCHP charge point (EVSE).
     /// </summary>
     public struct EVSE_Id : IId,
-                            IEquatable <EVSE_Id>,
+                            IEquatable<EVSE_Id>,
                             IComparable<EVSE_Id>
 
     {
@@ -39,17 +39,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Data
 
         /// <summary>
-        /// The regular expression for parsing an EVSE identification.
+        /// The regular expression for parsing an charge point identification.
         /// </summary>
-        public static readonly Regex EVSEId_RegEx    = new Regex(@"^([A-Za-z]{2}\*[A-Za-z0-9]{3})\*[Ee]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$ |" +
-                                                                 @"^([A-Za-z]{2}[A-Za-z0-9]{3})[Ee]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$",
-                                                                 RegexOptions.IgnorePatternWhitespace);
-
-        /// <summary>
-        /// The regular expression for parsing an EVSE identification suffix.
-        /// </summary>
-        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Za-z0-9][A-Za-z0-9\*]{0,30}$",
-                                                                 RegexOptions.IgnorePatternWhitespace);
+        public static readonly Regex EVSEId_RegEx = new Regex(@"^([A-Za-z]{2}\*[A-Za-z0-9]{3})\*[Ee]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$ |" +
+                                                              @"^([A-Za-z]{2}[A-Za-z0-9]{3})[Ee]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$",
+                                                              RegexOptions.IgnorePatternWhitespace);
 
         #endregion
 
@@ -58,12 +52,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The charging station operator identification.
         /// </summary>
-        public ChargingStationOperator_Id  OperatorId   { get; }
+        public Operator_Id  OperatorId   { get; }
 
         /// <summary>
-        /// The suffix of the EVSE identification.
+        /// The suffix of the charge point identification.
         /// </summary>
-        public String                      Suffix       { get; }
+        public String       Suffix       { get; }
+
+        /// <summary>
+        /// The detected format of the charge point identification.
+        /// </summary>
+        public OperatorIdFormats Format
+            => OperatorId.Format;
 
         /// <summary>
         /// Returns the length of the identification.
@@ -81,21 +81,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// based on the given charging station operator and identification suffix.
         /// </summary>
         /// <param name="OperatorId">The unique identification of a charging station operator.</param>
-        /// <param name="Suffix">The suffix of the EVSE identification.</param>
-        private EVSE_Id(ChargingStationOperator_Id  OperatorId,
-                        String                      Suffix)
+        /// <param name="Suffix">The suffix of the charge point identification.</param>
+        private EVSE_Id(Operator_Id  OperatorId,
+                        String       Suffix)
         {
 
             #region Initial checks
 
             if (Suffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Suffix),  "The EVSE identification suffix must not be null or empty!");
+                throw new ArgumentNullException(nameof(Suffix), "The charge point identification suffix must not be null or empty!");
 
             #endregion
-
-            if (!IdSuffix_RegEx.IsMatch(Suffix))
-                throw new ArgumentException("Illegal EVSE identification '" + OperatorId + "' with suffix '" + Suffix + "'!",
-                                            nameof(Suffix));
 
             this.OperatorId  = OperatorId;
             this.Suffix      = Suffix;
@@ -108,37 +104,37 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Parse(Text)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as an charge point identification.
         /// </summary>
-        /// <param name="Text">A text representation of an EVSE identification.</param>
+        /// <param name="Text">A text representation of an charge point identification.</param>
         public static EVSE_Id Parse(String Text)
         {
 
             #region Initial checks
 
             if (Text.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Text),  "The given text representation of an EVSE identification must not be null or empty!");
+                throw new ArgumentNullException(nameof(Text),  "The given text representation of an charge point identification must not be null or empty!");
 
             #endregion
 
             var MatchCollection = EVSEId_RegEx.Matches(Text);
 
             if (MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal EVSE identification '" + Text + "'!",
+                throw new ArgumentException("Illegal charge point identification '" + Text + "'!",
                                             nameof(Text));
 
-            ChargingStationOperator_Id _OperatorId;
+            Operator_Id _OperatorId;
 
-            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out _OperatorId))
+            if (Operator_Id.TryParse(MatchCollection[0].Groups[1].Value, out _OperatorId))
                 return new EVSE_Id(_OperatorId,
                                    MatchCollection[0].Groups[2].Value);
 
-            if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[3].Value, out _OperatorId))
+            if (Operator_Id.TryParse(MatchCollection[0].Groups[3].Value, out _OperatorId))
                 return new EVSE_Id(_OperatorId,
                                    MatchCollection[0].Groups[4].Value);
 
 
-            throw new ArgumentException("Illegal EVSE identification '" + Text + "'!",
+            throw new ArgumentException("Illegal charge point identification '" + Text + "'!",
                                         nameof(Text));
 
         }
@@ -148,25 +144,56 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Parse(OperatorId, Suffix)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as an charge point identification.
         /// </summary>
         /// <param name="OperatorId">The unique identification of a charging station operator.</param>
-        /// <param name="Suffix">The suffix of the EVSE identification.</param>
-        public static EVSE_Id Parse(ChargingStationOperator_Id  OperatorId,
-                                    String                      Suffix)
+        /// <param name="Suffix">The suffix of the charge point identification.</param>
+        public static EVSE_Id Parse(Operator_Id  OperatorId,
+                                    String       Suffix)
+        {
 
-            => new EVSE_Id(OperatorId,
-                           Suffix);
+            switch (OperatorId.Format)
+            {
+
+                case OperatorIdFormats.ISO:
+                    return Parse(OperatorId + "E" + Suffix);
+
+                default: // ISO_STAR
+                    return Parse(OperatorId + "*E" + Suffix);
+
+            }
+
+        }
+
+        #endregion
+
+        #region TryParse(Text)
+
+        /// <summary>
+        /// Parse the given string as an charge point identification.
+        /// </summary>
+        /// <param name="Text">A text representation of an charge point identification.</param>
+        public static EVSE_Id? TryParse(String Text)
+        {
+
+            EVSE_Id _EVSEId;
+
+            if (TryParse(Text, out _EVSEId))
+                return _EVSEId;
+
+            return new EVSE_Id?();
+
+        }
 
         #endregion
 
         #region TryParse(Text, out EVSEId)
 
         /// <summary>
-        /// Parse the given string as an EVSE identification.
+        /// Parse the given string as an charge point identification.
         /// </summary>
-        /// <param name="Text">A text representation of an EVSE identification.</param>
-        /// <param name="EVSEId">The parsed EVSE identification.</param>
+        /// <param name="Text">A text representation of an charge point identification.</param>
+        /// <param name="EVSEId">The parsed charge point identification.</param>
         public static Boolean TryParse(String Text, out EVSE_Id EVSEId)
         {
 
@@ -190,10 +217,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 if (_MatchCollection.Count != 1)
                     return false;
 
-                ChargingStationOperator_Id __EVSEOperatorId;
+                Operator_Id __EVSEOperatorId;
 
                 // New format...
-                if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
+                if (Operator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out __EVSEOperatorId))
                 {
 
                     EVSEId = new EVSE_Id(__EVSEOperatorId,
@@ -204,7 +231,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 }
 
                 // Old format...
-                if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
+                if (Operator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out __EVSEOperatorId))
                 {
 
                     EVSEId = new EVSE_Id(__EVSEOperatorId,
@@ -232,12 +259,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Clone
 
         /// <summary>
-        /// Clone this EVSE identification.
+        /// Clone this charge point identification.
         /// </summary>
         public EVSE_Id Clone
 
             => new EVSE_Id(OperatorId.Clone,
-                           Suffix);
+                           new String(Suffix.ToCharArray()));
 
         #endregion
 
@@ -367,7 +394,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
-            // Check if the given object is a charge point identification.
             if (!(Object is EVSE_Id))
                 throw new ArgumentException("The given object is not a EVSEId!", nameof(Object));
 
@@ -390,7 +416,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 throw new ArgumentNullException(nameof(EVSEId),  "The given charge point identification must not be null!");
 
             // Compare the length of the charge point identifications
-            var _Result = this.Length.CompareTo(EVSEId.Length);
+            var _Result = Length.CompareTo(EVSEId.Length);
 
             // If equal: Compare charging operator identifications
             if (_Result == 0)
@@ -423,11 +449,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is a charge point identification.
             if (!(Object is EVSE_Id))
                 return false;
 
-            return this.Equals((EVSE_Id) Object);
+            return Equals((EVSE_Id) Object);
 
         }
 
@@ -473,7 +498,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Return a string representation of this object.
         /// </summary>
         public override String ToString()
-            => String.Concat(OperatorId, "*E", Suffix);
+        {
+
+            switch (Format)
+            {
+
+                case OperatorIdFormats.ISO:
+                    return String.Concat(OperatorId, "E", Suffix);
+
+                default: // ISO_STAR
+                    return String.Concat(OperatorId, "*E", Suffix);
+
+            }
+
+        }
 
         #endregion
 
