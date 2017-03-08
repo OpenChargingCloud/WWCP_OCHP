@@ -48,7 +48,6 @@
     <Compile Include="CPO\WWCPCPOAdapter.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />

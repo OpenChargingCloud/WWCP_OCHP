@@ -5438,7 +5438,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         public override String ToString()
 
-            => "Hubject CPO " + Id;
+            => "OCHP " + Version.Number + " CPO Adapter " + Id;
 
         #endregion
 
