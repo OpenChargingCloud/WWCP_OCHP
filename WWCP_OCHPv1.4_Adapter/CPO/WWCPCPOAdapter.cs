@@ -3622,8 +3622,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     result = AuthStartResult.Authorized(Id,
                                                         ChargingSession_Id.New,
-                                                        ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
-                                                        Runtime:     Runtime);
+                                                        ProviderId: response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
+                                                        Runtime:    Runtime);
 
                 }
 
@@ -3781,8 +3781,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     result = AuthStartEVSEResult.Authorized(Id,
                                                             ChargingSession_Id.New,
-                                                            ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
-                                                            Runtime:     Runtime);
+                                                            ProviderId: response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
+                                                            Runtime:    Runtime);
 
                 }
 
@@ -4141,7 +4141,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public Task<AuthStopResult>
+        public async Task<AuthStopResult>
 
             AuthorizeStop(ChargingSession_Id           SessionId,
                           Auth_Token                   AuthToken,
@@ -4199,14 +4199,53 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            var result   = AuthStopResult.Error(
-                               Id,
-                               SessionId,
-                               "OCHP does not support this request!"
-                           );
+            DateTime        Endtime;
+            TimeSpan        Runtime;
+            AuthStopResult  result;
 
-            var Endtime  = DateTime.Now;
-            var Runtime  = Endtime - StartTime;
+            if (DisableAuthentication)
+            {
+                Endtime  = DateTime.Now;
+                Runtime  = Endtime - StartTime;
+                result   = AuthStopResult.OutOfService(Id, SessionId, Runtime);
+            }
+
+            else
+            {
+
+                var response = await CPORoaming.GetSingleRoamingAuthorisation(new EMT_Id(
+                                                                                  AuthToken.ToString(),
+                                                                                  TokenRepresentations.Plain,
+                                                                                  TokenTypes.RFID
+                                                                              ),
+
+                                                                              Timestamp,
+                                                                              CancellationToken,
+                                                                              EventTrackingId,
+                                                                              RequestTimeout).ConfigureAwait(false);
+
+
+                Endtime  = DateTime.Now;
+                Runtime  = Endtime - StartTime;
+
+                if (response.HTTPStatusCode            == HTTPStatusCode.OK &&
+                    response.Content                   != null              &&
+                    response.Content.Result.ResultCode == ResultCodes.OK)
+                {
+
+                    result = AuthStopResult.Authorized(Id,
+                                                       ChargingSession_Id.New,
+                                                       ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
+                                                       Runtime:     Runtime);
+
+                }
+
+                else
+                    result = AuthStopResult.NotAuthorized(Id,
+                                                          // response.Content.ProviderId.ToWWCP(),
+                                                          Runtime: Runtime);
+
+            }
 
 
             #region Send OnAuthorizeStopResponse event
@@ -4234,7 +4273,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            return Task.FromResult(result);
+            return result;
 
         }
 
@@ -4254,7 +4293,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public Task<AuthStopEVSEResult>
+        public async Task<AuthStopEVSEResult>
 
             AuthorizeStop(ChargingSession_Id           SessionId,
                           Auth_Token                   AuthToken,
@@ -4314,14 +4353,53 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            var result   = AuthStopEVSEResult.Error(
-                               Id,
-                               SessionId,
-                               "OCHP does not support this request!"
-                           );
+            DateTime            Endtime;
+            TimeSpan            Runtime;
+            AuthStopEVSEResult  result;
 
-            var Endtime  = DateTime.Now;
-            var Runtime  = Endtime - StartTime;
+            if (DisableAuthentication)
+            {
+                Endtime  = DateTime.Now;
+                Runtime  = Endtime - StartTime;
+                result   = AuthStopEVSEResult.OutOfService(Id, SessionId, Runtime);
+            }
+
+            else
+            {
+
+                var response = await CPORoaming.GetSingleRoamingAuthorisation(new EMT_Id(
+                                                                                  AuthToken.ToString(),
+                                                                                  TokenRepresentations.Plain,
+                                                                                  TokenTypes.RFID
+                                                                              ),
+
+                                                                              Timestamp,
+                                                                              CancellationToken,
+                                                                              EventTrackingId,
+                                                                              RequestTimeout).ConfigureAwait(false);
+
+
+                Endtime  = DateTime.Now;
+                Runtime  = Endtime - StartTime;
+
+                if (response.HTTPStatusCode            == HTTPStatusCode.OK &&
+                    response.Content                   != null              &&
+                    response.Content.Result.ResultCode == ResultCodes.OK)
+                {
+
+                    result = AuthStopEVSEResult.Authorized(Id,
+                                                           ChargingSession_Id.New,
+                                                           ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
+                                                           Runtime:     Runtime);
+
+                }
+
+                else
+                    result = AuthStopEVSEResult.NotAuthorized(Id,
+                                                              // response.Content.ProviderId.ToWWCP(),
+                                                              Runtime: Runtime);
+
+            }
 
 
             #region Send OnAuthorizeEVSEStopResponse event
@@ -4350,7 +4428,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            return Task.FromResult(result);
+            return result;
 
         }
 
@@ -4370,7 +4448,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public Task<AuthStopChargingStationResult>
+        public async Task<AuthStopChargingStationResult>
 
             AuthorizeStop(ChargingSession_Id           SessionId,
                           Auth_Token                   AuthToken,
@@ -4431,14 +4509,41 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            var result   = AuthStopChargingStationResult.Error(
-                               Id,
-                               SessionId,
-                               "OCHP does not support this request!"
-                           );
+            var response = await CPORoaming.GetSingleRoamingAuthorisation(new EMT_Id(
+                                                                              AuthToken.ToString(),
+                                                                              TokenRepresentations.Plain,
+                                                                              TokenTypes.RFID
+                                                                          ),
 
-            var Endtime  = DateTime.Now;
-            var Runtime  = Endtime - StartTime;
+                                                                          Timestamp,
+                                                                          CancellationToken,
+                                                                          EventTrackingId,
+                                                                          RequestTimeout).ConfigureAwait(false);
+
+
+            var Endtime = DateTime.Now;
+            var Runtime = Endtime - StartTime;
+
+            AuthStopChargingStationResult result = null;
+
+            if (response.HTTPStatusCode            == HTTPStatusCode.OK &&
+                response.Content                   != null              &&
+                response.Content.Result.ResultCode == ResultCodes.OK)
+            {
+
+                result = AuthStopChargingStationResult.Authorized(Id,
+                                                                  ChargingSession_Id.New,
+                                                                  ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
+                                                                  Runtime:     Runtime);
+
+            }
+
+            else
+                result = AuthStopChargingStationResult.NotAuthorized(Id,
+                                                                     // response.Content.ProviderId.ToWWCP(),
+                                                                     // response.Content.StatusCode.Description,
+                                                                     // response.Content.StatusCode.AdditionalInfo,
+                                                                     Runtime: Runtime);
 
 
             #region Send OnAuthorizeChargingStationStopResponse event
@@ -4467,7 +4572,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            return Task.FromResult(result);
+            return result;
 
         }
 
@@ -4487,7 +4592,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public Task<AuthStopChargingPoolResult>
+        public async Task<AuthStopChargingPoolResult>
 
             AuthorizeStop(ChargingSession_Id           SessionId,
                           Auth_Token                   AuthToken,
@@ -4548,14 +4653,41 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            var result   = AuthStopChargingPoolResult.Error(
-                               Id,
-                               SessionId,
-                               "OCHP does not support this request!"
-                           );
+            var response = await CPORoaming.GetSingleRoamingAuthorisation(new EMT_Id(
+                                                                              AuthToken.ToString(),
+                                                                              TokenRepresentations.Plain,
+                                                                              TokenTypes.RFID
+                                                                          ),
 
-            var Endtime  = DateTime.Now;
-            var Runtime  = Endtime - StartTime;
+                                                                          Timestamp,
+                                                                          CancellationToken,
+                                                                          EventTrackingId,
+                                                                          RequestTimeout).ConfigureAwait(false);
+
+
+            var Endtime = DateTime.Now;
+            var Runtime = Endtime - StartTime;
+
+            AuthStopChargingPoolResult result = null;
+
+            if (response.HTTPStatusCode            == HTTPStatusCode.OK &&
+                response.Content                   != null              &&
+                response.Content.Result.ResultCode == ResultCodes.OK)
+            {
+
+                result = AuthStopChargingPoolResult.Authorized(Id,
+                                                               ChargingSession_Id.New,
+                                                               ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
+                                                               Runtime:     Runtime);
+
+            }
+
+            else
+                result = AuthStopChargingPoolResult.NotAuthorized(Id,
+                                                                  // response.Content.ProviderId.ToWWCP(),
+                                                                  // response.Content.StatusCode.Description,
+                                                                  // response.Content.StatusCode.AdditionalInfo,
+                                                                  Runtime: Runtime);
 
 
             #region Send OnAuthorizeChargingPoolStopResponse event
@@ -4584,7 +4716,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            return Task.FromResult(result);
+            return result;
 
         }
 
