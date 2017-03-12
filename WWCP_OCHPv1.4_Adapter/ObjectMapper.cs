@@ -42,7 +42,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="EVSEMajorStatus">An OCHP EVSE major status.</param>
         /// <param name="EVSEMinorStatus">An OCHP EVSE minor status.</param>
         /// <returns>The corresponding WWCP EVSE status.</returns>
-        public static WWCP.EVSEStatusType AsWWCPEVSEStatus(EVSEMajorStatusTypes  EVSEMajorStatus,
+        public static WWCP.EVSEStatusTypes AsWWCPEVSEStatus(EVSEMajorStatusTypes  EVSEMajorStatus,
                                                            EVSEMinorStatusTypes  EVSEMinorStatus)
         {
 
@@ -54,10 +54,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                     {
 
                         case EVSEMinorStatusTypes.Available:
-                            return WWCP.EVSEStatusType.Available;
+                            return WWCP.EVSEStatusTypes.Available;
 
                         default:
-                            return WWCP.EVSEStatusType.Unspecified;
+                            return WWCP.EVSEStatusTypes.Unspecified;
 
                     }
 
@@ -67,16 +67,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                     {
 
                         case EVSEMinorStatusTypes.Available:
-                            return WWCP.EVSEStatusType.Available;
+                            return WWCP.EVSEStatusTypes.Available;
 
                         default:
-                            return WWCP.EVSEStatusType.Unspecified;
+                            return WWCP.EVSEStatusTypes.Unspecified;
 
                     }
 
 
                 default:
-                    return WWCP.EVSEStatusType.Unspecified;
+                    return WWCP.EVSEStatusTypes.Unspecified;
 
             }
 
@@ -91,19 +91,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="EVSEStatusType">An WWCP EVSE status.</param>
         /// <returns>The corresponding OCHP EVSE major status.</returns>
-        public static EVSEMajorStatusTypes AsEVSEMajorStatus(this WWCP.EVSEStatusType EVSEStatusType)
+        public static EVSEMajorStatusTypes AsEVSEMajorStatus(this WWCP.EVSEStatusTypes EVSEStatusType)
         {
 
             switch (EVSEStatusType)
             {
 
-                case WWCP.EVSEStatusType.Available:
+                case WWCP.EVSEStatusTypes.Available:
                     return EVSEMajorStatusTypes.Available;
 
-                case WWCP.EVSEStatusType.Reserved:
-                case WWCP.EVSEStatusType.Charging:
-                case WWCP.EVSEStatusType.OutOfService:
-                case WWCP.EVSEStatusType.UnknownEVSE:
+                case WWCP.EVSEStatusTypes.Reserved:
+                case WWCP.EVSEStatusTypes.Charging:
+                case WWCP.EVSEStatusTypes.OutOfService:
+                case WWCP.EVSEStatusTypes.UnknownEVSE:
                     return EVSEMajorStatusTypes.NotAvailable;
 
                 default:
@@ -122,25 +122,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="EVSEStatusType">An WWCP EVSE status.</param>
         /// <returns>The corresponding OCHP EVSE minor status.</returns>
-        public static EVSEMinorStatusTypes AsEVSEMinorStatus(this WWCP.EVSEStatusType EVSEStatusType)
+        public static EVSEMinorStatusTypes AsEVSEMinorStatus(this WWCP.EVSEStatusTypes EVSEStatusType)
         {
 
             switch (EVSEStatusType)
             {
 
-                case WWCP.EVSEStatusType.Available:
+                case WWCP.EVSEStatusTypes.Available:
                     return EVSEMinorStatusTypes.Available;
 
-                case WWCP.EVSEStatusType.Reserved:
+                case WWCP.EVSEStatusTypes.Reserved:
                     return EVSEMinorStatusTypes.Reserved;
 
-                case WWCP.EVSEStatusType.Charging:
+                case WWCP.EVSEStatusTypes.Charging:
                     return EVSEMinorStatusTypes.Charging;
 
-                case WWCP.EVSEStatusType.OutOfService:
+                case WWCP.EVSEStatusTypes.OutOfService:
                     return EVSEMinorStatusTypes.OutOfOrder;
 
-                case WWCP.EVSEStatusType.Blocked:
+                case WWCP.EVSEStatusTypes.Blocked:
                     return EVSEMinorStatusTypes.Blocked;
 
                 default:
