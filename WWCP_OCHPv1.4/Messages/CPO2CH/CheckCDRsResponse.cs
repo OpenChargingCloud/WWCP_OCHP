@@ -403,7 +403,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if ((Object) CheckCDRsResponse == null)
                 return false;
 
-            return this.Result.Equals(CheckCDRsResponse.Result);
+            return Result.Equals(CheckCDRsResponse.Result);
 
         }
 
