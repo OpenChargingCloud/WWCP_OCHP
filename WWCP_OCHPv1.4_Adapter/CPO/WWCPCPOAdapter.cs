@@ -922,8 +922,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               ChargePointInfo2XMLDelegate                  ChargePointInfo2XML              = null,
                               EVSEStatus2XMLDelegate                       EVSEStatus2XML                   = null,
 
-                              //ChargingStationOperator                      DefaultOperator                  = null,
-                              //ChargingStationOperatorNameSelectorDelegate  OperatorNameSelector             = null,
                               IncludeEVSEDelegate                          IncludeEVSEs                     = null,
                               TimeSpan?                                    ServiceCheckEvery                = null,
                               TimeSpan?                                    StatusCheckEvery                 = null,
@@ -948,8 +946,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    ChargePointInfo2XML,
                    EVSEStatus2XML,
 
-                   //DefaultOperator,
-                   //OperatorNameSelector,
                    IncludeEVSEs,
                    ServiceCheckEvery,
                    StatusCheckEvery,
@@ -1037,8 +1033,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               ChargePointInfo2XMLDelegate                  ChargePointInfo2XML                 = null,
                               EVSEStatus2XMLDelegate                       EVSEStatus2XML                      = null,
 
-                              //ChargingStationOperator                      DefaultOperator                     = null,
-                              //ChargingStationOperatorNameSelectorDelegate  OperatorNameSelector                = null,
                               IncludeEVSEDelegate                          IncludeEVSEs                        = null,
                               TimeSpan?                                    ServiceCheckEvery                   = null,
                               TimeSpan?                                    StatusCheckEvery                    = null,
@@ -1084,8 +1078,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    ChargePointInfo2XML,
                    EVSEStatus2XML,
 
-                   //DefaultOperator,
-                   //OperatorNameSelector,
                    IncludeEVSEs,
                    ServiceCheckEvery,
                    StatusCheckEvery,
@@ -4125,7 +4117,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     result = AuthStartEVSEResult.Authorized(Id,
                                                             ChargingSession_Id.New,
-                                                            ProviderId: response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
+                                                            ProviderId: response.Content.RoamingAuthorisationInfo != null
+                                                                            ? response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
+                                                                            : eMobilityProvider_Id.Parse(Country.Germany, "GEF"),
                                                             Runtime:    Runtime);
 
                 }

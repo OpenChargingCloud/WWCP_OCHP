@@ -143,6 +143,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 return new Contract_Id(_ProviderId,
                                        _MatchCollection[0].Groups[8].Value);
 
+            if (Provider_Id.TryParse(_MatchCollection[0].Groups[9].Value, out _ProviderId))
+                return new Contract_Id(_ProviderId,
+                                       _MatchCollection[0].Groups[10].Value);
+
 
             throw new ArgumentException("Illegal contract identification '" + Text + "'!");
 

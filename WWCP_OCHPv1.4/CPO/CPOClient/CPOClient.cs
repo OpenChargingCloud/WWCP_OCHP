@@ -688,11 +688,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         {
 
-            return HTTPResponse<SetChargePointListResponse>.OK(new SetChargePointListResponse(
-                                                                    new SetChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint))),
-                                                                Result.OK("Nothing to upload!"))
-                                                               );
-
             #region Initial checks
 
             if (ChargePointInfos == null)
@@ -893,11 +888,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   TimeSpan?                     RequestTimeout       = null)
 
         {
-
-            return HTTPResponse<UpdateChargePointListResponse>.OK(new UpdateChargePointListResponse(
-                                                                      new UpdateChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint))),
-                                                                  Result.OK("Nothing to upload!"))
-                                                                 );
 
             #region Initial checks
 

@@ -91,19 +91,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="EVSEStatusType">An WWCP EVSE status.</param>
         /// <returns>The corresponding OCHP EVSE major status.</returns>
-        public static EVSEMajorStatusTypes AsEVSEMajorStatus(this WWCP.EVSEStatusTypes EVSEStatusType)
+        public static EVSEMajorStatusTypes AsEVSEMajorStatus(this EVSEStatusTypes EVSEStatusType)
         {
 
             switch (EVSEStatusType)
             {
 
-                case WWCP.EVSEStatusTypes.Available:
+                case EVSEStatusTypes.Available:
+
+                // For reservations in the future, e.g. reserved in 3 hours, but free until then!
+                //case EVSEStatusTypes.Reserved:
                     return EVSEMajorStatusTypes.Available;
 
-                case WWCP.EVSEStatusTypes.Reserved:
-                case WWCP.EVSEStatusTypes.Charging:
-                case WWCP.EVSEStatusTypes.OutOfService:
-                case WWCP.EVSEStatusTypes.UnknownEVSE:
+
+                case EVSEStatusTypes.Blocked:
+                case EVSEStatusTypes.Reserved:
+                case EVSEStatusTypes.Charging:
+                case EVSEStatusTypes.OutOfService:
+                case EVSEStatusTypes.UnknownEVSE:
                     return EVSEMajorStatusTypes.NotAvailable;
 
                 default:
@@ -122,25 +127,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="EVSEStatusType">An WWCP EVSE status.</param>
         /// <returns>The corresponding OCHP EVSE minor status.</returns>
-        public static EVSEMinorStatusTypes AsEVSEMinorStatus(this WWCP.EVSEStatusTypes EVSEStatusType)
+        public static EVSEMinorStatusTypes AsEVSEMinorStatus(this EVSEStatusTypes EVSEStatusType)
         {
 
             switch (EVSEStatusType)
             {
 
-                case WWCP.EVSEStatusTypes.Available:
+                case EVSEStatusTypes.Available:
                     return EVSEMinorStatusTypes.Available;
 
-                case WWCP.EVSEStatusTypes.Reserved:
+                case EVSEStatusTypes.Reserved:
                     return EVSEMinorStatusTypes.Reserved;
 
-                case WWCP.EVSEStatusTypes.Charging:
+                case EVSEStatusTypes.Charging:
                     return EVSEMinorStatusTypes.Charging;
 
-                case WWCP.EVSEStatusTypes.OutOfService:
+                case EVSEStatusTypes.OutOfService:
                     return EVSEMinorStatusTypes.OutOfOrder;
 
-                case WWCP.EVSEStatusTypes.Blocked:
+                case EVSEStatusTypes.Blocked:
                     return EVSEMinorStatusTypes.Blocked;
 
                 default:
@@ -250,8 +255,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public static Provider_Id ToOCHP(this WWCP.eMobilityProvider_Id ProviderId)
             => Provider_Id.Parse(ProviderId.ToString());
 
-        public static WWCP.eMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)
-            => WWCP.eMobilityProvider_Id.Parse(ProviderId.ToString());
+        public static eMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)
+            => eMobilityProvider_Id.Parse(ProviderId.ToString());
 
 
         #region AuthenticationModes
