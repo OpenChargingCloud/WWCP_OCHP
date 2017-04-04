@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using System.Xml.Linq;
 using System.Threading;
 using System.Net.Security;
 using System.Threading.Tasks;
@@ -30,7 +31,6 @@ using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
-using System.Xml.Linq;
 
 #endregion
 
@@ -714,18 +714,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
+            var Request = new SetChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint)));
+
             #region Send OnSetChargePointListRequest event
+
+            var StartTime = DateTime.Now;
 
             try
             {
 
-                OnSetChargePointListRequest?.Invoke(DateTime.Now,
+                OnSetChargePointListRequest?.Invoke(StartTime,
                                                     Timestamp.Value,
                                                     this,
                                                     ClientId,
                                                     EventTrackingId,
                                                     ChargePointInfos,
-                                                    (UInt32) ChargePointInfos.Count(),
+                                                    (UInt32) Request.ChargePointInfos.Count(),
                                                     RequestTimeout);
 
             }
@@ -735,9 +739,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
 
             #endregion
-
-
-            var Request = new SetChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint)));
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
@@ -830,16 +831,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<SetChargePointListResponse>.OK(new SetChargePointListResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<SetChargePointListResponse>.ClientError(
+                             new SetChargePointListResponse(Request,
+                                                            Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnSetChargePointListResponse event
 
+            var Endtime = DateTime.Now;
+
             try
             {
 
-                OnSetChargePointListResponse?.Invoke(DateTime.Now,
+                OnSetChargePointListResponse?.Invoke(Endtime,
                                                      Timestamp.Value,
                                                      this,
                                                      ClientId,
@@ -848,7 +858,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      (UInt32) ChargePointInfos.Count(),
                                                      RequestTimeout,
                                                      result.Content,
-                                                     DateTime.Now - Timestamp.Value);
+                                                     Endtime - StartTime);
 
             }
             catch (Exception e)
@@ -914,7 +924,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Get effective number of charge point infos to upload
 
-            var NumberOfChargePoints = ChargePointInfos.Count(chargepoint => IncludeChargePoints(chargepoint));
+            var Request = new UpdateChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint)));
 
             HTTPResponse<UpdateChargePointListResponse> result = null;
 
@@ -922,16 +932,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnUpdateChargePointListRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnUpdateChargePointListRequest?.Invoke(DateTime.Now,
+                OnUpdateChargePointListRequest?.Invoke(StartTime,
                                                        Timestamp.Value,
                                                        this,
                                                        ClientId,
                                                        EventTrackingId,
                                                        ChargePointInfos,
-                                                       (UInt32) NumberOfChargePoints,
+                                                       (UInt32) Request.ChargePointInfos.Count(),
                                                        RequestTimeout);
 
             }
@@ -943,10 +955,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            var Request = new UpdateChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint)));
+            #region Nothing to do?
 
+            if (!Request.ChargePointInfos.Any())
+            {
 
-            if (NumberOfChargePoints > 0)
+                result = HTTPResponse<UpdateChargePointListResponse>.OK(
+                             new UpdateChargePointListResponse(Request,
+                                                               Result.NoOperation("No chargepoint info to upload!"))
+                         );
+
+            }
+
+            #endregion
+
+            else
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
@@ -1037,12 +1060,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
 
             if (result == null)
-                result = HTTPResponse<UpdateChargePointListResponse>.OK(new UpdateChargePointListResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<UpdateChargePointListResponse>.ClientError(
+                             new UpdateChargePointListResponse(Request,
+                                                               Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnUpdateChargePointListResponse event
+
+            var Endtime = DateTime.Now;
 
             try
             {
@@ -1053,10 +1084,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         ClientId,
                                                         EventTrackingId,
                                                         ChargePointInfos,
-                                                        (UInt32) NumberOfChargePoints,
+                                                        (UInt32) Request.ChargePointInfos.Count(),
                                                         RequestTimeout,
                                                         result.Content,
-                                                        DateTime.Now - Timestamp.Value);
+                                                        Endtime - StartTime);
 
             }
             catch (Exception e)
@@ -1126,99 +1157,126 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    RemotePort,
-                                                    HTTPVirtualHost,
-                                                    "/live/ochp/v1.4",
-                                                    RemoteCertificateValidator,
-                                                    ClientCert,
-                                                    UserAgent,
-                                                    DNSClient))
+            #region Nothing to do?
+
+            if (!Request.EVSEStatus.   Any() &&
+                !Request.ParkingStatus.Any())
             {
 
-                result = await _OCHPClient.Query(_CustomUpdateStatusSOAPRequestMapper(Request,
-                                                                                      SOAP.Encapsulation(
-                                                                                          WSSLoginPassword.Item1,
-                                                                                          WSSLoginPassword.Item2,
-                                                                                          Request.ToXML()
-                                                                                      )),
-                                                 "http://ochp.e-clearing.net/service/UpdateStatus",
-                                                 RequestLogDelegate:   OnUpdateStatusSOAPRequest,
-                                                 ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
-                                                 CancellationToken:    Request.CancellationToken,
-                                                 EventTrackingId:      Request.EventTrackingId,
-                                                 QueryTimeout:         Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
-
-                                                 #region OnSuccess
-
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, UpdateStatusResponse.Parse),
-
-                                                 #endregion
-
-                                                 #region OnSOAPFault
-
-                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
-
-                                                     SendSOAPError(timestamp, this, httpresponse.Content);
-
-                                                     return new HTTPResponse<UpdateStatusResponse>(httpresponse,
-                                                                                                   new UpdateStatusResponse(
-                                                                                                       Request,
-                                                                                                       Result.Format(
-                                                                                                           "Invalid SOAP => " +
-                                                                                                           httpresponse.HTTPBody.ToUTF8String()
-                                                                                                       )
-                                                                                                   ),
-                                                                                                   IsFault: true);
-
-                                                 },
-
-                                                 #endregion
-
-                                                 #region OnHTTPError
-
-                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
-
-                                                     SendHTTPError(timestamp, this, httpresponse);
-
-                                                     return new HTTPResponse<UpdateStatusResponse>(httpresponse,
-                                                                                                   new UpdateStatusResponse(
-                                                                                                       Request,
-                                                                                                       Result.Server(
-                                                                                                            httpresponse.HTTPStatusCode.ToString() +
-                                                                                                            " => " +
-                                                                                                            httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                       )
-                                                                                                   ),
-                                                                                                   IsFault: true);
-
-                                                 },
-
-                                                 #endregion
-
-                                                 #region OnException
-
-                                                 OnException: (timestamp, sender, exception) => {
-
-                                                     SendException(timestamp, sender, exception);
-
-                                                     return HTTPResponse<UpdateStatusResponse>.ExceptionThrown(new UpdateStatusResponse(
-                                                                                                                   Request,
-                                                                                                                   Result.Format(exception.Message +
-                                                                                                                                 " => " +
-                                                                                                                                 exception.StackTrace)),
-                                                                                                               exception);
-
-                                                 }
-
-                                                 #endregion
-
-                                                );
+                result = HTTPResponse<UpdateStatusResponse>.OK(
+                             new UpdateStatusResponse(Request,
+                                                      Result.NoOperation("At least one of the given EVSE status or parking status enumerations must be neither null nor empty!"))
+                         );
 
             }
 
+            #endregion
+
+            else
+            {
+
+                using (var _OCHPClient = new SOAPClient(Hostname,
+                                                        RemotePort,
+                                                        HTTPVirtualHost,
+                                                        "/live/ochp/v1.4",
+                                                        RemoteCertificateValidator,
+                                                        ClientCert,
+                                                        UserAgent,
+                                                        DNSClient))
+                {
+
+                    result = await _OCHPClient.Query(_CustomUpdateStatusSOAPRequestMapper(Request,
+                                                                                          SOAP.Encapsulation(
+                                                                                              WSSLoginPassword.Item1,
+                                                                                              WSSLoginPassword.Item2,
+                                                                                              Request.ToXML()
+                                                                                          )),
+                                                     "http://ochp.e-clearing.net/service/UpdateStatus",
+                                                     RequestLogDelegate:   OnUpdateStatusSOAPRequest,
+                                                     ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
+                                                     CancellationToken:    Request.CancellationToken,
+                                                     EventTrackingId:      Request.EventTrackingId,
+                                                     QueryTimeout:         Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+
+                                                     #region OnSuccess
+
+                                                     OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, UpdateStatusResponse.Parse),
+
+                                                     #endregion
+
+                                                     #region OnSOAPFault
+
+                                                     OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                         SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                         return new HTTPResponse<UpdateStatusResponse>(httpresponse,
+                                                                                                       new UpdateStatusResponse(
+                                                                                                           Request,
+                                                                                                           Result.Format(
+                                                                                                               "Invalid SOAP => " +
+                                                                                                               httpresponse.HTTPBody.ToUTF8String()
+                                                                                                           )
+                                                                                                       ),
+                                                                                                       IsFault: true);
+
+                                                     },
+
+                                                     #endregion
+
+                                                     #region OnHTTPError
+
+                                                     OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                         SendHTTPError(timestamp, this, httpresponse);
+
+                                                         return new HTTPResponse<UpdateStatusResponse>(httpresponse,
+                                                                                                       new UpdateStatusResponse(
+                                                                                                           Request,
+                                                                                                           Result.Server(
+                                                                                                                httpresponse.HTTPStatusCode.ToString() +
+                                                                                                                " => " +
+                                                                                                                httpresponse.HTTPBody.      ToUTF8String()
+                                                                                                           )
+                                                                                                       ),
+                                                                                                       IsFault: true);
+
+                                                     },
+
+                                                     #endregion
+
+                                                     #region OnException
+
+                                                     OnException: (timestamp, sender, exception) => {
+
+                                                         SendException(timestamp, sender, exception);
+
+                                                         return HTTPResponse<UpdateStatusResponse>.ExceptionThrown(new UpdateStatusResponse(
+                                                                                                                       Request,
+                                                                                                                       Result.Format(exception.Message +
+                                                                                                                                     " => " +
+                                                                                                                                     exception.StackTrace)),
+                                                                                                                   exception);
+
+                                                     }
+
+                                                     #endregion
+
+                                                    );
+
+                }
+
+            }
+
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<UpdateStatusResponse>.OK(new UpdateStatusResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<UpdateStatusResponse>.ClientError(
+                             new UpdateStatusResponse(Request,
+                                                      Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnAddCDRsResponse event
@@ -1397,11 +1455,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.OK(
+                result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.ClientError(
                              new GetSingleRoamingAuthorisationResponse(Request,
-                                                                       Result.OK("Nothing to upload!"))
+                                                                       Result.Client("HTTP request failed!"))
                          );
+
+            #endregion
 
 
             #region Send OnGetSingleRoamingAuthorisationResponse event
@@ -1411,7 +1473,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             try
             {
 
-                OnGetSingleRoamingAuthorisationResponse?.Invoke(DateTime.Now,
+                OnGetSingleRoamingAuthorisationResponse?.Invoke(Endtime,
                                                                 Request.Timestamp.Value,
                                                                 this,
                                                                 ClientId,
@@ -1474,10 +1536,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnGetRoamingAuthorisationListRequest?.Invoke(DateTime.Now,
+                OnGetRoamingAuthorisationListRequest?.Invoke(StartTime,
                                                              Timestamp.Value,
                                                              this,
                                                              ClientId,
@@ -1582,23 +1646,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<GetRoamingAuthorisationListResponse>.OK(new GetRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetRoamingAuthorisationListResponse>.ClientError(
+                             new GetRoamingAuthorisationListResponse(Request,
+                                                                     Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnGetRoamingAuthorisationListResponse event
 
+            var EndTime = DateTime.Now;
+
             try
             {
 
-                OnGetRoamingAuthorisationListResponse?.Invoke(DateTime.Now,
+                OnGetRoamingAuthorisationListResponse?.Invoke(EndTime,
                                                               Timestamp.Value,
                                                               this,
                                                               ClientId,
                                                               EventTrackingId,
                                                               RequestTimeout,
                                                               result.Content,
-                                                              DateTime.Now - Timestamp.Value);
+                                                              EndTime - StartTime);
 
             }
             catch (Exception e)
@@ -1658,10 +1731,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListUpdatesRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnGetRoamingAuthorisationListUpdatesRequest?.Invoke(DateTime.Now,
+                OnGetRoamingAuthorisationListUpdatesRequest?.Invoke(StartTime,
                                                                     Timestamp.Value,
                                                                     this,
                                                                     ClientId,
@@ -1767,16 +1842,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.OK(new GetRoamingAuthorisationListUpdatesResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.ClientError(
+                             new GetRoamingAuthorisationListUpdatesResponse(Request,
+                                                                            Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnGetRoamingAuthorisationListUpdatesResponse event
 
+            var EndTime = DateTime.Now;
+
             try
             {
 
-                OnGetRoamingAuthorisationListUpdatesResponse?.Invoke(DateTime.Now,
+                OnGetRoamingAuthorisationListUpdatesResponse?.Invoke(EndTime,
                                                                      Timestamp.Value,
                                                                      this,
                                                                      ClientId,
@@ -1784,7 +1868,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                      LastUpdate,
                                                                      RequestTimeout,
                                                                      result.Content,
-                                                                     DateTime.Now - Timestamp.Value);
+                                                                     EndTime - StartTime);
 
             }
             catch (Exception e)
@@ -1944,8 +2028,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<AddCDRsResponse>.OK(new AddCDRsResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<AddCDRsResponse>.ClientError(
+                             new AddCDRsResponse(Request,
+                                                 Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnAddCDRsResponse event
@@ -2022,10 +2113,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnCheckCDRsRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnCheckCDRsRequest?.Invoke(DateTime.Now,
+                OnCheckCDRsRequest?.Invoke(StartTime,
                                            Timestamp.Value,
                                            this,
                                            ClientId,
@@ -2131,16 +2224,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<CheckCDRsResponse>.OK(new CheckCDRsResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<CheckCDRsResponse>.ClientError(
+                             new CheckCDRsResponse(Request,
+                                                   Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnCheckCDRsResponse event
 
+            var EndTime = DateTime.Now;
+
             try
             {
 
-                OnCheckCDRsResponse?.Invoke(DateTime.Now,
+                OnCheckCDRsResponse?.Invoke(EndTime,
                                             Timestamp.Value,
                                             this,
                                             ClientId,
@@ -2148,7 +2250,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                             CDRStatus,
                                             RequestTimeout,
                                             result.Content,
-                                            DateTime.Now - Timestamp.Value);
+                                            EndTime - StartTime);
 
             }
             catch (Exception e)
@@ -2213,10 +2315,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnUpdateTariffsRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnUpdateTariffsRequest?.Invoke(DateTime.Now,
+                OnUpdateTariffsRequest?.Invoke(StartTime,
                                                Timestamp.Value,
                                                this,
                                                ClientId,
@@ -2322,16 +2426,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<UpdateTariffsResponse>.OK(new UpdateTariffsResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<UpdateTariffsResponse>.ClientError(
+                             new UpdateTariffsResponse(Request,
+                                                       Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnUpdateTariffsResponse event
 
+            var EndTime = DateTime.Now;
+
             try
             {
 
-                OnUpdateTariffsResponse?.Invoke(DateTime.Now,
+                OnUpdateTariffsResponse?.Invoke(EndTime,
                                                 Timestamp.Value,
                                                 this,
                                                 ClientId,
@@ -2339,7 +2452,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                 TariffInfos,
                                                 RequestTimeout,
                                                 result.Content,
-                                                DateTime.Now - Timestamp.Value);
+                                                EndTime - StartTime);
 
             }
             catch (Exception e)
@@ -2406,10 +2519,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnAddServiceEndpointsRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnAddServiceEndpointsRequest?.Invoke(DateTime.Now,
+                OnAddServiceEndpointsRequest?.Invoke(StartTime,
                                                      Timestamp.Value,
                                                      this,
                                                      ClientId,
@@ -2515,16 +2630,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<AddServiceEndpointsResponse>.OK(new AddServiceEndpointsResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<AddServiceEndpointsResponse>.ClientError(
+                             new AddServiceEndpointsResponse(Request,
+                                                             Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnAddServiceEndpointsResponse event
 
+            var EndTime = DateTime.Now;
+
             try
             {
 
-                OnAddServiceEndpointsResponse?.Invoke(DateTime.Now,
+                OnAddServiceEndpointsResponse?.Invoke(EndTime,
                                                       Timestamp.Value,
                                                       this,
                                                       ClientId,
@@ -2532,7 +2656,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                       OperatorEndpoints,
                                                       RequestTimeout,
                                                       result.Content,
-                                                      DateTime.Now - Timestamp.Value);
+                                                      EndTime - StartTime);
 
             }
             catch (Exception e)
@@ -2588,10 +2712,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetServiceEndpointsRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnGetServiceEndpointsRequest?.Invoke(DateTime.Now,
+                OnGetServiceEndpointsRequest?.Invoke(StartTime,
                                                      Timestamp.Value,
                                                      this,
                                                      ClientId,
@@ -2696,23 +2822,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<GetServiceEndpointsResponse>.OK(new GetServiceEndpointsResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<GetServiceEndpointsResponse>.ClientError(
+                             new GetServiceEndpointsResponse(Request,
+                                                             Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnGetServiceEndpointsResponse event
 
+            var EndTime = DateTime.Now;
+
             try
             {
 
-                OnGetServiceEndpointsResponse?.Invoke(DateTime.Now,
+                OnGetServiceEndpointsResponse?.Invoke(EndTime,
                                                       Timestamp.Value,
                                                       this,
                                                       ClientId,
                                                       EventTrackingId,
                                                       RequestTimeout,
                                                       result.Content,
-                                                      DateTime.Now - Timestamp.Value);
+                                                      EndTime - StartTime);
 
             }
             catch (Exception e)
@@ -2816,10 +2951,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnInformProviderSOAPRequest event
 
+            var StartTime = DateTime.Now;
+
             try
             {
 
-                OnInformProviderRequest?.Invoke(DateTime.Now,
+                OnInformProviderRequest?.Invoke(StartTime,
                                                 Timestamp.Value,
                                                 this,
                                                 ClientId,
@@ -2960,16 +3097,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             }
 
+            #region Handle HTTP client errors...
+
             if (result == null)
-                result = HTTPResponse<InformProviderResponse>.OK(InformProviderResponse.OK(Request, "Nothing to upload!"));
+                result = HTTPResponse<InformProviderResponse>.ClientError(
+                             new InformProviderResponse(Request,
+                                                        Result.Client("HTTP request failed!"))
+                         );
+
+            #endregion
 
 
             #region Send OnInformProviderResponse event
 
+            var EndTime = DateTime.Now;
+
             try
             {
 
-                OnInformProviderResponse?.Invoke(DateTime.Now,
+                OnInformProviderResponse?.Invoke(EndTime,
                                                  Timestamp.Value,
                                                  this,
                                                  ClientId,
@@ -2997,7 +3143,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                                  RequestTimeout,
                                                  result.Content,
-                                                 DateTime.Now - Timestamp.Value);
+                                                 EndTime - StartTime);
 
             }
             catch (Exception e)

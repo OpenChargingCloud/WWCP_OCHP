@@ -60,6 +60,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
 
         /// <summary>
+        /// No operation.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result NoOperation(String Description = null)
+
+            => new Result(ResultCodes.NoOperation,
+                          Description);
+
+
+        /// <summary>
         /// Data accepted and processed.
         /// </summary>
         /// <param name="Description">A human-readable error description.</param>
@@ -96,6 +106,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public static Result InvalidId(String Description = null)
 
             => new Result(ResultCodes.InvalidId,
+                          Description);
+
+
+        /// <summary>
+        /// Client-side error.
+        /// </summary>
+        /// <param name="Description">A human-readable error description.</param>
+        public static Result Client(String Description = null)
+
+            => new Result(ResultCodes.Client,
                           Description);
 
 

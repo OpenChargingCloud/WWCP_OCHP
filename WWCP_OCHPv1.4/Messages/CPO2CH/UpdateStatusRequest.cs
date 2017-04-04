@@ -84,13 +84,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         {
 
-            #region Initial checks
-
-            if (EVSEStatus.IsNullOrEmpty() && ParkingStatus.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(EVSEStatus) + " + " + nameof(ParkingStatus),  "At least one of the given EVSE status or parking status enumeration must be neither null nor empty!");
-
-            #endregion
-
             this.EVSEStatus     = EVSEStatus    ?? new EVSEStatus[0];
             this.ParkingStatus  = ParkingStatus ?? new ParkingStatus[0];
             this.DefaultTTL     = DefaultTTL    ?? new DateTime?();

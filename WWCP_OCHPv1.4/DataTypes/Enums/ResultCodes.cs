@@ -35,6 +35,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         OK,
 
         /// <summary>
+        /// No operation.
+        /// </summary>
+        NoOperation,
+
+        /// <summary>
         /// Only part of the data was accepted.
         /// </summary>
         Partly,
@@ -48,6 +53,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// One or more ID (EVSE/Contract) were not valid for this user.
         /// </summary>
         InvalidId,
+
+        /// <summary>
+        /// Client-side error.
+        /// </summary>
+        Client,
 
         /// <summary>
         /// Internal server error.
