@@ -111,7 +111,7 @@ namespace org.GraphDefined.WWCP
 
                                               String                                                  ClientLoggingContext                = OCHPv1_4.CPO.CPOClient.CPOClientLogger.DefaultContext,
                                               String                                                  ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
-                                              Func<String, String, String>                            LogFileCreator                      = null,
+                                              LogfileCreatorDelegate                                  LogFileCreator                      = null,
 
                                               OCHPv1_4.CPO.CustomEVSEIdMapperDelegate                 CustomEVSEIdMapper                  = null,
                                               OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate               EVSE2ChargePointInfo                = null,
@@ -267,7 +267,7 @@ namespace org.GraphDefined.WWCP
 
                                               String                                                  ClientLoggingContext                = OCHPv1_4.CPO.CPOClient.CPOClientLogger.DefaultContext,
                                               String                                                  ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
-                                              Func<String, String, String>                            LogFileCreator                      = null,
+                                              LogfileCreatorDelegate                                  LogFileCreator                      = null,
 
                                               OCHPv1_4.CPO.CustomEVSEIdMapperDelegate                 CustomEVSEIdMapper                  = null,
                                               OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate               EVSE2ChargePointInfo                = null,

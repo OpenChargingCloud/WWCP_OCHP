@@ -61,9 +61,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="CHServer">A OCHP CH server.</param>
         /// <param name="Context">A context of this API.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-        public CHServerLogger(CHServer                     CHServer,
-                               String                        Context         = DefaultContext,
-                               Func<String, String, String>  LogFileCreator  = null)
+        public CHServerLogger(CHServer                 CHServer,
+                               String                  Context         = DefaultContext,
+                               LogfileCreatorDelegate  LogFileCreator  = null)
 
             : this(CHServer,
                    Context.IsNotNullOrEmpty() ? Context : DefaultContext,
@@ -102,24 +102,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// 
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public CHServerLogger(CHServer                     CHServer,
-                               String                        Context,
+                               String                      Context,
 
-                               HTTPRequestLoggerDelegate     LogHTTPRequest_toConsole,
-                               HTTPResponseLoggerDelegate    LogHTTPResponse_toConsole,
-                               HTTPRequestLoggerDelegate     LogHTTPRequest_toDisc,
-                               HTTPResponseLoggerDelegate    LogHTTPResponse_toDisc,
+                               HTTPRequestLoggerDelegate   LogHTTPRequest_toConsole,
+                               HTTPResponseLoggerDelegate  LogHTTPResponse_toConsole,
+                               HTTPRequestLoggerDelegate   LogHTTPRequest_toDisc,
+                               HTTPResponseLoggerDelegate  LogHTTPResponse_toDisc,
 
-                               HTTPRequestLoggerDelegate     LogHTTPRequest_toNetwork   = null,
-                               HTTPResponseLoggerDelegate    LogHTTPResponse_toNetwork  = null,
-                               HTTPRequestLoggerDelegate     LogHTTPRequest_toHTTPSSE   = null,
-                               HTTPResponseLoggerDelegate    LogHTTPResponse_toHTTPSSE  = null,
+                               HTTPRequestLoggerDelegate   LogHTTPRequest_toNetwork    = null,
+                               HTTPResponseLoggerDelegate  LogHTTPResponse_toNetwork   = null,
+                               HTTPRequestLoggerDelegate   LogHTTPRequest_toHTTPSSE    = null,
+                               HTTPResponseLoggerDelegate  LogHTTPResponse_toHTTPSSE   = null,
 
-                               HTTPResponseLoggerDelegate    LogHTTPError_toConsole     = null,
-                               HTTPResponseLoggerDelegate    LogHTTPError_toDisc        = null,
-                               HTTPResponseLoggerDelegate    LogHTTPError_toNetwork     = null,
-                               HTTPResponseLoggerDelegate    LogHTTPError_toHTTPSSE     = null,
+                               HTTPResponseLoggerDelegate  LogHTTPError_toConsole      = null,
+                               HTTPResponseLoggerDelegate  LogHTTPError_toDisc         = null,
+                               HTTPResponseLoggerDelegate  LogHTTPError_toNetwork      = null,
+                               HTTPResponseLoggerDelegate  LogHTTPError_toHTTPSSE      = null,
 
-                               Func<String, String, String>  LogFileCreator             = null)
+                               LogfileCreatorDelegate      LogFileCreator              = null)
 
             : base(CHServer.SOAPServer,
                    Context.IsNotNullOrEmpty() ? Context : DefaultContext,

@@ -202,6 +202,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         {
 
+            RegisterURITemplates();
+
             if (AutoStart)
                 Start();
 
@@ -222,19 +224,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             : base(SOAPServer,
                    URIPrefix ?? DefaultURIPrefix)
 
-        { }
+        {
+
+            RegisterURITemplates();
+
+        }
 
         #endregion
 
         #endregion
 
 
-        #region (override) RegisterURITemplates()
+        #region RegisterURITemplates()
 
         /// <summary>
         /// Register all URI templates for this SOAP API.
         /// </summary>
-        protected override void RegisterURITemplates()
+        protected void RegisterURITemplates()
         {
 
             #region / - SelectEVSE

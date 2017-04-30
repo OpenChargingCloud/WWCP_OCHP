@@ -502,7 +502,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          TimeSpan?                            RequestTimeout              = null,
                          DNSClient                            DNSClient                   = null,
                          String                               LoggingContext              = EMPClientLogger.DefaultContext,
-                         Func<String, String, String>         LogFileCreator              = null)
+                         LogfileCreatorDelegate               LogFileCreator              = null)
 
             : base(ClientId,
                    Hostname,
