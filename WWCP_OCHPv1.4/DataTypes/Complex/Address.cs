@@ -422,7 +422,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => String.Concat(Street, " ", HouseNumber, ", ",
                              ZIPCode,    " ", City,         ", ",
-                             Country.CountryName.FirstText);
+                             Country.CountryName.FirstText());
 
         #endregion
 

@@ -168,7 +168,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => new Address(WWCPAddress.HouseNumber,
                            WWCPAddress.Street,
-                           WWCPAddress.City.FirstText,
+                           WWCPAddress.City.FirstText(),
                            WWCPAddress.PostalCode,
                            WWCPAddress.Country);
 
@@ -479,7 +479,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             var _ChargePointInfo = new ChargePointInfo(CustomEVSEIdMapper != null ? CustomEVSEIdMapper(EVSE.Id) : EVSE.Id.ToOCHP(),
                                                        ChargePointInfo.LocationIdInverse_RegEx.Replace(EVSE.ChargingStation.ChargingPool.Id.ToString(), "").SubstringMax(15),
-                                                       EVSE.ChargingStation.ChargingPool.Name.FirstText.ToUpper(),
+                                                       EVSE.ChargingStation.ChargingPool.Name.FirstText().ToUpper(),
                                                        EVSE.ChargingStation.ChargingPool.Name.First().Language.ToString(),
                                                        EVSE.ChargingStation.Address.ToOCHP(),
                                                        EVSE.ChargingStation.GeoLocation.Value,
@@ -498,7 +498,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                        Hours.Open24_7,
                                                        ChargePointStatus.Operative,
                                                        new ChargePointSchedule[0],
-                                                       EVSE.ChargingStation.HotlinePhoneNumber,
+                                                     null,//  EVSE.ChargingStation.HotlinePhoneNumber,
                                                        new ParkingSpotInfo[0],
                                                        RestrictionTypes.EVOnly,
                                                        null,                                // Ratings

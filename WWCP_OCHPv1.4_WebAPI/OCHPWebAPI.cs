@@ -512,7 +512,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
 
                 var matchFilter   = Request.QueryString.CreateStringFilter<EVSE>  ("match",
                                                                                    (evse, match) => evse.Id.ToString().Contains(match) ||
-                                                                                                    evse.ChargingStation.Name.FirstText.Contains(match));
+                                                                                                    evse.ChargingStation.Name.FirstText().Contains(match));
 
                 var sinceFilter   = Request.QueryString.CreateDateTimeFilter<EVSE>("since",
                                                                                    (evse, timestamp) => evse.Status.Timestamp >= timestamp);
@@ -649,7 +649,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
 
                 var matchFilter   = Request.QueryString.CreateStringFilter<EVSE>  ("match",
                                                                                    (evse, match) => evse.Id.ToString().Contains(match) ||
-                                                                                                    evse.ChargingStation.Name.FirstText.Contains(match));
+                                                                                                    evse.ChargingStation.Name.FirstText().Contains(match));
 
                 var sinceFilter   = Request.QueryString.CreateDateTimeFilter<EVSE>("since",
                                                                                    (evse, timestamp) => evse.Status.Timestamp >= timestamp);
@@ -698,8 +698,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                                                                           Skip   (skip).
                                                                           Take   (take).
                                                                           Select (evse => String.Concat(@"      <div class=""evsestatus"" " + EVSEStatusColorSelector(evse) + ">", Environment.NewLine,
-                                                                                                        @"        <div class=""id"">",            evse.Id.ToString(),                  @"</div>", Environment.NewLine,
-                                                                                                        @"        <div class=""description"">",   evse.ChargingStation.Name.FirstText, @"</div>", Environment.NewLine,
+                                                                                                        @"        <div class=""id"">",            evse.Id.ToString(),                    @"</div>", Environment.NewLine,
+                                                                                                        @"        <div class=""description"">",   evse.ChargingStation.Name.FirstText(), @"</div>", Environment.NewLine,
                                                                                                         @"        <div class=""statuslist"">", Environment.NewLine,
                                                                                                         @"          <div class=""timestampedstatus"">", Environment.NewLine,
                                                                                                         @"            <div class=""timestamp"">",   evse.Status.Timestamp.ToString("dd.MM.yyyy HH:mm:ss"), @"</div>", Environment.NewLine,

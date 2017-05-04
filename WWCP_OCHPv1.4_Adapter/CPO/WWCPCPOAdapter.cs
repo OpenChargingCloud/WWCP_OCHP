@@ -67,7 +67,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         private static readonly  Regex                                         pattern = new Regex(@"\s=\s");
 
-        public  static readonly  ChargingStationOperatorNameSelectorDelegate   DefaultOperatorNameSelector = I18N => I18N.FirstText;
+        public  static readonly  ChargingStationOperatorNameSelectorDelegate   DefaultOperatorNameSelector = I18N => I18N.FirstText();
 
                 /// <summary>
         /// The default service check intervall.
