@@ -63,6 +63,7 @@ namespace org.GraphDefined.WWCP
         /// <param name="ServerName"> An optional identification string for the HTTP server.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
         /// <param name="ServerURIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="ServerURISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ServerContentType">An optional HTTP content type to use.</param>
         /// <param name="ServerRegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="ServerAutoStart">Whether to start the server immediately or not.</param>
@@ -105,6 +106,7 @@ namespace org.GraphDefined.WWCP
                                               String                                                  ServerName                          = OCHPv1_4.CPO.CPOServer.DefaultHTTPServerName,
                                               IPPort                                                  ServerTCPPort                       = null,
                                               String                                                  ServerURIPrefix                     = OCHPv1_4.CPO.CPOServer.DefaultURIPrefix,
+                                              String                                                  ServerURISuffix                     = OCHPv1_4.CPO.CPOServer.DefaultURISuffix,
                                               HTTPContentType                                         ServerContentType                   = null,
                                               Boolean                                                 ServerRegisterHTTPRootService       = true,
                                               Boolean                                                 ServerAutoStart                     = false,
@@ -167,6 +169,7 @@ namespace org.GraphDefined.WWCP
                                                                      ServerName,
                                                                      ServerTCPPort,
                                                                      ServerURIPrefix,
+                                                                     ServerURISuffix,
                                                                      ServerContentType,
                                                                      ServerRegisterHTTPRootService,
                                                                      ServerAutoStart,
@@ -223,6 +226,7 @@ namespace org.GraphDefined.WWCP
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
         /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="ServerURISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="QueryTimeout">An optional timeout for upstream queries.</param>
@@ -263,7 +267,8 @@ namespace org.GraphDefined.WWCP
                                               String                                                  HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
                                               TimeSpan?                                               QueryTimeout                        = null,
 
-                                              String                                                  ServerURIPrefix                     = null,
+                                              String                                                  ServerURIPrefix                     = OCHPv1_4.CPO.CPOServer.DefaultURIPrefix,
+                                              String                                                  ServerURISuffix                     = OCHPv1_4.CPO.CPOServer.DefaultURISuffix,
 
                                               String                                                  ClientLoggingContext                = OCHPv1_4.CPO.CPOClient.CPOClientLogger.DefaultContext,
                                               String                                                  ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
@@ -329,7 +334,8 @@ namespace org.GraphDefined.WWCP
                                                                                                 LogFileCreator),
 
                                                                      new OCHPv1_4.CPO.CPOServer(SOAPServer,
-                                                                                                ServerURIPrefix),
+                                                                                                ServerURIPrefix,
+                                                                                                ServerURISuffix),
 
                                                                      ServerLoggingContext,
                                                                      LogFileCreator,

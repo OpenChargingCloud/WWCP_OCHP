@@ -498,7 +498,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                        Hours.Open24_7,
                                                        ChargePointStatus.Operative,
                                                        new ChargePointSchedule[0],
-                                                     null,//  EVSE.ChargingStation.HotlinePhoneNumber,
+                                                       EVSE.ChargingStation.HotlinePhoneNumber.IsNotNullOrEmpty()
+                                                           ? EVSE.ChargingStation.HotlinePhoneNumber.FirstText().Replace("+", "00") // ToDo: Bugfix for VW!
+                                                           : null,
                                                        new ParkingSpotInfo[0],
                                                        RestrictionTypes.EVOnly,
                                                        null,                                // Ratings

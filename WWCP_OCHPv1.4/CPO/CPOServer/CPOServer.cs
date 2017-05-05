@@ -60,6 +60,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public new const           String           DefaultURIPrefix       = "";
 
         /// <summary>
+        /// The default HTTP/SOAP/XML server URI suffix.
+        /// </summary>
+        public     const           String           DefaultURISuffix       = "/OCHP";
+
+        /// <summary>
         /// The default HTTP/SOAP/XML content type.
         /// </summary>
         public new static readonly HTTPContentType  DefaultContentType     = HTTPContentType.XMLTEXT_UTF8;
@@ -68,6 +73,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// The default request timeout.
         /// </summary>
         public new static readonly TimeSpan         DefaultRequestTimeout  = TimeSpan.FromMinutes(1);
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The HTTP/SOAP/XML server URI suffix.
+        /// </summary>
+        public String  URISuffix    { get; }
 
         #endregion
 
@@ -172,7 +186,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Constructor(s)
 
-        #region CPOServer(HTTPServerName, TCPPort = default, URIPrefix = default, ContentType = default, DNSClient = null, AutoStart = false)
+        #region CPOServer(HTTPServerName, TCPPort = default, URIPrefix = default, URISuffix = default, ContentType = default, DNSClient = null, AutoStart = false)
 
         /// <summary>
         /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML CPO Server API.
@@ -180,6 +194,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="HTTPServerName">An optional identification string for the HTTP server.</param>
         /// <param name="TCPPort">An optional TCP port for the HTTP server.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="URISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ContentType">An optional HTTP content type to use.</param>
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
@@ -187,6 +202,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public CPOServer(String          HTTPServerName           = DefaultHTTPServerName,
                          IPPort          TCPPort                  = null,
                          String          URIPrefix                = DefaultURIPrefix,
+                         String          URISuffix                = DefaultURISuffix,
                          HTTPContentType ContentType              = null,
                          Boolean         RegisterHTTPRootService  = true,
                          DNSClient       DNSClient                = null,
@@ -202,6 +218,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         {
 
+            #region Initial checks
+
+            URISuffix = URISuffix != null && URISuffix.Trim().IsNotNullOrEmpty()
+                            ? URISuffix.Trim()
+                            : DefaultURISuffix;
+
+            if (URISuffix.Length > 0 && !URISuffix.StartsWith("/", StringComparison.Ordinal))
+                URISuffix = "/" + URISuffix;
+
+            while (URISuffix.EndsWith("/", StringComparison.Ordinal))
+                URISuffix = URISuffix.Substring(0, URISuffix.Length - 1);
+
+            #endregion
+
+            this.URISuffix  = URISuffix;
+
             RegisterURITemplates();
 
             if (AutoStart)
@@ -211,20 +243,40 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region CPOServer(SOAPServer, URIPrefix = default)
+        #region CPOServer(SOAPServer, URIPrefix = default, URISuffix = default)
 
         /// <summary>
         /// Use the given HTTP server for the OCHP HTTP/SOAP/XML CPO Server API.
         /// </summary>
         /// <param name="SOAPServer">A SOAP server.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="URISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         public CPOServer(SOAPServer  SOAPServer,
-                         String      URIPrefix  = DefaultURIPrefix)
+                         String      URIPrefix  = DefaultURIPrefix,
+                         String      URISuffix  = DefaultURISuffix)
 
             : base(SOAPServer,
-                   URIPrefix ?? DefaultURIPrefix)
+                   URIPrefix != null && URIPrefix.Trim().IsNotNullOrEmpty()
+                                 ? URIPrefix.Trim()
+                                 : DefaultURIPrefix)
 
         {
+
+            #region Initial checks
+
+            URISuffix = URISuffix != null && URISuffix.Trim().IsNotNullOrEmpty()
+                            ? URISuffix.Trim()
+                            : DefaultURISuffix;
+
+            if (URISuffix.Length > 0 && !URISuffix.StartsWith("/", StringComparison.Ordinal))
+                URISuffix = "/" + URISuffix;
+
+            while (URISuffix.EndsWith("/", StringComparison.Ordinal))
+                URISuffix = URISuffix.Substring(0, URISuffix.Length - 1);
+
+            #endregion
+
+            this.URISuffix  = URISuffix;
 
             RegisterURITemplates();
 
@@ -246,7 +298,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region / - SelectEVSE
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URIPrefix + URISuffix,
                                             "SelectEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "SelectEvseRequest").FirstOrDefault(),
                                             async (Request, SelectEVSEXML) => {
@@ -348,7 +400,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region / - ControlEVSE
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URIPrefix + URISuffix,
                                             "ControlEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ControlEvseRequest").FirstOrDefault(),
                                             async (Request, ControlEVSEXML) => {
@@ -455,7 +507,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region / - ReleaseEVSE
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URIPrefix + URISuffix,
                                             "ReleaseEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ReleaseEvseRequest").FirstOrDefault(),
                                             async (Request, ReleaseEVSEXML) => {
@@ -555,7 +607,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region / - GetEVSEStatus
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URIPrefix + URISuffix,
                                             "DirectEvseStatusRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "DirectEvseStatusRequest").FirstOrDefault(),
                                             async (Request, GetEVSEStatusXML) => {
@@ -655,7 +707,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region / - ReportDiscrepancy
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URIPrefix + URISuffix,
                                             "ReportDiscrepancyRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ReportDiscrepancyRequest").FirstOrDefault(),
                                             async (Request, ReportDiscrepancyXML) => {

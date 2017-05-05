@@ -199,6 +199,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="ServerName">An optional identification string for the HTTP server.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
         /// <param name="ServerURIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="ServerURISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ServerContentType">An optional HTTP content type to use.</param>
         /// <param name="ServerRegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="ServerAutoStart">Whether to start the server immediately or not.</param>
@@ -222,6 +223,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                           String                               ServerName                      = CPOServer.DefaultHTTPServerName,
                           IPPort                               ServerTCPPort                   = null,
                           String                               ServerURIPrefix                 = CPOServer.DefaultURIPrefix,
+                          String                               ServerURISuffix                 = CPOServer.DefaultURISuffix,
                           HTTPContentType                      ServerContentType               = null,
                           Boolean                              ServerRegisterHTTPRootService   = true,
                           Boolean                              ServerAutoStart                 = false,
@@ -249,6 +251,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    new CPOServer(ServerName,
                                  ServerTCPPort,
                                  ServerURIPrefix,
+                                 ServerURISuffix,
                                  ServerContentType,
                                  ServerRegisterHTTPRootService,
                                  DNSClient,
