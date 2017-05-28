@@ -1496,8 +1496,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             var Warnings = new List<String>();
 
             var _EVSEStatus = EVSEStatusUpdates.
-                                  Where       (evsestatusupdate => _IncludeEVSEs(RoamingNetwork.GetEVSEbyId(evsestatusupdate.Id))).
-                                  ToLookup    (evsestatusupdate => evsestatusupdate.Id,
+                                  Where       (evsestatusupdate => _IncludeEVSEs(evsestatusupdate.EVSE)).
+                                  ToLookup    (evsestatusupdate => evsestatusupdate.EVSE.Id,
                                                evsestatusupdate => evsestatusupdate).
                                   ToDictionary(group            => group.Key,
                                                group            => group.AsEnumerable().OrderByDescending(item => item.NewStatus.Timestamp)).
@@ -1960,11 +1960,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         async Task<Acknowledgement>
 
             ISendData.SetStaticData(IEnumerable<EVSE>   EVSEs,
+                                    TransmissionTypes   TransmissionType,
 
-                                          DateTime?           Timestamp,
-                                          CancellationToken?  CancellationToken,
-                                          EventTracking_Id    EventTrackingId,
-                                          TimeSpan?           RequestTimeout)
+                                    DateTime?           Timestamp,
+                                    CancellationToken?  CancellationToken,
+                                    EventTracking_Id    EventTrackingId,
+                                    TimeSpan?           RequestTimeout)
 
         {
 
@@ -2002,11 +2003,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         async Task<Acknowledgement>
 
             ISendData.AddStaticData(IEnumerable<EVSE>   EVSEs,
+                                    TransmissionTypes   TransmissionType,
 
-                                          DateTime?           Timestamp,
-                                          CancellationToken?  CancellationToken,
-                                          EventTracking_Id    EventTrackingId,
-                                          TimeSpan?           RequestTimeout)
+                                    DateTime?           Timestamp,
+                                    CancellationToken?  CancellationToken,
+                                    EventTracking_Id    EventTrackingId,
+                                    TimeSpan?           RequestTimeout)
 
         {
 
@@ -2044,11 +2046,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         async Task<Acknowledgement>
 
             ISendData.UpdateStaticData(IEnumerable<EVSE>   EVSEs,
+                                       TransmissionTypes   TransmissionType,
 
-                                             DateTime?           Timestamp,
-                                             CancellationToken?  CancellationToken,
-                                             EventTracking_Id    EventTrackingId,
-                                             TimeSpan?           RequestTimeout)
+                                       DateTime?           Timestamp,
+                                       CancellationToken?  CancellationToken,
+                                       EventTracking_Id    EventTrackingId,
+                                       TimeSpan?           RequestTimeout)
 
         {
 
@@ -2086,11 +2089,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         Task<Acknowledgement>
 
             ISendData.DeleteStaticData(IEnumerable<EVSE>   EVSEs,
+                                       TransmissionTypes   TransmissionType,
 
-                                             DateTime?           Timestamp,
-                                             CancellationToken?  CancellationToken,
-                                             EventTracking_Id    EventTrackingId,
-                                             TimeSpan?           RequestTimeout)
+                                       DateTime?           Timestamp,
+                                       CancellationToken?  CancellationToken,
+                                       EventTracking_Id    EventTrackingId,
+                                       TimeSpan?           RequestTimeout)
 
                 => Task.FromResult(new Acknowledgement(ResultType.NoOperation));
 
@@ -5534,10 +5538,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     _StatusRunId++;
 
                     // Copy 'EVSE status changes', remove originals...
-                    EVSEStatusFastQueueCopy.Value = new List<EVSEStatusUpdate>(EVSEStatusChangesFastQueue.Where(evsestatuschange => !EVSEsToAddQueue.Any(evse => evse.Id == evsestatuschange.Id)));
+                    EVSEStatusFastQueueCopy.Value = new List<EVSEStatusUpdate>(EVSEStatusChangesFastQueue.Where(evsestatuschange => !EVSEsToAddQueue.Any(evse => evse == evsestatuschange.EVSE)));
 
                     // Add all evse status changes of EVSE *NOT YET UPLOADED* into the delayed queue...
-                    EVSEStatusChangesDelayedQueue.AddRange(EVSEStatusChangesFastQueue.Where(evsestatuschange => EVSEsToAddQueue.Any(evse => evse.Id == evsestatuschange.Id)));
+                    EVSEStatusChangesDelayedQueue.AddRange(EVSEStatusChangesFastQueue.Where(evsestatuschange => EVSEsToAddQueue.Any(evse => evse == evsestatuschange.EVSE)));
 
                     EVSEStatusChangesFastQueue.Clear();
 
