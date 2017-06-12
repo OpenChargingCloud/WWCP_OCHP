@@ -238,7 +238,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    new StartEndDateTime(CDRInfo.StartDateTime, CDRInfo.EndDateTime),
                    Duration:             CDRInfo.Duration,
                    EVSEId:               CDRInfo.EVSEId.ToWWCP(),
-                   IdentificationStart:  AuthInfo.FromRemoteIdentification(eMobilityAccount_Id.Parse(CDRInfo.ContractId.ToString()))
+                   IdentificationStart:  AuthIdentification.FromRemoteIdentification(eMobilityAccount_Id.Parse(CDRInfo.ContractId.ToString()))
                );
 
         #endregion
