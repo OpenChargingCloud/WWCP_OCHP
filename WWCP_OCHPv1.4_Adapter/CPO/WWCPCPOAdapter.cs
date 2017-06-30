@@ -105,6 +105,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         IId ISendAuthorizeStartStop.AuthId
             => Id;
 
+        IId ISend2RemoteChargeDetailRecords.Id
+            => Id;
+
+        IEnumerable<IId> ISend2RemoteChargeDetailRecords.Ids
+            => Ids.Cast<IId>();
+
         #region Name
 
         /// <summary>
