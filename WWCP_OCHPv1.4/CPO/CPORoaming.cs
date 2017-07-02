@@ -286,7 +286,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<SetChargePointListResponse>>
+        public Task<HTTPResponse<SetChargePointListResponse>>
 
             SetChargePointList(IEnumerable<ChargePointInfo>  ChargePointInfos,
                                IncludeChargePointsDelegate   IncludeChargePoints  = null,
@@ -297,13 +297,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                TimeSpan?                     RequestTimeout       = null)
 
 
-                => await CPOClient.SetChargePointList(ChargePointInfos,
-                                                      IncludeChargePoints,
+                => CPOClient.SetChargePointList(ChargePointInfos,
+                                                IncludeChargePoints,
 
-                                                      Timestamp,
-                                                      CancellationToken,
-                                                      EventTrackingId,
-                                                      RequestTimeout);
+                                                Timestamp,
+                                                CancellationToken,
+                                                EventTrackingId,
+                                                RequestTimeout);
 
         #endregion
 
@@ -319,7 +319,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<UpdateChargePointListResponse>>
+        public Task<HTTPResponse<UpdateChargePointListResponse>>
 
             UpdateChargePointList(IEnumerable<ChargePointInfo>  ChargePointInfos,
                                   IncludeChargePointsDelegate   IncludeChargePoints  = null,
@@ -330,13 +330,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   TimeSpan?                     RequestTimeout       = null)
 
 
-                => await CPOClient.UpdateChargePointList(ChargePointInfos,
-                                                         IncludeChargePoints,
+                => CPOClient.UpdateChargePointList(ChargePointInfos,
+                                                   IncludeChargePoints,
 
-                                                         Timestamp,
-                                                         CancellationToken,
-                                                         EventTrackingId,
-                                                         RequestTimeout);
+                                                   Timestamp,
+                                                   CancellationToken,
+                                                   EventTrackingId,
+                                                   RequestTimeout);
 
         #endregion
 
@@ -346,12 +346,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Upload the given enumeration of EVSE and/or parking status.
         /// </summary>
         /// <param name="Request">A UpdateStatus request.</param>
-        public async Task<HTTPResponse<UpdateStatusResponse>>
+        public Task<HTTPResponse<UpdateStatusResponse>>
 
             UpdateStatus(UpdateStatusRequest Request)
 
 
-                => await CPOClient.UpdateStatus(Request);
+                => CPOClient.UpdateStatus(Request);
 
 
         #endregion
@@ -363,12 +363,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Create a new OCHP GetSingleRoamingAuthorisation request.
         /// </summary>
         /// <param name="Request">A GetSingleRoamingAuthorisation request.</param>
-        public async Task<HTTPResponse<GetSingleRoamingAuthorisationResponse>>
+        public Task<HTTPResponse<GetSingleRoamingAuthorisationResponse>>
 
             GetSingleRoamingAuthorisation(GetSingleRoamingAuthorisationRequest Request)
 
 
-                => await CPOClient.GetSingleRoamingAuthorisation(Request);
+                => CPOClient.GetSingleRoamingAuthorisation(Request);
 
 
         #endregion
@@ -382,7 +382,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
+        public Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
 
             GetRoamingAuthorisationList(DateTime?           Timestamp          = null,
                                         CancellationToken?  CancellationToken  = null,
@@ -390,10 +390,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                         TimeSpan?           RequestTimeout     = null)
 
 
-                => await CPOClient.GetRoamingAuthorisationList(Timestamp,
-                                                               CancellationToken,
-                                                               EventTrackingId,
-                                                               RequestTimeout);
+                => CPOClient.GetRoamingAuthorisationList(Timestamp,
+                                                         CancellationToken,
+                                                         EventTrackingId,
+                                                         RequestTimeout);
 
         #endregion
 
@@ -408,7 +408,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>>
+        public Task<HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>>
 
             GetRoamingAuthorisationListUpdates(DateTime            LastUpdate,
 
@@ -418,12 +418,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                TimeSpan?           RequestTimeout     = null)
 
 
-                => await CPOClient.GetRoamingAuthorisationListUpdates(LastUpdate,
+                => CPOClient.GetRoamingAuthorisationListUpdates(LastUpdate,
 
-                                                                      Timestamp,
-                                                                      CancellationToken,
-                                                                      EventTrackingId,
-                                                                      RequestTimeout);
+                                                                Timestamp,
+                                                                CancellationToken,
+                                                                EventTrackingId,
+                                                                RequestTimeout);
 
         #endregion
 
@@ -434,12 +434,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Upload the given enumeration of charge detail records.
         /// </summary>
         /// <param name="Request">A AddCDRs request.</param>
-        public async Task<HTTPResponse<AddCDRsResponse>>
+        public Task<HTTPResponse<AddCDRsResponse>>
 
             AddCDRs(AddCDRsRequest Request)
 
 
-                => await CPOClient.AddCDRs(Request);
+                => CPOClient.AddCDRs(Request);
 
 
         #endregion
@@ -455,7 +455,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<CheckCDRsResponse>>
+        public Task<HTTPResponse<CheckCDRsResponse>>
 
             CheckCDRs(CDRStatus?            CDRStatus          = null,
 
@@ -465,12 +465,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                       TimeSpan?             RequestTimeout     = null)
 
 
-                => await CPOClient.CheckCDRs(CDRStatus,
+                => CPOClient.CheckCDRs(CDRStatus,
 
-                                             Timestamp,
-                                             CancellationToken,
-                                             EventTrackingId,
-                                             RequestTimeout);
+                                       Timestamp,
+                                       CancellationToken,
+                                       EventTrackingId,
+                                       RequestTimeout);
 
         #endregion
 
@@ -486,7 +486,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<UpdateTariffsResponse>>
+        public Task<HTTPResponse<UpdateTariffsResponse>>
 
             UpdateTariffs(IEnumerable<TariffInfo>  TariffInfos,
 
@@ -496,12 +496,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                           TimeSpan?                RequestTimeout     = null)
 
 
-                => await CPOClient.UpdateTariffs(TariffInfos,
+                => CPOClient.UpdateTariffs(TariffInfos,
 
-                                                 Timestamp,
-                                                 CancellationToken,
-                                                 EventTrackingId,
-                                                 RequestTimeout);
+                                           Timestamp,
+                                           CancellationToken,
+                                           EventTrackingId,
+                                           RequestTimeout);
 
         #endregion
 
@@ -519,7 +519,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<AddServiceEndpointsResponse>>
+        public Task<HTTPResponse<AddServiceEndpointsResponse>>
 
             AddServiceEndpoints(IEnumerable<OperatorEndpoint>  OperatorEndpoints,
 
@@ -529,12 +529,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                 TimeSpan?                      RequestTimeout     = null)
 
 
-                => await CPOClient.AddServiceEndpoints(OperatorEndpoints,
+                => CPOClient.AddServiceEndpoints(OperatorEndpoints,
 
-                                                       Timestamp,
-                                                       CancellationToken,
-                                                       EventTrackingId,
-                                                       RequestTimeout);
+                                                 Timestamp,
+                                                 CancellationToken,
+                                                 EventTrackingId,
+                                                 RequestTimeout);
 
         #endregion
 
@@ -547,7 +547,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<GetServiceEndpointsResponse>>
+        public Task<HTTPResponse<GetServiceEndpointsResponse>>
 
             GetServiceEndpoints(DateTime?           Timestamp          = null,
                                 CancellationToken?  CancellationToken  = null,
@@ -555,10 +555,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                 TimeSpan?           RequestTimeout     = null)
 
 
-                => await CPOClient.GetServiceEndpoints(Timestamp,
-                                                       CancellationToken,
-                                                       EventTrackingId,
-                                                       RequestTimeout);
+                => CPOClient.GetServiceEndpoints(Timestamp,
+                                                 CancellationToken,
+                                                 EventTrackingId,
+                                                 RequestTimeout);
 
         #endregion
 
@@ -592,7 +592,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public async Task<HTTPResponse<InformProviderResponse>>
+        public Task<HTTPResponse<InformProviderResponse>>
 
             InformProvider(DirectMessages          DirectMessage,
                            EVSE_Id                 EVSEId,
@@ -620,30 +620,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                            TimeSpan?               RequestTimeout     = null)
 
 
-                => await CPOClient.InformProvider(DirectMessage,
-                                                  EVSEId,
-                                                  ContractId,
-                                                  DirectId,
+                => CPOClient.InformProvider(DirectMessage,
+                                            EVSEId,
+                                            ContractId,
+                                            DirectId,
 
-                                                  SessionTimeoutAt,
-                                                  StateOfCharge,
-                                                  MaxPower,
-                                                  MaxCurrent,
-                                                  OnePhase,
-                                                  MaxEnergy,
-                                                  MinEnergy,
-                                                  Departure,
-                                                  CurrentPower,
-                                                  ChargedEnergy,
-                                                  MeterReading,
-                                                  ChargingPeriods,
-                                                  CurrentCost,
-                                                  Currency,
+                                            SessionTimeoutAt,
+                                            StateOfCharge,
+                                            MaxPower,
+                                            MaxCurrent,
+                                            OnePhase,
+                                            MaxEnergy,
+                                            MinEnergy,
+                                            Departure,
+                                            CurrentPower,
+                                            ChargedEnergy,
+                                            MeterReading,
+                                            ChargingPeriods,
+                                            CurrentCost,
+                                            Currency,
 
-                                                  Timestamp,
-                                                  CancellationToken,
-                                                  EventTrackingId,
-                                                  RequestTimeout);
+                                            Timestamp,
+                                            CancellationToken,
+                                            EventTrackingId,
+                                            RequestTimeout);
 
         #endregion
 
