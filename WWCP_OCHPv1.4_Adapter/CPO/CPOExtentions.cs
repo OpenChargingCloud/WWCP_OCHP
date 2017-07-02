@@ -78,16 +78,18 @@ namespace org.GraphDefined.WWCP
         /// <param name="IncludeEVSEs">Only include the EVSEs matching the given delegate.</param>
         /// <param name="ServiceCheckEvery">The service check intervall.</param>
         /// <param name="StatusCheckEvery">The status check intervall.</param>
+        /// <param name="EVSEStatusRefreshEvery">The EVSE status refresh intervall.</param>
         /// 
         /// <param name="DisablePushData">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisablePushStatus">This service can be disabled, e.g. for debugging reasons.</param>
+        /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
         /// 
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public static ICSORoamingProvider
+        public static OCHPv1_4.CPO.WWCPCPOAdapter
 
             CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                     RoamingNetwork,
                                               CSORoamingProvider_Id                                   Id,
@@ -124,9 +126,11 @@ namespace org.GraphDefined.WWCP
                                               IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,
+                                              TimeSpan?                                               EVSEStatusRefreshEvery              = null,
 
                                               Boolean                                                 DisablePushData                     = false,
                                               Boolean                                                 DisablePushStatus                   = false,
+                                              Boolean                                                 DisableEVSEStatusRefresh            = false,
                                               Boolean                                                 DisableAuthentication               = false,
                                               Boolean                                                 DisableSendChargeDetailRecords      = false,
 
@@ -187,9 +191,11 @@ namespace org.GraphDefined.WWCP
                                                                      IncludeEVSEs,
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
+                                                                     EVSEStatusRefreshEvery,
 
                                                                      DisablePushData,
                                                                      DisablePushStatus,
+                                                                     DisableEVSEStatusRefresh,
                                                                      DisableAuthentication,
                                                                      DisableSendChargeDetailRecords,
 
@@ -200,7 +206,7 @@ namespace org.GraphDefined.WWCP
 
             return RoamingNetwork.
                        CreateNewRoamingProvider(NewRoamingProvider,
-                                                Configurator);
+                                                Configurator) as OCHPv1_4.CPO.WWCPCPOAdapter;
 
         }
 
@@ -241,16 +247,18 @@ namespace org.GraphDefined.WWCP
         /// <param name="IncludeEVSEs">Only include the EVSEs matching the given delegate.</param>
         /// <param name="ServiceCheckEvery">The service check intervall.</param>
         /// <param name="StatusCheckEvery">The status check intervall.</param>
+        /// <param name="EVSEStatusRefreshEvery">The EVSE status refresh intervall.</param>
         /// 
         /// <param name="DisablePushData">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisablePushStatus">This service can be disabled, e.g. for debugging reasons.</param>
+        /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
         /// 
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public static ICSORoamingProvider
+        public static OCHPv1_4.CPO.WWCPCPOAdapter
 
             CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                     RoamingNetwork,
                                               CSORoamingProvider_Id                                   Id,
@@ -283,9 +291,11 @@ namespace org.GraphDefined.WWCP
                                               IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,
+                                              TimeSpan?                                               EVSEStatusRefreshEvery              = null,
 
                                               Boolean                                                 DisablePushData                     = false,
                                               Boolean                                                 DisablePushStatus                   = false,
+                                              Boolean                                                 DisableEVSEStatusRefresh            = false,
                                               Boolean                                                 DisableAuthentication               = false,
                                               Boolean                                                 DisableSendChargeDetailRecords      = false,
 
@@ -349,9 +359,11 @@ namespace org.GraphDefined.WWCP
                                                                      IncludeEVSEs,
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
+                                                                     EVSEStatusRefreshEvery,
 
                                                                      DisablePushData,
                                                                      DisablePushStatus,
+                                                                     DisableEVSEStatusRefresh,
                                                                      DisableAuthentication,
                                                                      DisableSendChargeDetailRecords);
 
@@ -359,7 +371,7 @@ namespace org.GraphDefined.WWCP
 
             return RoamingNetwork.
                        CreateNewRoamingProvider(NewRoamingProvider,
-                                                Configurator);
+                                                Configurator) as OCHPv1_4.CPO.WWCPCPOAdapter;
 
         }
 
