@@ -5711,32 +5711,39 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         }
 
-        public async Task<Acknowledgement> RefreshEVSEStatus()
+        private async Task<Acknowledgement> RefreshEVSEStatus()
         {
+
+            #region Try to acquire the EVSE status refresh lock, or return...
 
             if (!EVSEStatusRefreshLock.Wait(0))
             {
-                DebugX.Log("EVSEStatusRefreshLock missed!");
+                DebugX.Log("Could not acquire EVSE status refresh lock!");
                 return new Acknowledgement(ResultType.NoOperation);
             }
+
+            #endregion
 
 
             EVSEStatusRefreshEvent?.Invoke(DateTime.UtcNow,
                                            this,
                                            "EVSE status refresh, as every " + EVSEStatusRefreshEvery.TotalHours.ToString() + " hours!");
 
+            #region Data
+
+            EVSE_Id         EVSEId;
             Acknowledgement result = null;
+
+            var StartTime                  = DateTime.UtcNow;
+            var Warnings                   = new List<String>();
+            var AllEVSEStatusRefreshments  = new List<EVSEStatus>();
+
+            #endregion
 
             try
             {
 
                 #region Fetch EVSE status
-
-                EVSE_Id EVSEId;
-
-                var StartTime                  = DateTime.UtcNow;
-                var Warnings                   = new List<String>();
-                var AllEVSEStatusRefreshments  = new List<EVSEStatus>();
 
                 foreach (var EVSEStatusHistory in RoamingNetwork.EVSEStatus(1))
                 {
@@ -5792,13 +5799,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         if (response.Content.Result.ResultCode == ResultCodes.OK)
                             result = new Acknowledgement(ResultType.True,
                                                          response.Content.Result.Description,
-                                                         null,
+                                                         Warnings,
                                                          Runtime);
 
                         else
                             result = new Acknowledgement(ResultType.False,
                                                          response.Content.Result.Description,
-                                                         null,
+                                                         Warnings,
                                                          Runtime);
 
                     }
@@ -5822,6 +5829,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     e = e.InnerException;
 
                 DebugX.LogT(nameof(WWCPCPOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
+
+                result = new Acknowledgement(ResultType.False,
+                                             e.Message,
+                                             Warnings,
+                                             DateTime.UtcNow - StartTime);
 
             }
 
