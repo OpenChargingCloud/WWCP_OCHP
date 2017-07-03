@@ -124,6 +124,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                            )
 
                                        },
+                                       Currency.EUR,
 
                                        TimeSpan.FromHours(1),
                                        new Address(
@@ -135,8 +136,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                        ),
                                        new Ratings(0.0f, 1.0f, 240),
                                        "MeterId #2305",
-                                       23.5f,
-                                       Currency.EUR
+                                       23.5f
                                    )
 
                                }

@@ -199,28 +199,35 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Convert a WWCP charge detail record into a corresponding OCHP charge detail record.
         /// </summary>
         /// <param name="ChargeDetailRecord">A WWCP charge detail record.</param>
-        public static CDRInfo ToOCHP(this WWCP.ChargeDetailRecord ChargeDetailRecord)
+        public static CDRInfo ToOCHP(this ChargeDetailRecord ChargeDetailRecord)
 
             => new CDRInfo(
-                   CDR_Id.Parse(ChargeDetailRecord.SessionId.ToString()),
-                   EMT_Id.Parse(""),
-                   Contract_Id.Parse(""),
+                   CDR_Id.Parse(ChargeDetailRecord.EVSEId.Value.OperatorId.ToString().Replace("*", "").Replace("+49822", "DEBDO") +
+                               (ChargeDetailRecord.SessionId.ToString().Replace("-", "").SubstringMax(30).ToUpper())),
+                   new EMT_Id(ChargeDetailRecord.IdentificationStart.AuthToken.ToString(),
+                              TokenRepresentations.Plain,
+                              TokenTypes.RFID),
+                   Contract_Id.Parse(ChargeDetailRecord.GetCustomDataAs<String>("ContractId")),
 
-                   ChargeDetailRecord.EVSEId.Value.ToOCHP(),
-                   ChargePointTypes.Unknown,
+                   ChargeDetailRecord.EVSEId.ToOCHP().Value,
+                   ChargePointTypes.AC,
                    ChargeDetailRecord.EVSE.ToOCHP().Connectors.First(),
 
                    CDRStatus.New,
                    ChargeDetailRecord.SessionTime.Value.StartTime,
                    ChargeDetailRecord.SessionTime.Value.EndTime.Value,
-                   new CDRPeriod[0],
+                   new CDRPeriod[] { new CDRPeriod(ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
+                                                   ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
+                                                   BillingItems.Energy,
+                                                   ChargeDetailRecord.ConsumedEnergy,
+                                                   0) },
+                   Currency.EUR,
 
                    ChargeDetailRecord.Duration,
-                   ChargeDetailRecord.ChargingPool?.Address?.ToOCHP(),
+                   ChargeDetailRecord.EVSE?.ChargingStation?.ChargingPool?.Address?.ToOCHP(),
                    null, // Ratings
                    ChargeDetailRecord.EnergyMeterId?.ToString()
                    // TotalCosts
-                   // Currency
                );
 
         #endregion
@@ -244,15 +251,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        public static EVSE_Id? ToOCHP(this WWCP.EVSE_Id? EVSEId)
+            => EVSEId.HasValue
+                   ? EVSEId.Value.ToOCHP()
+                   : new EVSE_Id?();
 
         public static EVSE_Id ToOCHP(this WWCP.EVSE_Id EVSEId)
-            => EVSE_Id.Parse(EVSEId.ToString());
+            => EVSE_Id.Parse(EVSEId.ToString().Replace("+49*822*", "DE*BDO*E"));
+
+        public static WWCP.EVSE_Id? ToOCHP(this EVSE_Id? EVSEId)
+            => EVSEId.HasValue
+                   ? EVSEId.Value.ToWWCP()
+                   : new WWCP.EVSE_Id?();
 
         public static WWCP.EVSE_Id ToWWCP(this EVSE_Id EVSEId)
             => WWCP.EVSE_Id.Parse(EVSEId.ToString());
 
 
-        public static Provider_Id ToOCHP(this WWCP.eMobilityProvider_Id ProviderId)
+        public static Provider_Id ToOCHP(this eMobilityProvider_Id ProviderId)
             => Provider_Id.Parse(ProviderId.ToString());
 
         public static eMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)

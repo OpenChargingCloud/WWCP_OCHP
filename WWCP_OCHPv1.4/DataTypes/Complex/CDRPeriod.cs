@@ -287,11 +287,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => new XElement(XName ?? OCHPNS.Default + "chargingPeriod",
 
                    new XElement(OCHPNS.Default + "startDateTime",
-                       new XElement(OCHPNS.Default + "LocalDateTime",     Start.ToIso8601())
+                       new XElement(OCHPNS.Default + "LocalDateTime",     Start.ToIso8601WithOffset(false))
                    ),
 
                    new XElement(OCHPNS.Default + "endDateTime",
-                       new XElement(OCHPNS.Default + "LocalDateTime",     Start.ToIso8601())
+                       new XElement(OCHPNS.Default + "LocalDateTime",     Start.ToIso8601WithOffset(false))
                    ),
 
                    new XElement(OCHPNS.Default + "billingItem",
