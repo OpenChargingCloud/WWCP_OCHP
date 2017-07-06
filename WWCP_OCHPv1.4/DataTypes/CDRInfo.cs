@@ -160,13 +160,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        DateTime                StartDateTime,
                        DateTime                EndDateTime,
                        IEnumerable<CDRPeriod>  ChargingPeriods,
+                       Currency                Currency,
 
                        TimeSpan?               Duration            = null,
                        Address                 ChargePointAddress  = null,
                        Ratings                 Ratings             = null,
                        String                  MeterId             = null,
-                       Single?                 TotalCosts          = null,
-                       Currency                Currency            = null)
+                       Single?                 TotalCosts          = null)
 
         {
 
@@ -184,22 +184,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             #endregion
 
             this.CDRId               = CDRId;
-            this.EVSEId              = EVSEId;
             this.EMTId               = EMTId;
             this.ContractId          = ContractId;
    //         this.LiveAuthId          = LiveAuthId;
+
+            this.EVSEId              = EVSEId;
+            this.ChargePointType     = ChargePointType;
+            this.ConnectorType       = ConnectorType;
+
             this.Status              = Status;
             this.StartDateTime       = StartDateTime;
             this.EndDateTime         = EndDateTime;
+            this.ChargingPeriods     = ChargingPeriods;
+            this.Currency            = Currency;
+
             this.Duration            = Duration;
             this.ChargePointAddress  = ChargePointAddress;
-            this.ChargePointType     = ChargePointType;
-            this.ConnectorType       = ConnectorType;
    //         this.MaxSocketPower      = MaxSocketPower;        //Note: Seems to be a bug in the documentation!
             this.MeterId             = MeterId;
-            this.ChargingPeriods     = ChargingPeriods;
             this.TotalCosts          = TotalCosts;
-            this.Currency            = Currency;
 
         }
 
@@ -402,6 +405,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                               CDRInfoXML.MapElementsOrFail    (OCHPNS.Default + "chargingPeriods",
                                                                CDRPeriod.Parse),
 
+                              CDRInfoXML.MapValueOrNull       (OCHPNS.Default + "currency",
+                                                               Currency.ParseString),
+
 
                               CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "duration",
                                                                TimeSpan.Parse),
@@ -415,10 +421,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                               CDRInfoXML.ElementValueOrDefault(OCHPNS.Default + "meterId"),
 
                               CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "totalCost",
-                                                               Single.Parse),
-
-                              CDRInfoXML.MapValueOrNull       (OCHPNS.Default + "currency",
-                                                               Currency.ParseString)
+                                                               Single.Parse)
 
                           );
 
@@ -486,7 +489,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                    new XElement(OCHPNS.Default + "CdrId",               CDRId.     ToString()),
                    new XElement(OCHPNS.Default + "evseId",              EVSEId.    ToString()),
-                   new XElement(OCHPNS.Default + "emtId",               EMTId.     ToString()),
+                   EMTId.ToXML(),
                    new XElement(OCHPNS.Default + "contractId",          ContractId.ToString()),
 
                    new XElement(OCHPNS.Default + "status",
@@ -494,11 +497,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ),
 
                    new XElement(OCHPNS.Default + "startDateTime",
-                       new XElement(OCHPNS.Default + "LocalDateTime",   StartDateTime.ToIso8601())
+                       new XElement(OCHPNS.Default + "LocalDateTime",   StartDateTime.ToIso8601WithOffset(false))
                    ),
 
                    new XElement(OCHPNS.Default + "endDateTime",
-                       new XElement(OCHPNS.Default + "LocalDateTime",   EndDateTime.ToIso8601())
+                       new XElement(OCHPNS.Default + "LocalDateTime",   EndDateTime.ToIso8601WithOffset(false))
                    ),
 
                    Duration.HasValue
@@ -507,7 +510,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                                       Duration.Value.Seconds.ToString("X2")))
                        : null,
 
-                   ChargePointAddress.ToXML(),
+                   ChargePointAddress != null
+                       ? ChargePointAddress.ToXML()
+                       : null,
 
                    new XElement(OCHPNS.Default + "chargePointType",     XML_IO.AsText(ChargePointType)),
 

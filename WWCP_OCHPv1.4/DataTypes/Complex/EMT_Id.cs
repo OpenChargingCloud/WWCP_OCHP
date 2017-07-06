@@ -73,7 +73,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Constructor(s)
 
         /// <summary>
-        /// 
+        /// Create a new unique identification of an OCHP token.
         /// </summary>
         /// <param name="Instance">The plain value of the token identification.</param>
         /// <param name="Representation">The token instance may be represented by its hash value (hexadecimal representation of the hash value). This specifies in which representation the token instance is set.</param>

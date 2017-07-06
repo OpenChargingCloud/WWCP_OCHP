@@ -195,24 +195,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region StatusCheckEvery
+        #region FlushEVSEStatusUpdatesEvery
 
-        private UInt32 _StatusCheckEvery;
+        private UInt32 _FlushEVSEStatusUpdatesEvery;
 
         /// <summary>
-        /// The status check intervall.
+        /// The flush EVSE status updates intervall.
         /// </summary>
-        public TimeSpan StatusCheckEvery
+        public TimeSpan FlushEVSEStatusUpdatesEvery
         {
 
             get
             {
-                return TimeSpan.FromSeconds(_StatusCheckEvery);
+                return TimeSpan.FromSeconds(_FlushEVSEStatusUpdatesEvery);
             }
 
             set
             {
-                _StatusCheckEvery = (UInt32) value.TotalSeconds;
+                _FlushEVSEStatusUpdatesEvery = (UInt32) value.TotalSeconds;
             }
 
         }
@@ -537,10 +537,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             this.ServiceCheckTimer                    = new Timer(ServiceCheck,      null,                           0, _ServiceCheckEvery);
 
             this.StatusCheckLock                      = new Object();
-            this._StatusCheckEvery                    = (UInt32) (StatusCheckEvery.HasValue
+            this._FlushEVSEStatusUpdatesEvery                    = (UInt32) (StatusCheckEvery.HasValue
                                                                      ? StatusCheckEvery.Value.  TotalMilliseconds
                                                                      : DefaultStatusCheckEvery. TotalMilliseconds);
-            this.StatusCheckTimer                     = new Timer(StatusCheck,       null,                           0, _StatusCheckEvery);
+            this.StatusCheckTimer                     = new Timer(FlushEVSEStatusUpdates,       null,                           0, _FlushEVSEStatusUpdatesEvery);
 
             this.EVSEStatusRefreshEvery               = EVSEStatusRefreshEvery ?? DefaultEVSEStatusRefreshEvery;
             this.EVSEStatusRefreshTimer               = new Timer(EVSEStatusRefresh, null, this.EVSEStatusRefreshEvery, this.EVSEStatusRefreshEvery);
@@ -2267,7 +2267,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     //{
 
                         EVSEStatusChangesFastQueue.AddRange(StatusUpdates);
-                        StatusCheckTimer.Change(_StatusCheckEvery, Timeout.Infinite);
+                        StatusCheckTimer.Change(_FlushEVSEStatusUpdatesEvery, Timeout.Infinite);
 
                     //}
 
@@ -5304,7 +5304,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else
             {
 
-                var response = await CPORoaming.AddCDRs(ChargeDetailRecords.Select(cdr => cdr.ToOCHP()),
+                var response = await CPORoaming.AddCDRs(ChargeDetailRecords.Select(cdr => cdr.ToOCHP()).ToArray(),
 
                                                         Timestamp,
                                                         CancellationToken,
@@ -5593,14 +5593,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region (timer) StatusCheck(State)
+        #region (timer) FlushEVSEStatusUpdates(State)
 
-        private void StatusCheck(Object State)
+        private void FlushEVSEStatusUpdates(Object State)
         {
 
             if (!DisablePushStatus)
             {
 
+<<<<<<< HEAD
                 try
                 {
 
@@ -5614,6 +5615,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         e = e.InnerException;
 
                     DebugX.Log("A exception occured during StatusCheck: " + e.Message + Environment.NewLine + e.StackTrace);
+=======
+                FlushEVSEStatusUpdateQueues().Wait();
+>>>>>>> 2bf7df0946e187f408323edc56aaa0cb9d8be5f3
 
                 }
 
@@ -5621,10 +5625,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         }
 
-        public async Task FlushStatusQueues()
+        public async Task FlushEVSEStatusUpdateQueues()
         {
 
+<<<<<<< HEAD
             FlushStatusQueuesEvent?.Invoke(this, TimeSpan.FromMilliseconds(_ServiceCheckEvery));
+=======
+            DebugX.Log("Flush EVSE status updates, as every " + _FlushEVSEStatusUpdatesEvery + "ms!");
+>>>>>>> 2bf7df0946e187f408323edc56aaa0cb9d8be5f3
 
             #region Make a thread local copy of all data
 
@@ -5678,7 +5686,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 Console.WriteLine("StatusCheckLock missed!");
-                StatusCheckTimer.Change(_StatusCheckEvery, Timeout.Infinite);
+                StatusCheckTimer.Change(_FlushEVSEStatusUpdatesEvery, Timeout.Infinite);
 
             }
 

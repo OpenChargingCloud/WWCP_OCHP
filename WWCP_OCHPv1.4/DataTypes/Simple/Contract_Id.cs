@@ -574,14 +574,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 case ProviderIdFormats.ISO:
                     return String.Concat(ProviderId,
-                                         "C", Suffix,
+                                         //"C",
+                                         Suffix,
                                          CheckDigit.HasValue
                                              ? "" + CheckDigit
                                              : "");
 
                 default: // ISO_HYPHEN
                     return String.Concat(ProviderId, "-",
-                                         "C", Suffix,
+                                         //"C",
+                                         Suffix,
                                          CheckDigit.HasValue
                                              ? "-" + CheckDigit
                                              : "");
