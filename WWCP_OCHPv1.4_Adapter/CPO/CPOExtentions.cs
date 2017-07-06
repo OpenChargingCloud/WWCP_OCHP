@@ -123,6 +123,7 @@ namespace org.GraphDefined.WWCP
                                               OCHPv1_4.CPO.ChargePointInfo2XMLDelegate                ChargePointInfo2XML                 = null,
                                               OCHPv1_4.CPO.EVSEStatus2XMLDelegate                     EVSEStatus2XML                      = null,
 
+                                              IncludeEVSEIdDelegate                                   IncludeEVSEIds                      = null,
                                               IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,
@@ -188,6 +189,7 @@ namespace org.GraphDefined.WWCP
                                                                      ChargePointInfo2XML,
                                                                      EVSEStatus2XML,
 
+                                                                     IncludeEVSEIds,
                                                                      IncludeEVSEs,
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
@@ -288,6 +290,7 @@ namespace org.GraphDefined.WWCP
                                               OCHPv1_4.CPO.ChargePointInfo2XMLDelegate                ChargePointInfo2XML                 = null,
                                               OCHPv1_4.CPO.EVSEStatus2XMLDelegate                     EVSEStatus2XML                      = null,
 
+                                              IncludeEVSEIdDelegate                                   IncludeEVSEIds                      = null,
                                               IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,
@@ -356,6 +359,7 @@ namespace org.GraphDefined.WWCP
                                                                      ChargePointInfo2XML,
                                                                      EVSEStatus2XML,
 
+                                                                     IncludeEVSEIds,
                                                                      IncludeEVSEs,
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
