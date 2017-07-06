@@ -291,7 +291,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ),
 
                    new XElement(OCHPNS.Default + "endDateTime",
-                       new XElement(OCHPNS.Default + "LocalDateTime",     Start.ToIso8601WithOffset(false))
+                       new XElement(OCHPNS.Default + "LocalDateTime",     End.ToIso8601WithOffset(false))
                    ),
 
                    new XElement(OCHPNS.Default + "billingItem",

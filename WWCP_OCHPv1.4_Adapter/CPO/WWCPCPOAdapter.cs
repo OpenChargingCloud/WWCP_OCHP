@@ -449,9 +449,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public event EVSEStatusRefreshEventDelegate EVSEStatusRefreshEvent;
 
 
-        public delegate void FlushStatusQueuesDelegate(WWCPCPOAdapter Sender, TimeSpan Every);
+        public delegate void FlushEVSEStatusUpdateQueuesDelegate(WWCPCPOAdapter Sender, TimeSpan Every);
 
-        public event FlushStatusQueuesDelegate FlushStatusQueuesEvent;
+        public event FlushEVSEStatusUpdateQueuesDelegate FlushEVSEStatusUpdateQueuesEvent;
 
         #endregion
 
@@ -5601,11 +5601,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (!DisablePushStatus)
             {
 
-<<<<<<< HEAD
                 try
                 {
 
-                    FlushStatusQueues().Wait();
+                    FlushEVSEStatusUpdateQueues().Wait();
 
                 }
                 catch (Exception e)
@@ -5615,9 +5614,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         e = e.InnerException;
 
                     DebugX.Log("A exception occured during StatusCheck: " + e.Message + Environment.NewLine + e.StackTrace);
-=======
-                FlushEVSEStatusUpdateQueues().Wait();
->>>>>>> 2bf7df0946e187f408323edc56aaa0cb9d8be5f3
 
                 }
 
@@ -5628,11 +5624,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public async Task FlushEVSEStatusUpdateQueues()
         {
 
-<<<<<<< HEAD
-            FlushStatusQueuesEvent?.Invoke(this, TimeSpan.FromMilliseconds(_ServiceCheckEvery));
-=======
-            DebugX.Log("Flush EVSE status updates, as every " + _FlushEVSEStatusUpdatesEvery + "ms!");
->>>>>>> 2bf7df0946e187f408323edc56aaa0cb9d8be5f3
+            FlushEVSEStatusUpdateQueuesEvent?.Invoke(this, TimeSpan.FromMilliseconds(_ServiceCheckEvery));
 
             #region Make a thread local copy of all data
 
