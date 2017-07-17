@@ -494,6 +494,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          String                               Hostname,
                          IPPort                               RemotePort                  = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator  = null,
+                         LocalCertificateSelectionCallback    LocalCertificateSelector    = null,
                          X509Certificate                      ClientCert                  = null,
                          String                               HTTPVirtualHost             = null,
                          String                               URIPrefix                   = DefaultURIPrefix,
@@ -508,6 +509,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    Hostname,
                    RemotePort ?? DefaultRemotePort,
                    RemoteCertificateValidator,
+                   LocalCertificateSelector,
                    ClientCert,
                    HTTPVirtualHost,
                    URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
@@ -557,20 +559,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         public EMPClient(String                               ClientId,
                          EMPClientLogger                      Logger,
                          String                               Hostname,
-                         IPPort                               RemotePort                  = null,
-                         RemoteCertificateValidationCallback  RemoteCertificateValidator  = null,
-                         X509Certificate                      ClientCert                  = null,
-                         String                               HTTPVirtualHost             = null,
-                         String                               URIPrefix                   = DefaultURIPrefix,
-                         Tuple<String, String>                WSSLoginPassword            = null,
-                         String                               HTTPUserAgent               = DefaultHTTPUserAgent,
-                         TimeSpan?                            RequestTimeout              = null,
-                         DNSClient                            DNSClient                   = null)
+                         IPPort                               RemotePort                   = null,
+                         RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
+                         LocalCertificateSelectionCallback    LocalCertificateSelector     = null,
+                         X509Certificate                      ClientCert                   = null,
+                         String                               HTTPVirtualHost              = null,
+                         String                               URIPrefix                    = DefaultURIPrefix,
+                         Tuple<String, String>                WSSLoginPassword             = null,
+                         String                               HTTPUserAgent                = DefaultHTTPUserAgent,
+                         TimeSpan?                            RequestTimeout               = null,
+                         DNSClient                            DNSClient                    = null)
 
             : base(ClientId,
                    Hostname,
                    RemotePort ?? DefaultRemotePort,
                    RemoteCertificateValidator,
+                   LocalCertificateSelector,
                    ClientCert,
                    HTTPVirtualHost,
                    URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
@@ -673,8 +677,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -684,7 +690,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnGetChargePointListSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -858,8 +864,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -869,7 +877,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnGetChargePointListUpdatesSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -1048,8 +1056,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -1059,7 +1069,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnGetStatusSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -1240,8 +1250,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -1251,7 +1263,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnSetRoamingAuthorisationListSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -1438,8 +1450,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
                 {
 
@@ -1449,7 +1463,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      ResponseLogDelegate:  OnUpdateRoamingAuthorisationListSOAPResponse,
                                                      CancellationToken:    CancellationToken,
                                                      EventTrackingId:      EventTrackingId,
-                                                     QueryTimeout:         RequestTimeout,
+                                                     RequestTimeout:       RequestTimeout,
 
                                                      #region OnSuccess
 
@@ -1627,8 +1641,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -1638,7 +1654,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnGetCDRsSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -1821,8 +1837,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -1832,7 +1850,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnConfirmCDRsSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -2016,8 +2034,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -2027,7 +2047,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnGetTariffUpdatesSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -2209,8 +2229,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -2220,7 +2242,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnAddServiceEndpointsSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -2390,8 +2412,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -2401,7 +2425,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -2592,8 +2616,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     ep.First().URL,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -2603,7 +2629,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnSelectEVSESOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -2815,8 +2841,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     ep.First().URL,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -2826,7 +2854,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnControlEVSESOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -3013,8 +3041,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -3024,7 +3054,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnReleaseEVSESOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -3205,8 +3235,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -3216,7 +3248,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnGetEVSEStatusSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -3401,8 +3433,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -3412,7 +3446,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnReportDiscrepancySOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 
@@ -3593,8 +3627,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
                                                     RemoteCertificateValidator,
+                                                    LocalCertificateSelector,
                                                     ClientCert,
                                                     UserAgent,
+                                                    RequestTimeout,
                                                     DNSClient))
             {
 
@@ -3604,7 +3640,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  ResponseLogDelegate:  OnGetInformProviderSOAPResponse,
                                                  CancellationToken:    CancellationToken,
                                                  EventTrackingId:      EventTrackingId,
-                                                 QueryTimeout:         RequestTimeout,
+                                                 RequestTimeout:       RequestTimeout,
 
                                                  #region OnSuccess
 

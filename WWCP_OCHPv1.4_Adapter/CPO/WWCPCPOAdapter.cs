@@ -540,13 +540,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             this._ServiceCheckEvery                   = (UInt32) (ServiceCheckEvery.HasValue
                                                                      ? ServiceCheckEvery.Value. TotalMilliseconds
                                                                      : DefaultServiceCheckEvery.TotalMilliseconds);
-            this.ServiceCheckTimer                    = new Timer(ServiceCheck,      null,                           0, _ServiceCheckEvery);
+            this.ServiceCheckTimer                    = new Timer(ServiceCheck,           null,                           0, _ServiceCheckEvery);
 
             this.StatusCheckLock                      = new Object();
             this._FlushEVSEStatusUpdatesEvery                    = (UInt32) (StatusCheckEvery.HasValue
                                                                      ? StatusCheckEvery.Value.  TotalMilliseconds
                                                                      : DefaultStatusCheckEvery. TotalMilliseconds);
-            this.StatusCheckTimer                     = new Timer(FlushEVSEStatusUpdates,       null,                           0, _FlushEVSEStatusUpdatesEvery);
+            this.StatusCheckTimer                     = new Timer(FlushEVSEStatusUpdates, null,                           0, _FlushEVSEStatusUpdatesEvery);
 
             this.EVSEStatusRefreshEvery               = EVSEStatusRefreshEvery ?? DefaultEVSEStatusRefreshEvery;
             this.EVSEStatusRefreshTimer               = new Timer(EVSEStatusRefresh, null, this.EVSEStatusRefreshEvery, this.EVSEStatusRefreshEvery);
@@ -1062,6 +1062,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               String                                       RemoteHostname,
                               IPPort                                       RemoteTCPPort                       = null,
                               RemoteCertificateValidationCallback          RemoteCertificateValidator          = null,
+                              LocalCertificateSelectionCallback            LocalCertificateSelector            = null,
                               X509Certificate                              ClientCert                          = null,
                               String                                       RemoteHTTPVirtualHost               = null,
                               String                                       URIPrefix                           = CPOClient.DefaultURIPrefix,
@@ -1109,6 +1110,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   RemoteHostname,
                                   RemoteTCPPort,
                                   RemoteCertificateValidator,
+                                  LocalCertificateSelector,
                                   ClientCert,
                                   RemoteHTTPVirtualHost,
                                   URIPrefix,
