@@ -58,7 +58,8 @@ namespace org.GraphDefined.WWCP
         /// <param name="URIPrefix">An default URI prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
-        /// <param name="QueryTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// 
         /// <param name="ServerName"> An optional identification string for the HTTP server.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
@@ -104,7 +105,8 @@ namespace org.GraphDefined.WWCP
                                               String                                                  URIPrefix                           = OCHPv1_4.CPO.CPOClient.DefaultURIPrefix,
                                               Tuple<String, String>                                   WSSLoginPassword                    = null,
                                               String                                                  HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
-                                              TimeSpan?                                               QueryTimeout                        = null,
+                                              TimeSpan?                                               RequestTimeout                      = null,
+                                              Byte?                                                   MaxNumberOfRetries                  = OCHPv1_4.CPO.CPOClient.DefaultMaxNumberOfRetries,
 
                                               String                                                  ServerName                          = OCHPv1_4.CPO.CPOServer.DefaultHTTPServerName,
                                               IPPort                                                  ServerTCPPort                       = null,
@@ -171,7 +173,8 @@ namespace org.GraphDefined.WWCP
                                                                      URIPrefix,
                                                                      WSSLoginPassword,
                                                                      HTTPUserAgent,
-                                                                     QueryTimeout,
+                                                                     RequestTimeout,
+                                                                     MaxNumberOfRetries,
 
                                                                      ServerName,
                                                                      ServerTCPPort,
@@ -239,7 +242,8 @@ namespace org.GraphDefined.WWCP
         /// <param name="ServerURISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
-        /// <param name="QueryTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// 
         /// <param name="ClientLoggingContext">An optional context for logging client methods.</param>
         /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
@@ -278,7 +282,8 @@ namespace org.GraphDefined.WWCP
                                               String                                                  URIPrefix                           = OCHPv1_4.CPO.CPOClient.DefaultURIPrefix,
                                               Tuple<String, String>                                   WSSLoginPassword                    = null,
                                               String                                                  HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
-                                              TimeSpan?                                               QueryTimeout                        = null,
+                                              TimeSpan?                                               RequestTimeout                      = null,
+                                              Byte?                                                   MaxNumberOfRetries                  = OCHPv1_4.CPO.CPOClient.DefaultMaxNumberOfRetries,
 
                                               String                                                  ServerURIPrefix                     = OCHPv1_4.CPO.CPOServer.DefaultURIPrefix,
                                               String                                                  ServerURISuffix                     = OCHPv1_4.CPO.CPOServer.DefaultURISuffix,
@@ -345,7 +350,8 @@ namespace org.GraphDefined.WWCP
                                                                                                 URIPrefix,
                                                                                                 WSSLoginPassword,
                                                                                                 HTTPUserAgent,
-                                                                                                QueryTimeout,
+                                                                                                RequestTimeout,
+                                                                                                MaxNumberOfRetries,
                                                                                                 DNSClient,
                                                                                                 ClientLoggingContext,
                                                                                                 LogFileCreator),

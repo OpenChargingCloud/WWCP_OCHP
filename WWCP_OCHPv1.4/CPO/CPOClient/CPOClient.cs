@@ -547,7 +547,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="URIPrefix">An default URI prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
-        /// <param name="QueryTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
@@ -561,7 +562,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          String                               URIPrefix                    = DefaultURIPrefix,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
-                         TimeSpan?                            QueryTimeout                 = null,
+                         TimeSpan?                            RequestTimeout               = null,
+                         Byte?                                MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
                          DNSClient                            DNSClient                    = null,
                          String                               LoggingContext               = CPOClientLogger.DefaultContext,
                          LogfileCreatorDelegate               LogFileCreator               = null)
@@ -576,7 +578,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
                    WSSLoginPassword,
                    HTTPUserAgent,
-                   QueryTimeout,
+                   RequestTimeout,
+                   MaxNumberOfRetries,
                    DNSClient)
 
         {
@@ -614,6 +617,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public CPOClient(String                               ClientId,
                          CPOClientLogger                      Logger,
@@ -627,6 +631,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
+                         Byte?                                MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
                          DNSClient                            DNSClient                    = null)
 
             : base(ClientId,
@@ -640,6 +645,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
+                   MaxNumberOfRetries,
                    DNSClient)
 
         {

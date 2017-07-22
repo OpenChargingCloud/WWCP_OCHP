@@ -1027,6 +1027,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// 
         /// <param name="ServerName">An optional identification string for the HTTP server.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
@@ -1069,6 +1070,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               Tuple<String, String>                        WSSLoginPassword                    = null,
                               String                                       HTTPUserAgent                       = CPOClient.DefaultHTTPUserAgent,
                               TimeSpan?                                    RequestTimeout                      = null,
+                              Byte?                                        MaxNumberOfRetries                  = CPOClient.DefaultMaxNumberOfRetries,
 
                               String                                       ServerName                          = CPOServer.DefaultHTTPServerName,
                               IPPort                                       ServerTCPPort                       = null,
@@ -1117,6 +1119,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   WSSLoginPassword,
                                   HTTPUserAgent,
                                   RequestTimeout,
+                                  MaxNumberOfRetries,
 
                                   ServerName,
                                   ServerTCPPort,

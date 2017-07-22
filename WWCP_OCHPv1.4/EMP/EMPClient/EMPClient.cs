@@ -487,6 +487,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent to use.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// <param name="DNSClient">An optional DNS client.</param>
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
@@ -501,6 +502,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          Tuple<String, String>                WSSLoginPassword            = null,
                          String                               HTTPUserAgent               = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout              = null,
+                         Byte?                                MaxNumberOfRetries          = DefaultMaxNumberOfRetries,
                          DNSClient                            DNSClient                   = null,
                          String                               LoggingContext              = EMPClientLogger.DefaultContext,
                          LogfileCreatorDelegate               LogFileCreator              = null)
@@ -516,6 +518,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
+                   MaxNumberOfRetries,
                    DNSClient)
 
         {
@@ -555,6 +558,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent to use.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
+        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// <param name="DNSClient">An optional DNS client.</param>
         public EMPClient(String                               ClientId,
                          EMPClientLogger                      Logger,
@@ -568,6 +572,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
+                         Byte?                                MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
                          DNSClient                            DNSClient                    = null)
 
             : base(ClientId,
@@ -581,6 +586,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
+                   MaxNumberOfRetries,
                    DNSClient)
 
         {
