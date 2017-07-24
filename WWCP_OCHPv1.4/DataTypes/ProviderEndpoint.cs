@@ -88,7 +88,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (!WhiteList.NotNullAny())
+            if (!WhiteList.IsNeitherNullNorEmpty())
                 throw new ArgumentNullException(nameof(WhiteList),  "The whitelist of ContractIds must not be null or empty!");
 
             #endregion
@@ -264,7 +264,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                    WhiteList.      Select(item => new XElement(OCHPNS.Default + "whitelist",  item)),
 
-                   BlackList.NotNullAny()
+                   BlackList.IsNeitherNullNorEmpty()
                        ? BlackList.Select(item => new XElement(OCHPNS.Default + "blacklist",  item))
                        : null
 
@@ -282,10 +282,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             => String.Concat(base.ToString(),
                              " having ",
-                             WhiteList.NotNullAny()
+                             WhiteList.IsNeitherNullNorEmpty()
                                  ? WhiteList.Count() + " whitelist entries"
                                  : "",
-                             BlackList.NotNullAny()
+                             BlackList.IsNeitherNullNorEmpty()
                                  ? " and " + BlackList.Count() + " blacklist entries"
                                  : "");
 
