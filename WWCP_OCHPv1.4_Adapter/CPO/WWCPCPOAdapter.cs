@@ -4280,12 +4280,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             if (DisableAuthentication)
             {
+
                 Endtime  = DateTime.UtcNow;
                 Runtime  = Endtime - StartTime;
                 result   = AuthStartEVSEResult.OutOfService(Id,
                                                             this,
                                                             SessionId,
                                                             Runtime);
+
             }
 
             else
@@ -4300,7 +4302,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                               Timestamp,
                                                                               CancellationToken,
                                                                               EventTrackingId,
-                                                                              RequestTimeout).ConfigureAwait(false);
+                                                                              RequestTimeout);
 
 
                 Endtime  = DateTime.UtcNow;
