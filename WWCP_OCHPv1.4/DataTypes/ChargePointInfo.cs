@@ -701,7 +701,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ChargePointInfoXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ChargePointInfoXML, e);
 
                 ChargePointInfo = null;
                 return false;
@@ -737,7 +737,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ChargePointInfoText, e);
+                OnException?.Invoke(DateTime.UtcNow, ChargePointInfoText, e);
             }
 
             ChargePointInfo = null;

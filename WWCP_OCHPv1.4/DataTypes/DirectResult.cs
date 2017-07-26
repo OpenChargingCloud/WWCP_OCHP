@@ -232,7 +232,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, DirectResultXML, e);
+                OnException?.Invoke(DateTime.UtcNow, DirectResultXML, e);
 
                 DirectResult = null;
                 return false;
@@ -268,7 +268,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, DirectResultText, e);
+                OnException?.Invoke(DateTime.UtcNow, DirectResultText, e);
             }
 
             DirectResult = null;

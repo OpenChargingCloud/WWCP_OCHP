@@ -259,7 +259,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetTariffUpdatesResponseXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetTariffUpdatesResponseXML, e);
 
                 GetTariffUpdatesResponse = null;
                 return false;
@@ -298,7 +298,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetTariffUpdatesResponseText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetTariffUpdatesResponseText, e);
             }
 
             GetTariffUpdatesResponse = null;

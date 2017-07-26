@@ -254,7 +254,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetCDRsResponseXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetCDRsResponseXML, e);
 
                 GetCDRsResponse = null;
                 return false;
@@ -293,7 +293,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetCDRsResponseText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetCDRsResponseText, e);
             }
 
             GetCDRsResponse = null;

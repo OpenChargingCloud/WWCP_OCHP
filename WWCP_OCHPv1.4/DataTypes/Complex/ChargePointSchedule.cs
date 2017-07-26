@@ -180,7 +180,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ChargePointScheduleXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ChargePointScheduleXML, e);
 
                 ChargePointSchedule = null;
                 return false;
@@ -216,7 +216,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ChargePointScheduleText, e);
+                OnException?.Invoke(DateTime.UtcNow, ChargePointScheduleText, e);
             }
 
             ChargePointSchedule = null;

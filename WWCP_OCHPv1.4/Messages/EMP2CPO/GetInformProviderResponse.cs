@@ -564,7 +564,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetInformProviderResponseXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetInformProviderResponseXML, e);
 
                 GetInformProviderResponse = null;
                 return false;
@@ -603,7 +603,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetInformProviderResponseText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetInformProviderResponseText, e);
             }
 
             GetInformProviderResponse = null;

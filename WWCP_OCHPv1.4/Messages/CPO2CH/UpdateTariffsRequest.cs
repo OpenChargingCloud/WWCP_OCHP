@@ -213,7 +213,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, UpdateTariffsRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateTariffsRequestXML, e);
 
                 UpdateTariffsRequest = null;
                 return false;
@@ -249,7 +249,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, UpdateTariffsRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateTariffsRequestText, e);
             }
 
             UpdateTariffsRequest = null;

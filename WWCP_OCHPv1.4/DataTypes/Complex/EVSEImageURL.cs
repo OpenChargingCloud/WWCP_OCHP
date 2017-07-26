@@ -216,7 +216,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, EVSEImageURLXML, e);
+                OnException?.Invoke(DateTime.UtcNow, EVSEImageURLXML, e);
 
                 EVSEImageURL = null;
                 return false;
@@ -252,7 +252,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, EVSEImageURLText, e);
+                OnException?.Invoke(DateTime.UtcNow, EVSEImageURLText, e);
             }
 
             EVSEImageURL = null;

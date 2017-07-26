@@ -161,7 +161,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, UpdateRoamingAuthorisationListRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateRoamingAuthorisationListRequestXML, e);
 
                 UpdateRoamingAuthorisationListRequest = null;
                 return false;
@@ -197,7 +197,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, UpdateRoamingAuthorisationListRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateRoamingAuthorisationListRequestText, e);
             }
 
             UpdateRoamingAuthorisationListRequest = null;

@@ -308,7 +308,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     try
                     {
 
-                        OnSelectEVSESOAPRequest?.Invoke(DateTime.Now,
+                        OnSelectEVSESOAPRequest?.Invoke(DateTime.UtcNow,
                                                         this.SOAPServer,
                                                         Request);
 
@@ -334,7 +334,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         var results = OnSelectEVSERequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnSelectEVSEDelegate)
-                                              (DateTime.Now,
+                                              (DateTime.UtcNow,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -365,7 +365,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.DefaultServerName,
-                        Date            = DateTime.Now,
+                        Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };
@@ -410,7 +410,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     try
                     {
 
-                        OnControlEVSESOAPRequest?.Invoke(DateTime.Now,
+                        OnControlEVSESOAPRequest?.Invoke(DateTime.UtcNow,
                                                          this.SOAPServer,
                                                          Request);
 
@@ -436,7 +436,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         var results = OnControlEVSERequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnControlEVSEDelegate)
-                                              (DateTime.Now,
+                                              (DateTime.UtcNow,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -472,7 +472,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.DefaultServerName,
-                        Date            = DateTime.Now,
+                        Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };
@@ -517,7 +517,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     try
                     {
 
-                        OnReleaseEVSESOAPRequest?.Invoke(DateTime.Now,
+                        OnReleaseEVSESOAPRequest?.Invoke(DateTime.UtcNow,
                                                          this.SOAPServer,
                                                          Request);
 
@@ -543,7 +543,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         var results = OnReleaseEVSERequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnReleaseEVSEDelegate)
-                                              (DateTime.Now,
+                                              (DateTime.UtcNow,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -572,7 +572,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.DefaultServerName,
-                        Date            = DateTime.Now,
+                        Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };
@@ -617,7 +617,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     try
                     {
 
-                        OnGetEVSEStatusSOAPRequest?.Invoke(DateTime.Now,
+                        OnGetEVSEStatusSOAPRequest?.Invoke(DateTime.UtcNow,
                                                            this.SOAPServer,
                                                            Request);
 
@@ -643,7 +643,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         var results = OnGetEVSEStatusRequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnGetEVSEStatusDelegate)
-                                              (DateTime.Now,
+                                              (DateTime.UtcNow,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -672,7 +672,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.DefaultServerName,
-                        Date            = DateTime.Now,
+                        Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };
@@ -717,7 +717,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     try
                     {
 
-                        OnReportDiscrepancySOAPRequest?.Invoke(DateTime.Now,
+                        OnReportDiscrepancySOAPRequest?.Invoke(DateTime.UtcNow,
                                                                this.SOAPServer,
                                                                Request);
 
@@ -743,7 +743,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         var results = OnReportDiscrepancyRequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnReportDiscrepancyDelegate)
-                                              (DateTime.Now,
+                                              (DateTime.UtcNow,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -773,7 +773,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.DefaultServerName,
-                        Date            = DateTime.Now,
+                        Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };

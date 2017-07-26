@@ -155,7 +155,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ReleaseEVSERequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ReleaseEVSERequestXML, e);
 
                 ReleaseEVSERequest = null;
                 return false;
@@ -191,7 +191,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ReleaseEVSERequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, ReleaseEVSERequestText, e);
             }
 
             ReleaseEVSERequest = null;

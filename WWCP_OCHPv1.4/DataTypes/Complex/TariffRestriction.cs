@@ -252,7 +252,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, TariffRestrictionXML, e);
+                OnException?.Invoke(DateTime.UtcNow, TariffRestrictionXML, e);
 
                 TariffRestriction = null;
                 return false;
@@ -288,7 +288,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, TariffRestrictionText, e);
+                OnException?.Invoke(DateTime.UtcNow, TariffRestrictionText, e);
             }
 
             TariffRestriction = null;

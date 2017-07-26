@@ -153,7 +153,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetRoamingAuthorisationListUpdatesRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetRoamingAuthorisationListUpdatesRequestXML, e);
 
                 GetRoamingAuthorisationListUpdatesRequest = null;
                 return false;
@@ -189,7 +189,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetRoamingAuthorisationListUpdatesRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetRoamingAuthorisationListUpdatesRequestText, e);
             }
 
             GetRoamingAuthorisationListUpdatesRequest = null;

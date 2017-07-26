@@ -259,7 +259,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetChargePointListUpdatesResponseXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetChargePointListUpdatesResponseXML, e);
 
                 GetChargePointListUpdatesResponse = null;
                 return false;
@@ -298,7 +298,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetChargePointListUpdatesResponseText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetChargePointListUpdatesResponseText, e);
             }
 
             GetChargePointListUpdatesResponse = null;

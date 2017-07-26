@@ -232,7 +232,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ConfirmCDRsResponseXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ConfirmCDRsResponseXML, e);
 
                 ConfirmCDRsResponse = null;
                 return false;
@@ -271,7 +271,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ConfirmCDRsResponseText, e);
+                OnException?.Invoke(DateTime.UtcNow, ConfirmCDRsResponseText, e);
             }
 
             ConfirmCDRsResponse = null;

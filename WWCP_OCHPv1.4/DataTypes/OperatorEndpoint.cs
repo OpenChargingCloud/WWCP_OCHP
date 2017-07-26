@@ -201,7 +201,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, OperatorEndpointXML, e);
+                OnException?.Invoke(DateTime.UtcNow, OperatorEndpointXML, e);
 
                 OperatorEndpoint = null;
                 return false;
@@ -237,7 +237,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, OperatorEndpointText, e);
+                OnException?.Invoke(DateTime.UtcNow, OperatorEndpointText, e);
             }
 
             OperatorEndpoint = null;

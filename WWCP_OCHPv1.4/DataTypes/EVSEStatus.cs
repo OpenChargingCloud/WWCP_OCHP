@@ -233,7 +233,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, EVSEStatusXML, e);
+                OnException?.Invoke(DateTime.UtcNow, EVSEStatusXML, e);
 
                 EVSEStatus = default(EVSEStatus);
                 return false;
@@ -269,7 +269,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, EVSEStatusText, e);
+                OnException?.Invoke(DateTime.UtcNow, EVSEStatusText, e);
             }
 
             EVSEStatus = default(EVSEStatus);

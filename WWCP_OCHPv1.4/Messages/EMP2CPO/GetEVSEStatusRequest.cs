@@ -158,7 +158,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetEVSEStatusRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetEVSEStatusRequestXML, e);
 
                 GetEVSEStatusRequest = null;
                 return false;
@@ -194,7 +194,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetEVSEStatusRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetEVSEStatusRequestText, e);
             }
 
             GetEVSEStatusRequest = null;

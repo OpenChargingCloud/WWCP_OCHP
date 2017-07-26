@@ -1202,10 +1202,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (EVSEs == null)
-                throw new ArgumentNullException(nameof(EVSEs), "The given enumeration of EVSEs must not be null!");
-
-
             if (!Timestamp.HasValue)
                 Timestamp = DateTime.UtcNow;
 
@@ -1224,29 +1220,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             var Warnings = new List<String>();
 
-            var _ChargePointInfos = EVSEs.Where (evse => evse != null && _IncludeEVSEs(evse)).
-                                          Select(evse => {
+            var _ChargePointInfos = EVSEs == null || !EVSEs.Any()
+                                        ? new ChargePointInfo[0]
+                                        : EVSEs.Where (evse => evse != null && _IncludeEVSEs(evse)).
+                                              Select(evse => {
 
-                                              try
-                                              {
+                                                  try
+                                                  {
 
-                                                  return evse.ToOCHP(_CustomEVSEIdMapper,
-                                                                     _EVSE2ChargePointInfo);
+                                                      return evse.ToOCHP(_CustomEVSEIdMapper,
+                                                                         _EVSE2ChargePointInfo);
 
-                                              }
-                                              catch (Exception e)
-                                              {
-                                                  DebugX.  Log(e.Message);
-                                                  Warnings.Add(e.Message);
-                                              }
+                                                  }
+                                                  catch (Exception e)
+                                                  {
+                                                      DebugX.  Log(e.Message);
+                                                      Warnings.Add(e.Message);
+                                                  }
 
-                                              return null;
+                                                  return null;
 
-                                          }).
-                                          Where(chargepointinfo => chargepointinfo != null).
-                                          ToArray();
+                                              }).
+                                              Where(chargepointinfo => chargepointinfo != null).
+                                              ToArray();
 
-            PushEVSEDataResult result;
+
+            HTTPResponse<SetChargePointListResponse>  response  = null;
+            PushEVSEDataResult                        result    = null;
 
             #endregion
 
@@ -1277,50 +1277,65 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            var response = await CPORoaming.
+            DateTime Endtime;
+            TimeSpan Runtime;
+
+            if (_ChargePointInfos.Length == 0)
+            {
+
+                Endtime   = DateTime.UtcNow;
+                Runtime   = Endtime - StartTime;
+             //   response  = 
+
+            }
+
+            else
+            {
+
+                response = await CPORoaming.
                                      SetChargePointList(_ChargePointInfos,
                                                         IncludeChargePoints,
-                                                        //IncludeEVSEIds,
 
                                                         Timestamp,
                                                         CancellationToken,
                                                         EventTrackingId,
-                                                        RequestTimeout).
-                                     ConfigureAwait(false);
+                                                        RequestTimeout);
+
+            }
 
 
-            var Endtime = DateTime.UtcNow;
-            var Runtime = Endtime - StartTime;
+                Endtime = DateTime.UtcNow;
+                Runtime = Endtime - StartTime;
 
-            if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                response.Content        != null)
-            {
+                if (response.HTTPStatusCode == HTTPStatusCode.OK &&
+                    response.Content        != null)
+                {
 
-                if (response.Content.Result.ResultCode == ResultCodes.OK)
-                    result = PushEVSEDataResult.Success(Id,
-                                                    this,
-                                                    response.Content.Result.Description,
-                                                    null,
-                                                    Runtime);
+                    if (response.Content.Result.ResultCode == ResultCodes.OK)
+                        result = PushEVSEDataResult.Success(Id,
+                                                        this,
+                                                        response.Content.Result.Description,
+                                                        null,
+                                                        Runtime);
 
+                    else
+                        result = PushEVSEDataResult.Error(Id,
+                                                      this,
+                                                      EVSEs,
+                                                      response.Content.Result.Description,
+                                                      null,
+                                                      Runtime);
+
+                }
                 else
                     result = PushEVSEDataResult.Error(Id,
                                                   this,
                                                   EVSEs,
-                                                  response.Content.Result.Description,
-                                                  null,
+                                                  response.HTTPStatusCode.ToString(),
+                                                  response.HTTPBody != null
+                                                      ? Warnings.AddAndReturnList(response.HTTPBody.ToUTF8String())
+                                                      : Warnings.AddAndReturnList("No HTTP body received!"),
                                                   Runtime);
-
-            }
-            else
-                result = PushEVSEDataResult.Error(Id,
-                                              this,
-                                              EVSEs,
-                                              response.HTTPStatusCode.ToString(),
-                                              response.HTTPBody != null
-                                                  ? Warnings.AddAndReturnList(response.HTTPBody.ToUTF8String())
-                                                  : Warnings.AddAndReturnList("No HTTP body received!"),
-                                              Runtime);
 
 
             #region Send OnSetChargePointInfosWWCPResponse event

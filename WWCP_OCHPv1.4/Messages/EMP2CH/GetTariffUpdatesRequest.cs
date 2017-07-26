@@ -154,7 +154,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetTariffUpdatesRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetTariffUpdatesRequestXML, e);
 
                 GetTariffUpdatesRequest = null;
                 return false;
@@ -190,7 +190,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetTariffUpdatesRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetTariffUpdatesRequestText, e);
             }
 
             GetTariffUpdatesRequest = null;

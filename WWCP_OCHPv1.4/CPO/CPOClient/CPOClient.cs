@@ -74,6 +74,262 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+        #region Custom request mappers
+
+        #region CustomSetChargePointListRequestMapper
+
+        #region CustomSetChargePointListRequestMapper
+
+        private Func<SetChargePointListRequest, SetChargePointListRequest> _CustomSetChargePointListRequestMapper = _ => _;
+
+        public Func<SetChargePointListRequest, SetChargePointListRequest> CustomSetChargePointListRequestMapper
+        {
+
+            get
+            {
+                return _CustomSetChargePointListRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomSetChargePointListRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomSetChargePointListSOAPRequestMapper
+
+        private Func<SetChargePointListRequest, XElement, XElement> _CustomSetChargePointListSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<SetChargePointListRequest, XElement, XElement> CustomSetChargePointListSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomSetChargePointListSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomSetChargePointListSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomXMLParserDelegate<SetChargePointListRequest> CustomSetChargePointListParser   { get; set; }
+
+        #endregion
+
+        #region CustomUpdateChargePointListRequestMapper
+
+        #region CustomUpdateChargePointListRequestMapper
+
+        private Func<UpdateChargePointListRequest, UpdateChargePointListRequest> _CustomUpdateChargePointListRequestMapper = _ => _;
+
+        public Func<UpdateChargePointListRequest, UpdateChargePointListRequest> CustomUpdateChargePointListRequestMapper
+        {
+
+            get
+            {
+                return _CustomUpdateChargePointListRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomUpdateChargePointListRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomUpdateChargePointListSOAPRequestMapper
+
+        private Func<UpdateChargePointListRequest, XElement, XElement> _CustomUpdateChargePointListSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<UpdateChargePointListRequest, XElement, XElement> CustomUpdateChargePointListSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomUpdateChargePointListSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomUpdateChargePointListSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomXMLParserDelegate<UpdateChargePointListRequest> CustomUpdateChargePointListParser   { get; set; }
+
+        #endregion
+
+        #region CustomUpdateStatusRequestMapper
+
+        #region CustomUpdateStatusRequestMapper
+
+        private Func<UpdateStatusRequest, UpdateStatusRequest> _CustomUpdateStatusRequestMapper = _ => _;
+
+        public Func<UpdateStatusRequest, UpdateStatusRequest> CustomUpdateStatusRequestMapper
+        {
+
+            get
+            {
+                return _CustomUpdateStatusRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomUpdateStatusRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomUpdateStatusSOAPRequestMapper
+
+        private Func<UpdateStatusRequest, XElement, XElement> _CustomUpdateStatusSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<UpdateStatusRequest, XElement, XElement> CustomUpdateStatusSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomUpdateStatusSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomUpdateStatusSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomXMLParserDelegate<UpdateStatusRequest> CustomUpdateStatusParser { get; set; }
+
+        #endregion
+
+
+        #region CustomGetSingleRoamingAuthorisationMapper
+
+        #region CustomGetSingleRoamingAuthorisationRequestMapper
+
+        private Func<GetSingleRoamingAuthorisationRequest, GetSingleRoamingAuthorisationRequest> _CustomGetSingleRoamingAuthorisationRequestMapper = _ => _;
+
+        public Func<GetSingleRoamingAuthorisationRequest, GetSingleRoamingAuthorisationRequest> CustomGetSingleRoamingAuthorisationRequestMapper
+        {
+
+            get
+            {
+                return _CustomGetSingleRoamingAuthorisationRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomGetSingleRoamingAuthorisationRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomGetSingleRoamingAuthorisationSOAPRequestMapper
+
+        private Func<GetSingleRoamingAuthorisationRequest, XElement, XElement> _CustomGetSingleRoamingAuthorisationSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<GetSingleRoamingAuthorisationRequest, XElement, XElement> CustomGetSingleRoamingAuthorisationSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomGetSingleRoamingAuthorisationSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomGetSingleRoamingAuthorisationSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomMapperDelegate<GetSingleRoamingAuthorisationResponse, GetSingleRoamingAuthorisationResponse.Builder> CustomGetSingleRoamingAuthorisationResponseMapper { get; set; }
+
+        #endregion
+
+
+        #region CustomAddCDRsMapper
+
+        #region CustomAddCDRsRequestMapper
+
+        private Func<AddCDRsRequest, AddCDRsRequest> _CustomAddCDRsRequestMapper = _ => _;
+
+        public Func<AddCDRsRequest, AddCDRsRequest> CustomAddCDRsRequestMapper
+        {
+
+            get
+            {
+                return _CustomAddCDRsRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomAddCDRsRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomAddCDRsSOAPRequestMapper
+
+        private Func<AddCDRsRequest, XElement, XElement> _CustomAddCDRsSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<AddCDRsRequest, XElement, XElement> CustomAddCDRsSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomAddCDRsSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomAddCDRsSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomMapperDelegate<AddCDRsResponse, AddCDRsResponse.Builder> CustomAddCDRsResponseMapper { get; set; }
+
+        #endregion
+
+        #endregion
+
         #region Events
 
         // OCHP
@@ -375,162 +631,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region Custom request mappers
-
-        #region CustomUpdateStatusMapper
-
-        #region CustomUpdateStatusRequestMapper
-
-        private Func<UpdateStatusRequest, UpdateStatusRequest> _CustomUpdateStatusRequestMapper = _ => _;
-
-        public Func<UpdateStatusRequest, UpdateStatusRequest> CustomUpdateStatusRequestMapper
-        {
-
-            get
-            {
-                return _CustomUpdateStatusRequestMapper;
-            }
-
-            set
-            {
-                if (value != null)
-                    _CustomUpdateStatusRequestMapper = value;
-            }
-
-        }
-
-        #endregion
-
-        #region CustomUpdateStatusSOAPRequestMapper
-
-        private Func<UpdateStatusRequest, XElement, XElement> _CustomUpdateStatusSOAPRequestMapper = (request, xml) => xml;
-
-        public Func<UpdateStatusRequest, XElement, XElement> CustomUpdateStatusSOAPRequestMapper
-        {
-
-            get
-            {
-                return _CustomUpdateStatusSOAPRequestMapper;
-            }
-
-            set
-            {
-                if (value != null)
-                    _CustomUpdateStatusSOAPRequestMapper = value;
-            }
-
-        }
-
-        #endregion
-
-        public CustomMapperDelegate<UpdateStatusResponse, UpdateStatusResponse.Builder> CustomUpdateStatusResponseMapper { get; set; }
-
-        #endregion
-
-
-        #region CustomGetSingleRoamingAuthorisationMapper
-
-        #region CustomGetSingleRoamingAuthorisationRequestMapper
-
-        private Func<GetSingleRoamingAuthorisationRequest, GetSingleRoamingAuthorisationRequest> _CustomGetSingleRoamingAuthorisationRequestMapper = _ => _;
-
-        public Func<GetSingleRoamingAuthorisationRequest, GetSingleRoamingAuthorisationRequest> CustomGetSingleRoamingAuthorisationRequestMapper
-        {
-
-            get
-            {
-                return _CustomGetSingleRoamingAuthorisationRequestMapper;
-            }
-
-            set
-            {
-                if (value != null)
-                    _CustomGetSingleRoamingAuthorisationRequestMapper = value;
-            }
-
-        }
-
-        #endregion
-
-        #region CustomGetSingleRoamingAuthorisationSOAPRequestMapper
-
-        private Func<GetSingleRoamingAuthorisationRequest, XElement, XElement> _CustomGetSingleRoamingAuthorisationSOAPRequestMapper = (request, xml) => xml;
-
-        public Func<GetSingleRoamingAuthorisationRequest, XElement, XElement> CustomGetSingleRoamingAuthorisationSOAPRequestMapper
-        {
-
-            get
-            {
-                return _CustomGetSingleRoamingAuthorisationSOAPRequestMapper;
-            }
-
-            set
-            {
-                if (value != null)
-                    _CustomGetSingleRoamingAuthorisationSOAPRequestMapper = value;
-            }
-
-        }
-
-        #endregion
-
-        public CustomMapperDelegate<GetSingleRoamingAuthorisationResponse, GetSingleRoamingAuthorisationResponse.Builder> CustomGetSingleRoamingAuthorisationResponseMapper { get; set; }
-
-        #endregion
-
-
-        #region CustomAddCDRsMapper
-
-        #region CustomAddCDRsRequestMapper
-
-        private Func<AddCDRsRequest, AddCDRsRequest> _CustomAddCDRsRequestMapper = _ => _;
-
-        public Func<AddCDRsRequest, AddCDRsRequest> CustomAddCDRsRequestMapper
-        {
-
-            get
-            {
-                return _CustomAddCDRsRequestMapper;
-            }
-
-            set
-            {
-                if (value != null)
-                    _CustomAddCDRsRequestMapper = value;
-            }
-
-        }
-
-        #endregion
-
-        #region CustomAddCDRsSOAPRequestMapper
-
-        private Func<AddCDRsRequest, XElement, XElement> _CustomAddCDRsSOAPRequestMapper = (request, xml) => xml;
-
-        public Func<AddCDRsRequest, XElement, XElement> CustomAddCDRsSOAPRequestMapper
-        {
-
-            get
-            {
-                return _CustomAddCDRsSOAPRequestMapper;
-            }
-
-            set
-            {
-                if (value != null)
-                    _CustomAddCDRsSOAPRequestMapper = value;
-            }
-
-        }
-
-        #endregion
-
-        public CustomMapperDelegate<AddCDRsResponse, AddCDRsResponse.Builder> CustomAddCDRsResponseMapper { get; set; }
-
-        #endregion
-
-        #endregion
-
         #region Constructor(s)
 
         #region CPOClient(ClientId, Hostname, ..., LoggingContext = CPOClientLogger.DefaultContext, ...)
@@ -674,73 +774,53 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         // OCHP
 
-        #region SetChargePointList   (ChargePointInfos, IncludeChargePoints = null, ...)
+        #region SetChargePointList   (Request)
 
         /// <summary>
         /// Upload the given enumeration of charge points.
         /// </summary>
-        /// <param name="ChargePointInfos">An enumeration of charge points.</param>
-        /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A SetChargePointList request.</param>
         public async Task<HTTPResponse<SetChargePointListResponse>>
 
-            SetChargePointList(IEnumerable<ChargePointInfo>  ChargePointInfos,
-                               IncludeChargePointsDelegate   IncludeChargePoints  = null,
-
-                               DateTime?                     Timestamp            = null,
-                               CancellationToken?            CancellationToken    = null,
-                               EventTracking_Id              EventTrackingId      = null,
-                               TimeSpan?                     RequestTimeout       = null)
+            SetChargePointList(SetChargePointListRequest  Request)
 
         {
 
             #region Initial checks
 
-            if (ChargePointInfos == null)
-                throw new ArgumentNullException(nameof(ChargePointInfos),  "The given enumeration of charge point infos must not be null!");
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The given SetChargePointList request must not be null!");
 
-            if (IncludeChargePoints == null)
-                IncludeChargePoints = chargepoint => true;
+            Request = _CustomSetChargePointListRequestMapper(Request);
 
-
-            if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The mapped SetChargePointList request must not be null!");
 
 
-            HTTPResponse<SetChargePointListResponse> result = null;
+            Byte                                     TransmissionRetry  = 0;
+            HTTPResponse<SetChargePointListResponse> result             = null;
 
             #endregion
 
-            var Request = new SetChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint)));
-
             #region Send OnSetChargePointListRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
 
-                OnSetChargePointListRequest?.Invoke(StartTime,
-                                                    Timestamp.Value,
-                                                    this,
-                                                    ClientId,
-                                                    EventTrackingId,
-                                                    ChargePointInfos,
-                                                    (UInt32) Request.ChargePointInfos.Count(),
-                                                    RequestTimeout);
+                if (OnSetChargePointListRequest != null)
+                    await Task.WhenAll(OnSetChargePointListRequest.GetInvocationList().
+                                       Cast<OnSetChargePointListRequestDelegate>().
+                                       Select(e => e(StartTime,
+                                                     Request.Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.ChargePointInfos.ULongCount(),
+                                                     Request.ChargePointInfos,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -751,126 +831,190 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    RemotePort,
-                                                    HTTPVirtualHost,
-                                                    DefaultURIPrefix,
-                                                    RemoteCertificateValidator,
-                                                    LocalCertificateSelector,
-                                                    ClientCert,
-                                                    UserAgent,
-                                                    RequestTimeout,
-                                                    DNSClient))
+            #region No charge point infos to upload?
+
+            if (!Request.ChargePointInfos.Any())
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(
-                                                     WSSLoginPassword.Item1,
-                                                     WSSLoginPassword.Item2,
-                                                     Request.ToXML()
-                                                 ),
-                                                 "http://ochp.eu/1.4/SetChargepointList",
-                                                 RequestLogDelegate:   OnSetChargePointListSOAPRequest,
-                                                 ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
-                                                 CancellationToken:    CancellationToken,
-                                                 EventTrackingId:      EventTrackingId,
-                                                 RequestTimeout:       RequestTimeout,
-
-                                                 #region OnSuccess
-
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, SetChargePointListResponse.Parse),
-
-                                                 #endregion
-
-                                                 #region OnSOAPFault
-
-                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
-
-                                                     SendSOAPError(timestamp, this, httpresponse.Content);
-
-                                                     return new HTTPResponse<SetChargePointListResponse>(httpresponse,
-                                                                                                         new SetChargePointListResponse(
-                                                                                                             Request,
-                                                                                                             Result.Format(
-                                                                                                                 "Invalid SOAP => " +
-                                                                                                                 httpresponse.HTTPBody.ToUTF8String()
-                                                                                                             )
-                                                                                                         ),
-                                                                                                         IsFault: true);
-
-                                                 },
-
-                                                 #endregion
-
-                                                 #region OnHTTPError
-
-                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
-
-                                                     SendHTTPError(timestamp, this, httpresponse);
-
-                                                     return new HTTPResponse<SetChargePointListResponse>(httpresponse,
-                                                                                                         new SetChargePointListResponse(
-                                                                                                             Request,
-                                                                                                             Result.Server(
-                                                                                                                  httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                  " => " +
-                                                                                                                  httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                             )
-                                                                                                         ),
-                                                                                                         IsFault: true);
-
-                                                 },
-
-                                                 #endregion
-
-                                                 #region OnException
-
-                                                 OnException: (timestamp, sender, exception) => {
-
-                                                     SendException(timestamp, sender, exception);
-
-                                                     return HTTPResponse<SetChargePointListResponse>.ExceptionThrown(new SetChargePointListResponse(
-                                                                                                                         Request,
-                                                                                                                         Result.Format(exception.Message +
-                                                                                                                                       " => " +
-                                                                                                                                       exception.StackTrace)),
-                                                                                                                     exception);
-
-                                                 }
-
-                                                 #endregion
-
-                                                );
+                result = HTTPResponse<SetChargePointListResponse>.OK(
+                             new SetChargePointListResponse(Request,
+                                                            Result.NoOperation("No chargepoint infos to upload!"))
+                         );
 
             }
 
-            #region Handle HTTP client errors...
-
-            if (result == null)
-                result = HTTPResponse<SetChargePointListResponse>.ClientError(
-                             new SetChargePointListResponse(Request,
-                                                            Result.Client("HTTP request failed!"))
-                         );
-
             #endregion
+
+            else do
+            {
+
+                using (var _OCHPClient = new SOAPClient(Hostname,
+                                                        RemotePort,
+                                                        HTTPVirtualHost,
+                                                        DefaultURIPrefix,
+                                                        RemoteCertificateValidator,
+                                                        LocalCertificateSelector,
+                                                        ClientCert,
+                                                        UserAgent,
+                                                        RequestTimeout,
+                                                        DNSClient))
+                {
+
+                    result = await _OCHPClient.Query(_CustomSetChargePointListSOAPRequestMapper(Request,
+                                                                                                SOAP.Encapsulation(
+                                                                                                    WSSLoginPassword.Item1,
+                                                                                                    WSSLoginPassword.Item2,
+                                                                                                    Request.ToXML()
+                                                                                                )),
+                                                     "http://ochp.eu/1.4/SetChargepointList",
+                                                     RequestLogDelegate:   OnSetChargePointListSOAPRequest,
+                                                     ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
+                                                     CancellationToken:    Request.CancellationToken,
+                                                     EventTrackingId:      Request.EventTrackingId,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     NumberOfRetry:        TransmissionRetry,
+
+                                                     #region OnSuccess
+
+                                                     OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, SetChargePointListResponse.Parse),
+
+                                                     #endregion
+
+                                                     #region OnSOAPFault
+
+                                                     OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                         SendSOAPError(timestamp, this, httpresponse.Content);
+
+                                                         return new HTTPResponse<SetChargePointListResponse>(
+
+                                                                    httpresponse,
+
+                                                                    new SetChargePointListResponse(
+                                                                        Request,
+                                                                        Result.Format(
+                                                                            "Invalid SOAP => " +
+                                                                            httpresponse.HTTPBody.ToUTF8String()
+                                                                        )
+                                                                    ),
+
+                                                                    IsFault: true
+
+                                                                );
+
+                                                     },
+
+                                                     #endregion
+
+                                                     #region OnHTTPError
+
+                                                     OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                         SendHTTPError(timestamp, this, httpresponse);
+
+                                                         if (httpresponse.HTTPStatusCode == HTTPStatusCode.ServiceUnavailable ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.Unauthorized       ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.Forbidden          ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
+                                                         {
+
+                                                             return new HTTPResponse<SetChargePointListResponse>(
+
+                                                                 httpresponse,
+
+                                                                 new SetChargePointListResponse(
+                                                                     Request,
+                                                                     Result.Server(
+                                                                          httpresponse.HTTPStatusCode +
+                                                                          " => " +
+                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                     )
+                                                                 ),
+
+                                                                 IsFault: true);
+
+                                                         }
+
+                                                         return new HTTPResponse<SetChargePointListResponse>(
+
+                                                             httpresponse,
+
+                                                             new SetChargePointListResponse(
+                                                                 Request,
+                                                                 Result.Server(
+                                                                      httpresponse.HTTPStatusCode +
+                                                                      " => " +
+                                                                      httpresponse.HTTPBody.ToUTF8String()
+                                                                 )
+                                                             ),
+
+                                                             IsFault: true
+
+                                                         );
+
+                                                     },
+
+                                                     #endregion
+
+                                                     #region OnException
+
+                                                     OnException: (timestamp, sender, exception) => {
+
+                                                         SendException(timestamp, sender, exception);
+
+                                                         return HTTPResponse<SetChargePointListResponse>.ExceptionThrown(
+
+                                                             new SetChargePointListResponse(
+                                                                 Request,
+                                                                 Result.Format(exception.Message +
+                                                                               " => " +
+                                                                               exception.StackTrace)
+                                                             ),
+
+                                                             Exception: exception
+
+                                                         );
+
+                                                     }
+
+                                                     #endregion
+
+                                                    );
+
+                }
+
+                if (result == null)
+                    result = HTTPResponse<SetChargePointListResponse>.ClientError(
+                                 new SetChargePointListResponse(Request,
+                                                                Result.Client("HTTP request failed!"))
+                             );
+
+            }
+            while (result.HTTPStatusCode == HTTPStatusCode.RequestTimeout &&
+                   TransmissionRetry++ < MaxNumberOfRetries);
 
 
             #region Send OnSetChargePointListResponse event
 
-            var Endtime = DateTime.Now;
+            var Endtime = DateTime.UtcNow;
 
             try
             {
 
-                OnSetChargePointListResponse?.Invoke(Endtime,
-                                                     Timestamp.Value,
+                if (OnSetChargePointListResponse != null)
+                    await Task.WhenAll(OnSetChargePointListResponse.GetInvocationList().
+                                       Cast<OnSetChargePointListResponseDelegate>().
+                                       Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
-                                                     EventTrackingId,
-                                                     ChargePointInfos,
-                                                     (UInt32) ChargePointInfos.Count(),
-                                                     RequestTimeout,
+                                                     Request.EventTrackingId,
+                                                     Request.ChargePointInfos.ULongCount(),
+                                                     Request.ChargePointInfos,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value,
                                                      result.Content,
-                                                     Endtime - StartTime);
+                                                     Endtime - StartTime))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -880,83 +1024,59 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-
             return result;
 
         }
 
         #endregion
 
-        #region UpdateChargePointList(ChargePointInfos, IncludeChargePoints = null, ...)
+        #region UpdateChargePointList(Request)
 
         /// <summary>
-        /// Upload the given enumeration of updated charge points.
+        /// Update the given enumeration of charge points.
         /// </summary>
-        /// <param name="ChargePointInfos">An enumeration of updated charge points.</param>
-        /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A UpdateChargePointList request.</param>
         public async Task<HTTPResponse<UpdateChargePointListResponse>>
 
-            UpdateChargePointList(IEnumerable<ChargePointInfo>  ChargePointInfos,
-                                  IncludeChargePointsDelegate   IncludeChargePoints  = null,
-
-                                  DateTime?                     Timestamp            = null,
-                                  CancellationToken?            CancellationToken    = null,
-                                  EventTracking_Id              EventTrackingId      = null,
-                                  TimeSpan?                     RequestTimeout       = null)
+            UpdateChargePointList(UpdateChargePointListRequest Request)
 
         {
 
             #region Initial checks
 
-            if (ChargePointInfos == null)
-                throw new ArgumentNullException(nameof(ChargePointInfos),  "The given enumeration of charge point info updates must not be null!");
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The given UpdateChargePointList request must not be null!");
 
-            if (IncludeChargePoints == null)
-                IncludeChargePoints = chargepoint => true;
+            Request = _CustomUpdateChargePointListRequestMapper(Request);
+
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The mapped UpdateChargePointList request must not be null!");
 
 
-            if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
-
-            #endregion
-
-            #region Get effective number of charge point infos to upload
-
-            var Request = new UpdateChargePointListRequest(ChargePointInfos.Where(chargepoint => IncludeChargePoints(chargepoint)));
-
-            HTTPResponse<UpdateChargePointListResponse> result = null;
+            Byte                                        TransmissionRetry  = 0;
+            HTTPResponse<UpdateChargePointListResponse> result             = null;
 
             #endregion
 
             #region Send OnUpdateChargePointListRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
 
-                OnUpdateChargePointListRequest?.Invoke(StartTime,
-                                                       Timestamp.Value,
-                                                       this,
-                                                       ClientId,
-                                                       EventTrackingId,
-                                                       ChargePointInfos,
-                                                       (UInt32) Request.ChargePointInfos.Count(),
-                                                       RequestTimeout);
+                if (OnUpdateChargePointListRequest != null)
+                    await Task.WhenAll(OnUpdateChargePointListRequest.GetInvocationList().
+                                       Cast<OnUpdateChargePointListRequestDelegate>().
+                                       Select(e => e(StartTime,
+                                                     Request.Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.ChargePointInfos.ULongCount(),
+                                                     Request.ChargePointInfos,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -967,21 +1087,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            #region Nothing to do?
+            #region No charge point infos to update?
 
             if (!Request.ChargePointInfos.Any())
             {
 
                 result = HTTPResponse<UpdateChargePointListResponse>.OK(
                              new UpdateChargePointListResponse(Request,
-                                                               Result.NoOperation("No chargepoint info to upload!"))
+                                                               Result.NoOperation("No chargepoints info to update!"))
                          );
 
             }
 
             #endregion
 
-            else
+            else do
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
@@ -1000,9 +1120,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      "http://ochp.eu/1.4/UpdateChargePointList",
                                                      RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
-                                                     CancellationToken:    CancellationToken,
-                                                     EventTrackingId:      EventTrackingId,
-                                                     RequestTimeout:       RequestTimeout,
+                                                     CancellationToken:    Request.CancellationToken,
+                                                     EventTrackingId:      Request.EventTrackingId,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
 
@@ -1016,15 +1137,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<UpdateChargePointListResponse>(httpresponse,
-                                                                                                             new UpdateChargePointListResponse(
-                                                                                                                 Request,
-                                                                                                                 Result.Format(
-                                                                                                                     "Invalid SOAP => " +
-                                                                                                                     httpresponse.HTTPBody.ToUTF8String()
-                                                                                                                 )
-                                                                                                             ),
-                                                                                                             IsFault: true);
+                                                         return new HTTPResponse<UpdateChargePointListResponse>(
+
+                                                                    httpresponse,
+
+                                                                    new UpdateChargePointListResponse(
+                                                                        Request,
+                                                                        Result.Format(
+                                                                            "Invalid SOAP => " +
+                                                                            httpresponse.HTTPBody.ToUTF8String()
+                                                                        )
+                                                                    ),
+
+                                                                    IsFault: true
+
+                                                                );
 
                                                      },
 
@@ -1036,16 +1163,45 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                                          SendHTTPError(timestamp, this, httpresponse);
 
-                                                         return new HTTPResponse<UpdateChargePointListResponse>(httpresponse,
-                                                                                                             new UpdateChargePointListResponse(
-                                                                                                                 Request,
-                                                                                                                 Result.Server(
-                                                                                                                      httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                      " => " +
-                                                                                                                      httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                                 )
-                                                                                                             ),
-                                                                                                             IsFault: true);
+                                                         if (httpresponse.HTTPStatusCode == HTTPStatusCode.ServiceUnavailable ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.Unauthorized       ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.Forbidden          ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
+                                                         {
+
+                                                             return new HTTPResponse<UpdateChargePointListResponse>(
+
+                                                                 httpresponse,
+
+                                                                 new UpdateChargePointListResponse(
+                                                                     Request,
+                                                                     Result.Server(
+                                                                          httpresponse.HTTPStatusCode +
+                                                                          " => " +
+                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                     )
+                                                                 ),
+
+                                                                 IsFault: true);
+
+                                                         }
+
+                                                         return new HTTPResponse<UpdateChargePointListResponse>(
+
+                                                             httpresponse,
+
+                                                             new UpdateChargePointListResponse(
+                                                                 Request,
+                                                                 Result.Server(
+                                                                      httpresponse.HTTPStatusCode +
+                                                                      " => " +
+                                                                      httpresponse.HTTPBody.ToUTF8String()
+                                                                 )
+                                                             ),
+
+                                                             IsFault: true
+
+                                                         );
 
                                                      },
 
@@ -1057,12 +1213,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                                          SendException(timestamp, sender, exception);
 
-                                                         return HTTPResponse<UpdateChargePointListResponse>.ExceptionThrown(new UpdateChargePointListResponse(
-                                                                                                                                Request,
-                                                                                                                                Result.Format(exception.Message +
-                                                                                                                                              " => " +
-                                                                                                                                              exception.StackTrace)),
-                                                                                                                            exception);
+                                                         return HTTPResponse<UpdateChargePointListResponse>.ExceptionThrown(
+
+                                                             new UpdateChargePointListResponse(
+                                                                 Request,
+                                                                 Result.Format(exception.Message +
+                                                                               " => " +
+                                                                               exception.StackTrace)
+                                                             ),
+
+                                                             Exception: exception
+
+                                                         );
 
                                                      }
 
@@ -1072,36 +1234,38 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 }
 
+                if (result == null)
+                    result = HTTPResponse<UpdateChargePointListResponse>.ClientError(
+                                 new UpdateChargePointListResponse(Request,
+                                                                   Result.Client("HTTP request failed!"))
+                             );
+
             }
-
-            #region Handle HTTP client errors...
-
-            if (result == null)
-                result = HTTPResponse<UpdateChargePointListResponse>.ClientError(
-                             new UpdateChargePointListResponse(Request,
-                                                               Result.Client("HTTP request failed!"))
-                         );
-
-            #endregion
+            while (result.HTTPStatusCode == HTTPStatusCode.RequestTimeout &&
+                   TransmissionRetry++ < MaxNumberOfRetries);
 
 
             #region Send OnUpdateChargePointListResponse event
 
-            var Endtime = DateTime.Now;
+            var Endtime = DateTime.UtcNow;
 
             try
             {
 
-                OnUpdateChargePointListResponse?.Invoke(DateTime.Now,
-                                                        Timestamp.Value,
-                                                        this,
-                                                        ClientId,
-                                                        EventTrackingId,
-                                                        ChargePointInfos,
-                                                        (UInt32) Request.ChargePointInfos.Count(),
-                                                        RequestTimeout,
-                                                        result.Content,
-                                                        Endtime - StartTime);
+                if (OnUpdateChargePointListResponse != null)
+                    await Task.WhenAll(OnUpdateChargePointListResponse.GetInvocationList().
+                                       Cast<OnUpdateChargePointListResponseDelegate>().
+                                       Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.ChargePointInfos.ULongCount(),
+                                                     Request.ChargePointInfos,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     result.Content,
+                                                     Endtime - StartTime))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -1111,14 +1275,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-
             return result;
 
         }
 
         #endregion
 
-        #region UpdateStatus(...)
+        #region UpdateStatus         (Request)
 
         /// <summary>
         /// Upload the given enumeration of EVSE and/or parking status.
@@ -1141,26 +1304,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 throw new ArgumentNullException(nameof(Request), "The mapped UpdateStatus request must not be null!");
 
 
-            HTTPResponse<UpdateStatusResponse> result = null;
+            Byte                                        TransmissionRetry  = 0;
+            HTTPResponse<UpdateStatusResponse> result             = null;
 
             #endregion
 
             #region Send OnUpdateStatusRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
 
-                OnUpdateStatusRequest?.Invoke(StartTime,
-                                              Request.Timestamp.Value,
-                                              this,
-                                              ClientId,
-                                              Request.EventTrackingId,
-                                              Request.EVSEStatus,
-                                              Request.ParkingStatus,
-                                              Request.DefaultTTL,
-                                              Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout);
+                if (OnUpdateStatusRequest != null)
+                    await Task.WhenAll(OnUpdateStatusRequest.GetInvocationList().
+                                       Cast<OnUpdateStatusRequestDelegate>().
+                                       Select(e => e(StartTime,
+                                                     Request.Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.EVSEStatus.   ULongCount(),
+                                                     Request.EVSEStatus,
+                                                     Request.ParkingStatus.ULongCount(),
+                                                     Request.ParkingStatus,
+                                                     Request.DefaultTTL,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -1171,7 +1341,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            #region Nothing to do?
+            #region No charge point status to update?
 
             if (!Request.EVSEStatus.   Any() &&
                 !Request.ParkingStatus.Any())
@@ -1179,14 +1349,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 result = HTTPResponse<UpdateStatusResponse>.OK(
                              new UpdateStatusResponse(Request,
-                                                      Result.NoOperation("At least one of the given EVSE status or parking status enumerations must be neither null nor empty!"))
+                                                      Result.NoOperation("No status to update!"))
                          );
 
             }
 
             #endregion
 
-            else
+            else do
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
@@ -1213,6 +1383,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
                                                      RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                                                     NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
 
@@ -1226,15 +1397,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<UpdateStatusResponse>(httpresponse,
-                                                                                                       new UpdateStatusResponse(
-                                                                                                           Request,
-                                                                                                           Result.Format(
-                                                                                                               "Invalid SOAP => " +
-                                                                                                               httpresponse.HTTPBody.ToUTF8String()
-                                                                                                           )
-                                                                                                       ),
-                                                                                                       IsFault: true);
+                                                         return new HTTPResponse<UpdateStatusResponse>(
+
+                                                                    httpresponse,
+
+                                                                    new UpdateStatusResponse(
+                                                                        Request,
+                                                                        Result.Format(
+                                                                            "Invalid SOAP => " +
+                                                                            httpresponse.HTTPBody.ToUTF8String()
+                                                                        )
+                                                                    ),
+
+                                                                    IsFault: true
+
+                                                                );
 
                                                      },
 
@@ -1246,16 +1423,45 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                                          SendHTTPError(timestamp, this, httpresponse);
 
-                                                         return new HTTPResponse<UpdateStatusResponse>(httpresponse,
-                                                                                                       new UpdateStatusResponse(
-                                                                                                           Request,
-                                                                                                           Result.Server(
-                                                                                                                httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                " => " +
-                                                                                                                httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                           )
-                                                                                                       ),
-                                                                                                       IsFault: true);
+                                                         if (httpresponse.HTTPStatusCode == HTTPStatusCode.ServiceUnavailable ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.Unauthorized       ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.Forbidden          ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
+                                                         {
+
+                                                             return new HTTPResponse<UpdateStatusResponse>(
+
+                                                                 httpresponse,
+
+                                                                 new UpdateStatusResponse(
+                                                                     Request,
+                                                                     Result.Server(
+                                                                          httpresponse.HTTPStatusCode +
+                                                                          " => " +
+                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                     )
+                                                                 ),
+
+                                                                 IsFault: true);
+
+                                                         }
+
+                                                         return new HTTPResponse<UpdateStatusResponse>(
+
+                                                             httpresponse,
+
+                                                             new UpdateStatusResponse(
+                                                                 Request,
+                                                                 Result.Server(
+                                                                      httpresponse.HTTPStatusCode +
+                                                                      " => " +
+                                                                      httpresponse.HTTPBody.ToUTF8String()
+                                                                 )
+                                                             ),
+
+                                                             IsFault: true
+
+                                                         );
 
                                                      },
 
@@ -1267,12 +1473,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                                          SendException(timestamp, sender, exception);
 
-                                                         return HTTPResponse<UpdateStatusResponse>.ExceptionThrown(new UpdateStatusResponse(
-                                                                                                                       Request,
-                                                                                                                       Result.Format(exception.Message +
-                                                                                                                                     " => " +
-                                                                                                                                     exception.StackTrace)),
-                                                                                                                   exception);
+                                                         return HTTPResponse<UpdateStatusResponse>.ExceptionThrown(
+
+                                                             new UpdateStatusResponse(
+                                                                 Request,
+                                                                 Result.Format(exception.Message +
+                                                                               " => " +
+                                                                               exception.StackTrace)
+                                                             ),
+
+                                                             Exception: exception
+
+                                                         );
 
                                                      }
 
@@ -1282,37 +1494,41 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 }
 
+                if (result == null)
+                    result = HTTPResponse<UpdateStatusResponse>.ClientError(
+                                 new UpdateStatusResponse(Request,
+                                                          Result.Client("HTTP request failed!"))
+                             );
+
             }
-
-            #region Handle HTTP client errors...
-
-            if (result == null)
-                result = HTTPResponse<UpdateStatusResponse>.ClientError(
-                             new UpdateStatusResponse(Request,
-                                                      Result.Client("HTTP request failed!"))
-                         );
-
-            #endregion
+            while (result.HTTPStatusCode == HTTPStatusCode.RequestTimeout &&
+               TransmissionRetry++ < MaxNumberOfRetries);
 
 
-            #region Send OnAddCDRsResponse event
+            #region Send OnUpdateStatusResponse event
 
-            var Endtime = DateTime.Now;
+            var Endtime = DateTime.UtcNow;
 
             try
             {
 
-                OnUpdateStatusResponse?.Invoke(Endtime,
-                                               Request.Timestamp.Value,
-                                               this,
-                                               ClientId,
-                                               Request.EventTrackingId,
-                                               Request.EVSEStatus,
-                                               Request.ParkingStatus,
-                                               Request.DefaultTTL,
-                                               Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
-                                               result.Content,
-                                               Endtime - StartTime);
+                if (OnUpdateStatusResponse != null)
+                    await Task.WhenAll(OnUpdateStatusResponse.GetInvocationList().
+                                       Cast<OnUpdateStatusResponseDelegate>().
+                                       Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.EVSEStatus.ULongCount(),
+                                                     Request.EVSEStatus,
+                                                     Request.ParkingStatus.ULongCount(),
+                                                     Request.ParkingStatus,
+                                                     Request.DefaultTTL,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     result.Content,
+                                                     Endtime - StartTime))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -1329,7 +1545,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region GetSingleRoamingAuthorisation(...)
+        #region GetSingleRoamingAuthorisation(Request)
 
         /// <summary>
         /// Authenticate the given token.
@@ -1352,154 +1568,208 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 throw new ArgumentNullException(nameof(Request), "The mapped GetSingleRoamingAuthorisation request must not be null!");
 
 
-            HTTPResponse<GetSingleRoamingAuthorisationResponse> result = null;
+            Byte                                                TransmissionRetry  = 0;
+            HTTPResponse<GetSingleRoamingAuthorisationResponse> result             = null;
 
             #endregion
 
             #region Send OnGetSingleRoamingAuthorisationRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
 
-                OnGetSingleRoamingAuthorisationRequest?.Invoke(StartTime,
-                                                               Request.Timestamp.Value,
-                                                               this,
-                                                               ClientId,
-                                                               Request.EventTrackingId,
-                                                               Request.EMTId,
-                                                               Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout);
+                if (OnGetSingleRoamingAuthorisationRequest != null)
+                    await Task.WhenAll(OnGetSingleRoamingAuthorisationRequest.GetInvocationList().
+                                       Cast<OnGetSingleRoamingAuthorisationRequestDelegate>().
+                                       Select(e => e(StartTime,
+                                                     Request.Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.EMTId,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetSingleRoamingAuthorisationRequest));
+                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
             }
 
             #endregion
 
 
-            using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    RemotePort,
-                                                    HTTPVirtualHost,
-                                                    DefaultURIPrefix,
-                                                    RemoteCertificateValidator,
-                                                    LocalCertificateSelector,
-                                                    ClientCert,
-                                                    UserAgent,
-                                                    RequestTimeout,
-                                                    DNSClient))
+            do
             {
 
-                result = await _OCHPClient.Query(_CustomGetSingleRoamingAuthorisationSOAPRequestMapper(Request,
-                                                                                                       SOAP.Encapsulation(
-                                                                                                           WSSLoginPassword.Item1,
-                                                                                                           WSSLoginPassword.Item2,
-                                                                                                           Request.ToXML()
-                                                                                                       )),
-                                                 "http://ochp.eu/1.4/GetSingleRoamingAuthorisation",
-                                                 RequestLogDelegate:   OnGetSingleRoamingAuthorisationSOAPRequest,
-                                                 ResponseLogDelegate:  OnGetSingleRoamingAuthorisationSOAPResponse,
-                                                 CancellationToken:    Request.CancellationToken,
-                                                 EventTrackingId:      Request.EventTrackingId,
-                                                 RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                using (var _OCHPClient = new SOAPClient(Hostname,
+                                                        RemotePort,
+                                                        HTTPVirtualHost,
+                                                        DefaultURIPrefix,
+                                                        RemoteCertificateValidator,
+                                                        LocalCertificateSelector,
+                                                        ClientCert,
+                                                        UserAgent,
+                                                        RequestTimeout,
+                                                        DNSClient))
+                {
 
-                                                 #region OnSuccess
+                    result = await _OCHPClient.Query(_CustomGetSingleRoamingAuthorisationSOAPRequestMapper(Request,
+                                                                                                           SOAP.Encapsulation(
+                                                                                                               WSSLoginPassword.Item1,
+                                                                                                               WSSLoginPassword.Item2,
+                                                                                                               Request.ToXML()
+                                                                                                           )),
+                                                     "http://ochp.eu/1.4/GetSingleRoamingAuthorisation",
+                                                     RequestLogDelegate:   OnGetSingleRoamingAuthorisationSOAPRequest,
+                                                     ResponseLogDelegate:  OnGetSingleRoamingAuthorisationSOAPResponse,
+                                                     CancellationToken:    Request.CancellationToken,
+                                                     EventTrackingId:      Request.EventTrackingId,
+                                                     RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                                                     NumberOfRetry:        TransmissionRetry,
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetSingleRoamingAuthorisationResponse.Parse),
+                                                     #region OnSuccess
 
-                                                 #endregion
+                                                     OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, GetSingleRoamingAuthorisationResponse.Parse),
 
-                                                 #region OnSOAPFault
+                                                     #endregion
 
-                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+                                                     #region OnSOAPFault
 
-                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+                                                     OnSOAPFault: (timestamp, soapclient, httpresponse) => {
 
-                                                     return new HTTPResponse<GetSingleRoamingAuthorisationResponse>(httpresponse,
-                                                                                                                    new GetSingleRoamingAuthorisationResponse(
-                                                                                                                        Request,
-                                                                                                                        Result.Format(
-                                                                                                                            "Invalid SOAP => " +
-                                                                                                                            httpresponse.HTTPBody.ToUTF8String()
-                                                                                                                        )
-                                                                                                                    ),
-                                                                                                                    IsFault: true);
+                                                         SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                 },
+                                                         return new HTTPResponse<GetSingleRoamingAuthorisationResponse>(
 
-                                                 #endregion
+                                                                    httpresponse,
 
-                                                 #region OnHTTPError
+                                                                    new GetSingleRoamingAuthorisationResponse(
+                                                                        Request,
+                                                                        Result.Format(
+                                                                            "Invalid SOAP => " +
+                                                                            httpresponse.HTTPBody.ToUTF8String()
+                                                                        )
+                                                                    ),
 
-                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
+                                                                    IsFault: true
 
-                                                     SendHTTPError(timestamp, this, httpresponse);
+                                                                );
 
-                                                     return new HTTPResponse<GetSingleRoamingAuthorisationResponse>(httpresponse,
-                                                                                                                    new GetSingleRoamingAuthorisationResponse(
-                                                                                                                        Request,
-                                                                                                                        Result.Server(
-                                                                                                                             httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                             " => " +
-                                                                                                                             httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                                        )
-                                                                                                                    ),
-                                                                                                                    IsFault: true);
+                                                     },
 
-                                                 },
+                                                     #endregion
 
-                                                 #endregion
+                                                     #region OnHTTPError
 
-                                                 #region OnException
+                                                     OnHTTPError: (timestamp, soapclient, httpresponse) => {
 
-                                                 OnException: (timestamp, sender, exception) => {
+                                                         SendHTTPError(timestamp, this, httpresponse);
 
-                                                     SendException(timestamp, sender, exception);
+                                                         if (httpresponse.HTTPStatusCode == HTTPStatusCode.ServiceUnavailable ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.Unauthorized       ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.Forbidden          ||
+                                                             httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
+                                                         {
 
-                                                     return HTTPResponse<GetSingleRoamingAuthorisationResponse>.ExceptionThrown(new GetSingleRoamingAuthorisationResponse(
-                                                                                                                                    Request,
-                                                                                                                                    Result.Format(exception.Message +
-                                                                                                                                                  " => " +
-                                                                                                                                                  exception.StackTrace)),
-                                                                                                                                exception);
+                                                             return new HTTPResponse<GetSingleRoamingAuthorisationResponse>(
 
-                                                 }
+                                                                 httpresponse,
 
-                                                 #endregion
+                                                                 new GetSingleRoamingAuthorisationResponse(
+                                                                     Request,
+                                                                     Result.Server(
+                                                                          httpresponse.HTTPStatusCode +
+                                                                          " => " +
+                                                                          httpresponse.HTTPBody.ToUTF8String()
+                                                                     )
+                                                                 ),
 
-                                                );
+                                                                 IsFault: true);
+
+                                                         }
+
+                                                         return new HTTPResponse<GetSingleRoamingAuthorisationResponse>(
+
+                                                             httpresponse,
+
+                                                             new GetSingleRoamingAuthorisationResponse(
+                                                                 Request,
+                                                                 Result.Server(
+                                                                      httpresponse.HTTPStatusCode +
+                                                                      " => " +
+                                                                      httpresponse.HTTPBody.ToUTF8String()
+                                                                 )
+                                                             ),
+
+                                                             IsFault: true
+
+                                                         );
+
+                                                     },
+
+                                                     #endregion
+
+                                                     #region OnException
+
+                                                     OnException: (timestamp, sender, exception) => {
+
+                                                         SendException(timestamp, sender, exception);
+
+                                                         return HTTPResponse<GetSingleRoamingAuthorisationResponse>.ExceptionThrown(
+
+                                                             new GetSingleRoamingAuthorisationResponse(
+                                                                 Request,
+                                                                 Result.Format(exception.Message +
+                                                                               " => " +
+                                                                               exception.StackTrace)
+                                                             ),
+
+                                                             Exception: exception
+
+                                                         );
+
+                                                     }
+
+                                                     #endregion
+
+                                                    );
+
+                }
+
+                if (result == null)
+                    result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.ClientError(
+                                 new GetSingleRoamingAuthorisationResponse(Request,
+                                                                           Result.Client("HTTP request failed!"))
+                             );
 
             }
-
-            #region Handle HTTP client errors...
-
-            if (result == null)
-                result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.ClientError(
-                             new GetSingleRoamingAuthorisationResponse(Request,
-                                                                       Result.Client("HTTP request failed!"))
-                         );
-
-            #endregion
+            while (result.HTTPStatusCode == HTTPStatusCode.RequestTimeout &&
+               TransmissionRetry++ < MaxNumberOfRetries);
 
 
             #region Send OnGetSingleRoamingAuthorisationResponse event
 
-            var Endtime = DateTime.Now;
+            var Endtime = DateTime.UtcNow;
 
             try
             {
 
-                OnGetSingleRoamingAuthorisationResponse?.Invoke(Endtime,
-                                                                Request.Timestamp.Value,
-                                                                this,
-                                                                ClientId,
-                                                                Request.EventTrackingId,
-                                                                Request.EMTId,
-                                                                Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
-                                                                result.Content,
-                                                                Endtime - StartTime);
+                if (OnGetSingleRoamingAuthorisationResponse != null)
+                    await Task.WhenAll(OnGetSingleRoamingAuthorisationResponse.GetInvocationList().
+                                       Cast<OnGetSingleRoamingAuthorisationResponseDelegate>().
+                                       Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.EMTId,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     result.Content,
+                                                     Endtime - StartTime))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -1515,7 +1785,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region GetRoamingAuthorisationList(...)
+        #region GetRoamingAuthorisationList   (Timestamp)
 
         /// <summary>
         /// Get the entire current version of the roaming authorisation list.
@@ -1536,7 +1806,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -1554,7 +1824,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
@@ -1679,7 +1949,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListResponse event
 
-            var EndTime = DateTime.Now;
+            var EndTime = DateTime.UtcNow;
 
             try
             {
@@ -1733,7 +2003,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -1751,7 +2021,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListUpdatesRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
@@ -1877,7 +2147,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListUpdatesResponse event
 
-            var EndTime = DateTime.Now;
+            var EndTime = DateTime.UtcNow;
 
             try
             {
@@ -1937,7 +2207,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnAddCDRsRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
@@ -2065,7 +2335,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnAddCDRsResponse event
 
-            var Endtime = DateTime.Now;
+            var Endtime = DateTime.UtcNow;
 
             try
             {
@@ -2119,7 +2389,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2137,7 +2407,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnCheckCDRsRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
@@ -2263,7 +2533,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnCheckCDRsResponse event
 
-            var EndTime = DateTime.Now;
+            var EndTime = DateTime.UtcNow;
 
             try
             {
@@ -2323,7 +2593,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2341,7 +2611,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnUpdateTariffsRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
@@ -2467,7 +2737,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnUpdateTariffsResponse event
 
-            var EndTime = DateTime.Now;
+            var EndTime = DateTime.UtcNow;
 
             try
             {
@@ -2529,7 +2799,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2547,7 +2817,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnAddServiceEndpointsRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
@@ -2673,7 +2943,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnAddServiceEndpointsResponse event
 
-            var EndTime = DateTime.Now;
+            var EndTime = DateTime.UtcNow;
 
             try
             {
@@ -2724,7 +2994,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2742,7 +3012,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetServiceEndpointsRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
@@ -2867,7 +3137,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnGetServiceEndpointsResponse event
 
-            var EndTime = DateTime.Now;
+            var EndTime = DateTime.UtcNow;
 
             try
             {
@@ -2965,7 +3235,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2983,7 +3253,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnInformProviderSOAPRequest event
 
-            var StartTime = DateTime.Now;
+            var StartTime = DateTime.UtcNow;
 
             try
             {
@@ -3144,7 +3414,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Send OnInformProviderResponse event
 
-            var EndTime = DateTime.Now;
+            var EndTime = DateTime.UtcNow;
 
             try
             {

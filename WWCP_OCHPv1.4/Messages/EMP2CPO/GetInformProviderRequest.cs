@@ -155,7 +155,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetInformProviderRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetInformProviderRequestXML, e);
 
                 GetInformProviderRequest = null;
                 return false;
@@ -191,7 +191,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetInformProviderRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetInformProviderRequestText, e);
             }
 
             GetInformProviderRequest = null;

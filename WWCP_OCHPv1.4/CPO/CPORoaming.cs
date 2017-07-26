@@ -279,69 +279,31 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         // OCHP
 
-        #region SetChargePointList   (ChargePointInfos, IncludeChargePoints = null, ...)
+        #region SetChargePointList   (Request)
 
         /// <summary>
         /// Upload the given enumeration of charge points.
         /// </summary>
-        /// <param name="ChargePointInfos">An enumeration of charge points.</param>
-        /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A SetChargePointList request.</param>
         public Task<HTTPResponse<SetChargePointListResponse>>
 
-            SetChargePointList(IEnumerable<ChargePointInfo>  ChargePointInfos,
-                               IncludeChargePointsDelegate   IncludeChargePoints  = null,
+            SetChargePointList(SetChargePointListRequest Request)
 
-                               DateTime?                     Timestamp            = null,
-                               CancellationToken?            CancellationToken    = null,
-                               EventTracking_Id              EventTrackingId      = null,
-                               TimeSpan?                     RequestTimeout       = null)
-
-
-                => CPOClient.SetChargePointList(ChargePointInfos,
-                                                IncludeChargePoints,
-
-                                                Timestamp,
-                                                CancellationToken,
-                                                EventTrackingId,
-                                                RequestTimeout);
+                => CPOClient.SetChargePointList(Request);
 
         #endregion
 
-        #region UpdateChargePointList(ChargePointInfos, IncludeChargePoints = null, ...)
+        #region UpdateChargePointList(Request)
 
         /// <summary>
-        /// Upload the given enumeration of updated charge points.
+        /// Update the given enumeration of charge points.
         /// </summary>
-        /// <param name="ChargePointInfos">An enumeration of updated charge points.</param>
-        /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A UpdateChargePointList request.</param>
         public Task<HTTPResponse<UpdateChargePointListResponse>>
 
-            UpdateChargePointList(IEnumerable<ChargePointInfo>  ChargePointInfos,
-                                  IncludeChargePointsDelegate   IncludeChargePoints  = null,
+            UpdateChargePointList(UpdateChargePointListRequest Request)
 
-                                  DateTime?                     Timestamp            = null,
-                                  CancellationToken?            CancellationToken    = null,
-                                  EventTracking_Id              EventTrackingId      = null,
-                                  TimeSpan?                     RequestTimeout       = null)
-
-
-                => CPOClient.UpdateChargePointList(ChargePointInfos,
-                                                   IncludeChargePoints,
-
-                                                   Timestamp,
-                                                   CancellationToken,
-                                                   EventTrackingId,
-                                                   RequestTimeout);
+                => CPOClient.UpdateChargePointList(Request);
 
         #endregion
 

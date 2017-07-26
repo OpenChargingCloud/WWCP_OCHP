@@ -166,7 +166,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetStatusRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetStatusRequestXML, e);
 
                 GetStatusRequest = null;
                 return false;
@@ -202,7 +202,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetStatusRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetStatusRequestText, e);
             }
 
             GetStatusRequest = null;

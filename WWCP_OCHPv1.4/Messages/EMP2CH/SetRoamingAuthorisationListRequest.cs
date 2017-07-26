@@ -161,7 +161,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, SetRoamingAuthorisationListRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, SetRoamingAuthorisationListRequestXML, e);
 
                 SetRoamingAuthorisationListRequest = null;
                 return false;
@@ -197,7 +197,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, SetRoamingAuthorisationListRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, SetRoamingAuthorisationListRequestText, e);
             }
 
             SetRoamingAuthorisationListRequest = null;

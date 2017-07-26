@@ -173,7 +173,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, AddCDRsRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, AddCDRsRequestXML, e);
 
                 AddCDRsRequest = null;
                 return false;
@@ -209,7 +209,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, AddCDRsRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, AddCDRsRequestText, e);
             }
 
             AddCDRsRequest = null;

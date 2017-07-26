@@ -259,7 +259,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ControlEVSERequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ControlEVSERequestXML, e);
 
                 ControlEVSERequest = null;
                 return false;
@@ -295,7 +295,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ControlEVSERequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, ControlEVSERequestText, e);
             }
 
             ControlEVSERequest = null;

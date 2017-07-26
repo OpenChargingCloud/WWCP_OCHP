@@ -1756,7 +1756,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, XML, e);
+                OnException?.Invoke(DateTime.UtcNow, XML, e);
 
                 return default(GeoCoordinate);
 
@@ -1807,7 +1807,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, XML, e);
+                OnException?.Invoke(DateTime.UtcNow, XML, e);
 
                 return default(RegularHours);
 
@@ -1856,7 +1856,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, XML, e);
+                OnException?.Invoke(DateTime.UtcNow, XML, e);
 
                 return default(ExceptionalPeriod);
 

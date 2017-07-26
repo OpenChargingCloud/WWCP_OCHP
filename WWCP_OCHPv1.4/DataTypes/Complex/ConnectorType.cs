@@ -174,7 +174,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ConnectorTypeXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ConnectorTypeXML, e);
 
                 ConnectorType = null;
                 return false;
@@ -210,7 +210,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ConnectorTypeText, e);
+                OnException?.Invoke(DateTime.UtcNow, ConnectorTypeText, e);
             }
 
             ConnectorType = null;

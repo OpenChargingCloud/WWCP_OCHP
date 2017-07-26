@@ -40,8 +40,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  CPOClient                       Sender,
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
+                                                                 UInt64                          NumberOfChargePoints,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
-                                                                 UInt32                          NumberOfChargePoints,
                                                                  TimeSpan?                       RequestTimeout);
 
     /// <summary>
@@ -52,11 +52,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  CPOClient                       Sender,
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
+                                                                 UInt64                          NumberOfChargePoints,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
-                                                                 UInt32                          NumberOfChargePoints,
                                                                  TimeSpan?                       RequestTimeout,
                                                                  SetChargePointListResponse      Result,
-                                                                 TimeSpan                        Duration);
+                                                                 TimeSpan                        Runtime);
 
 
     /// <summary>
@@ -67,8 +67,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  CPOClient                       Sender,
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
+                                                                 UInt64                          NumberOfChargePoints,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
-                                                                 UInt32                          NumberOfChargePoints,
                                                                  TimeSpan?                       RequestTimeout);
 
     /// <summary>
@@ -79,11 +79,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  CPOClient                       Sender,
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
+                                                                 UInt64                          NumberOfChargePoints,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
-                                                                 UInt32                          NumberOfChargePoints,
                                                                  TimeSpan?                       RequestTimeout,
                                                                  UpdateChargePointListResponse   Result,
-                                                                 TimeSpan                        Duration);
+                                                                 TimeSpan                        Runtime);
 
     #endregion
 
@@ -97,7 +97,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         CPOClient                    Sender,
                                                         String                       SenderId,
                                                         EventTracking_Id             EventTrackingId,
+                                                        UInt64                       NumberOfEVSEStatus,
                                                         IEnumerable<EVSEStatus>      EVSEStatus,
+                                                        UInt64                       NumberOfParkingStatus,
                                                         IEnumerable<ParkingStatus>   ParkingStatus,
                                                         DateTime?                    DefaultTTL,
                                                         TimeSpan?                    RequestTimeout);
@@ -110,12 +112,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         CPOClient                    Sender,
                                                         String                       SenderId,
                                                         EventTracking_Id             EventTrackingId,
+                                                        UInt64                       NumberOfEVSEStatus,
                                                         IEnumerable<EVSEStatus>      EVSEStatus,
+                                                        UInt64                       NumberOfParkingStatus,
                                                         IEnumerable<ParkingStatus>   ParkingStatus,
                                                         DateTime?                    DefaultTTL,
                                                         TimeSpan?                    RequestTimeout,
                                                         UpdateStatusResponse         Result,
-                                                        TimeSpan                     Duration);
+                                                        TimeSpan                     Runtime);
 
     #endregion
 
@@ -144,7 +148,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                          EMT_Id                                  EMTId,
                                                                          TimeSpan?                               RequestTimeout,
                                                                          GetSingleRoamingAuthorisationResponse   Result,
-                                                                         TimeSpan                                Duration);
+                                                                         TimeSpan                                Runtime);
 
     #endregion
 
@@ -170,7 +174,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                        EventTracking_Id                      EventTrackingId,
                                                                        TimeSpan?                             RequestTimeout,
                                                                        GetRoamingAuthorisationListResponse   Result,
-                                                                       TimeSpan                              Duration);
+                                                                       TimeSpan                              Runtime);
 
 
     /// <summary>
@@ -195,7 +199,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                               DateTime                                    LastUpdate,
                                                                               TimeSpan?                                   RequestTimeout,
                                                                               GetRoamingAuthorisationListUpdatesResponse  Result,
-                                                                              TimeSpan                                    Duration);
+                                                                              TimeSpan                                    Runtime);
 
     #endregion
 
@@ -224,7 +228,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      IEnumerable<CDRInfo>   CDRInfos,
                                                      TimeSpan?              RequestTimeout,
                                                      AddCDRsResponse        Result,
-                                                     TimeSpan               Duration);
+                                                     TimeSpan               Runtime);
 
 
 
@@ -250,7 +254,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      CDRStatus?             CDRStatus,
                                                      TimeSpan?              RequestTimeout,
                                                      CheckCDRsResponse      Result,
-                                                     TimeSpan               Duration);
+                                                     TimeSpan               Runtime);
 
     #endregion
 
@@ -279,7 +283,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                          IEnumerable<TariffInfo>      TariffInfos,
                                                          TimeSpan?                    RequestTimeout,
                                                          UpdateTariffsResponse        Result,
-                                                         TimeSpan                     Duration);
+                                                         TimeSpan                     Runtime);
 
     #endregion
 
@@ -310,7 +314,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                IEnumerable<OperatorEndpoint>   OperatorEndpoints,
                                                                TimeSpan?                       RequestTimeout,
                                                                AddServiceEndpointsResponse     Result,
-                                                               TimeSpan                        Duration);
+                                                               TimeSpan                        Runtime);
 
     #endregion
 
@@ -336,7 +340,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                EventTracking_Id              EventTrackingId,
                                                                TimeSpan?                     RequestTimeout,
                                                                GetServiceEndpointsResponse   Result,
-                                                               TimeSpan                      Duration);
+                                                               TimeSpan                      Runtime);
 
     #endregion
 
@@ -405,7 +409,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                                           TimeSpan?                RequestTimeout,
                                                           InformProviderResponse   Result,
-                                                          TimeSpan                 Duration);
+                                                          TimeSpan                 Runtime);
 
     #endregion
 

@@ -259,7 +259,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, UpdateChargePointListResponseXML, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateChargePointListResponseXML, e);
 
                 UpdateChargePointListResponse = null;
                 return false;
@@ -298,7 +298,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, UpdateChargePointListResponseText, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateChargePointListResponseText, e);
             }
 
             UpdateChargePointListResponse = null;

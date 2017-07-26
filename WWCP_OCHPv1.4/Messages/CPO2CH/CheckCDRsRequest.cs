@@ -152,7 +152,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, CheckCDRsRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, CheckCDRsRequestXML, e);
 
                 CheckCDRsRequest = null;
                 return false;
@@ -188,7 +188,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, CheckCDRsRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, CheckCDRsRequestText, e);
             }
 
             CheckCDRsRequest = null;

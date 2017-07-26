@@ -256,7 +256,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, UpdateTariffsResponseXML, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateTariffsResponseXML, e);
 
                 UpdateTariffsResponse = null;
                 return false;
@@ -295,7 +295,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, UpdateTariffsResponseText, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateTariffsResponseText, e);
             }
 
             UpdateTariffsResponse = null;

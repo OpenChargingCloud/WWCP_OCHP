@@ -170,7 +170,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, PriceComponentXML, e);
+                OnException?.Invoke(DateTime.UtcNow, PriceComponentXML, e);
 
                 PriceComponent = null;
                 return false;
@@ -206,7 +206,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, PriceComponentText, e);
+                OnException?.Invoke(DateTime.UtcNow, PriceComponentText, e);
             }
 
             PriceComponent = null;

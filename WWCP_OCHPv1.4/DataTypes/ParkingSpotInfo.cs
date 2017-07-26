@@ -238,7 +238,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ParkingSpotInfoXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ParkingSpotInfoXML, e);
 
                 ParkingSpotInfo = null;
                 return false;
@@ -274,7 +274,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ParkingSpotInfoText, e);
+                OnException?.Invoke(DateTime.UtcNow, ParkingSpotInfoText, e);
             }
 
             ParkingSpotInfo = null;

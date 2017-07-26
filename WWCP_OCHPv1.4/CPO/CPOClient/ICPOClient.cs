@@ -43,6 +43,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
+        Task<HTTPResponse<SetChargePointListResponse>>
+
+            SetChargePointList(SetChargePointListRequest Request);
+
+
+        Task<HTTPResponse<UpdateChargePointListResponse>>
+
+            UpdateChargePointList(UpdateChargePointListRequest Request);
+
+
         Task<HTTPResponse<UpdateStatusResponse>>
 
             UpdateStatus(UpdateStatusRequest Request);

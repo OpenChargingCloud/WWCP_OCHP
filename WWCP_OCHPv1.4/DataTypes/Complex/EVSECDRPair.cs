@@ -165,7 +165,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, EVSECDRPairXML, e);
+                OnException?.Invoke(DateTime.UtcNow, EVSECDRPairXML, e);
 
                 EVSECDRPair = default(EVSECDRPair);
                 return false;
@@ -201,7 +201,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, EVSECDRPairText, e);
+                OnException?.Invoke(DateTime.UtcNow, EVSECDRPairText, e);
             }
 
             EVSECDRPair = default(EVSECDRPair);

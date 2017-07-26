@@ -119,7 +119,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetServiceEndpointsRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetServiceEndpointsRequestXML, e);
 
                 GetServiceEndpointsRequest = null;
                 return false;
@@ -155,7 +155,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetServiceEndpointsRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetServiceEndpointsRequestText, e);
             }
 
             GetServiceEndpointsRequest = null;

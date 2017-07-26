@@ -181,7 +181,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetSingleRoamingAuthorisationRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetSingleRoamingAuthorisationRequestXML, e);
 
                 GetSingleRoamingAuthorisationRequest = null;
                 return false;
@@ -217,7 +217,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetSingleRoamingAuthorisationRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetSingleRoamingAuthorisationRequestText, e);
             }
 
             GetSingleRoamingAuthorisationRequest = null;

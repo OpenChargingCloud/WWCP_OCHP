@@ -228,7 +228,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, AddressXML, e);
+                OnException?.Invoke(DateTime.UtcNow, AddressXML, e);
 
                 Address = null;
                 return false;
@@ -264,7 +264,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, AddressText, e);
+                OnException?.Invoke(DateTime.UtcNow, AddressText, e);
             }
 
             Address = null;

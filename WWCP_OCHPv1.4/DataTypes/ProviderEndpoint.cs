@@ -201,7 +201,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ProviderEndpointXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ProviderEndpointXML, e);
 
                 ProviderEndpoint = null;
                 return false;
@@ -237,7 +237,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ProviderEndpointText, e);
+                OnException?.Invoke(DateTime.UtcNow, ProviderEndpointText, e);
             }
 
             ProviderEndpoint = null;

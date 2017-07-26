@@ -163,7 +163,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ParkingStatusXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ParkingStatusXML, e);
 
                 ParkingStatus = default(ParkingStatus);
                 return false;
@@ -199,7 +199,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ParkingStatusText, e);
+                OnException?.Invoke(DateTime.UtcNow, ParkingStatusText, e);
             }
 
             ParkingStatus = default(ParkingStatus);

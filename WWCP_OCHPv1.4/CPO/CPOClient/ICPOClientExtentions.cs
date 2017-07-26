@@ -37,6 +37,79 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     public static class ICPOClientExtentions
     {
 
+        #region SetChargePointList   (ChargePointInfos, IncludeChargePoints = null, ...)
+
+        /// <summary>
+        /// Upload the given enumeration of charge points.
+        /// </summary>
+        /// <param name="ChargePointInfos">An enumeration of charge points.</param>
+        /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<SetChargePointListResponse>>
+
+            SetChargePointList(this ICPOClient               ICPOClient,
+                               IEnumerable<ChargePointInfo>  ChargePointInfos,
+                               IncludeChargePointsDelegate   IncludeChargePoints  = null,
+
+                               DateTime?                     Timestamp            = null,
+                               CancellationToken?            CancellationToken    = null,
+                               EventTracking_Id              EventTrackingId      = null,
+                               TimeSpan?                     RequestTimeout       = null)
+
+
+                => ICPOClient.SetChargePointList(
+                       new SetChargePointListRequest(
+                           ChargePointInfos.Where(cpo => IncludeChargePoints(cpo)),
+
+                           Timestamp,
+                           CancellationToken,
+                           EventTrackingId,
+                           RequestTimeout.HasValue ? RequestTimeout.Value : ICPOClient.RequestTimeout
+                       )
+                   );
+
+        #endregion
+
+        #region UpdateChargePointList(ChargePointInfos, IncludeChargePoints = null, ...)
+
+        /// <summary>
+        /// Update the given enumeration of charge points.
+        /// </summary>
+        /// <param name="ChargePointInfos">An enumeration of charge points.</param>
+        /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<UpdateChargePointListResponse>>
+
+            UpdateChargePointList(this ICPOClient               ICPOClient,
+                                  IEnumerable<ChargePointInfo>  ChargePointInfos,
+                                  IncludeChargePointsDelegate   IncludeChargePoints  = null,
+
+                                  DateTime?                     Timestamp            = null,
+                                  CancellationToken?            CancellationToken    = null,
+                                  EventTracking_Id              EventTrackingId      = null,
+                                  TimeSpan?                     RequestTimeout       = null)
+
+
+                => ICPOClient.UpdateChargePointList(
+                       new UpdateChargePointListRequest(
+                           ChargePointInfos.Where(cpo => IncludeChargePoints(cpo)),
+
+                           Timestamp,
+                           CancellationToken,
+                           EventTrackingId,
+                           RequestTimeout.HasValue ? RequestTimeout.Value : ICPOClient.RequestTimeout
+                       )
+                   );
+
+        #endregion
 
         #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, IncludeEVSEIds = null, ...)
 
@@ -52,7 +125,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public static async Task<HTTPResponse<UpdateStatusResponse>>
+        public static Task<HTTPResponse<UpdateStatusResponse>>
 
             UpdateStatus(this ICPOClient             ICPOClient,
                          IEnumerable<EVSEStatus>     EVSEStatus         = null,
@@ -66,18 +139,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          TimeSpan?                   RequestTimeout     = null)
 
 
-                => await ICPOClient.UpdateStatus(
-                             new UpdateStatusRequest(
-                                 EVSEStatus.   Where(evsestatus => IncludeEVSEIds != null ? IncludeEVSEIds(evsestatus.EVSEId) : true),
-                                 ParkingStatus,
-                                 DefaultTTL,
+                => ICPOClient.UpdateStatus(
+                       new UpdateStatusRequest(
+                           EVSEStatus.   Where(evsestatus => IncludeEVSEIds != null ? IncludeEVSEIds(evsestatus.EVSEId) : true),
+                           ParkingStatus,
+                           DefaultTTL,
 
-                                 Timestamp,
-                                 CancellationToken,
-                                 EventTrackingId,
-                                 RequestTimeout.HasValue ? RequestTimeout.Value : ICPOClient.RequestTimeout
-                             )
-                         );
+                           Timestamp,
+                           CancellationToken,
+                           EventTrackingId,
+                           RequestTimeout.HasValue ? RequestTimeout.Value : ICPOClient.RequestTimeout
+                       )
+                   );
 
         #endregion
 

@@ -278,7 +278,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, GetServiceEndpointsResponseXML, e);
+                OnException?.Invoke(DateTime.UtcNow, GetServiceEndpointsResponseXML, e);
 
                 GetServiceEndpointsResponse = null;
                 return false;
@@ -317,7 +317,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, GetServiceEndpointsResponseText, e);
+                OnException?.Invoke(DateTime.UtcNow, GetServiceEndpointsResponseText, e);
             }
 
             GetServiceEndpointsResponse = null;

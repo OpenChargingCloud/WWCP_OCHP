@@ -164,7 +164,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, TariffElementXML, e);
+                OnException?.Invoke(DateTime.UtcNow, TariffElementXML, e);
 
                 TariffElement = null;
                 return false;
@@ -200,7 +200,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, TariffElementText, e);
+                OnException?.Invoke(DateTime.UtcNow, TariffElementText, e);
             }
 
             TariffElement = null;

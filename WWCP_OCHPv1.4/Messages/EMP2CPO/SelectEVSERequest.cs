@@ -67,7 +67,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (ReserveUntil.HasValue && ReserveUntil.Value <= DateTime.Now)
+            if (ReserveUntil.HasValue && ReserveUntil.Value <= DateTime.UtcNow)
                 throw new ArgumentException("The given reservation end time must be after than the current time!");
 
             #endregion
@@ -184,7 +184,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, SelectEVSERequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, SelectEVSERequestXML, e);
 
                 SelectEVSERequest = null;
                 return false;
@@ -220,7 +220,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, SelectEVSERequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, SelectEVSERequestText, e);
             }
 
             SelectEVSERequest = null;

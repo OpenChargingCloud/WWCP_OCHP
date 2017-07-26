@@ -194,7 +194,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, RoamingAuthorisationInfoXML, e);
+                OnException?.Invoke(DateTime.UtcNow, RoamingAuthorisationInfoXML, e);
 
                 RoamingAuthorisationInfo = null;
                 return false;
@@ -230,7 +230,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, RoamingAuthorisationInfoText, e);
+                OnException?.Invoke(DateTime.UtcNow, RoamingAuthorisationInfoText, e);
             }
 
             RoamingAuthorisationInfo = null;

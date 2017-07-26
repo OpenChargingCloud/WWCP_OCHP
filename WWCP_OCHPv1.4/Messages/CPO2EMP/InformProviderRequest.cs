@@ -447,7 +447,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, InformProviderRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, InformProviderRequestXML, e);
 
                 InformProviderRequest = null;
                 return false;
@@ -483,7 +483,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, InformProviderRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, InformProviderRequestText, e);
             }
 
             InformProviderRequest = null;

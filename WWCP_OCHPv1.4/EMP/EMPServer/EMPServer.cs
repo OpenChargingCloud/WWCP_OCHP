@@ -277,7 +277,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 try
                 {
 
-                    OnInformProviderHTTPRequest?.Invoke(DateTime.Now,
+                    OnInformProviderHTTPRequest?.Invoke(DateTime.UtcNow,
                                                         this.SOAPServer,
                                                         Request);
 
@@ -303,7 +303,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     var results = OnInformProviderRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnInformProviderDelegate)
-                                          (DateTime.Now,
+                                          (DateTime.UtcNow,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -350,7 +350,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 var HTTPResponse = new HTTPResponseBuilder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.DefaultServerName,
-                    Date            = DateTime.Now,
+                    Date            = DateTime.UtcNow,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };

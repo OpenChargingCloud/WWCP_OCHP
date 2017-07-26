@@ -205,7 +205,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, UpdateStatusRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateStatusRequestXML, e);
 
                 UpdateStatusRequest = null;
                 return false;
@@ -241,7 +241,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, UpdateStatusRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, UpdateStatusRequestText, e);
             }
 
             UpdateStatusRequest = null;

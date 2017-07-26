@@ -170,7 +170,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, RatingsXML, e);
+                OnException?.Invoke(DateTime.UtcNow, RatingsXML, e);
 
                 Ratings = null;
                 return false;
@@ -206,7 +206,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, RatingsText, e);
+                OnException?.Invoke(DateTime.UtcNow, RatingsText, e);
             }
 
             Ratings = null;

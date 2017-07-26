@@ -177,7 +177,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ExtendedGeoCoordinateXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ExtendedGeoCoordinateXML, e);
 
                 ExtendedGeoCoordinate = null;
                 return false;
@@ -213,7 +213,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ExtendedGeoCoordinateText, e);
+                OnException?.Invoke(DateTime.UtcNow, ExtendedGeoCoordinateText, e);
             }
 
             ExtendedGeoCoordinate = null;

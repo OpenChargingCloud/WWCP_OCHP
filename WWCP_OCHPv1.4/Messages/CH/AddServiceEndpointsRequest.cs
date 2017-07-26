@@ -195,7 +195,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, AddServiceEndpointsRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, AddServiceEndpointsRequestXML, e);
 
                 AddServiceEndpointsRequest = null;
                 return false;
@@ -231,7 +231,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, AddServiceEndpointsRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, AddServiceEndpointsRequestText, e);
             }
 
             AddServiceEndpointsRequest = null;

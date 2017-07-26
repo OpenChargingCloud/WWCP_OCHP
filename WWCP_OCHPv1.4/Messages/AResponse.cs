@@ -125,7 +125,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             this.Result             = Result;
             this.CustomData         = CustomData;
-            this.ResponseTimestamp  = DateTime.Now;
+            this.ResponseTimestamp  = DateTime.UtcNow;
 
         }
 

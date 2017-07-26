@@ -638,7 +638,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -659,7 +659,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetChargePointListRequest?.Invoke(DateTime.Now,
+                OnGetChargePointListRequest?.Invoke(DateTime.UtcNow,
                                                     Timestamp.Value,
                                                     this,
                                                     ClientId,
@@ -775,14 +775,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetChargePointListResponse?.Invoke(DateTime.Now,
+                OnGetChargePointListResponse?.Invoke(DateTime.UtcNow,
                                                      Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      EventTrackingId,
                                                      RequestTimeout,
                                                      result.Content,
-                                                     DateTime.Now - Timestamp.Value);
+                                                     DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -824,7 +824,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -845,7 +845,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetChargePointListUpdatesRequest?.Invoke(DateTime.Now,
+                OnGetChargePointListUpdatesRequest?.Invoke(DateTime.UtcNow,
                                                            Timestamp.Value,
                                                            this,
                                                            ClientId,
@@ -962,7 +962,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetChargePointListUpdatesResponse?.Invoke(DateTime.Now,
+                OnGetChargePointListUpdatesResponse?.Invoke(DateTime.UtcNow,
                                                             Timestamp.Value,
                                                             this,
                                                             ClientId,
@@ -970,7 +970,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                             LastUpdate,
                                                             RequestTimeout,
                                                             result.Content,
-                                                            DateTime.Now - Timestamp.Value);
+                                                            DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -1014,7 +1014,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -1035,7 +1035,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetStatusRequest?.Invoke(DateTime.Now,
+                OnGetStatusRequest?.Invoke(DateTime.UtcNow,
                                            Timestamp.Value,
                                            this,
                                            ClientId,
@@ -1154,7 +1154,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetStatusResponse?.Invoke(DateTime.Now,
+                OnGetStatusResponse?.Invoke(DateTime.UtcNow,
                                             Timestamp.Value,
                                             this,
                                             ClientId,
@@ -1163,7 +1163,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                             StatusType,
                                             RequestTimeout,
                                             result.Content,
-                                            DateTime.Now - Timestamp.Value);
+                                            DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -1210,7 +1210,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -1231,7 +1231,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnSetRoamingAuthorisationListRequest?.Invoke(DateTime.Now,
+                OnSetRoamingAuthorisationListRequest?.Invoke(DateTime.UtcNow,
                                                              Timestamp.Value,
                                                              this,
                                                              ClientId,
@@ -1348,7 +1348,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnSetRoamingAuthorisationListResponse?.Invoke(DateTime.Now,
+                OnSetRoamingAuthorisationListResponse?.Invoke(DateTime.UtcNow,
                                                               Timestamp.Value,
                                                               this,
                                                               ClientId,
@@ -1356,7 +1356,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                               RoamingAuthorisationInfos,
                                                               RequestTimeout,
                                                               result.Content,
-                                                              DateTime.Now - Timestamp.Value);
+                                                              DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -1402,7 +1402,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -1429,7 +1429,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnUpdateRoamingAuthorisationListRequest?.Invoke(DateTime.Now,
+                OnUpdateRoamingAuthorisationListRequest?.Invoke(DateTime.UtcNow,
                                                                 Timestamp.Value,
                                                                 this,
                                                                 ClientId,
@@ -1550,7 +1550,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnUpdateRoamingAuthorisationListResponse?.Invoke(DateTime.Now,
+                OnUpdateRoamingAuthorisationListResponse?.Invoke(DateTime.UtcNow,
                                                                  Timestamp.Value,
                                                                  this,
                                                                  ClientId,
@@ -1558,7 +1558,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                                  RoamingAuthorisationInfos,
                                                                  RequestTimeout,
                                                                  result.Content,
-                                                                 DateTime.Now - Timestamp.Value);
+                                                                 DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -1601,7 +1601,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -1622,7 +1622,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetCDRsRequest?.Invoke(DateTime.Now,
+                OnGetCDRsRequest?.Invoke(DateTime.UtcNow,
                                          Timestamp.Value,
                                          this,
                                          ClientId,
@@ -1739,7 +1739,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetCDRsResponse?.Invoke(DateTime.Now,
+                OnGetCDRsResponse?.Invoke(DateTime.UtcNow,
                                           Timestamp.Value,
                                           this,
                                           ClientId,
@@ -1747,7 +1747,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                           CDRStatus,
                                           RequestTimeout,
                                           result.Content,
-                                          DateTime.Now - Timestamp.Value);
+                                          DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -1795,7 +1795,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -1816,7 +1816,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnConfirmCDRsRequest?.Invoke(DateTime.Now,
+                OnConfirmCDRsRequest?.Invoke(DateTime.UtcNow,
                                              Timestamp.Value,
                                              this,
                                              ClientId,
@@ -1939,7 +1939,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnConfirmCDRsResponse?.Invoke(DateTime.Now,
+                OnConfirmCDRsResponse?.Invoke(DateTime.UtcNow,
                                               Timestamp.Value,
                                               this,
                                               ClientId,
@@ -1948,7 +1948,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                               Declined,
                                               RequestTimeout,
                                               result.Content,
-                                              DateTime.Now - Timestamp.Value);
+                                              DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -1994,7 +1994,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 LastUpdate = new DateTime?();
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2015,7 +2015,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetTariffUpdatesRequest?.Invoke(DateTime.Now,
+                OnGetTariffUpdatesRequest?.Invoke(DateTime.UtcNow,
                                                   Timestamp.Value,
                                                   this,
                                                   ClientId,
@@ -2132,7 +2132,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetTariffUpdatesResponse?.Invoke(DateTime.Now,
+                OnGetTariffUpdatesResponse?.Invoke(DateTime.UtcNow,
                                                    Timestamp.Value,
                                                    this,
                                                    ClientId,
@@ -2140,7 +2140,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                    LastUpdate,
                                                    RequestTimeout,
                                                    result.Content,
-                                                   DateTime.Now - Timestamp.Value);
+                                                   DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -2189,7 +2189,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2210,7 +2210,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnAddServiceEndpointsRequest?.Invoke(DateTime.Now,
+                OnAddServiceEndpointsRequest?.Invoke(DateTime.UtcNow,
                                                      Timestamp.Value,
                                                      this,
                                                      ClientId,
@@ -2327,7 +2327,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnAddServiceEndpointsResponse?.Invoke(DateTime.Now,
+                OnAddServiceEndpointsResponse?.Invoke(DateTime.UtcNow,
                                                       Timestamp.Value,
                                                       this,
                                                       ClientId,
@@ -2335,7 +2335,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                       ProviderEndpoints,
                                                       RequestTimeout,
                                                       result.Content,
-                                                      DateTime.Now - Timestamp.Value);
+                                                      DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -2373,7 +2373,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2394,7 +2394,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetServiceEndpointsRequest?.Invoke(DateTime.Now,
+                OnGetServiceEndpointsRequest?.Invoke(DateTime.UtcNow,
                                                      Timestamp.Value,
                                                      this,
                                                      ClientId,
@@ -2510,14 +2510,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetServiceEndpointsResponse?.Invoke(DateTime.Now,
+                OnGetServiceEndpointsResponse?.Invoke(DateTime.UtcNow,
                                                       Timestamp.Value,
                                                       this,
                                                       ClientId,
                                                       EventTrackingId,
                                                       RequestTimeout,
                                                       result.Content,
-                                                      DateTime.Now - Timestamp.Value);
+                                                      DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -2566,12 +2566,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             if (ContractId == null)
                 throw new ArgumentNullException(nameof(ContractId),  "The given identification of the e-mobility contract must not be null!");
 
-            if (ReserveUntil.HasValue && ReserveUntil.Value <= DateTime.Now)
+            if (ReserveUntil.HasValue && ReserveUntil.Value <= DateTime.UtcNow)
                 throw new ArgumentException("The given reservation end time must be after than the current time!");
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2592,7 +2592,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnSelectEVSERequest?.Invoke(DateTime.Now,
+                OnSelectEVSERequest?.Invoke(DateTime.UtcNow,
                                                      Timestamp.Value,
                                                      this,
                                                      ClientId,
@@ -2716,7 +2716,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnSelectEVSEResponse?.Invoke(DateTime.Now,
+                OnSelectEVSEResponse?.Invoke(DateTime.UtcNow,
                                              Timestamp.Value,
                                              this,
                                              ClientId,
@@ -2726,7 +2726,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                              ReserveUntil,
                                              RequestTimeout,
                                              result.Content,
-                                             DateTime.Now - Timestamp.Value);
+                                             DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -2786,7 +2786,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -2807,7 +2807,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnControlEVSERequest?.Invoke(DateTime.Now,
+                OnControlEVSERequest?.Invoke(DateTime.UtcNow,
                                              Timestamp.Value,
                                              this,
                                              ClientId,
@@ -2939,7 +2939,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnControlEVSEResponse?.Invoke(DateTime.Now,
+                OnControlEVSEResponse?.Invoke(DateTime.UtcNow,
                                               Timestamp.Value,
                                               this,
                                               ClientId,
@@ -2954,7 +2954,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                               Departure,
                                               RequestTimeout,
                                               result.Content,
-                                              DateTime.Now - Timestamp.Value);
+                                              DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -3000,7 +3000,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -3021,7 +3021,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnReleaseEVSERequest?.Invoke(DateTime.Now,
+                OnReleaseEVSERequest?.Invoke(DateTime.UtcNow,
                                              Timestamp.Value,
                                              this,
                                              ClientId,
@@ -3142,7 +3142,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnReleaseEVSEResponse?.Invoke(DateTime.Now,
+                OnReleaseEVSEResponse?.Invoke(DateTime.UtcNow,
                                               Timestamp.Value,
                                               this,
                                               ClientId,
@@ -3150,7 +3150,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                               DirectId,
                                               RequestTimeout,
                                               result.Content,
-                                              DateTime.Now - Timestamp.Value);
+                                              DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -3196,7 +3196,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -3217,7 +3217,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetEVSEStatusRequest?.Invoke(DateTime.Now,
+                OnGetEVSEStatusRequest?.Invoke(DateTime.UtcNow,
                                                Timestamp.Value,
                                                this,
                                                ClientId,
@@ -3333,7 +3333,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetEVSEStatusResponse?.Invoke(DateTime.Now,
+                OnGetEVSEStatusResponse?.Invoke(DateTime.UtcNow,
                                                 Timestamp.Value,
                                                 this,
                                                 ClientId,
@@ -3341,7 +3341,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                 EVSEIds,
                                                 RequestTimeout,
                                                 result.Content,
-                                                DateTime.Now - Timestamp.Value);
+                                                DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -3391,7 +3391,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -3412,7 +3412,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnReportDiscrepancyRequest?.Invoke(DateTime.Now,
+                OnReportDiscrepancyRequest?.Invoke(DateTime.UtcNow,
                                                    Timestamp.Value,
                                                    this,
                                                    ClientId,
@@ -3531,7 +3531,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnReportDiscrepancyResponse?.Invoke(DateTime.Now,
+                OnReportDiscrepancyResponse?.Invoke(DateTime.UtcNow,
                                                     Timestamp.Value,
                                                     this,
                                                     ClientId,
@@ -3540,7 +3540,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     Report,
                                                     RequestTimeout,
                                                     result.Content,
-                                                    DateTime.Now - Timestamp.Value);
+                                                    DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -3586,7 +3586,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.Now;
+                Timestamp = DateTime.UtcNow;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -3607,7 +3607,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetInformProviderRequest?.Invoke(DateTime.Now,
+                OnGetInformProviderRequest?.Invoke(DateTime.UtcNow,
                                                    Timestamp.Value,
                                                    this,
                                                    ClientId,
@@ -3724,7 +3724,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             try
             {
 
-                OnGetInformProviderResponse?.Invoke(DateTime.Now,
+                OnGetInformProviderResponse?.Invoke(DateTime.UtcNow,
                                                     Timestamp.Value,
                                                     this,
                                                     ClientId,
@@ -3732,7 +3732,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                     DirectId,
                                                     RequestTimeout,
                                                     result.Content,
-                                                    DateTime.Now - Timestamp.Value);
+                                                    DateTime.UtcNow - Timestamp.Value);
 
             }
             catch (Exception e)

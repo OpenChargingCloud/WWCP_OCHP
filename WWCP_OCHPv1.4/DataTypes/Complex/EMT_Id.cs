@@ -197,7 +197,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, EMTIdXML, e);
+                OnException?.Invoke(DateTime.UtcNow, EMTIdXML, e);
 
                 EMTId = default(EMT_Id);
                 return false;
@@ -233,7 +233,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, EMTIdText, e);
+                OnException?.Invoke(DateTime.UtcNow, EMTIdText, e);
             }
 
             EMTId = default(EMT_Id);

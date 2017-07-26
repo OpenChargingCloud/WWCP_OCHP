@@ -175,7 +175,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, RelatedResourceXML, e);
+                OnException?.Invoke(DateTime.UtcNow, RelatedResourceXML, e);
 
                 RelatedResource = null;
                 return false;
@@ -211,7 +211,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, RelatedResourceText, e);
+                OnException?.Invoke(DateTime.UtcNow, RelatedResourceText, e);
             }
 
             RelatedResource = null;

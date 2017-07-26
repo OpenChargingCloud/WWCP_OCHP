@@ -431,7 +431,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, CDRInfoXML, e);
+                OnException?.Invoke(DateTime.UtcNow, CDRInfoXML, e);
 
                 CDRInfo = null;
                 return false;
@@ -467,7 +467,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, CDRInfoText, e);
+                OnException?.Invoke(DateTime.UtcNow, CDRInfoText, e);
             }
 
             CDRInfo = null;

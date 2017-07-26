@@ -252,7 +252,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ResultXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ResultXML, e);
 
                 Result = null;
                 return false;
@@ -288,7 +288,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ResultText, e);
+                OnException?.Invoke(DateTime.UtcNow, ResultText, e);
             }
 
             Result = null;

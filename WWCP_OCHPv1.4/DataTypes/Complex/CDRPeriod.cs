@@ -230,7 +230,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, CDRPeriodXML, e);
+                OnException?.Invoke(DateTime.UtcNow, CDRPeriodXML, e);
 
                 CDRPeriod = null;
                 return false;
@@ -266,7 +266,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, CDRPeriodText, e);
+                OnException?.Invoke(DateTime.UtcNow, CDRPeriodText, e);
             }
 
             CDRPeriod = null;

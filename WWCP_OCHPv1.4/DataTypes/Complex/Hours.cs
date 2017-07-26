@@ -336,7 +336,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, HoursXML, e);
+                OnException?.Invoke(DateTime.UtcNow, HoursXML, e);
 
                 Hours = null;
                 return false;
@@ -372,7 +372,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, HoursText, e);
+                OnException?.Invoke(DateTime.UtcNow, HoursText, e);
             }
 
             Hours = null;

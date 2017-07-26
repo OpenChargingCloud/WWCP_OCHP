@@ -168,7 +168,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ReportDiscrepancyRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ReportDiscrepancyRequestXML, e);
 
                 ReportDiscrepancyRequest = null;
                 return false;
@@ -204,7 +204,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ReportDiscrepancyRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, ReportDiscrepancyRequestText, e);
             }
 
             ReportDiscrepancyRequest = null;

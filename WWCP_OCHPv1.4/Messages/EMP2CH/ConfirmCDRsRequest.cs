@@ -180,7 +180,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.Now, ConfirmCDRsRequestXML, e);
+                OnException?.Invoke(DateTime.UtcNow, ConfirmCDRsRequestXML, e);
 
                 ConfirmCDRsRequest = null;
                 return false;
@@ -216,7 +216,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.Now, ConfirmCDRsRequestText, e);
+                OnException?.Invoke(DateTime.UtcNow, ConfirmCDRsRequestText, e);
             }
 
             ConfirmCDRsRequest = null;
