@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP CPO server logger.
     /// </summary>
-    public class CPOServerLogger : HTTPLogger
+    public class CPOServerLogger : HTTPServerLogger
     {
 
         #region Data

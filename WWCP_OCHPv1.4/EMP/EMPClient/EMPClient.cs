@@ -39,7 +39,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP EMP client.
     /// </summary>
-    public partial class EMPClient : ASOAPClient
+    public partial class EMPClient : ASOAPClient,
+                                     IEMPClient
     {
 
         #region Data

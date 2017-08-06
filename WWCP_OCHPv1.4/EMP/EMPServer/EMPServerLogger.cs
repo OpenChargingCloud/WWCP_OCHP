@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP EMP server logger.
     /// </summary>
-    public class EMPServerLogger : HTTPLogger
+    public class EMPServerLogger : HTTPServerLogger
     {
 
         #region Data

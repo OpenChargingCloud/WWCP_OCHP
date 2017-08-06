@@ -47,6 +47,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         public CPOClient        CPOClient         { get; }
 
+        public IPPort RemotePort
+            => CPOClient?.RemotePort;
+
+        public RemoteCertificateValidationCallback RemoteCertificateValidator
+            => CPOClient?.RemoteCertificateValidator;
+
         /// <summary>
         /// The CPO server.
         /// </summary>
@@ -72,10 +78,926 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Events
 
-        // CPOClient logging methods
+        // OCHP
+
+        #region OnSetChargePointListRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request uploading charge points will be send.
+        /// </summary>
+        public event OnSetChargePointListRequestDelegate   OnSetChargePointListRequest
+        {
+
+            add
+            {
+                CPOClient.OnSetChargePointListRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnSetChargePointListRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request uploading charge points will be send.
+        /// </summary>
+        public event ClientRequestLogHandler               OnSetChargePointListSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnSetChargePointListSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnSetChargePointListSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a upload charge points SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler              OnSetChargePointListSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnSetChargePointListSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnSetChargePointListSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a upload charge points request had been received.
+        /// </summary>
+        public event OnSetChargePointListResponseDelegate  OnSetChargePointListResponse
+        {
+
+            add
+            {
+                CPOClient.OnSetChargePointListResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnSetChargePointListResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+        #region OnUpdateChargePointListRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request uploading charge point updates will be send.
+        /// </summary>
+        public event OnUpdateChargePointListRequestDelegate   OnUpdateChargePointListRequest
+        {
+
+            add
+            {
+                CPOClient.OnUpdateChargePointListRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateChargePointListRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request uploading charge point updates will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                  OnUpdateChargePointListSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnUpdateChargePointListSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateChargePointListSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a upload charge point updates SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler                 OnUpdateChargePointListSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnUpdateChargePointListSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateChargePointListSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a upload charge point updates request had been received.
+        /// </summary>
+        public event OnUpdateChargePointListResponseDelegate  OnUpdateChargePointListResponse
+        {
+
+            add
+            {
+                CPOClient.OnUpdateChargePointListResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateChargePointListResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+        #region OnUpdateStatusRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever evse and parking status will be send.
+        /// </summary>
+        public event OnUpdateStatusRequestDelegate   OnUpdateStatusRequest
+        {
+
+            add
+            {
+                CPOClient.OnUpdateStatusRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateStatusRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for evse and parking status will be send.
+        /// </summary>
+        public event ClientRequestLogHandler         OnUpdateStatusSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnUpdateStatusSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateStatusSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to an evse and parking status SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler        OnUpdateStatusSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnUpdateStatusSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateStatusSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to an evse and parking status request had been received.
+        /// </summary>
+        public event OnUpdateStatusResponseDelegate  OnUpdateStatusResponse
+        {
+
+            add
+            {
+                CPOClient.OnUpdateStatusResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateStatusResponse -= value;
+            }
+
+        }
+
+        #endregion
 
 
-        // CPOServer methods
+        #region OnGetSingleRoamingAuthorisationRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request authenticating an e-mobility token will be send.
+        /// </summary>
+        public event OnGetSingleRoamingAuthorisationRequestDelegate   OnGetSingleRoamingAuthorisationRequest
+        {
+
+            add
+            {
+                CPOClient.OnGetSingleRoamingAuthorisationRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetSingleRoamingAuthorisationRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request authenticating an e-mobility token will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                          OnGetSingleRoamingAuthorisationSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnGetSingleRoamingAuthorisationSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetSingleRoamingAuthorisationSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a authenticate an e-mobility token SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler                         OnGetSingleRoamingAuthorisationSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnGetSingleRoamingAuthorisationSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetSingleRoamingAuthorisationSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a authenticate an e-mobility token request had been received.
+        /// </summary>
+        public event OnGetSingleRoamingAuthorisationResponseDelegate  OnGetSingleRoamingAuthorisationResponse
+        {
+
+            add
+            {
+                CPOClient.OnGetSingleRoamingAuthorisationResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetSingleRoamingAuthorisationResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+        #region OnGetRoamingAuthorisationListRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for the current roaming authorisation list will be send.
+        /// </summary>
+        public event OnGetRoamingAuthorisationListRequestDelegate   OnGetRoamingAuthorisationListRequest
+        {
+
+            add
+            {
+                CPOClient.OnGetRoamingAuthorisationListRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetRoamingAuthorisationListRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for the current roaming authorisation list will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                        OnGetRoamingAuthorisationListSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnGetRoamingAuthorisationListSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetRoamingAuthorisationListSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a SOAP request for the current roaming authorisation list had been received.
+        /// </summary>
+        public event ClientResponseLogHandler                       OnGetRoamingAuthorisationListSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnGetRoamingAuthorisationListSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetRoamingAuthorisationListSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a request for the current roaming authorisation list had been received.
+        /// </summary>
+        public event OnGetRoamingAuthorisationListResponseDelegate  OnGetRoamingAuthorisationListResponse
+        {
+
+            add
+            {
+                CPOClient.OnGetRoamingAuthorisationListResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetRoamingAuthorisationListResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+        #region OnGetRoamingAuthorisationListUpdatesRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for updates of a roaming authorisation list will be send.
+        /// </summary>
+        public event OnGetRoamingAuthorisationListUpdatesRequestDelegate   OnGetRoamingAuthorisationListUpdatesRequest
+        {
+
+            add
+            {
+                CPOClient.OnGetRoamingAuthorisationListUpdatesRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetRoamingAuthorisationListUpdatesRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for updates of a roaming authorisation list will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                               OnGetRoamingAuthorisationListUpdatesSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a roaming authorisation list update SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler                              OnGetRoamingAuthorisationListUpdatesSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a roaming authorisation list update request had been received.
+        /// </summary>
+        public event OnGetRoamingAuthorisationListUpdatesResponseDelegate  OnGetRoamingAuthorisationListUpdatesResponse
+        {
+
+            add
+            {
+                CPOClient.OnGetRoamingAuthorisationListUpdatesResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetRoamingAuthorisationListUpdatesResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+
+        #region OnAddCDRsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for adding charge detail records will be send.
+        /// </summary>
+        public event OnAddCDRsRequestDelegate   OnAddCDRsRequest
+        {
+
+            add
+            {
+                CPOClient.OnAddCDRsRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnAddCDRsRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for adding charge detail records will be send.
+        /// </summary>
+        public event ClientRequestLogHandler    OnAddCDRsSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnAddCDRsSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnAddCDRsSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to an add charge detail records SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler   OnAddCDRsSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnAddCDRsSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnAddCDRsSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to an add charge detail records request had been received.
+        /// </summary>
+        public event OnAddCDRsResponseDelegate  OnAddCDRsResponse
+        {
+
+            add
+            {
+                CPOClient.OnAddCDRsResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnAddCDRsResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+        #region OnCheckCDRsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request for checking charge detail records will be send.
+        /// </summary>
+        public event OnCheckCDRsRequestDelegate   OnCheckCDRsRequest
+        {
+
+            add
+            {
+                CPOClient.OnCheckCDRsRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnCheckCDRsRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for checking charge detail records will be send.
+        /// </summary>
+        public event ClientRequestLogHandler      OnCheckCDRsSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnCheckCDRsSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnCheckCDRsSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a check charge detail records SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler     OnCheckCDRsSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnCheckCDRsSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnCheckCDRsSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to a check charge detail records request had been received.
+        /// </summary>
+        public event OnCheckCDRsResponseDelegate  OnCheckCDRsResponse
+        {
+
+            add
+            {
+                CPOClient.OnCheckCDRsResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnCheckCDRsResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+
+        #region OnUpdateTariffsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever tariff updates will be send.
+        /// </summary>
+        public event OnUpdateTariffsRequestDelegate   OnUpdateTariffsRequest
+        {
+
+            add
+            {
+                CPOClient.OnUpdateTariffsRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateTariffsRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request for updating tariffs will be send.
+        /// </summary>
+        public event ClientRequestLogHandler          OnUpdateTariffsSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnUpdateTariffsSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateTariffsSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to update tariffs SOAP request had been received.
+        /// </summary>
+        public event ClientResponseLogHandler         OnUpdateTariffsSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnUpdateTariffsSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateTariffsSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response to update tariffs request had been received.
+        /// </summary>
+        public event OnUpdateTariffsResponseDelegate  OnUpdateTariffsResponse
+        {
+
+            add
+            {
+                CPOClient.OnUpdateTariffsResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnUpdateTariffsResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+
+        // OCHPdirect
+
+        #region OnAddServiceEndpointsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request to add service endpoints will be send.
+        /// </summary>
+        public event OnAddServiceEndpointsRequestDelegate   OnAddServiceEndpointsRequest
+        {
+
+            add
+            {
+                CPOClient.OnAddServiceEndpointsRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnAddServiceEndpointsRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request to add service endpoints will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                OnAddServiceEndpointsSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnAddServiceEndpointsSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnAddServiceEndpointsSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a SOAP request to add service endpoints had been received.
+        /// </summary>
+        public event ClientResponseLogHandler               OnAddServiceEndpointsSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnAddServiceEndpointsSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnAddServiceEndpointsSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response for request to add service endpoints had been received.
+        /// </summary>
+        public event OnAddServiceEndpointsResponseDelegate  OnAddServiceEndpointsResponse
+        {
+
+            add
+            {
+                CPOClient.OnAddServiceEndpointsResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnAddServiceEndpointsResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+        #region OnGetServiceEndpointsRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever a request to get service endpoints will be send.
+        /// </summary>
+        public event OnGetServiceEndpointsRequestDelegate   OnGetServiceEndpointsRequest
+        {
+
+            add
+            {
+                CPOClient.OnGetServiceEndpointsRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetServiceEndpointsRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP request to get service endpoints will be send.
+        /// </summary>
+        public event ClientRequestLogHandler                OnGetServiceEndpointsSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnGetServiceEndpointsSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetServiceEndpointsSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for a SOAP request to get service endpoints had been received.
+        /// </summary>
+        public event ClientResponseLogHandler               OnGetServiceEndpointsSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnGetServiceEndpointsSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetServiceEndpointsSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response for request to get service endpoints had been received.
+        /// </summary>
+        public event OnGetServiceEndpointsResponseDelegate  OnGetServiceEndpointsResponse
+        {
+
+            add
+            {
+                CPOClient.OnGetServiceEndpointsResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnGetServiceEndpointsResponse -= value;
+            }
+
+        }
+
+        #endregion
+
+
+        #region OnInformProviderRequest/-Response
+
+        /// <summary>
+        /// An event fired whenever an inform provider message will be send.
+        /// </summary>
+        public event OnInformProviderRequestDelegate   OnInformProviderRequest
+        {
+
+            add
+            {
+                CPOClient.OnInformProviderRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnInformProviderRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever an inform provider SOAP message will be send.
+        /// </summary>
+        public event ClientRequestLogHandler           OnInformProviderSOAPRequest
+        {
+
+            add
+            {
+                CPOClient.OnInformProviderSOAPRequest += value;
+            }
+
+            remove
+            {
+                CPOClient.OnInformProviderSOAPRequest -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a SOAP response for an inform provider SOAP message had been received.
+        /// </summary>
+        public event ClientResponseLogHandler          OnInformProviderSOAPResponse
+        {
+
+            add
+            {
+                CPOClient.OnInformProviderSOAPResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnInformProviderSOAPResponse -= value;
+            }
+
+        }
+
+        /// <summary>
+        /// An event fired whenever a response for an inform provider message had been received.
+        /// </summary>
+        public event OnInformProviderResponseDelegate  OnInformProviderResponse
+        {
+
+            add
+            {
+                CPOClient.OnInformProviderResponse += value;
+            }
+
+            remove
+            {
+                CPOClient.OnInformProviderResponse -= value;
+            }
+
+        }
+
+        #endregion
 
 
         // Generic HTTP/SOAP server logging
@@ -634,6 +1556,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+        public void Dispose()
+        { }
 
     }
 

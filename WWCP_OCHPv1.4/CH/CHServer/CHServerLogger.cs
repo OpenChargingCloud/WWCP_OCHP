@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
     /// <summary>
     /// An OCHP CH server logger.
     /// </summary>
-    public class CHServerLogger : HTTPLogger
+    public class CHServerLogger : HTTPServerLogger
     {
 
         #region Data

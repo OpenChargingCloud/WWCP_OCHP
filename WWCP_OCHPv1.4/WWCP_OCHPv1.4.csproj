@@ -57,6 +57,7 @@
     <Compile Include="CPO\CPOClient\CPOClientLogger.cs" />
     <Compile Include="DataTypes\Simple\Operator_Id.cs" />
     <Compile Include="DataTypes\Simple\Provider_Id.cs" />
+    <Compile Include="EMP\EMPClient\IEMPClient.cs" />
     <Compile Include="IO\Exceptions\OCHPException.cs" />
     <Compile Include="IO\Exceptions\IllegalEVSEStatusCombinationException.cs" />
     <Compile Include="EMP\EMPDelegates.cs" />
