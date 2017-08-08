@@ -1770,7 +1770,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region (Set/Add/Update/Delete) EVSE(s)...
 
-        #region SetStaticData   (EVSE, TransmissionType = Enqueued, ...)
+        #region SetStaticData   (EVSE, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Set the given EVSE as new static EVSE data at the OCHP server.
@@ -1803,7 +1803,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -1859,7 +1859,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region AddStaticData   (EVSE, TransmissionType = Enqueued, ...)
+        #region AddStaticData   (EVSE, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Add the given EVSE to the static EVSE data at the OCHP server.
@@ -1892,7 +1892,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -1948,7 +1948,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStaticData(EVSE, PropertyName = null, OldValue = null, NewValue = null, TransmissionType = Enqueued, ...)
+        #region UpdateStaticData(EVSE, PropertyName = null, OldValue = null, NewValue = null, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the static data of the given EVSE.
@@ -1988,7 +1988,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -2044,7 +2044,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region DeleteStaticData(EVSE, TransmissionType = Enqueued, ...)
+        #region DeleteStaticData(EVSE, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Delete the static data of the given EVSE.
@@ -2220,7 +2220,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueued, ...)
+        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of EVSE admin status updates.
@@ -2247,7 +2247,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueued, ...)
+        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of EVSE status updates.
@@ -2280,7 +2280,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -2357,7 +2357,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region (Set/Add/Update/Delete) Charging station(s)...
 
-        #region SetStaticData   (ChargingStation, TransmissionType = Enqueued, ...)
+        #region SetStaticData   (ChargingStation, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Set the EVSE data of the given charging station as new static EVSE data at the OCHP server.
@@ -2390,7 +2390,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -2453,7 +2453,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region AddStaticData   (ChargingStation, TransmissionType = Enqueued, ...)
+        #region AddStaticData   (ChargingStation, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Add the EVSE data of the given charging station to the static EVSE data at the OCHP server.
@@ -2486,7 +2486,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -2549,7 +2549,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStaticData(ChargingStation, PropertyName = null, OldValue = null, NewValue = null, TransmissionType = Enqueued, ...)
+        #region UpdateStaticData(ChargingStation, PropertyName = null, OldValue = null, NewValue = null, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the EVSE data of the given charging station within the static EVSE data at the OCHP server.
@@ -2588,7 +2588,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -2651,7 +2651,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region DeleteStaticData(ChargingStation, TransmissionType = Enqueued, ...)
+        #region DeleteStaticData(ChargingStation, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Delete the EVSE data of the given charging station from the static EVSE data at the OCHP server.
@@ -2678,7 +2678,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region SetStaticData   (ChargingStations, TransmissionType = Enqueued, ...)
+        #region SetStaticData   (ChargingStations, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Set the EVSE data of the given enumeration of charging stations as new static EVSE data at the OICP server.
@@ -2720,7 +2720,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region AddStaticData   (ChargingStations, TransmissionType = Enqueued, ...)
+        #region AddStaticData   (ChargingStations, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Add the EVSE data of the given enumeration of charging stations to the static EVSE data at the OICP server.
@@ -2763,7 +2763,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStaticData(ChargingStations, TransmissionType = Enqueued, ...)
+        #region UpdateStaticData(ChargingStations, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the EVSE data of the given enumeration of charging stations within the static EVSE data at the OICP server.
@@ -2805,7 +2805,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region DeleteStaticData(ChargingStations, TransmissionType = Enqueued, ...)
+        #region DeleteStaticData(ChargingStations, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Delete the EVSE data of the given enumeration of charging stations from the static EVSE data at the OICP server.
@@ -2843,7 +2843,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueued, ...)
+        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of charging station admin status updates.
@@ -2870,7 +2870,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueued, ...)
+        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of charging station status updates.
@@ -2901,7 +2901,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region (Set/Add/Update/Delete) Charging pool(s)...
 
-        #region SetStaticData   (ChargingPool, TransmissionType = Enqueued, ...)
+        #region SetStaticData   (ChargingPool, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Set the EVSE data of the given charging pool as new static EVSE data at the OCHP server.
@@ -2934,7 +2934,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -2997,7 +2997,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region AddStaticData   (ChargingPool, TransmissionType = Enqueued, ...)
+        #region AddStaticData   (ChargingPool, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Add the EVSE data of the given charging pool to the static EVSE data at the OCHP server.
@@ -3030,7 +3030,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRRequest event
@@ -3093,7 +3093,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStaticData(ChargingPool, PropertyName = null, OldValue = null, NewValue = null, TransmissionType = Enqueued, ...)
+        #region UpdateStaticData(ChargingPool, PropertyName = null, OldValue = null, NewValue = null, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the EVSE data of the given charging pool within the static EVSE data at the OCHP server.
@@ -3141,7 +3141,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 #region Enqueue, if requested...
 
-                if (TransmissionType == TransmissionTypes.Enqueued)
+                if (TransmissionType == TransmissionTypes.Enqueue)
                 {
 
                     #region Send OnEnqueueSendCDRRequest event
@@ -3206,7 +3206,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region DeleteStaticData(ChargingPool, TransmissionType = Enqueued, ...)
+        #region DeleteStaticData(ChargingPool, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Delete the EVSE data of the given charging pool from the static EVSE data at the OICP server.
@@ -3249,7 +3249,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region SetStaticData   (ChargingPools, TransmissionType = Enqueued, ...)
+        #region SetStaticData   (ChargingPools, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Set the EVSE data of the given enumeration of charging pools as new static EVSE data at the OICP server.
@@ -3291,7 +3291,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region AddStaticData   (ChargingPools, TransmissionType = Enqueued, ...)
+        #region AddStaticData   (ChargingPools, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Add the EVSE data of the given enumeration of charging pools to the static EVSE data at the OICP server.
@@ -3333,7 +3333,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStaticData(ChargingPools, TransmissionType = Enqueued, ...)
+        #region UpdateStaticData(ChargingPools, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the EVSE data of the given enumeration of charging pools within the static EVSE data at the OICP server.
@@ -3375,7 +3375,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region DeleteStaticData(ChargingPools, TransmissionType = Enqueued, ...)
+        #region DeleteStaticData(ChargingPools, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Delete the EVSE data of the given enumeration of charging pools from the static EVSE data at the OICP server.
@@ -3418,7 +3418,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueued, ...)
+        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of charging pool admin status updates.
@@ -3445,7 +3445,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueued, ...)
+        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of charging pool status updates.
@@ -3778,7 +3778,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueued, ...)
+        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of charging station operator admin status updates.
@@ -3805,7 +3805,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueued, ...)
+        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of charging station operator status updates.
@@ -3987,7 +3987,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueued, ...)
+        #region UpdateAdminStatus(AdminStatusUpdates, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of roaming network admin status updates.
@@ -4014,7 +4014,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueued, ...)
+        #region UpdateStatus     (StatusUpdates,      TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Update the given enumeration of roaming network status updates.
@@ -5309,7 +5309,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region SendChargeDetailRecords(ChargeDetailRecords, TransmissionType = Enqueued, ...)
+        #region SendChargeDetailRecords(ChargeDetailRecords, TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Send a charge detail record to an OCHP server.
@@ -5324,7 +5324,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public async Task<SendCDRsResult>
 
             SendChargeDetailRecords(IEnumerable<ChargeDetailRecord>  ChargeDetailRecords,
-                                    TransmissionTypes                TransmissionType    = TransmissionTypes.Enqueued,
+                                    TransmissionTypes                TransmissionType    = TransmissionTypes.Enqueue,
 
                                     DateTime?                        Timestamp           = null,
                                     CancellationToken?               CancellationToken   = null,
@@ -5355,7 +5355,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Enqueue, if requested...
 
-            if (TransmissionType == TransmissionTypes.Enqueued)
+            if (TransmissionType == TransmissionTypes.Enqueue)
             {
 
                 #region Send OnEnqueueSendCDRsRequest event
