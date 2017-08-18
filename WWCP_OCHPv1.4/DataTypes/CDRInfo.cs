@@ -82,7 +82,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public DateTime                EndDateTime          { get; }
 
         /// <summary>
-        /// Duration of the charge session.
+        /// Duration of the charge session, whenever it is more
+        /// than the time span between its start- and endtime, e.g.
+        /// caused by a tariff granularity of 15 minutes.
         /// </summary>
         public TimeSpan?               Duration             { get; }
 
@@ -140,7 +142,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Status">Current status of the CDR. Must be set to "new" by the issuing CMS. Shall not be changed by any partner but only by the CHS.</param>
         /// <param name="StartDateTime">Start date and time of the charge session (login with the RFID badge). Local time of the charge point is used.</param>
         /// <param name="EndDateTime">End date and time of the charge session (log-off with the RFID badge or physical disconnect). Must be set in the local time of the charge point.</param>
-        /// <param name="Duration">Duration of the charge session.</param>
+        /// <param name="Duration">Duration of the charge session, whenever it is more than the time span between its start- and endtime, e.g. caused by a tariff granularity of 15 minutes.</param>
         /// <param name="ChargePointAddress">Optional address information of the charging point.</param>
         /// <param name="ChargePointType">The type of the charge point "AC" or "DC".</param>
         /// <param name="ConnectorType">Type of the utilized socket or connector.</param>
