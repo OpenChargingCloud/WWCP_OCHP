@@ -1218,7 +1218,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Get effective number of EVSE status to upload
 
-            var Warnings = new List<String>();
+            var Warnings = new List<Warning>();
 
             var _ChargePointInfos = EVSEs == null || !EVSEs.Any()
                                         ? new ChargePointInfo[0]
@@ -1235,7 +1235,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                   catch (Exception e)
                                                   {
                                                       DebugX.  Log(e.Message);
-                                                      Warnings.Add(e.Message);
+                                                      Warnings.Add(Warning.Create(e.Message, evse));
                                                   }
 
                                                   return null;
@@ -1313,29 +1313,29 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     if (response.Content.Result.ResultCode == ResultCodes.OK)
                         result = PushEVSEDataResult.Success(Id,
-                                                        this,
-                                                        response.Content.Result.Description,
-                                                        null,
-                                                        Runtime);
+                                                            this,
+                                                            response.Content.Result.Description,
+                                                            null,
+                                                            Runtime);
 
                     else
                         result = PushEVSEDataResult.Error(Id,
-                                                      this,
-                                                      EVSEs,
-                                                      response.Content.Result.Description,
-                                                      null,
-                                                      Runtime);
+                                                          this,
+                                                          EVSEs,
+                                                          response.Content.Result.Description,
+                                                          null,
+                                                          Runtime);
 
                 }
                 else
                     result = PushEVSEDataResult.Error(Id,
-                                                  this,
-                                                  EVSEs,
-                                                  response.HTTPStatusCode.ToString(),
-                                                  response.HTTPBody != null
-                                                      ? Warnings.AddAndReturnList(response.HTTPBody.ToUTF8String())
-                                                      : Warnings.AddAndReturnList("No HTTP body received!"),
-                                                  Runtime);
+                                                      this,
+                                                      EVSEs,
+                                                      response.HTTPStatusCode.ToString(),
+                                                      response.HTTPBody != null
+                                                          ? Warnings.AddAndReturnList(response.HTTPBody.ToUTF8String())
+                                                          : Warnings.AddAndReturnList("No HTTP body received!"),
+                                                      Runtime);
 
 
             #region Send OnSetChargePointInfosWWCPResponse event
@@ -1413,7 +1413,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Get effective number of EVSE status to upload
 
-            var Warnings = new List<String>();
+            var Warnings = new List<Warning>();
 
             var _ChargePointInfos = EVSEs.Where (evse => evse != null && _IncludeEVSEs(evse)).
                                           Select(evse => {
@@ -1428,7 +1428,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                               catch (Exception e)
                                               {
                                                   DebugX.  Log(e.Message);
-                                                  Warnings.Add(e.Message);
+                                                  Warnings.Add(Warning.Create(e.Message, evse));
                                               }
 
                                               return null;
@@ -1590,7 +1590,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             EVSE_Id EVSEId;
 
-            var Warnings       = new List<String>();
+            var Warnings       = new List<Warning>();
             var AllEVSEStatus  = new Dictionary<EVSE_Id, EVSEStatus>();
 
             foreach (var evsestatusupdate in EVSEStatusUpdates.OrderByDescending(sup => sup.NewStatus.Timestamp))
@@ -1617,7 +1617,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 catch (Exception e)
                 {
                     DebugX.  Log(e.Message);
-                    Warnings.Add(e.Message);
+                    Warnings.Add(Warning.Create(e.Message, evsestatusupdate));
                 }
 
             }
@@ -5905,7 +5905,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             PushStatusResult result = null;
 
             var StartTime                  = DateTime.UtcNow;
-            var Warnings                   = new List<String>();
+            var Warnings                   = new List<Warning>();
             var AllEVSEStatusRefreshments  = new List<EVSEStatus>();
 
             #endregion
@@ -5927,14 +5927,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                         if (IncludeEVSEIds(EVSEId))
                             AllEVSEStatusRefreshments.Add(new EVSEStatus(EVSEId,
-                                                                        EVSEStatusHistory.Value.First().Value.AsEVSEMajorStatus(),
-                                                                        EVSEStatusHistory.Value.First().Value.AsEVSEMinorStatus()));
+                                                                         EVSEStatusHistory.Value.First().Value.AsEVSEMajorStatus(),
+                                                                         EVSEStatusHistory.Value.First().Value.AsEVSEMinorStatus()));
 
                     }
                     catch (Exception e)
                     {
                         DebugX.  Log(e.Message);
-                        Warnings.Add(e.Message);
+                        Warnings.Add(Warning.Create(e.Message, EVSEStatusHistory));
                     }
 
                 }
@@ -5968,10 +5968,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                         if (response.Content.Result.ResultCode == ResultCodes.OK)
                             result = PushStatusResult.Success(Id,
-                                                            this,
-                                                            response.Content.Result.Description,
-                                                            Warnings,
-                                                            Runtime);
+                                                              this,
+                                                              response.Content.Result.Description,
+                                                              Warnings,
+                                                              Runtime);
 
                         else
                             result = PushStatusResult.Error(Id,

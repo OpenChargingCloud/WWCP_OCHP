@@ -65,7 +65,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                    RoamingNetwork_Id                RoamingNetworkId,
                                                                    UInt64                           NumberOfChargePointInfos,
                                                                    IEnumerable<ChargePointInfo>     ChargePointInfos,
-                                                                   IEnumerable<String>              Warnings,
+                                                                   IEnumerable<Warning>             Warnings,
                                                                    TimeSpan?                        RequestTimeout);
 
 
@@ -81,7 +81,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                    UInt64                           NumberOfChargePointInfos,
                                                                    IEnumerable<ChargePointInfo>     ChargePointInfos,
                                                                    TimeSpan?                        RequestTimeout,
-                                                                   PushEVSEDataResult                  Result,
+                                                                   PushEVSEDataResult               Result,
                                                                    TimeSpan                         Runtime);
 
 
@@ -96,7 +96,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                       RoamingNetwork_Id                RoamingNetworkId,
                                                                       UInt64                           NumberOfChargePointInfos,
                                                                       IEnumerable<ChargePointInfo>     ChargePointInfos,
-                                                                      IEnumerable<String>              Warnings,
+                                                                      IEnumerable<Warning>             Warnings,
                                                                       TimeSpan?                        RequestTimeout);
 
 
@@ -112,7 +112,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                       UInt64                           NumberOfChargePointInfos,
                                                                       IEnumerable<ChargePointInfo>     ChargePointInfos,
                                                                       TimeSpan?                        RequestTimeout,
-                                                                      PushEVSEDataResult                  Result,
+                                                                      PushEVSEDataResult               Result,
                                                                       TimeSpan                         Runtime);
 
 
@@ -127,7 +127,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                 RoamingNetwork_Id                RoamingNetworkId,
                                                                 UInt64                           NumberOfChargePointInfos,
                                                                 IEnumerable<EVSEStatus>          ChargePointInfos,
-                                                                IEnumerable<String>              Warnings,
+                                                                IEnumerable<Warning>             Warnings,
                                                                 TimeSpan?                        RequestTimeout);
 
 
