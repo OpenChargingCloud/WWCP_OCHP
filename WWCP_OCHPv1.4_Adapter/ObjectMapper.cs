@@ -164,7 +164,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Maps a WWCP address to an OCHP address.
         /// </summary>
         /// <param name="WWCPAddress">A WWCP address.</param>
-        public static Address ToOCHP(this WWCP.Address WWCPAddress)
+        public static Address ToOCHP(this Vanaheimr.Hermod.Address WWCPAddress)
 
             => new Address(WWCPAddress.HouseNumber,
                            WWCPAddress.Street,
@@ -180,13 +180,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Maps an OCHP accessibility type to a WWCP accessibility type.
         /// </summary>
         /// <param name="OCHPAddress">A accessibility type.</param>
-        public static WWCP.Address ToWWCP(this Address OCHPAddress)
+        public static Vanaheimr.Hermod.Address ToWWCP(this Address OCHPAddress)
 
-            => WWCP.Address.Create(OCHPAddress.Country,
-                                   OCHPAddress.ZIPCode,
-                                   I18NString.Create(Languages.unknown, OCHPAddress.City),
-                                   OCHPAddress.Street,
-                                   OCHPAddress.HouseNumber);
+            => Vanaheimr.Hermod.Address.Create(OCHPAddress.Country,
+                                               OCHPAddress.ZIPCode,
+                                               I18NString.Create(Languages.unknown, OCHPAddress.City),
+                                               OCHPAddress.Street,
+                                               OCHPAddress.HouseNumber);
 
         #endregion
 
