@@ -5915,26 +5915,26 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 #region Fetch EVSE status
 
-                foreach (var EVSEStatusHistory in RoamingNetwork.EVSEStatus(1))
+                foreach (var evsestatus in RoamingNetwork.EVSEStatus())
                 {
 
                     try
                     {
 
                         EVSEId = _CustomEVSEIdMapper != null
-                                     ? _CustomEVSEIdMapper(EVSEStatusHistory.Key)
-                                     : EVSEStatusHistory.Key.ToOCHP();
+                                     ? _CustomEVSEIdMapper(evsestatus.Id)
+                                     : evsestatus.Id.ToOCHP();
 
                         if (IncludeEVSEIds(EVSEId))
                             AllEVSEStatusRefreshments.Add(new EVSEStatus(EVSEId,
-                                                                         EVSEStatusHistory.Value.First().Value.AsEVSEMajorStatus(),
-                                                                         EVSEStatusHistory.Value.First().Value.AsEVSEMinorStatus()));
+                                                                         evsestatus.Status.Value.AsEVSEMajorStatus(),
+                                                                         evsestatus.Status.Value.AsEVSEMinorStatus()));
 
                     }
                     catch (Exception e)
                     {
                         DebugX.  Log(e.Message);
-                        Warnings.Add(Warning.Create(e.Message, EVSEStatusHistory));
+                        Warnings.Add(Warning.Create(e.Message, evsestatus));
                     }
 
                 }

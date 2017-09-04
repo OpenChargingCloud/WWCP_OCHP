@@ -520,7 +520,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                 #endregion
 
                 //ToDo: Getting the expected total is very expensive!
-                var _ExpectedCount = _RoamingNetwork.EVSEStatus(1).ULongCount();
+                var _ExpectedCount = _RoamingNetwork.EVSEStatus().ULongCount();
 
                 return Task.FromResult(
                     new HTTPResponseBuilder(Request) {
@@ -657,7 +657,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                 #endregion
 
                 //ToDo: Getting the expected total is very expensive!
-                var _ExpectedCount = _RoamingNetwork.EVSEStatus(1).ULongCount();
+                var _ExpectedCount = _RoamingNetwork.EVSEStatus().ULongCount();
 
                 return Task.FromResult(
                     new HTTPResponseBuilder(Request) {
