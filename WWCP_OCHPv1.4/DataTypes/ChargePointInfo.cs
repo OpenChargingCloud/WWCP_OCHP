@@ -357,8 +357,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //                   xmlns:ns      = "http://ochp.eu/1.4">
         //    <soapenv:Header/>
         //    <soapenv:Body>
-        //       <ns:SetChargePointListRequest>
-        //          <!--1 or more repetitions:-->
+        //
+        //       [...]
+        //
         //          <ns:chargePointInfoArray>
         //
         //             <ns:evseId>?</ns:evseId>
@@ -545,7 +546,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         //             <ns:maxReservation>?</ns:maxReservation>
         //
         //          </ns:chargePointInfoArray>
-        //       </ns:SetChargePointListRequest>
+        //
+        //       [...]
+        //
         //    </soapenv:Body>
         // </soapenv:Envelope>
 
@@ -754,101 +757,113 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="XName">An alternative XML element name [default: "OCHPNS:chargePointInfoArray"]</param>
         public XElement ToXML(XName XName = null)
+        {
 
-            => new XElement(XName ?? OCHPNS.Default + "chargePointInfoArray",
+            try
+            {
 
-                   new XElement(OCHPNS.Default + "evseId",      EVSEId.ToString()),
-                   new XElement(OCHPNS.Default + "locationId",  LocationId),
+                var XML = new XElement(XName ?? OCHPNS.Default + "chargePointInfoArray",
 
-                   //Timestamp.HasValue
-                   //    ? new XElement(OCHPNS.Default + "timestamp",
-                   //          new XElement(OCHPNS.Default + "DateTime",  Timestamp.Value.ToIso8601(false))
-                   //      )
-                   //    : null,
+                              new XElement(OCHPNS.Default + "evseId", EVSEId.ToString()),
+                              new XElement(OCHPNS.Default + "locationId", LocationId),
 
-                   new XElement(OCHPNS.Default + "locationName",      LocationName),
-                   new XElement(OCHPNS.Default + "locationNameLang",  LocationNameLang.ToUpper()),
+                              //Timestamp.HasValue
+                              //    ? new XElement(OCHPNS.Default + "timestamp",
+                              //          new XElement(OCHPNS.Default + "DateTime",  Timestamp.Value.ToIso8601(false))
+                              //      )
+                              //    : null,
 
-                   Images != null
-                       ? Images.SafeSelect(image => image.ToXML())
-                       : null,
+                              new XElement(OCHPNS.Default + "locationName", LocationName),
+                              new XElement(OCHPNS.Default + "locationNameLang", LocationNameLang.ToUpper()),
 
-                   RelatedResources != null
-                       ? RelatedResources.SafeSelect(resource => resource.ToXML())
-                       : null,
+                              Images != null
+                                  ? Images.SafeSelect(image => image.ToXML())
+                                  : null,
 
-                   ChargePointAddress.ToXML(),
+                              RelatedResources != null
+                                  ? RelatedResources.SafeSelect(resource => resource.ToXML())
+                                  : null,
 
-                   new XElement(OCHPNS.Default + "chargePointLocation",
-                       new XAttribute("lat",  String.Format("{0:0.000000}", ChargePointLocation.Latitude. Value)),
-                       new XAttribute("lon",  String.Format("{0:0.000000}", ChargePointLocation.Longitude.Value))
-                   ),
+                              ChargePointAddress.ToXML(),
 
-                   RelatedLocations != null
-                       ? RelatedLocations.SafeSelect(location => location.ToXML())
-                       : null,
+                              new XElement(OCHPNS.Default + "chargePointLocation",
+                                  new XAttribute("lat", String.Format("{0:0.000000}", ChargePointLocation.Latitude.Value)),
+                                  new XAttribute("lon", String.Format("{0:0.000000}", ChargePointLocation.Longitude.Value))
+                              ),
 
-                   TimeZone.IsNotNullOrEmpty()
-                       ? new XElement(OCHPNS.Default + "timeZone",  TimeZone)
-                       : null,
+                              RelatedLocations != null
+                                  ? RelatedLocations.SafeSelect(location => location.ToXML())
+                                  : null,
 
-                   OpeningTimes.ToXML(),
+                              TimeZone.IsNotNullOrEmpty()
+                                  ? new XElement(OCHPNS.Default + "timeZone", TimeZone)
+                                  : null,
 
-                   Status.HasValue
-                       ? new XElement(OCHPNS.Default + "status",
-                             new XElement(OCHPNS.Default + "ChargePointStatusType", Status.Value.ToString())
-                         )
-                       : null,
+                              OpeningTimes.ToXML(),
 
-                   ChargePointSchedule != null
-                       ? ChargePointSchedule.SafeSelect(schedule => "")
-                       : null,
+                              Status.HasValue
+                                  ? new XElement(OCHPNS.Default + "status",
+                                        new XElement(OCHPNS.Default + "ChargePointStatusType", Status.Value.ToString())
+                                    )
+                                  : null,
 
-                   TelephoneNumber.IsNotNullOrEmpty()
-                       ? new XElement(OCHPNS.Default + "telephoneNumber", TelephoneNumber)
-                       : null,
+                              ChargePointSchedule != null
+                                  ? ChargePointSchedule.SafeSelect(schedule => "")
+                                  : null,
 
-                   new XElement(OCHPNS.Default + "location",
-                       new XElement(OCHPNS.Default + "GeneralLocationType", XML_IO.AsText(Location))
-                   ),
+                              TelephoneNumber.IsNotNullOrEmpty()
+                                  ? new XElement(OCHPNS.Default + "telephoneNumber", TelephoneNumber)
+                                  : null,
 
-                   ParkingSpots != null
-                       ? ParkingSpots.SafeSelect(parkingspot => parkingspot.ToXML())
-                       : null,
+                              new XElement(OCHPNS.Default + "location",
+                                  new XElement(OCHPNS.Default + "GeneralLocationType", XML_IO.AsText(Location))
+                              ),
 
-                   Restrictions.HasValue
-                       ? Restrictions.Value.ToEnumeration().Select(restriction =>
-                             new XElement(OCHPNS.Default + "restriction",
-                                 new XElement(OCHPNS.Default + "RestrictionType",  XML_IO.AsText(restriction))
-                             )
-                         )
-                       : null,
+                              ParkingSpots != null
+                                  ? ParkingSpots.SafeSelect(parkingspot => parkingspot.ToXML())
+                                  : null,
 
-                   AuthMethods != AuthMethodTypes.Unknown
-                       ? AuthMethods.ToEnumeration().Select(method =>
-                             new XElement(OCHPNS.Default + "authMethods",
-                                 new XElement(OCHPNS.Default + "AuthMethodType",  XML_IO.AsText(method))
-                             )
-                         )
-                       : null,
+                              Restrictions.HasValue
+                                  ? Restrictions.Value.ToEnumeration().Select(restriction =>
+                                        new XElement(OCHPNS.Default + "restriction",
+                                            new XElement(OCHPNS.Default + "RestrictionType", XML_IO.AsText(restriction))
+                                        )
+                                    )
+                                  : null,
 
-                   Connectors.SafeSelect(connector => connector.ToXML(OCHPNS.Default + "connectors")),
+                              AuthMethods != AuthMethodTypes.Unknown
+                                  ? AuthMethods.ToEnumeration().Select(method =>
+                                        new XElement(OCHPNS.Default + "authMethods",
+                                            new XElement(OCHPNS.Default + "AuthMethodType", XML_IO.AsText(method))
+                                        )
+                                    )
+                                  : null,
 
-                   new XElement(OCHPNS.Default + "chargePointType", XML_IO.AsText(ChargePointType)),
+                              Connectors.SafeSelect(connector => connector.ToXML(OCHPNS.Default + "connectors")),
 
-                   Ratings != null
-                       ? Ratings.ToXML()
-                       : null,
+                              new XElement(OCHPNS.Default + "chargePointType", XML_IO.AsText(ChargePointType)),
 
-                   UserInterfaceLang != null
-                       ? UserInterfaceLang.Select(language => new XElement(OCHPNS.Default + "userInterfaceLang", language))
-                       : null,
+                              Ratings != null
+                                  ? Ratings.ToXML()
+                                  : null,
 
-                   MaxReservation.HasValue
-                       ? new XElement(OCHPNS.Default + "maxReservation", MaxReservation.Value.TotalMinutes)
-                       : null
+                              UserInterfaceLang != null
+                                  ? UserInterfaceLang.Select(language => new XElement(OCHPNS.Default + "userInterfaceLang", language))
+                                  : null,
 
-               );
+                              MaxReservation.HasValue
+                                  ? new XElement(OCHPNS.Default + "maxReservation", MaxReservation.Value.TotalMinutes)
+                                  : null);
+
+                return XML;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
 
         #endregion
 

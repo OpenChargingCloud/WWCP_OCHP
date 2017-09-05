@@ -166,7 +166,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="WWCPAddress">A WWCP address.</param>
         public static Address ToOCHP(this Vanaheimr.Hermod.Address WWCPAddress)
 
-            => new Address(WWCPAddress.HouseNumber,
+            => new Address(WWCPAddress.HouseNumber.ToUpper(),
                            WWCPAddress.Street,
                            WWCPAddress.City.FirstText(),
                            WWCPAddress.PostalCode,
