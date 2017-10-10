@@ -295,18 +295,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ),
 
                    new XElement(OCHPNS.Default + "billingItem",
-                       new XElement(OCHPNS.Default + "BillingItemType",   XML_IO.AsText(BillingItem))
+                       new XElement(OCHPNS.Default + "BillingItemType",   BillingItem.AsText())
                    ),
 
                    new XElement(OCHPNS.Default + "billingValue",          BillingValue),
                    new XElement(OCHPNS.Default + "itemPrice",             ItemPrice),
 
                    PeriodCost.HasValue
-                       ? new XElement(OCHPNS.Default + "zipCode",         PeriodCost.Value)
+                       ? new XElement(OCHPNS.Default + "periodCost",      PeriodCost.Value)
                        : null,
 
                    TaxRate.HasValue
-                       ? new XElement(OCHPNS.Default + "country",         TaxRate.Value)
+                       ? new XElement(OCHPNS.Default + "taxRate",         TaxRate.Value)
                        : null
 
                );

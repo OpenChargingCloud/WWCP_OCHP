@@ -128,6 +128,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public Currency                Currency             { get; }
 
+
+        public Ratings                 Ratings              { get; }
+
         #endregion
 
         #region Constructor(s)
@@ -203,6 +206,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.Duration            = Duration;
             this.ChargePointAddress  = ChargePointAddress;
    //         this.MaxSocketPower      = MaxSocketPower;        //Note: Seems to be a bug in the documentation!
+            this.Ratings             = Ratings;
             this.MeterId             = MeterId;
             this.TotalCosts          = TotalCosts;
 
@@ -507,9 +511,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ),
 
                    Duration.HasValue
-                       ? new XElement(OCHPNS.Default + "duration",      String.Concat(Duration.Value.Hours.  ToString("X3"), ":",
-                                                                                      Duration.Value.Minutes.ToString("X2"), ":",
-                                                                                      Duration.Value.Seconds.ToString("X2")))
+                       ? new XElement(OCHPNS.Default + "duration",      String.Concat(Duration.Value.Hours.  ToString("D3"), ":",
+                                                                                      Duration.Value.Minutes.ToString("D2"), ":",
+                                                                                      Duration.Value.Seconds.ToString("D2")))
                        : null,
 
                    ChargePointAddress != null
