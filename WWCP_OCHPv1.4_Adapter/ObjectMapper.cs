@@ -104,7 +104,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                     return EVSEMajorStatusTypes.Available;
 
 
-                case EVSEStatusTypes.Blocked:
+                //case EVSEStatusTypes.Blocked:
                 case EVSEStatusTypes.Reserved:
                 case EVSEStatusTypes.Charging:
                 case EVSEStatusTypes.OutOfService:
@@ -145,8 +145,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 case EVSEStatusTypes.OutOfService:
                     return EVSEMinorStatusTypes.OutOfOrder;
 
-                case EVSEStatusTypes.Blocked:
-                    return EVSEMinorStatusTypes.Blocked;
+                //case EVSEStatusTypes.Blocked:
+                //    return EVSEMinorStatusTypes.Blocked;
 
                 default:
                     return EVSEMinorStatusTypes.Unknown;
