@@ -199,9 +199,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                                 OnExceptionDelegate                 OnException = null)
         {
 
-            SetRoamingAuthorisationListResponse _SetRoamingAuthorisationListResponse;
-
-            if (TryParse(Request, SetRoamingAuthorisationListResponseXML, out _SetRoamingAuthorisationListResponse, OnException))
+            if (TryParse(Request, SetRoamingAuthorisationListResponseXML, out SetRoamingAuthorisationListResponse _SetRoamingAuthorisationListResponse, OnException))
                 return _SetRoamingAuthorisationListResponse;
 
             return null;
@@ -223,9 +221,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                                 OnExceptionDelegate                 OnException = null)
         {
 
-            SetRoamingAuthorisationListResponse _SetRoamingAuthorisationListResponse;
-
-            if (TryParse(Request, SetRoamingAuthorisationListResponseText, out _SetRoamingAuthorisationListResponse, OnException))
+            if (TryParse(Request, SetRoamingAuthorisationListResponseText, out SetRoamingAuthorisationListResponse _SetRoamingAuthorisationListResponse, OnException))
                 return _SetRoamingAuthorisationListResponse;
 
             return null;

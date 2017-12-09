@@ -20,6 +20,7 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
+using System.Threading;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -50,7 +51,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Create an OCHP SetRoamingAuthorisationList XML/SOAP request.
         /// </summary>
         /// <param name="RoamingAuthorisationInfos">An enumeration of roaming authorisation infos.</param>
-        public SetRoamingAuthorisationListRequest(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public SetRoamingAuthorisationListRequest(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
+
+                                                  DateTime?                              Timestamp           = null,
+                                                  CancellationToken?                     CancellationToken   = null,
+                                                  EventTracking_Id                       EventTrackingId     = null,
+                                                  TimeSpan?                              RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
 
             #region Initial checks

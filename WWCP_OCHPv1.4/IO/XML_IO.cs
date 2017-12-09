@@ -1748,8 +1748,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             {
 
                 return new GeoCoordinate(
-                           new Latitude (Double.Parse(XML.Attribute(OCHPNS.Default + "lat").Value, NumberStyles.Any, CultureInfo.InvariantCulture)),
-                           new Longitude(Double.Parse(XML.Attribute(OCHPNS.Default + "lon").Value, NumberStyles.Any, CultureInfo.InvariantCulture))
+                           Latitude. Parse(Double.Parse(XML.Attribute(OCHPNS.Default + "lat").Value, NumberStyles.Any, CultureInfo.InvariantCulture)),
+                           Longitude.Parse(Double.Parse(XML.Attribute(OCHPNS.Default + "lon").Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                        );
 
             }

@@ -127,7 +127,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response on sending a roaming authorisation list had been received.
     /// </summary>
-    public delegate Task OnSetRoamingAuthorisationListResponseDelegate   (DateTime                                 LogTimestamp,
+    public delegate Task OnSetRoamingAuthorisationListResponseDelegate   (//DateTime                                 LogTimestamp,
                                                                           DateTime                                 RequestTimestamp,
                                                                           EMPClient                                Sender,
                                                                           String                                   SenderId,
@@ -152,7 +152,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response on a roaming authorisation list update had been received.
     /// </summary>
-    public delegate Task OnUpdateRoamingAuthorisationListResponseDelegate(DateTime                                 LogTimestamp,
+    public delegate Task OnUpdateRoamingAuthorisationListResponseDelegate(//DateTime                                 LogTimestamp,
                                                                           DateTime                                 RequestTimestamp,
                                                                           EMPClient                                Sender,
                                                                           String                                   SenderId,

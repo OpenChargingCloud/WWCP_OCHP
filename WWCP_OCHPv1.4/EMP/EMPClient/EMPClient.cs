@@ -30,6 +30,7 @@ using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
+using System.Xml.Linq;
 
 #endregion
 
@@ -70,6 +71,60 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// The attached OCHP EMP client (HTTP/SOAP client) logger.
         /// </summary>
         public EMPClientLogger Logger { get; }
+
+        #endregion
+
+        #region Custom request/response mappers
+
+        #region CustomSetRoamingAuthorisationList(SOAP)RequestMapper
+
+        #region CustomSetRoamingAuthorisationListRequestMapper
+
+        private Func<SetRoamingAuthorisationListRequest, SetRoamingAuthorisationListRequest> _CustomSetRoamingAuthorisationListRequestMapper = _ => _;
+
+        public Func<SetRoamingAuthorisationListRequest, SetRoamingAuthorisationListRequest> CustomSetRoamingAuthorisationListRequestMapper
+        {
+
+            get
+            {
+                return _CustomSetRoamingAuthorisationListRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomSetRoamingAuthorisationListRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        #region CustomSetRoamingAuthorisationListSOAPRequestMapper
+
+        private Func<SetRoamingAuthorisationListRequest, XElement, XElement> _CustomSetRoamingAuthorisationListSOAPRequestMapper = (request, xml) => xml;
+
+        public Func<SetRoamingAuthorisationListRequest, XElement, XElement> CustomSetRoamingAuthorisationListSOAPRequestMapper
+        {
+
+            get
+            {
+                return _CustomSetRoamingAuthorisationListSOAPRequestMapper;
+            }
+
+            set
+            {
+                if (value != null)
+                    _CustomSetRoamingAuthorisationListSOAPRequestMapper = value;
+            }
+
+        }
+
+        #endregion
+
+        public CustomXMLParserDelegate<SetRoamingAuthorisationListResponse> CustomSetRoamingAuthorisationListParser { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -479,11 +534,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Create a new OCHP EMP client.
         /// </summary>
         /// <param name="ClientId">A unqiue identification of this client.</param>
-        /// <param name="Hostname">The OCHP hostname to connect to.</param>
-        /// <param name="RemotePort">An optional OCHP TCP port to connect to.</param>
+        /// <param name="RemoteHostname">The OCHP hostname to connect to.</param>
+        /// <param name="RemoteTCPPort">An optional OCHP TCP port to connect to.</param>
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
-        /// <param name="HTTPVirtualHost">An optional HTTP virtual host name to use.</param>
+        /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual host name to use.</param>
         /// <param name="URIPrefix">An default URI prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent to use.</param>
@@ -493,28 +548,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public EMPClient(String                               ClientId,
-                         String                               Hostname,
-                         IPPort                               RemotePort                  = null,
-                         RemoteCertificateValidationCallback  RemoteCertificateValidator  = null,
-                         LocalCertificateSelectionCallback    LocalCertificateSelector    = null,
-                         X509Certificate                      ClientCert                  = null,
-                         String                               HTTPVirtualHost             = null,
-                         String                               URIPrefix                   = DefaultURIPrefix,
-                         Tuple<String, String>                WSSLoginPassword            = null,
-                         String                               HTTPUserAgent               = DefaultHTTPUserAgent,
-                         TimeSpan?                            RequestTimeout              = null,
-                         Byte?                                MaxNumberOfRetries          = DefaultMaxNumberOfRetries,
-                         DNSClient                            DNSClient                   = null,
-                         String                               LoggingContext              = EMPClientLogger.DefaultContext,
-                         LogfileCreatorDelegate               LogFileCreator              = null)
+                         String                               RemoteHostname,
+                         IPPort                               RemoteTCPPort                = null,
+                         RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
+                         LocalCertificateSelectionCallback    LocalCertificateSelector     = null,
+                         X509Certificate                      ClientCert                   = null,
+                         String                               RemoteHTTPVirtualHost        = null,
+                         String                               URIPrefix                    = DefaultURIPrefix,
+                         Tuple<String, String>                WSSLoginPassword             = null,
+                         String                               HTTPUserAgent                = DefaultHTTPUserAgent,
+                         TimeSpan?                            RequestTimeout               = null,
+                         Byte?                                MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
+                         DNSClient                            DNSClient                    = null,
+                         String                               LoggingContext               = EMPClientLogger.DefaultContext,
+                         LogfileCreatorDelegate               LogFileCreator               = null)
 
             : base(ClientId,
-                   Hostname,
-                   RemotePort ?? DefaultRemotePort,
+                   RemoteHostname,
+                   RemoteTCPPort ?? DefaultRemotePort,
                    RemoteCertificateValidator,
                    LocalCertificateSelector,
                    ClientCert,
-                   HTTPVirtualHost,
+                   RemoteHTTPVirtualHost,
                    URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
                    WSSLoginPassword,
                    HTTPUserAgent,
@@ -529,8 +584,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             if (ClientId.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Logger),    "The given client identification must not be null or empty!");
 
-            if (Hostname.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Hostname),  "The given hostname must not be null or empty!");
+            if (RemoteHostname.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(RemoteHostname),  "The given hostname must not be null or empty!");
 
             #endregion
 
@@ -550,8 +605,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Create a new OCHP EMP client.
         /// </summary>
         /// <param name="ClientId">A unqiue identification of this client.</param>
-        /// <param name="Hostname">The OCHP hostname to connect to.</param>
-        /// <param name="RemotePort">An optional OCHP TCP port to connect to.</param>
+        /// <param name="RemoteHostname">The OCHP hostname to connect to.</param>
+        /// <param name="RemoteTCPPort">An optional OCHP TCP port to connect to.</param>
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use.</param>
         /// <param name="HTTPVirtualHost">An optional HTTP virtual host name to use.</param>
@@ -563,8 +618,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="DNSClient">An optional DNS client.</param>
         public EMPClient(String                               ClientId,
                          EMPClientLogger                      Logger,
-                         String                               Hostname,
-                         IPPort                               RemotePort                   = null,
+                         String                               RemoteHostname,
+                         IPPort                               RemoteTCPPort                = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    LocalCertificateSelector     = null,
                          X509Certificate                      ClientCert                   = null,
@@ -577,8 +632,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          DNSClient                            DNSClient                    = null)
 
             : base(ClientId,
-                   Hostname,
-                   RemotePort ?? DefaultRemotePort,
+                   RemoteHostname,
+                   RemoteTCPPort ?? DefaultRemotePort,
                    RemoteCertificateValidator,
                    LocalCertificateSelector,
                    ClientCert,
@@ -600,8 +655,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             if (Logger == null)
                 throw new ArgumentNullException(nameof(Logger),    "The given mobile client logger must not be null!");
 
-            if (Hostname.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Hostname),  "The given hostname must not be null or empty!");
+            if (RemoteHostname.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(RemoteHostname),  "The given hostname must not be null or empty!");
 
             #endregion
 
@@ -1182,45 +1237,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #endregion
 
 
-        #region SetRoamingAuthorisationList(RoamingAuthorisationInfos, ...)
+        #region SetRoamingAuthorisationList(Request)
 
         /// <summary>
         /// Upload the entire roaming authorisation list.
         /// </summary>
-        /// <param name="RoamingAuthorisationInfos">An enumeration of roaming authorisation infos.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">An SetRoamingAuthorisationList request.</param>
         public async Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
 
-            SetRoamingAuthorisationList(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
-
-                                        DateTime?                              Timestamp          = null,
-                                        CancellationToken?                     CancellationToken  = null,
-                                        EventTracking_Id                       EventTrackingId    = null,
-                                        TimeSpan?                              RequestTimeout     = null)
+            SetRoamingAuthorisationList(SetRoamingAuthorisationListRequest Request)
 
         {
 
             #region Initial checks
 
-            if (RoamingAuthorisationInfos == null)
-                throw new ArgumentNullException(nameof(RoamingAuthorisationInfos),  "The given enumeration of roaming authorisation infos must not be null!");
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The given SetRoamingAuthorisationList request must not be null!");
 
+            Request = _CustomSetRoamingAuthorisationListRequestMapper(Request);
 
-            if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
+            if (Request == null)
+                throw new ArgumentNullException(nameof(Request), "The mapped SetRoamingAuthorisationList request must not be null!");
 
 
             HTTPResponse<SetRoamingAuthorisationListResponse> result = null;
@@ -1229,16 +1266,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #region Send OnSetRoamingAuthorisationListRequest event
 
+            var StartTime = DateTime.UtcNow;
+
             try
             {
 
-                OnSetRoamingAuthorisationListRequest?.Invoke(DateTime.UtcNow,
-                                                             Timestamp.Value,
-                                                             this,
-                                                             ClientId,
-                                                             EventTrackingId,
-                                                             RoamingAuthorisationInfos,
-                                                             RequestTimeout);
+                if (OnSetRoamingAuthorisationListRequest != null)
+                    await Task.WhenAll(OnSetRoamingAuthorisationListRequest.GetInvocationList().
+                                       Cast<OnSetRoamingAuthorisationListRequestDelegate>().
+                                       Select(e => e(StartTime,
+                                                     Request.Timestamp.Value,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.RoamingAuthorisationInfos,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -1247,9 +1290,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             #endregion
-
-
-            var Request = new SetRoamingAuthorisationListRequest(RoamingAuthorisationInfos);
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
@@ -1268,13 +1308,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  "SetRoamingAuthorisationListRequest",
                                                  RequestLogDelegate:   OnSetRoamingAuthorisationListSOAPRequest,
                                                  ResponseLogDelegate:  OnSetRoamingAuthorisationListSOAPResponse,
-                                                 CancellationToken:    CancellationToken,
-                                                 EventTrackingId:      EventTrackingId,
-                                                 RequestTimeout:       RequestTimeout,
+                                                 CancellationToken:    Request.CancellationToken,
+                                                 EventTrackingId:      Request.EventTrackingId,
+                                                 RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
 
                                                  #region OnSuccess
 
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, SetRoamingAuthorisationListResponse.Parse),
+                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request,
+                                                                                                      (request, xml, onexception) =>
+                                                                                                          SetRoamingAuthorisationListResponse.Parse(request,
+                                                                                                                                                    xml,
+                                                                                                                                                    //CustomAuthorizeRemoteReservationStartParser,
+                                                                                                                                                    //CustomStatusCodeParser,
+                                                                                                                                                    onexception)),
 
                                                  #endregion
 
@@ -1282,17 +1328,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  OnSOAPFault: (timestamp, soapclient, httpresponse) => {
 
-                                                     SendSOAPError(timestamp, this, httpresponse.Content);
+                                                     SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                     return new HTTPResponse<SetRoamingAuthorisationListResponse>(httpresponse,
-                                                                                                                  new SetRoamingAuthorisationListResponse(
-                                                                                                                      Request,
-                                                                                                                      Result.Format(
-                                                                                                                          "Invalid SOAP => " +
-                                                                                                                          httpresponse.HTTPBody.ToUTF8String()
-                                                                                                                      )
-                                                                                                                  ),
-                                                                                                                  IsFault: true);
+                                                     return new HTTPResponse<SetRoamingAuthorisationListResponse>(
+
+                                                                httpresponse,
+
+                                                                new SetRoamingAuthorisationListResponse(
+                                                                    Request,
+                                                                    Result.Format(
+                                                                        "Invalid SOAP => " +
+                                                                        httpresponse.HTTPBody.ToUTF8String()
+                                                                    )
+                                                                ),
+
+                                                                IsFault: true
+
+                                                            );
 
                                                  },
 
@@ -1302,18 +1354,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                  OnHTTPError: (timestamp, soapclient, httpresponse) => {
 
-                                                     SendHTTPError(timestamp, this, httpresponse);
+                                                     SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                     return new HTTPResponse<SetRoamingAuthorisationListResponse>(httpresponse,
-                                                                                                                  new SetRoamingAuthorisationListResponse(
-                                                                                                                      Request,
-                                                                                                                      Result.Server(
-                                                                                                                           httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                           " => " +
-                                                                                                                           httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                                      )
-                                                                                                                  ),
-                                                                                                                  IsFault: true);
+                                                     return new HTTPResponse<SetRoamingAuthorisationListResponse>(
+
+                                                                httpresponse,
+
+                                                                new SetRoamingAuthorisationListResponse(
+                                                                    Request,
+                                                                    Result.Server(
+                                                                         httpresponse.HTTPStatusCode +
+                                                                         " => " +
+                                                                         httpresponse.HTTPBody.ToUTF8String()
+                                                                    )
+                                                                ),
+
+                                                                IsFault: true
+
+                                                            );
 
                                                  },
 
@@ -1325,39 +1383,60 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                                      SendException(timestamp, sender, exception);
 
-                                                     return HTTPResponse<SetRoamingAuthorisationListResponse>.ExceptionThrown(new SetRoamingAuthorisationListResponse(
-                                                                                                                                  Request,
-                                                                                                                                  Result.Format(exception.Message +
-                                                                                                                                                " => " +
-                                                                                                                                                exception.StackTrace)),
-                                                                                                                              exception);
+                                                     return HTTPResponse<SetRoamingAuthorisationListResponse>.ExceptionThrown(
+
+                                                                new SetRoamingAuthorisationListResponse(
+                                                                    Request,
+                                                                    Result.Format(exception.Message +
+                                                                                  " => " +
+                                                                                  exception.StackTrace)
+                                                                ),
+
+                                                                Exception: exception
+
+                                                            );
 
                                                  }
 
                                                  #endregion
 
-                                                );
+                                                ).ConfigureAwait(false);
 
             }
 
+            //if (result == null)
+            //    result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(new SetRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
+
             if (result == null)
-                result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(new SetRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
+                result = HTTPResponse<SetRoamingAuthorisationListResponse>.ClientError(
+                             new SetRoamingAuthorisationListResponse(
+                                 Request,
+                                 Result.OK("Nothing to upload!")
+                                 //StatusCodes.SystemError,
+                                 //"HTTP request failed!"
+                             )
+                         );
 
 
             #region Send OnGetRoamingAuthorisationListResponse event
 
+            var Endtime = DateTime.UtcNow;
+
             try
             {
 
-                OnSetRoamingAuthorisationListResponse?.Invoke(DateTime.UtcNow,
-                                                              Timestamp.Value,
-                                                              this,
-                                                              ClientId,
-                                                              EventTrackingId,
-                                                              RoamingAuthorisationInfos,
-                                                              RequestTimeout,
-                                                              result.Content,
-                                                              DateTime.UtcNow - Timestamp.Value);
+                if (OnSetRoamingAuthorisationListResponse != null)
+                    await Task.WhenAll(OnSetRoamingAuthorisationListResponse.GetInvocationList().
+                                       Cast<OnSetRoamingAuthorisationListResponseDelegate>().
+                                       Select(e => e(Endtime,
+                                                     this,
+                                                     ClientId,
+                                                     Request.EventTrackingId,
+                                                     Request.RoamingAuthorisationInfos,
+                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     result.Content,
+                                                     Endtime - StartTime))).
+                                       ConfigureAwait(false);
 
             }
             catch (Exception e)
@@ -1366,7 +1445,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             #endregion
-
 
             return result;
 
@@ -1552,7 +1630,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 OnUpdateRoamingAuthorisationListResponse?.Invoke(DateTime.UtcNow,
-                                                                 Timestamp.Value,
+                                                                 //Timestamp.Value,
                                                                  this,
                                                                  ClientId,
                                                                  EventTrackingId,

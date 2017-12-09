@@ -2681,7 +2681,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region SetStaticData   (ChargingStations, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Set the EVSE data of the given enumeration of charging stations as new static EVSE data at the OICP server.
+        /// Set the EVSE data of the given enumeration of charging stations as new static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations.</param>
         /// <param name="TransmissionType">Whether to send the charging station update directly or enqueue it for a while.</param>
@@ -2723,7 +2723,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region AddStaticData   (ChargingStations, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Add the EVSE data of the given enumeration of charging stations to the static EVSE data at the OICP server.
+        /// Add the EVSE data of the given enumeration of charging stations to the static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations.</param>
         /// <param name="TransmissionType">Whether to send the charging station update directly or enqueue it for a while.</param>
@@ -2766,7 +2766,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region UpdateStaticData(ChargingStations, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Update the EVSE data of the given enumeration of charging stations within the static EVSE data at the OICP server.
+        /// Update the EVSE data of the given enumeration of charging stations within the static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations.</param>
         /// <param name="TransmissionType">Whether to send the charging station update directly or enqueue it for a while.</param>
@@ -2808,7 +2808,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region DeleteStaticData(ChargingStations, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Delete the EVSE data of the given enumeration of charging stations from the static EVSE data at the OICP server.
+        /// Delete the EVSE data of the given enumeration of charging stations from the static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations.</param>
         /// <param name="TransmissionType">Whether to send the charging station update directly or enqueue it for a while.</param>
@@ -3209,7 +3209,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region DeleteStaticData(ChargingPool, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Delete the EVSE data of the given charging pool from the static EVSE data at the OICP server.
+        /// Delete the EVSE data of the given charging pool from the static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingPool">A charging pool.</param>
         /// <param name="TransmissionType">Whether to send the charging pool update directly or enqueue it for a while.</param>
@@ -3252,7 +3252,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region SetStaticData   (ChargingPools, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Set the EVSE data of the given enumeration of charging pools as new static EVSE data at the OICP server.
+        /// Set the EVSE data of the given enumeration of charging pools as new static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools.</param>
         /// <param name="TransmissionType">Whether to send the charging pool update directly or enqueue it for a while.</param>
@@ -3294,7 +3294,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region AddStaticData   (ChargingPools, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Add the EVSE data of the given enumeration of charging pools to the static EVSE data at the OICP server.
+        /// Add the EVSE data of the given enumeration of charging pools to the static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools.</param>
         /// <param name="TransmissionType">Whether to send the charging pool update directly or enqueue it for a while.</param>
@@ -3336,7 +3336,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region UpdateStaticData(ChargingPools, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Update the EVSE data of the given enumeration of charging pools within the static EVSE data at the OICP server.
+        /// Update the EVSE data of the given enumeration of charging pools within the static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools.</param>
         /// <param name="TransmissionType">Whether to send the charging pool update directly or enqueue it for a while.</param>
@@ -3378,7 +3378,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region DeleteStaticData(ChargingPools, TransmissionType = Enqueue, ...)
 
         /// <summary>
-        /// Delete the EVSE data of the given enumeration of charging pools from the static EVSE data at the OICP server.
+        /// Delete the EVSE data of the given enumeration of charging pools from the static EVSE data at the OCHP server.
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools.</param>
         /// <param name="TransmissionType">Whether to send the charging pool update directly or enqueue it for a while.</param>

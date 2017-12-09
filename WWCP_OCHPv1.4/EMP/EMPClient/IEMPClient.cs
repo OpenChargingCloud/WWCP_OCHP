@@ -18,12 +18,16 @@
 #region Usings
 
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+using System.Threading.Tasks;
 
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
+    /// <summary>
+    /// The common interface of all OCHP EMP clients.
+    /// </summary>
     public interface IEMPClient : IHTTPClient
     {
 
@@ -424,6 +428,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #endregion
 
         #endregion
+
+
+        Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
+            SetRoamingAuthorisationList(SetRoamingAuthorisationListRequest Request);
 
     }
 
