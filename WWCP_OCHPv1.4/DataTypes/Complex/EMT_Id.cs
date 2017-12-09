@@ -127,9 +127,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                    OnExceptionDelegate  OnException = null)
         {
 
-            EMT_Id _EMTId;
-
-            if (TryParse(EMTIdXML, out _EMTId, OnException))
+            if (TryParse(EMTIdXML, out EMT_Id _EMTId, OnException))
                 return _EMTId;
 
             return default(EMT_Id);
@@ -149,9 +147,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                    OnExceptionDelegate  OnException = null)
         {
 
-            EMT_Id _EMTId;
-
-            if (TryParse(EMTIdText, out _EMTId, OnException))
+            if (TryParse(EMTIdText, out EMT_Id _EMTId, OnException))
                 return _EMTId;
 
             return default(EMT_Id);

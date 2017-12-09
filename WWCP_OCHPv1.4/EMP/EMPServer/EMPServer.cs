@@ -60,6 +60,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         public new const           String           DefaultURIPrefix       = "";
 
         /// <summary>
+        /// The default HTTP/SOAP/XML server URI suffix.
+        /// </summary>
+        public     const           String           DefaultURISuffix       = "/OCHP";
+
+        /// <summary>
         /// The default HTTP/SOAP/XML content type.
         /// </summary>
         public new static readonly HTTPContentType  DefaultContentType     = HTTPContentType.XMLTEXT_UTF8;
@@ -77,6 +82,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// The identification of this HTTP/SOAP service.
         /// </summary>
         public String  ServiceId           { get; }
+
+        /// <summary>
+        /// The HTTP/SOAP/XML server URI suffix.
+        /// </summary>
+        public String  URISuffix           { get; }
 
         #endregion
 
@@ -105,7 +115,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Constructor(s)
 
-        #region EMPServer(HTTPServerName, ServiceId = null, TCPPort = default, URIPrefix = default, ContentType = default, DNSClient = null, AutoStart = false)
+        #region EMPServer(HTTPServerName, ServiceId = null, TCPPort = default, URIPrefix = default, URISuffix = default, ContentType = default, DNSClient = null, AutoStart = false)
 
         /// <summary>
         /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML EMP Server API.
@@ -114,6 +124,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="ServiceId">An optional identification for this SOAP service.</param>
         /// <param name="TCPPort">An optional TCP port for the HTTP server.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="URISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ContentType">An optional HTTP content type to use.</param>
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
@@ -122,6 +133,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          String          ServiceId                 = null,
                          IPPort          TCPPort                   = null,
                          String          URIPrefix                 = DefaultURIPrefix,
+                         String          URISuffix                 = DefaultURISuffix,
                          HTTPContentType ContentType               = null,
                          Boolean         RegisterHTTPRootService   = true,
                          DNSClient       DNSClient                 = null,
@@ -137,7 +149,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         {
 
-            this.ServiceId         = ServiceId        ?? nameof(EMPServer);
+            #region Initial checks
+
+            URISuffix = URISuffix != null && URISuffix.Trim().IsNotNullOrEmpty()
+                            ? URISuffix.Trim()
+                            : DefaultURISuffix;
+
+            if (URISuffix.Length > 0 && !URISuffix.StartsWith("/", StringComparison.Ordinal))
+                URISuffix = "/" + URISuffix;
+
+            while (URISuffix.EndsWith("/", StringComparison.Ordinal))
+                URISuffix = URISuffix.Substring(0, URISuffix.Length - 1);
+
+            #endregion
+
+            this.ServiceId  = ServiceId ?? nameof(EMPServer);
+            this.URISuffix  = URISuffix;
 
             RegisterURITemplates();
 
@@ -148,7 +175,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region EMPServer(SOAPServer, ServiceId = null, URIPrefix = default)
+        #region EMPServer(SOAPServer, ServiceId = null, URIPrefix = default, URISuffix = default)
 
         /// <summary>
         /// Use the given HTTP server for the OCHP HTTP/SOAP/XML EMP Server API.
@@ -156,16 +183,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="SOAPServer">A SOAP server.</param>
         /// <param name="ServiceId">An optional identification for this SOAP service.</param>
         /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="URISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         public EMPServer(SOAPServer  SOAPServer,
                          String      ServiceId   = null,
-                         String      URIPrefix   = DefaultURIPrefix)
+                         String      URIPrefix   = DefaultURIPrefix,
+                         String      URISuffix   = DefaultURISuffix)
 
             : base(SOAPServer,
                    URIPrefix ?? DefaultURIPrefix)
 
         {
 
-            this.ServiceId = ServiceId ?? nameof(EMPServer);
+            #region Initial checks
+
+            URISuffix = URISuffix != null && URISuffix.Trim().IsNotNullOrEmpty()
+                            ? URISuffix.Trim()
+                            : DefaultURISuffix;
+
+            if (URISuffix.Length > 0 && !URISuffix.StartsWith("/", StringComparison.Ordinal))
+                URISuffix = "/" + URISuffix;
+
+            while (URISuffix.EndsWith("/", StringComparison.Ordinal))
+                URISuffix = URISuffix.Substring(0, URISuffix.Length - 1);
+
+            #endregion
+
+            this.ServiceId  = ServiceId ?? nameof(EMPServer);
+            this.URISuffix  = URISuffix;
 
             RegisterURITemplates();
 
@@ -187,7 +231,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region / - InformProviderMessage
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URIPrefix + URISuffix,
                                             "InformProviderMessage",
                                             XML => XML.Descendants(OCHPNS.Default + "InformProviderMessage").FirstOrDefault(),
                                             async (Request, InformProviderMessageXML) => {

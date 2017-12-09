@@ -258,7 +258,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        : null,
 
                    new XElement(OCHPNS.Default + "expiryDate",
-                       new XElement(OCHPNS.Default + "DateTime",         ExpiryDate.ToIso8601())
+                       new XElement(OCHPNS.Default + "DateTime",         ExpiryDate.ToIso8601(false))
                    )
 
                );

@@ -59,7 +59,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// The default URI prefix.
         /// </summary>
-        public const               String  DefaultURIPrefix      = "";
+        public const               String  DefaultURIPrefix      = "/service/ochp/v1.4/";
 
         #endregion
 
@@ -1260,7 +1260,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 throw new ArgumentNullException(nameof(Request), "The mapped SetRoamingAuthorisationList request must not be null!");
 
 
-            HTTPResponse<SetRoamingAuthorisationListResponse> result = null;
+            Byte                                              TransmissionRetry  = 0;
+            HTTPResponse<SetRoamingAuthorisationListResponse> result             = null;
 
             #endregion
 
@@ -1292,130 +1293,157 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #endregion
 
 
-            using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    RemotePort,
-                                                    HTTPVirtualHost,
-                                                    DefaultURIPrefix,
-                                                    RemoteCertificateValidator,
-                                                    LocalCertificateSelector,
-                                                    ClientCert,
-                                                    UserAgent,
-                                                    RequestTimeout,
-                                                    DNSClient))
+            #region No charge point infos to upload?
+
+            if (!Request.RoamingAuthorisationInfos.Any())
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(Request.ToXML()),
-                                                 "SetRoamingAuthorisationListRequest",
-                                                 RequestLogDelegate:   OnSetRoamingAuthorisationListSOAPRequest,
-                                                 ResponseLogDelegate:  OnSetRoamingAuthorisationListSOAPResponse,
-                                                 CancellationToken:    Request.CancellationToken,
-                                                 EventTrackingId:      Request.EventTrackingId,
-                                                 RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
-
-                                                 #region OnSuccess
-
-                                                 OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request,
-                                                                                                      (request, xml, onexception) =>
-                                                                                                          SetRoamingAuthorisationListResponse.Parse(request,
-                                                                                                                                                    xml,
-                                                                                                                                                    //CustomAuthorizeRemoteReservationStartParser,
-                                                                                                                                                    //CustomStatusCodeParser,
-                                                                                                                                                    onexception)),
-
-                                                 #endregion
-
-                                                 #region OnSOAPFault
-
-                                                 OnSOAPFault: (timestamp, soapclient, httpresponse) => {
-
-                                                     SendSOAPError(timestamp, soapclient, httpresponse.Content);
-
-                                                     return new HTTPResponse<SetRoamingAuthorisationListResponse>(
-
-                                                                httpresponse,
-
-                                                                new SetRoamingAuthorisationListResponse(
-                                                                    Request,
-                                                                    Result.Format(
-                                                                        "Invalid SOAP => " +
-                                                                        httpresponse.HTTPBody.ToUTF8String()
-                                                                    )
-                                                                ),
-
-                                                                IsFault: true
-
-                                                            );
-
-                                                 },
-
-                                                 #endregion
-
-                                                 #region OnHTTPError
-
-                                                 OnHTTPError: (timestamp, soapclient, httpresponse) => {
-
-                                                     SendHTTPError(timestamp, soapclient, httpresponse);
-
-                                                     return new HTTPResponse<SetRoamingAuthorisationListResponse>(
-
-                                                                httpresponse,
-
-                                                                new SetRoamingAuthorisationListResponse(
-                                                                    Request,
-                                                                    Result.Server(
-                                                                         httpresponse.HTTPStatusCode +
-                                                                         " => " +
-                                                                         httpresponse.HTTPBody.ToUTF8String()
-                                                                    )
-                                                                ),
-
-                                                                IsFault: true
-
-                                                            );
-
-                                                 },
-
-                                                 #endregion
-
-                                                 #region OnException
-
-                                                 OnException: (timestamp, sender, exception) => {
-
-                                                     SendException(timestamp, sender, exception);
-
-                                                     return HTTPResponse<SetRoamingAuthorisationListResponse>.ExceptionThrown(
-
-                                                                new SetRoamingAuthorisationListResponse(
-                                                                    Request,
-                                                                    Result.Format(exception.Message +
-                                                                                  " => " +
-                                                                                  exception.StackTrace)
-                                                                ),
-
-                                                                Exception: exception
-
-                                                            );
-
-                                                 }
-
-                                                 #endregion
-
-                                                ).ConfigureAwait(false);
+                result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(
+                             new SetRoamingAuthorisationListResponse(Request,
+                                                                     Result.NoOperation("No roaming authorisation infos to upload!"))
+                         );
 
             }
 
-            //if (result == null)
-            //    result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(new SetRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
+            #endregion
 
-            if (result == null)
-                result = HTTPResponse<SetRoamingAuthorisationListResponse>.ClientError(
-                             new SetRoamingAuthorisationListResponse(
-                                 Request,
-                                 Result.OK("Nothing to upload!")
-                                 //StatusCodes.SystemError,
-                                 //"HTTP request failed!"
-                             )
-                         );
+            else do
+            {
+
+                using (var _OCHPClient = new SOAPClient(Hostname,
+                                                        RemotePort,
+                                                        HTTPVirtualHost,
+                                                        DefaultURIPrefix,
+                                                        RemoteCertificateValidator,
+                                                        LocalCertificateSelector,
+                                                        ClientCert,
+                                                        UserAgent,
+                                                        RequestTimeout,
+                                                        DNSClient))
+                {
+
+                    result = await _OCHPClient.Query(_CustomSetRoamingAuthorisationListSOAPRequestMapper(Request,
+                                                                                                         SOAP.Encapsulation(
+                                                                                                            WSSLoginPassword.Item1,
+                                                                                                            WSSLoginPassword.Item2,
+                                                                                                            Request.ToXML()
+                                                                                                        )),
+                                                     "http://ochp.eu/1.4/SetRoamingAuthorisationList",
+                                                     RequestLogDelegate:   OnSetRoamingAuthorisationListSOAPRequest,
+                                                     ResponseLogDelegate:  OnSetRoamingAuthorisationListSOAPResponse,
+                                                     CancellationToken:    Request.CancellationToken,
+                                                     EventTrackingId:      Request.EventTrackingId,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     NumberOfRetry:        TransmissionRetry,
+
+                                                     #region OnSuccess
+
+                                                     OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request,
+                                                                                                          (request, xml, onexception) =>
+                                                                                                              SetRoamingAuthorisationListResponse.Parse(request,
+                                                                                                                                                        xml,
+                                                                                                                                                        //CustomAuthorizeRemoteReservationStartParser,
+                                                                                                                                                        //CustomStatusCodeParser,
+                                                                                                                                                        onexception)),
+
+                                                     #endregion
+
+                                                     #region OnSOAPFault
+
+                                                     OnSOAPFault: (timestamp, soapclient, httpresponse) => {
+
+                                                         SendSOAPError(timestamp, soapclient, httpresponse.Content);
+
+                                                         return new HTTPResponse<SetRoamingAuthorisationListResponse>(
+
+                                                                    httpresponse,
+
+                                                                    new SetRoamingAuthorisationListResponse(
+                                                                        Request,
+                                                                        Result.Format(
+                                                                            "Invalid SOAP => " +
+                                                                            httpresponse.HTTPBody.ToUTF8String()
+                                                                        )
+                                                                    ),
+
+                                                                    IsFault: true
+
+                                                                );
+
+                                                     },
+
+                                                     #endregion
+
+                                                     #region OnHTTPError
+
+                                                     OnHTTPError: (timestamp, soapclient, httpresponse) => {
+
+                                                         SendHTTPError(timestamp, soapclient, httpresponse);
+
+                                                         return new HTTPResponse<SetRoamingAuthorisationListResponse>(
+
+                                                                    httpresponse,
+
+                                                                    new SetRoamingAuthorisationListResponse(
+                                                                        Request,
+                                                                        Result.Server(
+                                                                             httpresponse.HTTPStatusCode +
+                                                                             " => " +
+                                                                             httpresponse.HTTPBody.ToUTF8String()
+                                                                        )
+                                                                    ),
+
+                                                                    IsFault: true
+
+                                                                );
+
+                                                     },
+
+                                                     #endregion
+
+                                                     #region OnException
+
+                                                     OnException: (timestamp, sender, exception) => {
+
+                                                         SendException(timestamp, sender, exception);
+
+                                                         return HTTPResponse<SetRoamingAuthorisationListResponse>.ExceptionThrown(
+
+                                                                    new SetRoamingAuthorisationListResponse(
+                                                                        Request,
+                                                                        Result.Format(exception.Message +
+                                                                                      " => " +
+                                                                                      exception.StackTrace)
+                                                                    ),
+
+                                                                    Exception: exception
+
+                                                                );
+
+                                                     }
+
+                                                     #endregion
+
+                                                    ).ConfigureAwait(false);
+
+                }
+
+                //if (result == null)
+                //    result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(new SetRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
+
+                if (result == null)
+                    result = HTTPResponse<SetRoamingAuthorisationListResponse>.ClientError(
+                                 new SetRoamingAuthorisationListResponse(
+                                     Request,
+                                     Result.OK("Nothing to upload!")
+                                     //StatusCodes.SystemError,
+                                     //"HTTP request failed!"
+                                 )
+                             );
+
+            }
+            while (result.HTTPStatusCode == HTTPStatusCode.RequestTimeout &&
+                   TransmissionRetry++ < MaxNumberOfRetries);
 
 
             #region Send OnGetRoamingAuthorisationListResponse event
@@ -1646,7 +1674,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
 
             #endregion
-
 
             return result;
 

@@ -1039,6 +1039,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// 
         /// <param name="ServerName">An optional identification string for the HTTP server.</param>
+        /// <param name="ServiceId">An optional identification for this SOAP service.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
         /// <param name="ServerURIPrefix">An optional prefix for the HTTP URIs.</param>
         /// <param name="ServerURISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
@@ -1082,6 +1083,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               Byte?                                        MaxNumberOfRetries                  = CPOClient.DefaultMaxNumberOfRetries,
 
                               String                                       ServerName                          = CPOServer.DefaultHTTPServerName,
+                              String                                       ServiceId                           = null,
                               IPPort                                       ServerTCPPort                       = null,
                               String                                       ServerURIPrefix                     = CPOServer.DefaultURIPrefix,
                               String                                       ServerURISuffix                     = CPOServer.DefaultURISuffix,
@@ -1131,6 +1133,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   MaxNumberOfRetries,
 
                                   ServerName,
+                                  ServiceId,
                                   ServerTCPPort,
                                   ServerURIPrefix,
                                   ServerURISuffix,

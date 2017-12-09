@@ -109,6 +109,7 @@ namespace org.GraphDefined.WWCP
                                               Byte?                                                   MaxNumberOfRetries                  = OCHPv1_4.CPO.CPOClient.DefaultMaxNumberOfRetries,
 
                                               String                                                  ServerName                          = OCHPv1_4.CPO.CPOServer.DefaultHTTPServerName,
+                                              String                                                  ServiceId                           = null,
                                               IPPort                                                  ServerTCPPort                       = null,
                                               String                                                  ServerURIPrefix                     = OCHPv1_4.CPO.CPOServer.DefaultURIPrefix,
                                               String                                                  ServerURISuffix                     = OCHPv1_4.CPO.CPOServer.DefaultURISuffix,
@@ -177,6 +178,7 @@ namespace org.GraphDefined.WWCP
                                                                      MaxNumberOfRetries,
 
                                                                      ServerName,
+                                                                     ServiceId,
                                                                      ServerTCPPort,
                                                                      ServerURIPrefix,
                                                                      ServerURISuffix,
