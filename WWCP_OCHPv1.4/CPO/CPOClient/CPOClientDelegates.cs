@@ -297,7 +297,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// </summary>
     public delegate Task OnAddServiceEndpointsRequestDelegate (DateTime                        LogTimestamp,
                                                                DateTime                        RequestTimestamp,
-                                                               CPOClient                       Sender,
+                                                               IOCHPClient               Sender,
                                                                String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
                                                                IEnumerable<OperatorEndpoint>   OperatorEndpoints,
@@ -308,7 +308,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// </summary>
     public delegate Task OnAddServiceEndpointsResponseDelegate(DateTime                        LogTimestamp,
                                                                DateTime                        RequestTimestamp,
-                                                               CPOClient                       Sender,
+                                                               IOCHPClient               Sender,
                                                                String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
                                                                IEnumerable<OperatorEndpoint>   OperatorEndpoints,
@@ -325,7 +325,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// </summary>
     public delegate Task OnGetServiceEndpointsRequestDelegate (DateTime                      LogTimestamp,
                                                                DateTime                      RequestTimestamp,
-                                                               CPOClient                     Sender,
+                                                               IOCHPClient             Sender,
                                                                String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
                                                                TimeSpan?                     RequestTimeout);
@@ -335,7 +335,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// </summary>
     public delegate Task OnGetServiceEndpointsResponseDelegate(DateTime                      LogTimestamp,
                                                                DateTime                      RequestTimestamp,
-                                                               CPOClient                     Sender,
+                                                               IOCHPClient             Sender,
                                                                String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
                                                                TimeSpan?                     RequestTimeout,

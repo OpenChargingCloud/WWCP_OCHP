@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Threading;
 using System.Xml.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -33,20 +34,44 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     public class GetServiceEndpointsRequest : ARequest<GetServiceEndpointsRequest>
     {
 
-        #region Documentation
+        #region Constructor(s)
 
-        // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-        //                   xmlns:OCHP    = "http://ochp.eu/1.4">
-        //
-        //    <soapenv:Header/>
-        //    <soapenv:Body>
-        //
-        //      <ns:GetServiceEndpointsRequest />
-        //
-        //    </soapenv:Body>
-        // </soapenv:Envelope>
+        /// <summary>
+        /// Create an OCHP GetServiceEndpoints XML/SOAP request.
+        /// </summary>
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public GetServiceEndpointsRequest(DateTime?           Timestamp           = null,
+                                          CancellationToken?  CancellationToken   = null,
+                                          EventTracking_Id    EventTrackingId     = null,
+                                          TimeSpan?           RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
+        { }
 
         #endregion
+
+
+        #region Documentation
+
+    // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
+    //                   xmlns:OCHP    = "http://ochp.eu/1.4">
+    //
+    //    <soapenv:Header/>
+    //    <soapenv:Body>
+    //
+    //      <ns:GetServiceEndpointsRequest />
+    //
+    //    </soapenv:Body>
+    // </soapenv:Envelope>
+
+    #endregion
 
         #region (static) Parse(GetServiceEndpointsRequestXML,  OnException = null)
 

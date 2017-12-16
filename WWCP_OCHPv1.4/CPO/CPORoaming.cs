@@ -1076,7 +1076,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Constructor(s)
 
-        #region CPORoaming(CPOClient, CPOServer, ServerLoggingContext = CPOServerLogger.DefaultContext, LogFileCreator = null)
+        #region CPORoaming(CPOClient, CPOServer, ServerLoggingContext = CPOServerLogger.DefaultContext, LogfileCreator = null)
 
         /// <summary>
         /// Create a new OCHP roaming client for CPOs.
@@ -1084,19 +1084,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="CPOClient">A CPO client.</param>
         /// <param name="CPOServer">A CPO sever.</param>
         /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
-        /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
+        /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
         public CPORoaming(CPOClient               CPOClient,
                           CPOServer               CPOServer,
                           String                  ServerLoggingContext  = CPOServerLogger.DefaultContext,
-                          LogfileCreatorDelegate  LogFileCreator        = null)
+                          LogfileCreatorDelegate  LogfileCreator        = null)
         {
 
-            this.CPOClient        = CPOClient;
-            this.CPOServer        = CPOServer;
-
+            this.CPOClient        = CPOClient ?? throw new ArgumentNullException(nameof(CPOClient), "The given CPOClient must not be null!");
+            this.CPOServer        = CPOServer ?? throw new ArgumentNullException(nameof(CPOServer), "The given CPOServer must not be null!");
             this.CPOServerLogger  = new CPOServerLogger(CPOServer,
-                                                        ServerLoggingContext,
-                                                        LogFileCreator);
+                                                        ServerLoggingContext ?? CPOServerLogger.DefaultContext,
+                                                        LogfileCreator);
 
         }
 
@@ -1130,7 +1129,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// 
         /// <param name="ClientLoggingContext">An optional context for logging client methods.</param>
         /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
-        /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
+        /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public CPORoaming(String                               ClientId,
@@ -1157,7 +1156,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                           String                               ClientLoggingContext            = CPOClient.CPOClientLogger.DefaultContext,
                           String                               ServerLoggingContext            = CPOServerLogger.DefaultContext,
-                          LogfileCreatorDelegate               LogFileCreator                  = null,
+                          LogfileCreatorDelegate               LogfileCreator                  = null,
 
                           DNSClient                            DNSClient                       = null)
 
@@ -1175,7 +1174,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                  MaxNumberOfRetries,
                                  DNSClient,
                                  ClientLoggingContext,
-                                 LogFileCreator),
+                                 LogfileCreator),
 
                    new CPOServer(ServerName,
                                  ServiceId,
@@ -1188,7 +1187,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                  false),
 
                    ServerLoggingContext,
-                   LogFileCreator)
+                   LogfileCreator)
 
         {
 

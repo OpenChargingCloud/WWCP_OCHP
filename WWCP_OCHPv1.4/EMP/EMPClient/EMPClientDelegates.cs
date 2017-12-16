@@ -45,7 +45,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response on a request for the list of charge points was received.
     /// </summary>
-    public delegate Task OnGetChargePointListResponseDelegate       (DateTime                            LogTimestamp,
+    public delegate Task OnGetChargePointListResponseDelegate       (//DateTime                            LogTimestamp,
                                                                      DateTime                            RequestTimestamp,
                                                                      EMPClient                           Sender,
                                                                      String                              SenderId,
@@ -69,7 +69,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response on a request for a list of charge point updates was received.
     /// </summary>
-    public delegate Task OnGetChargePointListUpdatesResponseDelegate(DateTime                            LogTimestamp,
+    public delegate Task OnGetChargePointListUpdatesResponseDelegate(//DateTime                            LogTimestamp,
                                                                      DateTime                            RequestTimestamp,
                                                                      EMPClient                           Sender,
                                                                      String                              SenderId,
@@ -98,7 +98,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a get status request upstream had been received.
     /// </summary>
-    public delegate Task OnGetStatusResponseDelegate(DateTime               LogTimestamp,
+    public delegate Task OnGetStatusResponseDelegate(//DateTime               LogTimestamp,
                                                      DateTime               RequestTimestamp,
                                                      EMPClient              Sender,
                                                      String                 SenderId,
@@ -108,6 +108,34 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                      TimeSpan?              RequestTimeout,
                                                      GetStatusResponse      Result,
                                                      TimeSpan               Duration);
+
+    #endregion
+
+    #region OnGetTariffUpdates
+
+    /// <summary>
+    /// A delegate called whenever a get tariff updates request will be send upstream.
+    /// </summary>
+    public delegate Task OnGetTariffUpdatesRequestDelegate (DateTime                   LogTimestamp,
+                                                            DateTime                   RequestTimestamp,
+                                                            EMPClient                  Sender,
+                                                            String                     SenderId,
+                                                            EventTracking_Id           EventTrackingId,
+                                                            DateTime?                  LastRequest,
+                                                            TimeSpan?                  RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending a get tariff updates request upstream had been received.
+    /// </summary>
+    public delegate Task OnGetTariffUpdatesResponseDelegate(//DateTime                   LogTimestamp,
+                                                            DateTime                   RequestTimestamp,
+                                                            EMPClient                  Sender,
+                                                            String                     SenderId,
+                                                            EventTracking_Id           EventTrackingId,
+                                                            DateTime?                  LastRequest,
+                                                            TimeSpan?                  RequestTimeout,
+                                                            GetTariffUpdatesResponse   Result,
+                                                            TimeSpan                   Duration);
 
     #endregion
 
@@ -180,7 +208,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a get charge detail records request upstream had been received.
     /// </summary>
-    public delegate Task OnGetCDRsResponseDelegate    (DateTime               LogTimestamp,
+    public delegate Task OnGetCDRsResponseDelegate    (//DateTime               LogTimestamp,
                                                        DateTime               RequestTimestamp,
                                                        EMPClient              Sender,
                                                        String                 SenderId,
@@ -206,7 +234,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a confirm charge detail records request upstream had been received.
     /// </summary>
-    public delegate Task OnConfirmCDRsResponseDelegate(DateTime                   LogTimestamp,
+    public delegate Task OnConfirmCDRsResponseDelegate(//DateTime                   LogTimestamp,
                                                        DateTime                   RequestTimestamp,
                                                        EMPClient                  Sender,
                                                        String                     SenderId,
@@ -219,38 +247,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
     #endregion
 
-    #region OnGetTariffUpdates
-
-    /// <summary>
-    /// A delegate called whenever a get tariff updates request will be send upstream.
-    /// </summary>
-    public delegate Task OnGetTariffUpdatesRequestDelegate (DateTime                   LogTimestamp,
-                                                            DateTime                   RequestTimestamp,
-                                                            EMPClient                  Sender,
-                                                            String                     SenderId,
-                                                            EventTracking_Id           EventTrackingId,
-                                                            DateTime?                  LastRequest,
-                                                            TimeSpan?                  RequestTimeout);
-
-    /// <summary>
-    /// A delegate called whenever a response after sending a get tariff updates request upstream had been received.
-    /// </summary>
-    public delegate Task OnGetTariffUpdatesResponseDelegate(DateTime                   LogTimestamp,
-                                                            DateTime                   RequestTimestamp,
-                                                            EMPClient                  Sender,
-                                                            String                     SenderId,
-                                                            EventTracking_Id           EventTrackingId,
-                                                            DateTime?                  LastRequest,
-                                                            TimeSpan?                  RequestTimeout,
-                                                            GetTariffUpdatesResponse   Result,
-                                                            TimeSpan                   Duration);
-
-    #endregion
-
 
     // OCHPdirect
 
-    #region OnAddServiceEndpoints
+    #region On(Add|Get)ServiceEndpoints
 
     /// <summary>
     /// A delegate called whenever an add service endpoints request will be send upstream.
@@ -266,7 +266,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending an add service endpoints request upstream had been received.
     /// </summary>
-    public delegate Task OnAddServiceEndpointsResponseDelegate(DateTime                        LogTimestamp,
+    public delegate Task OnAddServiceEndpointsResponseDelegate(//DateTime                        LogTimestamp,
                                                                DateTime                        RequestTimestamp,
                                                                EMPClient                       Sender,
                                                                String                          SenderId,
@@ -276,9 +276,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                                AddServiceEndpointsResponse     Result,
                                                                TimeSpan                        Duration);
 
-    #endregion
 
-    #region OnGetServiceEndpoints
 
     /// <summary>
     /// A delegate called whenever a get service endpoints request will be send upstream.
@@ -293,7 +291,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a get service endpoints request upstream had been received.
     /// </summary>
-    public delegate Task OnGetServiceEndpointsResponseDelegate(DateTime                      LogTimestamp,
+    public delegate Task OnGetServiceEndpointsResponseDelegate(//DateTime                      LogTimestamp,
                                                                DateTime                      RequestTimestamp,
                                                                EMPClient                     Sender,
                                                                String                        SenderId,

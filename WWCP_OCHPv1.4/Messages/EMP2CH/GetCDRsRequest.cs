@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Threading;
 using System.Xml.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -45,10 +46,26 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region Constructor(s)
 
         /// <summary>
-        /// Create an OCHP GetCDRsRequest XML/SOAP request.
+        /// Create an OCHP GetCDRs XML/SOAP request.
         /// </summary>
         /// <param name="CDRStatus">The optional status of the requested charge detail records.</param>
-        public GetCDRsRequest(CDRStatus? CDRStatus = null)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public GetCDRsRequest(CDRStatus?          CDRStatus           = null,
+
+                              DateTime?           Timestamp           = null,
+                              CancellationToken?  CancellationToken   = null,
+                              EventTracking_Id    EventTrackingId     = null,
+                              TimeSpan?           RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
 
             this.CDRStatus = CDRStatus ?? new CDRStatus?();

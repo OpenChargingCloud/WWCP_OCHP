@@ -1375,7 +1375,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region Custom request mappers
+        #region Custom request/response mappers
 
 
         #endregion
@@ -1390,17 +1390,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="EMPClient">A EMP client.</param>
         /// <param name="EMPServer">A EMP sever.</param>
         /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
-        /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
+        /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
         public EMPRoaming(EMPClient               EMPClient,
                           EMPServer               EMPServer,
                           String                  ServerLoggingContext  = EMPServerLogger.DefaultContext,
                           LogfileCreatorDelegate  LogfileCreator        = null)
         {
 
-            this.EMPClient        = EMPClient;
-            this.EMPServer        = EMPServer;
+            this.EMPClient        = EMPClient ?? throw new ArgumentNullException(nameof(EMPClient), "The given EMPClient must not be null!");
+            this.EMPServer        = EMPServer ?? throw new ArgumentNullException(nameof(EMPServer), "The given EMPServer must not be null!");
             this.EMPServerLogger  = new EMPServerLogger(EMPServer,
-                                                        ServerLoggingContext,
+                                                        ServerLoggingContext ?? EMPServerLogger.DefaultContext,
                                                         LogfileCreator);
 
         }
@@ -1505,19 +1505,151 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #endregion
 
 
-        #region SetRoamingAuthorisationList      (Request)
+        // OCHP
+
+        #region GetChargePointList       (Request)
 
         /// <summary>
-        /// Create a new task querying EVSE data from the OICP server.
-        /// The request might either have none, 'SearchCenter + DistanceKM' or 'LastCall' parameters.
-        /// Because of limitations at Hubject the SearchCenter and LastCall parameters can not be used at the same time!
+        /// Download the current list of charge points.
         /// </summary>
-        /// <param name="Request">An PullEVSEData request.</param>
+        /// <param name="Request">A GetChargePointList request.</param>
+        public Task<HTTPResponse<GetChargePointListResponse>>
+
+            GetChargePointList(GetChargePointListRequest Request)
+
+                => EMPClient.GetChargePointList(Request);
+
+        #endregion
+
+        #region GetChargePointListUpdates(Request)
+
+        /// <summary>
+        /// Download all charge point list updates since the given date.
+        /// </summary>
+        /// <param name="Request">A GetChargePointListUpdates request.</param>
+        public Task<HTTPResponse<GetChargePointListUpdatesResponse>>
+
+            GetChargePointListUpdates(GetChargePointListUpdatesRequest Request)
+
+                => EMPClient.GetChargePointListUpdates(Request);
+
+        #endregion
+
+        #region GetStatus                (Request)
+
+        /// <summary>
+        /// Download the current list of charge point status filtered by
+        /// an optional last request timestamp or their status type.
+        /// </summary>
+        /// <param name="Request">A GetStatus request.</param>
+        public Task<HTTPResponse<GetStatusResponse>>
+
+            GetStatus(GetStatusRequest Request)
+
+                => EMPClient.GetStatus(Request);
+
+        #endregion
+
+        #region GetChargePointListUpdates(Request)
+
+        /// <summary>
+        /// Download an update of the current tariff list since the given date.
+        /// </summary>
+        /// <param name="Request">A GetTariffUpdates request.</param>
+        public Task<HTTPResponse<GetTariffUpdatesResponse>>
+
+            GetTariffUpdates(GetTariffUpdatesRequest Request)
+
+                => EMPClient.GetTariffUpdates(Request);
+
+        #endregion
+
+
+        #region SetRoamingAuthorisationList   (Request)
+
+        /// <summary>
+        /// Upload the entire roaming authorisation list.
+        /// </summary>
+        /// <param name="Request">A SetRoamingAuthorisationList request.</param>
         public Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
 
             SetRoamingAuthorisationList(SetRoamingAuthorisationListRequest Request)
 
                 => EMPClient.SetRoamingAuthorisationList(Request);
+
+        #endregion
+
+        #region UpdateRoamingAuthorisationList(Request)
+
+        /// <summary>
+        /// Send a roaming authorisation list update.
+        /// </summary>
+        /// <param name="Request">An UpdateRoamingAuthorisationList request.</param>
+        public Task<HTTPResponse<UpdateRoamingAuthorisationListResponse>>
+
+            UpdateRoamingAuthorisationList(UpdateRoamingAuthorisationListRequest Request)
+
+                => EMPClient.UpdateRoamingAuthorisationList(Request);
+
+        #endregion
+
+
+        #region GetCDRsRequest    (Request)
+
+        /// <summary>
+        /// Download charge detail records having the given optional status.
+        /// </summary>
+        /// <param name="Request">A GetCDRs request.</param>
+        public Task<HTTPResponse<GetCDRsResponse>>
+
+            GetCDRs(GetCDRsRequest Request)
+
+                => EMPClient.GetCDRs(Request);
+
+        #endregion
+
+        #region ConfirmCDRsRequest(Request)
+
+        /// <summary>
+        /// Approve or decline charge detail records.
+        /// </summary>
+        /// <param name="Request">A ConfirmCDRs request.</param>
+        public Task<HTTPResponse<ConfirmCDRsResponse>>
+
+            ConfirmCDRs(ConfirmCDRsRequest Request)
+
+                => EMPClient.ConfirmCDRs(Request);
+
+        #endregion
+
+
+        // OCHP direct
+
+        #region AddServiceEndpoints(Request)
+
+        /// <summary>
+        /// Upload the given enumeration of OCHPdirect provider endpoints.
+        /// </summary>
+        /// <param name="Request">An AddServiceEndpoints request.</param>
+        public Task<HTTPResponse<AddServiceEndpointsResponse>>
+
+            AddServiceEndpoints(AddServiceEndpointsRequest Request)
+
+                => EMPClient.AddServiceEndpoints(Request);
+
+        #endregion
+
+        #region GetServiceEndpoints(Request)
+
+        /// <summary>
+        /// Download OCHPdirect provider endpoints.
+        /// </summary>
+        /// <param name="Request">A GetServiceEndpoints request.</param>
+        public Task<HTTPResponse<GetServiceEndpointsResponse>>
+
+            GetServiceEndpoints(GetServiceEndpointsRequest Request)
+
+                => EMPClient.GetServiceEndpoints(Request);
 
         #endregion
 

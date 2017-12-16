@@ -37,10 +37,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Properties
 
-    /// <summary>
-    /// An enumeration of operator endpoints.
-    /// </summary>
-    public IEnumerable<OperatorEndpoint>  OperatorEndpoints   { get; }
+        /// <summary>
+        /// An enumeration of operator endpoints.
+        /// </summary>
+        public IEnumerable<OperatorEndpoint>  OperatorEndpoints   { get; }
 
         #endregion
 
@@ -168,7 +168,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 AddServiceEndpointsRequest = new AddServiceEndpointsRequest(
 
-                                                 AddServiceEndpointsRequestXML.MapElements(OCHPNS.Default + "operatorEndpointArray",
+                                                 AddServiceEndpointsRequestXML.MapElements(OCHPNS.Default + "providerEndpointArray",
                                                                                            OperatorEndpoint.Parse,
                                                                                            OnException)
 

@@ -17,7 +17,6 @@
 
 #region Usings
 
-using System;
 using System.Threading.Tasks;
 
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
@@ -30,17 +29,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// The common interface of all OCHP CPO Clients.
     /// </summary>
-    public interface ICPOClient : IHTTPClient
+    public interface ICPOClient : IOCHPClient
     {
-
-        #region Properties
-
-        /// <summary>
-        /// The default request timeout for this client.
-        /// </summary>
-        TimeSpan? RequestTimeout { get; }
-
-        #endregion
 
         #region Events
 
@@ -316,7 +306,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-
         #region OnInformProviderRequest/-Response
 
         /// <summary>
@@ -343,28 +332,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        Task<HTTPResponse<SetChargePointListResponse>>
 
+        Task<HTTPResponse<SetChargePointListResponse>>
             SetChargePointList(SetChargePointListRequest Request);
 
-
         Task<HTTPResponse<UpdateChargePointListResponse>>
-
             UpdateChargePointList(UpdateChargePointListRequest Request);
 
-
         Task<HTTPResponse<UpdateStatusResponse>>
-
             UpdateStatus(UpdateStatusRequest Request);
 
 
         Task<HTTPResponse<GetSingleRoamingAuthorisationResponse>>
-
             GetSingleRoamingAuthorisation(GetSingleRoamingAuthorisationRequest Request);
 
 
         Task<HTTPResponse<AddCDRsResponse>>
-
             AddCDRs(AddCDRsRequest Request);
 
     }

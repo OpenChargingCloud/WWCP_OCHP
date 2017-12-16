@@ -70,13 +70,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         {
 
-            #region Initial checks
-
-            if (RoamingAuthorisationInfos == null)
-                throw new ArgumentNullException(nameof(RoamingAuthorisationInfos),  "The given enumeration of roaming authorisation infos must not be null!");
-
-            #endregion
-
             this.RoamingAuthorisationInfos = RoamingAuthorisationInfos ?? new RoamingAuthorisationInfo[0];
 
         }

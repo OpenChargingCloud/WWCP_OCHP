@@ -17,8 +17,9 @@
 
 #region Usings
 
-using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using System.Threading.Tasks;
+
+using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 
 #endregion
 
@@ -28,7 +29,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// <summary>
     /// The common interface of all OCHP EMP clients.
     /// </summary>
-    public interface IEMPClient : IHTTPClient
+    public interface IEMPClient : IOCHPClient
     {
 
         #region Events
@@ -430,8 +431,43 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #endregion
 
 
+        // OCHP
+
+        Task<HTTPResponse<GetChargePointListResponse>>
+            GetChargePointList(GetChargePointListRequest Request);
+
+        Task<HTTPResponse<GetChargePointListUpdatesResponse>>
+            GetChargePointListUpdates(GetChargePointListUpdatesRequest Request);
+
+        Task<HTTPResponse<GetStatusResponse>>
+            GetStatus(GetStatusRequest Request);
+
+        Task<HTTPResponse<GetTariffUpdatesResponse>>
+            GetTariffUpdates(GetTariffUpdatesRequest Request);
+
+
         Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
             SetRoamingAuthorisationList(SetRoamingAuthorisationListRequest Request);
+
+        Task<HTTPResponse<UpdateRoamingAuthorisationListResponse>>
+            UpdateRoamingAuthorisationList(UpdateRoamingAuthorisationListRequest Request);
+
+
+        Task<HTTPResponse<GetCDRsResponse>>
+            GetCDRs(GetCDRsRequest Request);
+
+
+        Task<HTTPResponse<ConfirmCDRsResponse>>
+            ConfirmCDRs(ConfirmCDRsRequest Request);
+
+
+        // OCHP direct
+
+        Task<HTTPResponse<AddServiceEndpointsResponse>>
+            AddServiceEndpoints(AddServiceEndpointsRequest Request);
+
+        Task<HTTPResponse<GetServiceEndpointsResponse>>
+            GetServiceEndpoints(GetServiceEndpointsRequest Request);
 
     }
 

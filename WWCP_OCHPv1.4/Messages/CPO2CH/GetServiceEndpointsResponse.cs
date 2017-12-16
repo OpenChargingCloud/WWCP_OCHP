@@ -39,9 +39,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region Properties
 
         /// <summary>
-        ///  An enumeration of operator service endpoints.
+        ///  An enumeration of provider service endpoints.
         /// </summary>
-        public IEnumerable<OperatorEndpoint>  ServiceEndpoints   { get; }
+        public IEnumerable<ProviderEndpoint>  ServiceEndpoints   { get; }
 
         #endregion
 
@@ -130,13 +130,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="ServiceEndpoints">An enumeration of operator service endpoints.</param>
         public GetServiceEndpointsResponse(GetServiceEndpointsRequest     Request,
                                            Result                         Result,
-                                           IEnumerable<OperatorEndpoint>  ServiceEndpoints = null)
+                                           IEnumerable<ProviderEndpoint>  ServiceEndpoints = null)
 
             : base(Request, Result)
 
         {
 
-            this.ServiceEndpoints  = ServiceEndpoints ?? new OperatorEndpoint[0];
+            this.ServiceEndpoints  = ServiceEndpoints ?? new ProviderEndpoint[0];
 
         }
 
@@ -267,7 +267,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                                                    OnException),
 
                                                   GetServiceEndpointsResponseXML.MapElementsOrFail(OCHPNS.Default + "operatorEndpointArray",
-                                                                                                   OperatorEndpoint.Parse,
+                                                                                                   ProviderEndpoint.Parse,
                                                                                                    OnException)
 
                                               );

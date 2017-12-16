@@ -23,6 +23,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using System.Threading;
 
 #endregion
 
@@ -47,18 +48,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region Constructor(s)
 
         /// <summary>
-        /// Create an OCHP UpdateTariffs XML/SOAP request.
+        /// Create an OCHP UpdateRoamingAuthorisationList XML/SOAP request.
         /// </summary>
         /// <param name="RoamingAuthorisationInfos">An enumeration of roaming authorisation infos.</param>
-        public UpdateRoamingAuthorisationListRequest(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public UpdateRoamingAuthorisationListRequest(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
+
+                                                     DateTime?                              Timestamp           = null,
+                                                     CancellationToken?                     CancellationToken   = null,
+                                                     EventTracking_Id                       EventTrackingId     = null,
+                                                     TimeSpan?                              RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
-
-            #region Initial checks
-
-            if (RoamingAuthorisationInfos.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(RoamingAuthorisationInfos),  "The given enumeration of roaming authorisation infos must not be null or empty!");
-
-            #endregion
 
             this.RoamingAuthorisationInfos = RoamingAuthorisationInfos ?? new RoamingAuthorisationInfo[0];
 

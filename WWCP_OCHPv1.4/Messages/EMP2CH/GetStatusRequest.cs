@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Threading;
 using System.Xml.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -54,8 +55,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="LastRequest">Only return status data newer than the given timestamp.</param>
         /// <param name="StatusType">A status type filter.</param>
-        public GetStatusRequest(DateTime?     LastRequest  = null,
-                                StatusTypes?  StatusType   = null)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public GetStatusRequest(DateTime?           LastRequest         = null,
+                                StatusTypes?        StatusType          = null,
+
+                                DateTime?           Timestamp           = null,
+                                CancellationToken?  CancellationToken   = null,
+                                EventTracking_Id    EventTrackingId     = null,
+                                TimeSpan?           RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
 
             this.LastRequest  = LastRequest ?? new DateTime?();

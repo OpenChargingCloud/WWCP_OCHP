@@ -2178,7 +2178,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        #region AddCDRs(CDRInfos, ...)
+        #region AddCDRs(Request)
 
         /// <summary>
         /// Upload the given enumeration of charge detail records.

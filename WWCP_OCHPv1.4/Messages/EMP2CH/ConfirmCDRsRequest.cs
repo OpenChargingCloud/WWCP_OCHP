@@ -23,6 +23,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using System.Threading;
 
 #endregion
 
@@ -30,7 +31,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
-    /// An OCHP confirm charge detail records request.
+    /// An OCHP ConfirmCDRs request.
     /// </summary>
     public class ConfirmCDRsRequest : ARequest<ConfirmCDRsRequest>
     {
@@ -56,16 +57,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="Approved">An enumeration of approved charge detail records.</param>
         /// <param name="Declined">An enumeration of declined charge detail records.</param>
-        public ConfirmCDRsRequest(IEnumerable<EVSECDRPair>  Approved = null,
-                                  IEnumerable<EVSECDRPair>  Declined = null)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public ConfirmCDRsRequest(IEnumerable<EVSECDRPair>  Approved            = null,
+                                  IEnumerable<EVSECDRPair>  Declined            = null,
+
+                                  DateTime?                 Timestamp           = null,
+                                  CancellationToken?        CancellationToken   = null,
+                                  EventTracking_Id          EventTrackingId     = null,
+                                  TimeSpan?                 RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
-
-            #region Initial checks
-
-            if (Approved.IsNullOrEmpty() && Declined.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Approved) + " & " + nameof(Declined),  "At least one of the two enumerations of charge detail records must be neither null nor empty!");
-
-            #endregion
 
             this.Approved  = Approved ?? new EVSECDRPair[0];
             this.Declined  = Declined ?? new EVSECDRPair[0];

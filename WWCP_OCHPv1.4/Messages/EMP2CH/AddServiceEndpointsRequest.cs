@@ -23,6 +23,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using System.Threading;
 
 #endregion
 
@@ -50,15 +51,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Create an OCHP AddServiceEndpoints XML/SOAP request.
         /// </summary>
         /// <param name="ProviderEndpoints">An enumeration of provider endpoints.</param>
-        public AddServiceEndpointsRequest(IEnumerable<ProviderEndpoint>  ProviderEndpoints)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public AddServiceEndpointsRequest(IEnumerable<ProviderEndpoint>  ProviderEndpoints,
+
+                                          DateTime?                      Timestamp           = null,
+                                          CancellationToken?             CancellationToken   = null,
+                                          EventTracking_Id               EventTrackingId     = null,
+                                          TimeSpan?                      RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
-
-            #region Initial checks
-
-            if (ProviderEndpoints.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(ProviderEndpoints),  "The given enumeration of provider endpoints must not be null or empty!");
-
-            #endregion
 
             this.ProviderEndpoints = ProviderEndpoints ?? new ProviderEndpoint[0];
 
