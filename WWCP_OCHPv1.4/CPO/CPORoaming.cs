@@ -1140,6 +1140,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                           X509Certificate                      ClientCert                      = null,
                           String                               RemoteHTTPVirtualHost           = null,
                           String                               URIPrefix                       = CPOClient.DefaultURIPrefix,
+                          String                               LiveURIPrefix                   = CPOClient.DefaultLiveURIPrefix,
                           Tuple<String, String>                WSSLoginPassword                = null,
                           String                               HTTPUserAgent                   = CPOClient.DefaultHTTPUserAgent,
                           TimeSpan?                            RequestTimeout                  = null,
@@ -1168,6 +1169,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                  ClientCert,
                                  RemoteHTTPVirtualHost,
                                  URIPrefix,
+                                 LiveURIPrefix,
                                  WSSLoginPassword,
                                  HTTPUserAgent,
                                  RequestTimeout,
@@ -1222,7 +1224,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Update the given enumeration of charge points.
         /// </summary>
-        /// <param name="Request">A UpdateChargePointList request.</param>
+        /// <param name="Request">An UpdateChargePointList request.</param>
         public Task<HTTPResponse<UpdateChargePointListResponse>>
 
             UpdateChargePointList(UpdateChargePointListRequest Request)
@@ -1231,24 +1233,36 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, IncludeEVSEIds = null, ...)
+        #region UpdateStatus         (Request)
 
         /// <summary>
         /// Upload the given enumeration of EVSE and/or parking status.
         /// </summary>
-        /// <param name="Request">A UpdateStatus request.</param>
+        /// <param name="Request">An UpdateStatus request.</param>
         public Task<HTTPResponse<UpdateStatusResponse>>
 
             UpdateStatus(UpdateStatusRequest Request)
 
-
                 => CPOClient.UpdateStatus(Request);
 
+        #endregion
+
+        #region UpdateTariffs        (Request)
+
+        /// <summary>
+        /// Upload the given enumeration of tariff infos.
+        /// </summary>
+        /// <param name="Request">An UpdateTariffs request.</param>
+        public Task<HTTPResponse<UpdateTariffsResponse>>
+
+            UpdateTariffs(UpdateTariffsRequest Request)
+
+                => CPOClient.UpdateTariffs(Request);
 
         #endregion
 
 
-        #region GetSingleRoamingAuthorisation(EMTId, ...)
+        #region GetSingleRoamingAuthorisation     (Request)
 
         /// <summary>
         /// Create a new OCHP GetSingleRoamingAuthorisation request.
@@ -1258,68 +1272,40 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             GetSingleRoamingAuthorisation(GetSingleRoamingAuthorisationRequest Request)
 
-
                 => CPOClient.GetSingleRoamingAuthorisation(Request);
 
-
         #endregion
 
-        #region GetRoamingAuthorisationList(...)
+        #region GetRoamingAuthorisationList       (Request)
 
         /// <summary>
         /// Get the entire current version of the roaming authorisation list.
         /// </summary>
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A GetRoamingAuthorisationList request.</param>
         public Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
 
-            GetRoamingAuthorisationList(DateTime?           Timestamp          = null,
-                                        CancellationToken?  CancellationToken  = null,
-                                        EventTracking_Id    EventTrackingId    = null,
-                                        TimeSpan?           RequestTimeout     = null)
+            GetRoamingAuthorisationList(GetRoamingAuthorisationListRequest Request)
 
-
-                => CPOClient.GetRoamingAuthorisationList(Timestamp,
-                                                         CancellationToken,
-                                                         EventTrackingId,
-                                                         RequestTimeout);
+                => CPOClient.GetRoamingAuthorisationList(Request);
 
         #endregion
 
-        #region GetRoamingAuthorisationListUpdates(LastUpdate, ...)
+        #region GetRoamingAuthorisationListUpdates(Request)
 
         /// <summary>
         /// Get the entire current version of the roaming authorisation list.
         /// </summary>
-        /// <param name="LastUpdate">The timestamp of the last roaming authorisation list update.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A GetRoamingAuthorisationListUpdates request.</param>
         public Task<HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>>
 
-            GetRoamingAuthorisationListUpdates(DateTime            LastUpdate,
+            GetRoamingAuthorisationListUpdates(GetRoamingAuthorisationListUpdatesRequest Request)
 
-                                               DateTime?           Timestamp          = null,
-                                               CancellationToken?  CancellationToken  = null,
-                                               EventTracking_Id    EventTrackingId    = null,
-                                               TimeSpan?           RequestTimeout     = null)
-
-
-                => CPOClient.GetRoamingAuthorisationListUpdates(LastUpdate,
-
-                                                                Timestamp,
-                                                                CancellationToken,
-                                                                EventTrackingId,
-                                                                RequestTimeout);
+                => CPOClient.GetRoamingAuthorisationListUpdates(Request);
 
         #endregion
 
 
-        #region AddCDRs(CDRInfos, ...)
+        #region AddCDRs  (Request)
 
         /// <summary>
         /// Upload the given enumeration of charge detail records.
@@ -1329,127 +1315,52 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             AddCDRs(AddCDRsRequest Request)
 
-
                 => CPOClient.AddCDRs(Request);
-
 
         #endregion
 
-        #region CheckCDRs(CDRStatus = null, ...)
+        #region CheckCDRs(Request)
 
         /// <summary>
         /// Check charge detail records having the given optional status.
         /// </summary>
-        /// <param name="CDRStatus">The status of the requested charge detail records.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A CheckCDRs request.</param>
         public Task<HTTPResponse<CheckCDRsResponse>>
 
-            CheckCDRs(CDRStatus?            CDRStatus          = null,
+            CheckCDRs(CheckCDRsRequest Request)
 
-                      DateTime?             Timestamp          = null,
-                      CancellationToken?    CancellationToken  = null,
-                      EventTracking_Id      EventTrackingId    = null,
-                      TimeSpan?             RequestTimeout     = null)
-
-
-                => CPOClient.CheckCDRs(CDRStatus,
-
-                                       Timestamp,
-                                       CancellationToken,
-                                       EventTrackingId,
-                                       RequestTimeout);
-
-        #endregion
-
-
-        #region UpdateTariffs(TariffInfos, ...)
-
-        /// <summary>
-        /// Upload the given enumeration of tariff infos.
-        /// </summary>
-        /// <param name="TariffInfos">An enumeration of tariff infos.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public Task<HTTPResponse<UpdateTariffsResponse>>
-
-            UpdateTariffs(IEnumerable<TariffInfo>  TariffInfos,
-
-                          DateTime?                Timestamp          = null,
-                          CancellationToken?       CancellationToken  = null,
-                          EventTracking_Id         EventTrackingId    = null,
-                          TimeSpan?                RequestTimeout     = null)
-
-
-                => CPOClient.UpdateTariffs(TariffInfos,
-
-                                           Timestamp,
-                                           CancellationToken,
-                                           EventTrackingId,
-                                           RequestTimeout);
+                => CPOClient.CheckCDRs(Request);
 
         #endregion
 
 
         // OCHPdirect
 
-        #region AddServiceEndpoints(OperatorEndpoints, ...)
+        #region AddServiceEndpoints(Request)
 
         /// <summary>
         /// Upload the given enumeration of OCHPdirect provider endpoints.
         /// </summary>
-        /// <param name="OperatorEndpoints">An enumeration of provider endpoints.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">An AddServiceEndpoints request.</param>
         public Task<HTTPResponse<AddServiceEndpointsResponse>>
 
-            AddServiceEndpoints(IEnumerable<OperatorEndpoint>  OperatorEndpoints,
+            AddServiceEndpoints(AddServiceEndpointsRequest Request)
 
-                                DateTime?                      Timestamp          = null,
-                                CancellationToken?             CancellationToken  = null,
-                                EventTracking_Id               EventTrackingId    = null,
-                                TimeSpan?                      RequestTimeout     = null)
-
-
-                => CPOClient.AddServiceEndpoints(OperatorEndpoints,
-
-                                                 Timestamp,
-                                                 CancellationToken,
-                                                 EventTrackingId,
-                                                 RequestTimeout);
+                => CPOClient.AddServiceEndpoints(Request);
 
         #endregion
 
-        #region GetServiceEndpoints(...)
+        #region GetServiceEndpoints(Request)
 
         /// <summary>
         /// Download OCHPdirect provider endpoints.
         /// </summary>
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="Request">A GetServiceEndpoints request.</param>
         public Task<HTTPResponse<GetServiceEndpointsResponse>>
 
-            GetServiceEndpoints(DateTime?           Timestamp          = null,
-                                CancellationToken?  CancellationToken  = null,
-                                EventTracking_Id    EventTrackingId    = null,
-                                TimeSpan?           RequestTimeout     = null)
+            GetServiceEndpoints(GetServiceEndpointsRequest Request)
 
-
-                => CPOClient.GetServiceEndpoints(Timestamp,
-                                                 CancellationToken,
-                                                 EventTrackingId,
-                                                 RequestTimeout);
+                => CPOClient.GetServiceEndpoints(Request);
 
         #endregion
 

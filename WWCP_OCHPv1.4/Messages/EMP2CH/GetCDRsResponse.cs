@@ -136,7 +136,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         {
 
-            this.ChargeDetailRecords  = ChargeDetailRecords;
+            this.ChargeDetailRecords  = ChargeDetailRecords ?? new CDRInfo[0];
 
         }
 
@@ -242,7 +242,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                                            Result.Parse,
                                                                            OnException),
 
-                                      GetCDRsResponseXML.MapElementsOrFail(OCHPNS.Default + "cdrInfoArray",
+                                      GetCDRsResponseXML.MapElements      (OCHPNS.Default + "cdrInfoArray",
                                                                            CDRInfo.Parse,
                                                                            OnException)
 

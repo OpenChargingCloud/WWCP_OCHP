@@ -333,6 +333,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
+        // OCHP 
+
         Task<HTTPResponse<SetChargePointListResponse>>
             SetChargePointList(SetChargePointListRequest Request);
 
@@ -342,13 +344,35 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         Task<HTTPResponse<UpdateStatusResponse>>
             UpdateStatus(UpdateStatusRequest Request);
 
+        Task<HTTPResponse<UpdateTariffsResponse>>
+            UpdateTariffs(UpdateTariffsRequest Request);
+
 
         Task<HTTPResponse<GetSingleRoamingAuthorisationResponse>>
             GetSingleRoamingAuthorisation(GetSingleRoamingAuthorisationRequest Request);
 
+        Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
+            GetRoamingAuthorisationList(GetRoamingAuthorisationListRequest Request);
+
+        Task<HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>>
+            GetRoamingAuthorisationListUpdates(GetRoamingAuthorisationListUpdatesRequest Request);
+
 
         Task<HTTPResponse<AddCDRsResponse>>
             AddCDRs(AddCDRsRequest Request);
+
+        Task<HTTPResponse<CheckCDRsResponse>>
+            CheckCDRs(CheckCDRsRequest Request);
+
+
+        // OCHP direct
+
+        Task<HTTPResponse<AddServiceEndpointsResponse>>
+            AddServiceEndpoints(AddServiceEndpointsRequest Request);
+
+        Task<HTTPResponse<GetServiceEndpointsResponse>>
+            GetServiceEndpoints(GetServiceEndpointsRequest Request);
+
 
     }
 

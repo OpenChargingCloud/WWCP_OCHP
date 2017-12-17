@@ -448,6 +448,48 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+
+
+        public class Builder : ABuilder
+        {
+
+            #region Properties
+
+            /// <summary>
+            /// An enumeration of charge detail records.
+            /// </summary>
+            public IEnumerable<CDRInfo> ChargeDetailRecords { get; set; }
+
+            #endregion
+
+            public Builder(CheckCDRsResponse CheckCDRsResponse = null)
+            {
+
+                if (CheckCDRsResponse != null)
+                {
+
+                    this.ChargeDetailRecords = CheckCDRsResponse.ChargeDetailRecords;
+
+                    if (CheckCDRsResponse.CustomData != null)
+                        foreach (var item in CheckCDRsResponse.CustomData)
+                            CustomData.Add(item.Key, item.Value);
+
+                }
+
+            }
+
+
+            //public Acknowledgement<T> ToImmutable()
+
+            //    => new Acknowledgement<T>(Request,
+            //                              Result,
+            //                              StatusCode,
+            //                              SessionId,
+            //                              PartnerSessionId,
+            //                              CustomData);
+
+        }
+
     }
 
 }

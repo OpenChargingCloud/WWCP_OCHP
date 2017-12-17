@@ -18,8 +18,8 @@
 #region Usings
 
 using System;
-using System.Threading;
 using System.Xml.Linq;
+using System.Threading;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -90,17 +90,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         //
         //    <soapenv:Header/>
         //    <soapenv:Body>
-        //      <ns:GetStatusRequest>
+        //      <OCHP:GetStatusRequest>
         //
         //         <!--Optional:-->
-        //         <ns:startDateTime>
+        //         <OCHP:startDateTime>
         //            <ns:DateTime>?</ns:DateTime>
-        //         </ns:startDateTime>
+        //         </OCHP:startDateTime>
         //
         //         <!--Optional:-->
-        //         <ns:statusType>?</ns:statusType>
+        //         <OCHP:statusType>?</OCHP:statusType>
         //
-        //      </ns:GetStatusRequest>
+        //      </OCHP:GetStatusRequest>
         //    </soapenv:Body>
         // </soapenv:Envelope>
 
@@ -239,13 +239,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             => new XElement(OCHPNS.Default + "GetStatusRequest",
 
                                 LastRequest.HasValue
-                                    ? new XElement(OCHPNS.Default + "lastUpdate",
+                                    ? new XElement(OCHPNS.Default + "startDateTime",
                                           new XElement(OCHPNS.Default + "DateTime",
-                                              LastRequest.Value.ToIso8601()))
+                                              LastRequest.Value.ToIso8601(false)))
                                     : null,
 
                                 StatusType.HasValue
-                                    ? new XElement(OCHPNS.Default + "lastUpdate", StatusType.Value)
+                                    ? new XElement(OCHPNS.Default + "statusType", StatusType.Value.ToString().ToLower())
                                     : null
 
                            );

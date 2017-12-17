@@ -18,9 +18,8 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
+using System.Threading;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -50,7 +49,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Create an OCHP GetRoamingAuthorisationListUpdates XML/SOAP request.
         /// </summary>
         /// <param name="LastUpdate">The timestamp of the last roaming authorisation list update.</param>
-        public GetRoamingAuthorisationListUpdatesRequest(DateTime  LastUpdate)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public GetRoamingAuthorisationListUpdatesRequest(DateTime            LastUpdate,
+
+                                                         DateTime?           Timestamp           = null,
+                                                         CancellationToken?  CancellationToken   = null,
+                                                         EventTracking_Id    EventTrackingId     = null,
+                                                         TimeSpan?           RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
 
             this.LastUpdate = LastUpdate;

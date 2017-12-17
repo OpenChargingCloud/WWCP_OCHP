@@ -18,8 +18,8 @@
 #region Usings
 
 using System;
-using System.Threading;
 using System.Xml.Linq;
+using System.Threading;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -29,7 +29,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
-    /// An OCHP get service endpoints request.
+    /// An OCHP GetServiceEndpoints request.
     /// </summary>
     public class GetServiceEndpointsRequest : ARequest<GetServiceEndpointsRequest>
     {

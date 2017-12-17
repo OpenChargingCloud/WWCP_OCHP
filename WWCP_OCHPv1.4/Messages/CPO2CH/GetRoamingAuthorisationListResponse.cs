@@ -466,6 +466,49 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+
+
+
+        public class Builder : ABuilder
+        {
+
+            #region Properties
+
+            /// <summary>
+            /// An enumeration of authorisation card infos.
+            /// </summary>
+            public IEnumerable<RoamingAuthorisationInfo> RoamingAuthorisationInfos { get; set; }
+
+            #endregion
+
+            public Builder(GetRoamingAuthorisationListResponse GetRoamingAuthorisationListResponse = null)
+            {
+
+                if (GetRoamingAuthorisationListResponse != null)
+                {
+
+                    this.RoamingAuthorisationInfos = GetRoamingAuthorisationListResponse.RoamingAuthorisationInfos;
+
+                    if (GetRoamingAuthorisationListResponse.CustomData != null)
+                        foreach (var item in GetRoamingAuthorisationListResponse.CustomData)
+                            CustomData.Add(item.Key, item.Value);
+
+                }
+
+            }
+
+
+            //public Acknowledgement<T> ToImmutable()
+
+            //    => new Acknowledgement<T>(Request,
+            //                              Result,
+            //                              StatusCode,
+            //                              SessionId,
+            //                              PartnerSessionId,
+            //                              CustomData);
+
+        }
+
     }
 
 }

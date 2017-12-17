@@ -20,10 +20,10 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
+using System.Threading;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
-using System.Threading;
 
 #endregion
 
@@ -51,6 +51,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Create an OCHP AddCDRs XML/SOAP request.
         /// </summary>
         /// <param name="CDRInfos">An enumeration of charge detail records.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public AddCDRsRequest(IEnumerable<CDRInfo>  CDRInfos,
 
                               DateTime?             Timestamp           = null,

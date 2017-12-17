@@ -18,8 +18,8 @@
 #region Usings
 
 using System;
-using System.Threading;
 using System.Xml.Linq;
+using System.Threading;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -224,7 +224,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             => new XElement(OCHPNS.Default + "GetChargePointListUpdatesRequest",
                                 new XElement(OCHPNS.Default + "lastUpdate",
                                     new XElement(OCHPNS.Default + "DateTime",
-                                        LastUpdate.ToIso8601()
+                                        LastUpdate.ToIso8601(false)
                            )));
 
         #endregion

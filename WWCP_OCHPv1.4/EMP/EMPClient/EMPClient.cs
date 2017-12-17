@@ -61,6 +61,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         public const               String  DefaultURIPrefix      = "/service/ochp/v1.4/";
 
+        /// <summary>
+        /// The default Live URI prefix.
+        /// </summary>
+        public const               String  DefaultLiveURIPrefix  = "/live/ochp/v1.4";
+
         #endregion
 
         #region Properties
@@ -68,9 +73,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         private EndpointInfos  _EndpointInfos;
 
         /// <summary>
+        /// The default Live URI prefix.
+        /// </summary>
+        public String           LiveURIPrefix    { get; }
+
+
+        /// <summary>
         /// The attached OCHP EMP client (HTTP/SOAP client) logger.
         /// </summary>
-        public EMPClientLogger Logger { get; }
+        public EMPClientLogger  Logger           { get; }
 
         #endregion
 
@@ -1013,6 +1024,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          X509Certificate                      ClientCert                   = null,
                          String                               RemoteHTTPVirtualHost        = null,
                          String                               URIPrefix                    = DefaultURIPrefix,
+                         String                               LiveURIPrefix                = DefaultLiveURIPrefix,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
@@ -1046,6 +1058,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 throw new ArgumentNullException(nameof(RemoteHostname),  "The given hostname must not be null or empty!");
 
             #endregion
+
+            this.LiveURIPrefix   = LiveURIPrefix.IsNotNullOrEmpty()
+                                       ? LiveURIPrefix.Trim().IsNotNullOrEmpty()
+                                             ? LiveURIPrefix.Trim()
+                                             : DefaultLiveURIPrefix
+                                       : DefaultLiveURIPrefix;
 
             this.Logger          = new EMPClientLogger(this,
                                                        LoggingContext,
@@ -1333,6 +1351,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     await Task.WhenAll(OnGetChargePointListResponse.GetInvocationList().
                                        Cast<OnGetChargePointListResponseDelegate>().
                                        Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      Request.EventTrackingId,
@@ -1558,6 +1577,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     await Task.WhenAll(OnGetChargePointListUpdatesResponse.GetInvocationList().
                                        Cast<OnGetChargePointListUpdatesResponseDelegate>().
                                        Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      Request.EventTrackingId,
@@ -1645,7 +1665,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 using (var _OCHPClient = new SOAPClient(Hostname,
                                                         RemotePort,
                                                         HTTPVirtualHost,
-                                                        DefaultURIPrefix,
+                                                        DefaultLiveURIPrefix,
                                                         RemoteCertificateValidator,
                                                         LocalCertificateSelector,
                                                         ClientCert,
@@ -1655,12 +1675,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 {
 
                     result = await _OCHPClient.Query(_CustomGetStatusSOAPRequestMapper(Request,
-                                                                                     SOAP.Encapsulation(
-                                                                                         WSSLoginPassword.Item1,
-                                                                                         WSSLoginPassword.Item2,
-                                                                                         Request.ToXML()
-                                                                                    )),
-                                                     "http://ochp.eu/1.4/GetStatus",
+                                                                                       SOAP.Encapsulation(
+                                                                                           WSSLoginPassword.Item1,
+                                                                                           WSSLoginPassword.Item2,
+                                                                                           Request.ToXML()
+                                                                                      )),
+                                                     "http://ochp.e-clearing.net/service/GetStatus",
                                                      RequestLogDelegate:   OnGetStatusSOAPRequest,
                                                      ResponseLogDelegate:  OnGetStatusSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
@@ -1786,6 +1806,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     await Task.WhenAll(OnGetStatusResponse.GetInvocationList().
                                        Cast<OnGetStatusResponseDelegate>().
                                        Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      Request.EventTrackingId,
@@ -1882,11 +1903,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 {
 
                     result = await _OCHPClient.Query(_CustomGetTariffUpdatesSOAPRequestMapper(Request,
-                                                                                                       SOAP.Encapsulation(
-                                                                                                           WSSLoginPassword.Item1,
-                                                                                                           WSSLoginPassword.Item2,
-                                                                                                           Request.ToXML()
-                                                                                                      )),
+                                                                                              SOAP.Encapsulation(
+                                                                                                  WSSLoginPassword.Item1,
+                                                                                                  WSSLoginPassword.Item2,
+                                                                                                  Request.ToXML()
+                                                                                             )),
                                                      "http://ochp.eu/1.4/GetTariffUpdates",
                                                      RequestLogDelegate:   OnGetTariffUpdatesSOAPRequest,
                                                      ResponseLogDelegate:  OnGetTariffUpdatesSOAPResponse,
@@ -2013,6 +2034,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     await Task.WhenAll(OnGetTariffUpdatesResponse.GetInvocationList().
                                        Cast<OnGetTariffUpdatesResponseDelegate>().
                                        Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      Request.EventTrackingId,
@@ -2257,6 +2279,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     await Task.WhenAll(OnSetRoamingAuthorisationListResponse.GetInvocationList().
                                        Cast<OnSetRoamingAuthorisationListResponseDelegate>().
                                        Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      Request.EventTrackingId,
@@ -2500,6 +2523,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     await Task.WhenAll(OnUpdateRoamingAuthorisationListResponse.GetInvocationList().
                                        Cast<OnUpdateRoamingAuthorisationListResponseDelegate>().
                                        Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      Request.EventTrackingId,
@@ -2727,6 +2751,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     await Task.WhenAll(OnGetCDRsResponse.GetInvocationList().
                                        Cast<OnGetCDRsResponseDelegate>().
                                        Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      Request.EventTrackingId,
@@ -2968,6 +2993,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                     await Task.WhenAll(OnConfirmCDRsResponse.GetInvocationList().
                                        Cast<OnConfirmCDRsResponseDelegate>().
                                        Select(e => e(Endtime,
+                                                     Request.Timestamp.Value,
                                                      this,
                                                      ClientId,
                                                      Request.EventTrackingId,
@@ -3234,7 +3260,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region GetServiceEndpoints(...)
+        #region GetServiceEndpoints(Request)
 
         /// <summary>
         /// Download OCHPdirect provider endpoints.

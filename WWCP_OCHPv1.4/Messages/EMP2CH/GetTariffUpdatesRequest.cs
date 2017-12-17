@@ -18,12 +18,10 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
+using System.Threading;
 
 using org.GraphDefined.Vanaheimr.Illias;
-using System.Threading;
 
 #endregion
 
@@ -230,7 +228,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                                     ? new XElement(OCHPNS.Default + "lastUpdate",
                                           new XElement(OCHPNS.Default + "DateTime",
-                                              LastUpdate.Value.ToIso8601()
+                                              LastUpdate.Value.ToIso8601(false)
                                           )
                                       )
 

@@ -20,6 +20,7 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
+using System.Threading;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -30,7 +31,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
     /// <summary>
-    /// An OCHP add service endpoints request.
+    /// An OCHP AddServiceEndpoints request.
     /// </summary>
     public class AddServiceEndpointsRequest : ARequest<AddServiceEndpointsRequest>
     {
@@ -50,7 +51,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Create an OCHP AddServiceEndpoints XML/SOAP request.
         /// </summary>
         /// <param name="OperatorEndpoints">An enumeration of operator endpoints.</param>
-        public AddServiceEndpointsRequest(IEnumerable<OperatorEndpoint>  OperatorEndpoints)
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public AddServiceEndpointsRequest(IEnumerable<OperatorEndpoint>  OperatorEndpoints,
+
+                                          DateTime?                      Timestamp           = null,
+                                          CancellationToken?             CancellationToken   = null,
+                                          EventTracking_Id               EventTrackingId     = null,
+                                          TimeSpan?                      RequestTimeout      = null)
+
+            : base(Timestamp,
+                   CancellationToken,
+                   EventTrackingId,
+                   RequestTimeout)
+
         {
 
             #region Initial checks

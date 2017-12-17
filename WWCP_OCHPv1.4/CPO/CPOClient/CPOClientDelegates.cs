@@ -40,7 +40,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  CPOClient                       Sender,
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
-                                                                 UInt64                          NumberOfChargePoints,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
                                                                  TimeSpan?                       RequestTimeout);
 
@@ -52,7 +51,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  CPOClient                       Sender,
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
-                                                                 UInt64                          NumberOfChargePoints,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
                                                                  TimeSpan?                       RequestTimeout,
                                                                  SetChargePointListResponse      Result,
@@ -67,7 +65,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  CPOClient                       Sender,
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
-                                                                 UInt64                          NumberOfChargePoints,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
                                                                  TimeSpan?                       RequestTimeout);
 
@@ -79,7 +76,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  CPOClient                       Sender,
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
-                                                                 UInt64                          NumberOfChargePoints,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
                                                                  TimeSpan?                       RequestTimeout,
                                                                  UpdateChargePointListResponse   Result,
@@ -120,6 +116,34 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         TimeSpan?                    RequestTimeout,
                                                         UpdateStatusResponse         Result,
                                                         TimeSpan                     Runtime);
+
+    #endregion
+
+    #region OnUpdateTariffs
+
+    /// <summary>
+    /// A delegate called whenever tariff infos will be send upstream.
+    /// </summary>
+    public delegate Task OnUpdateTariffsRequestDelegate (DateTime                     LogTimestamp,
+                                                         DateTime                     RequestTimestamp,
+                                                         CPOClient                    Sender,
+                                                         String                       SenderId,
+                                                         EventTracking_Id             EventTrackingId,
+                                                         IEnumerable<TariffInfo>      TariffInfos,
+                                                         TimeSpan?                    RequestTimeout);
+
+    /// <summary>
+    /// A delegate called whenever a response after sending tariff infos upstream had been received.
+    /// </summary>
+    public delegate Task OnUpdateTariffsResponseDelegate(DateTime                     LogTimestamp,
+                                                         DateTime                     RequestTimestamp,
+                                                         CPOClient                    Sender,
+                                                         String                       SenderId,
+                                                         EventTracking_Id             EventTrackingId,
+                                                         IEnumerable<TariffInfo>      TariffInfos,
+                                                         TimeSpan?                    RequestTimeout,
+                                                         UpdateTariffsResponse        Result,
+                                                         TimeSpan                     Runtime);
 
     #endregion
 
@@ -259,35 +283,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     #endregion
 
 
-    #region OnUpdateTariffs
-
-    /// <summary>
-    /// A delegate called whenever tariff infos will be send upstream.
-    /// </summary>
-    public delegate Task OnUpdateTariffsRequestDelegate (DateTime                     LogTimestamp,
-                                                         DateTime                     RequestTimestamp,
-                                                         CPOClient                    Sender,
-                                                         String                       SenderId,
-                                                         EventTracking_Id             EventTrackingId,
-                                                         IEnumerable<TariffInfo>      TariffInfos,
-                                                         TimeSpan?                    RequestTimeout);
-
-    /// <summary>
-    /// A delegate called whenever a response after sending tariff infos upstream had been received.
-    /// </summary>
-    public delegate Task OnUpdateTariffsResponseDelegate(DateTime                     LogTimestamp,
-                                                         DateTime                     RequestTimestamp,
-                                                         CPOClient                    Sender,
-                                                         String                       SenderId,
-                                                         EventTracking_Id             EventTrackingId,
-                                                         IEnumerable<TariffInfo>      TariffInfos,
-                                                         TimeSpan?                    RequestTimeout,
-                                                         UpdateTariffsResponse        Result,
-                                                         TimeSpan                     Runtime);
-
-    #endregion
-
-
     // OCHPdirect
 
     #region OnAddServiceEndpoints
@@ -297,7 +292,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// </summary>
     public delegate Task OnAddServiceEndpointsRequestDelegate (DateTime                        LogTimestamp,
                                                                DateTime                        RequestTimestamp,
-                                                               IOCHPClient               Sender,
+                                                               IOCHPClient                     Sender,
                                                                String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
                                                                IEnumerable<OperatorEndpoint>   OperatorEndpoints,
@@ -306,9 +301,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response after sending an add service endpoints request upstream had been received.
     /// </summary>
-    public delegate Task OnAddServiceEndpointsResponseDelegate(DateTime                        LogTimestamp,
+    public delegate Task OnAddServiceEndpointsResponseDelegate(//DateTime                        LogTimestamp,
                                                                DateTime                        RequestTimestamp,
-                                                               IOCHPClient               Sender,
+                                                               IOCHPClient                     Sender,
                                                                String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
                                                                IEnumerable<OperatorEndpoint>   OperatorEndpoints,
@@ -325,7 +320,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// </summary>
     public delegate Task OnGetServiceEndpointsRequestDelegate (DateTime                      LogTimestamp,
                                                                DateTime                      RequestTimestamp,
-                                                               IOCHPClient             Sender,
+                                                               IOCHPClient                   Sender,
                                                                String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
                                                                TimeSpan?                     RequestTimeout);
@@ -333,9 +328,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response after sending a get service endpoints request upstream had been received.
     /// </summary>
-    public delegate Task OnGetServiceEndpointsResponseDelegate(DateTime                      LogTimestamp,
+    public delegate Task OnGetServiceEndpointsResponseDelegate(//DateTime                      LogTimestamp,
                                                                DateTime                      RequestTimestamp,
-                                                               IOCHPClient             Sender,
+                                                               IOCHPClient                   Sender,
                                                                String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
                                                                TimeSpan?                     RequestTimeout,

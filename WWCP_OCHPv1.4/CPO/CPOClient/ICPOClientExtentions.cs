@@ -61,7 +61,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                TimeSpan?                     RequestTimeout        = null)
 
 
-                => ICPOClient.SetChargePointList(
+                => ICPOClient?.SetChargePointList(
                        new SetChargePointListRequest(
                            IncludeChargePoints == null
                                ? ChargePointInfos
@@ -100,7 +100,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   TimeSpan?                     RequestTimeout        = null)
 
 
-                => ICPOClient.UpdateChargePointList(
+                => ICPOClient?.UpdateChargePointList(
                        new UpdateChargePointListRequest(
                            IncludeChargePoints == null
                                ? ChargePointInfos
@@ -115,7 +115,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region UpdateStatus(EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, IncludeEVSEIds = null, ...)
+        #region UpdateStatus         (EVSEStatus = null, ParkingStatus = null, DefaultTTL = null, IncludeEVSEIds = null, ...)
 
         /// <summary>
         /// Upload the given enumeration of EVSE and/or parking status.
@@ -143,7 +143,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          TimeSpan?                   RequestTimeout      = null)
 
 
-                => ICPOClient.UpdateStatus(
+                => ICPOClient?.UpdateStatus(
                        new UpdateStatusRequest(
                            IncludeEVSEIds == null
                                ? EVSEStatus
@@ -160,7 +160,42 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region GetSingleRoamingAuthorisation(EMTId, ...)
+        #region UpdateTariffs        (TariffInfos, ...)
+
+        /// <summary>
+        /// Upload the given enumeration of tariff infos.
+        /// </summary>
+        /// <param name="TariffInfos">An enumeration of tariff infos.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<UpdateTariffsResponse>>
+
+            UpdateTariffs(this ICPOClient          ICPOClient,
+                          IEnumerable<TariffInfo>  TariffInfos,
+
+                          DateTime?                Timestamp          = null,
+                          CancellationToken?       CancellationToken  = null,
+                          EventTracking_Id         EventTrackingId    = null,
+                          TimeSpan?                RequestTimeout     = null)
+
+
+                => ICPOClient?.UpdateTariffs(
+                       new UpdateTariffsRequest(TariffInfos,
+
+                                                Timestamp,
+                                                CancellationToken,
+                                                EventTrackingId,
+                                                RequestTimeout
+                       )
+                   );
+
+        #endregion
+
+
+        #region GetSingleRoamingAuthorisation     (EMTId, ...)
 
         /// <summary>
         /// Authenticate the given e-mobility token.
@@ -182,7 +217,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                           TimeSpan?           RequestTimeout      = null)
 
 
-                => ICPOClient.GetSingleRoamingAuthorisation(
+                => ICPOClient?.GetSingleRoamingAuthorisation(
                        new GetSingleRoamingAuthorisationRequest(
                            EMTId,
 
@@ -195,8 +230,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
+        #region GetRoamingAuthorisationList       (...)
 
-        #region AddCDRs(CDRInfos, ...)
+        /// <summary>
+        /// Get the entire current version of the roaming authorisation list.
+        /// </summary>
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
+
+            GetRoamingAuthorisationList(this ICPOClient     ICPOClient,
+
+                                        DateTime?           Timestamp          = null,
+                                        CancellationToken?  CancellationToken  = null,
+                                        EventTracking_Id    EventTrackingId    = null,
+                                        TimeSpan?           RequestTimeout     = null)
+
+
+                => ICPOClient?.GetRoamingAuthorisationList(
+                       new GetRoamingAuthorisationListRequest(
+                           Timestamp,
+                           CancellationToken,
+                           EventTrackingId,
+                           RequestTimeout ?? ICPOClient.RequestTimeout
+                       )
+                   );
+
+        #endregion
+
+        #region GetRoamingAuthorisationListUpdates(LastUpdate, ...)
+
+        /// <summary>
+        /// Get the entire current version of the roaming authorisation list.
+        /// </summary>
+        /// <param name="LastUpdate">The timestamp of the last roaming authorisation list update.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>>
+
+            GetRoamingAuthorisationListUpdates(this ICPOClient     ICPOClient,
+                                               DateTime            LastUpdate,
+
+                                               DateTime?           Timestamp          = null,
+                                               CancellationToken?  CancellationToken  = null,
+                                               EventTracking_Id    EventTrackingId    = null,
+                                               TimeSpan?           RequestTimeout     = null)
+
+
+                => ICPOClient?.GetRoamingAuthorisationListUpdates(
+                       new GetRoamingAuthorisationListUpdatesRequest(
+                           LastUpdate,
+
+                           Timestamp,
+                           CancellationToken,
+                           EventTrackingId,
+                           RequestTimeout ?? ICPOClient.RequestTimeout
+                       )
+                   );
+
+        #endregion
+
+
+        #region AddCDRs  (CDRInfos, ...)
 
         /// <summary>
         /// Upload the given enumeration of charge detail records.
@@ -217,16 +317,109 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     EventTracking_Id      EventTrackingId     = null,
                     TimeSpan?             RequestTimeout      = null)
 
-                => ICPOClient.AddCDRs(
-                       new AddCDRsRequest(
-                           CDRInfos,
 
-                           Timestamp,
-                           CancellationToken,
-                           EventTrackingId,
-                           RequestTimeout ?? ICPOClient.RequestTimeout
+                => ICPOClient?.AddCDRs(
+                       new AddCDRsRequest(CDRInfos,
+
+                                          Timestamp,
+                                          CancellationToken,
+                                          EventTrackingId,
+                                          RequestTimeout ?? ICPOClient.RequestTimeout
                        )
                    );
+
+        #endregion
+
+        #region CheckCDRs(CDRStatus = null, ...)
+
+        /// <summary>
+        /// Check charge detail records having the given optional status.
+        /// </summary>
+        /// <param name="CDRStatus">The status of the requested charge detail records.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<CheckCDRsResponse>>
+
+            CheckCDRs(this ICPOClient       ICPOClient,
+                      CDRStatus?            CDRStatus          = null,
+
+                      DateTime?             Timestamp          = null,
+                      CancellationToken?    CancellationToken  = null,
+                      EventTracking_Id      EventTrackingId    = null,
+                      TimeSpan?             RequestTimeout     = null)
+
+
+                => ICPOClient?.CheckCDRs(
+                       new CheckCDRsRequest(CDRStatus,
+
+                                            Timestamp,
+                                            CancellationToken,
+                                            EventTrackingId,
+                                            RequestTimeout ?? ICPOClient.RequestTimeout
+                       )
+                   );
+
+        #endregion
+
+
+        // OCHP direct
+
+        #region AddServiceEndpoints(OperatorEndpoints, ...)
+
+        /// <summary>
+        /// Upload the given enumeration of OCHPdirect operator service endpoints.
+        /// </summary>
+        /// <param name="OperatorEndpoints">An enumeration of operator service endpoints.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<AddServiceEndpointsResponse>>
+
+            AddServiceEndpoints(this ICPOClient                ICPOClient,
+                                IEnumerable<OperatorEndpoint>  OperatorEndpoints,
+
+                                DateTime?                      Timestamp           = null,
+                                CancellationToken?             CancellationToken   = null,
+                                EventTracking_Id               EventTrackingId     = null,
+                                TimeSpan?                      RequestTimeout      = null)
+
+
+                => ICPOClient?.AddServiceEndpoints(new AddServiceEndpointsRequest(OperatorEndpoints,
+
+                                                                                  Timestamp,
+                                                                                  CancellationToken,
+                                                                                  EventTrackingId,
+                                                                                  RequestTimeout ?? ICPOClient.RequestTimeout));
+
+        #endregion
+
+        #region GetServiceEndpoints(...)
+
+        /// <summary>
+        /// Download OCHPdirect provider endpoints.
+        /// </summary>
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<GetServiceEndpointsResponse>>
+
+            GetServiceEndpoints(this ICPOClient     ICPOClient,
+                                DateTime?           Timestamp           = null,
+                                CancellationToken?  CancellationToken   = null,
+                                EventTracking_Id    EventTrackingId     = null,
+                                TimeSpan?           RequestTimeout      = null)
+
+
+                => ICPOClient?.GetServiceEndpoints(new GetServiceEndpointsRequest(Timestamp,
+                                                                                  CancellationToken,
+                                                                                  EventTrackingId,
+                                                                                  RequestTimeout ?? ICPOClient.RequestTimeout));
 
         #endregion
 

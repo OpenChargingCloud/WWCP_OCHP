@@ -20,10 +20,10 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
+using System.Threading;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
-using System.Threading;
 
 #endregion
 
@@ -31,7 +31,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
-    /// An OCHP add service endpoints request.
+    /// An OCHP AddServiceEndpoints request.
     /// </summary>
     public class AddServiceEndpointsRequest : ARequest<AddServiceEndpointsRequest>
     {
