@@ -41,34 +41,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing a charge point identification.
         /// </summary>
-        public static readonly Regex CDRId_RegEx     = new Regex(@"^([A-Z]{2}[A-Z0-9]{3})([A-Z0-9][A-Z0-9]{0,30})$",
-                                                                 RegexOptions.IgnorePatternWhitespace);
-
-        /// <summary>
-        /// The regular expression for parsing an charge point identification suffix.
-        /// </summary>
-        public static readonly Regex IdSuffix_RegEx  = new Regex(@"^[A-Z0-9][A-Z0-9]{0,31}$",
-                                                                 RegexOptions.IgnorePatternWhitespace);
+        public static readonly Regex CDRId_RegEx  = new Regex("^[0-9A-Z]{1,36}$",  //([A-Z]{2}[A-Z0-9]{3})([A-Z0-9][A-Z0-9]{0,30})$",
+                                                              RegexOptions.IgnorePatternWhitespace);
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// The internal identification.
-        /// </summary>
-        public ChargingStationOperator_Id  OperatorId   { get; }
-
-        /// <summary>
         /// The suffix of the identification.
         /// </summary>
-        public String                      Suffix       { get; }
+        public String  Id   { get; }
 
         /// <summary>
         /// Returns the length of the identification.
         /// </summary>
         public UInt64 Length
-            => OperatorId.Length + 2 + (UInt64) Suffix.Length;
+            => (UInt64) Id.Length;
 
         #endregion
 
@@ -77,27 +66,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Generate a charge point identification based on the given string.
         /// </summary>
-        private CDR_Id(ChargingStationOperator_Id  OperatorId,
-                       String                      IdSuffix)
+        private CDR_Id(String Text)
         {
 
             #region Initial checks
 
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The parameter must not be null!");
-
-            if (IdSuffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
+            if (Text.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(Text),  "The parameter must not be null or empty!");
 
             #endregion
 
-            var _MatchCollection = IdSuffix_RegEx.Matches(IdSuffix.Trim());
+            var _MatchCollection = CDRId_RegEx.Matches(Text.Trim());
 
             if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal charge point identification '" + OperatorId + "' with suffix '" + IdSuffix + "'!");
+                throw new ArgumentException("Illegal charge detail record identification '" + Text + "'!");
 
-            this.OperatorId  = OperatorId;
-            this.Suffix      = _MatchCollection[0].Value;
+            this.Id = _MatchCollection[0].Value;
 
         }
 
@@ -107,64 +91,58 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #region Parse(CDRId)
 
         /// <summary>
-        /// Parse the given string as a charge point identification.
+        /// Parse the given string as a charge detail record identification.
         /// </summary>
         public static CDR_Id Parse(String Text)
         {
 
             #region Initial checks
 
-            if (Text.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Text), "The parameter must not be null or empty!");
+            if (Text.IsNullOrEmpty() || Text.Trim().IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(Text), "The given text representation of a CDR identification must not be null or empty!");
 
             #endregion
 
             var _MatchCollection = CDRId_RegEx.Matches(Text.Trim().ToUpper());
 
-            if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal charge detail record identification '" + Text + "'!");
+            if (_MatchCollection.Count == 1)
+                return new CDR_Id(_MatchCollection[0].Groups[0].Value);
 
-            ChargingStationOperator_Id _OperatorId;
-
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _OperatorId))
-                return new CDR_Id(_OperatorId,
-                                   _MatchCollection[0].Groups[2].Value);
-
-            if (ChargingStationOperator_Id.TryParse(_MatchCollection[0].Groups[3].Value, out _OperatorId))
-                return new CDR_Id(_OperatorId,
-                                   _MatchCollection[0].Groups[4].Value);
-
-
-            throw new ArgumentException("Illegal charge detail record identification '" + Text + "'!");
+            throw new ArgumentException("Illegal text representation of a charge detail record identification '" + Text + "'!");
 
         }
 
         #endregion
 
-        #region Parse(OperatorId, IdSuffix)
+        #region TryParse(Text)
 
         /// <summary>
-        /// Parse the given string as an charge detail record identification.
+        /// Try to parse the given text representation of a charge detail record identification.
         /// </summary>
-        public static CDR_Id Parse(ChargingStationOperator_Id  OperatorId,
-                                   String                      IdSuffix)
+        /// <param name="Text">A text representation of a charge detail record identification.</param>
+        public static CDR_Id? TryParse(String Text)
+        {
 
-            => new CDR_Id(OperatorId,
-                          IdSuffix);
+            if (TryParse(Text, out CDR_Id _CDRId))
+                return _CDRId;
+
+            return new CDR_Id?();
+
+        }
 
         #endregion
 
         #region TryParse(Text, out CDR_Id)
 
         /// <summary>
-        /// Parse the given string as an charge detail record identification.
+        /// Parse the given string as a charge detail record identification.
         /// </summary>
         public static Boolean TryParse(String Text, out CDR_Id CDRId)
         {
 
             #region Initial checks
 
-            if (Text.IsNullOrEmpty())
+            if (Text.IsNullOrEmpty() || Text.Trim().IsNullOrEmpty())
             {
                 CDRId = default(CDR_Id);
                 return false;
@@ -175,39 +153,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                CDRId = default(CDR_Id);
-
                 var MatchCollection = CDRId_RegEx.Matches(Text.Trim().ToUpper());
 
-                if (MatchCollection.Count != 1)
-                    return false;
-
-                ChargingStationOperator_Id _OperatorId;
-
-                // New format...
-                if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[1].Value, out _OperatorId))
+                if (MatchCollection.Count == 1)
                 {
 
-                    CDRId = new CDR_Id(_OperatorId,
-                                       MatchCollection[0].Groups[2].Value);
-
-                    return true;
-
-                }
-
-                // Old format...
-                else if (ChargingStationOperator_Id.TryParse(MatchCollection[0].Groups[3].Value, out _OperatorId))
-                {
-
-                    CDRId = new CDR_Id(_OperatorId,
-                                       MatchCollection[0].Groups[4].Value);
-
+                    CDRId = new CDR_Id(MatchCollection[0].Groups[0].Value);
                     return true;
 
                 }
 
             }
-            catch (Exception e)
+#pragma warning disable RCS1075  // Avoid empty catch clause that catches System.Exception.
+#pragma warning disable RECS0022 // A catch clause that catches System.Exception and has an empty body
+            catch (Exception)
+#pragma warning restore RECS0022 // A catch clause that catches System.Exception and has an empty body
+#pragma warning restore RCS1075  // Avoid empty catch clause that catches System.Exception.
             { }
 
             CDRId = default(CDR_Id);
@@ -364,18 +325,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if ((Object) CDRId == null)
                 throw new ArgumentNullException(nameof(CDRId),  "The given charge point identification must not be null!");
 
-            // Compare the length of the charge point identifications
-            var _Result = this.Length.CompareTo(CDRId.Length);
-
-            // If equal: Compare charging operator identifications
-            if (_Result == 0)
-                _Result = OperatorId.CompareTo(CDRId.OperatorId);
-
-            // If equal: Compare identification suffix
-            if (_Result == 0)
-                _Result = String.Compare(Suffix, CDRId.Suffix, StringComparison.Ordinal);
-
-            return _Result;
+            return String.Compare(Id, CDRId.Id, StringComparison.Ordinal);
 
         }
 
@@ -420,8 +370,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if ((Object) CDRId == null)
                 return false;
 
-            return OperatorId.Equals(CDRId.OperatorId) &&
-                   Suffix.    Equals(CDRId.Suffix);
+            return Id.Equals(CDRId.Id);
 
         }
 
@@ -436,8 +385,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
-            => OperatorId.GetHashCode() ^
-               Suffix.GetHashCode();
+            => Id.GetHashCode();
 
         #endregion
 
@@ -447,10 +395,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Return a string representation of this object.
         /// </summary>
         public override String ToString()
-
-            => String.Concat(OperatorId.CountryCode.Alpha2Code,
-                             OperatorId.Suffix,
-                             Suffix);
+            => Id;
 
         #endregion
 

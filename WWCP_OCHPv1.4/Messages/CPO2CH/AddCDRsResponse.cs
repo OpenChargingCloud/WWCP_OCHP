@@ -39,9 +39,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region Properties
 
         /// <summary>
-        /// An enumeration of refused charge detail records.
+        /// An enumeration of refused charge detail record identifications.
         /// </summary>
-        public IEnumerable<CDRInfo>  ImplausibleCDRs   { get; }
+        public IEnumerable<CDR_Id>  ImplausibleCDRs   { get; }
 
         #endregion
 
@@ -127,16 +127,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The add charge details records request leading to this response.</param>
         /// <param name="Result">A generic OCHP result.</param>
-        /// <param name="ImplausibleCDRs">An enumeration of refused charge detail records.</param>
-        public AddCDRsResponse(AddCDRsRequest        Request,
-                               Result                Result,
-                               IEnumerable<CDRInfo>  ImplausibleCDRs = null)
+        /// <param name="ImplausibleCDRs">An enumeration of refused charge detail record identifications.</param>
+        public AddCDRsResponse(AddCDRsRequest       Request,
+                               Result               Result,
+                               IEnumerable<CDR_Id>  ImplausibleCDRs = null)
 
             : base(Request, Result)
 
         {
 
-            this.ImplausibleCDRs  = ImplausibleCDRs ?? new CDRInfo[0];
+            this.ImplausibleCDRs  = ImplausibleCDRs ?? new CDR_Id[0];
 
         }
 
@@ -146,25 +146,41 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region Documentation
 
         // <soapenv:Envelope xmlns:soapenv = "http://schemas.xmlsoap.org/soap/envelope/"
-        //                   xmlns:ns      = "http://ochp.eu/1.4">
+        //                   xmlns:OCHP    = "http://ochp.eu/1.4">
         //
         //    <soapenv:Header/>
         //    <soapenv:Body>
-        //      <ns:AddCDRsResponse>
+        //      <OCHP:AddCDRsResponse>
         //
-        //         <ns:result>
-        //            <ns:resultCode>
-        //               <ns:resultCode>?</ns:resultCode>
-        //            </ns:resultCode>
-        //            <ns:resultDescription>?</ns:resultDescription>
-        //         </ns:result>
+        //         <OCHP:result>
+        //            <OCHP:resultCode>
+        //               <OCHP:resultCode>?</OCHP:resultCode>
+        //            </OCHP:resultCode>
+        //            <OCHP:resultDescription>?</OCHP:resultDescription>
+        //         </OCHP:result>
         //
         //         <!--Zero or more repetitions:-->
-        //         <ns:implausibleCdrsArray>?</ns:implausibleCdrsArray>
+        //         <OCHP:implausibleCdrsArray>?</OCHP:implausibleCdrsArray>
         //
-        //      </ns:AddCDRsResponse>
+        //      </OCHP:AddCDRsResponse>
         //    </soapenv:Body>
         // </soapenv:Envelope>
+
+        // <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        //   <soap:Body>
+        //     <AddCDRsResponse xmlns="http://ochp.eu/1.4">
+        //
+        //       <result>
+        //         <resultCode><resultCode>partly</resultCode></resultCode>
+        //         <resultDescription>Only part of the data was accepted.</resultDescription>
+        //       </result>
+        //
+        //       <implausibleCdrsArray>47E18B5C29FE4BDB818E74082F0101AD</implausibleCdrsArray>
+        //       <implausibleCdrsArray>71267A5E0370400AAE3E47428986BE60</implausibleCdrsArray>
+        //
+        //     </AddCDRsResponse>
+        //   </soap:Body>
+        // </soap:Envelope>
 
         #endregion
 
@@ -181,9 +197,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                             OnExceptionDelegate  OnException = null)
         {
 
-            AddCDRsResponse _AddCDRsResponse;
-
-            if (TryParse(Request, AddCDRsResponseXML, out _AddCDRsResponse, OnException))
+            if (TryParse(Request, AddCDRsResponseXML, out AddCDRsResponse _AddCDRsResponse, OnException))
                 return _AddCDRsResponse;
 
             return null;
@@ -205,9 +219,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                             OnExceptionDelegate  OnException = null)
         {
 
-            AddCDRsResponse _AddCDRsResponse;
-
-            if (TryParse(Request, AddCDRsResponseText, out _AddCDRsResponse, OnException))
+            if (TryParse(Request, AddCDRsResponseText, out AddCDRsResponse _AddCDRsResponse, OnException))
                 return _AddCDRsResponse;
 
             return null;
@@ -242,9 +254,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                           Result.Parse,
                                                                           OnException),
 
-                                      AddCDRsResponseXML.MapElements     (OCHPNS.Default + "implausibleCdrsArray",
-                                                                          CDRInfo.Parse,
-                                                                          OnException)
+                                      AddCDRsResponseXML.MapValues       (OCHPNS.Default + "implausibleCdrsArray",
+                                                                          CDR_Id.Parse)
 
                                   );
 
@@ -315,7 +326,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    Result.ToXML(),
 
                    ImplausibleCDRs.Any()
-                       ? ImplausibleCDRs.SafeSelect(cdr => cdr.ToXML(OCHPNS.Default + "implausibleCdrsArray"))
+                       ? ImplausibleCDRs.SafeSelect(cdrid => new XElement(OCHPNS.Default + "implausibleCdrsArray", cdrid.ToString()))
                        : null
 
                );
@@ -458,9 +469,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region Properties
 
             /// <summary>
-            /// An enumeration of refused charge detail records.
+            /// An enumeration of refused charge detail record identifications.
             /// </summary>
-            public IEnumerable<CDRInfo>  ImplausibleCDRs   { get; set; }
+            public IEnumerable<CDR_Id>  ImplausibleCDRs   { get; set; }
 
             #endregion
 

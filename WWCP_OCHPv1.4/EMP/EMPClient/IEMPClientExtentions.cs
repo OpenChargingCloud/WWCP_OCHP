@@ -160,6 +160,37 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #endregion
 
 
+        #region SetRoamingAuthorisationList   (RoamingAuthorisationInfo, ...)
+
+        /// <summary>
+        /// Create an OCHP SetRoamingAuthorisationList XML/SOAP request.
+        /// </summary>
+        /// <param name="RoamingAuthorisationInfo">A roaming authorisation info.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
+
+            SetRoamingAuthorisationList(this IEMPClient           IEMPClient,
+                                        RoamingAuthorisationInfo  RoamingAuthorisationInfo,
+
+                                        DateTime?                 Timestamp           = null,
+                                        CancellationToken?        CancellationToken   = null,
+                                        EventTracking_Id          EventTrackingId     = null,
+                                        TimeSpan?                 RequestTimeout      = null)
+
+
+                => IEMPClient?.SetRoamingAuthorisationList(new SetRoamingAuthorisationListRequest(new RoamingAuthorisationInfo[] { RoamingAuthorisationInfo },
+
+                                                                                                  Timestamp,
+                                                                                                  CancellationToken,
+                                                                                                  EventTrackingId,
+                                                                                                  RequestTimeout ?? IEMPClient.RequestTimeout));
+
+        #endregion
+
         #region SetRoamingAuthorisationList   (RoamingAuthorisationInfos, ...)
 
         /// <summary>
@@ -188,6 +219,37 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                                                                   CancellationToken,
                                                                                                   EventTrackingId,
                                                                                                   RequestTimeout ?? IEMPClient.RequestTimeout));
+
+        #endregion
+
+        #region UpdateRoamingAuthorisationList(RoamingAuthorisationInfo, ...)
+
+        /// <summary>
+        /// Create an OCHP UpdateRoamingAuthorisationList XML/SOAP request.
+        /// </summary>
+        /// <param name="RoamingAuthorisationInfo">A roaming authorisation info.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<UpdateRoamingAuthorisationListResponse>>
+
+            UpdateRoamingAuthorisationList(this IEMPClient           IEMPClient,
+                                           RoamingAuthorisationInfo  RoamingAuthorisationInfo,
+
+                                           DateTime?                 Timestamp           = null,
+                                           CancellationToken?        CancellationToken   = null,
+                                           EventTracking_Id          EventTrackingId     = null,
+                                           TimeSpan?                 RequestTimeout      = null)
+
+
+                => IEMPClient?.UpdateRoamingAuthorisationList(new UpdateRoamingAuthorisationListRequest(new RoamingAuthorisationInfo[] { RoamingAuthorisationInfo },
+
+                                                                                                        Timestamp,
+                                                                                                        CancellationToken,
+                                                                                                        EventTrackingId,
+                                                                                                        RequestTimeout ?? IEMPClient.RequestTimeout));
 
         #endregion
 

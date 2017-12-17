@@ -5459,6 +5459,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     response.Content        != null)
                 {
 
+                    var CDRIdHash = response.Content.ImplausibleCDRs.Any()
+                                        ? new HashSet<ChargingSession_Id>(response.Content.ImplausibleCDRs.Select(cdrid => cdrid.ToWWCP()))
+                                        : new HashSet<ChargingSession_Id>();
+
                     switch (response.Content.Result.ResultCode)
                     {
 
@@ -5469,13 +5473,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         case ResultCodes.Partly:
                             result = SendCDRsResult.Error(Id,
                                                           this,
-                                                          response.Content.ImplausibleCDRs.Select(cdr => cdr.ToWWCP()));
+                                                          ChargeDetailRecords.Where(cdr => CDRIdHash.Contains(cdr.SessionId)));
                             break;
 
                         default:
                             result = SendCDRsResult.Error(Id,
                                                           this,
-                                                          response.Content.ImplausibleCDRs.Select(cdr => cdr.ToWWCP()));
+                                                          ChargeDetailRecords.Where(cdr => CDRIdHash.Contains(cdr.SessionId)));
                             break;
 
                     }

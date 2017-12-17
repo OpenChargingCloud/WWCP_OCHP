@@ -126,7 +126,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                        },
                                        Currency.EUR,
 
-                                       TimeSpan.FromHours(1),
                                        new Address(
                                            "18",
                                            "Biberweg",
@@ -134,6 +133,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                            "07749",
                                            Country.Germany
                                        ),
+                                       TimeSpan.FromHours(1),
                                        new Ratings(0.0f, 1.0f, 240),
                                        "MeterId #2305",
                                        23.5f

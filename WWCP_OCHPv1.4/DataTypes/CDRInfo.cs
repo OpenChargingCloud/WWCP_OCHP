@@ -167,8 +167,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        IEnumerable<CDRPeriod>  ChargingPeriods,
                        Currency                Currency,
 
+                       Address                 ChargePointAddress,
+
                        TimeSpan?               Duration            = null,
-                       Address                 ChargePointAddress  = null,
                        Ratings                 Ratings             = null,
                        String                  MeterId             = null,
                        Single?                 TotalCosts          = null)
@@ -415,11 +416,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                Currency.ParseString),
 
 
+                              CDRInfoXML.MapElementOrFail     (OCHPNS.Default + "chargePointAddress",
+                                                               Address.Parse),
+
                               CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "duration",
                                                                TimeSpan.Parse),
-
-                              CDRInfoXML.MapElement           (OCHPNS.Default + "chargePointAddress",
-                                                               Address.Parse),
 
                               CDRInfoXML.MapElement           (OCHPNS.Default + "chargingPeriods",
                                                                Ratings.Parse),

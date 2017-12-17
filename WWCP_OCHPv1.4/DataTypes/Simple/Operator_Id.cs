@@ -60,9 +60,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing an OCHP charging station operator identification.
         /// </summary>
-        public static readonly Regex  OperatorId_RegEx  = new Regex(@"^([A-Z]{2})(\*?)([A-Z0-9]{3})$ | " +
-                                                                    @"^\+?([0-9]{1,5})\*([0-9]{3,6})$ | " +
-                                                                    @"^([0-9]{1,5})$",
+        public static readonly Regex  OperatorId_RegEx  = new Regex(@"^([A-Z]{2})(\*?)([A-Z0-9]{3})$",
                                                                     RegexOptions.IgnorePatternWhitespace);
 
         #endregion
@@ -121,13 +119,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                             OperatorIdFormats  Format = OperatorIdFormats.ISO)
         {
 
-            #region Initial checks
-
-            if (Suffix.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Suffix), "The charging station operator identification suffix must not be null or empty!");
-
-            #endregion
-
             this.CountryCode  = CountryCode;
             this.Suffix       = Suffix;
             this.Format       = Format;
@@ -148,23 +139,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (Text.IsNullOrEmpty())
+            if (Text.IsNullOrEmpty() || Text.Trim().IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Text), "The given text representation of a charging station operator identification must not be null or empty!");
 
             #endregion
 
-            var MatchCollection = OperatorId_RegEx.Matches(Text);
+            var MatchCollection = OperatorId_RegEx.Matches(Text.Trim().ToUpper());
 
-            if (MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal text representation of a charging station operator identification: '" + Text + "'!", nameof(Text));
+            if (MatchCollection.Count == 1 &&
+                Country.TryParseAlpha2Code(MatchCollection[0].Groups[1].Value, out Country _CountryCode))
+            {
 
-            Country _CountryCode;
-
-            // DE...
-            if (Country.TryParseAlpha2Code(MatchCollection[0].Groups[1].Value, out _CountryCode))
                 return new Operator_Id(_CountryCode,
                                        MatchCollection[0].Groups[3].Value,
                                        MatchCollection[0].Groups[2].Value == "*" ? OperatorIdFormats.ISO_STAR : OperatorIdFormats.ISO);
+
+            }
 
             throw new ArgumentException("Illegal text representation of a charging station operator identification: '" + Text + "'!", nameof(Text));
 
@@ -199,13 +189,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             {
 
                 case OperatorIdFormats.ISO:
-                    return Parse(CountryCode.Alpha2Code + Suffix);
+                    return Parse(CountryCode.Alpha2Code +       Suffix);
 
-                case OperatorIdFormats.ISO_STAR:
+                default:
                     return Parse(CountryCode.Alpha2Code + "*" + Suffix);
-
-                default: // DIN:
-                    return Parse("+" + CountryCode.TelefonCode.ToString() + "*" + Suffix);
 
             }
 
@@ -222,9 +209,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public static Operator_Id? TryParse(String Text)
         {
 
-            Operator_Id _OperatorId;
-
-            if (TryParse(Text, out _OperatorId))
+            if (TryParse(Text, out Operator_Id _OperatorId))
                 return _OperatorId;
 
             return new Operator_Id?();
@@ -257,18 +242,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                var MatchCollection = OperatorId_RegEx.Matches(Text);
+                var MatchCollection = OperatorId_RegEx.Matches(Text.Trim().ToUpper());
 
-                if (MatchCollection.Count != 1)
-                {
-                    OperatorId = default(Operator_Id);
-                    return false;
-                }
-
-                Country _CountryCode;
-
-                // DE...
-                if (Country.TryParseAlpha2Code(MatchCollection[0].Groups[1].Value, out _CountryCode))
+                if (MatchCollection.Count == 1 &&
+                    Country.TryParseAlpha2Code(MatchCollection[0].Groups[1].Value, out Country _CountryCode))
                 {
 
                     OperatorId = new Operator_Id(_CountryCode,
@@ -290,6 +267,70 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             OperatorId = default(Operator_Id);
             return false;
+
+        }
+
+        #endregion
+
+        #region TryParse(CountryCode, Suffix, IdFormat = OperatorIdFormats.ISO_STAR)
+
+        /// <summary>
+        /// Try to parse the given text representation of an e-mobility operator identification.
+        /// </summary>
+        /// <param name="CountryCode">A country code.</param>
+        /// <param name="Suffix">The suffix of an e-mobility operator identification.</param>
+        /// <param name="IdFormat">The optional format of the e-mobility operator identification.</param>
+        public static Operator_Id? TryParse(Country            CountryCode,
+                                            String             Suffix,
+                                            OperatorIdFormats  IdFormat = OperatorIdFormats.ISO_STAR)
+        {
+
+            if (TryParse(CountryCode, Suffix, out Operator_Id _OperatorId, IdFormat))
+                return _OperatorId;
+
+            return new Operator_Id?();
+
+        }
+
+        #endregion
+
+        #region TryParse(CountryCode, Suffix, out OperatorId, IdFormat = OperatorIdFormats.ISO_STAR)
+
+        /// <summary>
+        /// Try to parse the given text representation of an e-mobility operator identification.
+        /// </summary>
+        /// <param name="CountryCode">A country code.</param>
+        /// <param name="Suffix">The suffix of an e-mobility operator identification.</param>
+        /// <param name="OperatorId">The parsed e-mobility operator identification.</param>
+        /// <param name="IdFormat">The optional format of the e-mobility operator identification.</param>
+        public static Boolean TryParse(Country            CountryCode,
+                                       String             Suffix,
+                                       out Operator_Id    OperatorId,
+                                       OperatorIdFormats  IdFormat = OperatorIdFormats.ISO_STAR)
+        {
+
+            #region Initial checks
+
+            if (CountryCode == null || Suffix.IsNullOrEmpty() || Suffix.Trim().IsNullOrEmpty())
+            {
+                OperatorId = default(Operator_Id);
+                return false;
+            }
+
+            #endregion
+
+            switch (IdFormat)
+            {
+
+                case OperatorIdFormats.ISO:
+                    return TryParse(CountryCode.Alpha2Code +       Suffix,
+                                    out OperatorId);
+
+                default: // ISO_STAR:
+                    return TryParse(CountryCode.Alpha2Code + "*" + Suffix,
+                                    out OperatorId);
+
+            }
 
         }
 
