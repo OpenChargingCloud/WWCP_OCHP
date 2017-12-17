@@ -306,7 +306,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        : null,
 
                    TaxRate.HasValue
-                       ? new XElement(OCHPNS.Default + "taxRate",         TaxRate.Value)
+                       ? new XElement(OCHPNS.Default + "taxrate",         TaxRate.Value)
                        : null
 
                );
