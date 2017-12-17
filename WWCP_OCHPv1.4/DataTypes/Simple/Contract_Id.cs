@@ -41,10 +41,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The regular expression for parsing an e-mobility contract identification.
         /// </summary>
-        public static readonly Regex ContractId_RegEx  = new Regex(@"^([A-Za-z]{2}-[A-Za-z0-9]{3})-([A-Za-z0-9]{9})-([A-Za-z0-9])$ |" +
-                                                                   @"^([A-Za-z]{2}[A-Za-z0-9]{3})([A-Za-z0-9]{9})([A-Za-z0-9])$ |" +
-                                                                   @"^([A-Za-z]{2}-[A-Za-z0-9]{3})-([A-Za-z0-9]{9})$ |" +
-                                                                   @"^([A-Za-z]{2}[A-Za-z0-9]{3})([A-Za-z0-9]{9})$",
+        public static readonly Regex ContractId_RegEx  = new Regex("^([A-Za-z]{2}-[A-Za-z0-9]{3})-([A-Za-z0-9]{9})-([A-Za-z0-9])$ |" +
+                                                                   "^([A-Za-z]{2}[A-Za-z0-9]{3})([A-Za-z0-9]{9})([A-Za-z0-9])$ |" +
+                                                                   "^([A-Za-z]{2}-[A-Za-z0-9]{3})-([A-Za-z0-9]{9})$ |" +
+                                                                   "^([A-Za-z]{2}[A-Za-z0-9]{3})([A-Za-z0-9]{9})$",
                                                                    RegexOptions.IgnorePatternWhitespace);
 
         #endregion
@@ -117,36 +117,37 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (Text.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Text), "The parameter must not be null or empty!");
+            if (Text.IsNullOrEmpty() || Text.Trim().IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(Text), "The given text representation of a contract identification must not be null or empty!");
 
             #endregion
 
-            var _MatchCollection = ContractId_RegEx.Matches(Text);
+            var _MatchCollection = ContractId_RegEx.Matches(Text.Trim().ToUpper());
 
-            if (_MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal contract identification '" + Text + "'!");
+            if (_MatchCollection.Count == 1)
+            {
 
-            Provider_Id _ProviderId;
+                Provider_Id _ProviderId;
 
-            if (Provider_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _ProviderId))
-                return new Contract_Id(_ProviderId,
-                                       _MatchCollection[0].Groups[2].Value,
-                                       _MatchCollection[0].Groups[3].Value[0]);
+                if (Provider_Id.TryParse(_MatchCollection[0].Groups[1].Value, out _ProviderId))
+                    return new Contract_Id(_ProviderId,
+                                           _MatchCollection[0].Groups[2].Value,
+                                           _MatchCollection[0].Groups[3].Value[0]);
 
-            if (Provider_Id.TryParse(_MatchCollection[0].Groups[4].Value, out _ProviderId))
-                return new Contract_Id(_ProviderId,
-                                       _MatchCollection[0].Groups[5].Value,
-                                       _MatchCollection[0].Groups[6].Value[0]);
+                if (Provider_Id.TryParse(_MatchCollection[0].Groups[4].Value, out _ProviderId))
+                    return new Contract_Id(_ProviderId,
+                                           _MatchCollection[0].Groups[5].Value,
+                                           _MatchCollection[0].Groups[6].Value[0]);
 
-            if (Provider_Id.TryParse(_MatchCollection[0].Groups[7].Value, out _ProviderId))
-                return new Contract_Id(_ProviderId,
-                                       _MatchCollection[0].Groups[8].Value);
+                if (Provider_Id.TryParse(_MatchCollection[0].Groups[7].Value, out _ProviderId))
+                    return new Contract_Id(_ProviderId,
+                                           _MatchCollection[0].Groups[8].Value);
 
-            if (Provider_Id.TryParse(_MatchCollection[0].Groups[9].Value, out _ProviderId))
-                return new Contract_Id(_ProviderId,
-                                       _MatchCollection[0].Groups[10].Value);
+                if (Provider_Id.TryParse(_MatchCollection[0].Groups[9].Value, out _ProviderId))
+                    return new Contract_Id(_ProviderId,
+                                           _MatchCollection[0].Groups[10].Value);
 
+            }
 
             throw new ArgumentException("Illegal contract identification '" + Text + "'!");
 
@@ -174,16 +175,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             switch (ProviderId.Format)
             {
-
-                case ProviderIdFormats.DIN:
-                    return Parse(ProviderId +       Suffix);
-
-                case ProviderIdFormats.DIN_STAR:
-                    return Parse(ProviderId + "*" + Suffix);
-
-                case ProviderIdFormats.DIN_HYPHEN:
-                    return Parse(ProviderId + "-" + Suffix);
-
 
                 case ProviderIdFormats.ISO:
                     return Parse(ProviderId +       Suffix);
@@ -549,28 +540,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             switch (ProviderId.Format)
             {
-
-                case ProviderIdFormats.DIN:
-                    return String.Concat(ProviderId,
-                                         Suffix,
-                                         CheckDigit.HasValue
-                                             ? "" + CheckDigit
-                                             : "");
-
-                case ProviderIdFormats.DIN_STAR:
-                    return String.Concat(ProviderId, "*",
-                                         Suffix,
-                                         CheckDigit.HasValue
-                                             ? "*" + CheckDigit
-                                             : "");
-
-                case ProviderIdFormats.DIN_HYPHEN:
-                    return String.Concat(ProviderId, "-",
-                                         Suffix,
-                                         CheckDigit.HasValue
-                                             ? "-" + CheckDigit
-                                             : "");
-
 
                 case ProviderIdFormats.ISO:
                     return String.Concat(ProviderId,

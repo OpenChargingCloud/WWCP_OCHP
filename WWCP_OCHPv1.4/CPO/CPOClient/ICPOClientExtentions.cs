@@ -296,6 +296,40 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
+        #region AddCDR   (CDRInfo, ...)
+
+        /// <summary>
+        /// Upload the given charge detail record.
+        /// </summary>
+        /// <param name="CDRInfo">A charge detail record.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        public static Task<HTTPResponse<AddCDRsResponse>>
+
+            AddCDR(this ICPOClient     ICPOClient,
+                   CDRInfo             CDRInfo,
+
+                   DateTime?           Timestamp           = null,
+                   CancellationToken?  CancellationToken   = null,
+                   EventTracking_Id    EventTrackingId     = null,
+                   TimeSpan?           RequestTimeout      = null)
+
+
+                => ICPOClient?.AddCDRs(
+                       new AddCDRsRequest(new CDRInfo[] { CDRInfo },
+
+                                          Timestamp,
+                                          CancellationToken,
+                                          EventTrackingId,
+                                          RequestTimeout ?? ICPOClient.RequestTimeout
+                       )
+                   );
+
+        #endregion
+
         #region AddCDRs  (CDRInfos, ...)
 
         /// <summary>

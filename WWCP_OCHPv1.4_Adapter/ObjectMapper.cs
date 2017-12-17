@@ -221,8 +221,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                    0) },
                    Currency.EUR,
 
-                   ChargeDetailRecord.Duration,
                    ChargeDetailRecord.EVSE?.ChargingStation?.ChargingPool?.Address?.ToOCHP(),
+                   ChargeDetailRecord.Duration,
                    null, // Ratings
                    ChargeDetailRecord.EnergyMeterId?.ToString()
                    // TotalCosts
@@ -271,6 +271,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         public static eMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)
             => eMobilityProvider_Id.Parse(ProviderId.ToString());
+
+
+        public static ChargingSession_Id ToWWCP(this CDR_Id CDRId)
+            => ChargingSession_Id.Parse(CDRId.ToString());
 
 
         #region AuthenticationModes

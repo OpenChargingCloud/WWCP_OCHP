@@ -34,28 +34,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     {
 
         /// <summary>
-        /// The old DIN format.
-        /// </summary>
-        DIN,
-
-        /// <summary>
-        /// The old DIN format with a '*' as separator.
-        /// </summary>
-        DIN_STAR,
-
-        /// <summary>
-        /// The old DIN format with a '-' as separator.
-        /// </summary>
-        DIN_HYPHEN,
-
-
-        /// <summary>
-        /// The new ISO format.
+        /// The ISO format.
         /// </summary>
         ISO,
 
         /// <summary>
-        /// The new ISO format with a '*' as separator.
+        /// The ISO format with a '-' as separator.
         /// </summary>
         ISO_HYPHEN
 
@@ -108,9 +92,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 switch (Format)
                 {
-
-                    case ProviderIdFormats.DIN_STAR:
-                        return (UInt64) (CountryCode.Alpha2Code.Length + 1 + Suffix.Length);
 
                     case ProviderIdFormats.ISO:
                         return (UInt64) (CountryCode.Alpha2Code.Length     + Suffix.Length);
@@ -165,19 +146,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (Text.IsNullOrEmpty())
+            if (Text.IsNullOrEmpty() || Text.Trim().IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Text), "The given text representation of an e-mobility provider identification must not be null or empty!");
 
             #endregion
 
             var MatchCollection = ProviderId_RegEx.Matches(Text);
 
-            if (MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal text representation of an e-mobility provider identification: '" + Text + "'!", nameof(Text));
-
-            Country _CountryCode;
-
-            if (Country.TryParseAlpha2Code(MatchCollection[0].Groups[1].Value, out _CountryCode))
+            if (MatchCollection.Count == 1 &&
+                Country.TryParseAlpha2Code(MatchCollection[0].Groups[1].Value, out Country _CountryCode))
             {
 
                 var Separator = ProviderIdFormats.ISO;
@@ -187,10 +164,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                     case "-" :
                         Separator = ProviderIdFormats.ISO_HYPHEN;
-                        break;
-
-                    case "*" :
-                        Separator = ProviderIdFormats.DIN_STAR;
                         break;
 
                     default:
@@ -204,7 +177,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                        Separator);
             }
 
-            throw new ArgumentException("Unknown country code in the given text representation of an e-mobility provider identification: '" + Text + "'!", nameof(Text));
+            throw new ArgumentException("Illegal text representation of an e-mobility provider identification: '" + Text + "'!", nameof(Text));
 
         }
 
@@ -228,23 +201,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (CountryCode == null)
                 throw new ArgumentNullException(nameof(CountryCode),  "The given country must not be null!");
 
-            if (Suffix.IsNullOrEmpty())
+            if (Suffix.IsNullOrEmpty() || Suffix.Trim().IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Suffix),       "The given e-mobility provider identification suffix must not be null or empty!");
 
             #endregion
 
             switch (IdFormat)
             {
-
-                case ProviderIdFormats.DIN:
-                    return Parse(CountryCode.Alpha2Code +       Suffix);
-
-                case ProviderIdFormats.DIN_STAR:
-                    return Parse(CountryCode.Alpha2Code + "*" + Suffix);
-
-                case ProviderIdFormats.DIN_HYPHEN:
-                    return Parse(CountryCode.Alpha2Code + "-" + Suffix);
-
 
                 case ProviderIdFormats.ISO:
                     return Parse(CountryCode.Alpha2Code +       Suffix);
@@ -267,9 +230,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public static Provider_Id? TryParse(String Text)
         {
 
-            Provider_Id _ProviderId;
-
-            if (TryParse(Text, out _ProviderId))
+            if (TryParse(Text, out Provider_Id _ProviderId))
                 return _ProviderId;
 
             return new Provider_Id?();
@@ -291,7 +252,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (Text.IsNullOrEmpty())
+            if (Text.IsNullOrEmpty() || Text.Trim().IsNullOrEmpty())
             {
                 ProviderId = default(Provider_Id);
                 return false;
@@ -302,17 +263,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                var MatchCollection = ProviderId_RegEx.Matches(Text);
+                var MatchCollection = ProviderId_RegEx.Matches(Text.Trim().ToUpper());
 
-                if (MatchCollection.Count != 1)
-                {
-                    ProviderId = default(Provider_Id);
-                    return false;
-                }
-
-                Country _CountryCode;
-
-                if (Country.TryParseAlpha2Code(MatchCollection[0].Groups[1].Value, out _CountryCode))
+                if (MatchCollection.Count == 1 &&
+                    Country.TryParseAlpha2Code(MatchCollection[0].Groups[1].Value, out Country _CountryCode))
                 {
 
                     var Separator = ProviderIdFormats.ISO;
@@ -322,10 +276,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                         case "-":
                             Separator = ProviderIdFormats.ISO_HYPHEN;
-                            break;
-
-                        case "*":
-                            Separator = ProviderIdFormats.DIN_STAR;
                             break;
 
                         default:
@@ -358,6 +308,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region TryParse(CountryCode, Suffix, IdFormat = ProviderIdFormats.ISO_HYPHEN)
+
+        /// <summary>
+        /// Try to parse the given text representation of an e-mobility provider identification.
+        /// </summary>
+        /// <param name="CountryCode">A country code.</param>
+        /// <param name="Suffix">The suffix of an e-mobility provider identification.</param>
+        /// <param name="IdFormat">The optional format of the e-mobility provider identification.</param>
+        public static Provider_Id? TryParse(Country            CountryCode,
+                                            String             Suffix,
+                                            ProviderIdFormats  IdFormat = ProviderIdFormats.ISO_HYPHEN)
+        {
+
+            if (TryParse(CountryCode, Suffix, out Provider_Id _ProviderId, IdFormat))
+                return _ProviderId;
+
+            return new Provider_Id?();
+
+        }
+
+        #endregion
+
         #region TryParse(CountryCode, Suffix, out ProviderId, IdFormat = ProviderIdFormats.ISO_HYPHEN)
 
         /// <summary>
@@ -375,7 +347,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (CountryCode == null || Suffix.IsNullOrEmpty())
+            if (CountryCode == null || Suffix.IsNullOrEmpty() || Suffix.Trim().IsNullOrEmpty())
             {
                 ProviderId = default(Provider_Id);
                 return false;
@@ -385,10 +357,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             switch (IdFormat)
             {
-
-                case ProviderIdFormats.DIN_STAR:
-                    return TryParse(CountryCode.Alpha2Code + "*" + Suffix,
-                                    out ProviderId);
 
                 case ProviderIdFormats.ISO:
                     return TryParse(CountryCode.Alpha2Code +       Suffix,
@@ -664,9 +632,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             switch (Format)
             {
 
-                case ProviderIdFormats.DIN_STAR:
-                    return "+" + CountryCode.TelefonCode.ToString() + "*" + Suffix;
-
                 case ProviderIdFormats.ISO:
                     return CountryCode.Alpha2Code +       Suffix;
 
@@ -690,11 +655,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             switch (Format)
             {
-
-                case ProviderIdFormats.DIN_STAR:
-                    return String.Concat(CountryCode.Alpha2Code,
-                                         "*",
-                                         Suffix);
 
                 case ProviderIdFormats.ISO:
                     return String.Concat(CountryCode.Alpha2Code,
