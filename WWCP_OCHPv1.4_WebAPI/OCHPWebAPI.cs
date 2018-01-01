@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2017 GraphDefined GmbH
+ * Copyright (c) 2014-2018 GraphDefined GmbH
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -166,12 +166,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <summary>
         /// The HTTP content type for serving OCHP+ XML data.
         /// </summary>
-        public static readonly HTTPContentType          OCHPPlusXMLContentType   = new HTTPContentType("application/vnd.OCHPPlus+xml", CharSetType.UTF8);
+        public static readonly HTTPContentType          OCHPPlusXMLContentType   = new HTTPContentType("application/vnd.OCHPPlus+xml",  CharSet: "utf-8");
 
         /// <summary>
         /// The HTTP content type for serving OCHP+ HTML data.
         /// </summary>
-        public static readonly HTTPContentType          OCHPPlusHTMLContentType  = new HTTPContentType("application/vnd.OCHPPlus+html", CharSetType.UTF8);
+        public static readonly HTTPContentType          OCHPPlusHTMLContentType  = new HTTPContentType("application/vnd.OCHPPlus+html", CharSet: "utf-8");
 
 
         private readonly XMLNamespacesDelegate          XMLNamespaces;
