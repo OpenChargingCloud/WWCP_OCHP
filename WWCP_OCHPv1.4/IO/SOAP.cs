@@ -22,7 +22,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Security.Cryptography;
 
-using SOAPNS = org.GraphDefined.Vanaheimr.Hermod.SOAP;
+using SOAPNS = org.GraphDefined.Vanaheimr.Hermod.SOAP.v1_1;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -42,8 +42,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <param name="SOAPBody">The internal XML for the SOAP body.</param>
         /// <param name="XMLNamespaces">An optional delegate to process the XML namespaces.</param>
-        public static XElement Encapsulation(XElement                      SOAPBody,
-                                             SOAPNS.XMLNamespacesDelegate  XMLNamespaces = null)
+        public static XElement Encapsulation(XElement                                     SOAPBody,
+                                             Vanaheimr.Hermod.SOAP.XMLNamespacesDelegate  XMLNamespaces = null)
         {
 
             #region Initial checks
@@ -57,12 +57,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             #endregion
 
             return XMLNamespaces(
-                new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Envelope",
-                    new XAttribute(XNamespace.Xmlns + "SOAP",  SOAPNS.NS.SOAPEnvelope_v1_1.NamespaceName),
-                    new XAttribute(XNamespace.Xmlns + "OCHP",  OCHPNS.Default.             NamespaceName),
+                new XElement(SOAPNS.NS.SOAPEnvelope + "Envelope",
+                    new XAttribute(XNamespace.Xmlns + "SOAP",  SOAPNS.NS.SOAPEnvelope.NamespaceName),
+                    new XAttribute(XNamespace.Xmlns + "OCHP",  OCHPNS.Default.        NamespaceName),
 
-                    new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Header"),
-                    new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Body",  SOAPBody)
+                    new XElement(SOAPNS.NS.SOAPEnvelope + "Header"),
+                    new XElement(SOAPNS.NS.SOAPEnvelope + "Body",  SOAPBody)
                 )
             );
 
@@ -77,10 +77,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="WSSPassword">The webservice-security password.</param>
         /// <param name="SOAPBody">The internal XML for the SOAP body.</param>
         /// <param name="XMLNamespaces">An optional delegate to process the XML namespaces.</param>
-        public static XElement Encapsulation(String                        WSSUsername,
-                                             String                        WSSPassword,
-                                             XElement                      SOAPBody,
-                                             SOAPNS.XMLNamespacesDelegate  XMLNamespaces = null)
+        public static XElement Encapsulation(String                                       WSSUsername,
+                                             String                                       WSSPassword,
+                                             XElement                                     SOAPBody,
+                                             Vanaheimr.Hermod.SOAP.XMLNamespacesDelegate  XMLNamespaces = null)
         {
 
             #region Initial checks
@@ -112,15 +112,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
 
             return XMLNamespaces(
-                new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Envelope",
+                new XElement(SOAPNS.NS.SOAPEnvelope + "Envelope",
 
-                    new XAttribute(XNamespace.Xmlns + "SOAP",  SOAPNS.NS.SOAPEnvelope_v1_1.NamespaceName),
+                    new XAttribute(XNamespace.Xmlns + "SOAP",  SOAPNS.NS.SOAPEnvelope.NamespaceName),
                     new XAttribute(XNamespace.Xmlns + "OCHP",  OCHPNS.Default.             NamespaceName),
 
-                    new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Header",
+                    new XElement(SOAPNS.NS.SOAPEnvelope + "Header",
 
                         new XElement(WSSE + "Security",
-                            new XAttribute(SOAPNS.NS.SOAPEnvelope_v1_1 + "mustUnderstand", 1),
+                            new XAttribute(SOAPNS.NS.SOAPEnvelope + "mustUnderstand", 1),
                             new XAttribute(XNamespace.Xmlns + "WSSE", WSSE.NamespaceName),
                             new XAttribute(XNamespace.Xmlns + "WSU",  WSU. NamespaceName),
 
@@ -146,7 +146,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                         )
                     ),
 
-                    new XElement(SOAPNS.NS.SOAPEnvelope_v1_1 + "Body", SOAPBody)
+                    new XElement(SOAPNS.NS.SOAPEnvelope + "Body", SOAPBody)
 
                 )
             );

@@ -31,6 +31,7 @@ using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 using System.Xml.Linq;
+using org.GraphDefined.Vanaheimr.Hermod.SOAP.v1_1;
 
 #endregion
 
