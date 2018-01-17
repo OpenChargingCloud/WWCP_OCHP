@@ -376,7 +376,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                             Server           = HTTPServer.DefaultServerName,
                             Date             = DateTime.Now,
                             Connection       = "close"
-                        }.AsImmutable());
+                        }.AsImmutable);
 
                 }
 
@@ -432,7 +432,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                                                                     ToXML(_RoamingNetwork, XMLNamespaces, ChargePointInfo2XML, XMLPostProcessing).
                                                                     ToUTF8Bytes(),
                         X_ExpectedTotalNumberOfItems  = _ExpectedCount
-                    }.AsImmutable());
+                    }.AsImmutable);
 
             };
 
@@ -478,7 +478,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                             Server           = HTTPServer.DefaultServerName,
                             Date             = DateTime.Now,
                             Connection       = "close"
-                        }.AsImmutable());
+                        }.AsImmutable);
 
                 }
 
@@ -545,7 +545,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                                                                     XMLPostProcessing).
                                                             ToUTF8Bytes(),
                         X_ExpectedTotalNumberOfItems  = _ExpectedCount
-                    }.AsImmutable());
+                    }.AsImmutable);
 
             };
 
@@ -615,7 +615,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                             Server           = HTTPServer.DefaultServerName,
                             Date             = DateTime.Now,
                             Connection       = "close"
-                        }.AsImmutable());
+                        }.AsImmutable);
 
                 }
 
@@ -717,7 +717,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                                                                       @"</html>", Environment.NewLine).
                                                                ToUTF8Bytes(),
                         X_ExpectedTotalNumberOfItems  = _ExpectedCount
-                   }.AsImmutable());
+                   }.AsImmutable);
 
             };
 
