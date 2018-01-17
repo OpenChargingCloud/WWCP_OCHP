@@ -143,7 +143,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                 UInt64                           NumberOfChargePointInfos,
                                                                 IEnumerable<EVSEStatus>          ChargePointInfos,
                                                                 TimeSpan?                        RequestTimeout,
-                                                                PushStatusResult                 Result,
+                                                                PushEVSEStatusResult             Result,
                                                                 TimeSpan                         Runtime);
 
 }
