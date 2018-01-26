@@ -970,7 +970,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public CPOClient(String                               ClientId,
                          String                               Hostname,
-                         IPPort                               RemotePort                   = null,
+                         IPPort?                              RemotePort                   = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          String                               HTTPVirtualHost              = null,
@@ -1043,7 +1043,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public CPOClient(String                               ClientId,
                          CPOClientLogger                      Logger,
                          String                               Hostname,
-                         IPPort                               RemotePort                   = null,
+                         IPPort?                              RemotePort                   = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          String                               HTTPVirtualHost              = null,
@@ -1167,9 +1167,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -1420,9 +1420,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -1673,9 +1673,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultLiveURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -1930,9 +1930,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -2165,9 +2165,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -2403,9 +2403,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -2641,9 +2641,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -2895,9 +2895,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -3134,9 +3134,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -3390,9 +3390,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -3614,9 +3614,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        RemotePort,
                                                         HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        HTTPPort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
                                                         UserAgent,
@@ -3929,9 +3929,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    RemotePort,
                                                     HTTPVirtualHost,
                                                     DefaultURIPrefix,
+                                                    HTTPPort,
                                                     RemoteCertificateValidator,
                                                     ClientCertificateSelector,
                                                     UserAgent,

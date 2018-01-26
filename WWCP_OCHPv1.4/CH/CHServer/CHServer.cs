@@ -53,7 +53,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// The default HTTP/SOAP/XML server TCP port.
         /// </summary>
-        public new static readonly IPPort           DefaultHTTPServerPort  = new IPPort(2600);
+        public new static readonly IPPort           DefaultHTTPServerPort  = IPPort.Parse(2600);
 
         /// <summary>
         /// The default HTTP/SOAP/XML server URI prefix.
@@ -460,7 +460,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
         public CHServer(String          HTTPServerName           = DefaultHTTPServerName,
-                        IPPort          TCPPort                  = null,
+                        IPPort?         TCPPort                  = null,
                         String          URIPrefix                = DefaultURIPrefix,
                         HTTPContentType ContentType              = null,
                         Boolean         RegisterHTTPRootService  = true,

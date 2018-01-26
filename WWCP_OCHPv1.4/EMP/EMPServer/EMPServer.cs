@@ -52,7 +52,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// The default HTTP/SOAP/XML server TCP port.
         /// </summary>
-        public new static readonly IPPort           DefaultHTTPServerPort  = new IPPort(2602);
+        public new static readonly IPPort           DefaultHTTPServerPort  = IPPort.Parse(2602);
 
         /// <summary>
         /// The default HTTP/SOAP/XML server URI prefix.
@@ -131,7 +131,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="AutoStart">Start the server immediately.</param>
         public EMPServer(String          HTTPServerName            = DefaultHTTPServerName,
                          String          ServiceId                 = null,
-                         IPPort          TCPPort                   = null,
+                         IPPort?         TCPPort                   = null,
                          String          URIPrefix                 = DefaultURIPrefix,
                          String          URISuffix                 = DefaultURISuffix,
                          HTTPContentType ContentType               = null,

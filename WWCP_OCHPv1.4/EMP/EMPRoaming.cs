@@ -46,8 +46,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         public EMPClient        EMPClient           { get; }
 
-        public IPPort RemotePort
-            => EMPClient?.RemotePort;
+        public IPPort HTTPPort
+            => EMPClient.HTTPPort;
 
         public RemoteCertificateValidationCallback RemoteCertificateValidator
             => EMPClient?.RemoteCertificateValidator;
@@ -1438,7 +1438,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public EMPRoaming(String                               ClientId,
                           String                               RemoteHostname,
-                          IPPort                               RemoteTCPPort                   = null,
+                          IPPort?                              RemoteTCPPort                   = null,
                           RemoteCertificateValidationCallback  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionCallback    ClientCertificateSelector       = null,
                           String                               RemoteHTTPVirtualHost           = null,
@@ -1451,7 +1451,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                           String                               ServerName                      = EMPServer.DefaultHTTPServerName,
                           String                               ServiceId                       = null,
-                          IPPort                               ServerTCPPort                   = null,
+                          IPPort?                              ServerTCPPort                   = null,
                           String                               ServerURIPrefix                 = EMPServer.DefaultURIPrefix,
                           String                               ServerURISuffix                 = EMPServer.DefaultURISuffix,
                           HTTPContentType                      ServerContentType               = null,

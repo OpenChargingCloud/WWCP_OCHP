@@ -1071,7 +1071,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               RoamingNetwork                               RoamingNetwork,
 
                               String                                       RemoteHostname,
-                              IPPort                                       RemoteTCPPort                       = null,
+                              IPPort?                                      RemoteTCPPort                       = null,
                               RemoteCertificateValidationCallback          RemoteCertificateValidator          = null,
                               LocalCertificateSelectionCallback            ClientCertificateSelector           = null,
                               String                                       RemoteHTTPVirtualHost               = null,
@@ -1084,7 +1084,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                               String                                       ServerName                          = CPOServer.DefaultHTTPServerName,
                               String                                       ServiceId                           = null,
-                              IPPort                                       ServerTCPPort                       = null,
+                              IPPort?                                      ServerTCPPort                       = null,
                               String                                       ServerURIPrefix                     = CPOServer.DefaultURIPrefix,
                               String                                       ServerURISuffix                     = CPOServer.DefaultURISuffix,
                               HTTPContentType                              ServerContentType                   = null,

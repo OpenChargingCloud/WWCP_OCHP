@@ -52,7 +52,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default HTTP/SOAP/XML server TCP port.
         /// </summary>
-        public new static readonly IPPort           DefaultHTTPServerPort  = new IPPort(2601);
+        public new static readonly IPPort           DefaultHTTPServerPort  = IPPort.Parse(2601);
 
         /// <summary>
         /// The default HTTP/SOAP/XML server URI prefix.
@@ -207,7 +207,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="AutoStart">Start the server immediately.</param>
         public CPOServer(String          HTTPServerName           = DefaultHTTPServerName,
                          String          ServiceId                = null,
-                         IPPort          TCPPort                  = null,
+                         IPPort?         TCPPort                  = null,
                          String          URIPrefix                = DefaultURIPrefix,
                          String          URISuffix                = DefaultURISuffix,
                          HTTPContentType ContentType              = null,

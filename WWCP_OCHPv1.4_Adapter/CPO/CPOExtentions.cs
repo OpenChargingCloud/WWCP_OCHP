@@ -97,7 +97,7 @@ namespace org.GraphDefined.WWCP
                                               I18NString                                              Name,
 
                                               String                                                  RemoteHostname,
-                                              IPPort                                                  RemoteTCPPort                       = null,
+                                              IPPort?                                                 RemoteTCPPort                       = null,
                                               String                                                  RemoteHTTPVirtualHost               = null,
                                               RemoteCertificateValidationCallback                     RemoteCertificateValidator          = null,
                                               LocalCertificateSelectionCallback                       ClientCertificateSelector           = null,
@@ -110,7 +110,7 @@ namespace org.GraphDefined.WWCP
 
                                               String                                                  ServerName                          = OCHPv1_4.CPO.CPOServer.DefaultHTTPServerName,
                                               String                                                  ServiceId                           = null,
-                                              IPPort                                                  ServerTCPPort                       = null,
+                                              IPPort?                                                 ServerTCPPort                       = null,
                                               String                                                  ServerURIPrefix                     = OCHPv1_4.CPO.CPOServer.DefaultURIPrefix,
                                               String                                                  ServerURISuffix                     = OCHPv1_4.CPO.CPOServer.DefaultURISuffix,
                                               HTTPContentType                                         ServerContentType                   = null,
@@ -276,7 +276,7 @@ namespace org.GraphDefined.WWCP
                                               SOAPServer                                              SOAPServer,
 
                                               String                                                  RemoteHostname,
-                                              IPPort                                                  RemoteTCPPort                       = null,
+                                              IPPort?                                                 RemoteTCPPort                       = null,
                                               RemoteCertificateValidationCallback                     RemoteCertificateValidator          = null,
                                               LocalCertificateSelectionCallback                       ClientCertificateSelector           = null,
                                               String                                                  RemoteHTTPVirtualHost               = null,
