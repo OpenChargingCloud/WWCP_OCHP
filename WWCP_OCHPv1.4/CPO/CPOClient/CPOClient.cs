@@ -50,22 +50,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default HTTP user agent string.
         /// </summary>
-        public new const           String  DefaultHTTPUserAgent  = "GraphDefined OCHP " + Version.Number + " CPO Client";
+        public new const           String   DefaultHTTPUserAgent  = "GraphDefined OCHP " + Version.Number + " CPO Client";
 
         /// <summary>
         /// The default remote TCP port to connect to.
         /// </summary>
-        public new static readonly IPPort  DefaultRemotePort     = IPPort.Parse(443);
+        public new static readonly IPPort   DefaultRemotePort     = IPPort.Parse(443);
 
         /// <summary>
         /// The default URI prefix.
         /// </summary>
-        public const               String  DefaultURIPrefix      = "/service/ochp/v1.4/";
+        public static readonly     HTTPURI  DefaultURIPrefix      = HTTPURI.Parse("/service/ochp/v1.4/");
 
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public const               String  DefaultLiveURIPrefix  = "/live/ochp/v1.4";
+        public static readonly     HTTPURI  DefaultLiveURIPrefix  = HTTPURI.Parse("/live/ochp/v1.4");
 
         #endregion
 
@@ -74,7 +74,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public String           LiveURIPrefix    { get; }
+        public HTTPURI          LiveURIPrefix    { get; }
 
         /// <summary>
         /// The attached OCHP CPO client (HTTP/SOAP client) logger.
@@ -974,8 +974,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          String                               HTTPVirtualHost              = null,
-                         String                               URIPrefix                    = DefaultURIPrefix,
-                         String                               LiveURIPrefix                = DefaultLiveURIPrefix,
+                         HTTPURI?                             URIPrefix                    = null,
+                         HTTPURI?                             LiveURIPrefix                = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
@@ -990,7 +990,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
                    HTTPVirtualHost,
-                   URIPrefix.IsNotNullOrEmpty() ? URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix.Trim() : DefaultURIPrefix : DefaultURIPrefix,
+                   URIPrefix ?? DefaultURIPrefix,
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
@@ -1009,11 +1009,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            this.LiveURIPrefix  = LiveURIPrefix.IsNotNullOrEmpty()
-                                      ? LiveURIPrefix.Trim().IsNotNullOrEmpty()
-                                            ? LiveURIPrefix.Trim()
-                                            : DefaultLiveURIPrefix
-                                      : DefaultLiveURIPrefix;
+            this.LiveURIPrefix  = LiveURIPrefix ?? DefaultLiveURIPrefix;
 
             this.Logger         = new CPOClientLogger(this,
                                                       LoggingContext,
@@ -1047,7 +1043,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          String                               HTTPVirtualHost              = null,
-                         String                               URIPrefix                    = DefaultURIPrefix,
+                         HTTPURI?                             URIPrefix                    = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
@@ -1060,7 +1056,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
                    HTTPVirtualHost,
-                   URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
+                   URIPrefix ?? DefaultURIPrefix,
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,

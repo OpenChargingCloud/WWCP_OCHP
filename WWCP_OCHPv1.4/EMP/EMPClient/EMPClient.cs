@@ -50,22 +50,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// The default HTTP user agent string.
         /// </summary>
-        public new const           String  DefaultHTTPUserAgent  = "GraphDefined OCHP " + Version.Number + " EMP Client";
+        public new const           String   DefaultHTTPUserAgent  = "GraphDefined OCHP " + Version.Number + " EMP Client";
 
         /// <summary>
         /// The default remote TCP port to connect to.
         /// </summary>
-        public new static readonly IPPort  DefaultRemotePort     = IPPort.Parse(443);
+        public new static readonly IPPort   DefaultRemotePort     = IPPort.Parse(443);
 
         /// <summary>
         /// The default URI prefix.
         /// </summary>
-        public const               String  DefaultURIPrefix      = "/service/ochp/v1.4/";
+        public     static readonly HTTPURI  DefaultURIPrefix      = HTTPURI.Parse("/service/ochp/v1.4/");
 
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public const               String  DefaultLiveURIPrefix  = "/live/ochp/v1.4";
+        public     static readonly HTTPURI  DefaultLiveURIPrefix  = HTTPURI.Parse("/live/ochp/v1.4");
 
         #endregion
 
@@ -76,7 +76,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public String           LiveURIPrefix    { get; }
+        public HTTPURI          LiveURIPrefix    { get; }
 
 
         /// <summary>
@@ -1023,8 +1023,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          String                               RemoteHTTPVirtualHost        = null,
-                         String                               URIPrefix                    = DefaultURIPrefix,
-                         String                               LiveURIPrefix                = DefaultLiveURIPrefix,
+                         HTTPURI?                             URIPrefix                    = null,
+                         HTTPURI?                             LiveURIPrefix                = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
@@ -1039,7 +1039,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
                    RemoteHTTPVirtualHost,
-                   URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
+                   URIPrefix ?? DefaultURIPrefix,
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
@@ -1058,11 +1058,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
-            this.LiveURIPrefix   = LiveURIPrefix.IsNotNullOrEmpty()
-                                       ? LiveURIPrefix.Trim().IsNotNullOrEmpty()
-                                             ? LiveURIPrefix.Trim()
-                                             : DefaultLiveURIPrefix
-                                       : DefaultLiveURIPrefix;
+            this.LiveURIPrefix   = LiveURIPrefix ?? DefaultLiveURIPrefix;
 
             this.Logger          = new EMPClientLogger(this,
                                                        LoggingContext,
@@ -1098,7 +1094,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          String                               HTTPVirtualHost              = null,
-                         String                               URIPrefix                    = DefaultURIPrefix,
+                         HTTPURI?                             URIPrefix                    = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
@@ -1111,7 +1107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
                    HTTPVirtualHost,
-                   URIPrefix.Trim().IsNotNullOrEmpty() ? URIPrefix : DefaultURIPrefix,
+                   URIPrefix ?? DefaultURIPrefix,
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,

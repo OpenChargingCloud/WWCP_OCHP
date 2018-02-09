@@ -57,12 +57,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default HTTP/SOAP/XML server URI prefix.
         /// </summary>
-        public new const           String           DefaultURIPrefix       = "";
+        public new static readonly HTTPURI          DefaultURIPrefix       = HTTPURI.Parse("/");
 
         /// <summary>
         /// The default HTTP/SOAP/XML server URI suffix.
         /// </summary>
-        public     const           String           DefaultURISuffix       = "/OCHP";
+        public     static readonly HTTPURI          DefaultURISuffix       = HTTPURI.Parse("/OCHP");
 
         /// <summary>
         /// The default HTTP/SOAP/XML content type.
@@ -81,12 +81,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The identification of this HTTP/SOAP service.
         /// </summary>
-        public String  ServiceId           { get; }
+        public String   ServiceId           { get; }
 
         /// <summary>
         /// The HTTP/SOAP/XML server URI suffix.
         /// </summary>
-        public String  URISuffix           { get; }
+        public HTTPURI  URISuffix           { get; }
 
         #endregion
 
@@ -208,8 +208,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public CPOServer(String          HTTPServerName           = DefaultHTTPServerName,
                          String          ServiceId                = null,
                          IPPort?         TCPPort                  = null,
-                         String          URIPrefix                = DefaultURIPrefix,
-                         String          URISuffix                = DefaultURISuffix,
+                         HTTPURI?        URIPrefix                = null,
+                         HTTPURI?        URISuffix                = null,
                          HTTPContentType ContentType              = null,
                          Boolean         RegisterHTTPRootService  = true,
                          DNSClient       DNSClient                = null,
@@ -225,22 +225,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         {
 
-            #region Initial checks
-
-            URISuffix = URISuffix != null && URISuffix.Trim().IsNotNullOrEmpty()
-                            ? URISuffix.Trim()
-                            : DefaultURISuffix;
-
-            if (URISuffix.Length > 0 && !URISuffix.StartsWith("/", StringComparison.Ordinal))
-                URISuffix = "/" + URISuffix;
-
-            while (URISuffix.EndsWith("/", StringComparison.Ordinal))
-                URISuffix = URISuffix.Substring(0, URISuffix.Length - 1);
-
-            #endregion
-
             this.ServiceId  = ServiceId ?? nameof(CPOServer);
-            this.URISuffix  = URISuffix;
+            this.URISuffix  = URISuffix ?? DefaultURISuffix;
 
             RegisterURITemplates();
 
@@ -262,32 +248,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="URISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         public CPOServer(SOAPServer  SOAPServer,
                          String      ServiceId   = null,
-                         String      URIPrefix   = DefaultURIPrefix,
-                         String      URISuffix   = DefaultURISuffix)
+                         HTTPURI?    URIPrefix   = null,
+                         HTTPURI?    URISuffix   = null)
 
             : base(SOAPServer,
-                   URIPrefix != null && URIPrefix.Trim().IsNotNullOrEmpty()
-                                 ? URIPrefix.Trim()
-                                 : DefaultURIPrefix)
+                   URIPrefix ?? DefaultURIPrefix)
 
         {
 
-            #region Initial checks
-
-            URISuffix = URISuffix != null && URISuffix.Trim().IsNotNullOrEmpty()
-                            ? URISuffix.Trim()
-                            : DefaultURISuffix;
-
-            if (URISuffix.Length > 0 && !URISuffix.StartsWith("/", StringComparison.Ordinal))
-                URISuffix = "/" + URISuffix;
-
-            while (URISuffix.EndsWith("/", StringComparison.Ordinal))
-                URISuffix = URISuffix.Substring(0, URISuffix.Length - 1);
-
-            #endregion
-
             this.ServiceId  = ServiceId ?? nameof(EMPServer);
-            this.URISuffix  = URISuffix;
+            this.URISuffix  = URISuffix ?? DefaultURISuffix;
 
             RegisterURITemplates();
 
