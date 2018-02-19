@@ -214,11 +214,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    CDRStatus.New,
                    ChargeDetailRecord.SessionTime.Value.StartTime,
                    ChargeDetailRecord.SessionTime.Value.EndTime.Value,
-                   new CDRPeriod[] { new CDRPeriod(ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
-                                                   ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
-                                                   BillingItems.Energy,
-                                                   ChargeDetailRecord.ConsumedEnergy,
-                                                   0) },
+                   new CDRPeriod[] {
+                       new CDRPeriod(ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
+                                     ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
+                                     BillingItems.Energy,
+                                     ChargeDetailRecord.ConsumedEnergy,
+                                     0)
+                   },
                    Currency.EUR,
 
                    ChargeDetailRecord.EVSE?.ChargingStation?.ChargingPool?.Address?.ToOCHP(),
