@@ -166,12 +166,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <summary>
         /// The HTTP content type for serving OCHP+ XML data.
         /// </summary>
-        public static readonly HTTPContentType          OCHPPlusXMLContentType   = new HTTPContentType("application/vnd.OCHPPlus+xml", "utf-8", null, null);
+        public static readonly HTTPContentType          OCHPPlusXMLContentType   = new HTTPContentType("application", "vnd.OCHPPlus+xml", "utf-8", null, null);
 
         /// <summary>
         /// The HTTP content type for serving OCHP+ HTML data.
         /// </summary>
-        public static readonly HTTPContentType          OCHPPlusHTMLContentType  = new HTTPContentType("application/vnd.OCHPPlus+html", "utf-8", null, null);
+        public static readonly HTTPContentType          OCHPPlusHTMLContentType  = new HTTPContentType("application", "vnd.OCHPPlus+html", "utf-8", null, null);
 
 
         private readonly XMLNamespacesDelegate          XMLNamespaces;
