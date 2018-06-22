@@ -109,6 +109,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 case EVSEStatusTypes.Charging:
                 case EVSEStatusTypes.OutOfService:
                 case EVSEStatusTypes.Offline:
+                case EVSEStatusTypes.Faulted:
                 case EVSEStatusTypes.UnknownEVSE:
                     return EVSEMajorStatusTypes.NotAvailable;
 
@@ -144,6 +145,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                     return EVSEMinorStatusTypes.Charging;
 
                 case EVSEStatusTypes.Offline:
+                case EVSEStatusTypes.Faulted:
                 case EVSEStatusTypes.OutOfService:
                     return EVSEMinorStatusTypes.OutOfOrder;
 
