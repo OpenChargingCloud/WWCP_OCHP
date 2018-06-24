@@ -5392,7 +5392,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 }
 
-                return SendCDRsResult.Enqueued(Id, this);
+                return SendCDRsResult.Enqueued(Id, this, ChargeDetailRecords);
 
             }
 
@@ -5465,7 +5465,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         case ResultCodes.OK:
-                            result = SendCDRsResult.Success(Id, this);
+                            result = SendCDRsResult.Success(Id, this, ChargeDetailRecords);
                             break;
 
                         case ResultCodes.Partly:
