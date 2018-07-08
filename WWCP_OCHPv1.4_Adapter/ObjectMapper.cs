@@ -98,23 +98,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             {
 
                 case EVSEStatusTypes.Available:
-
-                // For reservations in the future, e.g. reserved in 3 hours, but free until then!
-                //case EVSEStatusTypes.Reserved:
                     return EVSEMajorStatusTypes.Available;
 
-
-                //case EVSEStatusTypes.Blocked:
-                case EVSEStatusTypes.Reserved:
-                case EVSEStatusTypes.Charging:
-                case EVSEStatusTypes.OutOfService:
-                case EVSEStatusTypes.Offline:
-                case EVSEStatusTypes.Faulted:
-                case EVSEStatusTypes.UnknownEVSE:
-                    return EVSEMajorStatusTypes.NotAvailable;
-
                 default:
-                    return EVSEMajorStatusTypes.Unknown;
+                    return EVSEMajorStatusTypes.NotAvailable;
 
             }
 
@@ -135,6 +122,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             switch (EVSEStatusType)
             {
 
+                // Unused: EVSEMinorStatusTypes.Blocked;
+
                 case EVSEStatusTypes.Available:
                     return EVSEMinorStatusTypes.Available;
 
@@ -144,16 +133,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 case EVSEStatusTypes.Charging:
                     return EVSEMinorStatusTypes.Charging;
 
-                case EVSEStatusTypes.Offline:
-                case EVSEStatusTypes.Faulted:
-                case EVSEStatusTypes.OutOfService:
-                    return EVSEMinorStatusTypes.OutOfOrder;
-
-                //case EVSEStatusTypes.Blocked:
-                //    return EVSEMinorStatusTypes.Blocked;
-
                 default:
-                    return EVSEMinorStatusTypes.Unknown;
+                    return EVSEMinorStatusTypes.OutOfOrder;
 
             }
 
