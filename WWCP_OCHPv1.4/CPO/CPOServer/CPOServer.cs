@@ -290,7 +290,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnSelectEVSESOAPRequest?.Invoke(DateTime.UtcNow,
-                                                        this.SOAPServer,
+                                                        this.SOAPServer.HTTPServer,
                                                         Request);
 
                     }
@@ -345,7 +345,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.DefaultServerName,
                         Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -360,7 +360,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnSelectEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                         this.SOAPServer,
+                                                         this.SOAPServer.HTTPServer,
                                                          Request,
                                                          HTTPResponse);
 
@@ -392,7 +392,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnControlEVSESOAPRequest?.Invoke(DateTime.UtcNow,
-                                                         this.SOAPServer,
+                                                         this.SOAPServer.HTTPServer,
                                                          Request);
 
                     }
@@ -452,7 +452,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.DefaultServerName,
                         Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -467,7 +467,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnControlEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                          this.SOAPServer,
+                                                          this.SOAPServer.HTTPServer,
                                                           Request,
                                                           HTTPResponse);
 
@@ -499,7 +499,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnReleaseEVSESOAPRequest?.Invoke(DateTime.UtcNow,
-                                                         this.SOAPServer,
+                                                         this.SOAPServer.HTTPServer,
                                                          Request);
 
                     }
@@ -552,7 +552,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.DefaultServerName,
                         Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -567,7 +567,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnReleaseEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                          this.SOAPServer,
+                                                          this.SOAPServer.HTTPServer,
                                                           Request,
                                                           HTTPResponse);
 
@@ -599,7 +599,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnGetEVSEStatusSOAPRequest?.Invoke(DateTime.UtcNow,
-                                                           this.SOAPServer,
+                                                           this.SOAPServer.HTTPServer,
                                                            Request);
 
                     }
@@ -652,7 +652,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.DefaultServerName,
                         Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -667,7 +667,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnGetEVSEStatusSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                            this.SOAPServer,
+                                                            this.SOAPServer.HTTPServer,
                                                             Request,
                                                             HTTPResponse);
 
@@ -699,7 +699,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnReportDiscrepancySOAPRequest?.Invoke(DateTime.UtcNow,
-                                                               this.SOAPServer,
+                                                               this.SOAPServer.HTTPServer,
                                                                Request);
 
                     }
@@ -753,7 +753,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponseBuilder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.DefaultServerName,
                         Date            = DateTime.UtcNow,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -768,7 +768,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         OnReportDiscrepancySOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                this.SOAPServer,
+                                                                this.SOAPServer.HTTPServer,
                                                                 Request,
                                                                 HTTPResponse);
 

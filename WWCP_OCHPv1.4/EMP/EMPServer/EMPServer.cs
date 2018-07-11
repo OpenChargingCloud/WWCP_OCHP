@@ -311,7 +311,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 {
 
                     OnInformProviderHTTPRequest?.Invoke(DateTime.UtcNow,
-                                                        this.SOAPServer,
+                                                        this.SOAPServer.HTTPServer,
                                                         Request);
 
                 }
@@ -382,7 +382,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
                 var HTTPResponse = new HTTPResponseBuilder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.DefaultServerName,
                     Date            = DateTime.UtcNow,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -397,7 +397,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 {
 
                     OnInformProviderHTTPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                         this.SOAPServer,
+                                                         this.SOAPServer.HTTPServer,
                                                          Request,
                                                          HTTPResponse);
 
