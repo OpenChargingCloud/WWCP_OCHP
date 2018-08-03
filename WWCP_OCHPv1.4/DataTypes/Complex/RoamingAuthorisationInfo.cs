@@ -120,16 +120,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
         public static RoamingAuthorisationInfo Parse(XElement             RoamingAuthorisationInfoXML,
                                                      OnExceptionDelegate  OnException = null)
-        {
 
-            RoamingAuthorisationInfo _RoamingAuthorisationInfo;
+            => TryParse(RoamingAuthorisationInfoXML,
+                        out RoamingAuthorisationInfo _RoamingAuthorisationInfo,
+                        OnException)
 
-            if (TryParse(RoamingAuthorisationInfoXML, out _RoamingAuthorisationInfo, OnException))
-                return _RoamingAuthorisationInfo;
-
-            return null;
-
-        }
+                   ? _RoamingAuthorisationInfo
+                   : null;
 
         #endregion
 
@@ -142,16 +139,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
         public static RoamingAuthorisationInfo Parse(String               RoamingAuthorisationInfoText,
                                                      OnExceptionDelegate  OnException = null)
-        {
 
-            RoamingAuthorisationInfo _RoamingAuthorisationInfo;
+            => TryParse(RoamingAuthorisationInfoText,
+                        out RoamingAuthorisationInfo _RoamingAuthorisationInfo,
+                        OnException)
 
-            if (TryParse(RoamingAuthorisationInfoText, out _RoamingAuthorisationInfo, OnException))
-                return _RoamingAuthorisationInfo;
-
-            return null;
-
-        }
+                   ? _RoamingAuthorisationInfo
+                   : null;
 
         #endregion
 
@@ -224,8 +218,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 if (TryParse(XDocument.Parse(RoamingAuthorisationInfoText).Root,
                              out RoamingAuthorisationInfo,
                              OnException))
-
+                {
                     return true;
+                }
 
             }
             catch (Exception e)

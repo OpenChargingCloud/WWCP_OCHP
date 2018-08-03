@@ -42,8 +42,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="EVSEMajorStatus">An OCHP EVSE major status.</param>
         /// <param name="EVSEMinorStatus">An OCHP EVSE minor status.</param>
         /// <returns>The corresponding WWCP EVSE status.</returns>
-        public static WWCP.EVSEStatusTypes AsWWCPEVSEStatus(EVSEMajorStatusTypes  EVSEMajorStatus,
-                                                           EVSEMinorStatusTypes  EVSEMinorStatus)
+        public static EVSEStatusTypes AsWWCPEVSEStatus(EVSEMajorStatusTypes  EVSEMajorStatus,
+                                                       EVSEMinorStatusTypes  EVSEMinorStatus)
         {
 
             switch (EVSEMajorStatus)
@@ -143,7 +143,70 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-        #region ToOCHP(this WWCPAddress)
+        #region Convert EVSE Ids...
+
+        public static EVSE_Id ToOCHP(this WWCP.EVSE_Id EVSEId)
+            => EVSE_Id.Parse(EVSEId.ToString());
+
+        public static EVSE_Id? ToOCHP(this WWCP.EVSE_Id? EVSEId)
+            => EVSEId.HasValue
+                   ? EVSE_Id.Parse(EVSEId.ToString())
+                   : new EVSE_Id?();
+
+
+        public static WWCP.EVSE_Id ToWWCP(this EVSE_Id EVSEId)
+            => WWCP.EVSE_Id.Parse(EVSEId.ToString());
+
+        public static WWCP.EVSE_Id? ToWWCP(this EVSE_Id? EVSEId)
+            => EVSEId.HasValue
+                   ? WWCP.EVSE_Id.Parse(EVSEId.ToString())
+                   : new WWCP.EVSE_Id?();
+
+        #endregion
+
+        #region Convert Provider Ids...
+
+        public static Provider_Id ToOCHP(this eMobilityProvider_Id ProviderId)
+            => Provider_Id.Parse(ProviderId.ToString());
+
+        public static Provider_Id? ToOCHP(this eMobilityProvider_Id? ProviderId)
+            => ProviderId.HasValue
+                   ? Provider_Id.Parse(ProviderId.ToString())
+                   : new Provider_Id?();
+
+
+        public static eMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)
+            => eMobilityProvider_Id.Parse(ProviderId.ToString());
+
+        public static eMobilityProvider_Id? ToWWCP(this Provider_Id? ProviderId)
+            => ProviderId.HasValue
+                   ? eMobilityProvider_Id.Parse(ProviderId.ToString())
+                   : new eMobilityProvider_Id?();
+
+        #endregion
+
+        #region Convert ChargingSession Ids...
+
+        public static CDR_Id ToOCHP(this ChargingSession_Id CDRId)
+            => CDR_Id.Parse(CDRId.ToString());
+
+        public static CDR_Id? ToOCHP(this ChargingSession_Id? CDRId)
+            => CDRId.HasValue
+                   ? CDR_Id.Parse(CDRId.ToString())
+                   : new CDR_Id?();
+
+
+        public static ChargingSession_Id ToWWCP(this CDR_Id CDRId)
+            => ChargingSession_Id.Parse(CDRId.ToString());
+
+        public static ChargingSession_Id? ToWWCP(this CDR_Id? CDRId)
+            => CDRId.HasValue
+                   ? ChargingSession_Id.Parse(CDRId.ToString())
+                   : new ChargingSession_Id?();
+
+        #endregion
+
+        #region Convert Addresses...
 
         /// <summary>
         /// Maps a WWCP address to an OCHP address.
@@ -157,9 +220,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                            WWCPAddress.PostalCode,
                            WWCPAddress.Country);
 
-        #endregion
-
-        #region ToWWCP(this OCHPAddress)
 
         /// <summary>
         /// Maps an OCHP accessibility type to a WWCP accessibility type.
@@ -175,104 +235,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-
-        #region ToOCHP(this ChargeDetailRecord)
-
-        /// <summary>
-        /// Convert a WWCP charge detail record into a corresponding OCHP charge detail record.
-        /// </summary>
-        /// <param name="ChargeDetailRecord">A WWCP charge detail record.</param>
-        public static CDRInfo ToOCHP(this ChargeDetailRecord ChargeDetailRecord)
-
-            => new CDRInfo(
-                   CDR_Id.Parse(ChargeDetailRecord.EVSEId.Value.OperatorId.ToString().Replace("*", "").Replace("+49822", "DEBDO") +
-                               (ChargeDetailRecord.SessionId.ToString().Replace("-", "").SubstringMax(30).ToUpper())),
-                   new EMT_Id(ChargeDetailRecord.IdentificationStart.AuthToken.ToString(),
-                              TokenRepresentations.Plain,
-                              TokenTypes.RFID),
-                   Contract_Id.Parse(ChargeDetailRecord.GetCustomDataAs<String>("ContractId")),
-
-                   ChargeDetailRecord.EVSEId.ToOCHP().Value,
-                   ChargePointTypes.AC,
-                   ChargeDetailRecord.EVSE.ToOCHP().Connectors.First(),
-
-                   CDRStatus.New,
-                   ChargeDetailRecord.SessionTime.Value.StartTime,
-                   ChargeDetailRecord.SessionTime.Value.EndTime.Value,
-                   new CDRPeriod[] {
-                       new CDRPeriod(ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
-                                     ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
-                                     BillingItems.Energy,
-                                     ChargeDetailRecord.ConsumedEnergy,
-                                     0)
-                   },
-                   Currency.EUR,
-
-                   ChargeDetailRecord.EVSE?.ChargingStation?.ChargingPool?.Address?.ToOCHP(),
-                   ChargeDetailRecord.Duration,
-                   null, // Ratings
-                   ChargeDetailRecord.EnergyMeterId?.ToString()
-                   // TotalCosts
-               );
-
-        #endregion
-
-        #region ToWWCP(this CDRInfo)
-
-        /// <summary>
-        /// Convert an OCHP charge detail record info into a corresponding WWCP charge detail record.
-        /// </summary>
-        /// <param name="CDRInfo">A WWCP charge detail record.</param>
-        public static ChargeDetailRecord ToWWCP(this CDRInfo CDRInfo)
-
-            => new ChargeDetailRecord(
-                   ChargingSession_Id.Parse(CDRInfo.CDRId.ToString()),
-                   new StartEndDateTime(CDRInfo.StartDateTime, CDRInfo.EndDateTime),
-                   Duration:             CDRInfo.Duration,
-                   EVSEId:               CDRInfo.EVSEId.ToWWCP(),
-                   IdentificationStart:  AuthIdentification.FromRemoteIdentification(eMobilityAccount_Id.Parse(CDRInfo.ContractId.ToString()))
-               );
-
-        #endregion
-
-
-        public static EVSE_Id? ToOCHP(this WWCP.EVSE_Id? EVSEId)
-            => EVSEId.HasValue
-                   ? EVSEId.Value.ToOCHP()
-                   : new EVSE_Id?();
-
-        public static EVSE_Id ToOCHP(this WWCP.EVSE_Id EVSEId)
-            => EVSE_Id.Parse(EVSEId.ToString().Replace("+49*822*", "DE*BDO*E"));
-
-        public static WWCP.EVSE_Id? ToOCHP(this EVSE_Id? EVSEId)
-            => EVSEId.HasValue
-                   ? EVSEId.Value.ToWWCP()
-                   : new WWCP.EVSE_Id?();
-
-        public static WWCP.EVSE_Id ToWWCP(this EVSE_Id EVSEId)
-            => WWCP.EVSE_Id.Parse(EVSEId.ToString());
-
-
-        public static Provider_Id ToOCHP(this eMobilityProvider_Id ProviderId)
-            => Provider_Id.Parse(ProviderId.ToString());
-
-        public static eMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)
-            => eMobilityProvider_Id.Parse(ProviderId.ToString());
-
-
-        public static ChargingSession_Id ToWWCP(this CDR_Id CDRId)
-            => ChargingSession_Id.Parse(CDRId.ToString());
-
-
-        #region AuthenticationModes
+        #region Convert AuthenticationModes...
 
         #region ToOCHP(AuthenticationModes)
 
         /// <summary>
         /// Maps a WWCP authentication mode to an OCHP authentication mode.
         /// </summary>
-        /// <param name="WWCPAuthMode">A WWCP-representation of an authentication mode.</param>
-        public static AuthMethodTypes ToOCHP(this WWCP.AuthenticationModes AuthenticationModes)
+        /// <param name="AuthenticationModes">A WWCP-representation of an authentication mode.</param>
+        public static AuthMethodTypes ToOCHP(this AuthenticationModes AuthenticationModes)
         {
 
             var _AuthenticationModes = AuthMethodTypes.Unknown;
@@ -310,7 +281,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region ToWWCP(AuthMethodType)
 
-        public static WWCP.AuthenticationModes ToWWCP(this AuthMethodTypes AuthMethodType)
+        public static AuthenticationModes ToWWCP(this AuthMethodTypes AuthMethodType)
         {
 
             switch (AuthMethodType)
@@ -341,7 +312,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
-        public static AuthMethodTypes AsOCHPAuthenticationModes(this IEnumerable<WWCP.AuthenticationModes> WWCPAuthenticationModes)
+        public static AuthMethodTypes AsOCHPAuthenticationModes(this IEnumerable<AuthenticationModes> WWCPAuthenticationModes)
         {
 
             var _AuthMethodTypes = AuthMethodTypes.Unknown;
@@ -373,6 +344,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region Convert SocketOutlets...
 
         public static ConnectorType ToOCHP(this SocketOutlet WWCPSocketOutlet)
         {
@@ -468,6 +440,85 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         }
 
+        #endregion
+
+
+
+        #region Convert ChargeDetailRecords...
+
+        /// <summary>
+        /// Convert a WWCP charge detail record into a corresponding OCHP charge detail record.
+        /// </summary>
+        /// <param name="ChargeDetailRecord">A WWCP charge detail record.</param>
+        public static CDRInfo ToOCHP(this ChargeDetailRecord         ChargeDetailRecord,
+                                     Func<EMT_Id, Contract_Id>       ContractIdDelegate,
+                                     CPO.CustomEVSEIdMapperDelegate  CustomEVSEIdMapper   = null)
+
+        {
+
+            var EMTId = new EMT_Id(ChargeDetailRecord.IdentificationStart.AuthToken.ToString(),
+                                   TokenRepresentations.Plain,
+                                   TokenTypes.RFID);
+
+
+            var cdr = new CDRInfo(
+                          CDR_Id.Parse(ChargeDetailRecord.EVSEId.Value.OperatorId.ToString().Replace("*", "").Replace("+49822", "DEBDO") +
+                                      (ChargeDetailRecord.SessionId.ToString().Replace("-", "").SubstringMax(30).ToUpper())),
+                          EMTId,
+                          ContractIdDelegate(EMTId),// Contract_Id.Parse(ChargeDetailRecord.GetCustomDataAs<String>("ContractId")),
+
+                          CustomEVSEIdMapper != null && ChargeDetailRecord.EVSEId.HasValue
+                              ? CustomEVSEIdMapper(ChargeDetailRecord.EVSEId.Value)
+                              : ChargeDetailRecord.EVSEId.ToOCHP().Value,
+                          ChargeDetailRecord.EVSE.ToOCHP().Connectors.First().Standard.GetChargePointType(),// ChargePointTypes.AC,  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                          ChargeDetailRecord.EVSE.ToOCHP().Connectors.First(),
+
+                          CDRStatus.New,
+                          ChargeDetailRecord.SessionTime.Value.StartTime,
+                          ChargeDetailRecord.SessionTime.Value.EndTime.Value,
+                          new CDRPeriod[] {
+                              new CDRPeriod(ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
+                                            ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
+                                            BillingItems.Energy,
+                                            ChargeDetailRecord.ConsumedEnergy,
+                                            0)
+                          },
+                          Currency.EUR,
+
+                          ChargeDetailRecord.EVSE?.ChargingStation?.ChargingPool?.Address?.ToOCHP(),
+                          ChargeDetailRecord.Duration,
+                          null, // Ratings
+                          ChargeDetailRecord.EnergyMeterId?.ToString()
+                          // TotalCosts
+                      );
+
+            return cdr;
+
+        }
+
+
+        /// <summary>
+        /// Convert an OCHP charge detail record info into a corresponding WWCP charge detail record.
+        /// </summary>
+        /// <param name="CDRInfo">A WWCP charge detail record.</param>
+        public static ChargeDetailRecord ToWWCP(this CDRInfo CDRInfo)
+
+            => new ChargeDetailRecord(
+                   ChargingSession_Id.Parse(CDRInfo.CDRId.ToString()),
+                   new StartEndDateTime(CDRInfo.StartDateTime, CDRInfo.EndDateTime),
+                   Duration:             CDRInfo.Duration,
+                   EVSEId:               CDRInfo.EVSEId.ToWWCP(),
+                   IdentificationStart:  AuthIdentification.FromRemoteIdentification(eMobilityAccount_Id.Parse(CDRInfo.ContractId.ToString()))
+               );
+
+        #endregion
+
+
+
+
+
+
+
 
         #region ToOCHP(this EVSE, CustomEVSEIdMapper = null, EVSE2ChargePointInfo = null)
 
@@ -478,11 +529,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="CustomEVSEIdMapper">A custom WWCP EVSE Id to OCHP EVSE Id mapper.</param>
         /// <param name="EVSE2ChargePointInfo">A delegate to process an OCHP charge point info, e.g. before pushing it to a roaming provider.</param>
         public static ChargePointInfo ToOCHP(this EVSE                         EVSE,
-                                             CPO.CustomEVSEIdMapperDelegate    CustomEVSEIdMapper    = null,
-                                             CPO.EVSE2ChargePointInfoDelegate  EVSE2ChargePointInfo  = null)
+                                             CPO.CustomEVSEIdMapperDelegate    CustomEVSEIdMapper     = null,
+                                             CPO.EVSE2ChargePointInfoDelegate  EVSE2ChargePointInfo   = null)
         {
 
-            var _ChargePointInfo = new ChargePointInfo(CustomEVSEIdMapper != null ? CustomEVSEIdMapper(EVSE.Id) : EVSE.Id.ToOCHP(),
+            var _ChargePointInfo = new ChargePointInfo(CustomEVSEIdMapper != null
+                                                           ? CustomEVSEIdMapper(EVSE.Id)
+                                                           : EVSE.Id.ToOCHP(),
                                                        ChargePointInfo.LocationIdInverse_RegEx.Replace(EVSE.ChargingStation.ChargingPool.Id.ToString(), "").SubstringMax(15),
                                                        EVSE.ChargingStation.ChargingPool.Name.FirstText().ToUpper(),
                                                        EVSE.ChargingStation.ChargingPool.Name.First().Language.ToString(),
@@ -493,7 +546,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                                 Select(mode => mode.ToOCHP()).
                                                                                 Where (mode => mode != AuthMethodTypes.Unknown).
                                                                                 Reduce(),
-                                                       EVSE.SocketOutlets.SafeSelect(socketoutlet => socketoutlet.ToOCHP()),
+                                                       EVSE.SocketOutlets.SafeSelect(ToOCHP),
                                                        ChargePointTypes.AC,                 // FixMe: ChargePointTypes.AC!
                                                        DateTime.Now,                        // timestamp of last edit
                                                        new EVSEImageURL[0],

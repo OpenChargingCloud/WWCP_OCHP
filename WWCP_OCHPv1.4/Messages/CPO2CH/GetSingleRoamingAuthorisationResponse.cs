@@ -134,7 +134,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         {
 
-            this.RoamingAuthorisationInfo = RoamingAuthorisationInfo;
+            this.RoamingAuthorisationInfo  = RoamingAuthorisationInfo;
 
         }
 
@@ -182,16 +182,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public static GetSingleRoamingAuthorisationResponse Parse(GetSingleRoamingAuthorisationRequest  Request,
                                                                   XElement                              GetSingleRoamingAuthorisationResponseXML,
                                                                   OnExceptionDelegate                   OnException = null)
-        {
 
-            GetSingleRoamingAuthorisationResponse _GetSingleRoamingAuthorisationResponse;
 
-            if (TryParse(Request, GetSingleRoamingAuthorisationResponseXML, out _GetSingleRoamingAuthorisationResponse, OnException))
-                return _GetSingleRoamingAuthorisationResponse;
+            => TryParse(Request,
+                        GetSingleRoamingAuthorisationResponseXML,
+                        out GetSingleRoamingAuthorisationResponse _GetSingleRoamingAuthorisationResponse,
+                        OnException)
 
-            return null;
-
-        }
+                   ? _GetSingleRoamingAuthorisationResponse
+                   : null;
 
         #endregion
 
@@ -206,16 +205,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public static GetSingleRoamingAuthorisationResponse Parse(GetSingleRoamingAuthorisationRequest  Request,
                                                                   String                                GetSingleRoamingAuthorisationResponseText,
                                                                   OnExceptionDelegate                   OnException = null)
-        {
 
-            GetSingleRoamingAuthorisationResponse _GetSingleRoamingAuthorisationResponse;
+            => TryParse(Request,
+                        GetSingleRoamingAuthorisationResponseText,
+                        out GetSingleRoamingAuthorisationResponse _GetSingleRoamingAuthorisationResponse,
+                        OnException)
 
-            if (TryParse(Request, GetSingleRoamingAuthorisationResponseText, out _GetSingleRoamingAuthorisationResponse, OnException))
-                return _GetSingleRoamingAuthorisationResponse;
-
-            return null;
-
-        }
+                   ? _GetSingleRoamingAuthorisationResponse
+                   : null;
 
         #endregion
 
@@ -289,8 +286,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                              XDocument.Parse(GetSingleRoamingAuthorisationResponseText).Root,
                              out GetSingleRoamingAuthorisationResponse,
                              OnException))
-
+                {
                     return true;
+                }
 
             }
             catch (Exception e)
@@ -313,13 +311,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public XElement ToXML()
 
             => new XElement(OCHPNS.Default + "GetSingleRoamingAuthorisationResponse",
-
-                   Result.ToXML(),
-
-                   RoamingAuthorisationInfo != null
-                       ? RoamingAuthorisationInfo.ToXML()
-                       : null
-
+                   Result.                   ToXML(),
+                   RoamingAuthorisationInfo?.ToXML()
                );
 
         #endregion

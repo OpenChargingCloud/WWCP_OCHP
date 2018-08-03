@@ -18,6 +18,30 @@
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
+    public static class ConnectorStandardsExtentions
+    {
+
+        public static ChargePointTypes GetChargePointType(this ConnectorStandards ConnectorStandard)
+        {
+
+            switch (ConnectorStandard)
+            {
+
+                case ConnectorStandards.Chademo:
+                case ConnectorStandards.IEC_62196_T1_COMBO:
+                case ConnectorStandards.IEC_62196_T2_COMBO:
+                    return ChargePointTypes.DC;
+
+                default:
+                    return ChargePointTypes.AC;
+
+            }
+
+        }
+
+    }
+
+
     /// <summary>
     /// OCHP connector standards.
     /// </summary>

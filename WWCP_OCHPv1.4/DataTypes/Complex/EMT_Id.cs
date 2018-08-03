@@ -65,7 +65,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Returns the length of the identification.
         /// </summary>
         public UInt64 Length
-
             => (UInt64) Instance.Length;
 
         #endregion
@@ -87,7 +86,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #region Initial checks
 
-            if (Instance.IsNullOrEmpty())
+            if (Instance?.Trim().IsNullOrEmpty() == true)
                 throw new ArgumentNullException(nameof(Instance),  "The given instance value must not be null!");
 
             #endregion
@@ -125,14 +124,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
         public static EMT_Id Parse(XElement             EMTIdXML,
                                    OnExceptionDelegate  OnException = null)
-        {
 
-            if (TryParse(EMTIdXML, out EMT_Id _EMTId, OnException))
-                return _EMTId;
-
-            return default(EMT_Id);
-
-        }
+            => TryParse(EMTIdXML, out EMT_Id _EMTId, OnException)
+                   ? _EMTId
+                   : default(EMT_Id);
 
         #endregion
 
@@ -145,12 +140,48 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
         public static EMT_Id Parse(String               EMTIdText,
                                    OnExceptionDelegate  OnException = null)
+
+            => TryParse(EMTIdText, out EMT_Id _EMTId, OnException)
+                   ? _EMTId
+                   : default(EMT_Id);
+
+        #endregion
+
+        #region (static) TryParse(EMTIdXML,             OnException = null)
+
+        /// <summary>
+        /// Try to parse the given XML representation of an OCHP token identification.
+        /// </summary>
+        /// <param name="EMTIdXML">The XML to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static EMT_Id? TryParse(XElement             EMTIdXML,
+                                       OnExceptionDelegate  OnException  = null)
         {
 
-            if (TryParse(EMTIdText, out EMT_Id _EMTId, OnException))
-                return _EMTId;
+            try
+            {
 
-            return default(EMT_Id);
+                return new EMT_Id(
+
+                           EMTIdXML.ElementValueOrFail     (OCHPNS.Default + "instance"),
+
+                           EMTIdXML.MapAttributeValueOrFail(OCHPNS.Default + "representation",
+                                                            XML_IO.AsTokenRepresentation),
+
+                           EMTIdXML.MapValueOrFail         (OCHPNS.Default + "tokenType",
+                                                            XML_IO.AsTokenType),
+
+                           EMTIdXML.MapValueOrNullable     (OCHPNS.Default + "tokenSubType",
+                                                            XML_IO.AsTokenSubType)
+
+                       );
+
+            }
+            catch (Exception e)
+            {
+                OnException?.Invoke(DateTime.UtcNow, EMTIdXML, e);
+                return new EMT_Id?();
+            }
 
         }
 
@@ -204,6 +235,39 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        #region (static) TryParse(EMTIdText,            OnException = null)
+
+        /// <summary>
+        /// Try to parse the given text representation of an OCHP token identification.
+        /// </summary>
+        /// <param name="EMTIdText">The text to parse.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        public static EMT_Id? TryParse(String               EMTIdText,
+                                       OnExceptionDelegate  OnException  = null)
+        {
+
+            try
+            {
+
+                if (TryParse(XDocument.Parse(EMTIdText).Root,
+                             out EMT_Id EMTId,
+                             OnException))
+                {
+                    return EMTId;
+                }
+
+            }
+            catch (Exception e)
+            {
+                OnException?.Invoke(DateTime.UtcNow, EMTIdText, e);
+            }
+
+            return new EMT_Id?();
+
+        }
+
+        #endregion
+
         #region (static) TryParse(EMTIdText, out EMTId, OnException = null)
 
         /// <summary>
@@ -223,8 +287,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 if (TryParse(XDocument.Parse(EMTIdText).Root,
                              out EMTId,
                              OnException))
-
+                {
                     return true;
+                }
 
             }
             catch (Exception e)

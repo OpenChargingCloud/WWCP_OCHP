@@ -1690,7 +1690,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -2182,7 +2182,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnGetSingleRoamingAuthorisationSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -2420,7 +2420,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnGetRoamingAuthorisationListSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -2658,7 +2658,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnGetRoamingAuthorisationListUpdatesSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -2912,7 +2912,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnAddCDRsSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -3151,7 +3151,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnCheckCDRsSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout.HasValue ? Request.RequestTimeout : RequestTimeout,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess

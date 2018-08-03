@@ -30,11 +30,19 @@ using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+using System.IO;
 
 #endregion
 
 namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
+
+
+    public enum ChargeDetailRecordFilters
+    {
+        drop,
+        forward
+    }
 
     /// <summary>
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
@@ -49,11 +57,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Data
 
-        private        readonly  ISendData                               _ISendData;
+        private        readonly  ISendData                                     _ISendData;
 
-        private        readonly  ISendStatus                             _ISendStatus;
+        private        readonly  ISendStatus                                   _ISendStatus;
 
-        private        readonly  CustomEVSEIdMapperDelegate                    _CustomEVSEIdMapper;
+        private        readonly  CPO.CustomEVSEIdMapperDelegate                   _CustomEVSEIdMapper;
 
         private        readonly  EVSE2ChargePointInfoDelegate                  _EVSE2ChargePointInfo;
 
@@ -106,7 +114,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         private                 IncludeEVSEDelegate                            _IncludeEVSEs;
         private                 IncludeEVSEIdDelegate                          _IncludeEVSEIds;
 
-        public readonly static TimeSpan DefaultRequestTimeout = TimeSpan.FromSeconds(30);
+        public readonly static  TimeSpan DefaultRequestTimeout = TimeSpan.FromSeconds(30);
+
+        private readonly        Dictionary<EMT_Id, Contract_Id>                _Lookup;
+
+        private static readonly Char[] rs                                      = new Char[] { (Char) 30 };
 
         #endregion
 
@@ -222,6 +234,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public IncludeChargePointsDelegate  IncludeChargePoints   { get; set; }
 
         public IncludeEVSEIdsDelegate       IncludeEVSEIds        { get; set; }
+
+        public Func<ChargeDetailRecord, ChargeDetailRecordFilters> ChargeDetailRecordFilter { get; set; }
 
 
         #region DisablePushData
@@ -493,28 +507,29 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
-        public WWCPCPOAdapter(CSORoamingProvider_Id                        Id,
-                              I18NString                                   Name,
-                              RoamingNetwork                               RoamingNetwork,
+        public WWCPCPOAdapter(CSORoamingProvider_Id                                Id,
+                              I18NString                                           Name,
+                              RoamingNetwork                                       RoamingNetwork,
 
-                              CPORoaming                                   CPORoaming,
-                              CustomEVSEIdMapperDelegate                   CustomEVSEIdMapper               = null,
-                              EVSE2ChargePointInfoDelegate                 EVSE2ChargePointInfo             = null,
-                              EVSEStatusUpdate2EVSEStatusDelegate          EVSEStatusUpdate2EVSEStatus      = null,
-                              ChargePointInfo2XMLDelegate                  ChargePointInfo2XML              = null,
-                              EVSEStatus2XMLDelegate                       EVSEStatus2XML                   = null,
+                              CPORoaming                                           CPORoaming,
+                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper               = null,
+                              EVSE2ChargePointInfoDelegate                         EVSE2ChargePointInfo             = null,
+                              EVSEStatusUpdate2EVSEStatusDelegate                  EVSEStatusUpdate2EVSEStatus      = null,
+                              ChargePointInfo2XMLDelegate                          ChargePointInfo2XML              = null,
+                              EVSEStatus2XMLDelegate                               EVSEStatus2XML                   = null,
 
-                              IncludeEVSEIdDelegate                        IncludeEVSEIds                   = null,
-                              IncludeEVSEDelegate                          IncludeEVSEs                     = null,
-                              TimeSpan?                                    ServiceCheckEvery                = null,
-                              TimeSpan?                                    StatusCheckEvery                 = null,
-                              TimeSpan?                                    EVSEStatusRefreshEvery           = null,
+                              IncludeEVSEIdDelegate                                IncludeEVSEIds                   = null,
+                              IncludeEVSEDelegate                                  IncludeEVSEs                     = null,
+                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>  ChargeDetailRecordFilter         = null,
+                              TimeSpan?                                            ServiceCheckEvery                = null,
+                              TimeSpan?                                            StatusCheckEvery                 = null,
+                              TimeSpan?                                            EVSEStatusRefreshEvery           = null,
 
-                              Boolean                                      DisablePushData                  = false,
-                              Boolean                                      DisablePushStatus                = false,
-                              Boolean                                      DisableEVSEStatusRefresh         = false,
-                              Boolean                                      DisableAuthentication            = false,
-                              Boolean                                      DisableSendChargeDetailRecords   = false)
+                              Boolean                                              DisablePushData                  = false,
+                              Boolean                                              DisablePushStatus                = false,
+                              Boolean                                              DisableEVSEStatusRefresh         = false,
+                              Boolean                                              DisableAuthentication            = false,
+                              Boolean                                              DisableSendChargeDetailRecords   = false)
 
             : base(Id,
                    RoamingNetwork)
@@ -572,6 +587,85 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             this.EVSEStatusChangesDelayedQueue        = new List<EVSEStatusUpdate>();
             this.EVSEsToRemoveQueue                   = new HashSet<EVSE>();
             this.ChargeDetailRecordQueue              = new List<ChargeDetailRecord>();
+
+            this.ChargeDetailRecordFilter             = ChargeDetailRecordFilter ?? (cdr => ChargeDetailRecordFilters.forward);
+
+            this._Lookup                              = new Dictionary<EMT_Id, Contract_Id>();
+
+            lock (_Lookup)
+            {
+
+                var elements                          = new String[0];
+
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar.ToString() + "OCHPv1.4");
+
+                EMT_Id       EMTId       = default(EMT_Id);
+                Contract_Id  ContractId  = default(Contract_Id);
+
+                foreach (var inputfile in Directory.EnumerateFiles(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar.ToString() + "OCHPv1.4",
+                                                                   "EMTIds_2_ContractIds_*.log",
+                                                                   SearchOption.TopDirectoryOnly))
+                {
+
+                    foreach (var line in File.ReadLines(inputfile))
+                    {
+
+                        try
+                        {
+
+                            if (!line.StartsWith("#") && !line.StartsWith("//") && !line.IsNullOrEmpty())
+                            {
+
+                                elements = line.Split(rs, StringSplitOptions.None);
+
+                                if (elements.Length == 3)
+                                {
+
+                                    EMTId       = new EMT_Id(elements[1]?.Trim(),
+                                                             TokenRepresentations.Plain,
+                                                             TokenTypes.RFID,
+                                                             TokenSubTypes.MifareClassic);
+
+                                    ContractId  = Contract_Id.Parse(elements[2]);
+
+                                    if (!_Lookup.ContainsKey(EMTId))
+                                        _Lookup.Add(EMTId, ContractId);
+
+                                    else
+                                    {
+
+                                        if (_Lookup[EMTId] != ContractId)
+                                        {
+
+                                        }
+
+                                    }
+
+                                }
+
+                                else if (elements.Length == 5)
+                                    _Lookup.Add(new EMT_Id(elements[0]?.Trim(),
+                                                           (TokenRepresentations) Enum.Parse(typeof(TokenRepresentations), elements[1]?.Trim(), ignoreCase: true),
+                                                           (TokenTypes)           Enum.Parse(typeof(TokenTypes),           elements[2]?.Trim(), ignoreCase: true),
+                                                           elements[3]?.Trim().IsNotNullOrEmpty() == true
+                                                               ? new TokenSubTypes?((TokenSubTypes) Enum.Parse(typeof(TokenSubTypes), elements[3]?.Trim(), ignoreCase: true))
+                                                               : null),
+                                                Contract_Id.Parse(elements[4]));
+
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            DebugX.Log("Could not read logfile " + inputfile + @""": " + e.Message);
+                        }
+
+                    }
+
+                }
+
+
+            }
 
 
             // Link events...
@@ -960,32 +1054,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
-        public WWCPCPOAdapter(CSORoamingProvider_Id                        Id,
-                              I18NString                                   Name,
-                              RoamingNetwork                               RoamingNetwork,
+        public WWCPCPOAdapter(CSORoamingProvider_Id                                Id,
+                              I18NString                                           Name,
+                              RoamingNetwork                                       RoamingNetwork,
 
-                              CPOClient                                    CPOClient,
-                              CPOServer                                    CPOServer,
-                              String                                       ServerLoggingContext             = CPOServerLogger.DefaultContext,
-                              LogfileCreatorDelegate                       LogFileCreator                   = null,
+                              CPOClient                                            CPOClient,
+                              CPOServer                                            CPOServer,
+                              String                                               ServerLoggingContext             = CPOServerLogger.DefaultContext,
+                              LogfileCreatorDelegate                               LogFileCreator                   = null,
 
-                              CustomEVSEIdMapperDelegate                   CustomEVSEIdMapper               = null,
-                              EVSE2ChargePointInfoDelegate                 EVSE2ChargePointInfo             = null,
-                              EVSEStatusUpdate2EVSEStatusDelegate          EVSEStatusUpdate2EVSEStatus      = null,
-                              ChargePointInfo2XMLDelegate                  ChargePointInfo2XML              = null,
-                              EVSEStatus2XMLDelegate                       EVSEStatus2XML                   = null,
+                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper               = null,
+                              EVSE2ChargePointInfoDelegate                         EVSE2ChargePointInfo             = null,
+                              EVSEStatusUpdate2EVSEStatusDelegate                  EVSEStatusUpdate2EVSEStatus      = null,
+                              ChargePointInfo2XMLDelegate                          ChargePointInfo2XML              = null,
+                              EVSEStatus2XMLDelegate                               EVSEStatus2XML                   = null,
 
-                              IncludeEVSEIdDelegate                        IncludeEVSEIds                   = null,
-                              IncludeEVSEDelegate                          IncludeEVSEs                     = null,
-                              TimeSpan?                                    ServiceCheckEvery                = null,
-                              TimeSpan?                                    StatusCheckEvery                 = null,
-                              TimeSpan?                                    EVSEStatusRefreshEvery           = null,
+                              IncludeEVSEIdDelegate                                IncludeEVSEIds                   = null,
+                              IncludeEVSEDelegate                                  IncludeEVSEs                     = null,
+                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>  ChargeDetailRecordFilter         = null,
+                              TimeSpan?                                            ServiceCheckEvery                = null,
+                              TimeSpan?                                            StatusCheckEvery                 = null,
+                              TimeSpan?                                            EVSEStatusRefreshEvery           = null,
 
-                              Boolean                                      DisablePushData                  = false,
-                              Boolean                                      DisablePushStatus                = false,
-                              Boolean                                      DisableEVSEStatusRefresh         = false,
-                              Boolean                                      DisableAuthentication            = false,
-                              Boolean                                      DisableSendChargeDetailRecords   = false)
+                              Boolean                                              DisablePushData                  = false,
+                              Boolean                                              DisablePushStatus                = false,
+                              Boolean                                              DisableEVSEStatusRefresh         = false,
+                              Boolean                                              DisableAuthentication            = false,
+                              Boolean                                              DisableSendChargeDetailRecords   = false)
 
             : this(Id,
                    Name,
@@ -1004,6 +1099,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                    IncludeEVSEIds,
                    IncludeEVSEs,
+                   ChargeDetailRecordFilter,
                    ServiceCheckEvery,
                    StatusCheckEvery,
                    EVSEStatusRefreshEvery,
@@ -1066,54 +1162,55 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public WWCPCPOAdapter(CSORoamingProvider_Id                        Id,
-                              I18NString                                   Name,
-                              RoamingNetwork                               RoamingNetwork,
+        public WWCPCPOAdapter(CSORoamingProvider_Id                                Id,
+                              I18NString                                           Name,
+                              RoamingNetwork                                       RoamingNetwork,
 
-                              String                                       RemoteHostname,
-                              IPPort?                                      RemoteTCPPort                       = null,
-                              RemoteCertificateValidationCallback          RemoteCertificateValidator          = null,
-                              LocalCertificateSelectionCallback            ClientCertificateSelector           = null,
-                              String                                       RemoteHTTPVirtualHost               = null,
-                              HTTPURI?                                     URIPrefix                           = null,
-                              HTTPURI?                                     LiveURIPrefix                       = null,
-                              Tuple<String, String>                        WSSLoginPassword                    = null,
-                              String                                       HTTPUserAgent                       = CPOClient.DefaultHTTPUserAgent,
-                              TimeSpan?                                    RequestTimeout                      = null,
-                              Byte?                                        MaxNumberOfRetries                  = CPOClient.DefaultMaxNumberOfRetries,
+                              String                                               RemoteHostname,
+                              IPPort?                                              RemoteTCPPort                       = null,
+                              RemoteCertificateValidationCallback                  RemoteCertificateValidator          = null,
+                              LocalCertificateSelectionCallback                    ClientCertificateSelector           = null,
+                              String                                               RemoteHTTPVirtualHost               = null,
+                              HTTPURI?                                             URIPrefix                           = null,
+                              HTTPURI?                                             LiveURIPrefix                       = null,
+                              Tuple<String, String>                                WSSLoginPassword                    = null,
+                              String                                               HTTPUserAgent                       = CPOClient.DefaultHTTPUserAgent,
+                              TimeSpan?                                            RequestTimeout                      = null,
+                              Byte?                                                MaxNumberOfRetries                  = CPOClient.DefaultMaxNumberOfRetries,
 
-                              String                                       ServerName                          = CPOServer.DefaultHTTPServerName,
-                              String                                       ServiceId                           = null,
-                              IPPort?                                      ServerTCPPort                       = null,
-                              HTTPURI?                                     ServerURIPrefix                     = null,
-                              HTTPURI?                                     ServerURISuffix                     = null,
-                              HTTPContentType                              ServerContentType                   = null,
-                              Boolean                                      ServerRegisterHTTPRootService       = true,
-                              Boolean                                      ServerAutoStart                     = false,
+                              String                                               ServerName                          = CPOServer.DefaultHTTPServerName,
+                              String                                               ServiceId                           = null,
+                              IPPort?                                              ServerTCPPort                       = null,
+                              HTTPURI?                                             ServerURIPrefix                     = null,
+                              HTTPURI?                                             ServerURISuffix                     = null,
+                              HTTPContentType                                      ServerContentType                   = null,
+                              Boolean                                              ServerRegisterHTTPRootService       = true,
+                              Boolean                                              ServerAutoStart                     = false,
 
-                              String                                       ClientLoggingContext                = CPOClient.CPOClientLogger.DefaultContext,
-                              String                                       ServerLoggingContext                = CPOServerLogger.DefaultContext,
-                              LogfileCreatorDelegate                       LogFileCreator                      = null,
+                              String                                               ClientLoggingContext                = CPOClient.CPOClientLogger.DefaultContext,
+                              String                                               ServerLoggingContext                = CPOServerLogger.DefaultContext,
+                              LogfileCreatorDelegate                               LogFileCreator                      = null,
 
-                              CustomEVSEIdMapperDelegate                   CustomEVSEIdMapper                  = null,
-                              EVSE2ChargePointInfoDelegate                 EVSE2ChargePointInfo                = null,
-                              EVSEStatusUpdate2EVSEStatusDelegate          EVSEStatusUpdate2EVSEStatus         = null,
-                              ChargePointInfo2XMLDelegate                  ChargePointInfo2XML                 = null,
-                              EVSEStatus2XMLDelegate                       EVSEStatus2XML                      = null,
+                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper                  = null,
+                              EVSE2ChargePointInfoDelegate                         EVSE2ChargePointInfo                = null,
+                              EVSEStatusUpdate2EVSEStatusDelegate                  EVSEStatusUpdate2EVSEStatus         = null,
+                              ChargePointInfo2XMLDelegate                          ChargePointInfo2XML                 = null,
+                              EVSEStatus2XMLDelegate                               EVSEStatus2XML                      = null,
 
-                              IncludeEVSEIdDelegate                        IncludeEVSEIds                      = null,
-                              IncludeEVSEDelegate                          IncludeEVSEs                        = null,
-                              TimeSpan?                                    ServiceCheckEvery                   = null,
-                              TimeSpan?                                    StatusCheckEvery                    = null,
-                              TimeSpan?                                    EVSEStatusRefreshEvery              = null,
+                              IncludeEVSEIdDelegate                                IncludeEVSEIds                      = null,
+                              IncludeEVSEDelegate                                  IncludeEVSEs                        = null,
+                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>  ChargeDetailRecordFilter            = null,
+                              TimeSpan?                                            ServiceCheckEvery                   = null,
+                              TimeSpan?                                            StatusCheckEvery                    = null,
+                              TimeSpan?                                            EVSEStatusRefreshEvery              = null,
 
-                              Boolean                                      DisablePushData                     = false,
-                              Boolean                                      DisablePushStatus                   = false,
-                              Boolean                                      DisableEVSEStatusRefresh            = false,
-                              Boolean                                      DisableAuthentication               = false,
-                              Boolean                                      DisableSendChargeDetailRecords      = false,
+                              Boolean                                              DisablePushData                     = false,
+                              Boolean                                              DisablePushStatus                   = false,
+                              Boolean                                              DisableEVSEStatusRefresh            = false,
+                              Boolean                                              DisableAuthentication               = false,
+                              Boolean                                              DisableSendChargeDetailRecords      = false,
 
-                              DNSClient                                    DNSClient                           = null)
+                              DNSClient                                            DNSClient                           = null)
 
             : this(Id,
                    Name,
@@ -1155,6 +1252,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                    IncludeEVSEIds,
                    IncludeEVSEs,
+                   ChargeDetailRecordFilter,
                    ServiceCheckEvery,
                    StatusCheckEvery,
                    EVSEStatusRefreshEvery,
@@ -4311,41 +4409,89 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else
             {
 
-                var response = await CPORoaming.GetSingleRoamingAuthorisation(new EMT_Id(
-                                                                                  AuthIdentification.AuthToken.ToString(),
-                                                                                  TokenRepresentations.Plain,
-                                                                                  TokenTypes.RFID
-                                                                              ),
+                var EMTId     = new EMT_Id(
+                                    AuthIdentification.AuthToken.ToString(),
+                                    TokenRepresentations.Plain,
+                                    TokenTypes.RFID
+                                );
 
-                                                                              Timestamp,
-                                                                              CancellationToken,
-                                                                              EventTrackingId,
-                                                                              RequestTimeout);
+                var response  = await CPORoaming.GetSingleRoamingAuthorisation(EMTId,
+
+                                                                               Timestamp,
+                                                                               CancellationToken,
+                                                                               EventTrackingId,
+                                                                               RequestTimeout);
 
 
                 Endtime  = DateTime.UtcNow;
                 Runtime  = Endtime - StartTime;
 
-                if (response.HTTPStatusCode            == HTTPStatusCode.OK &&
-                    response.Content                   != null              &&
+                if (response.HTTPStatusCode == HTTPStatusCode.OK &&
+                    response.Content != null &&
                     response.Content.Result.ResultCode == ResultCodes.OK)
                 {
 
                     result = AuthStartEVSEResult.Authorized(Id,
                                                             this,
                                                             ChargingSession_Id.New,
-                                                            ProviderId: response.Content.RoamingAuthorisationInfo != null
-                                                                            ? response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
-                                                                            : eMobilityProvider_Id.Parse(Country.Germany, "GEF"),
-                                                            Runtime:    Runtime);
+                                                            ProviderId:     response.Content.RoamingAuthorisationInfo != null
+                                                                                ? response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
+                                                                                : eMobilityProvider_Id.Parse(Country.Germany, "GEF"),
+                                                            ContractId:     response.Content.RoamingAuthorisationInfo.ContractId.ToString(),
+                                                            PrintedNumber:  response.Content.RoamingAuthorisationInfo.PrintedNumber,
+                                                            ExpiryDate:     response.Content.RoamingAuthorisationInfo.ExpiryDate,
+                                                            Runtime:        Runtime);
+
+                    lock (_Lookup)
+                    {
+
+                        if (_Lookup.TryGetValue(EMTId, out Contract_Id ExistingContractId))
+                        {
+
+                            if (ExistingContractId != response.Content.RoamingAuthorisationInfo.ContractId)
+                            {
+
+                                // Replace
+
+                            }
+
+                        }
+
+                        else
+                        {
+
+                            // Add
+                            _Lookup.Add(EMTId, response.Content.RoamingAuthorisationInfo.ContractId);
+
+                            var time = DateTime.UtcNow;
+                            var file = String.Concat(Directory.GetCurrentDirectory(), Path.DirectorySeparatorChar, "OCHPv1.4", Path.DirectorySeparatorChar, "EMTIds_2_ContractIds_", time.ToUniversalTime().Year, "-", time.ToUniversalTime().Month.ToString("D2"), ".log");
+
+                            File.AppendAllText(file, String.Concat("ADD", rs, EMTId.Instance, rs, response.Content.RoamingAuthorisationInfo.ContractId));
+
+                        }
+
+                    }
 
                 }
 
                 else
+                {
+
                     result = AuthStartEVSEResult.NotAuthorized(Id,
                                                                this,
                                                                // response.Content.ProviderId.ToWWCP(),
                                                                Runtime: Runtime);
+
+                    lock (_Lookup)
+                    {
+
+                        // Remove
+
+                        _Lookup.Remove(EMTId);
+
+                    }
+
+                }
 
             }
 
@@ -5356,6 +5502,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
+            var ForwardedChargeDetailRecords = new List<ChargeDetailRecord>();
+            var DroppedChargeDetailRecords   = new List<ChargeDetailRecord>();
+
+            foreach (var cdr in ChargeDetailRecords)
+            {
+
+                if (ChargeDetailRecordFilter(cdr) == ChargeDetailRecordFilters.forward)
+                    ForwardedChargeDetailRecords.Add(cdr);
+                else
+                    DroppedChargeDetailRecords.Add(cdr);
+
+            }
+
+
+
             #region Enqueue, if requested...
 
             if (TransmissionType == TransmissionTypes.Enqueue)
@@ -5372,7 +5533,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      Id.ToString(),
                                                      EventTrackingId,
                                                      RoamingNetwork.Id,
-                                                     ChargeDetailRecords,
+                                                     DroppedChargeDetailRecords,
+                                                     ForwardedChargeDetailRecords,
                                                      RequestTimeout);
 
                 }
@@ -5386,13 +5548,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 lock (ServiceCheckLock)
                 {
 
-                    ChargeDetailRecordQueue.AddRange(ChargeDetailRecords);
+                    ChargeDetailRecordQueue.AddRange(ForwardedChargeDetailRecords);
 
                     ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
                 }
 
-                return SendCDRsResult.Enqueued(Id, this, ChargeDetailRecords);
+                return SendCDRsResult.Enqueued(Id, this, ForwardedChargeDetailRecords);
 
             }
 
@@ -5411,7 +5573,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                           Id.ToString(),
                                           EventTrackingId,
                                           RoamingNetwork.Id,
-                                          ChargeDetailRecords,
+                                          DroppedChargeDetailRecords,
+                                          ForwardedChargeDetailRecords,
                                           RequestTimeout);
 
             }
@@ -5434,7 +5597,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 Runtime  = Endtime - StartTime;
                 result   = SendCDRsResult.OutOfService(Id,
                                                        this,
-                                                       ChargeDetailRecords,
+                                                       ForwardedChargeDetailRecords,
                                                        Runtime: Runtime);
 
             }
@@ -5442,7 +5605,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else
             {
 
-                var response = await CPORoaming.AddCDRs(ChargeDetailRecords.Select(cdr => cdr.ToOCHP()).ToArray(),
+                var response = await CPORoaming.AddCDRs(ForwardedChargeDetailRecords.Select(cdr => cdr.ToOCHP(ContractIdDelegate:  emtid => _Lookup[emtid],
+                                                                                                              CustomEVSEIdMapper:  null
+                                                                                                             )).ToArray(),
 
                                                         Timestamp,
                                                         CancellationToken,
@@ -5465,19 +5630,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     {
 
                         case ResultCodes.OK:
-                            result = SendCDRsResult.Success(Id, this, ChargeDetailRecords);
+                            result = SendCDRsResult.Success(Id, this, ForwardedChargeDetailRecords);
                             break;
 
                         case ResultCodes.Partly:
                             result = SendCDRsResult.Error(Id,
                                                           this,
-                                                          ChargeDetailRecords.Where(cdr => CDRIdHash.Contains(cdr.SessionId)));
+                                                          ForwardedChargeDetailRecords.Where(cdr => CDRIdHash.Contains(cdr.SessionId)));
                             break;
 
                         default:
                             result = SendCDRsResult.Error(Id,
                                                           this,
-                                                          ChargeDetailRecords.Where(cdr => CDRIdHash.Contains(cdr.SessionId)));
+                                                          ForwardedChargeDetailRecords.Where(cdr => CDRIdHash.Contains(cdr.SessionId)));
                             break;
 
                     }
@@ -5487,7 +5652,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 else
                     result = SendCDRsResult.Error(Id,
                                                   this,
-                                                  ChargeDetailRecords,
+                                                  ForwardedChargeDetailRecords,
                                                   response?.Content?.Result.Description);
 
             }
@@ -5504,7 +5669,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                            Id.ToString(),
                                            EventTrackingId,
                                            RoamingNetwork.Id,
-                                           ChargeDetailRecords,
+                                           DroppedChargeDetailRecords,
+                                           ForwardedChargeDetailRecords,
                                            RequestTimeout,
                                            result,
                                            Runtime);
