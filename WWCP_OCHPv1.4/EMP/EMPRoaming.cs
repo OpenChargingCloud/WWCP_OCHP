@@ -46,8 +46,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         public EMPClient        EMPClient           { get; }
 
-        public IPPort HTTPPort
-            => EMPClient.HTTPPort;
+        public IPPort RemotePort
+            => EMPClient.RemotePort;
 
         public RemoteCertificateValidationCallback RemoteCertificateValidator
             => EMPClient?.RemoteCertificateValidator;
