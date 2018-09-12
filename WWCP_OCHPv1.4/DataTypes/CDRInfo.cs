@@ -517,9 +517,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                                       Duration.Value.Seconds.ToString("D2")))
                        : null,
 
-                   ChargePointAddress != null
-                       ? ChargePointAddress.ToXML()
-                       : null,
+                   ChargePointAddress?.ToXML(),
 
                    new XElement(OCHPNS.Default + "chargePointType",     XML_IO.AsText(ChargePointType)),
 

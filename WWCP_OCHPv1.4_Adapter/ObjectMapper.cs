@@ -533,6 +533,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                              CPO.EVSE2ChargePointInfoDelegate  EVSE2ChargePointInfo   = null)
         {
 
+            if (EVSE == null)
+                return null;
+
             var _ChargePointInfo = new ChargePointInfo(CustomEVSEIdMapper != null
                                                            ? CustomEVSEIdMapper(EVSE.Id)
                                                            : EVSE.Id.ToOCHP(),

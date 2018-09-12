@@ -73,6 +73,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #endregion
 
+        /// <summary>
+        /// Open 24 hours a day.
+        /// </summary>
         public static Hours Open24_7
             => new Hours(true);
 
@@ -400,13 +403,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        ? new XElement(OCHPNS.Default + "twentyfourseven", true)
                        : null,
 
-                   ExceptionalOpenings != null
-                       ? ExceptionalOpenings.SafeSelect(openings => openings.ToXML(OCHPNS.Default + "exceptionalOpenings"))
-                       : null,
+                   ExceptionalOpenings?.SafeSelect(openings => openings.ToXML(OCHPNS.Default + "exceptionalOpenings")),
 
-                   ExceptionalClosings != null
-                       ? ExceptionalClosings.SafeSelect(closings => closings.ToXML(OCHPNS.Default + "exceptionalClosings"))
-                       : null,
+                   ExceptionalClosings?.SafeSelect(closings => closings.ToXML(OCHPNS.Default + "exceptionalClosings")),
 
                    new XElement(OCHPNS.Default + "closedCharging",  ClosedCharging)
 
