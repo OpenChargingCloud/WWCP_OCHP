@@ -969,11 +969,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public CPOClient(String                               ClientId,
-                         String                               Hostname,
+                         HTTPHostname                         Hostname,
                          IPPort?                              RemotePort                   = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
-                         String                               HTTPVirtualHost              = null,
+                         HTTPHostname?                        HTTPVirtualHost              = null,
                          HTTPURI?                             URIPrefix                    = null,
                          HTTPURI?                             LiveURIPrefix                = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
@@ -1002,10 +1002,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region Initial checks
 
             if (ClientId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Logger),    "The given client identification must not be null or empty!");
-
-            if (Hostname.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Hostname),  "The given hostname must not be null or empty!");
+                throw new ArgumentNullException(nameof(ClientId), "The given client identification must not be null or empty!");
 
             #endregion
 
@@ -1038,11 +1035,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public CPOClient(String                               ClientId,
                          CPOClientLogger                      Logger,
-                         String                               Hostname,
+                         HTTPHostname                         Hostname,
                          IPPort?                              RemotePort                   = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
-                         String                               HTTPVirtualHost              = null,
+                         HTTPHostname?                        HTTPVirtualHost              = null,
                          HTTPURI?                             URIPrefix                    = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
@@ -1068,17 +1065,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region Initial checks
 
             if (ClientId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Logger),    "The given client identification must not be null or empty!");
-
-            if (Logger == null)
-                throw new ArgumentNullException(nameof(Logger),    "The given mobile client logger must not be null!");
-
-            if (Hostname.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Hostname),  "The given hostname must not be null or empty!");
+                throw new ArgumentNullException(nameof(ClientId), "The given client identification must not be null or empty!");
 
             #endregion
 
-            this.Logger = Logger;
+            this.Logger  = Logger ?? throw new ArgumentNullException(nameof(Logger), "The given mobile client logger must not be null!");
 
         }
 
@@ -1163,8 +1154,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -1416,8 +1407,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -1669,8 +1660,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultLiveURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -1926,8 +1917,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -2161,8 +2152,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -2399,8 +2390,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -2637,8 +2628,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -2891,8 +2882,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -3130,8 +3121,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -3386,8 +3377,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -3610,8 +3601,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -3925,8 +3916,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    HTTPVirtualHost,
                                                     DefaultURIPrefix,
+                                                    VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
                                                     ClientCertificateSelector,

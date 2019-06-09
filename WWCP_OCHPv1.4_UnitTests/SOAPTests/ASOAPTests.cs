@@ -23,6 +23,7 @@ using System.Collections.Concurrent;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Illias;
+using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 
 #endregion
 
@@ -84,7 +85,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
             //- CPO --------------------------------------------------------------------------------------------
 
             CPOClient                                = new CPO.CPOClient("CPOClient #1",
-                                                                         "127.0.0.1",
+                                                                         HTTPHostname.Localhost,
                                                                          ClearingHouseServer.IPPorts.First(),
                                                                          DNSClient:  DNSClient);
 
@@ -95,7 +96,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
             //- EMP --------------------------------------------------------------------------------------------
 
             EMPClient                                = new EMP.EMPClient("EMPClient #1",
-                                                                         "127.0.0.1",
+                                                                         HTTPHostname.Localhost,
                                                                          ClearingHouseServer.IPPorts.First(),
                                                                          DNSClient:  DNSClient);
 

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 
 #endregion
 
@@ -72,7 +73,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="ValidDate">The date on which this endpoint/token combination is valid.</param>
         /// <param name="WhiteList">An enumeration of patterns that match all EVSE Ids the endpoint is responsible for.</param>
         /// <param name="BlackList">An optional enumeration of patterns that match EVSE Ids the endpoint is not responsible for, but are matched by the whitelist.</param>
-        public OperatorEndpoint(String               URL,
+        public OperatorEndpoint(HTTPURI              URL,
                                 String               NamespaceURL,
                                 String               AccessToken,
                                 String               ValidDate,
@@ -182,7 +183,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 OperatorEndpoint = new OperatorEndpoint(
 
-                                       OperatorEndpointXML.ElementValueOrFail(OCHPNS.Default + "url"),
+                                       HTTPURI.Parse(OperatorEndpointXML.ElementValueOrFail(OCHPNS.Default + "url")),
                                        OperatorEndpointXML.ElementValueOrFail(OCHPNS.Default + "namespaceUrl"),
                                        OperatorEndpointXML.ElementValueOrFail(OCHPNS.Default + "accesstoken"),
                                        OperatorEndpointXML.ElementValueOrFail(OCHPNS.Default + "validDate"),

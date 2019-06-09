@@ -17,6 +17,7 @@
 
 #region Usings
 
+using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using System;
 using System.Text.RegularExpressions;
 
@@ -31,27 +32,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     public abstract class ADirectEndpoint
     {
 
-        #region Data
-
-        /// <summary>
-        /// The regular expression for parsing an OCHPdirect endpoint URL.
-        /// </summary>
-        public static readonly Regex URL_RegEx  = new Regex(@"^https:\/\/.+$",
-                                                            RegexOptions.IgnorePatternWhitespace);
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// The endpoint address.
         /// </summary>
-        public String  URL            { get; }
+        public HTTPURI  URL            { get; }
 
         /// <summary>
         /// The WSDL namespace definition.
         /// </summary>
-        public String  NamespaceURL   { get; }
+        public String   NamespaceURL   { get; }
 
         // http://ochp.eu/1.3
         // http://ochp.eu/1.4
@@ -78,18 +69,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="NamespaceURL">The WSDL namespace definition.</param>
         /// <param name="AccessToken">The secret token to access this endpoint.</param>
         /// <param name="ValidDate">The date on which this endpoint/token combination is valid.</param>
-        public ADirectEndpoint(String  URL,
-                               String  NamespaceURL,
-                               String  AccessToken,
-                               String  ValidDate)
+        public ADirectEndpoint(HTTPURI  URL,
+                               String   NamespaceURL,
+                               String   AccessToken,
+                               String   ValidDate)
         {
-
-            #region Initial checks
-
-            if (!URL_RegEx.IsMatch(URL))
-                throw new ArgumentException("the given URL '" + URL + "' is invalid!", nameof(URL));
-
-            #endregion
 
             this.URL           = URL;
             this.NamespaceURL  = NamespaceURL;

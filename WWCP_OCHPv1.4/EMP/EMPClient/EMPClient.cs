@@ -1018,11 +1018,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public EMPClient(String                               ClientId,
-                         String                               RemoteHostname,
+                         HTTPHostname                         RemoteHostname,
                          IPPort?                              RemoteTCPPort                = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
-                         String                               RemoteHTTPVirtualHost        = null,
+                         HTTPHostname?                        RemoteHTTPVirtualHost        = null,
                          HTTPURI?                             URIPrefix                    = null,
                          HTTPURI?                             LiveURIPrefix                = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
@@ -1051,10 +1051,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region Initial checks
 
             if (ClientId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Logger),    "The given client identification must not be null or empty!");
-
-            if (RemoteHostname.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(RemoteHostname),  "The given hostname must not be null or empty!");
+                throw new ArgumentNullException(nameof(ClientId), "The given client identification must not be null or empty!");
 
             #endregion
 
@@ -1089,11 +1086,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="DNSClient">An optional DNS client.</param>
         public EMPClient(String                               ClientId,
                          EMPClientLogger                      Logger,
-                         String                               RemoteHostname,
+                         HTTPHostname                         RemoteHostname,
                          IPPort?                              RemoteTCPPort                = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
-                         String                               HTTPVirtualHost              = null,
+                         HTTPHostname?                        HTTPVirtualHost              = null,
                          HTTPURI?                             URIPrefix                    = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
@@ -1119,19 +1116,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             #region Initial checks
 
             if (ClientId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Logger),    "The given client identification must not be null or empty!");
-
-            if (Logger == null)
-                throw new ArgumentNullException(nameof(Logger),    "The given mobile client logger must not be null!");
-
-            if (RemoteHostname.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(RemoteHostname),  "The given hostname must not be null or empty!");
+                throw new ArgumentNullException(nameof(ClientId), "The given client identification must not be null or empty!");
 
             #endregion
 
-            this.Logger = Logger;
+            this.Logger          = Logger ?? throw new ArgumentNullException(nameof(Logger), "The given mobile client logger must not be null!");
 
-            this._EndpointInfos = new EndpointInfos();
+            this._EndpointInfos  = new EndpointInfos();
 
         }
 
@@ -1201,8 +1192,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -1426,8 +1417,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -1654,8 +1645,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultLiveURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -1881,8 +1872,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -2122,8 +2113,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -2365,8 +2356,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -2595,8 +2586,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -2836,8 +2827,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -3079,8 +3070,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -3303,8 +3294,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        HTTPVirtualHost,
                                                         DefaultURIPrefix,
+                                                        VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
                                                         ClientCertificateSelector,
@@ -3550,9 +3541,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                 ReserveUntil);
 
 
-            using (var _OCHPClient = new SOAPClient(ep.First().URL,
-                                                    ep.First().URL,
+            using (var _OCHPClient = new SOAPClient(ep.First().URL.Hostname,
                                                     DefaultURIPrefix,
+                                                    ep.First().URL.Hostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
                                                     ClientCertificateSelector,
@@ -3774,9 +3765,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                  Departure);
 
 
-            using (var _OCHPClient = new SOAPClient(ep.First().URL,
-                                                    ep.First().URL,
+            using (var _OCHPClient = new SOAPClient(ep.First().URL.Hostname,
                                                     DefaultURIPrefix,
+                                                    ep.First().URL.Hostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
                                                     ClientCertificateSelector,
@@ -3974,8 +3965,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    HTTPVirtualHost,
                                                     DefaultURIPrefix,
+                                                    VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
                                                     ClientCertificateSelector,
@@ -4167,8 +4158,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             var Request = new GetEVSEStatusRequest(EVSEIds);
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    HTTPVirtualHost,
                                                     DefaultURIPrefix,
+                                                    VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
                                                     ClientCertificateSelector,
@@ -4364,8 +4355,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    HTTPVirtualHost,
                                                     DefaultURIPrefix,
+                                                    VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
                                                     ClientCertificateSelector,
@@ -4557,8 +4548,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    HTTPVirtualHost,
                                                     DefaultURIPrefix,
+                                                    VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
                                                     ClientCertificateSelector,

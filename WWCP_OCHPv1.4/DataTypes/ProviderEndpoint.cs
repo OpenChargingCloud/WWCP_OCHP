@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 
 #endregion
 
@@ -72,7 +73,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="ValidDate">The date on which this endpoint/token combination is valid.</param>
         /// <param name="WhiteList">An enumeration of patterns that match all Contract Ids the endpoint is responsible for.</param>
         /// <param name="BlackList">An optional enumeration of patterns that match Contract Ids the endpoint is not responsible for, but are matched by the whitelist.</param>
-        public ProviderEndpoint(String               URL,
+        public ProviderEndpoint(HTTPURI              URL,
                                 String               NamespaceURL,
                                 String               AccessToken,
                                 String               ValidDate,
@@ -182,7 +183,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 ProviderEndpoint = new ProviderEndpoint(
 
-                                       ProviderEndpointXML.ElementValueOrFail(OCHPNS.Default + "url"),
+                                       HTTPURI.Parse(ProviderEndpointXML.ElementValueOrFail(OCHPNS.Default + "url")),
                                        ProviderEndpointXML.ElementValueOrFail(OCHPNS.Default + "namespaceUrl"),
                                        ProviderEndpointXML.ElementValueOrFail(OCHPNS.Default + "accesstoken"),
                                        ProviderEndpointXML.ElementValueOrFail(OCHPNS.Default + "validDate"),

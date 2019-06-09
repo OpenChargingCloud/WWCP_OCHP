@@ -1166,11 +1166,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               I18NString                                           Name,
                               RoamingNetwork                                       RoamingNetwork,
 
-                              String                                               RemoteHostname,
+                              HTTPHostname                                         RemoteHostname,
                               IPPort?                                              RemoteTCPPort                       = null,
                               RemoteCertificateValidationCallback                  RemoteCertificateValidator          = null,
                               LocalCertificateSelectionCallback                    ClientCertificateSelector           = null,
-                              String                                               RemoteHTTPVirtualHost               = null,
+                              HTTPHostname?                                        RemoteHTTPVirtualHost               = null,
                               HTTPURI?                                             URIPrefix                           = null,
                               HTTPURI?                                             LiveURIPrefix                       = null,
                               Tuple<String, String>                                WSSLoginPassword                    = null,

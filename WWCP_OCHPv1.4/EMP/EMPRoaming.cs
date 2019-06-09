@@ -46,6 +46,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         public EMPClient        EMPClient           { get; }
 
+        public HTTPHostname Hostname
+            => EMPClient.Hostname;
+
+        public HTTPHostname? VirtualHostname
+            => EMPClient.VirtualHostname;
+
         public IPPort RemotePort
             => EMPClient.RemotePort;
 
@@ -1393,11 +1399,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public EMPRoaming(String                               ClientId,
-                          String                               RemoteHostname,
+                          HTTPHostname                         RemoteHostname,
                           IPPort?                              RemoteTCPPort                   = null,
                           RemoteCertificateValidationCallback  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionCallback    ClientCertificateSelector       = null,
-                          String                               RemoteHTTPVirtualHost           = null,
+                          HTTPHostname?                        RemoteHTTPVirtualHost           = null,
                           HTTPURI?                             URIPrefix                       = null,
                           HTTPURI?                             LiveURIPrefix                   = null,
                           Tuple<String, String>                WSSLoginPassword                = null,
