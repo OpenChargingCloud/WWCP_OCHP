@@ -437,7 +437,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                                         Single.Parse),
 
                                             InformProviderRequestXML.MapValueOrNull    (OCHPNS.Default + "currency",
-                                                                                        Currency.ParseString)
+                                                                                        Currency.Parse)
 
                                         );
 

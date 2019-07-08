@@ -57,12 +57,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default HTTP/SOAP/XML server URI prefix.
         /// </summary>
-        public new static readonly HTTPURI          DefaultURIPrefix       = HTTPURI.Parse("/");
+        public new static readonly HTTPPath         DefaultURIPrefix       = HTTPPath.Parse("/");
 
         /// <summary>
         /// The default HTTP/SOAP/XML server URI suffix.
         /// </summary>
-        public     static readonly HTTPURI          DefaultURISuffix       = HTTPURI.Parse("/OCHP");
+        public     static readonly HTTPPath         DefaultURISuffix       = HTTPPath.Parse("/OCHP");
 
         /// <summary>
         /// The default HTTP/SOAP/XML content type.
@@ -86,7 +86,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The HTTP/SOAP/XML server URI suffix.
         /// </summary>
-        public HTTPURI  URISuffix           { get; }
+        public HTTPPath  URISuffix           { get; }
 
         #endregion
 
@@ -208,8 +208,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         public CPOServer(String          HTTPServerName           = DefaultHTTPServerName,
                          String          ServiceId                = null,
                          IPPort?         TCPPort                  = null,
-                         HTTPURI?        URIPrefix                = null,
-                         HTTPURI?        URISuffix                = null,
+                         HTTPPath?        URIPrefix                = null,
+                         HTTPPath?        URISuffix                = null,
                          HTTPContentType ContentType              = null,
                          Boolean         RegisterHTTPRootService  = true,
                          DNSClient       DNSClient                = null,
@@ -248,8 +248,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="URISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         public CPOServer(SOAPServer  SOAPServer,
                          String      ServiceId   = null,
-                         HTTPURI?    URIPrefix   = null,
-                         HTTPURI?    URISuffix   = null)
+                         HTTPPath?    URIPrefix   = null,
+                         HTTPPath?    URISuffix   = null)
 
             : base(SOAPServer,
                    URIPrefix ?? DefaultURIPrefix)

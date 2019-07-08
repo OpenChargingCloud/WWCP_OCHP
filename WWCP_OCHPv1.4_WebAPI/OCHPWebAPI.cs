@@ -154,7 +154,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <summary>
         /// The default HTTP URI prefix.
         /// </summary>
-        public static readonly HTTPURI                  DefaultURIPrefix         = HTTPURI.Parse("/ext/OCHPPlus");
+        public static readonly HTTPPath                  DefaultURIPrefix         = HTTPPath.Parse("/ext/OCHPPlus");
 
         /// <summary>
         /// The default HTTP realm, if HTTP Basic Authentication is used.
@@ -192,7 +192,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <summary>
         /// The HTTP URI prefix.
         /// </summary>
-        public HTTPURI                                      URIPrefix     { get; }
+        public HTTPPath                                      URIPrefix     { get; }
 
         /// <summary>
         /// The HTTP realm, if HTTP Basic Authentication is used.
@@ -251,7 +251,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <param name="EVSEStatus2XML">An optional delegate to process an EVSE status record XML before sending it somewhere.</param>
         /// <param name="XMLPostProcessing">An optional delegate to process the XML after its final creation.</param>
         public OCHPWebAPI(HTTPServer<RoamingNetworks, RoamingNetwork>  HTTPServer,
-                          HTTPURI?                                     URIPrefix             = null,
+                          HTTPPath?                                     URIPrefix             = null,
                           String                                       HTTPRealm             = DefaultHTTPRealm,
                           IEnumerable<KeyValuePair<String, String>>    HTTPLogins            = null,
 

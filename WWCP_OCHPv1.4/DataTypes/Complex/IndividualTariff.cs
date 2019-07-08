@@ -166,7 +166,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                        IndividualTariffXML.ElementValues (OCHPNS.Default + "recipient"),
 
                                        IndividualTariffXML.MapValueOrFail(OCHPNS.Default + "currency",
-                                                                          Currency.ParseString)
+                                                                          Currency.Parse)
 
                                    );
 

@@ -554,7 +554,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                                                                                 Single.Parse),
 
                                                 GetInformProviderResponseXML.MapValueOrNull    (OCHPNS.Default + "currency",
-                                                                                                Currency.ParseString)
+                                                                                                Currency.Parse)
 
                                             );
 

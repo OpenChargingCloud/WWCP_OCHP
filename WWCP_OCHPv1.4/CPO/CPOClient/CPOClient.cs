@@ -60,12 +60,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default URI prefix.
         /// </summary>
-        public static readonly     HTTPURI  DefaultURIPrefix      = HTTPURI.Parse("/service/ochp/v1.4/");
+        public static readonly     HTTPPath  DefaultURIPrefix      = HTTPPath.Parse("/service/ochp/v1.4/");
 
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public static readonly     HTTPURI  DefaultLiveURIPrefix  = HTTPURI.Parse("/live/ochp/v1.4");
+        public static readonly     HTTPPath  DefaultLiveURIPrefix  = HTTPPath.Parse("/live/ochp/v1.4");
 
         #endregion
 
@@ -74,7 +74,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public HTTPURI          LiveURIPrefix    { get; }
+        public HTTPPath          LiveURIPrefix    { get; }
 
         /// <summary>
         /// The attached OCHP CPO client (HTTP/SOAP client) logger.
@@ -974,8 +974,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          HTTPHostname?                        HTTPVirtualHost              = null,
-                         HTTPURI?                             URIPrefix                    = null,
-                         HTTPURI?                             LiveURIPrefix                = null,
+                         HTTPPath?                             URIPrefix                    = null,
+                         HTTPPath?                             LiveURIPrefix                = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
@@ -1040,7 +1040,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          HTTPHostname?                        HTTPVirtualHost              = null,
-                         HTTPURI?                             URIPrefix                    = null,
+                         HTTPPath?                             URIPrefix                    = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,

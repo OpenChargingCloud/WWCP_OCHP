@@ -413,7 +413,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                CDRPeriod.Parse),
 
                               CDRInfoXML.MapValueOrNull       (OCHPNS.Default + "currency",
-                                                               Currency.ParseString),
+                                                               Currency.Parse),
 
 
                               CDRInfoXML.MapElementOrFail     (OCHPNS.Default + "chargePointAddress",
