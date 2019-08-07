@@ -218,6 +218,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         public Func<EVSEStatusReport, ChargingStationStatusTypes> EVSEStatusAggregationDelegate { get; }
 
+        public IEnumerable<ChargingReservation> Reservations => throw new NotImplementedException();
+
+        public IEnumerable<ChargingSession> ChargingSessions => throw new NotImplementedException();
+
         #endregion
 
         #region Events
@@ -258,12 +262,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// An event sent whenever a reserve EVSE command will be send.
         /// </summary>
-        public event OnReserveEVSERequestDelegate         OnReserveEVSERequest;
+        public event OnReserveRequestDelegate         OnReserveEVSERequest;
 
         /// <summary>
         /// An event sent whenever a reserve EVSE command was sent.
         /// </summary>
-        public event OnReserveEVSEResponseDelegate        OnReserveEVSEResponse;
+        public event OnReserveResponseDelegate        OnReserveEVSEResponse;
 
         #endregion
 
@@ -396,6 +400,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         public event OnSendCDRResponseDelegate  OnChargeDetailRecordResponse;
         public event WWCP.OnGetCDRsRequestDelegate OnGetChargeDetailRecordsRequest;
         public event WWCP.OnGetCDRsResponseDelegate OnGetChargeDetailRecordsResponse;
+        public event OnReserveRequestDelegate OnReserveRequest;
+        public event OnReserveResponseDelegate OnReserveResponse;
+        public event OnNewReservationDelegate OnNewReservation;
+        public event OnReservationCanceledDelegate OnReservationCanceled;
+        public event OnRemoteStartRequestDelegate OnRemoteStartRequest;
+        public event OnRemoteStartResponseDelegate OnRemoteStartResponse;
+        public event OnNewChargingSessionDelegate OnNewChargingSession;
+        public event OnRemoteStopRequestDelegate OnRemoteStopRequest;
+        public event OnRemoteStopResponseDelegate OnRemoteStopResponse;
+        public event OnNewChargeDetailRecordDelegate OnNewChargeDetailRecord;
 
         #endregion
 
@@ -1543,31 +1557,35 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             throw new NotImplementedException();
         }
 
-        public Task<RemoteStartEVSEResult> RemoteStart(WWCP.EVSE_Id EVSEId, ChargingProduct ChargingProduct = null, ChargingReservation_Id? ReservationId = null, ChargingSession_Id? SessionId = null, eMobilityProvider_Id? ProviderId = null, RemoteAuthentication eMAId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<RemoteStartChargingStationResult> RemoteStart(ChargingStation_Id ChargingStationId, ChargingProduct ChargingProduct = null, ChargingReservation_Id? ReservationId = null, ChargingSession_Id? SessionId = null, eMobilityProvider_Id? ProviderId = null, RemoteAuthentication eMAId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<RemoteStopResult> RemoteStop(ChargingSession_Id SessionId, ReservationHandling? ReservationHandling = null, eMobilityProvider_Id? ProviderId = null, RemoteAuthentication eMAId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<RemoteStopEVSEResult> RemoteStop(WWCP.EVSE_Id EVSEId, ChargingSession_Id SessionId, ReservationHandling? ReservationHandling = null, eMobilityProvider_Id? ProviderId = null, RemoteAuthentication eMAId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        public bool TryGetChargingReservationById(ChargingReservation_Id ReservationId, out ChargingReservation ChargingReservation)
         {
             throw new NotImplementedException();
         }
 
-        public Task<RemoteStopChargingStationResult> RemoteStop(ChargingStation_Id ChargingStationId, ChargingSession_Id SessionId, ReservationHandling? ReservationHandling = null, eMobilityProvider_Id? ProviderId = null, RemoteAuthentication eMAId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        public Task<ReservationResult> Reserve(ChargingLocation ChargingLocation, ChargingReservationLevel ReservationLevel = ChargingReservationLevel.EVSE, DateTime? StartTime = null, TimeSpan? Duration = null, ChargingReservation_Id? ReservationId = null, eMobilityProvider_Id? ProviderId = null, RemoteAuthentication RemoteAuthentication = null, ChargingProduct ChargingProduct = null, IEnumerable<Auth_Token> AuthTokens = null, IEnumerable<eMobilityAccount_Id> eMAIds = null, IEnumerable<uint> PINs = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
         {
             throw new NotImplementedException();
         }
 
+        public Task<CancelReservationResult> CancelReservation(ChargingReservation_Id ReservationId, ChargingReservationCancellationReason Reason, eMobilityProvider_Id? ProviderId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryGetChargingSessionById(ChargingSession_Id ChargingSessionId, out ChargingSession ChargingSession)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RemoteStartResult> RemoteStart(ChargingLocation ChargingLocation, ChargingProduct ChargingProduct = null, ChargingReservation_Id? ReservationId = null, ChargingSession_Id? SessionId = null, eMobilityProvider_Id? ProviderId = null, RemoteAuthentication RemoteAuthentication = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        {
+            throw new NotImplementedException();
+        }
 
 
 
