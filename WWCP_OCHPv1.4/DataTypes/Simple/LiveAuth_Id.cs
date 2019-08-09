@@ -38,7 +38,23 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Data
 
-        private readonly String _Id;
+        private readonly String InternalId;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Indicates whether this identification is null or empty.
+        /// </summary>
+        public Boolean IsNullOrEmpty
+            => InternalId.IsNullOrEmpty();
+
+        /// <summary>
+        /// The length of the tag identification.
+        /// </summary>
+        public UInt64 Length
+            => (UInt64) InternalId?.Length;
 
         #endregion
 
@@ -58,7 +74,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             #endregion
 
-            this._Id  = Id;
+            this.InternalId  = Id;
 
         }
 
@@ -123,7 +139,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public LiveAuth_Id Clone
 
-            => new LiveAuth_Id(new String(_Id.ToCharArray()));
+            => new LiveAuth_Id(new String(InternalId.ToCharArray()));
 
         #endregion
 
@@ -276,7 +292,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if ((Object) LiveAuthId == null)
                 throw new ArgumentNullException(nameof(LiveAuthId),  "The given live authentication identification must not be null!");
 
-            return String.Compare(_Id, LiveAuthId._Id, StringComparison.Ordinal);
+            return String.Compare(InternalId, LiveAuthId.InternalId, StringComparison.Ordinal);
 
         }
 
@@ -323,7 +339,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if ((Object) LiveAuthId == null)
                 return false;
 
-            return _Id.Equals(LiveAuthId._Id);
+            return InternalId.Equals(LiveAuthId.InternalId);
 
         }
 
@@ -338,7 +354,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         /// <returns>The HashCode of this object.</returns>
         public override Int32 GetHashCode()
-            => _Id.GetHashCode();
+            => InternalId.GetHashCode();
 
         #endregion
 
@@ -348,7 +364,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Return a text representation of this object.
         /// </summary>
         public override String ToString()
-            => _Id;
+            => InternalId;
 
         #endregion
 

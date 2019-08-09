@@ -218,7 +218,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         public Func<EVSEStatusReport, ChargingStationStatusTypes> EVSEStatusAggregationDelegate { get; }
 
-        public IEnumerable<ChargingReservation> Reservations => throw new NotImplementedException();
+        public IEnumerable<ChargingReservation> ChargingReservations => throw new NotImplementedException();
 
         public IEnumerable<ChargingSession> ChargingSessions => throw new NotImplementedException();
 
@@ -285,31 +285,28 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region OnRemoteStartEVSERequest/-Response
+        #region OnRemoteStart/StopRequest/-Response
 
         /// <summary>
-        /// An event sent whenever a remote start EVSE command will be send.
+        /// An event fired whenever a remote start command was received.
         /// </summary>
-        public event OnRemoteStartEVSERequestDelegate     OnRemoteStartEVSERequest;
+        public event OnRemoteStartRequestDelegate     OnRemoteStartRequest;
 
         /// <summary>
-        /// An event sent whenever a remote start EVSE command was sent.
+        /// An event fired whenever a remote start command completed.
         /// </summary>
-        public event OnRemoteStartEVSEResponseDelegate    OnRemoteStartEVSEResponse;
+        public event OnRemoteStartResponseDelegate    OnRemoteStartResponse;
 
-        #endregion
-
-        #region OnRemoteStopEVSERequest/-Response
 
         /// <summary>
-        /// An event sent whenever a remote stop EVSE command will be send.
+        /// An event fired whenever a remote stop command was received.
         /// </summary>
-        public event OnRemoteStopEVSERequestDelegate      OnRemoteStopEVSERequest;
+        public event OnRemoteStopRequestDelegate      OnRemoteStopRequest;
 
         /// <summary>
-        /// An event sent whenever a remote stop EVSE command was sent.
+        /// An event fired whenever a remote stop command completed.
         /// </summary>
-        public event OnRemoteStopEVSEResponseDelegate     OnRemoteStopEVSEResponse;
+        public event OnRemoteStopResponseDelegate     OnRemoteStopResponse;
 
         #endregion
 
@@ -404,11 +401,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         public event OnReserveResponseDelegate OnReserveResponse;
         public event OnNewReservationDelegate OnNewReservation;
         public event OnReservationCanceledDelegate OnReservationCanceled;
-        public event OnRemoteStartRequestDelegate OnRemoteStartRequest;
-        public event OnRemoteStartResponseDelegate OnRemoteStartResponse;
         public event OnNewChargingSessionDelegate OnNewChargingSession;
-        public event OnRemoteStopRequestDelegate OnRemoteStopRequest;
-        public event OnRemoteStopResponseDelegate OnRemoteStopResponse;
         public event OnNewChargeDetailRecordDelegate OnNewChargeDetailRecord;
 
         #endregion
@@ -1572,7 +1565,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             throw new NotImplementedException();
         }
 
-        public Task<CancelReservationResult> CancelReservation(ChargingReservation_Id ReservationId, ChargingReservationCancellationReason Reason, eMobilityProvider_Id? ProviderId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        public Task<CancelReservationResult> CancelReservation(ChargingReservation_Id ReservationId, ChargingReservationCancellationReason Reason, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
         {
             throw new NotImplementedException();
         }

@@ -60,6 +60,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// </summary>
         public TokenSubTypes?        SubType           { get; }
 
+        /// <summary>
+        /// Indicates whether this identification is null or empty.
+        /// </summary>
+        public Boolean IsNullOrEmpty
+            => Instance.IsNullOrEmpty();
 
         /// <summary>
         /// Returns the length of the identification.
