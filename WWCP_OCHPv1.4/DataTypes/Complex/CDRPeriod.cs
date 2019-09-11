@@ -53,22 +53,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The value the EVSP is charged for. The unit of the value depends on the billingItem.
         /// </summary>
-        public Single        BillingValue    { get; }
+        public Decimal       BillingValue    { get; }
 
         /// <summary>
         /// Price per unit of the billingItem in the given currency.
         /// </summary>
-        public Single        ItemPrice       { get; }
+        public Decimal       ItemPrice       { get; }
 
         /// <summary>
         /// The cost of the period in the given currency.
         /// </summary>
-        public Single?       PeriodCost      { get; }
+        public Decimal?      PeriodCost      { get; }
 
         /// <summary>
         /// Tax rate in percent that is to be paid for charging processes in the country of origin.
         /// </summary>
-        public Single?       TaxRate         { get; }
+        public Decimal?      TaxRate         { get; }
 
         #endregion
 
@@ -87,10 +87,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public CDRPeriod(DateTime      Start,
                          DateTime      End,
                          BillingItems  BillingItem,
-                         Single        BillingValue,
-                         Single        ItemPrice,
-                         Single?       PeriodCost  = null,
-                         Single?       TaxRate     = null)
+                         Decimal       BillingValue,
+                         Decimal       ItemPrice,
+                         Decimal?      PeriodCost  = null,
+                         Decimal?      TaxRate     = null)
 
         {
 
@@ -99,8 +99,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             this.BillingItem   = BillingItem;
             this.BillingValue  = BillingValue;
             this.ItemPrice     = ItemPrice;
-            this.PeriodCost    = PeriodCost ?? new Single?();
-            this.TaxRate       = TaxRate    ?? new Single?();
+            this.PeriodCost    = PeriodCost ?? new Decimal?();
+            this.TaxRate       = TaxRate    ?? new Decimal?();
 
         }
 
@@ -211,16 +211,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                                 XML_IO.AsBillingItem),
 
                                 CDRPeriodXML.MapValueOrFail    (OCHPNS.Default + "billingValue",
-                                                                Single.Parse),
+                                                                Decimal.Parse),
 
                                 CDRPeriodXML.MapValueOrFail    (OCHPNS.Default + "itemPrice",
-                                                                Single.Parse),
+                                                                Decimal.Parse),
 
                                 CDRPeriodXML.MapValueOrNullable(OCHPNS.Default + "periodCost",
-                                                                Single.Parse),
+                                                                Decimal.Parse),
 
                                 CDRPeriodXML.MapValueOrNullable(OCHPNS.Default + "taxrate",
-                                                                Single.Parse)
+                                                                Decimal.Parse)
 
                             );
 

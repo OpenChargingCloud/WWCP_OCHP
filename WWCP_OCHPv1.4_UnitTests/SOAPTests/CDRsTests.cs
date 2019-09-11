@@ -119,8 +119,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                                DateTime.Now - TimeSpan.FromHours(1),
                                                DateTime.Now,
                                                BillingItems.UsageTime,
-                                               23.5f,
-                                               23.5f
+                                               23.5m,
+                                               23.5m
                                            )
 
                                        },
