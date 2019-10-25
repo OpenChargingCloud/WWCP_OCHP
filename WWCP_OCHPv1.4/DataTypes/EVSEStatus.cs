@@ -30,7 +30,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// The the major status, minor status and an optional timeout of this status of an OCHP EVSE.
     /// </summary>
-    public struct EVSEStatus
+    public class EVSEStatus
     {
 
         #region Properties
@@ -364,11 +364,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is an EVSE status.
-            if (!(Object is EVSEStatus))
+            if (!(Object is EVSEStatus EVSEStatus))
                 return false;
 
-            return this.Equals((EVSEStatus) Object);
+            return Equals(EVSEStatus);
 
         }
 

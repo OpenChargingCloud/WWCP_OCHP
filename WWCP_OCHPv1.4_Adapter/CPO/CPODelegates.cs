@@ -32,7 +32,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// and OCHP EVSE identifications.
     /// </summary>
     /// <param name="EVSEId">A WWCP EVSE identification.</param>
-    public delegate EVSE_Id          CustomEVSEIdMapperDelegate         (WWCP.EVSE_Id      EVSEId);
+    public delegate EVSE_Id?         CustomEVSEIdMapperDelegate         (WWCP.EVSE_Id?     EVSEId);
 
 
     /// <summary>

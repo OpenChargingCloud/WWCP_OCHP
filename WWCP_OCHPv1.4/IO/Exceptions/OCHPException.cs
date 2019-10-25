@@ -49,4 +49,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
     }
 
+
+
+    public class InvalidEVSEIdentificationException : OCHPException
+    {
+
+        public String EVSEId { get; }
+
+        public InvalidEVSEIdentificationException(String EVSEId)
+            : base("Invalid EVSE identification '" + EVSEId + "'!")
+        {
+            this.EVSEId = EVSEId;
+        }
+
+    }
+
 }

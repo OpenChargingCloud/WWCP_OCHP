@@ -145,16 +145,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Convert EVSE Ids...
 
-        public static EVSE_Id ToOCHP(this WWCP.EVSE_Id EVSEId)
-            => EVSE_Id.Parse(EVSEId.ToString());
+        public static EVSE_Id? ToOCHP(this WWCP.EVSE_Id EVSEId, CPO.CustomEVSEIdMapperDelegate _CustomEVSEIdMapper = null)
+            => _CustomEVSEIdMapper != null
+                   ? _CustomEVSEIdMapper(EVSEId)
+                   : EVSE_Id.Parse(EVSEId.ToString());
 
-        public static EVSE_Id? ToOCHP(this WWCP.EVSE_Id? EVSEId)
+        public static EVSE_Id? ToOCHP(this WWCP.EVSE_Id? EVSEId, CPO.CustomEVSEIdMapperDelegate _CustomEVSEIdMapper = null)
             => EVSEId.HasValue
-                   ? EVSE_Id.Parse(EVSEId.ToString())
+                   ? _CustomEVSEIdMapper != null ? _CustomEVSEIdMapper(EVSEId) : EVSE_Id.Parse(EVSEId.ToString())
                    : new EVSE_Id?();
 
 
-        public static WWCP.EVSE_Id ToWWCP(this EVSE_Id EVSEId)
+        public static WWCP.EVSE_Id? ToWWCP(this EVSE_Id EVSEId)
             => WWCP.EVSE_Id.Parse(EVSEId.ToString());
 
         public static WWCP.EVSE_Id? ToWWCP(this EVSE_Id? EVSEId)
@@ -467,9 +469,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                           EMTId,
                           ContractIdDelegate(EMTId),// Contract_Id.Parse(ChargeDetailRecord.GetCustomDataAs<String>("ContractId")),
 
-                          CustomEVSEIdMapper != null && ChargeDetailRecord.EVSEId.HasValue
-                              ? CustomEVSEIdMapper(ChargeDetailRecord.EVSEId.Value)
-                              : ChargeDetailRecord.EVSEId.ToOCHP().Value,
+                          ChargeDetailRecord.EVSEId.ToOCHP(CustomEVSEIdMapper).Value,
                           ChargeDetailRecord.EVSE.ToOCHP().Connectors.First().Standard.GetChargePointType(),// ChargePointTypes.AC,  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                           ChargeDetailRecord.EVSE.ToOCHP().Connectors.First(),
 
@@ -539,9 +539,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                var _ChargePointInfo = new ChargePointInfo(CustomEVSEIdMapper != null
-                                                               ? CustomEVSEIdMapper(EVSE.Id)
-                                                               : EVSE.Id.ToOCHP(),
+                var _ChargePointInfo = new ChargePointInfo(EVSE.Id.ToOCHP(CustomEVSEIdMapper).Value,
                                                            ChargePointInfo.LocationIdInverse_RegEx.Replace(EVSE.ChargingStation.ChargingPool.Id.ToString(), "").SubstringMax(15),
                                                            EVSE.ChargingStation.ChargingPool.Name.FirstText().ToUpper(),
                                                            EVSE.ChargingStation.ChargingPool.Name.First().Language.ToString(),

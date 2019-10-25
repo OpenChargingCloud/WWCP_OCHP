@@ -94,6 +94,7 @@ namespace org.GraphDefined.WWCP
 
             CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                     RoamingNetwork,
                                               CSORoamingProvider_Id                                   Id,
+                                              I18NString                                              Description,
                                               I18NString                                              Name,
 
                                               HTTPHostname                                            RemoteHostname,
@@ -133,6 +134,7 @@ namespace org.GraphDefined.WWCP
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,
                                               TimeSpan?                                               EVSEStatusRefreshEvery              = null,
+                                              TimeSpan?                                               CDRCheckEvery                       = null,
 
                                               Boolean                                                 DisablePushData                     = false,
                                               Boolean                                                 DisablePushStatus                   = false,
@@ -164,6 +166,7 @@ namespace org.GraphDefined.WWCP
 
             var NewRoamingProvider = new OCHPv1_4.CPO.WWCPCPOAdapter(Id,
                                                                      Name,
+                                                                     Description,
                                                                      RoamingNetwork,
 
                                                                      RemoteHostname,
@@ -200,9 +203,11 @@ namespace org.GraphDefined.WWCP
                                                                      IncludeEVSEIds,
                                                                      IncludeEVSEs,
                                                                      ChargeDetailRecordFilter,
+
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
                                                                      EVSEStatusRefreshEvery,
+                                                                     CDRCheckEvery,
 
                                                                      DisablePushData,
                                                                      DisablePushStatus,
@@ -275,6 +280,7 @@ namespace org.GraphDefined.WWCP
             CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                     RoamingNetwork,
                                               CSORoamingProvider_Id                                   Id,
                                               I18NString                                              Name,
+                                              I18NString                                              Description,
                                               SOAPServer                                              SOAPServer,
 
                                               HTTPHostname                                            RemoteHostname,
@@ -306,9 +312,11 @@ namespace org.GraphDefined.WWCP
                                               IncludeEVSEIdDelegate                                   IncludeEVSEIds                      = null,
                                               IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
                                               Func<ChargeDetailRecord, OCHPv1_4.CPO.ChargeDetailRecordFilters>  ChargeDetailRecordFilter         = null,
+
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,
                                               TimeSpan?                                               EVSEStatusRefreshEvery              = null,
+                                              TimeSpan?                                               CDRCheckEvery                       = null,
 
                                               Boolean                                                 DisablePushData                     = false,
                                               Boolean                                                 DisablePushStatus                   = false,
@@ -344,6 +352,7 @@ namespace org.GraphDefined.WWCP
 
             var NewRoamingProvider = new OCHPv1_4.CPO.WWCPCPOAdapter(Id,
                                                                      Name,
+                                                                     Description,
                                                                      RoamingNetwork,
 
                                                                      new OCHPv1_4.CPO.CPOClient(Id.ToString(),
@@ -379,9 +388,11 @@ namespace org.GraphDefined.WWCP
                                                                      IncludeEVSEIds,
                                                                      IncludeEVSEs,
                                                                      ChargeDetailRecordFilter,
+
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
                                                                      EVSEStatusRefreshEvery,
+                                                                     CDRCheckEvery,
 
                                                                      DisablePushData,
                                                                      DisablePushStatus,
