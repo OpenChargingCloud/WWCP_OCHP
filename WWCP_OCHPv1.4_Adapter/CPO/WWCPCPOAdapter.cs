@@ -1121,8 +1121,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               RemoteCertificateValidationCallback                  RemoteCertificateValidator          = null,
                               LocalCertificateSelectionCallback                    ClientCertificateSelector           = null,
                               HTTPHostname?                                        RemoteHTTPVirtualHost               = null,
-                              HTTPPath?                                             URIPrefix                           = null,
-                              HTTPPath?                                             LiveURIPrefix                       = null,
+                              HTTPPath?                                            URIPrefix                           = null,
+                              HTTPPath?                                            LiveURIPrefix                       = null,
                               Tuple<String, String>                                WSSLoginPassword                    = null,
                               String                                               HTTPUserAgent                       = CPOClient.DefaultHTTPUserAgent,
                               TimeSpan?                                            RequestTimeout                      = null,
@@ -1131,8 +1131,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               String                                               ServerName                          = CPOServer.DefaultHTTPServerName,
                               String                                               ServiceId                           = null,
                               IPPort?                                              ServerTCPPort                       = null,
-                              HTTPPath?                                             ServerURIPrefix                     = null,
-                              HTTPPath?                                             ServerURISuffix                     = null,
+                              HTTPPath?                                            ServerURIPrefix                     = null,
+                              HTTPPath?                                            ServerURISuffix                     = null,
                               HTTPContentType                                      ServerContentType                   = null,
                               Boolean                                              ServerRegisterHTTPRootService       = true,
                               Boolean                                              ServerAutoStart                     = false,
@@ -5445,6 +5445,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 if (ChargeDetailRecordFilter(cdr) == ChargeDetailRecordFilters.forward)
                     ForwardedChargeDetailRecords.Add(cdr);
+
                 else
                     DroppedChargeDetailRecords.Add(cdr);
 
