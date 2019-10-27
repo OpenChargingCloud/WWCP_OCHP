@@ -18,20 +18,20 @@
 #region Usings
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Net.Security;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Security.Cryptography.X509Certificates;
+
+using Org.BouncyCastle.Crypto.Parameters;
 
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
-using System.IO;
-using Org.BouncyCastle.Crypto.Parameters;
 
 #endregion
 
@@ -49,7 +49,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPCPOAdapter : AWWCPCSOAdapter,
+    public class WWCPCPOAdapter : AWWCPCSOAdapter<CDRInfo>,
                                   ICSORoamingProvider,
                                   IEquatable<WWCPCPOAdapter>,
                                   IComparable<WWCPCPOAdapter>,
@@ -102,13 +102,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         private static           SemaphoreSlim                                  EVSEStatusRefreshLock  = new SemaphoreSlim(1,1);
         private readonly         TimeSpan                                       EVSEStatusRefreshEvery;
         private readonly         Timer                                          EVSEStatusRefreshTimer;
-
-        //private readonly         HashSet<EVSE>                                  EVSEsToAddQueue;
-        //private readonly         HashSet<EVSE>                                  EVSEsToUpdateQueue;
-        //private readonly         List<EVSEStatusUpdate>                         EVSEStatusChangesFastQueue;
-        //private readonly         List<EVSEStatusUpdate>                         EVSEStatusChangesDelayedQueue;
-        //private readonly         HashSet<EVSE>                                  EVSEsToRemoveQueue;
-        private readonly         List<ChargeDetailRecord>                       ChargeDetailRecordQueue;
 
         private                  UInt64                                         _ServiceRunId;
         //private                  UInt64                                         _StatusRunId;
@@ -529,7 +522,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             //this.EVSEStatusChangesFastQueue           = new List<EVSEStatusUpdate>();
             //this.EVSEStatusChangesDelayedQueue        = new List<EVSEStatusUpdate>();
             //this.EVSEsToRemoveQueue                   = new HashSet<EVSE>();
-            this.ChargeDetailRecordQueue              = new List<ChargeDetailRecord>();
 
             this.ChargeDetailRecordFilter             = ChargeDetailRecordFilter ?? (cdr => ChargeDetailRecordFilters.forward);
 
@@ -5484,7 +5476,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 lock (ServiceCheckLock)
                 {
 
-                    ChargeDetailRecordQueue.AddRange(ForwardedChargeDetailRecords);
+                    ChargeDetailRecordsQueue.AddRange(ForwardedChargeDetailRecords.Select(cdr => cdr.ToOCHP(ContractIdDelegate: emtid => _Lookup[emtid],
+                                                                                                            CustomEVSEIdMapper: null)));
 
                     ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -5542,8 +5535,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 var response = await CPORoaming.AddCDRs(ForwardedChargeDetailRecords.Select(cdr => cdr.ToOCHP(ContractIdDelegate:  emtid => _Lookup[emtid],
-                                                                                                              CustomEVSEIdMapper:  null
-                                                                                                             )).ToArray(),
+                                                                                                              CustomEVSEIdMapper:  null)).ToArray(),
 
                                                         Timestamp,
                                                         CancellationToken,
@@ -5676,7 +5668,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             var EVSEDataQueueCopy                  = new ThreadLocal<HashSet<EVSE>>();
             var EVSEStatusChangesDelayedQueueCopy  = new ThreadLocal<List<EVSEStatusUpdate>>();
             var EVSEsToRemoveQueueCopy             = new ThreadLocal<HashSet<EVSE>>();
-            var ChargeDetailRecordQueueCopy        = new ThreadLocal<List<WWCP.ChargeDetailRecord>>();
 
             if (Monitor.TryEnter(ServiceCheckLock))
             {
@@ -5688,7 +5679,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                         EVSEsToUpdateQueue.           Count == 0 &&
                         EVSEStatusChangesDelayedQueue.Count == 0 &&
                         EVSEsToRemoveQueue.           Count == 0 &&
-                        ChargeDetailRecordQueue.      Count == 0)
+                        ChargeDetailRecordsQueue.     Count == 0)
                     {
                         return;
                     }
@@ -5696,25 +5687,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     _ServiceRunId++;
 
                     // Copy 'EVSEs to add', remove originals...
-                    EVSEsToAddQueueCopy.Value                = new HashSet<EVSE>           (EVSEsToAddQueue);
+                    EVSEsToAddQueueCopy.Value                = new HashSet<EVSE>         (EVSEsToAddQueue);
                     EVSEsToAddQueue.Clear();
 
                     // Copy 'EVSEs to update', remove originals...
-                    EVSEDataQueueCopy.Value                  = new HashSet<EVSE>           (EVSEsToUpdateQueue);
+                    EVSEDataQueueCopy.Value                  = new HashSet<EVSE>         (EVSEsToUpdateQueue);
                     EVSEsToUpdateQueue.Clear();
 
                     // Copy 'EVSE status changes', remove originals...
-                    EVSEStatusChangesDelayedQueueCopy.Value  = new List<EVSEStatusUpdate>  (EVSEStatusChangesDelayedQueue);
+                    EVSEStatusChangesDelayedQueueCopy.Value  = new List<EVSEStatusUpdate>(EVSEStatusChangesDelayedQueue);
                     EVSEStatusChangesDelayedQueueCopy.Value.AddRange(EVSEsToAddQueueCopy.Value.SafeSelect(evse => new EVSEStatusUpdate(evse, evse.Status, evse.Status)));
                     EVSEStatusChangesDelayedQueue.Clear();
 
                     // Copy 'EVSEs to remove', remove originals...
-                    EVSEsToRemoveQueueCopy.Value             = new HashSet<EVSE>           (EVSEsToRemoveQueue);
+                    EVSEsToRemoveQueueCopy.Value             = new HashSet<EVSE>         (EVSEsToRemoveQueue);
                     EVSEsToRemoveQueue.Clear();
-
-                    // Copy 'EVSEs to remove', remove originals...
-                    ChargeDetailRecordQueueCopy.Value        = new List<ChargeDetailRecord>(ChargeDetailRecordQueue);
-                    ChargeDetailRecordQueue.Clear();
 
                     // Stop the timer. Will be rescheduled by next EVSE data/status change...
                     ServiceCheckTimer.Change(Timeout.Infinite, Timeout.Infinite);
@@ -5751,8 +5738,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (EVSEsToAddQueueCopy.              Value != null ||
                 EVSEDataQueueCopy.                Value != null ||
                 EVSEStatusChangesDelayedQueueCopy.Value != null ||
-                EVSEsToRemoveQueueCopy.           Value != null ||
-                ChargeDetailRecordQueueCopy.      Value != null)
+                EVSEsToRemoveQueueCopy.           Value != null)
             {
 
                 // Use the events to evaluate if something went wrong!
@@ -5807,25 +5793,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                 EventTrackingId: EventTrackingId);
 
                     UpdateEVSEStatusTask.Wait();
-
-                }
-
-                #endregion
-
-                #region Send charge detail records
-
-                if (ChargeDetailRecordQueueCopy.Value.Count > 0)
-                {
-
-                    var SendCDRResults   = await SendChargeDetailRecords(ChargeDetailRecordQueueCopy.Value,
-                                                                         TransmissionTypes.Direct,
-                                                                         DateTime.UtcNow,
-                                                                         new CancellationTokenSource().Token,
-                                                                         EventTrackingId,
-                                                                         DefaultRequestTimeout).ConfigureAwait(false);
-
-                    //ToDo: Send results events...
-                    //ToDo: Read to queue if it could not be sent...
 
                 }
 
@@ -6310,7 +6277,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #region Make a thread local copy of all data
 
             var LockTaken                     = await FlushChargeDetailRecordsLock.WaitAsync(MaxLockWaitingTime);
-            var ChargeDetailRecordsQueueCopy  = new List<ChargeDetailRecord>();
+            var ChargeDetailRecordsQueueCopy  = new List<CDRInfo>();
 
             try
             {
@@ -6351,22 +6318,22 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (ChargeDetailRecordsQueueCopy.Count > 0)
             {
 
-                var sendCDRsResult = await SendChargeDetailRecords(ChargeDetailRecordsQueueCopy,
-                                                                   TransmissionTypes.Direct,
+                var sendCDRsResult = await CPORoaming.AddCDRs(ChargeDetailRecordsQueueCopy,
 
-                                                                   DateTime.UtcNow,
-                                                                   new CancellationTokenSource().Token,
-                                                                   EventTracking_Id.New,
-                                                                   DefaultRequestTimeout).
-                                               ConfigureAwait(false);
+                                                              DateTime.UtcNow,
+                                                              new CancellationTokenSource().Token,
+                                                              EventTracking_Id.New,
+                                                              DefaultRequestTimeout).
+                                                      ConfigureAwait(false);
 
-                if (sendCDRsResult.Warnings.Any())
+                if (sendCDRsResult.Content.ImplausibleCDRs.Any())
                 {
 
                     SendOnWarnings(DateTime.UtcNow,
                                    nameof(WWCPCPOAdapter) + Id,
                                    "SendChargeDetailRecords",
-                                   sendCDRsResult.Warnings);
+                                   sendCDRsResult.Content.ImplausibleCDRs.
+                                                          Select(cdr => Warning.Create(cdr.ToString())));
 
                 }
 

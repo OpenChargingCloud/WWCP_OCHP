@@ -447,7 +447,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                 var majorStatus   = Request.QueryString.TryParseEnum<EVSEMajorStatusTypes>("majorstatus");
                 var minorStatus   = Request.QueryString.TryParseEnum<EVSEMinorStatusTypes>("minorstatus");
                 var WWCPStatus    = majorStatus.HasValue && minorStatus.HasValue
-                                        ? new WWCP.EVSEStatusTypes?(ObjectMapper.AsWWCPEVSEStatus(majorStatus.Value, minorStatus.Value))
+                                        ? new WWCP.EVSEStatusTypes?(OCHPv1_4.OCHPMapper.AsWWCPEVSEStatus(majorStatus.Value, minorStatus.Value))
                                         : new WWCP.EVSEStatusTypes?();
 
                 var statusFilter  = WWCPStatus.HasValue
@@ -584,7 +584,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                 var majorStatus   = Request.QueryString.TryParseEnum<EVSEMajorStatusTypes>("majorstatus");
                 var minorStatus   = Request.QueryString.TryParseEnum<EVSEMinorStatusTypes>("minorstatus");
                 var WWCPStatus    = majorStatus.HasValue && minorStatus.HasValue
-                                        ? new WWCP.EVSEStatusTypes?(ObjectMapper.AsWWCPEVSEStatus(majorStatus.Value, minorStatus.Value))
+                                        ? new WWCP.EVSEStatusTypes?(OCHPv1_4.OCHPMapper.AsWWCPEVSEStatus(majorStatus.Value, minorStatus.Value))
                                         : new WWCP.EVSEStatusTypes?();
 
                 var statusFilter  = WWCPStatus.HasValue

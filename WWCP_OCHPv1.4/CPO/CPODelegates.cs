@@ -25,6 +25,22 @@ using System.Xml.Linq;
 namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
+    /// <summary>
+    /// A delegate which allows you to modify the convertion from WWCP charge detail records to OCHP charge detail records.
+    /// </summary>
+    /// <param name="WWCPChargeDetailRecord">A WWCP charge detail record.</param>
+    /// <param name="OCHPChargeDetailRecord">An OCHP charge detail record.</param>
+    public delegate CDRInfo             WWCPChargeDetailRecord2ChargeDetailRecordDelegate(ChargeDetailRecord  WWCPChargeDetailRecord,
+                                                                                          CDRInfo             OCHPChargeDetailRecord);
+
+    /// <summary>
+    /// A delegate which allows you to modify the convertion from OCHP charge detail records to WWCP charge detail records.
+    /// </summary>
+    /// <param name="OCHPChargeDetailRecord">An OCHP charge detail record.</param>
+    /// <param name="WWCPChargeDetailRecord">A WWCP charge detail record.</param>
+    public delegate ChargeDetailRecord  ChargeDetailRecord2WWCPChargeDetailRecordDelegate(CDRInfo             OCHPChargeDetailRecord,
+                                                                                          ChargeDetailRecord  WWCPChargeDetailRecord);
+
     #region IncludeChargePoints
 
     /// <summary>

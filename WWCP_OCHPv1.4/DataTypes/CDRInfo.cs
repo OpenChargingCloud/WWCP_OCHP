@@ -32,7 +32,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// Contains all information concerning a charge data record.
     /// </summary>
-    public class CDRInfo
+    public class CDRInfo : ACustomData,
+                           IEquatable<CDRInfo>,
+                           IComparable<CDRInfo>,
+                           IComparable
     {
 
         #region Properties
@@ -153,26 +156,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="ChargingPeriods">An enumeration of periods per item on the bill.</param>
         /// <param name="TotalCosts">Total costs for the entire charging process. Should always equal the sum of the individual periodCosts.</param>
         /// <param name="Currency">The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.</param>
-        public CDRInfo(CDR_Id                  CDRId,
-                       EMT_Id                  EMTId,
-                       Contract_Id             ContractId,
+        /// 
+        /// <param name="CustomData">An optional dictionary of customer-specific data.</param>
+        public CDRInfo(CDR_Id                               CDRId,
+                       EMT_Id                               EMTId,
+                       Contract_Id                          ContractId,
 
-                       EVSE_Id                 EVSEId,
-                       ChargePointTypes        ChargePointType,
-                       ConnectorType           ConnectorType,
+                       EVSE_Id                              EVSEId,
+                       ChargePointTypes                     ChargePointType,
+                       ConnectorType                        ConnectorType,
 
-                       CDRStatus               Status,
-                       DateTime                StartDateTime,
-                       DateTime                EndDateTime,
-                       IEnumerable<CDRPeriod>  ChargingPeriods,
-                       Currency                Currency,
+                       CDRStatus                            Status,
+                       DateTime                             StartDateTime,
+                       DateTime                             EndDateTime,
+                       IEnumerable<CDRPeriod>               ChargingPeriods,
+                       Currency                             Currency,
 
-                       Address                 ChargePointAddress,
+                       Address                              ChargePointAddress,
 
-                       TimeSpan?               Duration            = null,
-                       Ratings                 Ratings             = null,
-                       String                  MeterId             = null,
-                       Single?                 TotalCosts          = null)
+                       TimeSpan?                            Duration     = null,
+                       Ratings                              Ratings      = null,
+                       String                               MeterId      = null,
+                       Single?                              TotalCosts   = null,
+
+                       IReadOnlyDictionary<String, Object>  CustomData   = null)
+
+            : base(CustomData)
 
         {
 
@@ -576,8 +585,50 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="CDRInfo2">Another charge data record.</param>
         /// <returns>False if both match; True otherwise.</returns>
         public static Boolean operator != (CDRInfo CDRInfo1, CDRInfo CDRInfo2)
-
             => !(CDRInfo1 == CDRInfo2);
+
+        #endregion
+
+        #endregion
+
+        #region IComparable<CDRInfo> Members
+
+        #region CompareTo(Object)
+
+        /// <summary>
+        /// Compares two instances of this object.
+        /// </summary>
+        /// <param name="Object">An object to compare with.</param>
+        public Int32 CompareTo(Object Object)
+        {
+
+            if (Object == null)
+                throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
+
+            if (!(Object is CDRInfo CDRInfo))
+                throw new ArgumentException("The given object is not a charge detail record!", nameof(Object));
+
+            return CompareTo(CDRInfo);
+
+        }
+
+        #endregion
+
+        #region CompareTo(ChargeDetailRecord)
+
+        /// <summary>
+        /// Compares two instances of this object.
+        /// </summary>
+        /// <param name="CDRInfo">A charge detail record object to compare with.</param>
+        public Int32 CompareTo(CDRInfo CDRInfo)
+        {
+
+            if (CDRInfo is null)
+                throw new ArgumentNullException(nameof(CDRInfo),  "The given charge detail record must not be null!");
+
+            return CDRId.CompareTo(CDRInfo.CDRId);
+
+        }
 
         #endregion
 
@@ -598,12 +649,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is a charge data record.
-            var CDRInfo = Object as CDRInfo;
-            if ((Object) CDRInfo == null)
+            if (!(Object is CDRInfo CDRInfo))
                 return false;
 
-            return this.Equals(CDRInfo);
+            return Equals(CDRInfo);
 
         }
 
@@ -619,7 +668,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public Boolean Equals(CDRInfo CDRInfo)
         {
 
-            if ((Object) CDRInfo == null)
+            if (CDRInfo is null)
                 return false;
 
             return CDRId.     Equals(CDRInfo.CDRId)  &&
@@ -644,9 +693,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             unchecked
             {
 
-                return CDRId.     GetHashCode() * 23 ^
-                       EVSEId.    GetHashCode() * 17 ^
-                       EMTId.     GetHashCode() * 11 ^
+                return CDRId.     GetHashCode() * 7 ^
+                       EVSEId.    GetHashCode() * 5 ^
+                       EMTId.     GetHashCode() * 3 ^
                        ContractId.GetHashCode();
 
             }

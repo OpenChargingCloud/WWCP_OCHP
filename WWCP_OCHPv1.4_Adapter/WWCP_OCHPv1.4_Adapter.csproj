@@ -49,7 +49,7 @@
     <Compile Include="EMP\EMPDelegates.cs" />
     <Compile Include="EMP\EMPExtentions.cs" />
     <Compile Include="EMP\WWCPEMPAdapter.cs" />
-    <Compile Include="ObjectMapper.cs" />
+    <Compile Include="OCHPMapper.cs" />
     <Compile Include="OCHPExceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

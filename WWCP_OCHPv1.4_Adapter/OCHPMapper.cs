@@ -31,7 +31,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// An OCHP Object Mapper for WWCP data structures.
     /// </summary>
-    public static class ObjectMapper
+    public static class OCHPMapper
     {
 
         #region AsWWCPEVSEStatus(EVSEMajorStatus, EVSEMinorStatus)
@@ -448,51 +448,60 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
         #region Convert ChargeDetailRecords...
 
+        public static String WWCP_CDR = "WWCP.CDR";
+
         /// <summary>
         /// Convert a WWCP charge detail record into a corresponding OCHP charge detail record.
         /// </summary>
         /// <param name="ChargeDetailRecord">A WWCP charge detail record.</param>
-        public static CDRInfo ToOCHP(this ChargeDetailRecord         ChargeDetailRecord,
-                                     Func<EMT_Id, Contract_Id>       ContractIdDelegate,
-                                     CPO.CustomEVSEIdMapperDelegate  CustomEVSEIdMapper   = null)
+        public static CDRInfo ToOCHP(this ChargeDetailRecord                                ChargeDetailRecord,
+                                     Func<EMT_Id, Contract_Id>                              ContractIdDelegate,
+                                     CPO.CustomEVSEIdMapperDelegate                         CustomEVSEIdMapper                          = null,
+                                     CPO.WWCPChargeDetailRecord2ChargeDetailRecordDelegate  WWCPChargeDetailRecord2ChargeDetailRecord   = null)
 
         {
 
-            var EMTId = new EMT_Id(ChargeDetailRecord.IdentificationStart.AuthToken.ToString(),
+            var EMTId = new EMT_Id(ChargeDetailRecord.AuthenticationStart.AuthToken.ToString(),
                                    TokenRepresentations.Plain,
                                    TokenTypes.RFID);
 
+            var CDR = new CDRInfo(
+                          CDRId:                CDR_Id.Parse(ChargeDetailRecord.EVSEId.Value.OperatorId.ToString().Replace("*", "").Replace("+49822", "DEBDO") +
+                                                             (ChargeDetailRecord.SessionId.ToString().Replace("-", "").SubstringMax(30).ToUpper())),
+                          EMTId:                EMTId,
+                          ContractId:           ContractIdDelegate(EMTId),
 
-            var cdr = new CDRInfo(
-                          CDR_Id.Parse(ChargeDetailRecord.EVSEId.Value.OperatorId.ToString().Replace("*", "").Replace("+49822", "DEBDO") +
-                                      (ChargeDetailRecord.SessionId.ToString().Replace("-", "").SubstringMax(30).ToUpper())),
-                          EMTId,
-                          ContractIdDelegate(EMTId),// Contract_Id.Parse(ChargeDetailRecord.GetCustomDataAs<String>("ContractId")),
+                          EVSEId:               ChargeDetailRecord.EVSEId.ToOCHP(CustomEVSEIdMapper).Value,
+                          ChargePointType:      ChargeDetailRecord.EVSE.ToOCHP().Connectors.First().Standard.GetChargePointType(),// ChargePointTypes.AC,  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                          ConnectorType:        ChargeDetailRecord.EVSE.ToOCHP().Connectors.First(),
 
-                          ChargeDetailRecord.EVSEId.ToOCHP(CustomEVSEIdMapper).Value,
-                          ChargeDetailRecord.EVSE.ToOCHP().Connectors.First().Standard.GetChargePointType(),// ChargePointTypes.AC,  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                          ChargeDetailRecord.EVSE.ToOCHP().Connectors.First(),
+                          Status:               CDRStatus.New,
+                          StartDateTime:        ChargeDetailRecord.SessionTime.StartTime,
+                          EndDateTime:          ChargeDetailRecord.SessionTime.EndTime.Value,
+                          ChargingPeriods:      new CDRPeriod[] {
+                                                    new CDRPeriod(ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
+                                                                  ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
+                                                                  BillingItems.Energy,
+                                                                  ChargeDetailRecord.ConsumedEnergy ?? ChargeDetailRecord.EnergyMeteringValues.Last().Value - ChargeDetailRecord.EnergyMeteringValues.First().Value,
+                                                                  0)
+                                                },
+                          Currency:             Currency.EUR,
 
-                          CDRStatus.New,
-                          ChargeDetailRecord.SessionTime.StartTime,
-                          ChargeDetailRecord.SessionTime.EndTime.Value,
-                          new CDRPeriod[] {
-                              new CDRPeriod(ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
-                                            ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
-                                            BillingItems.Energy,
-                                            ChargeDetailRecord.ConsumedEnergy ?? ChargeDetailRecord.EnergyMeteringValues.Last().Value - ChargeDetailRecord.EnergyMeteringValues.First().Value,
-                                            0)
-                          },
-                          Currency.EUR,
+                          ChargePointAddress:   ChargeDetailRecord.EVSE?.ChargingStation?.ChargingPool?.Address?.ToOCHP(),
+                          Duration:             ChargeDetailRecord.Duration,
+                          Ratings:              null,
+                          MeterId:              ChargeDetailRecord.EnergyMeterId?.ToString(),
+                          TotalCosts:           null,
 
-                          ChargeDetailRecord.EVSE?.ChargingStation?.ChargingPool?.Address?.ToOCHP(),
-                          ChargeDetailRecord.Duration,
-                          null, // Ratings
-                          ChargeDetailRecord.EnergyMeterId?.ToString()
-                          // TotalCosts
+                          CustomData:           new Dictionary<String, Object> {
+                                                    { WWCP_CDR, ChargeDetailRecord }
+                                                }
                       );
 
-            return cdr;
+            if (WWCPChargeDetailRecord2ChargeDetailRecord != null)
+                CDR = WWCPChargeDetailRecord2ChargeDetailRecord(ChargeDetailRecord, CDR);
+
+            return CDR;
 
         }
 
