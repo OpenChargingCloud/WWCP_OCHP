@@ -6274,48 +6274,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         protected override async Task FlushChargeDetailRecordsQueues()
         {
 
-            #region Make a thread local copy of all data
+            var ChargeDetailRecordsQueueCopy = ChargeDetailRecordsQueue.ToArray();
 
-            var LockTaken                     = await FlushChargeDetailRecordsLock.WaitAsync(MaxLockWaitingTime);
-            var ChargeDetailRecordsQueueCopy  = new List<CDRInfo>();
-
-            try
-            {
-
-                if (LockTaken)
-                {
-
-                    // Copy CDRs, empty original queue...
-                    ChargeDetailRecordsQueueCopy.AddRange(ChargeDetailRecordsQueue);
-                    ChargeDetailRecordsQueue.Clear();
-
-                    //// Stop the timer. Will be rescheduled by the next CDR...
-                    //FlushChargeDetailRecordsTimer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
-
-                }
-
-            }
-            catch (Exception e)
-            {
-
-                while (e.InnerException != null)
-                    e = e.InnerException;
-
-                DebugX.LogT(nameof(WWCPCPOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
-
-            }
-
-            finally
-            {
-                if (LockTaken)
-                    FlushChargeDetailRecordsLock.Release();
-            }
-
-            #endregion
-
-            #region Send charge detail records
-
-            if (ChargeDetailRecordsQueueCopy.Count > 0)
+            if (ChargeDetailRecordsQueueCopy.Length > 0)
             {
 
                 var sendCDRsResult = await CPORoaming.AddCDRs(ChargeDetailRecordsQueueCopy,
@@ -6338,8 +6299,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 }
 
             }
-
-            #endregion
 
             //ToDo: Send FlushChargeDetailRecordsQueues result event...
             //ToDo: Re-add to queue if it could not be send...
