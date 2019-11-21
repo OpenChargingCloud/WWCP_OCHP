@@ -6259,32 +6259,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         protected override Boolean SkipFlushChargeDetailRecordsQueues()
             => ChargeDetailRecordsQueue.Count == 0;
 
-        protected override async Task FlushChargeDetailRecordsQueues()
+        protected override async Task FlushChargeDetailRecordsQueues(IEnumerable<CDRInfo> ChargeDetailsRecords)
         {
 
-            var ChargeDetailRecordsQueueCopy = ChargeDetailRecordsQueue.ToArray();
+            var sendCDRsResult = await CPORoaming.AddCDRs(ChargeDetailsRecords,
 
-            if (ChargeDetailRecordsQueueCopy.Length > 0)
+                                                          DateTime.UtcNow,
+                                                          new CancellationTokenSource().Token,
+                                                          EventTracking_Id.New,
+                                                          DefaultRequestTimeout).
+                                                  ConfigureAwait(false);
+
+            if (sendCDRsResult.Content.ImplausibleCDRs.Any())
             {
 
-                var sendCDRsResult = await CPORoaming.AddCDRs(ChargeDetailRecordsQueueCopy,
-
-                                                              DateTime.UtcNow,
-                                                              new CancellationTokenSource().Token,
-                                                              EventTracking_Id.New,
-                                                              DefaultRequestTimeout).
-                                                      ConfigureAwait(false);
-
-                if (sendCDRsResult.Content.ImplausibleCDRs.Any())
-                {
-
-                    SendOnWarnings(DateTime.UtcNow,
-                                   nameof(WWCPCPOAdapter) + Id,
-                                   "SendChargeDetailRecords",
-                                   sendCDRsResult.Content.ImplausibleCDRs.
-                                                          Select(cdr => Warning.Create(cdr.ToString())));
-
-                }
+                SendOnWarnings(DateTime.UtcNow,
+                               nameof(WWCPCPOAdapter) + Id,
+                               "SendChargeDetailRecords",
+                               sendCDRsResult.Content.ImplausibleCDRs.
+                                                      Select(cdr => Warning.Create(cdr.ToString())));
 
             }
 
