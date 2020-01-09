@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2019 GraphDefined GmbH
+ * Copyright (c) 2014-2020 GraphDefined GmbH
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -298,15 +298,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        new XElement(OCHPNS.Default + "BillingItemType",   BillingItem.AsText())
                    ),
 
-                   new XElement(OCHPNS.Default + "billingValue",          BillingValue),
-                   new XElement(OCHPNS.Default + "itemPrice",             ItemPrice),
+                   new XElement(OCHPNS.Default + "billingValue",          BillingValue.ToString(".####")),
+                   new XElement(OCHPNS.Default + "itemPrice",             ItemPrice.ToString(".####")),
 
                    PeriodCost.HasValue
-                       ? new XElement(OCHPNS.Default + "periodCost",      PeriodCost.Value)
+                       ? new XElement(OCHPNS.Default + "periodCost",      PeriodCost.Value.ToString(".####"))
                        : null,
 
                    TaxRate.HasValue
-                       ? new XElement(OCHPNS.Default + "taxrate",         TaxRate.Value)
+                       ? new XElement(OCHPNS.Default + "taxrate",         TaxRate.Value.ToString(".####"))
                        : null
 
                );

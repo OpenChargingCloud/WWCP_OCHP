@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2019 GraphDefined GmbH
+ * Copyright (c) 2014-2020 GraphDefined GmbH
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -124,7 +124,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// Total cost for the entire charging process. Should always equal the sum of the individual periodCosts.
         /// </summary>
-        public Single?                 TotalCosts           { get; }
+        public Decimal?                TotalCosts           { get; }
 
         /// <summary>
         /// The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.
@@ -177,7 +177,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        TimeSpan?                            Duration     = null,
                        Ratings                              Ratings      = null,
                        String                               MeterId      = null,
-                       Single?                              TotalCosts   = null,
+                       Decimal?                             TotalCosts   = null,
 
                        IReadOnlyDictionary<String, Object>  CustomData   = null)
 
@@ -437,7 +437,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                               CDRInfoXML.ElementValueOrDefault(OCHPNS.Default + "meterId"),
 
                               CDRInfoXML.MapValueOrNullable   (OCHPNS.Default + "totalCost",
-                                                               Single.Parse)
+                                                               Decimal.Parse)
 
                           );
 
@@ -509,7 +509,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    new XElement(OCHPNS.Default + "contractId",          ContractId.ToString()),
 
                    new XElement(OCHPNS.Default + "status",
-                       new XElement(OCHPNS.Default + "CdrStatusType",   XML_IO.AsText(Status))
+                       new XElement(OCHPNS.Default + "CdrStatusType",   "revised")//XML_IO.AsText(Status))//
                    ),
 
                    new XElement(OCHPNS.Default + "startDateTime",
@@ -539,7 +539,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    ChargingPeriods.Select(period => period.ToXML(OCHPNS.Default + "chargingPeriods")),
 
                    TotalCosts.HasValue
-                       ? new XElement(OCHPNS.Default + "totalCost",     TotalCosts.Value)
+                       ? new XElement(OCHPNS.Default + "totalCost",     TotalCosts.Value.ToString(".##"))
                        : null,
 
                    new XElement(OCHPNS.Default + "currency",            Currency.ISOCode)
