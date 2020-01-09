@@ -136,7 +136,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
                                        TimeSpan.FromHours(1),
                                        new Ratings(0.0f, 1.0f, 240),
                                        "MeterId #2305",
-                                       23.5f
+                                       23.5m
                                    )
 
                                }
