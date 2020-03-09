@@ -513,6 +513,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public static ChargeDetailRecord ToWWCP(this CDRInfo CDRInfo)
 
             => new ChargeDetailRecord(
+                   ChargeDetailRecord_Id.Parse(CDRInfo.CDRId.ToString()),
                    ChargingSession_Id.Parse(CDRInfo.CDRId.ToString()),
                    new StartEndDateTime(CDRInfo.StartDateTime, CDRInfo.EndDateTime),
                    Duration:             CDRInfo.Duration,
