@@ -347,12 +347,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// An event sent whenever an 'authorize EVSE start' request was received.
         /// </summary>
-        public event OnAuthorizeEVSEStartRequestDelegate   OnAuthorizeEVSEStartRequest;
+        public event OnAuthorizeStartRequestDelegate   OnAuthorizeEVSEStartRequest;
 
         /// <summary>
         /// An event sent whenever a response to an 'authorize EVSE start' request was sent.
         /// </summary>
-        public event OnAuthorizeEVSEStartResponseDelegate  OnAuthorizeEVSEStartResponse;
+        public event OnAuthorizeStartResponseDelegate  OnAuthorizeEVSEStartResponse;
 
         #endregion
 
@@ -375,12 +375,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// An event sent whenever an 'authorize EVSE stop' request was received.
         /// </summary>
-        public event OnAuthorizeEVSEStopRequestDelegate   OnAuthorizeEVSEStopRequest;
+        public event OnAuthorizeStopRequestDelegate   OnAuthorizeEVSEStopRequest;
 
         /// <summary>
         /// An event sent whenever a response to an 'authorize EVSE stop' request was sent.
         /// </summary>
-        public event OnAuthorizeEVSEStopResponseDelegate  OnAuthorizeEVSEStopResponse;
+        public event OnAuthorizeStopResponseDelegate  OnAuthorizeEVSEStopResponse;
 
         #endregion
 
