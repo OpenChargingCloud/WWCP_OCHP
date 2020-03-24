@@ -389,12 +389,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// An event sent whenever a 'charge detail record' was received.
         /// </summary>
-        public event OnSendCDRRequestDelegate   OnChargeDetailRecordRequest;
+        public event OnSendCDRsRequestDelegate   OnChargeDetailRecordRequest;
 
         /// <summary>
         /// An event sent whenever a response to a 'charge detail record' was sent.
         /// </summary>
-        public event OnSendCDRResponseDelegate  OnChargeDetailRecordResponse;
+        public event OnSendCDRsResponseDelegate  OnChargeDetailRecordResponse;
         public event WWCP.OnGetCDRsRequestDelegate OnGetChargeDetailRecordsRequest;
         public event WWCP.OnGetCDRsResponseDelegate OnGetChargeDetailRecordsResponse;
         public event OnReserveRequestDelegate OnReserveRequest;

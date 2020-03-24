@@ -130,7 +130,7 @@ namespace org.GraphDefined.WWCP
 
                                               IncludeEVSEIdDelegate                                             IncludeEVSEIds                      = null,
                                               IncludeEVSEDelegate                                               IncludeEVSEs                        = null,
-                                              Func<ChargeDetailRecord, OCHPv1_4.CPO.ChargeDetailRecordFilters>  ChargeDetailRecordFilter            = null,
+                                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>               ChargeDetailRecordFilter            = null,
                                               TimeSpan?                                                         ServiceCheckEvery                   = null,
                                               TimeSpan?                                                         StatusCheckEvery                    = null,
                                               TimeSpan?                                                         EVSEStatusRefreshEvery              = null,
@@ -311,7 +311,7 @@ namespace org.GraphDefined.WWCP
 
                                               IncludeEVSEIdDelegate                                   IncludeEVSEIds                      = null,
                                               IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
-                                              Func<ChargeDetailRecord, OCHPv1_4.CPO.ChargeDetailRecordFilters>  ChargeDetailRecordFilter         = null,
+                                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>     ChargeDetailRecordFilter            = null,
 
                                               TimeSpan?                                               ServiceCheckEvery                   = null,
                                               TimeSpan?                                               StatusCheckEvery                    = null,

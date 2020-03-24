@@ -38,13 +38,6 @@ using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
-
-    public enum ChargeDetailRecordFilters
-    {
-        drop,
-        forward
-    }
-
     /// <summary>
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
@@ -278,17 +271,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// An event fired whenever a charge detail record was enqueued for later sending upstream.
         /// </summary>
-        public event OnSendCDRRequestDelegate   OnEnqueueSendCDRsRequest;
+        public event OnSendCDRsRequestDelegate   OnEnqueueSendCDRsRequest;
 
         /// <summary>
         /// An event fired whenever a charge detail record will be send upstream.
         /// </summary>
-        public event OnSendCDRRequestDelegate   OnSendCDRsRequest;
+        public event OnSendCDRsRequestDelegate   OnSendCDRsRequest;
 
         /// <summary>
         /// An event fired whenever a charge detail record had been sent upstream.
         /// </summary>
-        public event OnSendCDRResponseDelegate  OnSendCDRsResponse;
+        public event OnSendCDRsResponseDelegate  OnSendCDRsResponse;
 
         #endregion
 
@@ -1214,7 +1207,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                   catch (Exception e)
                                                   {
                                                       DebugX.  Log(e.Message);
-                                                      Warnings.Add(Warning.Create(e.Message, evse));
+                                                      Warnings.Add(Warning.Create(I18NString.Create(Languages.eng, e.Message), evse));
                                                   }
 
                                                   return null;
@@ -1244,7 +1237,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                           RoamingNetwork.Id,
                                                           _ChargePointInfos.ULongCount(),
                                                           _ChargePointInfos,
-                                                          Warnings.Where(warning => warning.IsNotNullOrEmpty()),
+                                                          Warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
                                                           RequestTimeout);
 
             }
@@ -1312,8 +1305,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                       EVSEs,
                                                       response.HTTPStatusCode.ToString(),
                                                       response.HTTPBody != null
-                                                          ? Warnings.AddAndReturnList(response.HTTPBody.ToUTF8String())
-                                                          : Warnings.AddAndReturnList("No HTTP body received!"),
+                                                          ? Warnings.AddAndReturnList(I18NString.Create(Languages.eng, response.HTTPBody.ToUTF8String()))
+                                                          : Warnings.AddAndReturnList(I18NString.Create(Languages.eng, "No HTTP body received!")),
                                                       Runtime);
 
 
@@ -1407,7 +1400,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                               catch (Exception e)
                                               {
                                                   DebugX.  Log(e.Message);
-                                                  Warnings.Add(Warning.Create(e.Message, evse));
+                                                  Warnings.Add(Warning.Create(I18NString.Create(Languages.eng, e.Message), evse));
                                               }
 
                                               return null;
@@ -1435,7 +1428,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                             RoamingNetwork.Id,
                                                             _ChargePointInfos.ULongCount(),
                                                             _ChargePointInfos,
-                                                            Warnings.Where(warning => warning.IsNotNullOrEmpty()),
+                                                            Warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
                                                             RequestTimeout);
 
             }
@@ -1487,8 +1480,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                               EVSEs,
                                               response.HTTPStatusCode.ToString(),
                                               response.HTTPBody != null
-                                                  ? Warnings.AddAndReturnList(response.HTTPBody.ToUTF8String())
-                                                  : Warnings.AddAndReturnList("No HTTP body received!"),
+                                                  ? Warnings.AddAndReturnList(I18NString.Create(Languages.eng, response.HTTPBody.ToUTF8String()))
+                                                  : Warnings.AddAndReturnList(I18NString.Create(Languages.eng, "No HTTP body received!")),
                                               Runtime);
 
 
@@ -1597,7 +1590,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                       catch (Exception e)
                                       {
                                           DebugX.  Log(e.Message);
-                                          Warnings.Add(Warning.Create(e.Message, evsestatusupdate));
+                                          Warnings.Add(Warning.Create(I18NString.Create(Languages.eng, e.Message), evsestatusupdate));
                                       }
 
                                       return null;
@@ -1625,7 +1618,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                       RoamingNetwork.Id,
                                                       _EVSEStatus.ULongCount(),
                                                       _EVSEStatus,
-                                                      Warnings.Where(warning => warning.IsNotNullOrEmpty()),
+                                                      Warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
                                                       RequestTimeout);
 
             }
@@ -1679,8 +1672,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                 EVSEStatusUpdates,
                                                 response.HTTPStatusCode.ToString(),
                                                 response.HTTPBody != null
-                                                    ? Warnings.AddAndReturnList(response.HTTPBody.ToUTF8String())
-                                                    : Warnings.AddAndReturnList("No HTTP body received!"),
+                                                    ? Warnings.AddAndReturnList(I18NString.Create(Languages.eng, response.HTTPBody.ToUTF8String()))
+                                                    : Warnings.AddAndReturnList(I18NString.Create(Languages.eng, "No HTTP body received!")),
                                                 Runtime);
 
 
@@ -4432,61 +4425,20 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            var ForwardedChargeDetailRecords = new List<ChargeDetailRecord>();
-            var DroppedChargeDetailRecords   = new List<ChargeDetailRecord>();
+            #region Filter charge detail records
+
+            var ForwardedCDRs  = new List<ChargeDetailRecord>();
+            var FilteredCDRs   = new List<SendCDRResult>();
 
             foreach (var cdr in ChargeDetailRecords)
             {
 
                 if (ChargeDetailRecordFilter(cdr) == ChargeDetailRecordFilters.forward)
-                    ForwardedChargeDetailRecords.Add(cdr);
+                    ForwardedCDRs.Add(cdr);
 
                 else
-                    DroppedChargeDetailRecords.Add(cdr);
-
-            }
-
-
-
-            #region Enqueue, if requested...
-
-            if (TransmissionType == TransmissionTypes.Enqueue)
-            {
-
-                #region Send OnEnqueueSendCDRsRequest event
-
-                try
-                {
-
-                    OnEnqueueSendCDRsRequest?.Invoke(DateTime.UtcNow,
-                                                     Timestamp.Value,
-                                                     this,
-                                                     Id.ToString(),
-                                                     EventTrackingId,
-                                                     RoamingNetwork.Id,
-                                                     DroppedChargeDetailRecords,
-                                                     ForwardedChargeDetailRecords,
-                                                     RequestTimeout);
-
-                }
-                catch (Exception e)
-                {
-                    e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRsRequest));
-                }
-
-                #endregion
-
-                lock (ServiceCheckLock)
-                {
-
-                    ChargeDetailRecordsQueue.AddRange(ForwardedChargeDetailRecords.Select(cdr => cdr.ToOCHP(ContractIdDelegate: emtid => _Lookup[emtid],
-                                                                                                            CustomEVSEIdMapper: null)));
-
-                    ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
-
-                }
-
-                return SendCDRsResult.Enqueued(Id, this, ForwardedChargeDetailRecords);
+                    FilteredCDRs.Add(SendCDRResult.Filtered(cdr,
+                                                            Warning.Create(I18NString.Create(Languages.eng, "This charge detail record was filtered!"))));
 
             }
 
@@ -4505,8 +4457,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                           Id.ToString(),
                                           EventTrackingId,
                                           RoamingNetwork.Id,
-                                          DroppedChargeDetailRecords,
-                                          ForwardedChargeDetailRecords,
+                                          ChargeDetailRecords,
                                           RequestTimeout);
 
             }
@@ -4518,73 +4469,219 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
+            #region if disabled => 'AdminDown'...
+
             DateTime        Endtime;
             TimeSpan        Runtime;
-            SendCDRsResult  result;
+            SendCDRsResult  results;
 
             if (DisableSendChargeDetailRecords)
             {
 
                 Endtime  = DateTime.UtcNow;
                 Runtime  = Endtime - StartTime;
-                result   = SendCDRsResult.OutOfService(Id,
-                                                       this,
-                                                       ForwardedChargeDetailRecords,
-                                                       Runtime: Runtime);
+                results  = SendCDRsResult.AdminDown(Id,
+                                                    this,
+                                                    ChargeDetailRecords,
+                                                    Runtime: Runtime);
 
             }
+
+            #endregion
 
             else
             {
 
-                var response = await CPORoaming.AddCDRs(ForwardedChargeDetailRecords.Select(cdr => cdr.ToOCHP(ContractIdDelegate:  emtid => _Lookup[emtid],
-                                                                                                              CustomEVSEIdMapper:  null)).ToArray(),
+                var invokeTimer  = false;
+                var LockTaken    = await FlushChargeDetailRecordsLock.WaitAsync(MaxLockWaitingTime);
 
-                                                        Timestamp,
-                                                        CancellationToken,
-                                                        EventTrackingId,
-                                                        RequestTimeout).ConfigureAwait(false);
-
-
-                Endtime  = DateTime.UtcNow;
-                Runtime  = Endtime - StartTime;
-
-                if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                    response.Content        != null)
+                try
                 {
 
-                    var CDRIdHash = response.Content.ImplausibleCDRs.Any()
-                                        ? new HashSet<ChargingSession_Id>(response.Content.ImplausibleCDRs.Select(cdrid => cdrid.ToWWCP()))
-                                        : new HashSet<ChargingSession_Id>();
-
-                    switch (response.Content.Result.ResultCode)
+                    if (LockTaken)
                     {
 
-                        case ResultCodes.OK:
-                            result = SendCDRsResult.Success(Id, this, ForwardedChargeDetailRecords);
-                            break;
+                        #region if enqueuing is requested...
 
-                        case ResultCodes.Partly:
-                            result = SendCDRsResult.Error(Id,
-                                                          this,
-                                                          ForwardedChargeDetailRecords.Where(cdr => CDRIdHash.Contains(cdr.SessionId)));
-                            break;
+                        if (TransmissionType == TransmissionTypes.Enqueue)
+                        {
 
-                        default:
-                            result = SendCDRsResult.Error(Id,
-                                                          this,
-                                                          ForwardedChargeDetailRecords.Where(cdr => CDRIdHash.Contains(cdr.SessionId)));
-                            break;
+                            #region Send OnEnqueueSendCDRRequest event
+
+                            try
+                            {
+
+                                OnEnqueueSendCDRsRequest?.Invoke(DateTime.UtcNow,
+                                                                 Timestamp.Value,
+                                                                 this,
+                                                                 Id.ToString(),
+                                                                 EventTrackingId,
+                                                                 RoamingNetwork.Id,
+                                                                 ChargeDetailRecords,
+                                                                 RequestTimeout);
+
+                            }
+                            catch (Exception e)
+                            {
+                                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRsRequest));
+                            }
+
+                            #endregion
+
+                            var EnquenedCDRsResults = new List<SendCDRResult>();
+
+                            foreach (var chargeDetailRecord in ForwardedCDRs)
+                            {
+
+                                try
+                                {
+
+                                    ChargeDetailRecordsQueue.Add(chargeDetailRecord.ToOCHP(ContractIdDelegate: emtid => _Lookup[emtid],
+                                                                                           CustomEVSEIdMapper: null));
+                                    EnquenedCDRsResults.Add(SendCDRResult.Enqueued(chargeDetailRecord));
+
+                                }
+                                catch (Exception e)
+                                {
+                                    EnquenedCDRsResults.Add(SendCDRResult.CouldNotConvertCDRFormat(chargeDetailRecord,
+                                                                                                   Warning.Create(I18NString.Create(Languages.eng, e.Message))));
+                                }
+
+                            }
+
+                            Endtime      = DateTime.UtcNow;
+                            Runtime      = Endtime - StartTime;
+                            results      = (!FilteredCDRs.Any())
+                                               ? SendCDRsResult.Enqueued(Id, this, ForwardedCDRs, "Enqueued for at least " + FlushChargeDetailRecordsEvery.TotalSeconds + " seconds!", Runtime: Runtime)
+                                               : SendCDRsResult.Mixed   (Id, this, FilteredCDRs.
+                                                                                Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Enqueued(cdr))), Runtime: Runtime);
+                            invokeTimer  = true;
+
+                        }
+
+                        #endregion
+
+                        #region ...or send at once!
+
+                        else
+                        {
+
+                            HTTPResponse<AddCDRsResponse> response;
+
+                            try
+                            {
+
+                                response = await CPORoaming.AddCDRs(ForwardedCDRs.Select(cdr => cdr.ToOCHP(ContractIdDelegate:  emtid => _Lookup[emtid],
+                                                                                                           CustomEVSEIdMapper:  null)).ToArray(),
+
+                                                                    Timestamp,
+                                                                    CancellationToken,
+                                                                    EventTrackingId,
+                                                                    RequestTimeout);
+
+                                if (response.HTTPStatusCode == HTTPStatusCode.OK &&
+                                    response.Content        != null)
+                                {
+
+                                    var ImplausibleCDRIds = response.Content.ImplausibleCDRs?.ToHashSet() ?? new HashSet<CDR_Id>();
+                                    var ImplausibleCDRs   = response.Content.ImplausibleCDRs.SafeAny()
+                                                                ? ChargeDetailRecords.Where(cdr => ImplausibleCDRIds.Contains(cdr.SessionId.ToOCHP()))
+                                                                : new ChargeDetailRecord[0];
+
+                                    switch (response.Content.Result.ResultCode)
+                                    {
+
+                                        case ResultCodes.OK:
+                                            if (!FilteredCDRs.Any())
+                                                results = SendCDRsResult.Success(Id, this, ForwardedCDRs);
+                                            else
+                                                results = SendCDRsResult.Mixed  (Id, this, FilteredCDRs.
+                                                                                                Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Success(cdr))));
+                                            break;
+
+                                        case ResultCodes.Partly:
+                                            if (!FilteredCDRs.Any())
+                                                results = SendCDRsResult.Mixed  (Id, this, ForwardedCDRs.Select(cdr => SendCDRResult.Success(cdr)).Concat(
+                                                                                                ImplausibleCDRs.Select(cdr => SendCDRResult.Error(cdr,
+                                                                                                                                                Warning.Create(I18NString.Create(Languages.eng, "Implausible charge detail record!"))))
+                                                                                            ));
+                                            else
+                                                results = SendCDRsResult.Mixed  (Id, this, FilteredCDRs.Concat(
+                                                                                                ForwardedCDRs.Select(cdr => SendCDRResult.Success(cdr)).Concat(
+                                                                                                    ImplausibleCDRs.Select(cdr => SendCDRResult.Error(cdr,
+                                                                                                                                                    Warning.Create(I18NString.Create(Languages.eng, "Implausible charge detail record!"))))
+                                                                                            )));
+                                            break;
+
+                                        default:
+                                            if (!FilteredCDRs.Any())
+                                                results = SendCDRsResult.Error(Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode + " - " + response.Content.Result.Description)));
+                                            else
+                                                results = SendCDRsResult.Mixed(Id, this, FilteredCDRs.
+                                                                                                Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(cdr, Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode + " - " + response.Content.Result.Description))))));
+                                            break;
+
+                                    }
+
+                                }
+
+                                else
+                                    if (!FilteredCDRs.Any())
+                                        results = SendCDRsResult.Error(Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, response.HTTPBodyAsUTF8String)));
+                                    else
+                                        results = SendCDRsResult.Mixed(Id, this, FilteredCDRs.
+                                                                                     Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(cdr, Warning.Create(I18NString.Create(Languages.eng, response.HTTPBodyAsUTF8String))))));
+
+                            }
+                            catch (Exception e)
+                            {
+                                if (!FilteredCDRs.Any())
+                                    results = SendCDRsResult.Error(Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, e.Message)));
+                                else
+                                    results = SendCDRsResult.Mixed(Id, this, FilteredCDRs.
+                                                                                 Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(cdr, Warning.Create(I18NString.Create(Languages.eng, e.Message))))));
+                            }
+
+
+                            Endtime  = DateTime.UtcNow;
+                            Runtime  = Endtime - StartTime;
+
+                            foreach (var result in results)
+                                RoamingNetwork.SessionsStore.CDRForwarded(result.ChargeDetailRecord.SessionId, result);
+
+                        }
+
+                        #endregion
 
                     }
 
+                    #region Could not get the lock for toooo long!
+
+                    else
+                    {
+
+                        Endtime  = DateTime.UtcNow;
+                        Runtime  = Endtime - StartTime;
+                        results  = SendCDRsResult.Timeout(Id,
+                                                          this,
+                                                          ChargeDetailRecords,
+                                                          "Could not " + (TransmissionType == TransmissionTypes.Enqueue ? "enqueue" : "send") + " charge detail records!",
+                                                          //ChargeDetailRecords.SafeSelect(cdr => new SendCDRResult(cdr, SendCDRResultTypes.Timeout)),
+                                                          Runtime: Runtime);
+
+                    }
+
+                    #endregion
+
+                }
+                finally
+                {
+                    if (LockTaken)
+                        FlushChargeDetailRecordsLock.Release();
                 }
 
-                else
-                    result = SendCDRsResult.Error(Id,
-                                                  this,
-                                                  ForwardedChargeDetailRecords,
-                                                  response?.Content?.Result.Description);
+                if (invokeTimer)
+                    FlushChargeDetailRecordsTimer.Change(FlushChargeDetailRecordsEvery, TimeSpan.FromMilliseconds(-1));
 
             }
 
@@ -4600,10 +4697,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                            Id.ToString(),
                                            EventTrackingId,
                                            RoamingNetwork.Id,
-                                           DroppedChargeDetailRecords,
-                                           ForwardedChargeDetailRecords,
+                                           ChargeDetailRecords,
                                            RequestTimeout,
-                                           result,
+                                           results,
                                            Runtime);
 
             }
@@ -4614,7 +4710,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #endregion
 
-            return result;
+            return results;
 
         }
 
@@ -5178,7 +5274,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     catch (Exception e)
                     {
                         DebugX.  Log(e.Message);
-                        Warnings.Add(Warning.Create(e.Message, evsestatus));
+                        Warnings.Add(Warning.Create(I18NString.Create(Languages.eng, e.Message), evsestatus));
                     }
 
                 }
@@ -5232,8 +5328,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         new EVSEStatusUpdate[0],
                                                         response.HTTPStatusCode.ToString(),
                                                         response.HTTPBody != null
-                                                            ? Warnings.AddAndReturnList(response.HTTPBody.ToUTF8String())
-                                                            : Warnings.AddAndReturnList("No HTTP body received!"),
+                                                            ? Warnings.AddAndReturnList(I18NString.Create(Languages.eng, response.HTTPBody.ToUTF8String()))
+                                                            : Warnings.AddAndReturnList(I18NString.Create(Languages.eng, "No HTTP body received!")),
                                                         Runtime);
 
                 }
@@ -5274,30 +5370,73 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         protected override Boolean SkipFlushChargeDetailRecordsQueues()
             => ChargeDetailRecordsQueue.Count == 0;
 
-        protected override async Task FlushChargeDetailRecordsQueues(IEnumerable<CDRInfo> ChargeDetailsRecords)
+        protected override async Task FlushChargeDetailRecordsQueues(IEnumerable<CDRInfo> CDRInfos)
         {
 
-            var sendCDRsResult = await CPORoaming.AddCDRs(ChargeDetailsRecords,
-
-                                                          DateTime.UtcNow,
-                                                          new CancellationTokenSource().Token,
-                                                          EventTracking_Id.New,
-                                                          DefaultRequestTimeout).
-                                                  ConfigureAwait(false);
-
-            if (sendCDRsResult.Content.ImplausibleCDRs.Any())
+            try
             {
 
-                SendOnWarnings(DateTime.UtcNow,
-                               nameof(WWCPCPOAdapter) + Id,
-                               "SendChargeDetailRecords",
-                               sendCDRsResult.Content.ImplausibleCDRs.
-                                                      Select(cdr => Warning.Create(cdr.ToString())));
+                var response = await CPORoaming.AddCDRs(CDRInfos,
+
+                                                        DateTime.UtcNow,
+                                                        new CancellationTokenSource().Token,
+                                                        EventTracking_Id.New,
+                                                        DefaultRequestTimeout).
+                                                ConfigureAwait(false);
+
+                if (response.HTTPStatusCode == HTTPStatusCode.OK &&
+                    response.Content        != null)
+                {
+
+                    switch (response.Content.Result.ResultCode)
+                    {
+
+                        case ResultCodes.OK:
+                            {
+                                foreach (var CDRInfo in CDRInfos)
+                                    RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
+                                                                              SendCDRResult.Success(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR)));
+                            }
+                            break;
+
+                        case ResultCodes.Partly:
+                            {
+
+                                var implausibleCDRs = response.Content.ImplausibleCDRs.ToHashSet();
+
+                                foreach (var CDRInfo in CDRInfos)
+                                    RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
+                                                                              implausibleCDRs.Contains(CDRInfo.CDRId)
+                                                                                  ? SendCDRResult.Error  (CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                                                          Warning.Create(I18NString.Create(Languages.eng, "implausible charge detail record!")))
+                                                                                  : SendCDRResult.Success(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR)));
+
+                            }
+                            break;
+
+                        default:
+                            {
+                                foreach (var CDRInfo in CDRInfos)
+                                    RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
+                                                                              SendCDRResult.Error(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                                                  Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode.ToString() + " - " + response.Content.Result.Description))));
+                            }
+                            break;
+
+                    }
+
+                }
+
+                //ToDo: Re-add to queue if it could not be send...
 
             }
-
-            //ToDo: Send FlushChargeDetailRecordsQueues result event...
-            //ToDo: Re-add to queue if it could not be send...
+            catch (Exception e)
+            {
+                foreach (var CDRInfo in CDRInfos)
+                    RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
+                                                              SendCDRResult.Error(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                                  Warning.Create(I18NString.Create(Languages.eng, e.Message))));
+            }
 
         }
 
