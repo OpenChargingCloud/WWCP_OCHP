@@ -93,7 +93,7 @@ namespace org.GraphDefined.WWCP
         public static OCHPv1_4.CPO.WWCPCPOAdapter
 
             CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                               RoamingNetwork,
-                                              CSORoamingProvider_Id                                             Id,
+                                              EMPRoamingProvider_Id                                             Id,
                                               I18NString                                                        Description,
                                               I18NString                                                        Name,
 
@@ -143,7 +143,7 @@ namespace org.GraphDefined.WWCP
                                               Boolean                                                           DisableSendChargeDetailRecords      = false,
 
                                               Action<OCHPv1_4.CPO.WWCPCPOAdapter>                               OCHPConfigurator                    = null,
-                                              Action<ICSORoamingProvider>                                       Configurator                        = null,
+                                              Action<IEMPRoamingProvider>                                       Configurator                        = null,
                                               DNSClient                                                         DNSClient                           = null)
 
         {
@@ -278,7 +278,7 @@ namespace org.GraphDefined.WWCP
         public static OCHPv1_4.CPO.WWCPCPOAdapter
 
             CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                     RoamingNetwork,
-                                              CSORoamingProvider_Id                                   Id,
+                                              EMPRoamingProvider_Id                                   Id,
                                               I18NString                                              Name,
                                               I18NString                                              Description,
                                               SOAPServer                                              SOAPServer,
@@ -325,7 +325,7 @@ namespace org.GraphDefined.WWCP
                                               Boolean                                                 DisableSendChargeDetailRecords      = false,
 
                                               Action<OCHPv1_4.CPO.WWCPCPOAdapter>                     OCHPConfigurator                    = null,
-                                              Action<ICSORoamingProvider>                             Configurator                        = null,
+                                              Action<IEMPRoamingProvider>                             Configurator                        = null,
                                               DNSClient                                               DNSClient                           = null)
 
         {

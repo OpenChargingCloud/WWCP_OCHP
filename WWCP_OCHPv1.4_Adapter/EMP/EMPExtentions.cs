@@ -78,7 +78,7 @@ namespace org.GraphDefined.WWCP
         public static OCHPv1_4.EMP.WWCPEMPAdapter
 
             CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                       RoamingNetwork,
-                                              EMPRoamingProvider_Id                     Id,
+                                              CSORoamingProvider_Id                     Id,
                                               I18NString                                Name,
 
                                               HTTPHostname                              RemoteHostname,
@@ -133,7 +133,7 @@ namespace org.GraphDefined.WWCP
                                               DNSClient                                 DNSClient                         = null,
 
                                               Action<OCHPv1_4.EMP.WWCPEMPAdapter>       OCHPConfigurator                  = null,
-                                              Action<IEMPRoamingProvider>               Configurator                      = null)
+                                              Action<ICSORoamingProvider>               Configurator                      = null)
 
         {
 
@@ -254,7 +254,7 @@ namespace org.GraphDefined.WWCP
         public static OCHPv1_4.EMP.WWCPEMPAdapter
 
             CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                       RoamingNetwork,
-                                              EMPRoamingProvider_Id                     Id,
+                                              CSORoamingProvider_Id                     Id,
                                               I18NString                                Name,
                                               SOAPServer                                SOAPServer,
 
@@ -304,7 +304,7 @@ namespace org.GraphDefined.WWCP
                                               DNSClient                                 DNSClient                         = null,
 
                                               Action<OCHPv1_4.EMP.WWCPEMPAdapter>       OCHPConfigurator                  = null,
-                                              Action<IEMPRoamingProvider>               Configurator                      = null)
+                                              Action<ICSORoamingProvider>               Configurator                      = null)
 
         {
 

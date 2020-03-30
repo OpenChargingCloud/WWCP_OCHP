@@ -43,8 +43,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// A WWCP wrapper for the OCHP EMP roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPEMPAdapter : ABaseEMobilityEntity<EMPRoamingProvider_Id>,
-                                  IEMPRoamingProvider,
+    public class WWCPEMPAdapter : ABaseEMobilityEntity<CSORoamingProvider_Id>,
+                                  ICSORoamingProvider,
                                   ISendAuthenticationData
     {
 
@@ -421,7 +421,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// 
         /// <param name="EMPRoaming">A OCHP EMP roaming object to be mapped to WWCP.</param>
         /// <param name="EVSEDataRecord2EVSE">A delegate to process an EVSE data record after receiving it from the roaming provider.</param>
-        public WWCPEMPAdapter(EMPRoamingProvider_Id        Id,
+        public WWCPEMPAdapter(CSORoamingProvider_Id        Id,
                               I18NString                   Name,
                               RoamingNetwork               RoamingNetwork,
 
@@ -1172,7 +1172,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// 
         /// <param name="EVSEDataRecord2EVSE">A delegate to process an EVSE data record after receiving it from the roaming provider.</param>
-        public WWCPEMPAdapter(EMPRoamingProvider_Id        Id,
+        public WWCPEMPAdapter(CSORoamingProvider_Id        Id,
                               I18NString                   Name,
                               RoamingNetwork               RoamingNetwork,
 
@@ -1258,7 +1258,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="EVSEDataRecord2EVSE">A delegate to process an EVSE data record after receiving it from the roaming provider.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public WWCPEMPAdapter(EMPRoamingProvider_Id                Id,
+        public WWCPEMPAdapter(CSORoamingProvider_Id                Id,
                               I18NString                           Name,
                               RoamingNetwork                       RoamingNetwork,
 

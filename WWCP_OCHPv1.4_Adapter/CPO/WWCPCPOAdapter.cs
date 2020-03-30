@@ -42,8 +42,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPCPOAdapter : AWWCPCSOAdapter<CDRInfo>,
-                                  ICSORoamingProvider,
+    public class WWCPCPOAdapter : AWWCPEMPAdapter<CDRInfo>,
+                                  IEMPRoamingProvider,
                                   IEquatable<WWCPCPOAdapter>,
                                   IComparable<WWCPCPOAdapter>,
                                   IComparable
@@ -338,7 +338,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
-        public WWCPCPOAdapter(CSORoamingProvider_Id                                Id,
+        public WWCPCPOAdapter(EMPRoamingProvider_Id                                Id,
                               I18NString                                           Name,
                               I18NString                                           Description,
                               RoamingNetwork                                       RoamingNetwork,
@@ -913,7 +913,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
-        public WWCPCPOAdapter(CSORoamingProvider_Id                                Id,
+        public WWCPCPOAdapter(EMPRoamingProvider_Id                                Id,
                               I18NString                                           Name,
                               I18NString                                           Description,
                               RoamingNetwork                                       RoamingNetwork,
@@ -1027,7 +1027,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public WWCPCPOAdapter(CSORoamingProvider_Id                                Id,
+        public WWCPCPOAdapter(EMPRoamingProvider_Id                                Id,
                               I18NString                                           Name,
                               I18NString                                           Description,
                               RoamingNetwork                                       RoamingNetwork,
