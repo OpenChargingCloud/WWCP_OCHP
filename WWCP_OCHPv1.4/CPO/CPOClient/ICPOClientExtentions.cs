@@ -53,7 +53,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             SetChargePointList(this ICPOClient               ICPOClient,
                                IEnumerable<ChargePointInfo>  ChargePointInfos,
-                               IncludeChargePointsDelegate   IncludeChargePoints   = null,
+                               IncludeChargePointDelegate   IncludeChargePoints   = null,
 
                                DateTime?                     Timestamp             = null,
                                CancellationToken?            CancellationToken     = null,
@@ -92,7 +92,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             UpdateChargePointList(this ICPOClient               ICPOClient,
                                   IEnumerable<ChargePointInfo>  ChargePointInfos,
-                                  IncludeChargePointsDelegate   IncludeChargePoints   = null,
+                                  IncludeChargePointDelegate   IncludeChargePoints   = null,
 
                                   DateTime?                     Timestamp             = null,
                                   CancellationToken?            CancellationToken     = null,

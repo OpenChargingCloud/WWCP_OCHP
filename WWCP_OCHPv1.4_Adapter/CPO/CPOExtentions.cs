@@ -122,7 +122,6 @@ namespace org.GraphDefined.WWCP
                                               String                                                            ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
                                               LogfileCreatorDelegate                                            LogFileCreator                      = null,
 
-                                              OCHPv1_4.CPO.CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper                  = null,
                                               OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate                         EVSE2ChargePointInfo                = null,
                                               OCHPv1_4.CPO.EVSEStatusUpdate2EVSEStatusDelegate                  EVSEStatusUpdate2EVSEStatus         = null,
                                               OCHPv1_4.CPO.ChargePointInfo2XMLDelegate                          ChargePointInfo2XML                 = null,
@@ -130,7 +129,12 @@ namespace org.GraphDefined.WWCP
 
                                               IncludeEVSEIdDelegate                                             IncludeEVSEIds                      = null,
                                               IncludeEVSEDelegate                                               IncludeEVSEs                        = null,
-                                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>               ChargeDetailRecordFilter            = null,
+                                              IncludeChargingStationIdDelegate                                  IncludeChargingStationIds           = null,
+                                              IncludeChargingStationDelegate                                    IncludeChargingStations             = null,
+                                              OCHPv1_4.CPO.IncludeChargePointDelegate                           IncludeChargePoints                 = null,
+                                              ChargeDetailRecordFilterDelegate                                  ChargeDetailRecordFilter            = null,
+                                              OCHPv1_4.CPO.CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper                  = null,
+
                                               TimeSpan?                                                         ServiceCheckEvery                   = null,
                                               TimeSpan?                                                         StatusCheckEvery                    = null,
                                               TimeSpan?                                                         EVSEStatusRefreshEvery              = null,
@@ -194,7 +198,6 @@ namespace org.GraphDefined.WWCP
                                                                      ServerLoggingContext,
                                                                      LogFileCreator,
 
-                                                                     CustomEVSEIdMapper,
                                                                      EVSE2ChargePointInfo,
                                                                      EVSEStatusUpdate2EVSEStatus,
                                                                      ChargePointInfo2XML,
@@ -202,7 +205,11 @@ namespace org.GraphDefined.WWCP
 
                                                                      IncludeEVSEIds,
                                                                      IncludeEVSEs,
+                                                                     IncludeChargingStationIds,
+                                                                     IncludeChargingStations,
+                                                                     IncludeChargePoints,
                                                                      ChargeDetailRecordFilter,
+                                                                     CustomEVSEIdMapper,
 
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,
@@ -277,56 +284,59 @@ namespace org.GraphDefined.WWCP
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public static OCHPv1_4.CPO.WWCPCPOAdapter
 
-            CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                     RoamingNetwork,
-                                              EMPRoamingProvider_Id                                   Id,
-                                              I18NString                                              Name,
-                                              I18NString                                              Description,
-                                              SOAPServer                                              SOAPServer,
+            CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                RoamingNetwork,
+                                              EMPRoamingProvider_Id                              Id,
+                                              I18NString                                         Name,
+                                              I18NString                                         Description,
+                                              SOAPServer                                         SOAPServer,
 
-                                              HTTPHostname                                            RemoteHostname,
-                                              IPPort?                                                 RemoteTCPPort                       = null,
-                                              RemoteCertificateValidationCallback                     RemoteCertificateValidator          = null,
-                                              LocalCertificateSelectionCallback                       ClientCertificateSelector           = null,
-                                              HTTPHostname?                                           RemoteHTTPVirtualHost               = null,
-                                              HTTPPath?                                                URIPrefix                           = null,
-                                              HTTPPath?                                                LiveURIPrefix                       = null,
-                                              Tuple<String, String>                                   WSSLoginPassword                    = null,
-                                              String                                                  HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
-                                              TimeSpan?                                               RequestTimeout                      = null,
-                                              Byte?                                                   MaxNumberOfRetries                  = OCHPv1_4.CPO.CPOClient.DefaultMaxNumberOfRetries,
+                                              HTTPHostname                                       RemoteHostname,
+                                              IPPort?                                            RemoteTCPPort                       = null,
+                                              RemoteCertificateValidationCallback                RemoteCertificateValidator          = null,
+                                              LocalCertificateSelectionCallback                  ClientCertificateSelector           = null,
+                                              HTTPHostname?                                      RemoteHTTPVirtualHost               = null,
+                                              HTTPPath?                                          URIPrefix                           = null,
+                                              HTTPPath?                                          LiveURIPrefix                       = null,
+                                              Tuple<String, String>                              WSSLoginPassword                    = null,
+                                              String                                             HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
+                                              TimeSpan?                                          RequestTimeout                      = null,
+                                              Byte?                                              MaxNumberOfRetries                  = OCHPv1_4.CPO.CPOClient.DefaultMaxNumberOfRetries,
 
-                                              String                                                  ServiceId                           = null,
-                                              HTTPPath?                                                ServerURIPrefix                     = null,
-                                              HTTPPath?                                                ServerURISuffix                     = null,
+                                              String                                             ServiceId                           = null,
+                                              HTTPPath?                                          ServerURIPrefix                     = null,
+                                              HTTPPath?                                          ServerURISuffix                     = null,
 
-                                              String                                                  ClientLoggingContext                = OCHPv1_4.CPO.CPOClient.CPOClientLogger.DefaultContext,
-                                              String                                                  ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
-                                              LogfileCreatorDelegate                                  LogFileCreator                      = null,
+                                              String                                             ClientLoggingContext                = OCHPv1_4.CPO.CPOClient.CPOClientLogger.DefaultContext,
+                                              String                                             ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
+                                              LogfileCreatorDelegate                             LogFileCreator                      = null,
 
-                                              OCHPv1_4.CPO.CustomEVSEIdMapperDelegate                 CustomEVSEIdMapper                  = null,
-                                              OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate               EVSE2ChargePointInfo                = null,
-                                              OCHPv1_4.CPO.EVSEStatusUpdate2EVSEStatusDelegate        EVSEStatusUpdate2EVSEStatus         = null,
-                                              OCHPv1_4.CPO.ChargePointInfo2XMLDelegate                ChargePointInfo2XML                 = null,
-                                              OCHPv1_4.CPO.EVSEStatus2XMLDelegate                     EVSEStatus2XML                      = null,
+                                              OCHPv1_4.CPO.CustomEVSEIdMapperDelegate            CustomEVSEIdMapper                  = null,
+                                              OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate          EVSE2ChargePointInfo                = null,
+                                              OCHPv1_4.CPO.EVSEStatusUpdate2EVSEStatusDelegate   EVSEStatusUpdate2EVSEStatus         = null,
+                                              OCHPv1_4.CPO.ChargePointInfo2XMLDelegate           ChargePointInfo2XML                 = null,
+                                              OCHPv1_4.CPO.EVSEStatus2XMLDelegate                EVSEStatus2XML                      = null,
 
-                                              IncludeEVSEIdDelegate                                   IncludeEVSEIds                      = null,
-                                              IncludeEVSEDelegate                                     IncludeEVSEs                        = null,
-                                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>     ChargeDetailRecordFilter            = null,
+                                              IncludeEVSEIdDelegate                              IncludeEVSEIds                      = null,
+                                              IncludeEVSEDelegate                                IncludeEVSEs                        = null,
+                                              IncludeChargingStationIdDelegate                   IncludeChargingStationIds           = null,
+                                              IncludeChargingStationDelegate                     IncludeChargingStations             = null,
+                                              OCHPv1_4.CPO.IncludeChargePointDelegate            IncludeChargePoints                 = null,
+                                              ChargeDetailRecordFilterDelegate                   ChargeDetailRecordFilter            = null,
 
-                                              TimeSpan?                                               ServiceCheckEvery                   = null,
-                                              TimeSpan?                                               StatusCheckEvery                    = null,
-                                              TimeSpan?                                               EVSEStatusRefreshEvery              = null,
-                                              TimeSpan?                                               CDRCheckEvery                       = null,
+                                              TimeSpan?                                          ServiceCheckEvery                   = null,
+                                              TimeSpan?                                          StatusCheckEvery                    = null,
+                                              TimeSpan?                                          EVSEStatusRefreshEvery              = null,
+                                              TimeSpan?                                          CDRCheckEvery                       = null,
 
-                                              Boolean                                                 DisablePushData                     = false,
-                                              Boolean                                                 DisablePushStatus                   = false,
-                                              Boolean                                                 DisableEVSEStatusRefresh            = false,
-                                              Boolean                                                 DisableAuthentication               = false,
-                                              Boolean                                                 DisableSendChargeDetailRecords      = false,
+                                              Boolean                                            DisablePushData                     = false,
+                                              Boolean                                            DisablePushStatus                   = false,
+                                              Boolean                                            DisableEVSEStatusRefresh            = false,
+                                              Boolean                                            DisableAuthentication               = false,
+                                              Boolean                                            DisableSendChargeDetailRecords      = false,
 
-                                              Action<OCHPv1_4.CPO.WWCPCPOAdapter>                     OCHPConfigurator                    = null,
-                                              Action<IEMPRoamingProvider>                             Configurator                        = null,
-                                              DNSClient                                               DNSClient                           = null)
+                                              Action<OCHPv1_4.CPO.WWCPCPOAdapter>                OCHPConfigurator                    = null,
+                                              Action<IEMPRoamingProvider>                        Configurator                        = null,
+                                              DNSClient                                          DNSClient                           = null)
 
         {
 
@@ -379,7 +389,6 @@ namespace org.GraphDefined.WWCP
                                                                      ServerLoggingContext,
                                                                      LogFileCreator,
 
-                                                                     CustomEVSEIdMapper,
                                                                      EVSE2ChargePointInfo,
                                                                      EVSEStatusUpdate2EVSEStatus,
                                                                      ChargePointInfo2XML,
@@ -387,7 +396,11 @@ namespace org.GraphDefined.WWCP
 
                                                                      IncludeEVSEIds,
                                                                      IncludeEVSEs,
+                                                                     IncludeChargingStationIds,
+                                                                     IncludeChargingStations,
+                                                                     IncludeChargePoints,
                                                                      ChargeDetailRecordFilter,
+                                                                     CustomEVSEIdMapper,
 
                                                                      ServiceCheckEvery,
                                                                      StatusCheckEvery,

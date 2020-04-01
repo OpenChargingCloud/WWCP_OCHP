@@ -167,7 +167,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             set
             {
-                _ServiceCheckEvery = (UInt32)value.TotalSeconds;
+                _ServiceCheckEvery = (UInt32) value.TotalSeconds;
             }
 
         }
@@ -175,9 +175,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        public IncludeChargePointsDelegate  IncludeChargePoints   { get; set; }
-
-        public Func<ChargeDetailRecord, ChargeDetailRecordFilters> ChargeDetailRecordFilter { get; set; }
+        public IncludeChargePointDelegate       IncludeChargePoints        { get; }
 
 
         #region DisableEVSEStatusRefresh
@@ -344,7 +342,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               RoamingNetwork                                       RoamingNetwork,
 
                               CPORoaming                                           CPORoaming,
-                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper               = null,
                               EVSE2ChargePointInfoDelegate                         EVSE2ChargePointInfo             = null,
                               EVSEStatusUpdate2EVSEStatusDelegate                  EVSEStatusUpdate2EVSEStatus      = null,
                               ChargePointInfo2XMLDelegate                          ChargePointInfo2XML              = null,
@@ -352,7 +349,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                               IncludeEVSEIdDelegate                                IncludeEVSEIds                   = null,
                               IncludeEVSEDelegate                                  IncludeEVSEs                     = null,
-                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>  ChargeDetailRecordFilter         = null,
+                              IncludeChargingStationIdDelegate                     IncludeChargingStationIds        = null,
+                              IncludeChargingStationDelegate                       IncludeChargingStations          = null,
+                              IncludeChargePointDelegate                           IncludeChargePoints              = null,
+                              ChargeDetailRecordFilterDelegate                     ChargeDetailRecordFilter         = null,
+                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper               = null,
 
                               TimeSpan?                                            ServiceCheckEvery                = null,
                               TimeSpan?                                            StatusCheckEvery                 = null,
@@ -377,6 +378,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                    IncludeEVSEIds,
                    IncludeEVSEs,
+                   IncludeChargingStationIds,
+                   IncludeChargingStations,
+                   null,
+                   null,
+                   ChargeDetailRecordFilter,
                    //CustomEVSEIdMapper,
 
                    ServiceCheckEvery,
@@ -419,6 +425,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             //this._IncludeEVSEIds                      = IncludeEVSEIds ?? (evseid => true);
             //this.IncludeEVSEs                        = IncludeEVSEs   ?? (evse   => true);
+            this.IncludeChargePoints                  = IncludeChargePoints ?? (cp => true);
 
             this.ServiceCheckLock                     = new Object();
             this._ServiceCheckEvery                   = (UInt32) (ServiceCheckEvery.HasValue
@@ -446,8 +453,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             //this.EVSEStatusChangesFastQueue           = new List<EVSEStatusUpdate>();
             //this.EVSEStatusChangesDelayedQueue        = new List<EVSEStatusUpdate>();
             //this.EVSEsToRemoveQueue                   = new HashSet<EVSE>();
-
-            this.ChargeDetailRecordFilter             = ChargeDetailRecordFilter ?? (cdr => ChargeDetailRecordFilters.forward);
 
             this._Lookup                              = new Dictionary<EMT_Id, Contract_Id>();
 
@@ -923,7 +928,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               String                                               ServerLoggingContext             = CPOServerLogger.DefaultContext,
                               LogfileCreatorDelegate                               LogFileCreator                   = null,
 
-                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper               = null,
                               EVSE2ChargePointInfoDelegate                         EVSE2ChargePointInfo             = null,
                               EVSEStatusUpdate2EVSEStatusDelegate                  EVSEStatusUpdate2EVSEStatus      = null,
                               ChargePointInfo2XMLDelegate                          ChargePointInfo2XML              = null,
@@ -931,7 +935,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                               IncludeEVSEIdDelegate                                IncludeEVSEIds                   = null,
                               IncludeEVSEDelegate                                  IncludeEVSEs                     = null,
-                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>  ChargeDetailRecordFilter         = null,
+                              IncludeChargingStationIdDelegate                     IncludeChargingStationIds        = null,
+                              IncludeChargingStationDelegate                       IncludeChargingStations          = null,
+                              IncludeChargePointDelegate                           IncludeChargePoints              = null,
+                              ChargeDetailRecordFilterDelegate                     ChargeDetailRecordFilter         = null,
+                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper               = null,
 
                               TimeSpan?                                            ServiceCheckEvery                = null,
                               TimeSpan?                                            StatusCheckEvery                 = null,
@@ -954,7 +962,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   ServerLoggingContext,
                                   LogFileCreator),
 
-                   CustomEVSEIdMapper,
                    EVSE2ChargePointInfo,
                    EVSEStatusUpdate2EVSEStatus,
                    ChargePointInfo2XML,
@@ -962,7 +969,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                    IncludeEVSEIds,
                    IncludeEVSEs,
+                   IncludeChargingStationIds,
+                   IncludeChargingStations,
+                   IncludeChargePoints,
                    ChargeDetailRecordFilter,
+                   CustomEVSEIdMapper,
 
                    ServiceCheckEvery,
                    StatusCheckEvery,
@@ -1057,7 +1068,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               String                                               ServerLoggingContext                = CPOServerLogger.DefaultContext,
                               LogfileCreatorDelegate                               LogFileCreator                      = null,
 
-                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper                  = null,
                               EVSE2ChargePointInfoDelegate                         EVSE2ChargePointInfo                = null,
                               EVSEStatusUpdate2EVSEStatusDelegate                  EVSEStatusUpdate2EVSEStatus         = null,
                               ChargePointInfo2XMLDelegate                          ChargePointInfo2XML                 = null,
@@ -1065,7 +1075,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                               IncludeEVSEIdDelegate                                IncludeEVSEIds                      = null,
                               IncludeEVSEDelegate                                  IncludeEVSEs                        = null,
-                              Func<ChargeDetailRecord, ChargeDetailRecordFilters>  ChargeDetailRecordFilter            = null,
+                              IncludeChargingStationIdDelegate                     IncludeChargingStationIds           = null,
+                              IncludeChargingStationDelegate                       IncludeChargingStations             = null,
+                              IncludeChargePointDelegate                           IncludeChargePoints                 = null,
+                              ChargeDetailRecordFilterDelegate                     ChargeDetailRecordFilter            = null,
+                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper                  = null,
 
                               TimeSpan?                                            ServiceCheckEvery                   = null,
                               TimeSpan?                                            StatusCheckEvery                    = null,
@@ -1113,7 +1127,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                   DNSClient),
 
-                   CustomEVSEIdMapper,
                    EVSE2ChargePointInfo,
                    EVSEStatusUpdate2EVSEStatus,
                    ChargePointInfo2XML,
@@ -1121,7 +1134,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                    IncludeEVSEIds,
                    IncludeEVSEs,
+                   IncludeChargingStationIds,
+                   IncludeChargingStations,
+                   IncludeChargePoints,
                    ChargeDetailRecordFilter,
+                   CustomEVSEIdMapper,
 
                    ServiceCheckEvery,
                    StatusCheckEvery,
@@ -5395,7 +5412,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                             {
                                 foreach (var CDRInfo in CDRInfos)
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
-                                                                              SendCDRResult.Success(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR)));
+                                                                              SendCDRResult.Success(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                                                    Runtime: response.Runtime));
                             }
                             break;
 
@@ -5408,8 +5426,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
                                                                               implausibleCDRs.Contains(CDRInfo.CDRId)
                                                                                   ? SendCDRResult.Error  (CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
-                                                                                                          Warning.Create(I18NString.Create(Languages.eng, "implausible charge detail record!")))
-                                                                                  : SendCDRResult.Success(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR)));
+                                                                                                          Warning.Create(I18NString.Create(Languages.eng, "implausible charge detail record!")),
+                                                                                                          Runtime: response.Runtime)
+                                                                                  : SendCDRResult.Success(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                                                          Runtime: response.Runtime));
 
                             }
                             break;
@@ -5419,7 +5439,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                 foreach (var CDRInfo in CDRInfos)
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
                                                                               SendCDRResult.Error(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
-                                                                                                  Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode.ToString() + " - " + response.Content.Result.Description))));
+                                                                                                  Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode.ToString() + " - " + response.Content.Result.Description)),
+                                                                                                  Runtime: response.Runtime));
                             }
                             break;
 
@@ -5435,7 +5456,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 foreach (var CDRInfo in CDRInfos)
                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
                                                               SendCDRResult.Error(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
-                                                                                  Warning.Create(I18NString.Create(Languages.eng, e.Message))));
+                                                                                  Warning.Create(I18NString.Create(Languages.eng, e.Message)),
+                                                                                  Runtime: TimeSpan.Zero));
             }
 
         }

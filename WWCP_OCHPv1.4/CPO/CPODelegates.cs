@@ -47,7 +47,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// A delegate for filtering charge points.
     /// </summary>
     /// <param name="ChargePointInfo">A charge point.</param>
-    public delegate Boolean IncludeChargePointsDelegate(ChargePointInfo ChargePointInfo);
+    public delegate Boolean IncludeChargePointDelegate(ChargePointInfo ChargePointInfo);
 
     #endregion
 
