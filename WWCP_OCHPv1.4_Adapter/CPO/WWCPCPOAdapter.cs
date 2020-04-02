@@ -4454,8 +4454,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     ForwardedCDRs.Add(cdr);
 
                 else
-                    FilteredCDRs.Add(SendCDRResult.Filtered(cdr,
-                                                            Warning.Create(I18NString.Create(Languages.eng, "This charge detail record was filtered!"))));
+                    FilteredCDRs.Add(SendCDRResult.Filtered(DateTime.UtcNow,
+                                                            cdr,
+                                                            Warning: Warning.Create(I18NString.Create(Languages.eng, "This charge detail record was filtered!"))));
 
             }
 
@@ -4497,7 +4498,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 Endtime  = DateTime.UtcNow;
                 Runtime  = Endtime - StartTime;
-                results  = SendCDRsResult.AdminDown(Id,
+                results  = SendCDRsResult.AdminDown(DateTime.UtcNow,
+                                                    Id,
                                                     this,
                                                     ChargeDetailRecords,
                                                     Runtime: Runtime);
@@ -4555,13 +4557,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                     ChargeDetailRecordsQueue.Add(chargeDetailRecord.ToOCHP(ContractIdDelegate: emtid => _Lookup[emtid],
                                                                                            CustomEVSEIdMapper: null));
-                                    EnquenedCDRsResults.Add(SendCDRResult.Enqueued(chargeDetailRecord));
+                                    EnquenedCDRsResults.Add(SendCDRResult.Enqueued(DateTime.UtcNow,
+                                                                                   chargeDetailRecord));
 
                                 }
                                 catch (Exception e)
                                 {
-                                    EnquenedCDRsResults.Add(SendCDRResult.CouldNotConvertCDRFormat(chargeDetailRecord,
-                                                                                                   Warning.Create(I18NString.Create(Languages.eng, e.Message))));
+                                    EnquenedCDRsResults.Add(SendCDRResult.CouldNotConvertCDRFormat(DateTime.UtcNow,
+                                                                                                   chargeDetailRecord,
+                                                                                                   Warning: Warning.Create(I18NString.Create(Languages.eng, e.Message))));
                                 }
 
                             }
@@ -4569,9 +4573,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                             Endtime      = DateTime.UtcNow;
                             Runtime      = Endtime - StartTime;
                             results      = (!FilteredCDRs.Any())
-                                               ? SendCDRsResult.Enqueued(Id, this, ForwardedCDRs, "Enqueued for at least " + FlushChargeDetailRecordsEvery.TotalSeconds + " seconds!", Runtime: Runtime)
-                                               : SendCDRsResult.Mixed   (Id, this, FilteredCDRs.
-                                                                                Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Enqueued(cdr))), Runtime: Runtime);
+                                               ? SendCDRsResult.Enqueued(DateTime.UtcNow, Id, this, ForwardedCDRs, "Enqueued for at least " + FlushChargeDetailRecordsEvery.TotalSeconds + " seconds!", Runtime: Runtime)
+                                               : SendCDRsResult.Mixed   (DateTime.UtcNow, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Enqueued(DateTime.UtcNow, cdr))), Runtime: Runtime);
                             invokeTimer  = true;
 
                         }
@@ -4610,32 +4613,34 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                         case ResultCodes.OK:
                                             if (!FilteredCDRs.Any())
-                                                results = SendCDRsResult.Success(Id, this, ForwardedCDRs);
+                                                results = SendCDRsResult.Success(DateTime.UtcNow, Id, this, ForwardedCDRs);
                                             else
-                                                results = SendCDRsResult.Mixed  (Id, this, FilteredCDRs.
-                                                                                                Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Success(cdr))));
+                                                results = SendCDRsResult.Mixed  (DateTime.UtcNow, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Success(DateTime.UtcNow, cdr))));
                                             break;
 
                                         case ResultCodes.Partly:
                                             if (!FilteredCDRs.Any())
-                                                results = SendCDRsResult.Mixed  (Id, this, ForwardedCDRs.Select(cdr => SendCDRResult.Success(cdr)).Concat(
-                                                                                                ImplausibleCDRs.Select(cdr => SendCDRResult.Error(cdr,
-                                                                                                                                                Warning.Create(I18NString.Create(Languages.eng, "Implausible charge detail record!"))))
+                                                results = SendCDRsResult.Mixed  (DateTime.UtcNow, Id, this, ForwardedCDRs.  Select(cdr => SendCDRResult.Success(DateTime.UtcNow, cdr)).Concat(
+                                                                                                            ImplausibleCDRs.Select(cdr => SendCDRResult.Error  (DateTime.UtcNow,
+                                                                                                                                                                cdr,
+                                                                                                                                                                Warning: Warning.Create(I18NString.Create(Languages.eng, "Implausible charge detail record!"))))
                                                                                             ));
                                             else
-                                                results = SendCDRsResult.Mixed  (Id, this, FilteredCDRs.Concat(
-                                                                                                ForwardedCDRs.Select(cdr => SendCDRResult.Success(cdr)).Concat(
-                                                                                                    ImplausibleCDRs.Select(cdr => SendCDRResult.Error(cdr,
-                                                                                                                                                    Warning.Create(I18NString.Create(Languages.eng, "Implausible charge detail record!"))))
+                                                results = SendCDRsResult.Mixed  (DateTime.UtcNow, Id, this, FilteredCDRs.Concat(
+                                                                                                                ForwardedCDRs.  Select(cdr => SendCDRResult.Success(DateTime.UtcNow, cdr)).Concat(
+                                                                                                                ImplausibleCDRs.Select(cdr => SendCDRResult.Error(DateTime.UtcNow,
+                                                                                                                                                                  cdr,
+                                                                                                                                                                  Warning: Warning.Create(I18NString.Create(Languages.eng, "Implausible charge detail record!"))))
                                                                                             )));
                                             break;
 
                                         default:
                                             if (!FilteredCDRs.Any())
-                                                results = SendCDRsResult.Error(Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode + " - " + response.Content.Result.Description)));
+                                                results = SendCDRsResult.Error(DateTime.UtcNow, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode + " - " + response.Content.Result.Description)));
                                             else
-                                                results = SendCDRsResult.Mixed(Id, this, FilteredCDRs.
-                                                                                                Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(cdr, Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode + " - " + response.Content.Result.Description))))));
+                                                results = SendCDRsResult.Mixed(DateTime.UtcNow, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(DateTime.UtcNow,
+                                                                                                                                                                              cdr,
+                                                                                                                                                                              Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode + " - " + response.Content.Result.Description))))));
                                             break;
 
                                     }
@@ -4644,19 +4649,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                                 else
                                     if (!FilteredCDRs.Any())
-                                        results = SendCDRsResult.Error(Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, response.HTTPBodyAsUTF8String)));
+                                        results = SendCDRsResult.Error(DateTime.UtcNow, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, response.HTTPBodyAsUTF8String)));
                                     else
-                                        results = SendCDRsResult.Mixed(Id, this, FilteredCDRs.
-                                                                                     Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(cdr, Warning.Create(I18NString.Create(Languages.eng, response.HTTPBodyAsUTF8String))))));
+                                        results = SendCDRsResult.Mixed(DateTime.UtcNow, Id, this, FilteredCDRs.
+                                                                                     Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(DateTime.UtcNow, cdr, Warning.Create(I18NString.Create(Languages.eng, response.HTTPBodyAsUTF8String))))));
 
                             }
                             catch (Exception e)
                             {
                                 if (!FilteredCDRs.Any())
-                                    results = SendCDRsResult.Error(Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, e.Message)));
+                                    results = SendCDRsResult.Error(DateTime.UtcNow, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.eng, e.Message)));
                                 else
-                                    results = SendCDRsResult.Mixed(Id, this, FilteredCDRs.
-                                                                                 Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(cdr, Warning.Create(I18NString.Create(Languages.eng, e.Message))))));
+                                    results = SendCDRsResult.Mixed(DateTime.UtcNow, Id, this, FilteredCDRs.
+                                                                                 Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(DateTime.UtcNow, cdr, Warning.Create(I18NString.Create(Languages.eng, e.Message))))));
                             }
 
 
@@ -4679,7 +4684,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                         Endtime  = DateTime.UtcNow;
                         Runtime  = Endtime - StartTime;
-                        results  = SendCDRsResult.Timeout(Id,
+                        results  = SendCDRsResult.Timeout(DateTime.UtcNow,
+                                                          Id,
                                                           this,
                                                           ChargeDetailRecords,
                                                           "Could not " + (TransmissionType == TransmissionTypes.Enqueue ? "enqueue" : "send") + " charge detail records!",
@@ -5412,7 +5418,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                             {
                                 foreach (var CDRInfo in CDRInfos)
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
-                                                                              SendCDRResult.Success(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                              SendCDRResult.Success(DateTime.UtcNow,
+                                                                                                    CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                                     Runtime: response.Runtime));
                             }
                             break;
@@ -5425,10 +5432,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                 foreach (var CDRInfo in CDRInfos)
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
                                                                               implausibleCDRs.Contains(CDRInfo.CDRId)
-                                                                                  ? SendCDRResult.Error  (CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                                  ? SendCDRResult.Error  (DateTime.UtcNow,
+                                                                                                          CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                                           Warning.Create(I18NString.Create(Languages.eng, "implausible charge detail record!")),
                                                                                                           Runtime: response.Runtime)
-                                                                                  : SendCDRResult.Success(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                                  : SendCDRResult.Success(DateTime.UtcNow,
+                                                                                                          CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                                           Runtime: response.Runtime));
 
                             }
@@ -5438,7 +5447,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                             {
                                 foreach (var CDRInfo in CDRInfos)
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
-                                                                              SendCDRResult.Error(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                                              SendCDRResult.Error(DateTime.UtcNow,
+                                                                                                  CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                                   Warning.Create(I18NString.Create(Languages.eng, response.Content.Result.ResultCode.ToString() + " - " + response.Content.Result.Description)),
                                                                                                   Runtime: response.Runtime));
                             }
@@ -5455,7 +5465,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
                 foreach (var CDRInfo in CDRInfos)
                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
-                                                              SendCDRResult.Error(CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
+                                                              SendCDRResult.Error(DateTime.UtcNow,
+                                                                                  CDRInfo.GetCustomDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                   Warning.Create(I18NString.Create(Languages.eng, e.Message)),
                                                                                   Runtime: TimeSpan.Zero));
             }
