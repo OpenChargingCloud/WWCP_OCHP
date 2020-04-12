@@ -4573,7 +4573,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                             Endtime      = DateTime.UtcNow;
                             Runtime      = Endtime - StartTime;
                             results      = (!FilteredCDRs.Any())
-                                               ? SendCDRsResult.Enqueued(DateTime.UtcNow, Id, this, ForwardedCDRs, "Enqueued for at least " + FlushChargeDetailRecordsEvery.TotalSeconds + " seconds!", Runtime: Runtime)
+                                               ? SendCDRsResult.Enqueued(DateTime.UtcNow, Id, this, ForwardedCDRs, I18NString.Create(Languages.eng, "Enqueued for at least " + FlushChargeDetailRecordsEvery.TotalSeconds + " seconds!"), Runtime: Runtime)
                                                : SendCDRsResult.Mixed   (DateTime.UtcNow, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Enqueued(DateTime.UtcNow, cdr))), Runtime: Runtime);
                             invokeTimer  = true;
 
@@ -4688,7 +4688,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                           Id,
                                                           this,
                                                           ChargeDetailRecords,
-                                                          "Could not " + (TransmissionType == TransmissionTypes.Enqueue ? "enqueue" : "send") + " charge detail records!",
+                                                          I18NString.Create(Languages.eng, "Could not " + (TransmissionType == TransmissionTypes.Enqueue ? "enqueue" : "send") + " charge detail records!"),
                                                           //ChargeDetailRecords.SafeSelect(cdr => new SendCDRResult(cdr, SendCDRResultTypes.Timeout)),
                                                           Runtime: Runtime);
 
