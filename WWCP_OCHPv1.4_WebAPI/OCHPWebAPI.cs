@@ -18,12 +18,14 @@
 #region Usings
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
+using Newtonsoft.Json.Linq;
+
 using org.GraphDefined.Vanaheimr.Illias;
-using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
@@ -154,31 +156,33 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <summary>
         /// The default HTTP URI prefix.
         /// </summary>
-        public static readonly HTTPPath                  DefaultURIPrefix         = HTTPPath.Parse("/ext/OCHPPlus");
+        public static readonly HTTPPath                      DefaultURLPathPrefix       = HTTPPath.Parse("/ext/OCHPPlus");
 
         /// <summary>
         /// The default HTTP realm, if HTTP Basic Authentication is used.
         /// </summary>
-        public const           String                   DefaultHTTPRealm         = "Open Charging Cloud OCHPPlus WebAPI";
+        public const           String                        DefaultHTTPRealm           = "Open Charging Cloud OCHPPlus WebAPI";
 
         //ToDo: http://www.iana.org/form/media-types
 
         /// <summary>
         /// The HTTP content type for serving OCHP+ XML data.
         /// </summary>
-        public static readonly HTTPContentType          OCHPPlusXMLContentType   = new HTTPContentType("application", "vnd.OCHPPlus+xml", "utf-8", null, null);
+        public static readonly HTTPContentType               OCHPPlusXMLContentType     = new HTTPContentType("application", "vnd.OCHPPlus+xml", "utf-8", null, null);
 
         /// <summary>
         /// The HTTP content type for serving OCHP+ HTML data.
         /// </summary>
-        public static readonly HTTPContentType          OCHPPlusHTMLContentType  = new HTTPContentType("application", "vnd.OCHPPlus+html", "utf-8", null, null);
+        public static readonly HTTPContentType               OCHPPlusHTMLContentType    = new HTTPContentType("application", "vnd.OCHPPlus+html", "utf-8", null, null);
 
 
-        private readonly XMLNamespacesDelegate          XMLNamespaces;
-        private readonly EVSE2ChargePointInfoDelegate   EVSE2ChargePointInfo;
-        private readonly ChargePointInfo2XMLDelegate    ChargePointInfo2XML;
-        private readonly EVSEStatus2XMLDelegate         EVSEStatusRecord2XML;
-        private readonly XMLPostProcessingDelegate      XMLPostProcessing;
+        private readonly       XMLNamespacesDelegate         XMLNamespaces;
+        private readonly       EVSE2ChargePointInfoDelegate  EVSE2ChargePointInfo;
+        private readonly       ChargePointInfo2XMLDelegate   ChargePointInfo2XML;
+        private readonly       EVSEStatus2XMLDelegate        EVSEStatusRecord2XML;
+        private readonly       XMLPostProcessingDelegate     XMLPostProcessing;
+
+        public static readonly HTTPEventSource_Id            DebugLogId                 = HTTPEventSource_Id.Parse("OCHPDebugLog");
 
         #endregion
 
@@ -187,28 +191,40 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <summary>
         /// The HTTP server for serving the OCHP+ WebAPI.
         /// </summary>
-        public HTTPServer<RoamingNetworks, RoamingNetwork>  HTTPServer    { get; }
+        public HTTPServer<RoamingNetworks, RoamingNetwork>  HTTPServer          { get; }
 
         /// <summary>
         /// The HTTP URI prefix.
         /// </summary>
-        public HTTPPath                                      URIPrefix     { get; }
+        public HTTPPath                                      URLPathPrefix      { get; }
 
         /// <summary>
         /// The HTTP realm, if HTTP Basic Authentication is used.
         /// </summary>
-        public String                                       HTTPRealm     { get; }
+        public String                                        HTTPRealm          { get; }
 
         /// <summary>
         /// An enumeration of logins for an optional HTTP Basic Authentication.
         /// </summary>
-        public IEnumerable<KeyValuePair<String, String>>    HTTPLogins    { get; }
+        public IEnumerable<KeyValuePair<String, String>>     HTTPLogins         { get; }
+
+
+        /// <summary>
+        /// Send debug information via HTTP Server Sent Events.
+        /// </summary>
+        public HTTPEventSource<JObject>                      DebugLog           { get; }
 
 
         /// <summary>
         /// The DNS client to use.
         /// </summary>
-        public DNSClient                                    DNSClient     { get; }
+        public DNSClient                                     DNSClient          { get; }
+
+
+        private readonly List<WWCPCPOAdapter> _CPOAdapters;
+
+        public IEnumerable<WWCPCPOAdapter> CPOAdapters
+            => _CPOAdapters;
 
         #endregion
 
@@ -241,7 +257,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// Attach the OCHP+ WebAPI to the given HTTP server.
         /// </summary>
         /// <param name="HTTPServer">A HTTP server.</param>
-        /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="URLPathPrefix">An optional prefix for the HTTP URIs.</param>
         /// <param name="HTTPRealm">The HTTP realm, if HTTP Basic Authentication is used.</param>
         /// <param name="HTTPLogins">An enumeration of logins for an optional HTTP Basic Authentication.</param>
         /// 
@@ -251,7 +267,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <param name="EVSEStatus2XML">An optional delegate to process an EVSE status record XML before sending it somewhere.</param>
         /// <param name="XMLPostProcessing">An optional delegate to process the XML after its final creation.</param>
         public OCHPWebAPI(HTTPServer<RoamingNetworks, RoamingNetwork>  HTTPServer,
-                          HTTPPath?                                     URIPrefix             = null,
+                          HTTPPath?                                    URLPathPrefix         = null,
                           String                                       HTTPRealm             = DefaultHTTPRealm,
                           IEnumerable<KeyValuePair<String, String>>    HTTPLogins            = null,
 
@@ -262,10 +278,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                           XMLPostProcessingDelegate                    XMLPostProcessing     = null)
         {
 
-            this.HTTPServer            = HTTPServer ?? throw new ArgumentNullException(nameof(HTTPServer), "The given HTTP server must not be null!");
-            this.URIPrefix             = URIPrefix ?? DefaultURIPrefix;
+            this.HTTPServer            = HTTPServer    ?? throw new ArgumentNullException(nameof(HTTPServer), "The given HTTP server must not be null!");
+            this.URLPathPrefix         = URLPathPrefix ?? DefaultURLPathPrefix;
             this.HTTPRealm             = HTTPRealm.IsNotNullOrEmpty() ? HTTPRealm : DefaultHTTPRealm;
-            this.HTTPLogins            = HTTPLogins ?? new KeyValuePair<String, String>[0];
+            this.HTTPLogins            = HTTPLogins    ?? new KeyValuePair<String, String>[0];
             this.DNSClient             = HTTPServer.DNSClient;
 
             this.XMLNamespaces         = XMLNamespaces;
@@ -274,10 +290,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             this.EVSEStatusRecord2XML  = EVSEStatus2XML;
             this.XMLPostProcessing     = XMLPostProcessing;
 
+            this._CPOAdapters          = new List<WWCPCPOAdapter>();
+
             // Link HTTP events...
             HTTPServer.RequestLog   += (HTTPProcessor, ServerTimestamp, Request)                                 => RequestLog. WhenAll(HTTPProcessor, ServerTimestamp, Request);
             HTTPServer.ResponseLog  += (HTTPProcessor, ServerTimestamp, Request, Response)                       => ResponseLog.WhenAll(HTTPProcessor, ServerTimestamp, Request, Response);
             HTTPServer.ErrorLog     += (HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException) => ErrorLog.   WhenAll(HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException);
+
+            var LogfilePrefix          = "HTTPSSEs" + Path.DirectorySeparatorChar;
+
+            this.DebugLog              = HTTPServer.AddJSONEventSource(EventIdentification:      DebugLogId,
+                                                                       URLTemplate:              this.URLPathPrefix + "/DebugLog",
+                                                                       MaxNumberOfCachedEvents:  10000,
+                                                                       RetryIntervall:           TimeSpan.FromSeconds(5),
+                                                                       EnableLogging:            true,
+                                                                       LogfilePrefix:            LogfilePrefix);
 
             RegisterURITemplates();
 
@@ -294,7 +321,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             #region / (HTTPRoot)
 
             HTTPServer.RegisterResourcesFolder(HTTPHostname.Any,
-                                               URIPrefix + "/",
+                                               URLPathPrefix + "/",
                                                "org.GraphDefined.WWCP.OCHPv2_1.WebAPI.HTTPRoot",
                                                DefaultFilename: "index.html");
 
@@ -388,7 +415,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             // ------------------------------------------------------------------------------------------------
             HTTPServer.AddMethodCallback(HTTPHostname.Any,
                                          HTTPMethod.GET,
-                                         URIPrefix + "/RNs/{RoamingNetworkId}" + URIPrefix + "/ChargePoints",
+                                         URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/ChargePoints",
                                          HTTPContentType.XML_UTF8,
                                          HTTPDelegate: EVSEsDelegate);
 
@@ -397,7 +424,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             // -----------------------------------------------------------------------------------------------
             HTTPServer.AddMethodCallback(HTTPHostname.Any,
                                          HTTPMethod.GET,
-                                         URIPrefix + "/RNs/{RoamingNetworkId}/ChargePoints",
+                                         URLPathPrefix + "/RNs/{RoamingNetworkId}/ChargePoints",
                                          OCHPPlusXMLContentType,
                                          HTTPDelegate: EVSEsDelegate);
 
@@ -501,7 +528,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             // ---------------------------------------------------------------------------------------------
             HTTPServer.AddMethodCallback(HTTPHostname.Any,
                                          HTTPMethod.GET,
-                                         URIPrefix + "/RNs/{RoamingNetworkId}" + URIPrefix + "/EVSEStatus",
+                                         URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/EVSEStatus",
                                          HTTPContentType.XML_UTF8,
                                          HTTPDelegate: EVSEStatusXMLDelegate);
 
@@ -510,7 +537,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             // ---------------------------------------------------------------------------------------------
             HTTPServer.AddMethodCallback(HTTPHostname.Any,
                                          HTTPMethod.GET,
-                                         URIPrefix + "/RNs/{RoamingNetworkId}/EVSEStatus",
+                                         URLPathPrefix + "/RNs/{RoamingNetworkId}/EVSEStatus",
                                          OCHPPlusXMLContentType,
                                          HTTPDelegate: EVSEStatusXMLDelegate);
 
@@ -618,7 +645,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                                                                       Environment.NewLine,
 
                                                                       @"  <head>", Environment.NewLine,
-                                                                      @"    <link href=""" + URIPrefix + @"/styles.css"" type=""text/css"" rel=""stylesheet"" />", Environment.NewLine,
+                                                                      @"    <link href=""" + URLPathPrefix + @"/styles.css"" type=""text/css"" rel=""stylesheet"" />", Environment.NewLine,
                                                                       @"  </head>", Environment.NewLine,
                                                                       Environment.NewLine,
 
@@ -673,7 +700,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             // ---------------------------------------------------------------------------------------
             HTTPServer.AddMethodCallback(HTTPHostname.Any,
                                          HTTPMethod.GET,
-                                         URIPrefix + "/RNs/{RoamingNetworkId}" + URIPrefix + "/EVSEStatus",
+                                         URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/EVSEStatus",
                                          HTTPContentType.HTML_UTF8,
                                          HTTPDelegate: EVSEStatusHTMLDelegate);
 
@@ -682,7 +709,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             // ----------------------------------------------------------------------------------------------
             HTTPServer.AddMethodCallback(HTTPHostname.Any,
                                          HTTPMethod.GET,
-                                         URIPrefix + "/RNs/{RoamingNetworkId}/EVSEStatus",
+                                         URLPathPrefix + "/RNs/{RoamingNetworkId}/EVSEStatus",
                                          OCHPPlusHTMLContentType,
                                          HTTPDelegate: EVSEStatusHTMLDelegate);
 
@@ -692,6 +719,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
 
         #endregion
 
+
+        public void Add(WWCPCPOAdapter CPOAdapter)
+        {
+
+            _CPOAdapters.Add(CPOAdapter);
+
+        }
 
     }
 
