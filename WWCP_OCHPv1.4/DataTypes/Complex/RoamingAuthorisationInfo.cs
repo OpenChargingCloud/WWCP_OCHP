@@ -19,7 +19,8 @@
 
 using System;
 using System.Xml.Linq;
-
+using Newtonsoft.Json.Linq;
+using org.GraphDefined.Vanaheimr.Hermod.JSON;
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -257,6 +258,39 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                    )
 
                );
+
+        #endregion
+
+
+        #region ToJSON(CustomRoamingAuthorisationInfoSerializer = null)
+
+        /// <summary>
+        /// Return a JSON representation of this object.
+        /// </summary>
+        /// <param name="CustomRoamingAuthorisationInfoSerializer">A delegate to customize the serialization of RoamingAuthorisationInfo respones.</param>
+        /// <param name="CustomEMTIdSerializer">A delegate to customize the serialization of EMT identification.</param>
+        public JObject ToJSON(CustomJObjectSerializerDelegate<RoamingAuthorisationInfo> CustomRoamingAuthorisationInfoSerializer  = null,
+                              CustomJObjectSerializerDelegate<EMT_Id>                   CustomEMTIdSerializer                     = null)
+        {
+
+            var JSON = JSONObject.Create(
+
+                           new JProperty("EMTId",                EMTId.     ToJSON(CustomEMTIdSerializer)),
+                           new JProperty("contractId",           ContractId.ToString()),
+
+                           PrintedNumber.IsNotNullOrEmpty()
+                               ? new JProperty("printedNumber",  PrintedNumber)
+                               : null,
+
+                           new JProperty("expiryDate",           ExpiryDate.ToIso8601(false))
+
+                       );
+
+            return CustomRoamingAuthorisationInfoSerializer != null
+                       ? CustomRoamingAuthorisationInfoSerializer(this, JSON)
+                       : JSON;
+
+        }
 
         #endregion
 

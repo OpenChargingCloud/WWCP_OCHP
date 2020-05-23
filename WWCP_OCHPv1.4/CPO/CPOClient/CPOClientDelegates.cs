@@ -41,7 +41,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
-                                                                 TimeSpan?                       RequestTimeout);
+                                                                 TimeSpan                        RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response on a set charge point list was received.
@@ -52,7 +52,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
-                                                                 TimeSpan?                       RequestTimeout,
+                                                                 TimeSpan                        RequestTimeout,
                                                                  SetChargePointListResponse      Result,
                                                                  TimeSpan                        Runtime);
 
@@ -66,7 +66,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
-                                                                 TimeSpan?                       RequestTimeout);
+                                                                 TimeSpan                        RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response on an update charge point list was received.
@@ -77,7 +77,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                  String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
                                                                  IEnumerable<ChargePointInfo>    ChargePointInfos,
-                                                                 TimeSpan?                       RequestTimeout,
+                                                                 TimeSpan                        RequestTimeout,
                                                                  UpdateChargePointListResponse   Result,
                                                                  TimeSpan                        Runtime);
 
@@ -98,7 +98,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         UInt64                       NumberOfParkingStatus,
                                                         IEnumerable<ParkingStatus>   ParkingStatus,
                                                         DateTime?                    DefaultTTL,
-                                                        TimeSpan?                    RequestTimeout);
+                                                        TimeSpan                     RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending evse and parking status upstream had been received.
@@ -113,7 +113,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                         UInt64                       NumberOfParkingStatus,
                                                         IEnumerable<ParkingStatus>   ParkingStatus,
                                                         DateTime?                    DefaultTTL,
-                                                        TimeSpan?                    RequestTimeout,
+                                                        TimeSpan                     RequestTimeout,
                                                         UpdateStatusResponse         Result,
                                                         TimeSpan                     Runtime);
 
@@ -130,7 +130,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                          String                       SenderId,
                                                          EventTracking_Id             EventTrackingId,
                                                          IEnumerable<TariffInfo>      TariffInfos,
-                                                         TimeSpan?                    RequestTimeout);
+                                                         TimeSpan                     RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending tariff infos upstream had been received.
@@ -141,7 +141,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                          String                       SenderId,
                                                          EventTracking_Id             EventTrackingId,
                                                          IEnumerable<TariffInfo>      TariffInfos,
-                                                         TimeSpan?                    RequestTimeout,
+                                                         TimeSpan                     RequestTimeout,
                                                          UpdateTariffsResponse        Result,
                                                          TimeSpan                     Runtime);
 
@@ -159,7 +159,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                          String                                  SenderId,
                                                                          EventTracking_Id                        EventTrackingId,
                                                                          EMT_Id                                  EMTId,
-                                                                         TimeSpan?                               RequestTimeout);
+                                                                         TimeSpan                                RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response on an e-mobility token authentication was received.
@@ -170,7 +170,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                          String                                  SenderId,
                                                                          EventTracking_Id                        EventTrackingId,
                                                                          EMT_Id                                  EMTId,
-                                                                         TimeSpan?                               RequestTimeout,
+                                                                         TimeSpan                                RequestTimeout,
                                                                          GetSingleRoamingAuthorisationResponse   Result,
                                                                          TimeSpan                                Runtime);
 
@@ -186,7 +186,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                        CPOClient                             Sender,
                                                                        String                                SenderId,
                                                                        EventTracking_Id                      EventTrackingId,
-                                                                       TimeSpan?                             RequestTimeout);
+                                                                       TimeSpan                              RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever the current roaming authorisation list had been received.
@@ -196,7 +196,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                        CPOClient                             Sender,
                                                                        String                                SenderId,
                                                                        EventTracking_Id                      EventTrackingId,
-                                                                       TimeSpan?                             RequestTimeout,
+                                                                       TimeSpan                              RequestTimeout,
                                                                        GetRoamingAuthorisationListResponse   Result,
                                                                        TimeSpan                              Runtime);
 
@@ -210,7 +210,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                               String                                      SenderId,
                                                                               EventTracking_Id                            EventTrackingId,
                                                                               DateTime                                    LastUpdate,
-                                                                              TimeSpan?                                   RequestTimeout);
+                                                                              TimeSpan                                    RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever updates of the roaming authorisation list had been received.
@@ -221,7 +221,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                               String                                      SenderId,
                                                                               EventTracking_Id                            EventTrackingId,
                                                                               DateTime                                    LastUpdate,
-                                                                              TimeSpan?                                   RequestTimeout,
+                                                                              TimeSpan                                    RequestTimeout,
                                                                               GetRoamingAuthorisationListUpdatesResponse  Result,
                                                                               TimeSpan                                    Runtime);
 
@@ -239,7 +239,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
                                                      IEnumerable<CDRInfo>   CDRInfos,
-                                                     TimeSpan?              RequestTimeout);
+                                                     TimeSpan               RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending charge detail records upstream had been received.
@@ -250,7 +250,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
                                                      IEnumerable<CDRInfo>   CDRInfos,
-                                                     TimeSpan?              RequestTimeout,
+                                                     TimeSpan               RequestTimeout,
                                                      AddCDRsResponse        Result,
                                                      TimeSpan               Runtime);
 
@@ -265,7 +265,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
                                                      CDRStatus?             CDRStatus,
-                                                     TimeSpan?              RequestTimeout);
+                                                     TimeSpan               RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending a check charge detail records request upstream had been received.
@@ -276,7 +276,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
                                                      CDRStatus?             CDRStatus,
-                                                     TimeSpan?              RequestTimeout,
+                                                     TimeSpan               RequestTimeout,
                                                      CheckCDRsResponse      Result,
                                                      TimeSpan               Runtime);
 
@@ -296,7 +296,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
                                                                IEnumerable<OperatorEndpoint>   OperatorEndpoints,
-                                                               TimeSpan?                       RequestTimeout);
+                                                               TimeSpan                        RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending an add service endpoints request upstream had been received.
@@ -307,7 +307,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
                                                                IEnumerable<OperatorEndpoint>   OperatorEndpoints,
-                                                               TimeSpan?                       RequestTimeout,
+                                                               TimeSpan                        RequestTimeout,
                                                                AddServiceEndpointsResponse     Result,
                                                                TimeSpan                        Runtime);
 
@@ -323,7 +323,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                IOCHPClient                   Sender,
                                                                String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
-                                                               TimeSpan?                     RequestTimeout);
+                                                               TimeSpan                      RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending a get service endpoints request upstream had been received.
@@ -333,7 +333,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                IOCHPClient                   Sender,
                                                                String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
-                                                               TimeSpan?                     RequestTimeout,
+                                                               TimeSpan                      RequestTimeout,
                                                                GetServiceEndpointsResponse   Result,
                                                                TimeSpan                      Runtime);
 
@@ -371,7 +371,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                           Single?                  CurrentCost,
                                                           Currency                 Currency,
 
-                                                          TimeSpan?                RequestTimeout);
+                                                          TimeSpan                 RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending an inform provider message to an e-mobility provider had been received.
@@ -402,11 +402,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                           Single?                  CurrentCost,
                                                           Currency                 Currency,
 
-                                                          TimeSpan?                RequestTimeout,
+                                                          TimeSpan                 RequestTimeout,
                                                           InformProviderResponse   Result,
                                                           TimeSpan                 Runtime);
 
     #endregion
-
 
 }

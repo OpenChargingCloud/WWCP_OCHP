@@ -19,7 +19,8 @@
 
 using System;
 using System.Xml.Linq;
-
+using Newtonsoft.Json.Linq;
+using org.GraphDefined.Vanaheimr.Hermod.JSON;
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -329,6 +330,37 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        : null
 
                );
+
+        #endregion
+
+
+        #region ToJSON(CustomEMTIdSerializer = null)
+
+        /// <summary>
+        /// Return a JSON representation of this object.
+        /// </summary>
+        /// <param name="CustomEMTIdSerializer">A delegate to customize the serialization of EMT identification.</param>
+        public JObject ToJSON(CustomJObjectSerializerDelegate<EMT_Id> CustomEMTIdSerializer = null)
+        {
+
+            var JSON = JSONObject.Create(
+
+                   new JProperty("representation",      XML_IO.AsText(Representation)),
+
+                   new JProperty("instance",            Instance),
+                   new JProperty("tokenType",           XML_IO.AsText(Type)),
+
+                   SubType.HasValue
+                       ? new JProperty("tokenSubType",  XML_IO.AsText(SubType.Value))
+                       : null
+
+               );
+
+            return CustomEMTIdSerializer != null
+                       ? CustomEMTIdSerializer(this, JSON)
+                       : JSON;
+
+        }
 
         #endregion
 

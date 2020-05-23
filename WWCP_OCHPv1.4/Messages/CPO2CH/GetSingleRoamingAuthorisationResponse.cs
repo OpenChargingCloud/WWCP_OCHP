@@ -19,7 +19,8 @@
 
 using System;
 using System.Xml.Linq;
-
+using Newtonsoft.Json.Linq;
+using org.GraphDefined.Vanaheimr.Hermod.JSON;
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -314,6 +315,41 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    Result.                   ToXML(),
                    RoamingAuthorisationInfo?.ToXML()
                );
+
+        #endregion
+
+
+        #region ToJSON(CustomGetSingleRoamingAuthorisationResponseSerializer = null, CustomResultSerializer = null)
+
+        /// <summary>
+        /// Return a JSON representation of this object.
+        /// </summary>
+        /// <param name="CustomGetSingleRoamingAuthorisationResponseSerializer">A delegate to customize the serialization of GetSingleRoamingAuthorisation respones.</param>
+        /// <param name="CustomResultSerializer">A delegate to customize the serialization of result respones.</param>
+        /// <param name="CustomRoamingAuthorisationInfoSerializer">A delegate to customize the serialization of RoamingAuthorisationInfo respones.</param>
+        /// <param name="CustomEMTIdSerializer">A delegate to customize the serialization of EMT identification.</param>
+        public JObject ToJSON(CustomJObjectSerializerDelegate<GetSingleRoamingAuthorisationResponse> CustomGetSingleRoamingAuthorisationResponseSerializer  = null,
+                              CustomJObjectSerializerDelegate<Result>                                CustomResultSerializer                                 = null,
+                              CustomJObjectSerializerDelegate<RoamingAuthorisationInfo>              CustomRoamingAuthorisationInfoSerializer               = null,
+                              CustomJObjectSerializerDelegate<EMT_Id>                                CustomEMTIdSerializer                                  = null)
+        {
+
+            var JSON = JSONObject.Create(
+
+                           new JProperty("result",                          Result.                  ToJSON(CustomResultSerializer)),
+
+                           RoamingAuthorisationInfo != null
+                               ? new JProperty("roamingAuthorisationInfo",  RoamingAuthorisationInfo.ToJSON(CustomRoamingAuthorisationInfoSerializer,
+                                                                                                            CustomEMTIdSerializer))
+                               : null
+
+                       );
+
+            return CustomGetSingleRoamingAuthorisationResponseSerializer != null
+                       ? CustomGetSingleRoamingAuthorisationResponseSerializer(this, JSON)
+                       : JSON;
+
+        }
 
         #endregion
 

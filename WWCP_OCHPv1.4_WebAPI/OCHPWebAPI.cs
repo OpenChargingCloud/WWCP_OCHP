@@ -725,6 +725,56 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
 
             _CPOAdapters.Add(CPOAdapter);
 
+            #region OnGetSingleRoamingAuthorisationRequest/-Response
+
+            CPOAdapter.CPOClient.OnGetSingleRoamingAuthorisationRequest += async (LogTimestamp,
+                                                                                  RequestTimestamp,
+                                                                                  Sender,
+                                                                                  SenderId,
+                                                                                  EventTrackingId,
+                                                                                  EMTId,
+                                                                                  RequestTimeout) => await DebugLog.SubmitEvent("GetSingleRoamingAuthorisationRequest",
+                                                                                                                                JSONObject.Create(
+                                                                                                                                    new JProperty("timestamp",                   RequestTimestamp.    ToIso8601()),
+                                                                                                                                    new JProperty("eventTrackingId",             EventTrackingId.     ToString()),
+                                                                                                                                    //new JProperty("roamingNetworkId",            RoamingNetworkId.    ToString()),
+                                                                                                                                    //EMPRoamingProviderId.HasValue
+                                                                                                                                    //    ? new JProperty("EMPRoamingProviderId",  EMPRoamingProviderId.ToString())
+                                                                                                                                    //    : null,
+                                                                                                                                    //CSORoamingProviderId.HasValue
+                                                                                                                                    //    ? new JProperty("CSORoamingProviderId",  CSORoamingProviderId.ToString())
+                                                                                                                                    //    : null,
+                                                                                                                                    new JProperty("EMTId",                       EMTId.               ToJSON()),
+                                                                                                                                    new JProperty("requestTimeout",              Math.Round(RequestTimeout.TotalSeconds, 0))
+                                                                                                                                ));
+
+            CPOAdapter.CPOClient.OnGetSingleRoamingAuthorisationResponse += async (LogTimestamp,
+                                                                                   RequestTimestamp,
+                                                                                   Sender,
+                                                                                   SenderId,
+                                                                                   EventTrackingId,
+                                                                                   EMTId,
+                                                                                   RequestTimeout,
+                                                                                   Result,
+                                                                                   Runtime) => await DebugLog.SubmitEvent("GetSingleRoamingAuthorisationResponse",
+                                                                                                                          JSONObject.Create(
+                                                                                                                              new JProperty("timestamp",                   RequestTimestamp.    ToIso8601()),
+                                                                                                                              new JProperty("eventTrackingId",             EventTrackingId.     ToString()),
+                                                                                                                              //new JProperty("roamingNetworkId",            RoamingNetwork.Id.   ToString()),
+                                                                                                                              //EMPRoamingProviderId.HasValue
+                                                                                                                              //    ? new JProperty("EMPRoamingProviderId",  EMPRoamingProviderId.ToString())
+                                                                                                                              //    : null,
+                                                                                                                              //CSORoamingProviderId.HasValue
+                                                                                                                              //    ? new JProperty("CSORoamingProviderId",  CSORoamingProviderId.ToString())
+                                                                                                                              //    : null,
+                                                                                                                              new JProperty("EMTId",                       EMTId.               ToJSON()),
+                                                                                                                              new JProperty("requestTimeout",              Math.Round(RequestTimeout.TotalSeconds, 0)),
+                                                                                                                              new JProperty("result",                      Result.              ToJSON()),
+                                                                                                                              new JProperty("runtime",                     Math.Round(Runtime.TotalMilliseconds,   0))
+                                                                                                                          ));
+
+            #endregion
+
         }
 
     }

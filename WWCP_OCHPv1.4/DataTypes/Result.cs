@@ -19,7 +19,8 @@
 
 using System;
 using System.Xml.Linq;
-
+using Newtonsoft.Json.Linq;
+using org.GraphDefined.Vanaheimr.Hermod.JSON;
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -318,6 +319,34 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
+        #region ToJSON(CustomResultSerializer = null)
+
+        /// <summary>
+        /// Return a JSON representation of this object.
+        /// </summary>
+        /// <param name="CustomResultSerializer">A delegate to customize the serialization of result respones.</param>
+        public JObject ToJSON(CustomJObjectSerializerDelegate<Result> CustomResultSerializer  = null)
+        {
+
+            var JSON = JSONObject.Create(
+
+                           new JProperty("resultCode",         XML_IO.AsText(ResultCode)),
+
+                           Description.IsNotNullOrEmpty()
+                               ? new JProperty("description",  Description)
+                               : null
+
+                       );
+
+            return CustomResultSerializer != null
+                       ? CustomResultSerializer(this, JSON)
+                       : JSON;
+
+        }
+
+        #endregion
+
+
         #region Operator overloading
 
         #region Operator == (Result1, Result2)
@@ -441,7 +470,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             => ResultCode + (Description.IsNotNullOrEmpty() ? " - " + Description : "");
 
         #endregion
-
 
     }
 

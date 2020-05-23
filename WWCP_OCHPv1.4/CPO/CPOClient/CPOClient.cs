@@ -50,12 +50,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default HTTP user agent string.
         /// </summary>
-        public new const           String   DefaultHTTPUserAgent  = "GraphDefined OCHP " + Version.Number + " CPO Client";
+        public new const           String    DefaultHTTPUserAgent  = "GraphDefined OCHP " + Version.Number + " CPO Client";
 
         /// <summary>
         /// The default remote TCP port to connect to.
         /// </summary>
-        public new static readonly IPPort   DefaultRemotePort     = IPPort.Parse(443);
+        public new static readonly IPPort    DefaultRemotePort     = IPPort.Parse(443);
 
         /// <summary>
         /// The default URI prefix.
@@ -3885,7 +3885,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                 CurrentCost,
                                                 Currency,
 
-                                                RequestTimeout);
+                                                RequestTimeout ?? DefaultRequestTimeout);
 
             }
             catch (Exception e)
@@ -4045,7 +4045,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                  CurrentCost,
                                                  Currency,
 
-                                                 RequestTimeout,
+                                                 RequestTimeout ?? DefaultRequestTimeout,
                                                  result.Content,
                                                  EndTime - StartTime);
 
@@ -4056,7 +4056,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
 
             #endregion
-
 
             return result;
 
