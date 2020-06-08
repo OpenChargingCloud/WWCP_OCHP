@@ -4097,10 +4097,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                 Endtime  = DateTime.UtcNow;
                 Runtime  = Endtime - StartTime;
-                result   = AuthStartResult.OutOfService(Id,
-                                                        this,
-                                                        SessionId,
-                                                        Runtime: Runtime);
+                result   = AuthStartResult.AdminDown(Id,
+                                                     this,
+                                                     SessionId,
+                                                     Runtime: Runtime);
 
             }
 
@@ -4124,9 +4124,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 Endtime  = DateTime.UtcNow;
                 Runtime  = Endtime - StartTime;
 
-                if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                    response.Content != null &&
-                    response.Content.Result.ResultCode == ResultCodes.OK)
+                if (response?.HTTPStatusCode            == HTTPStatusCode.OK &&
+                    response?.Content                   != null              &&
+                    response?.Content.Result.ResultCode == ResultCodes.OK)
                 {
 
                     result = AuthStartResult.Authorized(Id,
@@ -4316,10 +4316,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
                 Endtime  = DateTime.UtcNow;
                 Runtime  = Endtime - StartTime;
-                result   = AuthStopResult.OutOfService(Id,
-                                                       this,
-                                                       SessionId,
-                                                       Runtime: Runtime);
+                result   = AuthStopResult.AdminDown(Id,
+                                                    this,
+                                                    SessionId,
+                                                    Runtime: Runtime);
             }
 
             else
@@ -4340,9 +4340,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 Endtime  = DateTime.UtcNow;
                 Runtime  = Endtime - StartTime;
 
-                if (response.HTTPStatusCode            == HTTPStatusCode.OK &&
-                    response.Content                   != null              &&
-                    response.Content.Result.ResultCode == ResultCodes.OK)
+                if (response?.HTTPStatusCode            == HTTPStatusCode.OK &&
+                    response?.Content                   != null              &&
+                    response?.Content.Result.ResultCode == ResultCodes.OK)
                 {
 
                     result = AuthStopResult.Authorized(Id,
