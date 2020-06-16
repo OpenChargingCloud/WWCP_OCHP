@@ -368,7 +368,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(GetSingleRoamingAuthorisationResponse1, GetSingleRoamingAuthorisationResponse2))
+            if (ReferenceEquals(GetSingleRoamingAuthorisationResponse1, GetSingleRoamingAuthorisationResponse2))
                 return true;
 
             // If one is null, but not both, return false.

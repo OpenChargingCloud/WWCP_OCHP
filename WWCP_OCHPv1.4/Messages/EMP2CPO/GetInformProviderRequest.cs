@@ -231,7 +231,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(GetInformProviderRequest1, GetInformProviderRequest2))
+            if (ReferenceEquals(GetInformProviderRequest1, GetInformProviderRequest2))
                 return true;
 
             // If one is null, but not both, return false.

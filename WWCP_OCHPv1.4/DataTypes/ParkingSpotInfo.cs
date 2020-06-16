@@ -328,7 +328,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(ParkingSpotInfo1, ParkingSpotInfo2))
+            if (ReferenceEquals(ParkingSpotInfo1, ParkingSpotInfo2))
                 return true;
 
             // If one is null, but not both, return false.

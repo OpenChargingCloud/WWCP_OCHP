@@ -267,7 +267,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(SelectEVSERequest1, SelectEVSERequest2))
+            if (ReferenceEquals(SelectEVSERequest1, SelectEVSERequest2))
                 return true;
 
             // If one is null, but not both, return false.

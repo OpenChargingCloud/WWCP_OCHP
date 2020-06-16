@@ -254,7 +254,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(AddCDRsRequest1, AddCDRsRequest2))
+            if (ReferenceEquals(AddCDRsRequest1, AddCDRsRequest2))
                 return true;
 
             // If one is null, but not both, return false.

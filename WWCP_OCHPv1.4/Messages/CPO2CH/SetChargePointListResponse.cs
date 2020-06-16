@@ -340,7 +340,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(SetChargePointListResponse1, SetChargePointListResponse2))
+            if (ReferenceEquals(SetChargePointListResponse1, SetChargePointListResponse2))
                 return true;
 
             // If one is null, but not both, return false.

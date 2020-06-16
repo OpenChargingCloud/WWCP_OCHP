@@ -255,7 +255,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(UpdateChargePointListRequest1, UpdateChargePointListRequest2))
+            if (ReferenceEquals(UpdateChargePointListRequest1, UpdateChargePointListRequest2))
                 return true;
 
             // If one is null, but not both, return false.

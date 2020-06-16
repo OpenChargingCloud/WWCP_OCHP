@@ -234,7 +234,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(GetEVSEStatusRequest1, GetEVSEStatusRequest2))
+            if (ReferenceEquals(GetEVSEStatusRequest1, GetEVSEStatusRequest2))
                 return true;
 
             // If one is null, but not both, return false.

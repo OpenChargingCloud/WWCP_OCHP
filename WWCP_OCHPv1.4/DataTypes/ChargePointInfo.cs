@@ -882,7 +882,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(ChargePointInfo1, ChargePointInfo2))
+            if (ReferenceEquals(ChargePointInfo1, ChargePointInfo2))
                 return true;
 
             // If one is null, but not both, return false.

@@ -384,7 +384,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(OperatorId1, OperatorId2))
+            if (ReferenceEquals(OperatorId1, OperatorId2))
                 return true;
 
             // If one is null, but not both, return false.

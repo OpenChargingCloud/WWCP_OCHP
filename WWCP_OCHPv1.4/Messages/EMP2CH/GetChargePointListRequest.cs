@@ -216,7 +216,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(GetChargePointListRequest1, GetChargePointListRequest2))
+            if (ReferenceEquals(GetChargePointListRequest1, GetChargePointListRequest2))
                 return true;
 
             // If one is null, but not both, return false.

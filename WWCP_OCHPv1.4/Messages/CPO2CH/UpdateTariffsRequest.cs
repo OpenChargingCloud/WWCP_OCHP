@@ -299,7 +299,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(UpdateTariffsRequest1, UpdateTariffsRequest2))
+            if (ReferenceEquals(UpdateTariffsRequest1, UpdateTariffsRequest2))
                 return true;
 
             // If one is null, but not both, return false.

@@ -563,7 +563,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(CDRInfo1, CDRInfo2))
+            if (ReferenceEquals(CDRInfo1, CDRInfo2))
                 return true;
 
             // If one is null, but not both, return false.

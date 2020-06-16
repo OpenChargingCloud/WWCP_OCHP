@@ -243,7 +243,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(EVSECDRPair1, EVSECDRPair2))
+            if (ReferenceEquals(EVSECDRPair1, EVSECDRPair2))
                 return true;
 
             // If one is null, but not both, return false.

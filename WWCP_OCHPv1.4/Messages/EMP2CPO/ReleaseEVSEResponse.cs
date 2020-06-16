@@ -364,7 +364,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         {
 
             // If both are null, or both are same instance, return true.
-            if (Object.ReferenceEquals(ReleaseEVSEResponse1, ReleaseEVSEResponse2))
+            if (ReferenceEquals(ReleaseEVSEResponse1, ReleaseEVSEResponse2))
                 return true;
 
             // If one is null, but not both, return false.
