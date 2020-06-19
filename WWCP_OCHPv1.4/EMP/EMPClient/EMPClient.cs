@@ -60,12 +60,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// The default URI prefix.
         /// </summary>
-        public     static readonly HTTPPath  DefaultURIPrefix      = HTTPPath.Parse("/service/ochp/v1.4/");
+        public     static readonly HTTPPath  DefaultURLPrefix      = HTTPPath.Parse("/service/ochp/v1.4/");
 
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public     static readonly HTTPPath  DefaultLiveURIPrefix  = HTTPPath.Parse("/live/ochp/v1.4");
+        public     static readonly HTTPPath  DefaultLiveURLPrefix  = HTTPPath.Parse("/live/ochp/v1.4");
 
         #endregion
 
@@ -76,7 +76,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public HTTPPath          LiveURIPrefix    { get; }
+        public HTTPPath          LiveURLPrefix    { get; }
 
 
         /// <summary>
@@ -1009,7 +1009,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
         /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual host name to use.</param>
-        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="URLPrefix">An default URI prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent to use.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
@@ -1023,8 +1023,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          HTTPHostname?                        RemoteHTTPVirtualHost        = null,
-                         HTTPPath?                             URIPrefix                    = null,
-                         HTTPPath?                             LiveURIPrefix                = null,
+                         HTTPPath?                             URLPrefix                    = null,
+                         HTTPPath?                             LiveURLPrefix                = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
@@ -1039,7 +1039,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
                    RemoteHTTPVirtualHost,
-                   URIPrefix ?? DefaultURIPrefix,
+                   URLPrefix ?? DefaultURLPrefix,
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
@@ -1056,7 +1056,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
-            this.LiveURIPrefix   = LiveURIPrefix ?? DefaultLiveURIPrefix;
+            this.LiveURLPrefix   = LiveURLPrefix ?? DefaultLiveURLPrefix;
 
             this.Logger          = new EMPClientLogger(this,
                                                        LoggingContext,
@@ -1079,7 +1079,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
         /// <param name="HTTPVirtualHost">An optional HTTP virtual host name to use.</param>
-        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="URLPrefix">An default URI prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent to use.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
@@ -1092,7 +1092,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
                          HTTPHostname?                        HTTPVirtualHost              = null,
-                         HTTPPath?                             URIPrefix                    = null,
+                         HTTPPath?                             URLPrefix                    = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
                          TimeSpan?                            RequestTimeout               = null,
@@ -1105,7 +1105,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
                    HTTPVirtualHost,
-                   URIPrefix ?? DefaultURIPrefix,
+                   URLPrefix ?? DefaultURLPrefix,
                    WSSLoginPassword,
                    HTTPUserAgent,
                    RequestTimeout,
@@ -1194,7 +1194,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -1419,7 +1419,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -1647,7 +1647,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultLiveURIPrefix,
+                                                        DefaultLiveURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -1874,7 +1874,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -2115,7 +2115,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -2358,7 +2358,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -2588,7 +2588,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -2829,7 +2829,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -3072,7 +3072,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -3296,7 +3296,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             {
 
                 using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURIPrefix,
+                                                        DefaultURLPrefix,
                                                         VirtualHostname,
                                                         RemotePort,
                                                         RemoteCertificateValidator,
@@ -3544,7 +3544,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             using (var _OCHPClient = new SOAPClient(ep.First().URL.Hostname,
-                                                    DefaultURIPrefix,
+                                                    DefaultURLPrefix,
                                                     ep.First().URL.Hostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
@@ -3768,7 +3768,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             using (var _OCHPClient = new SOAPClient(ep.First().URL.Hostname,
-                                                    DefaultURIPrefix,
+                                                    DefaultURLPrefix,
                                                     ep.First().URL.Hostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
@@ -3967,7 +3967,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    DefaultURIPrefix,
+                                                    DefaultURLPrefix,
                                                     VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
@@ -4160,7 +4160,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             var Request = new GetEVSEStatusRequest(EVSEIds);
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    DefaultURIPrefix,
+                                                    DefaultURLPrefix,
                                                     VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
@@ -4357,7 +4357,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    DefaultURIPrefix,
+                                                    DefaultURLPrefix,
                                                     VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,
@@ -4550,7 +4550,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
 
             using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    DefaultURIPrefix,
+                                                    DefaultURLPrefix,
                                                     VirtualHostname,
                                                     RemotePort,
                                                     RemoteCertificateValidator,

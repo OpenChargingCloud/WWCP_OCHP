@@ -55,7 +55,7 @@ namespace org.GraphDefined.WWCP
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
         /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
-        /// <param name="URIPrefix">An default URI prefix.</param>
+        /// <param name="URLPrefix">An default URI prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
@@ -63,8 +63,8 @@ namespace org.GraphDefined.WWCP
         /// 
         /// <param name="ServerName"> An optional identification string for the HTTP server.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
-        /// <param name="ServerURIPrefix">An optional prefix for the HTTP URIs.</param>
-        /// <param name="ServerURISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
+        /// <param name="ServerURLPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="ServerURLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ServerContentType">An optional HTTP content type to use.</param>
         /// <param name="ServerRegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="ServerAutoStart">Whether to start the server immediately or not.</param>
@@ -102,8 +102,8 @@ namespace org.GraphDefined.WWCP
                                               HTTPHostname?                                                     RemoteHTTPVirtualHost               = null,
                                               RemoteCertificateValidationCallback                               RemoteCertificateValidator          = null,
                                               LocalCertificateSelectionCallback                                 ClientCertificateSelector           = null,
-                                              HTTPPath?                                                         URIPrefix                           = null,
-                                              HTTPPath?                                                         LiveURIPrefix                       = null,
+                                              HTTPPath?                                                         URLPrefix                           = null,
+                                              HTTPPath?                                                         LiveURLPrefix                       = null,
                                               Tuple<String, String>                                             WSSLoginPassword                    = null,
                                               String                                                            HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
                                               TimeSpan?                                                         RequestTimeout                      = null,
@@ -112,8 +112,8 @@ namespace org.GraphDefined.WWCP
                                               String                                                            ServerName                          = OCHPv1_4.CPO.CPOServer.DefaultHTTPServerName,
                                               String                                                            ServiceId                           = null,
                                               IPPort?                                                           ServerTCPPort                       = null,
-                                              HTTPPath?                                                         ServerURIPrefix                     = null,
-                                              HTTPPath?                                                         ServerURISuffix                     = null,
+                                              HTTPPath?                                                         ServerURLPrefix                     = null,
+                                              HTTPPath?                                                         ServerURLSuffix                     = null,
                                               HTTPContentType                                                   ServerContentType                   = null,
                                               Boolean                                                           ServerRegisterHTTPRootService       = true,
                                               Boolean                                                           ServerAutoStart                     = false,
@@ -178,8 +178,8 @@ namespace org.GraphDefined.WWCP
                                                                      RemoteCertificateValidator,
                                                                      ClientCertificateSelector,
                                                                      RemoteHTTPVirtualHost,
-                                                                     URIPrefix     ?? OCHPv1_4.CPO.CPOClient.DefaultURIPrefix,
-                                                                     LiveURIPrefix ?? OCHPv1_4.CPO.CPOClient.DefaultLiveURIPrefix,
+                                                                     URLPrefix     ?? OCHPv1_4.CPO.CPOClient.DefaultURLPrefix,
+                                                                     LiveURLPrefix ?? OCHPv1_4.CPO.CPOClient.DefaultLiveURLPrefix,
                                                                      WSSLoginPassword,
                                                                      HTTPUserAgent,
                                                                      RequestTimeout,
@@ -188,8 +188,8 @@ namespace org.GraphDefined.WWCP
                                                                      ServerName,
                                                                      ServiceId,
                                                                      ServerTCPPort,
-                                                                     ServerURIPrefix ?? OCHPv1_4.CPO.CPOServer.DefaultURIPrefix,
-                                                                     ServerURISuffix ?? OCHPv1_4.CPO.CPOServer.DefaultURISuffix,
+                                                                     ServerURLPrefix ?? OCHPv1_4.CPO.CPOServer.DefaultURLPrefix,
+                                                                     ServerURLSuffix ?? OCHPv1_4.CPO.CPOServer.DefaultURLSuffix,
                                                                      ServerContentType,
                                                                      ServerRegisterHTTPRootService,
                                                                      ServerAutoStart,
@@ -247,15 +247,15 @@ namespace org.GraphDefined.WWCP
         /// <param name="Id">The unique identification of the roaming provider.</param>
         /// <param name="Name">The offical (multi-language) name of the roaming provider.</param>
         /// <param name="SOAPServer">An optional identification string for the HTTP server.</param>
-        /// <param name="ServerURIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="ServerURLPrefix">An optional prefix for the HTTP URIs.</param>
         /// 
         /// <param name="RemoteHostname">The hostname of the remote OCHP service.</param>
         /// <param name="RemoteTCPPort">An optional TCP port of the remote OCHP service.</param>
         /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
         /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
         /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
-        /// <param name="URIPrefix">An default URI prefix.</param>
-        /// <param name="ServerURISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
+        /// <param name="URLPrefix">An default URI prefix.</param>
+        /// <param name="ServerURLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
         /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
         /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
@@ -295,16 +295,16 @@ namespace org.GraphDefined.WWCP
                                               RemoteCertificateValidationCallback                RemoteCertificateValidator          = null,
                                               LocalCertificateSelectionCallback                  ClientCertificateSelector           = null,
                                               HTTPHostname?                                      RemoteHTTPVirtualHost               = null,
-                                              HTTPPath?                                          URIPrefix                           = null,
-                                              HTTPPath?                                          LiveURIPrefix                       = null,
+                                              HTTPPath?                                          URLPrefix                           = null,
+                                              HTTPPath?                                          LiveURLPrefix                       = null,
                                               Tuple<String, String>                              WSSLoginPassword                    = null,
                                               String                                             HTTPUserAgent                       = OCHPv1_4.CPO.CPOClient.DefaultHTTPUserAgent,
                                               TimeSpan?                                          RequestTimeout                      = null,
                                               Byte?                                              MaxNumberOfRetries                  = OCHPv1_4.CPO.CPOClient.DefaultMaxNumberOfRetries,
 
                                               String                                             ServiceId                           = null,
-                                              HTTPPath?                                          ServerURIPrefix                     = null,
-                                              HTTPPath?                                          ServerURISuffix                     = null,
+                                              HTTPPath?                                          ServerURLPrefix                     = null,
+                                              HTTPPath?                                          ServerURLSuffix                     = null,
 
                                               String                                             ClientLoggingContext                = OCHPv1_4.CPO.CPOClient.CPOClientLogger.DefaultContext,
                                               String                                             ServerLoggingContext                = OCHPv1_4.CPO.CPOServerLogger.DefaultContext,
@@ -371,8 +371,8 @@ namespace org.GraphDefined.WWCP
                                                                                                 RemoteCertificateValidator,
                                                                                                 ClientCertificateSelector,
                                                                                                 RemoteHTTPVirtualHost ?? RemoteHostname,
-                                                                                                URIPrefix             ?? OCHPv1_4.CPO.CPOClient.DefaultURIPrefix,
-                                                                                                LiveURIPrefix         ?? OCHPv1_4.CPO.CPOClient.DefaultLiveURIPrefix,
+                                                                                                URLPrefix             ?? OCHPv1_4.CPO.CPOClient.DefaultURLPrefix,
+                                                                                                LiveURLPrefix         ?? OCHPv1_4.CPO.CPOClient.DefaultLiveURLPrefix,
                                                                                                 WSSLoginPassword,
                                                                                                 HTTPUserAgent,
                                                                                                 RequestTimeout,
@@ -383,8 +383,8 @@ namespace org.GraphDefined.WWCP
 
                                                                      new OCHPv1_4.CPO.CPOServer(SOAPServer,
                                                                                                 ServiceId,
-                                                                                                ServerURIPrefix ?? OCHPv1_4.CPO.CPOServer.DefaultURIPrefix,
-                                                                                                ServerURISuffix ?? OCHPv1_4.CPO.CPOServer.DefaultURISuffix),
+                                                                                                ServerURLPrefix ?? OCHPv1_4.CPO.CPOServer.DefaultURLPrefix,
+                                                                                                ServerURLSuffix ?? OCHPv1_4.CPO.CPOServer.DefaultURLSuffix),
 
                                                                      ServerLoggingContext,
                                                                      LogFileCreator,

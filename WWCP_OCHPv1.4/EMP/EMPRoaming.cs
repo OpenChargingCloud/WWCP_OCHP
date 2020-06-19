@@ -1387,8 +1387,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="ServerName">An optional identification string for the HTTP server.</param>
         /// <param name="ServiceId">An optional identification for this SOAP service.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
-        /// <param name="ServerURIPrefix">An optional prefix for the HTTP URIs.</param>
-        /// <param name="ServerURISuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
+        /// <param name="ServerURLPrefix">An optional prefix for the HTTP URLs.</param>
+        /// <param name="ServerURLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ServerContentType">An optional HTTP content type to use.</param>
         /// <param name="ServerRegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="ServerAutoStart">Whether to start the server immediately or not.</param>
@@ -1404,8 +1404,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                           RemoteCertificateValidationCallback  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionCallback    ClientCertificateSelector       = null,
                           HTTPHostname?                        RemoteHTTPVirtualHost           = null,
-                          HTTPPath?                             URIPrefix                       = null,
-                          HTTPPath?                             LiveURIPrefix                   = null,
+                          HTTPPath?                             URLPrefix                       = null,
+                          HTTPPath?                             LiveURLPrefix                   = null,
                           Tuple<String, String>                WSSLoginPassword                = null,
                           String                               HTTPUserAgent                   = EMPClient.DefaultHTTPUserAgent,
                           TimeSpan?                            RequestTimeout                  = null,
@@ -1414,8 +1414,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                           String                               ServerName                      = EMPServer.DefaultHTTPServerName,
                           String                               ServiceId                       = null,
                           IPPort?                              ServerTCPPort                   = null,
-                          HTTPPath?                             ServerURIPrefix                 = null,
-                          HTTPPath?                             ServerURISuffix                 = null,
+                          HTTPPath?                             ServerURLPrefix                 = null,
+                          HTTPPath?                             ServerURLSuffix                 = null,
                           HTTPContentType                      ServerContentType               = null,
                           Boolean                              ServerRegisterHTTPRootService   = true,
                           Boolean                              ServerAutoStart                 = false,
@@ -1432,8 +1432,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                  RemoteCertificateValidator,
                                  ClientCertificateSelector,
                                  RemoteHTTPVirtualHost,
-                                 URIPrefix     ?? EMPClient.DefaultURIPrefix,
-                                 LiveURIPrefix ?? EMPClient.DefaultLiveURIPrefix,
+                                 URLPrefix     ?? EMPClient.DefaultURLPrefix,
+                                 LiveURLPrefix ?? EMPClient.DefaultLiveURLPrefix,
                                  WSSLoginPassword,
                                  HTTPUserAgent,
                                  RequestTimeout,
@@ -1445,8 +1445,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                    new EMPServer(ServerName,
                                  ServiceId,
                                  ServerTCPPort,
-                                 ServerURIPrefix ?? EMPServer.DefaultURIPrefix,
-                                 ServerURISuffix ?? EMPServer.DefaultURISuffix,
+                                 ServerURLPrefix ?? EMPServer.DefaultURLPrefix,
+                                 ServerURLSuffix ?? EMPServer.DefaultURLSuffix,
                                  ServerContentType,
                                  ServerRegisterHTTPRootService,
                                  DNSClient,

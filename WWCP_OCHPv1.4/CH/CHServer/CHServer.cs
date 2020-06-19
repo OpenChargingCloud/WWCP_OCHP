@@ -58,7 +58,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <summary>
         /// The default HTTP/SOAP/XML server URI prefix.
         /// </summary>
-        public new static readonly HTTPPath          DefaultURIPrefix       = HTTPPath.Parse("/");
+        public new static readonly HTTPPath          DefaultURLPrefix       = HTTPPath.Parse("/");
 
         /// <summary>
         /// The default HTTP/SOAP/XML content type.
@@ -447,21 +447,21 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #region Constructor(s)
 
-        #region CHServer(HTTPServerName, TCPPort = default, URIPrefix = default, ContentType = default, DNSClient = null, AutoStart = false)
+        #region CHServer(HTTPServerName, TCPPort = default, URLPrefix = default, ContentType = default, DNSClient = null, AutoStart = false)
 
         /// <summary>
         /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML CH Server API.
         /// </summary>
         /// <param name="HTTPServerName">An optional identification string for the HTTP server.</param>
         /// <param name="TCPPort">An optional TCP port for the HTTP server.</param>
-        /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="ContentType">An optional HTTP content type to use.</param>
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
         public CHServer(String          HTTPServerName           = DefaultHTTPServerName,
                         IPPort?         TCPPort                  = null,
-                        HTTPPath?        URIPrefix                = null,
+                        HTTPPath?        URLPrefix                = null,
                         HTTPContentType ContentType              = null,
                         Boolean         RegisterHTTPRootService  = true,
                         DNSClient       DNSClient                = null,
@@ -469,7 +469,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
                    TCPPort     ?? DefaultHTTPServerPort,
-                   URIPrefix   ?? DefaultURIPrefix,
+                   URLPrefix   ?? DefaultURLPrefix,
                    ContentType ?? DefaultContentType,
                    RegisterHTTPRootService,
                    DNSClient,
@@ -486,18 +486,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #endregion
 
-        #region CHServer(SOAPServer, URIPrefix = default)
+        #region CHServer(SOAPServer, URLPrefix = default)
 
         /// <summary>
         /// Use the given HTTP server for the OCHP HTTP/SOAP/XML CH Server API.
         /// </summary>
         /// <param name="SOAPServer">A SOAP server.</param>
-        /// <param name="URIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         public CHServer(SOAPServer  SOAPServer,
-                        HTTPPath?    URIPrefix = null)
+                        HTTPPath?    URLPrefix = null)
 
             : base(SOAPServer,
-                   URIPrefix ?? DefaultURIPrefix)
+                   URLPrefix ?? DefaultURLPrefix)
 
         {
 
@@ -523,7 +523,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - AddServiceEndpointsRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "AddServiceEndpointsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "AddServiceEndpointsRequest").FirstOrDefault(),
                                             async (Request, AddServiceEndpointsXML) => {
@@ -624,7 +624,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetServiceEndpointsRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetServiceEndpointsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetServiceEndpointsRequest").FirstOrDefault(),
                                             async (Request, GetServiceEndpointsXML) => {
@@ -726,7 +726,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - AddCDRsRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "AddCDRsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "AddCDRsRequest").FirstOrDefault(),
                                             async (Request, AddCDRsXML) => {
@@ -826,7 +826,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - CheckCDRsRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "CheckCDRsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "CheckCDRsRequest").FirstOrDefault(),
                                             async (Request, CheckCDRsXML) => {
@@ -926,7 +926,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetRoamingAuthorisationListRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetRoamingAuthorisationListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetRoamingAuthorisationListRequest").FirstOrDefault(),
                                             async (Request, GetRoamingAuthorisationListXML) => {
@@ -1025,7 +1025,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetRoamingAuthorisationListUpdatesRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetRoamingAuthorisationListUpdatesRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetRoamingAuthorisationListUpdatesRequest").FirstOrDefault(),
                                             async (Request, GetRoamingAuthorisationListUpdatesXML) => {
@@ -1125,7 +1125,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetSingleRoamingAuthorisationRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetSingleRoamingAuthorisationRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetSingleRoamingAuthorisationRequest").FirstOrDefault(),
                                             async (Request, GetSingleRoamingAuthorisationXML) => {
@@ -1225,7 +1225,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - SetChargePointListRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "SetChargePointListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "SetChargePointListRequest").FirstOrDefault(),
                                             async (Request, SetChargePointListXML) => {
@@ -1325,7 +1325,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - UpdateChargePointListRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "UpdateChargePointListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateChargePointListRequest").FirstOrDefault(),
                                             async (Request, UpdateChargePointListXML) => {
@@ -1425,7 +1425,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - UpdateStatusRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "UpdateStatusRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateStatusRequest").FirstOrDefault(),
                                             async (Request, UpdateStatusXML) => {
@@ -1527,7 +1527,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - UpdateTariffsRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "UpdateTariffsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateTariffsRequest").FirstOrDefault(),
                                             async (Request, UpdateTariffsXML) => {
@@ -1630,7 +1630,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetCDRsRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetCDRsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetCDRsRequest").FirstOrDefault(),
                                             async (Request, GetCDRsXML) => {
@@ -1730,7 +1730,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - ConfirmCDRsRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "ConfirmCDRsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ConfirmCDRsRequest").FirstOrDefault(),
                                             async (Request, ConfirmCDRsXML) => {
@@ -1831,7 +1831,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetChargePointListRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetChargePointListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetChargePointListRequest").FirstOrDefault(),
                                             async (Request, GetChargePointListXML) => {
@@ -1930,7 +1930,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetChargePointListUpdatesRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetChargePointListUpdatesRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetChargePointListUpdatesRequest").FirstOrDefault(),
                                             async (Request, GetChargePointListUpdatesXML) => {
@@ -2030,7 +2030,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetStatusRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetStatusRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetStatusRequest").FirstOrDefault(),
                                             async (Request, GetStatusXML) => {
@@ -2131,7 +2131,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - GetTariffUpdatesRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "GetTariffUpdatesRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetTariffUpdatesRequest").FirstOrDefault(),
                                             async (Request, GetTariffUpdatesXML) => {
@@ -2231,7 +2231,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - SetRoamingAuthorisationListRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "SetRoamingAuthorisationListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "SetRoamingAuthorisationListRequest").FirstOrDefault(),
                                             async (Request, SetRoamingAuthorisationListXML) => {
@@ -2331,7 +2331,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
             #region / - UpdateRoamingAuthorisationListRequest
 
             SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
-                                            URIPrefix + "/",
+                                            URLPrefix + "/",
                                             "UpdateRoamingAuthorisationListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateRoamingAuthorisationListRequest").FirstOrDefault(),
                                             async (Request, UpdateRoamingAuthorisationListXML) => {

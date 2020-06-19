@@ -62,7 +62,7 @@ namespace org.GraphDefined.WWCP
         /// 
         /// <param name="ServerName">An optional identification string for the HTTP server.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
-        /// <param name="ServerURIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="ServerURLPrefix">An optional prefix for the HTTP URIs.</param>
         /// <param name="ServerAutoStart">Whether to start the server immediately or not.</param>
         /// 
         /// <param name="ClientLoggingContext">An optional context for logging client methods.</param>
@@ -86,8 +86,8 @@ namespace org.GraphDefined.WWCP
                                               RemoteCertificateValidationCallback       RemoteCertificateValidator        = null,
                                               LocalCertificateSelectionCallback         ClientCertificateSelector         = null,
                                               HTTPHostname?                             RemoteHTTPVirtualHost             = null,
-                                              HTTPPath?                                  URIPrefix                         = null,
-                                              HTTPPath?                                  LiveURIPrefix                     = null,
+                                              HTTPPath?                                  URLPrefix                         = null,
+                                              HTTPPath?                                  LiveURLPrefix                     = null,
                                               Tuple<String, String>                     WSSLoginPassword                  = null,
                                               //String                                    EVSEDataURI                       = OCHPv1_4.EMP.EMPClient.DefaultEVSEDataURI,
                                               //String                                    EVSEStatusURI                     = OCHPv1_4.EMP.EMPClient.DefaultEVSEStatusURI,
@@ -103,8 +103,8 @@ namespace org.GraphDefined.WWCP
                                               String                                    ServerName                        = OCHPv1_4.EMP.EMPServer.DefaultHTTPServerName,
                                               String                                    ServiceId                         = null,
                                               IPPort?                                   ServerTCPPort                     = null,
-                                              HTTPPath?                                  ServerURIPrefix                   = null,
-                                              HTTPPath?                                  ServerURISuffix                   = null,
+                                              HTTPPath?                                  ServerURLPrefix                   = null,
+                                              HTTPPath?                                  ServerURLSuffix                   = null,
                                               //String                                    ServerAuthorizationURI            = OCHPv1_4.EMP.EMPServer.DefaultAuthorizationURI,
                                               HTTPContentType                           ServerContentType                 = null,
                                               Boolean                                   ServerRegisterHTTPRootService     = true,
@@ -162,8 +162,8 @@ namespace org.GraphDefined.WWCP
                                                                      RemoteCertificateValidator,
                                                                      ClientCertificateSelector,
                                                                      RemoteHTTPVirtualHost,
-                                                                     URIPrefix     ?? OCHPv1_4.EMP.EMPClient.DefaultURIPrefix,
-                                                                     LiveURIPrefix ?? OCHPv1_4.EMP.EMPClient.DefaultLiveURIPrefix,
+                                                                     URLPrefix     ?? OCHPv1_4.EMP.EMPClient.DefaultURLPrefix,
+                                                                     LiveURLPrefix ?? OCHPv1_4.EMP.EMPClient.DefaultLiveURLPrefix,
                                                                      WSSLoginPassword,
                                                                      //EVSEDataURI,
                                                                      //EVSEStatusURI,
@@ -179,8 +179,8 @@ namespace org.GraphDefined.WWCP
                                                                      ServerName,
                                                                      ServiceId,
                                                                      ServerTCPPort,
-                                                                     ServerURIPrefix ?? OCHPv1_4.EMP.EMPServer.DefaultURIPrefix,
-                                                                     ServerURISuffix ?? OCHPv1_4.EMP.EMPServer.DefaultURISuffix,
+                                                                     ServerURLPrefix ?? OCHPv1_4.EMP.EMPServer.DefaultURLPrefix,
+                                                                     ServerURLSuffix ?? OCHPv1_4.EMP.EMPServer.DefaultURLSuffix,
                                                                      ServerContentType,
                                                                      ServerRegisterHTTPRootService,
                                                                      ServerAutoStart,
@@ -230,7 +230,7 @@ namespace org.GraphDefined.WWCP
         /// <param name="Id">The unique identification of the roaming provider.</param>
         /// <param name="Name">The offical (multi-language) name of the roaming provider.</param>
         /// <param name="SOAPServer">An optional identification string for the HTTP server.</param>
-        /// <param name="ServerURIPrefix">An optional prefix for the HTTP URIs.</param>
+        /// <param name="ServerURLPrefix">An optional prefix for the HTTP URIs.</param>
         /// 
         /// <param name="RemoteHostname">The hostname of the remote OCHP service.</param>
         /// <param name="RemoteTCPPort">An optional TCP port of the remote OCHP service.</param>
@@ -263,8 +263,8 @@ namespace org.GraphDefined.WWCP
                                               RemoteCertificateValidationCallback       RemoteCertificateValidator        = null,
                                               LocalCertificateSelectionCallback         ClientCertificateSelector         = null,
                                               HTTPHostname?                             RemoteHTTPVirtualHost             = null,
-                                              HTTPPath?                                  URIPrefix                         = null,
-                                              HTTPPath?                                  LiveURIPrefix                     = null,
+                                              HTTPPath?                                  URLPrefix                         = null,
+                                              HTTPPath?                                  LiveURLPrefix                     = null,
                                               Tuple<String, String>                     WSSLoginPassword                  = null,
                                               //String                                    EVSEDataURI                       = OCHPv1_4.EMP.EMPClient.DefaultEVSEDataURI,
                                               //String                                    EVSEStatusURI                     = OCHPv1_4.EMP.EMPClient.DefaultEVSEStatusURI,
@@ -278,7 +278,7 @@ namespace org.GraphDefined.WWCP
                                               Byte?                                     MaxNumberOfRetries                = OCHPv1_4.EMP.EMPClient.DefaultMaxNumberOfRetries,
 
                                               String                                    ServiceId                         = null,
-                                              HTTPPath?                                  ServerURIPrefix                   = null,
+                                              HTTPPath?                                  ServerURLPrefix                   = null,
                                               //String                                    ServerAuthorizationURI            = OCHPv1_4.EMP.EMPServer.DefaultAuthorizationURI,
 
                                               String                                    ClientLoggingContext              = OCHPv1_4.EMP.EMPClient.EMPClientLogger.DefaultContext,
@@ -338,8 +338,8 @@ namespace org.GraphDefined.WWCP
                                                                                                 RemoteCertificateValidator,
                                                                                                 ClientCertificateSelector,
                                                                                                 RemoteHTTPVirtualHost,
-                                                                                                URIPrefix     ?? OCHPv1_4.EMP.EMPClient.DefaultURIPrefix,
-                                                                                                LiveURIPrefix ?? OCHPv1_4.EMP.EMPClient.DefaultLiveURIPrefix,
+                                                                                                URLPrefix     ?? OCHPv1_4.EMP.EMPClient.DefaultURLPrefix,
+                                                                                                LiveURLPrefix ?? OCHPv1_4.EMP.EMPClient.DefaultLiveURLPrefix,
                                                                                                 WSSLoginPassword,
                                                                                                 HTTPUserAgent,
                                                                                                 RequestTimeout,
@@ -350,7 +350,7 @@ namespace org.GraphDefined.WWCP
 
                                                                      new OCHPv1_4.EMP.EMPServer(SOAPServer,
                                                                                                 ServiceId,
-                                                                                                ServerURIPrefix ?? OCHPv1_4.EMP.EMPServer.DefaultURIPrefix),
+                                                                                                ServerURLPrefix ?? OCHPv1_4.EMP.EMPServer.DefaultURLPrefix),
 
                                                                      ServerLoggingContext,
                                                                      LogfileCreator,
