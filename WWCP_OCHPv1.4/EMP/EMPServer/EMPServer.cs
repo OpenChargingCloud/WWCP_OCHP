@@ -115,13 +115,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region Constructor(s)
 
-        #region EMPServer(HTTPServerName, ServiceId = null, TCPPort = default, URLPrefix = default, URLSuffix = default, ContentType = default, DNSClient = null, AutoStart = false)
+        #region EMPServer(HTTPServerName, ServiceName = null, TCPPort = default, URLPrefix = default, URLSuffix = default, ContentType = default, DNSClient = null, AutoStart = false)
 
         /// <summary>
         /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML EMP Server API.
         /// </summary>
         /// <param name="HTTPServerName">An optional identification string for the HTTP server.</param>
-        /// <param name="ServiceId">An optional identification for this SOAP service.</param>
+        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
         /// <param name="TCPPort">An optional TCP port for the HTTP server.</param>
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
@@ -129,18 +129,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
-        public EMPServer(String          HTTPServerName            = DefaultHTTPServerName,
-                         String          ServiceId                 = null,
-                         IPPort?         TCPPort                   = null,
+        public EMPServer(String           HTTPServerName            = DefaultHTTPServerName,
+                         IPPort?          TCPPort                   = null,
+                         String           ServiceName               = null,
                          HTTPPath?        URLPrefix                 = null,
                          HTTPPath?        URLSuffix                 = null,
-                         HTTPContentType ContentType               = null,
-                         Boolean         RegisterHTTPRootService   = true,
-                         DNSClient       DNSClient                 = null,
-                         Boolean         AutoStart                 = false)
+                         HTTPContentType  ContentType               = null,
+                         Boolean          RegisterHTTPRootService   = true,
+                         DNSClient        DNSClient                 = null,
+                         Boolean          AutoStart                 = false)
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
                    TCPPort     ?? DefaultHTTPServerPort,
+                   ServiceName ?? "OCHP " + Version.Number + " " + nameof(EMPServer),
                    URLPrefix   ?? DefaultURLPrefix,
                    ContentType ?? DefaultContentType,
                    RegisterHTTPRootService,
@@ -149,8 +150,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         {
 
-            this.ServiceId  = ServiceId ?? nameof(EMPServer);
-            this.URLSuffix  = URLSuffix ?? DefaultURLSuffix;
+            this.ServiceId  = ServiceName ?? "OCHP " + Version.Number + " " + nameof(EMPServer);
+            this.URLSuffix  = URLSuffix   ?? DefaultURLSuffix;
 
             RegisterURITemplates();
 
@@ -161,27 +162,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        #region EMPServer(SOAPServer, ServiceId = null, URLPrefix = default, URLSuffix = default)
+        #region EMPServer(SOAPServer, ServiceName = null, URLPrefix = default, URLSuffix = default)
 
         /// <summary>
         /// Use the given HTTP server for the OCHP HTTP/SOAP/XML EMP Server API.
         /// </summary>
         /// <param name="SOAPServer">A SOAP server.</param>
-        /// <param name="ServiceId">An optional identification for this SOAP service.</param>
+        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         public EMPServer(SOAPServer  SOAPServer,
-                         String      ServiceId   = null,
-                         HTTPPath?    URLPrefix   = null,
-                         HTTPPath?    URLSuffix   = null)
+                         String      ServiceName   = null,
+                         HTTPPath?   URLPrefix     = null,
+                         HTTPPath?   URLSuffix     = null)
 
             : base(SOAPServer,
                    URLPrefix ?? DefaultURLPrefix)
 
         {
 
-            this.ServiceId  = ServiceId ?? nameof(EMPServer);
-            this.URLSuffix  = URLSuffix ?? DefaultURLSuffix;
+            this.ServiceId  = ServiceName ?? "OCHP " + Version.Number + " " + nameof(EMPServer);
+            this.URLSuffix  = URLSuffix   ?? DefaultURLSuffix;
 
             RegisterURITemplates();
 

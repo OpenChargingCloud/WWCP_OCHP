@@ -1081,7 +1081,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
         /// 
         /// <param name="ServerName">An optional identification string for the HTTP server.</param>
-        /// <param name="ServiceId">An optional identification for this SOAP service.</param>
+        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
         /// <param name="ServerURLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="ServerURLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
@@ -1100,18 +1100,18 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                           RemoteCertificateValidationCallback  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionCallback    ClientCertificateSelector       = null,
                           HTTPHostname?                        RemoteHTTPVirtualHost           = null,
-                          HTTPPath?                             URLPrefix                       = null,
-                          HTTPPath?                             LiveURLPrefix                   = null,
+                          HTTPPath?                            URLPrefix                       = null,
+                          HTTPPath?                            LiveURLPrefix                   = null,
                           Tuple<String, String>                WSSLoginPassword                = null,
                           String                               HTTPUserAgent                   = CPOClient.DefaultHTTPUserAgent,
                           TimeSpan?                            RequestTimeout                  = null,
                           Byte?                                MaxNumberOfRetries              = CPOClient.DefaultMaxNumberOfRetries,
 
                           String                               ServerName                      = CPOServer.DefaultHTTPServerName,
-                          String                               ServiceId                       = null,
+                          String                               ServiceName                     = null,
                           IPPort?                              ServerTCPPort                   = null,
-                          HTTPPath?                             ServerURLPrefix                 = null,
-                          HTTPPath?                             ServerURLSuffix                 = null,
+                          HTTPPath?                            ServerURLPrefix                 = null,
+                          HTTPPath?                            ServerURLSuffix                 = null,
                           HTTPContentType                      ServerContentType               = null,
                           Boolean                              ServerRegisterHTTPRootService   = true,
                           Boolean                              ServerAutoStart                 = false,
@@ -1139,8 +1139,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                  LogfileCreator),
 
                    new CPOServer(ServerName,
-                                 ServiceId,
                                  ServerTCPPort,
+                                 ServiceName,
                                  ServerURLPrefix ?? CPOServer.DefaultURLPrefix,
                                  ServerURLSuffix ?? CPOServer.DefaultURLSuffix,
                                  ServerContentType,

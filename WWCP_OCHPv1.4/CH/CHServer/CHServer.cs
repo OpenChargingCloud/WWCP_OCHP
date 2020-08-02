@@ -454,21 +454,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// </summary>
         /// <param name="HTTPServerName">An optional identification string for the HTTP server.</param>
         /// <param name="TCPPort">An optional TCP port for the HTTP server.</param>
+        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="ContentType">An optional HTTP content type to use.</param>
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
-        public CHServer(String          HTTPServerName           = DefaultHTTPServerName,
-                        IPPort?         TCPPort                  = null,
-                        HTTPPath?        URLPrefix                = null,
-                        HTTPContentType ContentType              = null,
-                        Boolean         RegisterHTTPRootService  = true,
-                        DNSClient       DNSClient                = null,
-                        Boolean         AutoStart                = false)
+        public CHServer(String           HTTPServerName            = DefaultHTTPServerName,
+                        IPPort?          TCPPort                   = null,
+                        String           ServiceName               = null,
+
+                        HTTPPath?        URLPrefix                 = null,
+                        HTTPContentType  ContentType               = null,
+                        Boolean          RegisterHTTPRootService   = true,
+                        DNSClient        DNSClient                 = null,
+                        Boolean          AutoStart                 = false)
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
                    TCPPort     ?? DefaultHTTPServerPort,
+                   ServiceName ?? "OCHP " + Version.Number + " " + nameof(CHServer),
                    URLPrefix   ?? DefaultURLPrefix,
                    ContentType ?? DefaultContentType,
                    RegisterHTTPRootService,
@@ -494,7 +498,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="SOAPServer">A SOAP server.</param>
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         public CHServer(SOAPServer  SOAPServer,
-                        HTTPPath?    URLPrefix = null)
+                        HTTPPath?   URLPrefix  = null)
 
             : base(SOAPServer,
                    URLPrefix ?? DefaultURLPrefix)

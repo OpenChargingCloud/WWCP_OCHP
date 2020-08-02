@@ -81,7 +81,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The identification of this HTTP/SOAP service.
         /// </summary>
-        public String   ServiceId           { get; }
+        public String   ServiceName           { get; }
 
         /// <summary>
         /// The HTTP/SOAP/XML server URI suffix.
@@ -191,14 +191,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Constructor(s)
 
-        #region CPOServer(HTTPServerName, ServiceId = null, TCPPort = default, URLPrefix = default, URLSuffix = default, ContentType = default, DNSClient = null, AutoStart = false)
+        #region CPOServer(HTTPServerName, ServiceName = null, TCPPort = default, URLPrefix = default, URLSuffix = default, ContentType = default, DNSClient = null, AutoStart = false)
 
         /// <summary>
         /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML CPO Server API.
         /// </summary>
         /// <param name="HTTPServerName">An optional identification string for the HTTP server.</param>
-        /// <param name="ServiceId">An optional identification for this SOAP service.</param>
         /// <param name="TCPPort">An optional TCP port for the HTTP server.</param>
+        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ContentType">An optional HTTP content type to use.</param>
@@ -206,8 +206,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
         public CPOServer(String           HTTPServerName            = DefaultHTTPServerName,
-                         String           ServiceId                 = null,
                          IPPort?          TCPPort                   = null,
+                         String           ServiceName               = null,
                          HTTPPath?        URLPrefix                 = null,
                          HTTPPath?        URLSuffix                 = null,
                          HTTPContentType  ContentType               = null,
@@ -217,6 +217,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
                    TCPPort     ?? DefaultHTTPServerPort,
+                   ServiceName ?? "OCHP " + Version.Number + " " + nameof(CPOServer),
                    URLPrefix   ?? DefaultURLPrefix,
                    ContentType ?? DefaultContentType,
                    RegisterHTTPRootService,
@@ -225,8 +226,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         {
 
-            this.ServiceId  = ServiceId ?? nameof(CPOServer);
-            this.URLSuffix  = URLSuffix ?? DefaultURLSuffix;
+            this.ServiceName  = ServiceName ?? "OCHP " + Version.Number + " " + nameof(CPOServer);
+            this.URLSuffix    = URLSuffix   ?? DefaultURLSuffix;
 
             RegisterURITemplates();
 
@@ -237,27 +238,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #endregion
 
-        #region CPOServer(SOAPServer, ServiceId = null, URLPrefix = default, URLSuffix = default)
+        #region CPOServer(SOAPServer, ServiceName = null, URLPrefix = default, URLSuffix = default)
 
         /// <summary>
         /// Use the given HTTP server for the OCHP HTTP/SOAP/XML CPO Server API.
         /// </summary>
         /// <param name="SOAPServer">A SOAP server.</param>
-        /// <param name="ServiceId">An optional identification for this SOAP service.</param>
+        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         public CPOServer(SOAPServer  SOAPServer,
-                         String      ServiceId   = null,
-                         HTTPPath?   URLPrefix   = null,
-                         HTTPPath?   URLSuffix   = null)
+                         String      ServiceName   = null,
+                         HTTPPath?   URLPrefix     = null,
+                         HTTPPath?   URLSuffix     = null)
 
             : base(SOAPServer,
                    URLPrefix ?? DefaultURLPrefix)
 
         {
 
-            this.ServiceId  = ServiceId ?? nameof(EMPServer);
-            this.URLSuffix  = URLSuffix ?? DefaultURLSuffix;
+            this.ServiceName  = ServiceName ?? "OCHP " + Version.Number + " " + nameof(CPOServer);
+            this.URLSuffix    = URLSuffix   ?? DefaultURLSuffix;
 
             RegisterURITemplates();
 
