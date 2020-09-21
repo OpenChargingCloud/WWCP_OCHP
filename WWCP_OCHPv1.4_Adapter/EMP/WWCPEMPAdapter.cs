@@ -43,7 +43,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// A WWCP wrapper for the OCHP EMP roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPEMPAdapter : ABaseEMobilityEntity<CSORoamingProvider_Id>,
+    public class WWCPEMPAdapter : ACryptoEMobilityEntity<CSORoamingProvider_Id>,
                                   ICSORoamingProvider,
                                   ISendAuthenticationData
     {
@@ -120,13 +120,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         public DNSClient DNSClient
             => EMPRoaming?.DNSClient;
-
-
-        /// <summary>
-        /// The offical (multi-language) name of the roaming provider.
-        /// </summary>
-        [Mandatory]
-        public I18NString    Name                { get; }
 
 
         /// <summary>
@@ -443,6 +436,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                               UInt64?                      DefaultDistanceKM                 = null)
 
             : base(Id,
+                   Name,
                    RoamingNetwork)
 
         {
@@ -457,7 +451,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             #endregion
 
-            this.Name                             = Name;
             this.EMPRoaming                       = EMPRoaming;
             //this._EVSEDataRecord2EVSE             = EVSEDataRecord2EVSE;
 
@@ -2570,7 +2563,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Compares two instances of this object.
         /// </summary>
         /// <param name="Object">An object to compare with.</param>
-        public Int32 CompareTo(Object Object)
+        public override Int32 CompareTo(Object Object)
         {
 
             if (Object == null)
