@@ -221,9 +221,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         public DNSClient                                     DNSClient          { get; }
 
 
-        private readonly List<WWCPCPOAdapter> _CPOAdapters;
+        private readonly List<WWCPEMPAdapter> _CPOAdapters;
 
-        public IEnumerable<WWCPCPOAdapter> CPOAdapters
+        public IEnumerable<WWCPEMPAdapter> CPOAdapters
             => _CPOAdapters;
 
         #endregion
@@ -290,7 +290,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             this.EVSEStatusRecord2XML  = EVSEStatus2XML;
             this.XMLPostProcessing     = XMLPostProcessing;
 
-            this._CPOAdapters          = new List<WWCPCPOAdapter>();
+            this._CPOAdapters          = new List<WWCPEMPAdapter>();
 
             // Link HTTP events...
             HTTPServer.RequestLog   += (HTTPProcessor, ServerTimestamp, Request)                                 => RequestLog. WhenAll(HTTPProcessor, ServerTimestamp, Request);
@@ -720,7 +720,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         #endregion
 
 
-        public void Add(WWCPCPOAdapter CPOAdapter)
+        public void Add(WWCPEMPAdapter CPOAdapter)
         {
 
             _CPOAdapters.Add(CPOAdapter);

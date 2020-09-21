@@ -43,7 +43,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     /// A WWCP wrapper for the OCHP EMP roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPEMPAdapter : ACryptoEMobilityEntity<CSORoamingProvider_Id>,
+    public class WWCPCPOAdapter : ACryptoEMobilityEntity<CSORoamingProvider_Id>,
                                   ICSORoamingProvider,
                                   ISendAuthenticationData
     {
@@ -135,7 +135,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         #region OnWWCPEMPAdapterException
 
         public delegate Task OnWWCPEMPAdapterExceptionDelegate(DateTime        Timestamp,
-                                                               WWCPEMPAdapter  Sender,
+                                                               WWCPCPOAdapter  Sender,
                                                                Exception       Exception);
 
         public event OnWWCPEMPAdapterExceptionDelegate OnWWCPEMPAdapterException;
@@ -144,7 +144,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region PullDataService
 
-        public Boolean  DisablePullData { get; set; }
+        public Boolean  DisablePullPOIData { get; set; }
 
         private UInt32 _PullDataServiceEvery;
 
@@ -172,7 +172,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         private static SemaphoreSlim PullEVSEDataLock = new SemaphoreSlim(1, 1);
 
-        public delegate void PullEVSEDataDelegate(DateTime Timestamp, WWCPEMPAdapter Sender, TimeSpan Every);
+        public delegate void PullEVSEDataDelegate(DateTime Timestamp, WWCPCPOAdapter Sender, TimeSpan Every);
 
         public event PullEVSEDataDelegate FlushServiceQueuesEvent;
 
@@ -414,7 +414,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// 
         /// <param name="EMPRoaming">A OCHP EMP roaming object to be mapped to WWCP.</param>
         /// <param name="EVSEDataRecord2EVSE">A delegate to process an EVSE data record after receiving it from the roaming provider.</param>
-        public WWCPEMPAdapter(CSORoamingProvider_Id        Id,
+        public WWCPCPOAdapter(CSORoamingProvider_Id        Id,
                               I18NString                   Name,
                               RoamingNetwork               RoamingNetwork,
 
@@ -462,7 +462,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             this.PullDataServiceRequestTimeout    = PullDataServiceRequestTimeout ?? DefaultPullDataServiceRequestTimeout;
             this.PullDataServiceLock              = new Object();
             this.PullDataServiceTimer             = new Timer(PullDataService, null, 5000, _PullDataServiceEvery);
-            this.DisablePullData                  = DisablePullData;
+            this.DisablePullPOIData                  = DisablePullData;
 
 
             this._PullStatusServiceEvery          = (UInt32) (PullStatusServiceEvery.HasValue
@@ -1165,7 +1165,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// 
         /// <param name="EVSEDataRecord2EVSE">A delegate to process an EVSE data record after receiving it from the roaming provider.</param>
-        public WWCPEMPAdapter(CSORoamingProvider_Id        Id,
+        public WWCPCPOAdapter(CSORoamingProvider_Id        Id,
                               I18NString                   Name,
                               RoamingNetwork               RoamingNetwork,
 
@@ -1251,7 +1251,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="EVSEDataRecord2EVSE">A delegate to process an EVSE data record after receiving it from the roaming provider.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public WWCPEMPAdapter(CSORoamingProvider_Id                Id,
+        public WWCPCPOAdapter(CSORoamingProvider_Id                Id,
                               I18NString                           Name,
                               RoamingNetwork                       RoamingNetwork,
 
@@ -1523,12 +1523,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #endregion
 
-        public Task<EVSEDataPull> PullEVSEData(DateTime? LastCall = null, GeoCoordinate? SearchCenter = null, float DistanceKM = 0, eMobilityProvider_Id? ProviderId = null, IEnumerable<ChargingStationOperator_Id> OperatorIdFilter = null, IEnumerable<Country> CountryCodeFilter = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        public Task<POIDataPull<EVSE>> PullEVSEData(DateTime? LastCall = null, GeoCoordinate? SearchCenter = null, float DistanceKM = 0, eMobilityProvider_Id? ProviderId = null, IEnumerable<ChargingStationOperator_Id> OperatorIdFilter = null, IEnumerable<Country> CountryCodeFilter = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<EVSEStatusPull> PullEVSEStatus(DateTime? LastCall = null, GeoCoordinate? SearchCenter = null, float DistanceKM = 0, EVSEStatusTypes? EVSEStatusFilter = null, eMobilityProvider_Id? ProviderId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        public Task<StatusPull<WWCP.EVSEStatus>> PullEVSEStatus(DateTime? LastCall = null, GeoCoordinate? SearchCenter = null, float DistanceKM = 0, EVSEStatusTypes? EVSEStatusFilter = null, eMobilityProvider_Id? ProviderId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
         {
             throw new NotImplementedException();
         }
@@ -1583,7 +1583,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         private void PullDataService(Object State)
         {
 
-            if (!DisablePullData)
+            if (!DisablePullPOIData)
             {
 
                 try
@@ -2450,7 +2450,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (WWCPEMPAdapter WWCPEMPAdapter1, WWCPEMPAdapter WWCPEMPAdapter2)
+        public static Boolean operator == (WWCPCPOAdapter WWCPEMPAdapter1, WWCPCPOAdapter WWCPEMPAdapter2)
         {
 
             // If both are null, or both are same instance, return true.
@@ -2475,7 +2475,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (WWCPEMPAdapter WWCPEMPAdapter1, WWCPEMPAdapter WWCPEMPAdapter2)
+        public static Boolean operator != (WWCPCPOAdapter WWCPEMPAdapter1, WWCPCPOAdapter WWCPEMPAdapter2)
 
             => !(WWCPEMPAdapter1 == WWCPEMPAdapter2);
 
@@ -2489,8 +2489,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator < (WWCPEMPAdapter  WWCPEMPAdapter1,
-                                          WWCPEMPAdapter  WWCPEMPAdapter2)
+        public static Boolean operator < (WWCPCPOAdapter  WWCPEMPAdapter1,
+                                          WWCPCPOAdapter  WWCPEMPAdapter2)
         {
 
             if ((Object) WWCPEMPAdapter1 == null)
@@ -2510,8 +2510,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator <= (WWCPEMPAdapter WWCPEMPAdapter1,
-                                           WWCPEMPAdapter WWCPEMPAdapter2)
+        public static Boolean operator <= (WWCPCPOAdapter WWCPEMPAdapter1,
+                                           WWCPCPOAdapter WWCPEMPAdapter2)
 
             => !(WWCPEMPAdapter1 > WWCPEMPAdapter2);
 
@@ -2525,8 +2525,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator > (WWCPEMPAdapter WWCPEMPAdapter1,
-                                          WWCPEMPAdapter WWCPEMPAdapter2)
+        public static Boolean operator > (WWCPCPOAdapter WWCPEMPAdapter1,
+                                          WWCPCPOAdapter WWCPEMPAdapter2)
         {
 
             if ((Object) WWCPEMPAdapter1 == null)
@@ -2546,8 +2546,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator >= (WWCPEMPAdapter WWCPEMPAdapter1,
-                                           WWCPEMPAdapter WWCPEMPAdapter2)
+        public static Boolean operator >= (WWCPCPOAdapter WWCPEMPAdapter1,
+                                           WWCPCPOAdapter WWCPEMPAdapter2)
 
             => !(WWCPEMPAdapter1 < WWCPEMPAdapter2);
 
@@ -2569,7 +2569,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             if (Object == null)
                 throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
 
-            var WWCPEMPAdapter = Object as WWCPEMPAdapter;
+            var WWCPEMPAdapter = Object as WWCPCPOAdapter;
             if ((Object) WWCPEMPAdapter == null)
                 throw new ArgumentException("The given object is not an WWCPEMPAdapter!", nameof(Object));
 
@@ -2585,7 +2585,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Compares two instances of this object.
         /// </summary>
         /// <param name="WWCPEMPAdapter">An WWCPEMPAdapter object to compare with.</param>
-        public Int32 CompareTo(WWCPEMPAdapter WWCPEMPAdapter)
+        public Int32 CompareTo(WWCPCPOAdapter WWCPEMPAdapter)
         {
 
             if ((Object) WWCPEMPAdapter == null)
@@ -2614,7 +2614,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             if (Object == null)
                 return false;
 
-            var WWCPEMPAdapter = Object as WWCPEMPAdapter;
+            var WWCPEMPAdapter = Object as WWCPCPOAdapter;
             if ((Object) WWCPEMPAdapter == null)
                 return false;
 
@@ -2631,7 +2631,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         /// <param name="WWCPEMPAdapter">An WWCPEMPAdapter to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(WWCPEMPAdapter WWCPEMPAdapter)
+        public Boolean Equals(WWCPCPOAdapter WWCPEMPAdapter)
         {
 
             if ((Object) WWCPEMPAdapter == null)

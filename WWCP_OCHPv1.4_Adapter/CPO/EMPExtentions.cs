@@ -35,10 +35,10 @@ namespace org.GraphDefined.WWCP
     /// <summary>
     /// Extentions methods for the WWCP wrapper for OCHP roaming clients for charging station operators.
     /// </summary>
-    public static class CPOExtentions
+    public static class EMPExtentions
     {
 
-        #region CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork, Id, Name, RemoteHostname, ... , Action = null)
+        #region CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork, Id, Name, RemoteHostname, ... , Action = null)
 
         /// <summary>
         /// Create and register a new electric vehicle roaming provider
@@ -90,9 +90,9 @@ namespace org.GraphDefined.WWCP
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public static OCHPv1_4.CPO.WWCPCPOAdapter
+        public static OCHPv1_4.CPO.WWCPEMPAdapter
 
-            CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                               RoamingNetwork,
+            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                                               RoamingNetwork,
                                               EMPRoamingProvider_Id                                             Id,
                                               I18NString                                                        Description,
                                               I18NString                                                        Name,
@@ -146,7 +146,7 @@ namespace org.GraphDefined.WWCP
                                               Boolean                                                           DisableAuthentication               = false,
                                               Boolean                                                           DisableSendChargeDetailRecords      = false,
 
-                                              Action<OCHPv1_4.CPO.WWCPCPOAdapter>                               OCHPConfigurator                    = null,
+                                              Action<OCHPv1_4.CPO.WWCPEMPAdapter>                               OCHPConfigurator                    = null,
                                               Action<IEMPRoamingProvider>                                       Configurator                        = null,
                                               DNSClient                                                         DNSClient                           = null)
 
@@ -168,7 +168,7 @@ namespace org.GraphDefined.WWCP
 
             #endregion
 
-            var NewRoamingProvider = new OCHPv1_4.CPO.WWCPCPOAdapter(Id,
+            var NewRoamingProvider = new OCHPv1_4.CPO.WWCPEMPAdapter(Id,
                                                                      Name,
                                                                      Description,
                                                                      RoamingNetwork,
@@ -229,13 +229,13 @@ namespace org.GraphDefined.WWCP
 
             return RoamingNetwork.
                        CreateNewRoamingProvider(NewRoamingProvider,
-                                                Configurator) as OCHPv1_4.CPO.WWCPCPOAdapter;
+                                                Configurator) as OCHPv1_4.CPO.WWCPEMPAdapter;
 
         }
 
         #endregion
 
-        #region CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork, Id, Name, SOAPServer, RemoteHostname, ...)
+        #region CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork, Id, Name, SOAPServer, RemoteHostname, ...)
 
         /// <summary>
         /// Create and register a new electric vehicle roaming provider
@@ -282,9 +282,9 @@ namespace org.GraphDefined.WWCP
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public static OCHPv1_4.CPO.WWCPCPOAdapter
+        public static OCHPv1_4.CPO.WWCPEMPAdapter
 
-            CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                                RoamingNetwork,
+            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                                RoamingNetwork,
                                               EMPRoamingProvider_Id                              Id,
                                               I18NString                                         Name,
                                               I18NString                                         Description,
@@ -334,7 +334,7 @@ namespace org.GraphDefined.WWCP
                                               Boolean                                            DisableAuthentication               = false,
                                               Boolean                                            DisableSendChargeDetailRecords      = false,
 
-                                              Action<OCHPv1_4.CPO.WWCPCPOAdapter>                OCHPConfigurator                    = null,
+                                              Action<OCHPv1_4.CPO.WWCPEMPAdapter>                OCHPConfigurator                    = null,
                                               Action<IEMPRoamingProvider>                        Configurator                        = null,
                                               DNSClient                                          DNSClient                           = null)
 
@@ -360,7 +360,7 @@ namespace org.GraphDefined.WWCP
 
             #endregion
 
-            var NewRoamingProvider = new OCHPv1_4.CPO.WWCPCPOAdapter(Id,
+            var NewRoamingProvider = new OCHPv1_4.CPO.WWCPEMPAdapter(Id,
                                                                      Name,
                                                                      Description,
                                                                      RoamingNetwork,
@@ -417,7 +417,7 @@ namespace org.GraphDefined.WWCP
 
             return RoamingNetwork.
                        CreateNewRoamingProvider(NewRoamingProvider,
-                                                Configurator) as OCHPv1_4.CPO.WWCPCPOAdapter;
+                                                Configurator) as OCHPv1_4.CPO.WWCPEMPAdapter;
 
         }
 

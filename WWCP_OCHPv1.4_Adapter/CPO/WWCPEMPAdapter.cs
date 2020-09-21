@@ -42,10 +42,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPCPOAdapter : AWWCPEMPAdapter<CDRInfo>,
+    public class WWCPEMPAdapter : AWWCPEMPAdapter<CDRInfo>,
                                   IEMPRoamingProvider,
-                                  IEquatable<WWCPCPOAdapter>,
-                                  IComparable<WWCPCPOAdapter>,
+                                  IEquatable<WWCPEMPAdapter>,
+                                  IComparable<WWCPEMPAdapter>,
                                   IComparable
     {
 
@@ -287,7 +287,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region OnWWCPCPOAdapterException
 
         public delegate Task OnWWCPCPOAdapterExceptionDelegate(DateTime        Timestamp,
-                                                               WWCPCPOAdapter  Sender,
+                                                               WWCPEMPAdapter  Sender,
                                                                Exception       Exception);
 
         public event OnWWCPCPOAdapterExceptionDelegate OnWWCPCPOAdapterException;
@@ -295,17 +295,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #endregion
 
 
-        public delegate void FlushServiceQueuesDelegate(WWCPCPOAdapter Sender, TimeSpan Every);
+        public delegate void FlushServiceQueuesDelegate(WWCPEMPAdapter Sender, TimeSpan Every);
 
         public event FlushServiceQueuesDelegate FlushServiceQueuesEvent;
 
 
-        public delegate void FlushEVSEStatusUpdateQueuesDelegate(WWCPCPOAdapter Sender, TimeSpan Every);
+        public delegate void FlushEVSEStatusUpdateQueuesDelegate(WWCPEMPAdapter Sender, TimeSpan Every);
 
         public event FlushEVSEStatusUpdateQueuesDelegate FlushEVSEStatusUpdateQueuesEvent;
 
 
-        public delegate void EVSEStatusRefreshEventDelegate(DateTime Timestamp, WWCPCPOAdapter Sender, String Message);
+        public delegate void EVSEStatusRefreshEventDelegate(DateTime Timestamp, WWCPEMPAdapter Sender, String Message);
 
         public event EVSEStatusRefreshEventDelegate EVSEStatusRefreshEvent;
 
@@ -336,7 +336,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
-        public WWCPCPOAdapter(EMPRoamingProvider_Id                                Id,
+        public WWCPEMPAdapter(EMPRoamingProvider_Id                                Id,
                               I18NString                                           Name,
                               I18NString                                           Description,
                               RoamingNetwork                                       RoamingNetwork,
@@ -918,7 +918,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
-        public WWCPCPOAdapter(EMPRoamingProvider_Id                                Id,
+        public WWCPEMPAdapter(EMPRoamingProvider_Id                                Id,
                               I18NString                                           Name,
                               I18NString                                           Description,
                               RoamingNetwork                                       RoamingNetwork,
@@ -1038,7 +1038,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public WWCPCPOAdapter(EMPRoamingProvider_Id                                Id,
+        public WWCPEMPAdapter(EMPRoamingProvider_Id                                Id,
                               I18NString                                           Name,
                               I18NString                                           Description,
                               RoamingNetwork                                       RoamingNetwork,
@@ -1260,7 +1260,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSetChargePointInfosWWCPRequest));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnSetChargePointInfosWWCPRequest));
             }
 
             #endregion
@@ -1347,7 +1347,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSetChargePointInfosWWCPResponse));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnSetChargePointInfosWWCPResponse));
             }
 
             #endregion
@@ -1451,7 +1451,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSetChargePointInfosWWCPRequest));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnSetChargePointInfosWWCPRequest));
             }
 
             #endregion
@@ -1522,7 +1522,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnUpdateChargePointInfosWWCPResponse));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnUpdateChargePointInfosWWCPResponse));
             }
 
             #endregion
@@ -1641,7 +1641,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPRequest));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPRequest));
             }
 
             #endregion
@@ -1714,7 +1714,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPResponse));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPResponse));
             }
 
             #endregion
@@ -1742,7 +1742,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(EVSE                EVSE,
+            ISendPOIData.SetStaticData(EVSE                EVSE,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -1830,7 +1830,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(EVSE                EVSE,
+            ISendPOIData.AddStaticData(EVSE                EVSE,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -1922,7 +1922,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(EVSE                EVSE,
+            ISendPOIData.UpdateStaticData(EVSE                EVSE,
                                        String              PropertyName,
                                        Object              OldValue,
                                        Object              NewValue,
@@ -2013,7 +2013,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(EVSE                EVSE,
+            ISendPOIData.DeleteStaticData(EVSE                EVSE,
                                        TransmissionTypes   TransmissionType,
 
                                        DateTime?           Timestamp,
@@ -2039,7 +2039,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(IEnumerable<EVSE>   EVSEs,
+            ISendPOIData.SetStaticData(IEnumerable<EVSE>   EVSEs,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -2080,7 +2080,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(IEnumerable<EVSE>   EVSEs,
+            ISendPOIData.AddStaticData(IEnumerable<EVSE>   EVSEs,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -2121,7 +2121,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(IEnumerable<EVSE>   EVSEs,
+            ISendPOIData.UpdateStaticData(IEnumerable<EVSE>   EVSEs,
                                        TransmissionTypes   TransmissionType,
 
                                        DateTime?           Timestamp,
@@ -2162,7 +2162,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(IEnumerable<EVSE>   EVSEs,
+            ISendPOIData.DeleteStaticData(IEnumerable<EVSE>   EVSEs,
                                        TransmissionTypes   TransmissionType,
 
                                        DateTime?           Timestamp,
@@ -2337,7 +2337,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(ChargingStation     ChargingStation,
+            ISendPOIData.SetStaticData(ChargingStation     ChargingStation,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -2432,7 +2432,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(ChargingStation     ChargingStation,
+            ISendPOIData.AddStaticData(ChargingStation     ChargingStation,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -2530,7 +2530,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(ChargingStation     ChargingStation,
+            ISendPOIData.UpdateStaticData(ChargingStation     ChargingStation,
                                        String              PropertyName,
                                        Object              OldValue,
                                        Object              NewValue,
@@ -2628,7 +2628,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(ChargingStation     ChargingStation,
+            ISendPOIData.DeleteStaticData(ChargingStation     ChargingStation,
                                        TransmissionTypes   TransmissionType,
 
                                        DateTime?           Timestamp,
@@ -2655,7 +2655,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(IEnumerable<ChargingStation>  ChargingStations,
+            ISendPOIData.SetStaticData(IEnumerable<ChargingStation>  ChargingStations,
                                     TransmissionTypes             TransmissionType,
 
                                     DateTime?                     Timestamp,
@@ -2697,7 +2697,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(IEnumerable<ChargingStation>  ChargingStations,
+            ISendPOIData.AddStaticData(IEnumerable<ChargingStation>  ChargingStations,
                                     TransmissionTypes             TransmissionType,
 
 
@@ -2740,7 +2740,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(IEnumerable<ChargingStation>  ChargingStations,
+            ISendPOIData.UpdateStaticData(IEnumerable<ChargingStation>  ChargingStations,
                                        TransmissionTypes             TransmissionType,
 
                                        DateTime?                     Timestamp,
@@ -2782,7 +2782,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(IEnumerable<ChargingStation>  ChargingStations,
+            ISendPOIData.DeleteStaticData(IEnumerable<ChargingStation>  ChargingStations,
                                        TransmissionTypes             TransmissionType,
 
                                        DateTime?                     Timestamp,
@@ -2878,7 +2878,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(ChargingPool        ChargingPool,
+            ISendPOIData.SetStaticData(ChargingPool        ChargingPool,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -2973,7 +2973,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(ChargingPool        ChargingPool,
+            ISendPOIData.AddStaticData(ChargingPool        ChargingPool,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -3071,7 +3071,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(ChargingPool        ChargingPool,
+            ISendPOIData.UpdateStaticData(ChargingPool        ChargingPool,
                                              String              PropertyName,
                                              Object              OldValue,
                                              Object              NewValue,
@@ -3180,7 +3180,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(ChargingPool        ChargingPool,
+            ISendPOIData.DeleteStaticData(ChargingPool        ChargingPool,
                                        TransmissionTypes   TransmissionType,
 
                                        DateTime?           Timestamp,
@@ -3223,7 +3223,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(IEnumerable<ChargingPool>  ChargingPools,
+            ISendPOIData.SetStaticData(IEnumerable<ChargingPool>  ChargingPools,
                                     TransmissionTypes          TransmissionType,
 
                                     DateTime?                  Timestamp,
@@ -3265,7 +3265,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(IEnumerable<ChargingPool>  ChargingPools,
+            ISendPOIData.AddStaticData(IEnumerable<ChargingPool>  ChargingPools,
                                     TransmissionTypes          TransmissionType,
 
                                     DateTime?                  Timestamp,
@@ -3307,7 +3307,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(IEnumerable<ChargingPool>  ChargingPools,
+            ISendPOIData.UpdateStaticData(IEnumerable<ChargingPool>  ChargingPools,
                                        TransmissionTypes          TransmissionType,
 
                                        DateTime?                  Timestamp,
@@ -3349,7 +3349,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(IEnumerable<ChargingPool>  ChargingPools,
+            ISendPOIData.DeleteStaticData(IEnumerable<ChargingPool>  ChargingPools,
                                        TransmissionTypes          TransmissionType,
 
                                        DateTime?                  Timestamp,
@@ -3449,7 +3449,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(ChargingStationOperator  ChargingStationOperator,
+            ISendPOIData.SetStaticData(ChargingStationOperator  ChargingStationOperator,
 
                                           DateTime?                Timestamp,
                                           CancellationToken?       CancellationToken,
@@ -3491,7 +3491,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(ChargingStationOperator  ChargingStationOperator,
+            ISendPOIData.AddStaticData(ChargingStationOperator  ChargingStationOperator,
 
                                           DateTime?                Timestamp,
                                           CancellationToken?       CancellationToken,
@@ -3533,7 +3533,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(ChargingStationOperator  ChargingStationOperator,
+            ISendPOIData.UpdateStaticData(ChargingStationOperator  ChargingStationOperator,
 
                                              DateTime?                Timestamp,
                                              CancellationToken?       CancellationToken,
@@ -3575,7 +3575,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(ChargingStationOperator  ChargingStationOperator,
+            ISendPOIData.DeleteStaticData(ChargingStationOperator  ChargingStationOperator,
 
                                              DateTime?                Timestamp,
                                              CancellationToken?       CancellationToken,
@@ -3600,7 +3600,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(IEnumerable<ChargingStationOperator>  ChargingStationOperators,
+            ISendPOIData.SetStaticData(IEnumerable<ChargingStationOperator>  ChargingStationOperators,
 
                                           DateTime?                             Timestamp,
                                           CancellationToken?                    CancellationToken,
@@ -3642,7 +3642,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(IEnumerable<ChargingStationOperator>  ChargingStationOperators,
+            ISendPOIData.AddStaticData(IEnumerable<ChargingStationOperator>  ChargingStationOperators,
 
                                           DateTime?                             Timestamp,
                                           CancellationToken?                    CancellationToken,
@@ -3684,7 +3684,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(IEnumerable<ChargingStationOperator>  ChargingStationOperators,
+            ISendPOIData.UpdateStaticData(IEnumerable<ChargingStationOperator>  ChargingStationOperators,
 
                                              DateTime?                             Timestamp,
                                              CancellationToken?                    CancellationToken,
@@ -3726,7 +3726,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(IEnumerable<ChargingStationOperator>  ChargingStationOperators,
+            ISendPOIData.DeleteStaticData(IEnumerable<ChargingStationOperator>  ChargingStationOperators,
 
                                              DateTime?                             Timestamp,
                                              CancellationToken?                    CancellationToken,
@@ -3809,7 +3809,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.SetStaticData(RoamingNetwork      RoamingNetwork,
+            ISendPOIData.SetStaticData(RoamingNetwork      RoamingNetwork,
 
                                           DateTime?           Timestamp,
                                           CancellationToken?  CancellationToken,
@@ -3851,7 +3851,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.AddStaticData(RoamingNetwork      RoamingNetwork,
+            ISendPOIData.AddStaticData(RoamingNetwork      RoamingNetwork,
 
                                           DateTime?           Timestamp,
                                           CancellationToken?  CancellationToken,
@@ -3893,7 +3893,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         async Task<PushEVSEDataResult>
 
-            ISendData.UpdateStaticData(RoamingNetwork      RoamingNetwork,
+            ISendPOIData.UpdateStaticData(RoamingNetwork      RoamingNetwork,
 
                                              DateTime?           Timestamp,
                                              CancellationToken?  CancellationToken,
@@ -3935,7 +3935,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            ISendData.DeleteStaticData(RoamingNetwork      RoamingNetwork,
+            ISendPOIData.DeleteStaticData(RoamingNetwork      RoamingNetwork,
 
                                              DateTime?           Timestamp,
                                              CancellationToken?  CancellationToken,
@@ -4082,7 +4082,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnAuthorizeStartRequest));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStartRequest));
             }
 
             #endregion
@@ -4220,7 +4220,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnAuthorizeStartResponse));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStartResponse));
             }
 
             #endregion
@@ -4302,7 +4302,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnAuthorizeStopRequest));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStopRequest));
             }
 
             #endregion
@@ -4386,7 +4386,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnAuthorizeStopResponse));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStopResponse));
             }
 
             #endregion
@@ -4481,7 +4481,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRsRequest));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnSendCDRsRequest));
             }
 
             #endregion
@@ -4542,7 +4542,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                             }
                             catch (Exception e)
                             {
-                                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRsRequest));
+                                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnSendCDRsRequest));
                             }
 
                             #endregion
@@ -4728,7 +4728,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(WWCPCPOAdapter) + "." + nameof(OnSendCDRsResponse));
+                e.Log(nameof(WWCPEMPAdapter) + "." + nameof(OnSendCDRsResponse));
             }
 
             #endregion
@@ -4835,7 +4835,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     while (e.InnerException != null)
                         e = e.InnerException;
 
-                    DebugX.LogT(nameof(WWCPCPOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
+                    DebugX.LogT(nameof(WWCPEMPAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
 
                 }
 
@@ -4873,8 +4873,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 {
 
                     var EVSEsToAddTask = _ServiceRunId == 1
-                                             ? (this as ISendData).SetStaticData(EVSEsToAddQueueCopy.Value, EventTrackingId: EventTrackingId)
-                                             : (this as ISendData).AddStaticData(EVSEsToAddQueueCopy.Value, EventTrackingId: EventTrackingId);
+                                             ? (this as ISendPOIData).SetStaticData(EVSEsToAddQueueCopy.Value, EventTrackingId: EventTrackingId)
+                                             : (this as ISendPOIData).AddStaticData(EVSEsToAddQueueCopy.Value, EventTrackingId: EventTrackingId);
 
                     EVSEsToAddTask.Wait();
 
@@ -4896,7 +4896,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     if (EVSEsWithoutNewEVSEs.Length > 0)
                     {
 
-                        var SetChargePointInfosTask = (this as ISendData).UpdateStaticData(EVSEsWithoutNewEVSEs, EventTrackingId: EventTrackingId);
+                        var SetChargePointInfosTask = (this as ISendPOIData).UpdateStaticData(EVSEsWithoutNewEVSEs, EventTrackingId: EventTrackingId);
 
                         SetChargePointInfosTask.Wait();
 
@@ -5084,7 +5084,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 {
 
                     SendOnWarnings(DateTime.UtcNow,
-                                   nameof(WWCPCPOAdapter) + Id,
+                                   nameof(WWCPEMPAdapter) + Id,
                                    "UpdateStatus",
                                    pushEVSEStatusResult.Warnings);
 
@@ -5197,7 +5197,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 {
 
                     SendOnWarnings(DateTime.UtcNow,
-                                   nameof(WWCPCPOAdapter) + Id,
+                                   nameof(WWCPEMPAdapter) + Id,
                                    "PushEVSEStatus",
                                    pushEVSEStatusResult.Warnings);
 
@@ -5366,7 +5366,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 while (e.InnerException != null)
                     e = e.InnerException;
 
-                DebugX.LogT(nameof(WWCPCPOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
+                DebugX.LogT(nameof(WWCPEMPAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
 
                 result = PushEVSEStatusResult.Error(Id,
                                                 this,
@@ -5488,7 +5488,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (WWCPCPOAdapter WWCPCPOAdapter1, WWCPCPOAdapter WWCPCPOAdapter2)
+        public static Boolean operator == (WWCPEMPAdapter WWCPCPOAdapter1, WWCPEMPAdapter WWCPCPOAdapter2)
         {
 
             // If both are null, or both are same instance, return true.
@@ -5513,7 +5513,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (WWCPCPOAdapter WWCPCPOAdapter1, WWCPCPOAdapter WWCPCPOAdapter2)
+        public static Boolean operator != (WWCPEMPAdapter WWCPCPOAdapter1, WWCPEMPAdapter WWCPCPOAdapter2)
 
             => !(WWCPCPOAdapter1 == WWCPCPOAdapter2);
 
@@ -5527,8 +5527,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator < (WWCPCPOAdapter  WWCPCPOAdapter1,
-                                          WWCPCPOAdapter  WWCPCPOAdapter2)
+        public static Boolean operator < (WWCPEMPAdapter  WWCPCPOAdapter1,
+                                          WWCPEMPAdapter  WWCPCPOAdapter2)
         {
 
             if ((Object) WWCPCPOAdapter1 == null)
@@ -5548,8 +5548,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator <= (WWCPCPOAdapter WWCPCPOAdapter1,
-                                           WWCPCPOAdapter WWCPCPOAdapter2)
+        public static Boolean operator <= (WWCPEMPAdapter WWCPCPOAdapter1,
+                                           WWCPEMPAdapter WWCPCPOAdapter2)
 
             => !(WWCPCPOAdapter1 > WWCPCPOAdapter2);
 
@@ -5563,8 +5563,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator > (WWCPCPOAdapter WWCPCPOAdapter1,
-                                          WWCPCPOAdapter WWCPCPOAdapter2)
+        public static Boolean operator > (WWCPEMPAdapter WWCPCPOAdapter1,
+                                          WWCPEMPAdapter WWCPCPOAdapter2)
         {
 
             if ((Object) WWCPCPOAdapter1 == null)
@@ -5584,8 +5584,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator >= (WWCPCPOAdapter WWCPCPOAdapter1,
-                                           WWCPCPOAdapter WWCPCPOAdapter2)
+        public static Boolean operator >= (WWCPEMPAdapter WWCPCPOAdapter1,
+                                           WWCPEMPAdapter WWCPCPOAdapter2)
 
             => !(WWCPCPOAdapter1 < WWCPCPOAdapter2);
 
@@ -5607,7 +5607,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (Object == null)
                 throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
 
-            var WWCPCPOAdapter = Object as WWCPCPOAdapter;
+            var WWCPCPOAdapter = Object as WWCPEMPAdapter;
             if ((Object) WWCPCPOAdapter == null)
                 throw new ArgumentException("The given object is not an WWCPCPOAdapter!", nameof(Object));
 
@@ -5623,7 +5623,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Compares two instances of this object.
         /// </summary>
         /// <param name="WWCPCPOAdapter">An WWCPCPOAdapter object to compare with.</param>
-        public Int32 CompareTo(WWCPCPOAdapter WWCPCPOAdapter)
+        public Int32 CompareTo(WWCPEMPAdapter WWCPCPOAdapter)
         {
 
             if ((Object) WWCPCPOAdapter == null)
@@ -5652,7 +5652,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (Object == null)
                 return false;
 
-            var WWCPCPOAdapter = Object as WWCPCPOAdapter;
+            var WWCPCPOAdapter = Object as WWCPEMPAdapter;
             if ((Object) WWCPCPOAdapter == null)
                 return false;
 
@@ -5669,7 +5669,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         /// <param name="WWCPCPOAdapter">An WWCPCPOAdapter to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(WWCPCPOAdapter WWCPCPOAdapter)
+        public Boolean Equals(WWCPEMPAdapter WWCPCPOAdapter)
         {
 
             if ((Object) WWCPCPOAdapter == null)

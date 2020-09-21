@@ -19,7 +19,6 @@
 
 using System;
 using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
 
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
@@ -36,10 +35,10 @@ namespace org.GraphDefined.WWCP
     /// <summary>
     /// Extentions methods for the WWCP wrapper for OCHP roaming clients for e-mobility providers/EMPs.
     /// </summary>
-    public static class EMPExtentions
+    public static class CPOExtentions
     {
 
-        #region CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork, Id, Name, RemoteHostname, ...)
+        #region CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork, Id, Name, RemoteHostname, ...)
 
         /// <summary>
         /// Create and register a new electric vehicle roaming provider
@@ -75,9 +74,9 @@ namespace org.GraphDefined.WWCP
         /// 
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
-        public static OCHPv1_4.EMP.WWCPEMPAdapter
+        public static OCHPv1_4.EMP.WWCPCPOAdapter
 
-            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                       RoamingNetwork,
+            CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                       RoamingNetwork,
                                               CSORoamingProvider_Id                     Id,
                                               I18NString                                Name,
 
@@ -132,7 +131,7 @@ namespace org.GraphDefined.WWCP
 
                                               DNSClient                                 DNSClient                         = null,
 
-                                              Action<OCHPv1_4.EMP.WWCPEMPAdapter>       OCHPConfigurator                  = null,
+                                              Action<OCHPv1_4.EMP.WWCPCPOAdapter>       OCHPConfigurator                  = null,
                                               Action<ICSORoamingProvider>               Configurator                      = null)
 
         {
@@ -153,7 +152,7 @@ namespace org.GraphDefined.WWCP
 
             #endregion
 
-            var NewRoamingProvider = new OCHPv1_4.EMP.WWCPEMPAdapter(Id,
+            var NewRoamingProvider = new OCHPv1_4.EMP.WWCPCPOAdapter(Id,
                                                                      Name,
                                                                      RoamingNetwork,
 
@@ -212,13 +211,13 @@ namespace org.GraphDefined.WWCP
 
             return RoamingNetwork.
                        CreateNewRoamingProvider(NewRoamingProvider,
-                                                Configurator) as OCHPv1_4.EMP.WWCPEMPAdapter;
+                                                Configurator) as OCHPv1_4.EMP.WWCPCPOAdapter;
 
         }
 
         #endregion
 
-        #region CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork, Id, Name, SOAPServer, RemoteHostname, ...)
+        #region CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork, Id, Name, SOAPServer, RemoteHostname, ...)
 
         /// <summary>
         /// Create and register a new electric vehicle roaming provider
@@ -251,9 +250,9 @@ namespace org.GraphDefined.WWCP
         /// 
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
-        public static OCHPv1_4.EMP.WWCPEMPAdapter
+        public static OCHPv1_4.EMP.WWCPCPOAdapter
 
-            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                       RoamingNetwork,
+            CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                       RoamingNetwork,
                                               CSORoamingProvider_Id                     Id,
                                               I18NString                                Name,
                                               SOAPServer                                SOAPServer,
@@ -303,7 +302,7 @@ namespace org.GraphDefined.WWCP
 
                                               DNSClient                                 DNSClient                         = null,
 
-                                              Action<OCHPv1_4.EMP.WWCPEMPAdapter>       OCHPConfigurator                  = null,
+                                              Action<OCHPv1_4.EMP.WWCPCPOAdapter>       OCHPConfigurator                  = null,
                                               Action<ICSORoamingProvider>               Configurator                      = null)
 
         {
@@ -328,7 +327,7 @@ namespace org.GraphDefined.WWCP
 
             #endregion
 
-            var NewRoamingProvider = new OCHPv1_4.EMP.WWCPEMPAdapter(Id,
+            var NewRoamingProvider = new OCHPv1_4.EMP.WWCPCPOAdapter(Id,
                                                                      Name,
                                                                      RoamingNetwork,
 
@@ -376,7 +375,7 @@ namespace org.GraphDefined.WWCP
 
             return RoamingNetwork.
                        CreateNewRoamingProvider(NewRoamingProvider,
-                                                Configurator) as OCHPv1_4.EMP.WWCPEMPAdapter;
+                                                Configurator) as OCHPv1_4.EMP.WWCPCPOAdapter;
 
         }
 
