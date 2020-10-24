@@ -3,7 +3,7 @@ WWCP OCHP v1.4
 
 This software will allow the communication between World Wide Charging
 Protocol (WWCP) entities and entities implementing the
-[Open Clearing House Protocol (OCHP)](http://www.ochp.eu), which is
+[Open Clearing House Protocol (OCHP)](https://github.com/e-clearing-net/OCHP), which is
 defined and used by [SmartLab GmbH](https://www.smartlab-gmbh.de). The
 focus of this protocol are the communication aspects of a central
 clearing house with additional direct links between communication
