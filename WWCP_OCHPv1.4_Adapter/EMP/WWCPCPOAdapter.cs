@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2020 GraphDefined GmbH
+ * Copyright (c) 2014-2021 GraphDefined GmbH
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -1861,7 +1861,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             //                                            case "sk": LocationLanguage = Languages.sk; break;
             //                                            case "it": LocationLanguage = Languages.ita; break;
-            //                                            case "us": LocationLanguage = Languages.eng; break;
+            //                                            case "us": LocationLanguage = Languages.en; break;
             //                                            case "nl": LocationLanguage = Languages.nld; break;
             //                                            case "at": LocationLanguage = Languages.deu; break;
             //                                            case "ru": LocationLanguage = Languages.ru; break;
