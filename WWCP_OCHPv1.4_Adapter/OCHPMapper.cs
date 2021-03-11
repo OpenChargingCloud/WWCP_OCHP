@@ -552,7 +552,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                 var _ChargePointInfo = new ChargePointInfo(EVSE.Id.ToOCHP(CustomEVSEIdMapper).Value,
                                                            ChargePointInfo.LocationIdInverse_RegEx.Replace(EVSE.ChargingStation.ChargingPool.Id.ToString(), "").SubstringMax(15),
                                                            EVSE.ChargingStation.ChargingPool.Name.FirstText().ToUpper(),
-                                                           EVSE.ChargingStation.ChargingPool.Name.First().Language.ToString(),
+                                                           EVSE.ChargingStation.ChargingPool.Name.First().Language.ToLanguages3(),
                                                            EVSE.ChargingStation.Address.ToOCHP(),
                                                            EVSE.ChargingStation.GeoLocation.Value,
                                                            GeneralLocationTypes.Other,

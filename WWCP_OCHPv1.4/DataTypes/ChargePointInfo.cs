@@ -84,7 +84,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// ISO-639-3 language code defining the language of the location name (Alpha3Code).
         /// </summary>
-        public String                                LocationNameLang        { get; }
+        public Languages3                            LocationNameLang        { get; }
 
         /// <summary>
         /// Links to images related to the EVSE such as photos or logos.
@@ -225,7 +225,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public ChargePointInfo(EVSE_Id                             EVSEId,
                                String                              LocationId,
                                String                              LocationName,
-                               String                              LocationNameLang,
+                               Languages3                          LocationNameLang,
                                Address                             ChargePointAddress,
                                GeoCoordinate                       ChargePointLocation,
                                GeneralLocationTypes                Location,
@@ -260,9 +260,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
             if (LocationName.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(LocationName),        "The given location name must not be null!");
-
-            if (LocationNameLang.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(LocationNameLang),    "The given location name language must not be null!");
 
             if (ChargePointAddress == null)
                 throw new ArgumentNullException(nameof(ChargePointAddress),  "The given address must not be null!");
@@ -622,7 +619,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                       ChargePointInfoXML.ElementValueOrFail   (OCHPNS.Default + "locationId"),
 
                                       ChargePointInfoXML.ElementValueOrFail   (OCHPNS.Default + "locationName"),
-                                      ChargePointInfoXML.ElementValueOrFail   (OCHPNS.Default + "locationNameLang"),
+                                      ChargePointInfoXML.MapEnumValuesOrFail  (OCHPNS.Default + "locationNameLang",
+                                                                               text => (Languages3) Enum.Parse(typeof(Languages), text)),
 
                                       ChargePointInfoXML.MapElementOrFail     (OCHPNS.Default + "chargePointAddress",
                                                                                Address.Parse,
@@ -764,7 +762,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                 var XML = new XElement(XName ?? OCHPNS.Default + "chargePointInfoArray",
 
-                              new XElement(OCHPNS.Default + "evseId", EVSEId.ToString()),
+                              new XElement(OCHPNS.Default + "evseId",     EVSEId.ToString()),
                               new XElement(OCHPNS.Default + "locationId", LocationId),
 
                               //Timestamp.HasValue
@@ -773,8 +771,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                               //      )
                               //    : null,
 
-                              new XElement(OCHPNS.Default + "locationName", LocationName),
-                              new XElement(OCHPNS.Default + "locationNameLang", LocationNameLang.ToUpper()),
+                              new XElement(OCHPNS.Default + "locationName",     LocationName),
+                              new XElement(OCHPNS.Default + "locationNameLang", LocationNameLang.ToString().ToUpper()),
 
                               Images != null
                                   ? Images.SafeSelect(image => image.ToXML())
