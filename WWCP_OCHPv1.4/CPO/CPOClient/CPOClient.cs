@@ -39,7 +39,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
     /// <summary>
-    /// An OCHP CPO Client.
+    /// The OCHP CPO Client.
     /// </summary>
     public partial class CPOClient : ASOAPClient,
                                      ICPOClient
@@ -65,7 +65,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public static readonly     HTTPPath  DefaultLiveURLPrefix  = HTTPPath.Parse("/live/ochp/v1.4");
+        public static readonly     HTTPPath  DefaultLiveURLPathPrefix  = HTTPPath.Parse("/live/ochp/v1.4");
 
         #endregion
 
@@ -74,7 +74,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// The default Live URI prefix.
         /// </summary>
-        public HTTPPath          LiveURLPrefix    { get; }
+        public HTTPPath          LiveURLPathPrefix    { get; }
 
         /// <summary>
         /// The attached OCHP CPO client (HTTP/SOAP client) logger.
@@ -949,133 +949,64 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Constructor(s)
 
-        #region CPOClient(ClientId, Hostname, ..., LoggingContext = CPOClientLogger.DefaultContext, ...)
-
         /// <summary>
         /// Create a new OCHP CPO Client.
         /// </summary>
-        /// <param name="ClientId">A unqiue identification of this client.</param>
-        /// <param name="Hostname">The hostname of the remote OCHP service.</param>
-        /// <param name="RemotePort">An optional TCP port of the remote OCHP service.</param>
-        /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
+        /// <param name="RemoteURL">The remote URL of the OICP HTTP endpoint to connect to.</param>
+        /// <param name="VirtualHostname">An optional HTTP virtual hostname.</param>
+        /// <param name="Description">An optional description of this CPO client.</param>
+        /// <param name="RemoteCertificateValidator">The remote SSL/TLS certificate validator.</param>
         /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
-        /// <param name="HTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
-        /// <param name="URLPrefix">An default URI prefix.</param>
+        /// <param name="ClientCert">The SSL/TLS client certificate to use of HTTP authentication.</param>
+        /// <param name="HTTPUserAgent">The HTTP user agent identification.</param>
+        /// <param name="URLPathPrefix">An optional default URL path prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
-        /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
-        /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
-        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
-        /// <param name="DNSClient">An optional DNS client to use.</param>
+        /// <param name="RequestTimeout">An optional request timeout.</param>
+        /// <param name="TransmissionRetryDelay">The delay between transmission retries.</param>
+        /// <param name="MaxNumberOfRetries">The maximum number of transmission retries for HTTP request.</param>
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
-        /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-        public CPOClient(String                               ClientId,
-                         HTTPHostname                         Hostname,
-                         IPPort?                              RemotePort                   = null,
+        /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
+        /// <param name="DNSClient">The DNS client to use.</param>
+        public CPOClient(URL                                  RemoteURL,
+                         HTTPHostname?                        VirtualHostname              = null,
+                         String                               Description                  = null,
                          RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
-                         HTTPHostname?                        HTTPVirtualHost              = null,
-                         HTTPPath?                             URLPrefix                    = null,
-                         HTTPPath?                             LiveURLPrefix                = null,
-                         Tuple<String, String>                WSSLoginPassword             = null,
+                         X509Certificate                      ClientCert                   = null,
                          String                               HTTPUserAgent                = DefaultHTTPUserAgent,
+                         HTTPPath?                            URLPathPrefix                = null,
+                         HTTPPath?                            LiveURLPathPrefix            = null,
+                         Tuple<String, String>                WSSLoginPassword             = null,
                          TimeSpan?                            RequestTimeout               = null,
-                         Byte?                                MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
-                         DNSClient                            DNSClient                    = null,
+                         TransmissionRetryDelayDelegate       TransmissionRetryDelay       = null,
+                         UInt16?                              MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
                          String                               LoggingContext               = CPOClientLogger.DefaultContext,
-                         LogfileCreatorDelegate               LogFileCreator               = null)
-
-            : base(ClientId,
-                   Hostname,
-                   RemotePort ?? DefaultRemotePort,
-                   RemoteCertificateValidator,
-                   ClientCertificateSelector,
-                   HTTPVirtualHost,
-                   URLPrefix ?? DefaultURLPrefix,
-                   WSSLoginPassword,
-                   HTTPUserAgent,
-                   RequestTimeout,
-                   null,
-                   MaxNumberOfRetries,
-                   DNSClient)
-
-        {
-
-            #region Initial checks
-
-            if (ClientId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(ClientId), "The given client identification must not be null or empty!");
-
-            #endregion
-
-            this.LiveURLPrefix  = LiveURLPrefix ?? DefaultLiveURLPrefix;
-
-            this.Logger         = new CPOClientLogger(this,
-                                                      LoggingContext,
-                                                      LogFileCreator);
-
-        }
-
-        #endregion
-
-        #region CPOClient(ClientId, Logger, Hostname, ...)
-
-        /// <summary>
-        /// Create a new OCHP CPO Client.
-        /// </summary>
-        /// <param name="ClientId">A unqiue identification of this client.</param>
-        /// <param name="Hostname">The hostname of the remote OCHP service.</param>
-        /// <param name="RemotePort">An optional TCP port of the remote OCHP service.</param>
-        /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
-        /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
-        /// <param name="HTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
-        /// <param name="URLPrefix">An default URI prefix.</param>
-        /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
-        /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
-        /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
-        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
-        /// <param name="DNSClient">An optional DNS client to use.</param>
-        public CPOClient(String                               ClientId,
-                         CPOClientLogger                      Logger,
-                         HTTPHostname                         Hostname,
-                         IPPort?                              RemotePort                   = null,
-                         RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
-                         LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
-                         HTTPHostname?                        HTTPVirtualHost              = null,
-                         HTTPPath?                             URLPrefix                    = null,
-                         Tuple<String, String>                WSSLoginPassword             = null,
-                         String                               HTTPUserAgent                = DefaultHTTPUserAgent,
-                         TimeSpan?                            RequestTimeout               = null,
-                         Byte?                                MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
+                         LogfileCreatorDelegate               LogfileCreator               = null,
                          DNSClient                            DNSClient                    = null)
 
-            : base(ClientId,
-                   Hostname,
-                   RemotePort ?? DefaultRemotePort,
+            : base(RemoteURL,
+                   VirtualHostname,
+                   Description,
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
-                   HTTPVirtualHost,
-                   URLPrefix ?? DefaultURLPrefix,
-                   WSSLoginPassword,
+                   ClientCert,
                    HTTPUserAgent,
+                   URLPathPrefix ?? DefaultURLPathPrefix,
+                   WSSLoginPassword,
                    RequestTimeout,
-                   null,
+                   TransmissionRetryDelay,
                    MaxNumberOfRetries,
                    DNSClient)
 
         {
 
-            #region Initial checks
+            this.LiveURLPathPrefix  = LiveURLPathPrefix ?? DefaultLiveURLPathPrefix;
 
-            if (ClientId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(ClientId), "The given client identification must not be null or empty!");
-
-            #endregion
-
-            this.Logger  = Logger ?? throw new ArgumentNullException(nameof(Logger), "The given mobile client logger must not be null!");
+            this.Logger             = new CPOClientLogger(this,
+                                                          LoggingContext,
+                                                          LogfileCreator);
 
         }
-
-        #endregion
 
         #endregion
 
@@ -1123,10 +1054,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ChargePointInfos,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -1155,15 +1086,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomSetChargePointListSOAPRequestMapper(Request,
@@ -1177,7 +1106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -1313,10 +1242,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ChargePointInfos,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -1376,10 +1305,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ChargePointInfos,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -1408,15 +1337,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
@@ -1425,7 +1352,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -1561,10 +1488,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ChargePointInfos,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -1624,14 +1551,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.EVSEStatus.   ULongCount(),
                                                      Request.EVSEStatus,
                                                      Request.ParkingStatus.ULongCount(),
                                                      Request.ParkingStatus,
                                                      Request.DefaultTTL,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -1661,15 +1588,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultLiveURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomUpdateStatusSOAPRequestMapper(Request,
@@ -1819,14 +1744,14 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.EVSEStatus.ULongCount(),
                                                      Request.EVSEStatus,
                                                      Request.ParkingStatus.ULongCount(),
                                                      Request.ParkingStatus,
                                                      Request.DefaultTTL,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -1886,10 +1811,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.TariffInfos,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -1918,15 +1843,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
@@ -1935,7 +1858,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnUpdateTariffsSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -2071,10 +1994,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.TariffInfos,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -2135,10 +2058,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.EMTId,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -2153,15 +2076,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomGetSingleRoamingAuthorisationSOAPRequestMapper(Request,
@@ -2311,10 +2232,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.EMTId,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -2374,9 +2295,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -2391,15 +2312,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomGetRoamingAuthorisationListSOAPRequestMapper(Request,
@@ -2549,9 +2468,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -2611,10 +2530,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastUpdate,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -2629,15 +2548,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomGetRoamingAuthorisationListUpdatesSOAPRequestMapper(Request,
@@ -2787,10 +2704,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastUpdate,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -2851,10 +2768,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRInfos,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -2883,15 +2800,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomAddCDRsSOAPRequestMapper(Request,
@@ -3041,10 +2956,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRInfos,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -3104,10 +3019,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRStatus,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -3122,15 +3037,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomCheckCDRsSOAPRequestMapper(Request,
@@ -3280,10 +3193,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(Endtime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRStatus,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -3346,10 +3259,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.OperatorEndpoints,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -3378,15 +3291,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomAddServiceEndpointsSOAPRequestMapper(Request,
@@ -3400,7 +3311,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnAddServiceEndpointsSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -3522,10 +3433,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Cast<OnAddServiceEndpointsResponseDelegate>().
                                        Select(e => e(Endtime,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.OperatorEndpoints,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -3585,9 +3496,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Select(e => e(StartTime,
                                                      Request.Timestamp.Value,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value))).
+                                                     Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
 
             }
@@ -3602,15 +3513,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(Hostname,
-                                                        DefaultURLPrefix,
-                                                        VirtualHostname,
-                                                        RemotePort,
-                                                        RemoteCertificateValidator,
-                                                        ClientCertificateSelector,
-                                                        UserAgent,
-                                                        RequestTimeout,
-                                                        DNSClient))
+                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                        VirtualHostname:             VirtualHostname,
+                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        HTTPUserAgent:               HTTPUserAgent,
+                                                        RequestTimeout:              RequestTimeout,
+                                                        DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomGetServiceEndpointsSOAPRequestMapper(Request,
@@ -3624,7 +3533,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                      ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
                                                      CancellationToken:    Request.CancellationToken,
                                                      EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
                                                      NumberOfRetry:        TransmissionRetry,
 
                                                      #region OnSuccess
@@ -3746,9 +3655,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                        Cast<OnGetServiceEndpointsResponseDelegate>().
                                        Select(e => e(Endtime,
                                                      this,
-                                                     ClientId,
+                                                     Description,
                                                      Request.EventTrackingId,
-                                                     Request.RequestTimeout ?? RequestTimeout.Value,
+                                                     Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
                                                      Endtime - StartTime))).
                                        ConfigureAwait(false);
@@ -3862,7 +3771,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 OnInformProviderRequest?.Invoke(StartTime,
                                                 Timestamp.Value,
                                                 this,
-                                                ClientId,
+                                                Description,
                                                 EventTrackingId,
 
                                                 DirectMessage,
@@ -3917,15 +3826,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                     Currency);
 
 
-            using (var _OCHPClient = new SOAPClient(Hostname,
-                                                    DefaultURLPrefix,
-                                                    VirtualHostname,
-                                                    RemotePort,
-                                                    RemoteCertificateValidator,
-                                                    ClientCertificateSelector,
-                                                    UserAgent,
-                                                    RequestTimeout,
-                                                    DNSClient))
+            using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                                                    VirtualHostname:             VirtualHostname,
+                                                    RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                    ClientCertificateSelector:   ClientCertificateSelector,
+                                                    HTTPUserAgent:               HTTPUserAgent,
+                                                    RequestTimeout:              RequestTimeout,
+                                                    DNSClient:                   DNSClient))
             {
 
                 result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
@@ -4022,7 +3929,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 OnInformProviderResponse?.Invoke(EndTime,
                                                  Timestamp.Value,
                                                  this,
-                                                 ClientId,
+                                                 Description,
                                                  EventTrackingId,
 
                                                  DirectMessage,

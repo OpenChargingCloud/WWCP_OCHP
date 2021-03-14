@@ -17,8 +17,6 @@
 
 #region Usings
 
-using System;
-
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 
 #endregion
@@ -31,15 +29,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// </summary>
     public interface IOCHPClient : IHTTPClient
     {
-
-        #region Properties
-
-        /// <summary>
-        /// The default request timeout for this client.
-        /// </summary>
-        TimeSpan?  RequestTimeout   { get; }
-
-        #endregion
 
     }
 

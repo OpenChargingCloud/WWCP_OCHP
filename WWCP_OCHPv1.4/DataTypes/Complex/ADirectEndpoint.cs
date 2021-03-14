@@ -37,7 +37,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <summary>
         /// The endpoint address.
         /// </summary>
-        public HTTPURI2  URL            { get; }
+        public URL      URL            { get; }
 
         /// <summary>
         /// The WSDL namespace definition.
@@ -69,10 +69,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="NamespaceURL">The WSDL namespace definition.</param>
         /// <param name="AccessToken">The secret token to access this endpoint.</param>
         /// <param name="ValidDate">The date on which this endpoint/token combination is valid.</param>
-        public ADirectEndpoint(HTTPURI2  URL,
-                               String    NamespaceURL,
-                               String    AccessToken,
-                               String    ValidDate)
+        public ADirectEndpoint(URL     URL,
+                               String  NamespaceURL,
+                               String  AccessToken,
+                               String  ValidDate)
         {
 
             this.URL           = URL;

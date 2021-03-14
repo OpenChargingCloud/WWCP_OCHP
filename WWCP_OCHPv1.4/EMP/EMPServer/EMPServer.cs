@@ -120,26 +120,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <summary>
         /// Initialize an new HTTP server for the OCHP HTTP/SOAP/XML EMP Server API.
         /// </summary>
-        /// <param name="HTTPServerName">An optional identification string for the HTTP server.</param>
-        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
+        /// <param name="ServerName">An optional identification string for the HTTP server.</param>
         /// <param name="TCPPort">An optional TCP port for the HTTP server.</param>
+        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ContentType">An optional HTTP content type to use.</param>
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
+        /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
+        /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
-        public EMPServer(String           HTTPServerName            = DefaultHTTPServerName,
-                         IPPort?          TCPPort                   = null,
-                         String           ServiceName               = null,
-                         HTTPPath?        URLPrefix                 = null,
-                         HTTPPath?        URLSuffix                 = null,
-                         HTTPContentType  ContentType               = null,
-                         Boolean          RegisterHTTPRootService   = true,
-                         DNSClient        DNSClient                 = null,
-                         Boolean          AutoStart                 = false)
+        public EMPServer(String                  ServerName                = DefaultHTTPServerName,
+                         IPPort?                 TCPPort                   = null,
+                         String                  ServiceName               = null,
+                         HTTPPath?               URLPrefix                 = null,
+                         HTTPPath?               URLSuffix                 = null,
+                         HTTPContentType         ContentType               = null,
+                         Boolean                 RegisterHTTPRootService   = true,
+                         String                  ServerLoggingContext      = EMPServerLogger.DefaultContext,
+                         LogfileCreatorDelegate  LogfileCreator            = null,
+                         DNSClient               DNSClient                 = null,
+                         Boolean                 AutoStart                 = false)
 
-            : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
+            : base(ServerName.IsNotNullOrEmpty() ? ServerName : DefaultHTTPServerName,
                    TCPPort     ?? DefaultHTTPServerPort,
                    ServiceName ?? "OCHP " + Version.Number + " " + nameof(EMPServer),
                    URLPrefix   ?? DefaultURLPrefix,
@@ -150,8 +154,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         {
 
-            this.ServiceId  = ServiceName ?? "OCHP " + Version.Number + " " + nameof(EMPServer);
-            this.URLSuffix  = URLSuffix   ?? DefaultURLSuffix;
+            this.ServiceId    = ServiceName ?? "OCHP " + Version.Number + " " + nameof(EMPServer);
+            this.URLSuffix    = URLSuffix   ?? DefaultURLSuffix;
+            this.HTTPLogger   = new EMPServerLogger(this,
+                                                    ServerLoggingContext ?? CPOServerLogger.DefaultContext,
+                                                    LogfileCreator);
 
             RegisterURITemplates();
 

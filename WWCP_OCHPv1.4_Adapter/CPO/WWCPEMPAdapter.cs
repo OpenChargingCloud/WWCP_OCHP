@@ -1106,7 +1106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                   ClientCertificateSelector,
                                   RemoteHTTPVirtualHost,
                                   URLPrefix     ?? CPOClient.DefaultURLPrefix,
-                                  LiveURLPrefix ?? CPOClient.DefaultLiveURLPrefix,
+                                  LiveURLPrefix ?? CPOClient.DefaultLiveURLPathPrefix,
                                   WSSLoginPassword,
                                   HTTPUserAgent,
                                   RequestTimeout,

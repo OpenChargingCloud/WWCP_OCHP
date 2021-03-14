@@ -47,38 +47,129 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// </summary>
         public CPOClient        CPOClient         { get; }
 
-        public HTTPHostname Hostname
-            => CPOClient.Hostname;
+        #region ICPOClient
 
-        public HTTPHostname? VirtualHostname
+        /// <summary>
+        /// The remote URL of the OICP HTTP endpoint to connect to.
+        /// </summary>
+        URL                                  IHTTPClient.RemoteURL
+            => CPOClient.RemoteURL;
+
+        /// <summary>
+        /// The virtual HTTP hostname to connect to.
+        /// </summary>
+        HTTPHostname?                        IHTTPClient.VirtualHostname
             => CPOClient.VirtualHostname;
 
-        public IPPort RemotePort
-            => CPOClient.RemotePort;
+        /// <summary>
+        /// An optional description of this CPO client.
+        /// </summary>
+        String                               IHTTPClient.Description
+        {
 
-        public RemoteCertificateValidationCallback RemoteCertificateValidator
-            => CPOClient?.RemoteCertificateValidator;
+            get
+            {
+                return CPOClient.Description;
+            }
+
+            set
+            {
+                CPOClient.Description = value;
+            }
+
+        }
+
+        /// <summary>
+        /// The remote SSL/TLS certificate validator.
+        /// </summary>
+        RemoteCertificateValidationCallback  IHTTPClient.RemoteCertificateValidator
+            => CPOClient.RemoteCertificateValidator;
+
+        /// <summary>
+        /// The SSL/TLS client certificate to use of HTTP authentication.
+        /// </summary>
+        X509Certificate                      IHTTPClient.ClientCert
+            => CPOClient.ClientCert;
+
+        /// <summary>
+        /// The HTTP user agent identification.
+        /// </summary>
+        String                               IHTTPClient.HTTPUserAgent
+            => CPOClient.HTTPUserAgent;
+
+        /// <summary>
+        /// The timeout for upstream requests.
+        /// </summary>
+        TimeSpan                             IHTTPClient.RequestTimeout
+        {
+
+            get
+            {
+                return CPOClient.RequestTimeout;
+            }
+
+            set
+            {
+                CPOClient.RequestTimeout = value;
+            }
+
+        }
+
+        /// <summary>
+        /// The delay between transmission retries.
+        /// </summary>
+        TransmissionRetryDelayDelegate       IHTTPClient.TransmissionRetryDelay
+            => CPOClient.TransmissionRetryDelay;
+
+        /// <summary>
+        /// The maximum number of retries when communicationg with the remote OICP service.
+        /// </summary>
+        UInt16                               IHTTPClient.MaxNumberOfRetries
+            => CPOClient.MaxNumberOfRetries;
+
+        /// <summary>
+        /// Make use of HTTP pipelining.
+        /// </summary>
+        Boolean                              IHTTPClient.UseHTTPPipelining
+            => CPOClient.UseHTTPPipelining;
+
+        /// <summary>
+        /// The CPO client (HTTP client) logger.
+        /// </summary>
+        HTTPClientLogger                     IHTTPClient.HTTPLogger
+        {
+
+            get
+            {
+                return CPOClient.HTTPLogger;
+            }
+
+            set
+            {
+                CPOClient.HTTPLogger = value;
+            }
+
+        }
+
+        /// <summary>
+        /// The DNS client defines which DNS servers to use.
+        /// </summary>
+        DNSClient                            IHTTPClient.DNSClient
+            => CPOClient.DNSClient;
+
+        #endregion
 
         /// <summary>
         /// The CPO server.
         /// </summary>
-        public CPOServer        CPOServer         { get; }
+        public CPOServer        CPOServer           { get; }
 
-        /// <summary>
-        /// The CPO server logger.
-        /// </summary>
-        public CPOServerLogger  CPOServerLogger   { get; }
 
         /// <summary>
         /// The DNS client defines which DNS servers to use.
         /// </summary>
         public DNSClient DNSClient
-            => CPOServer.DNSClient;
-
-        /// <summary>
-        /// The default request timeout for this client.
-        /// </summary>
-        public TimeSpan?        RequestTimeout    { get; }
+            => CPOServer?.DNSClient;
 
         #endregion
 
@@ -1033,26 +1124,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
         #region Constructor(s)
 
-        #region CPORoaming(CPOClient, CPOServer, ServerLoggingContext = CPOServerLogger.DefaultContext, LogfileCreator = null)
+        #region CPORoaming(CPOClient, CPOServer)
 
         /// <summary>
         /// Create a new OCHP roaming client for CPOs.
         /// </summary>
         /// <param name="CPOClient">A CPO client.</param>
         /// <param name="CPOServer">A CPO sever.</param>
-        /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
-        /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
-        public CPORoaming(CPOClient               CPOClient,
-                          CPOServer               CPOServer,
-                          String                  ServerLoggingContext  = CPOServerLogger.DefaultContext,
-                          LogfileCreatorDelegate  LogfileCreator        = null)
+        public CPORoaming(CPOClient  CPOClient,
+                          CPOServer  CPOServer)
         {
 
-            this.CPOClient        = CPOClient ?? throw new ArgumentNullException(nameof(CPOClient), "The given CPOClient must not be null!");
-            this.CPOServer        = CPOServer ?? throw new ArgumentNullException(nameof(CPOServer), "The given CPOServer must not be null!");
-            this.CPOServerLogger  = new CPOServerLogger(CPOServer,
-                                                        ServerLoggingContext ?? CPOServerLogger.DefaultContext,
-                                                        LogfileCreator);
+            this.CPOClient  = CPOClient ?? throw new ArgumentNullException(nameof(CPOClient), "The given CPOClient must not be null!");
+            this.CPOServer  = CPOServer ?? throw new ArgumentNullException(nameof(CPOServer), "The given CPOServer must not be null!");
 
             // Link HTTP events...
             CPOServer.RequestLog   += (HTTPProcessor, ServerTimestamp, Request)                                 => RequestLog. WhenAll(HTTPProcessor, ServerTimestamp, Request);
@@ -1068,88 +1152,90 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <summary>
         /// Create a new OCHP roaming client for CPOs.
         /// </summary>
-        /// <param name="ClientId">A unqiue identification of this client.</param>
-        /// <param name="RemoteHostname">The hostname of the remote OCHP service.</param>
-        /// <param name="RemoteTCPPort">An optional TCP port of the remote OCHP service.</param>
-        /// <param name="RemoteCertificateValidator">A delegate to verify the remote TLS certificate.</param>
+        /// <param name="RemoteURL">The remote URL of the OICP HTTP endpoint to connect to.</param>
+        /// <param name="VirtualHostname">An optional HTTP virtual hostname.</param>
+        /// <param name="Description">An optional description of this CPO client.</param>
+        /// <param name="RemoteCertificateValidator">The remote SSL/TLS certificate validator.</param>
         /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
-        /// <param name="RemoteHTTPVirtualHost">An optional HTTP virtual hostname of the remote OCHP service.</param>
-        /// <param name="URLPrefix">An default URI prefix.</param>
+        /// <param name="ClientCert">The SSL/TLS client certificate to use of HTTP authentication.</param>
+        /// <param name="HTTPUserAgent">The HTTP user agent identification.</param>
+        /// <param name="URLPathPrefix">An optional default URL path prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
-        /// <param name="HTTPUserAgent">An optional HTTP user agent identification string for this HTTP client.</param>
-        /// <param name="RequestTimeout">An optional timeout for upstream queries.</param>
-        /// <param name="MaxNumberOfRetries">The default number of maximum transmission retries.</param>
+        /// <param name="RequestTimeout">An optional request timeout.</param>
+        /// <param name="TransmissionRetryDelay">The delay between transmission retries.</param>
+        /// <param name="MaxNumberOfRetries">The maximum number of transmission retries for HTTP request.</param>
+        /// <param name="ClientLoggingContext">An optional context for logging client methods.</param>
+        /// <param name="ClientLogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// 
         /// <param name="ServerName">An optional identification string for the HTTP server.</param>
-        /// <param name="ServiceName">An optional identification for this SOAP service.</param>
         /// <param name="ServerTCPPort">An optional TCP port for the HTTP server.</param>
+        /// <param name="ServerServiceName">An optional identification for this SOAP service.</param>
         /// <param name="ServerURLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="ServerURLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ServerContentType">An optional HTTP content type to use.</param>
         /// <param name="ServerRegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
-        /// <param name="ServerAutoStart">Whether to start the server immediately or not.</param>
-        /// 
-        /// <param name="ClientLoggingContext">An optional context for logging client methods.</param>
         /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
-        /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
+        /// <param name="ServerLogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
+        /// <param name="ServerAutoStart">Start the server immediately.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public CPORoaming(String                               ClientId,
-                          HTTPHostname                         RemoteHostname,
-                          IPPort?                              RemoteTCPPort                   = null,
+        public CPORoaming(URL                                  RemoteURL,
+                          HTTPHostname?                        VirtualHostname                 = null,
+                          String                               Description                     = null,
                           RemoteCertificateValidationCallback  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionCallback    ClientCertificateSelector       = null,
-                          HTTPHostname?                        RemoteHTTPVirtualHost           = null,
-                          HTTPPath?                            URLPrefix                       = null,
-                          HTTPPath?                            LiveURLPrefix                   = null,
-                          Tuple<String, String>                WSSLoginPassword                = null,
+                          X509Certificate                      ClientCert                      = null,
                           String                               HTTPUserAgent                   = CPOClient.DefaultHTTPUserAgent,
+                          HTTPPath?                            URLPathPrefix                   = null,
+                          HTTPPath?                            LiveURLPathPrefix               = null,
+                          Tuple<String, String>                WSSLoginPassword                = null,
                           TimeSpan?                            RequestTimeout                  = null,
-                          Byte?                                MaxNumberOfRetries              = CPOClient.DefaultMaxNumberOfRetries,
+                          TransmissionRetryDelayDelegate       TransmissionRetryDelay          = null,
+                          UInt16?                              MaxNumberOfRetries              = CPOClient.DefaultMaxNumberOfRetries,
+                          String                               ClientLoggingContext            = CPOClient.CPOClientLogger.DefaultContext,
+                          LogfileCreatorDelegate               ClientLogfileCreator            = null,
 
                           String                               ServerName                      = CPOServer.DefaultHTTPServerName,
-                          String                               ServiceName                     = null,
                           IPPort?                              ServerTCPPort                   = null,
+                          String                               ServerServiceName               = null,
                           HTTPPath?                            ServerURLPrefix                 = null,
                           HTTPPath?                            ServerURLSuffix                 = null,
                           HTTPContentType                      ServerContentType               = null,
                           Boolean                              ServerRegisterHTTPRootService   = true,
-                          Boolean                              ServerAutoStart                 = false,
-
-                          String                               ClientLoggingContext            = CPOClient.CPOClientLogger.DefaultContext,
                           String                               ServerLoggingContext            = CPOServerLogger.DefaultContext,
-                          LogfileCreatorDelegate               LogfileCreator                  = null,
+                          LogfileCreatorDelegate               ServerLogfileCreator            = null,
+                          Boolean                              ServerAutoStart                 = false,
 
                           DNSClient                            DNSClient                       = null)
 
-            : this(new CPOClient(ClientId,
-                                 RemoteHostname,
-                                 RemoteTCPPort,
+            : this(new CPOClient(RemoteURL,
+                                 VirtualHostname,
+                                 Description,
                                  RemoteCertificateValidator,
                                  ClientCertificateSelector,
-                                 RemoteHTTPVirtualHost,
-                                 URLPrefix     ?? CPOClient.DefaultURLPrefix,
-                                 LiveURLPrefix ?? CPOClient.DefaultLiveURLPrefix,
-                                 WSSLoginPassword,
+                                 ClientCert,
                                  HTTPUserAgent,
+                                 URLPathPrefix,
+                                 LiveURLPathPrefix,
+                                 WSSLoginPassword,
                                  RequestTimeout,
+                                 TransmissionRetryDelay,
                                  MaxNumberOfRetries,
-                                 DNSClient,
                                  ClientLoggingContext,
-                                 LogfileCreator),
+                                 ClientLogfileCreator,
+                                 DNSClient),
 
                    new CPOServer(ServerName,
                                  ServerTCPPort,
-                                 ServiceName,
+                                 ServerServiceName,
                                  ServerURLPrefix ?? CPOServer.DefaultURLPrefix,
                                  ServerURLSuffix ?? CPOServer.DefaultURLSuffix,
                                  ServerContentType,
                                  ServerRegisterHTTPRootService,
+                                 ServerLoggingContext,
+                                 ServerLogfileCreator,
                                  DNSClient,
-                                 false),
-
-                   ServerLoggingContext,
-                   LogfileCreator)
+                                 false))
 
         {
 
