@@ -29,15 +29,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
-    /// An OCHP EMP client.
+    /// The OCHP EMP client.
     /// </summary>
     public partial class EMPClient : ASOAPClient
     {
 
         /// <summary>
-        /// An OCHP EMP client (HTTP/SOAP client) logger.
+        /// The OCHP EMP HTTP/SOAP client logger.
         /// </summary>
-        public class EMPClientLogger : HTTPClientLogger
+        public class Logger : HTTPClientLogger
         {
 
             #region Data
@@ -68,7 +68,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             /// <param name="EMPClient">A OCHP EMP client.</param>
             /// <param name="Context">A context of this API.</param>
             /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-            public EMPClientLogger(EMPClient               EMPClient,
+            public Logger(EMPClient               EMPClient,
                                    String                  Context          = DefaultContext,
                                    LogfileCreatorDelegate  LogFileCreator   = null)
 
@@ -109,7 +109,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             /// <param name="LogHTTPError_toHTTPSSE">A delegate to log HTTP errors to a HTTP client sent events source.</param>
             /// 
             /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-            public EMPClientLogger(IEMPClient                  EMPClient,
+            public Logger(IEMPClient                  EMPClient,
                                    String                      Context,
 
                                    HTTPRequestLoggerDelegate   LogHTTPRequest_toConsole,

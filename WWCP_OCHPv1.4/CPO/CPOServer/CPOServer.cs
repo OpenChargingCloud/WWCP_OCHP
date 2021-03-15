@@ -203,7 +203,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ContentType">An optional HTTP content type to use.</param>
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
-        /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
+        /// <param name="LoggingContext">An optional context for logging server methods.</param>
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
@@ -214,7 +214,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          HTTPPath?               URLSuffix                 = null,
                          HTTPContentType         ContentType               = null,
                          Boolean                 RegisterHTTPRootService   = true,
-                         String                  ServerLoggingContext      = CPOServerLogger.DefaultContext,
+                         String                  LoggingContext            = CPOServerLogger.DefaultContext,
                          LogfileCreatorDelegate  LogfileCreator            = null,
                          DNSClient               DNSClient                 = null,
                          Boolean                 AutoStart                 = false)
@@ -233,7 +233,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             this.ServiceName  = ServiceName ?? "OCHP " + Version.Number + " " + nameof(CPOServer);
             this.URLSuffix    = URLSuffix   ?? DefaultURLSuffix;
             this.HTTPLogger   = new CPOServerLogger(this,
-                                                    ServerLoggingContext ?? CPOServerLogger.DefaultContext,
+                                                    LoggingContext ?? CPOServerLogger.DefaultContext,
                                                     LogfileCreator);
 
             RegisterURITemplates();

@@ -72,16 +72,25 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         #region Properties
 
         /// <summary>
-        /// The default Live URI prefix.
+        /// The default Live URL path prefix.
         /// </summary>
-        public HTTPPath          LiveURLPathPrefix    { get; }
+        public HTTPPath  LiveURLPathPrefix    { get; }
+
 
         /// <summary>
-        /// The attached OCHP CPO client (HTTP/SOAP client) logger.
+        /// The attached HTTP client logger.
         /// </summary>
-        public CPOClientLogger  Logger           { get; }
-
-//        public RoamingNetwork   RoamingNetwork   { get; }
+        public new Logger HTTPLogger
+        {
+            get
+            {
+                return base.HTTPLogger as Logger;
+            }
+            set
+            {
+                base.HTTPLogger = value;
+            }
+        }
 
         #endregion
 
@@ -964,6 +973,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional request timeout.</param>
         /// <param name="TransmissionRetryDelay">The delay between transmission retries.</param>
         /// <param name="MaxNumberOfRetries">The maximum number of transmission retries for HTTP request.</param>
+        /// <param name="DisableLogging">Disable all logging.</param>
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// <param name="DNSClient">The DNS client to use.</param>
@@ -980,7 +990,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          TimeSpan?                            RequestTimeout               = null,
                          TransmissionRetryDelayDelegate       TransmissionRetryDelay       = null,
                          UInt16?                              MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
-                         String                               LoggingContext               = CPOClientLogger.DefaultContext,
+                         Boolean                              DisableLogging               = false,
+                         String                               LoggingContext               = Logger.DefaultContext,
                          LogfileCreatorDelegate               LogfileCreator               = null,
                          DNSClient                            DNSClient                    = null)
 
@@ -996,15 +1007,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    RequestTimeout,
                    TransmissionRetryDelay,
                    MaxNumberOfRetries,
+                   false,
+                   null,
                    DNSClient)
 
         {
 
             this.LiveURLPathPrefix  = LiveURLPathPrefix ?? DefaultLiveURLPathPrefix;
 
-            this.Logger             = new CPOClientLogger(this,
-                                                          LoggingContext,
-                                                          LogfileCreator);
+            base.HTTPLogger         = DisableLogging == false
+                                          ? new Logger(this,
+                                                       LoggingContext,
+                                                       LogfileCreator)
+                                          : null;
 
         }
 

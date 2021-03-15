@@ -29,15 +29,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
     /// <summary>
-    /// An OCHP CPO Client.
+    /// The OCHP CPO client.
     /// </summary>
     public partial class CPOClient : ASOAPClient
     {
 
         /// <summary>
-        /// An OCHP CPO client (HTTP/SOAP client) logger.
+        /// The OCHP CPO HTTP/SOAP client logger.
         /// </summary>
-        public class CPOClientLogger : HTTPClientLogger
+        public class Logger : HTTPClientLogger
         {
 
             #region Data
@@ -68,7 +68,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             /// <param name="CPOClient">A OCHP CPO client.</param>
             /// <param name="Context">A context of this API.</param>
             /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-            public CPOClientLogger(CPOClient               CPOClient,
+            public Logger(CPOClient               CPOClient,
                                    String                  Context          = DefaultContext,
                                    LogfileCreatorDelegate  LogFileCreator   = null)
 
@@ -109,7 +109,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             /// <param name="LogHTTPError_toHTTPSSE">A delegate to log HTTP errors to a HTTP client sent events source.</param>
             /// 
             /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-            public CPOClientLogger(ICPOClient                  CPOClient,
+            public Logger(ICPOClient                  CPOClient,
                                    String                      Context,
 
                                    HTTPRequestLoggerDelegate   LogHTTPRequest_toConsole,

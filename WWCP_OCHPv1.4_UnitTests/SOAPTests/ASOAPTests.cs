@@ -84,9 +84,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
             //- CPO --------------------------------------------------------------------------------------------
 
-            CPOClient                                = new CPO.CPOClient("CPOClient #1",
-                                                                         HTTPHostname.Localhost,
-                                                                         ClearingHouseServer.IPPorts.First(),
+            CPOClient                                = new CPO.CPOClient(URL.Parse("http://localhost:" + ClearingHouseServer.IPPorts.First()),
+                                                                         null,
+                                                                         "CPOClient #1",
                                                                          DNSClient:  DNSClient);
 
             CPOServer                                = new CPO.CPOServer(TCPPort:    IPPort.Parse(10001),
@@ -95,9 +95,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
 
             //- EMP --------------------------------------------------------------------------------------------
 
-            EMPClient                                = new EMP.EMPClient("EMPClient #1",
-                                                                         HTTPHostname.Localhost,
-                                                                         ClearingHouseServer.IPPorts.First(),
+            EMPClient                                = new EMP.EMPClient(URL.Parse("http://localhost:" + ClearingHouseServer.IPPorts.First()),
+                                                                         null,
+                                                                         "EMPClient #1",
                                                                          DNSClient:  DNSClient);
 
             EMPServer                                = new EMP.EMPServer(TCPPort:    IPPort.Parse(10002),

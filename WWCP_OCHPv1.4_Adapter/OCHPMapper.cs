@@ -306,7 +306,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
 
                 default:
-                    return WWCP.AuthenticationModes.Unkown;
+                    return null; // WWCP.AuthenticationModes.Unkown;
 
             }
 

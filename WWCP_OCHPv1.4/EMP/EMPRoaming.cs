@@ -145,7 +145,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
             set
             {
-                EMPClient.HTTPLogger = value;
+                if (value is EMPClient.Logger logger)
+                    EMPClient.HTTPLogger = logger;
             }
 
         }
@@ -1469,6 +1470,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional request timeout.</param>
         /// <param name="TransmissionRetryDelay">The delay between transmission retries.</param>
         /// <param name="MaxNumberOfRetries">The maximum number of transmission retries for HTTP request.</param>
+        /// <param name="ClientDisableLogging">Disable all logging.</param>
         /// <param name="ClientLoggingContext">An optional context for logging client methods.</param>
         /// <param name="ClientLogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// 
@@ -1497,7 +1499,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                           TimeSpan?                            RequestTimeout                  = null,
                           TransmissionRetryDelayDelegate       TransmissionRetryDelay          = null,
                           UInt16?                              MaxNumberOfRetries              = EMPClient.DefaultMaxNumberOfRetries,
-                          String                               ClientLoggingContext            = EMPClient.EMPClientLogger.DefaultContext,
+                          Boolean                              ClientDisableLogging            = false,
+                          String                               ClientLoggingContext            = EMPClient.Logger.DefaultContext,
                           LogfileCreatorDelegate               ClientLogfileCreator            = null,
 
                           String                               ServerName                      = EMPServer.DefaultHTTPServerName,
@@ -1526,6 +1529,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                  RequestTimeout,
                                  TransmissionRetryDelay,
                                  MaxNumberOfRetries,
+                                 ClientDisableLogging,
                                  ClientLoggingContext,
                                  ClientLogfileCreator,
                                  DNSClient),

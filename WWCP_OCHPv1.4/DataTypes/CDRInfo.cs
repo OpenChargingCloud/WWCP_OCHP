@@ -32,7 +32,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// Contains all information concerning a charge data record.
     /// </summary>
-    public class CDRInfo : ACustomData,
+    public class CDRInfo : AInternalData,
                            IEquatable<CDRInfo>,
                            IComparable<CDRInfo>,
                            IComparable
