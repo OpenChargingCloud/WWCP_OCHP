@@ -925,39 +925,44 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (!RequestTimeout.HasValue)
                 RequestTimeout = CPOClient?.RequestTimeout;
 
+
+            PushEVSEDataResult result;
+
             #endregion
 
-            #region Get effective number of EVSE status to upload
+            #region Get effective list of EVSEs/ChargePointInfos to upload
 
-            var Warnings = new List<Warning>();
+            var Warnings          = new List<Warning>();
+            var ChargePointInfos  = new List<ChargePointInfo>();
 
-            var _ChargePointInfos = EVSEs == null || !EVSEs.Any()
-                                        ? new ChargePointInfo[0]
-                                        : EVSEs.Where (evse => evse != null && IncludeEVSEs(evse)).
-                                              Select(evse => {
+            if (EVSEs.IsNeitherNullNorEmpty())
+            {
+                foreach (var evse in EVSEs)
+                {
 
-                                                  try
-                                                  {
+                    try
+                    {
 
-                                                      return evse.ToOCHP(_CustomEVSEIdMapper,
-                                                                         _EVSE2ChargePointInfo);
+                        if (evse == null)
+                            continue;
 
-                                                  }
-                                                  catch (Exception e)
-                                                  {
-                                                      DebugX.  Log(e.Message);
-                                                      Warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evse));
-                                                  }
+                        if (IncludeEVSEs(evse) && IncludeEVSEIds(evse.Id))
+                            // WWCP EVSE will be added as internal data "WWCP.EVSE"...
+                            ChargePointInfos.Add(evse.ToOCHP(_CustomEVSEIdMapper,
+                                                             _EVSE2ChargePointInfo));
 
-                                                  return null;
+                        else
+                            DebugX.Log(evse.Id + " was filtered!");
 
-                                              }).
-                                              Where(chargepointinfo => chargepointinfo != null).
-                                              ToArray();
+                    }
+                    catch (Exception e)
+                    {
+                        DebugX.Log(e.Message);
+                        Warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evse));
+                    }
 
-
-            HTTPResponse<SetChargePointListResponse>  response  = null;
-            PushEVSEDataResult                        result    = null;
+                }
+            }
 
             #endregion
 
@@ -974,8 +979,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                           Id,
                                                           EventTrackingId,
                                                           RoamingNetwork.Id,
-                                                          _ChargePointInfos.ULongCount(),
-                                                          _ChargePointInfos,
+                                                          ChargePointInfos.ULongCount(),
+                                                          ChargePointInfos,
                                                           Warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
                                                           RequestTimeout);
 
@@ -991,40 +996,30 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             DateTime Endtime;
             TimeSpan Runtime;
 
-            if (_ChargePointInfos.Length == 0)
+            if (ChargePointInfos.Count > 0)
             {
 
-                Endtime   = DateTime.UtcNow;
-                Runtime   = Endtime - StartTime;
-             //   response  = 
+                var response = await CPORoaming.
+                                         SetChargePointList(ChargePointInfos,
+                                                            IncludeChargePoints,
 
-            }
-
-            else
-            {
-
-                response = await CPORoaming.
-                                     SetChargePointList(_ChargePointInfos,
-                                                        IncludeChargePoints,
-
-                                                        Timestamp,
-                                                        CancellationToken,
-                                                        EventTrackingId,
-                                                        RequestTimeout);
-
-            }
+                                                            Timestamp,
+                                                            CancellationToken,
+                                                            EventTrackingId,
+                                                            RequestTimeout);
 
 
                 Endtime = DateTime.UtcNow;
                 Runtime = Endtime - StartTime;
 
                 if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                    response.Content        != null)
+                    response.Content != null)
                 {
 
                     if (response.Content.Result.ResultCode == ResultCodes.OK)
                         result = PushEVSEDataResult.Success(Id,
                                                             this,
+                                                            ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
                                                             response.Content.Result.Description,
                                                             null,
                                                             Runtime);
@@ -1032,7 +1027,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     else
                         result = PushEVSEDataResult.Error(Id,
                                                           this,
-                                                          EVSEs,
+                                                          ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
                                                           response.Content.Result.Description,
                                                           null,
                                                           Runtime);
@@ -1041,12 +1036,32 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                 else
                     result = PushEVSEDataResult.Error(Id,
                                                       this,
-                                                      EVSEs,
+                                                      ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
                                                       response.HTTPStatusCode.ToString(),
                                                       response.HTTPBody != null
                                                           ? Warnings.AddAndReturnList(I18NString.Create(Languages.en, response.HTTPBody.ToUTF8String()))
                                                           : Warnings.AddAndReturnList(I18NString.Create(Languages.en, "No HTTP body received!")),
                                                       Runtime);
+
+            }
+
+            #region ...or no ChargePointInfos to push...
+
+            else
+            {
+
+                Endtime  = DateTime.UtcNow;
+                Runtime  = Endtime - StartTime;
+                result   = PushEVSEDataResult.NoOperation(Id,
+                                                          this,
+                                                          EVSEs,
+                                                          "No ChargePointInfos to push!",
+                                                          Warnings,
+                                                          DateTime.UtcNow - StartTime);
+
+            }
+
+            #endregion
 
 
             #region Send OnSetChargePointInfosWWCPResponse event
@@ -1060,8 +1075,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                           Id,
                                                           EventTrackingId,
                                                           RoamingNetwork.Id,
-                                                          _ChargePointInfos.ULongCount(),
-                                                          _ChargePointInfos,
+                                                          ChargePointInfos.ULongCount(),
+                                                          ChargePointInfos,
                                                           RequestTimeout,
                                                           result,
                                                           Runtime);
@@ -1104,10 +1119,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (EVSEs == null)
-                throw new ArgumentNullException(nameof(EVSEs), "The given enumeration of EVSEs must not be null!");
-
-
             if (!Timestamp.HasValue)
                 Timestamp = DateTime.UtcNow;
 
@@ -1120,35 +1131,44 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             if (!RequestTimeout.HasValue)
                 RequestTimeout = CPOClient?.RequestTimeout;
 
-            #endregion
-
-            #region Get effective number of EVSE status to upload
-
-            var Warnings = new List<Warning>();
-
-            var _ChargePointInfos = EVSEs.Where (evse => evse != null && IncludeEVSEs(evse)).
-                                          Select(evse => {
-
-                                              try
-                                              {
-
-                                                  return evse.ToOCHP(_CustomEVSEIdMapper,
-                                                                     _EVSE2ChargePointInfo);
-
-                                              }
-                                              catch (Exception e)
-                                              {
-                                                  DebugX.  Log(e.Message);
-                                                  Warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evse));
-                                              }
-
-                                              return null;
-
-                                          }).
-                                          Where(chargepointinfo => chargepointinfo != null).
-                                          ToArray();
 
             PushEVSEDataResult result;
+
+            #endregion
+
+            #region Get effective list of EVSEs/ChargePointInfos to upload
+
+            var Warnings          = new List<Warning>();
+            var ChargePointInfos  = new List<ChargePointInfo>();
+
+            if (EVSEs.IsNeitherNullNorEmpty())
+            {
+                foreach (var evse in EVSEs)
+                {
+
+                    try
+                    {
+
+                        if (evse == null)
+                            continue;
+
+                        if (IncludeEVSEs(evse) && IncludeEVSEIds(evse.Id))
+                            // WWCP EVSE will be added as internal data "WWCP.EVSE"...
+                            ChargePointInfos.Add(evse.ToOCHP(_CustomEVSEIdMapper,
+                                                             _EVSE2ChargePointInfo));
+
+                        else
+                            DebugX.Log(evse.Id + " was filtered!");
+
+                    }
+                    catch (Exception e)
+                    {
+                        DebugX.Log(e.Message);
+                        Warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evse));
+                    }
+
+                }
+            }
 
             #endregion
 
@@ -1165,8 +1185,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                             Id,
                                                             EventTrackingId,
                                                             RoamingNetwork.Id,
-                                                            _ChargePointInfos.ULongCount(),
-                                                            _ChargePointInfos,
+                                                            ChargePointInfos.ULongCount(),
+                                                            ChargePointInfos,
                                                             Warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
                                                             RequestTimeout);
 
@@ -1179,49 +1199,75 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             #endregion
 
 
-            var response = await CPORoaming.
-                                     UpdateChargePointList(_ChargePointInfos,
-                                                           IncludeChargePoints,
+            DateTime Endtime;
+            TimeSpan Runtime;
 
-                                                           Timestamp,
-                                                           CancellationToken,
-                                                           EventTrackingId,
-                                                           RequestTimeout).
-                                     ConfigureAwait(false);
-
-
-            var Endtime = DateTime.UtcNow;
-            var Runtime = Endtime - StartTime;
-
-            if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                response.Content        != null)
+            if (ChargePointInfos.Count > 0)
             {
 
-                if (response.Content.Result.ResultCode == ResultCodes.OK)
-                    result = PushEVSEDataResult.Success(Id,
-                                                    this,
-                                                    response.Content.Result.Description,
-                                                    null,
-                                                    Runtime);
+                var response = await CPORoaming.
+                                         UpdateChargePointList(ChargePointInfos,
+                                                               IncludeChargePoints,
 
+                                                               Timestamp,
+                                                               CancellationToken,
+                                                               EventTrackingId,
+                                                               RequestTimeout).
+                                         ConfigureAwait(false);
+
+                Endtime = DateTime.UtcNow;
+                Runtime = Endtime - StartTime;
+
+                if (response.HTTPStatusCode == HTTPStatusCode.OK &&
+                    response.Content        != null)
+                {
+
+                    if (response.Content.Result.ResultCode == ResultCodes.OK)
+                        result = PushEVSEDataResult.Success(Id,
+                                                            this,
+                                                            ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
+                                                            response.Content.Result.Description,
+                                                            null,
+                                                            Runtime);
+
+                    else
+                        result = PushEVSEDataResult.Error(Id,
+                                                          this,
+                                                          ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
+                                                          response.Content.Result.Description,
+                                                          null,
+                                                          Runtime);
+
+                }
                 else
                     result = PushEVSEDataResult.Error(Id,
-                                                  this,
-                                                  EVSEs,
-                                                  response.Content.Result.Description,
-                                                  null,
-                                                  Runtime);
+                                                      this,
+                                                      ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
+                                                      response.HTTPStatusCode.ToString(),
+                                                      response.HTTPBody != null
+                                                          ? Warnings.AddAndReturnList(I18NString.Create(Languages.en, response.HTTPBody.ToUTF8String()))
+                                                          : Warnings.AddAndReturnList(I18NString.Create(Languages.en, "No HTTP body received!")),
+                                                      Runtime);
 
             }
+
+            #region ...or no ChargePointInfos to push...
+
             else
-                result = PushEVSEDataResult.Error(Id,
-                                              this,
-                                              EVSEs,
-                                              response.HTTPStatusCode.ToString(),
-                                              response.HTTPBody != null
-                                                  ? Warnings.AddAndReturnList(I18NString.Create(Languages.en, response.HTTPBody.ToUTF8String()))
-                                                  : Warnings.AddAndReturnList(I18NString.Create(Languages.en, "No HTTP body received!")),
-                                              Runtime);
+            {
+
+                Endtime  = DateTime.UtcNow;
+                Runtime  = Endtime - StartTime;
+                result   = PushEVSEDataResult.NoOperation(Id,
+                                                          this,
+                                                          EVSEs,
+                                                          "No ChargePointInfos to push!",
+                                                          Warnings,
+                                                          DateTime.UtcNow - StartTime);
+
+            }
+
+            #endregion
 
 
             #region Send OnUpdateChargePointInfosWWCPResponse event
@@ -1235,8 +1281,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                              Id,
                                                              EventTrackingId,
                                                              RoamingNetwork.Id,
-                                                             _ChargePointInfos.ULongCount(),
-                                                             _ChargePointInfos,
+                                                             ChargePointInfos.ULongCount(),
+                                                             ChargePointInfos,
                                                              RequestTimeout,
                                                              result,
                                                              Runtime);

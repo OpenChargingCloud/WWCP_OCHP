@@ -445,7 +445,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-
         #region Convert ChargeDetailRecords...
 
         public static String WWCP_CDR = "WWCP.CDR";
@@ -524,12 +523,6 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         #endregion
 
 
-
-
-
-
-
-
         #region ToOCHP(this EVSE, CustomEVSEIdMapper = null, EVSE2ChargePointInfo = null)
 
         /// <summary>
@@ -549,45 +542,58 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
             try
             {
 
-                var _ChargePointInfo = new ChargePointInfo(EVSE.Id.ToOCHP(CustomEVSEIdMapper).Value,
-                                                           ChargePointInfo.LocationIdInverse_RegEx.Replace(EVSE.ChargingStation.ChargingPool.Id.ToString(), "").SubstringMax(15),
-                                                           EVSE.ChargingStation.ChargingPool.Name.FirstText().ToUpper(),
-                                                           EVSE.ChargingStation.ChargingPool.Name.First().Language.ToLanguages3(),
-                                                           EVSE.ChargingStation.Address.ToOCHP(),
-                                                           EVSE.ChargingStation.GeoLocation.Value,
-                                                           GeneralLocationTypes.Other,
-                                                           EVSE.ChargingStation.AuthenticationModes.
-                                                                                    Select(mode => mode.ToOCHP()).
-                                                                                    Where(mode => mode != AuthMethodTypes.Unknown).
-                                                                                    Reduce(),
-                                                           EVSE.SocketOutlets.SafeSelect(ToOCHP),
-                                                           ChargePointTypes.AC,                 // FixMe: ChargePointTypes.AC!
-                                                           DateTime.Now,                        // timestamp of last edit
-                                                           new EVSEImageURL[0],
-                                                           new RelatedResource[0],
-                                                           new ExtendedGeoCoordinate[0],
-                                                           null,                                // Timezone
-                                                           Hours.Open24_7,
-                                                           ChargePointStatus.Operative,
-                                                           new ChargePointSchedule[0],
-                                                           EVSE.ChargingStation.HotlinePhoneNumber.IsNeitherNullNorEmpty()
-                                                               ? EVSE.ChargingStation.HotlinePhoneNumber.FirstText().Replace("+", "00") // ToDo: Bugfix for VW!
-                                                               : null,
-                                                           new ParkingSpotInfo[0],
-                                                           RestrictionTypes.EVOnly,
-                                                           null,                                // Ratings
-                                                           null,                                // UserInterface language
-                                                           null);                               // Max Reservation Time
+                #region Copy custom data and add WWCP EVSE as "WWCP.EVSE"...
+
+                var internalData = new Dictionary<String, Object>();
+                EVSE.InternalData.ForEach(kvp => internalData.Add(kvp.Key, kvp.Value));
+
+                if (!internalData.ContainsKey("WWCP.EVSE"))
+                    internalData.Add("WWCP.EVSE", EVSE);
+                else
+                    internalData["WWCP.EVSE"] = EVSE;
+
+                #endregion
+
+                var chargePointInfo = new ChargePointInfo(EVSE.Id.ToOCHP(CustomEVSEIdMapper).Value,
+                                                          ChargePointInfo.LocationIdInverse_RegEx.Replace(EVSE.ChargingStation.ChargingPool.Id.ToString(), "").SubstringMax(15),
+                                                          EVSE.ChargingStation.ChargingPool.Name.FirstText().ToUpper(),
+                                                          EVSE.ChargingStation.ChargingPool.Name.First().Language.ToLanguages3(),
+                                                          EVSE.ChargingStation.Address.ToOCHP(),
+                                                          EVSE.ChargingStation.GeoLocation.Value,
+                                                          GeneralLocationTypes.Other,
+                                                          EVSE.ChargingStation.AuthenticationModes.
+                                                                                   Select(mode => mode.ToOCHP()).
+                                                                                   Where(mode => mode != AuthMethodTypes.Unknown).
+                                                                                   Reduce(),
+                                                          EVSE.SocketOutlets.SafeSelect(ToOCHP),
+                                                          ChargePointTypes.AC,                 // FixMe: ChargePointTypes.AC!
+                                                          DateTime.Now,                        // timestamp of last edit
+                                                          new EVSEImageURL[0],
+                                                          new RelatedResource[0],
+                                                          new ExtendedGeoCoordinate[0],
+                                                          null,                                // Timezone
+                                                          Hours.Open24_7,
+                                                          ChargePointStatus.Operative,
+                                                          new ChargePointSchedule[0],
+                                                          EVSE.ChargingStation.HotlinePhoneNumber.IsNeitherNullNorEmpty()
+                                                              ? EVSE.ChargingStation.HotlinePhoneNumber.FirstText().Replace("+", "00") // ToDo: Bugfix for VW!
+                                                              : null,
+                                                          new ParkingSpotInfo[0],
+                                                          RestrictionTypes.EVOnly,
+                                                          null,                                // Ratings
+                                                          null,                                // UserInterface language
+                                                          null,                                // Max Reservation Time
+                                                          internalData);
 
                 return EVSE2ChargePointInfo != null
-                           ? EVSE2ChargePointInfo(EVSE, _ChargePointInfo)
-                           : _ChargePointInfo;
+                           ? EVSE2ChargePointInfo(EVSE, chargePointInfo)
+                           : chargePointInfo;
 
             }
-            catch (Exception)
-            { }
-
-            return null;
+            catch (Exception e)
+            {
+                throw new EVSEToOCHPException(EVSE, e);
+            }
 
         }
 

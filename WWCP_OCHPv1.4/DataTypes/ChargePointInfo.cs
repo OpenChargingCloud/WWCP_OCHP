@@ -34,7 +34,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
     /// <summary>
     /// Static POI data regarding a charge point / EVSE.
     /// </summary>
-    public class ChargePointInfo
+    public class ChargePointInfo : AInternalData
     {
 
         #region Data
@@ -222,6 +222,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="Ratings">Defines the ratings for the charge point.</param>
         /// <param name="UserInterfaceLang">Language(s) of the user interface or printed on-site instructions.</param>
         /// <param name="MaxReservation">If a reservation of this charge point is possible, this is the maximum duration the CPO will allow a reservation for in minutes. Recommended: 30 or 60 minutes.</param>
+        /// 
+        /// <param name="InternalData">Optional internal customer specific data, e.g. in combination with custom parsers and serializers.</param>
         public ChargePointInfo(EVSE_Id                             EVSEId,
                                String                              LocationId,
                                String                              LocationName,
@@ -246,7 +248,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                RestrictionTypes?                   Restrictions          = RestrictionTypes.Unknown,
                                Ratings                             Ratings               = null,
                                IEnumerable<String>                 UserInterfaceLang     = null,
-                               TimeSpan?                           MaxReservation        = null)
+                               TimeSpan?                           MaxReservation        = null,
+
+                               Dictionary<String, Object>          InternalData          = null)
+
+            : base(InternalData)
 
         {
 

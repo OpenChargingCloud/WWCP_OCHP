@@ -26,15 +26,15 @@ using org.GraphDefined.WWCP;
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
-    public class EVSEToOICPException : OCHPException
+    public class EVSEToOCHPException : OCHPException
     {
 
         public EVSE  EVSE   { get; }
 
-        public EVSEToOICPException(EVSE       EVSE,
+        public EVSEToOCHPException(EVSE       EVSE,
                                    Exception  InnerException)
 
-            : base("Could not convert EVSE to an EVSERecord!",
+            : base("Could not convert EVSE to a ChargePointInfo!",
                    InnerException)
 
         {
