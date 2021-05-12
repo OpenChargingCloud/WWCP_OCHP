@@ -108,7 +108,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 
         #region PullDataService
 
-        public Boolean  DisablePullPOIData { get; set; }
+        public Boolean  PullEVSEData_IsDisabled { get; set; }
 
         private UInt32 _PullDataServiceEvery;
 
@@ -423,7 +423,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             this.PullDataServiceRequestTimeout    = PullDataServiceRequestTimeout ?? DefaultPullDataServiceRequestTimeout;
             this.PullDataServiceLock              = new Object();
             this.PullDataServiceTimer             = new Timer(PullDataService, null, 5000, _PullDataServiceEvery);
-            this.DisablePullPOIData                  = DisablePullData;
+            this.PullEVSEData_IsDisabled          = DisablePullData;
 
 
             this._PullStatusServiceEvery          = (UInt32) (PullStatusServiceEvery.HasValue
@@ -1330,7 +1330,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         private void PullDataService(Object State)
         {
 
-            if (!DisablePullPOIData)
+            if (!PullEVSEData_IsDisabled)
             {
 
                 try
