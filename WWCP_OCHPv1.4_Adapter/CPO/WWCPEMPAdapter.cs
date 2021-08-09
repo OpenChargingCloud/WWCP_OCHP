@@ -4811,12 +4811,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             {
 
                 // Surpress EVSE data updates for all newly added EVSEs
-                var EVSEsWithoutNewEVSEs = EVSEsToUpdateQueueCopy.
-                                               Where(evse => !EVSEsToAddQueueCopy.Contains(evse)).
-                                               ToArray();
+                foreach (var _evse in EVSEsToUpdateQueueCopy.Where(evse => EVSEsToAddQueueCopy.Contains(evse)).ToArray())
+                    EVSEsToUpdateQueueCopy.Remove(_evse);
 
-
-                if (EVSEsWithoutNewEVSEs.Length > 0)
+                if (EVSEsToUpdateQueueCopy.Any())
                 {
 
                     //var PushEVSEDataTask = PushEVSEData(EVSEsWithoutNewEVSEs,
