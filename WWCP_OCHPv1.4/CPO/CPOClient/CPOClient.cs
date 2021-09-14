@@ -1078,7 +1078,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnSetChargePointListRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnSetChargePointListRequest));
             }
 
             #endregion
@@ -1268,7 +1268,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnSetChargePointListResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnSetChargePointListResponse));
             }
 
             #endregion
@@ -1329,7 +1329,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateChargePointListRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateChargePointListRequest));
             }
 
             #endregion
@@ -1514,7 +1514,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateChargePointListResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateChargePointListResponse));
             }
 
             #endregion
@@ -1579,7 +1579,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
             }
 
             #endregion
@@ -1774,7 +1774,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateStatusResponse));
             }
 
             #endregion
@@ -1835,7 +1835,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateTariffsRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateTariffsRequest));
             }
 
             #endregion
@@ -2020,7 +2020,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateTariffsResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateTariffsResponse));
             }
 
             #endregion
@@ -2082,7 +2082,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
             }
 
             #endregion
@@ -2258,7 +2258,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetSingleRoamingAuthorisationResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnGetSingleRoamingAuthorisationResponse));
             }
 
             #endregion
@@ -2318,7 +2318,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
             }
 
             #endregion
@@ -2493,7 +2493,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetRoamingAuthorisationListResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnGetRoamingAuthorisationListResponse));
             }
 
             #endregion
@@ -2554,7 +2554,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
             }
 
             #endregion
@@ -2730,7 +2730,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetRoamingAuthorisationListUpdatesResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnGetRoamingAuthorisationListUpdatesResponse));
             }
 
             #endregion
@@ -2792,7 +2792,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
             }
 
             #endregion
@@ -2982,7 +2982,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnAddCDRsResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnAddCDRsResponse));
             }
 
             #endregion
@@ -3043,7 +3043,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnUpdateStatusRequest));
             }
 
             #endregion
@@ -3219,7 +3219,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnCheckCDRsResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnCheckCDRsResponse));
             }
 
             #endregion
@@ -3283,7 +3283,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnAddServiceEndpointsRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnAddServiceEndpointsRequest));
             }
 
             #endregion
@@ -3459,7 +3459,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnAddServiceEndpointsResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnAddServiceEndpointsResponse));
             }
 
             #endregion
@@ -3519,7 +3519,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetServiceEndpointsRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnGetServiceEndpointsRequest));
             }
 
             #endregion
@@ -3680,7 +3680,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnGetServiceEndpointsResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnGetServiceEndpointsResponse));
             }
 
             #endregion
@@ -3814,7 +3814,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnInformProviderSOAPRequest));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnInformProviderSOAPRequest));
             }
 
             #endregion
@@ -3974,7 +3974,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                e.Log(nameof(CPOClient) + "." + nameof(OnInformProviderResponse));
+                DebugX.LogException(e, nameof(CPOClient) + "." + nameof(OnInformProviderResponse));
             }
 
             #endregion

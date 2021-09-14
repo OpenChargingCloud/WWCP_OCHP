@@ -544,7 +544,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnAddServiceEndpointsSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnAddServiceEndpointsSOAPRequest));
                 }
 
                 #endregion
@@ -614,7 +614,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnAddServiceEndpointsSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnAddServiceEndpointsSOAPResponse));
                 }
 
                 #endregion
@@ -645,7 +645,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetServiceEndpointsSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetServiceEndpointsSOAPRequest));
                 }
 
                 #endregion
@@ -713,7 +713,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetServiceEndpointsSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetServiceEndpointsSOAPResponse));
                 }
 
                 #endregion
@@ -747,7 +747,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnAddCDRsSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnAddCDRsSOAPRequest));
                 }
 
                 #endregion
@@ -816,7 +816,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnAddCDRsSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnAddCDRsSOAPResponse));
                 }
 
                 #endregion
@@ -847,7 +847,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnCheckCDRsSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnCheckCDRsSOAPRequest));
                 }
 
                 #endregion
@@ -916,7 +916,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnCheckCDRsSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnCheckCDRsSOAPResponse));
                 }
 
                 #endregion
@@ -947,7 +947,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListSOAPRequest));
                 }
 
                 #endregion
@@ -1015,7 +1015,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListSOAPResponse));
                 }
 
                 #endregion
@@ -1046,7 +1046,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListUpdatesSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListUpdatesSOAPRequest));
                 }
 
                 #endregion
@@ -1115,7 +1115,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListUpdatesSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetRoamingAuthorisationListUpdatesSOAPResponse));
                 }
 
                 #endregion
@@ -1146,7 +1146,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetSingleRoamingAuthorisationSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetSingleRoamingAuthorisationSOAPRequest));
                 }
 
                 #endregion
@@ -1215,7 +1215,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetSingleRoamingAuthorisationSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetSingleRoamingAuthorisationSOAPResponse));
                 }
 
                 #endregion
@@ -1246,7 +1246,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnSetChargePointListSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnSetChargePointListSOAPRequest));
                 }
 
                 #endregion
@@ -1315,7 +1315,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnSetChargePointListSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnSetChargePointListSOAPResponse));
                 }
 
                 #endregion
@@ -1346,7 +1346,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateChargePointListSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnUpdateChargePointListSOAPRequest));
                 }
 
                 #endregion
@@ -1415,7 +1415,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateChargePointListSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnUpdateChargePointListSOAPResponse));
                 }
 
                 #endregion
@@ -1446,7 +1446,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateStatusSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnUpdateStatusSOAPRequest));
                 }
 
                 #endregion
@@ -1517,7 +1517,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateStatusSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnUpdateStatusSOAPResponse));
                 }
 
                 #endregion
@@ -1548,7 +1548,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateTariffsSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnUpdateTariffsSOAPRequest));
                 }
 
                 #endregion
@@ -1617,7 +1617,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateTariffsSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnUpdateTariffsSOAPResponse));
                 }
 
                 #endregion
@@ -1651,7 +1651,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetCDRsSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetCDRsSOAPRequest));
                 }
 
                 #endregion
@@ -1720,7 +1720,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetCDRsSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetCDRsSOAPResponse));
                 }
 
                 #endregion
@@ -1751,7 +1751,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnConfirmCDRsSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnConfirmCDRsSOAPRequest));
                 }
 
                 #endregion
@@ -1821,7 +1821,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnConfirmCDRsSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnConfirmCDRsSOAPResponse));
                 }
 
                 #endregion
@@ -1852,7 +1852,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetChargePointListSOAPRequest));
                 }
 
                 #endregion
@@ -1920,7 +1920,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetChargePointListSOAPResponse));
                 }
 
                 #endregion
@@ -1951,7 +1951,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListUpdatesSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetChargePointListUpdatesSOAPRequest));
                 }
 
                 #endregion
@@ -2020,7 +2020,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetChargePointListUpdatesSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetChargePointListUpdatesSOAPResponse));
                 }
 
                 #endregion
@@ -2051,7 +2051,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetStatusSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetStatusSOAPRequest));
                 }
 
                 #endregion
@@ -2121,7 +2121,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetStatusSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetStatusSOAPResponse));
                 }
 
                 #endregion
@@ -2152,7 +2152,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetTariffUpdatesSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetTariffUpdatesSOAPRequest));
                 }
 
                 #endregion
@@ -2221,7 +2221,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnGetTariffUpdatesSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnGetTariffUpdatesSOAPResponse));
                 }
 
                 #endregion
@@ -2252,7 +2252,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnSetRoamingAuthorisationListSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnSetRoamingAuthorisationListSOAPRequest));
                 }
 
                 #endregion
@@ -2321,7 +2321,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnSetRoamingAuthorisationListSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnSetRoamingAuthorisationListSOAPResponse));
                 }
 
                 #endregion
@@ -2352,7 +2352,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateRoamingAuthorisationListSOAPRequest));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnUpdateRoamingAuthorisationListSOAPRequest));
                 }
 
                 #endregion
@@ -2421,7 +2421,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(CHServer) + "." + nameof(OnUpdateRoamingAuthorisationListSOAPResponse));
+                    DebugX.LogException(e, nameof(CHServer) + "." + nameof(OnUpdateRoamingAuthorisationListSOAPResponse));
                 }
 
                 #endregion
