@@ -325,7 +325,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(EMPServer) + "." + nameof(OnInformProviderHTTPRequest));
+                    DebugX.LogException(e, nameof(EMPServer) + "." + nameof(OnInformProviderHTTPRequest));
                 }
 
                 #endregion
@@ -412,7 +412,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                 }
                 catch (Exception e)
                 {
-                    e.Log(nameof(EMPServer) + "." + nameof(OnInformProviderHTTPResponse));
+                    DebugX.LogException(e, nameof(EMPServer) + "." + nameof(OnInformProviderHTTPResponse));
                 }
 
                 #endregion

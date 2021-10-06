@@ -304,7 +304,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnSelectEVSESOAPRequest));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnSelectEVSESOAPRequest));
                     }
 
                     #endregion
@@ -375,7 +375,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnSelectEVSESOAPResponse));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnSelectEVSESOAPResponse));
                     }
 
                     #endregion
@@ -406,7 +406,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnControlEVSESOAPRequest));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnControlEVSESOAPRequest));
                     }
 
                     #endregion
@@ -482,7 +482,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnControlEVSESOAPResponse));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnControlEVSESOAPResponse));
                     }
 
                     #endregion
@@ -513,7 +513,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnReleaseEVSESOAPRequest));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnReleaseEVSESOAPRequest));
                     }
 
                     #endregion
@@ -582,7 +582,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnReleaseEVSESOAPResponse));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnReleaseEVSESOAPResponse));
                     }
 
                     #endregion
@@ -613,7 +613,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnGetEVSEStatusSOAPRequest));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnGetEVSEStatusSOAPRequest));
                     }
 
                     #endregion
@@ -682,7 +682,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnGetEVSEStatusSOAPResponse));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnGetEVSEStatusSOAPResponse));
                     }
 
                     #endregion
@@ -713,7 +713,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnReportDiscrepancySOAPRequest));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnReportDiscrepancySOAPRequest));
                     }
 
                     #endregion
@@ -783,7 +783,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                     }
                     catch (Exception e)
                     {
-                        e.Log(nameof(CPOServer) + "." + nameof(OnReportDiscrepancySOAPResponse));
+                        DebugX.LogException(e, nameof(CPOServer) + "." + nameof(OnReportDiscrepancySOAPResponse));
                     }
 
                     #endregion

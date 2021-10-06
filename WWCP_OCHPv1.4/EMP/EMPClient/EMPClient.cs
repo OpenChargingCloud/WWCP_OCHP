@@ -1128,7 +1128,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetChargePointListRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetChargePointListRequest));
             }
 
             #endregion
@@ -1290,7 +1290,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetChargePointListResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetChargePointListResponse));
             }
 
             #endregion
@@ -1351,7 +1351,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetChargePointListUpdatesRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetChargePointListUpdatesRequest));
             }
 
             #endregion
@@ -1514,7 +1514,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetChargePointListUpdatesResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetChargePointListUpdatesResponse));
             }
 
             #endregion
@@ -1577,7 +1577,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetStatusRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetStatusRequest));
             }
 
             #endregion
@@ -1741,7 +1741,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetStatusResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetStatusResponse));
             }
 
             #endregion
@@ -1802,7 +1802,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetTariffUpdatesRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetTariffUpdatesRequest));
             }
 
             #endregion
@@ -1965,7 +1965,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetTariffUpdatesResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetTariffUpdatesResponse));
             }
 
             #endregion
@@ -2027,7 +2027,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnSetRoamingAuthorisationListRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnSetRoamingAuthorisationListRequest));
             }
 
             #endregion
@@ -2207,7 +2207,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnSetRoamingAuthorisationListResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnSetRoamingAuthorisationListResponse));
             }
 
             #endregion
@@ -2268,7 +2268,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnUpdateRoamingAuthorisationListRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnUpdateRoamingAuthorisationListRequest));
             }
 
             #endregion
@@ -2448,7 +2448,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnUpdateRoamingAuthorisationListResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnUpdateRoamingAuthorisationListResponse));
             }
 
             #endregion
@@ -2510,7 +2510,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetCDRsRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetCDRsRequest));
             }
 
             #endregion
@@ -2673,7 +2673,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetCDRsResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetCDRsResponse));
             }
 
             #endregion
@@ -2735,7 +2735,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnConfirmCDRsRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnConfirmCDRsRequest));
             }
 
             #endregion
@@ -2913,7 +2913,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnConfirmCDRsResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnConfirmCDRsResponse));
             }
 
             #endregion
@@ -2976,7 +2976,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnAddServiceEndpointsRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnAddServiceEndpointsRequest));
             }
 
             #endregion
@@ -3152,7 +3152,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnAddServiceEndpointsResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnAddServiceEndpointsResponse));
             }
 
             #endregion
@@ -3212,7 +3212,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetServiceEndpointsRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetServiceEndpointsRequest));
             }
 
             #endregion
@@ -3373,7 +3373,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetServiceEndpointsResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetServiceEndpointsResponse));
             }
 
             #endregion
@@ -3455,7 +3455,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnSelectEVSERequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnSelectEVSERequest));
             }
 
             #endregion
@@ -3578,7 +3578,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnSelectEVSEResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnSelectEVSEResponse));
             }
 
             #endregion
@@ -3672,7 +3672,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnSelectEVSERequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnSelectEVSERequest));
             }
 
             #endregion
@@ -3803,7 +3803,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnControlEVSEResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnControlEVSEResponse));
             }
 
             #endregion
@@ -3876,7 +3876,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnReleaseEVSERequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnReleaseEVSERequest));
             }
 
             #endregion
@@ -3996,7 +3996,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnReleaseEVSEResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnReleaseEVSEResponse));
             }
 
             #endregion
@@ -4069,7 +4069,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetEVSEStatusRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetEVSEStatusRequest));
             }
 
             #endregion
@@ -4184,7 +4184,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetEVSEStatusResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetEVSEStatusResponse));
             }
 
             #endregion
@@ -4262,7 +4262,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnReportDiscrepancyRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnReportDiscrepancyRequest));
             }
 
             #endregion
@@ -4380,7 +4380,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnReportDiscrepancyResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnReportDiscrepancyResponse));
             }
 
             #endregion
@@ -4453,7 +4453,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetInformProviderRequest));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetInformProviderRequest));
             }
 
             #endregion
@@ -4569,7 +4569,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                e.Log(nameof(EMPClient) + "." + nameof(OnGetInformProviderResponse));
+                DebugX.LogException(e, nameof(EMPClient) + "." + nameof(OnGetInformProviderResponse));
             }
 
             #endregion
