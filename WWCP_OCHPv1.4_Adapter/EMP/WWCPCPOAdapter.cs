@@ -488,11 +488,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //        }
             //        catch (Exception e)
             //        {
-<<<<<<< HEAD
             //            DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStartRequest));
-=======
-            //           DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStartRequest));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //        }
 
             //        #endregion
@@ -534,11 +530,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //        }
             //        catch (Exception e)
             //        {
-<<<<<<< HEAD
             //            DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStartResponse));
-=======
-            //           DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStartResponse));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //        }
 
             //        #endregion
@@ -624,11 +616,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //        }
             //        catch (Exception e)
             //        {
-<<<<<<< HEAD
             //            DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStartRequest));
-=======
-            //           DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStartRequest));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //        }
 
             //        #endregion
@@ -668,11 +656,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //        }
             //        catch (Exception e)
             //        {
-<<<<<<< HEAD
             //            DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStartResponse));
-=======
-            //           DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStartResponse));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //        }
 
             //        #endregion
@@ -785,11 +769,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //        }
             //        catch (Exception e)
             //        {
-<<<<<<< HEAD
             //            DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStopRequest));
-=======
-            //           DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStopRequest));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //        }
 
             //        #endregion
@@ -829,11 +809,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //        }
             //        catch (Exception e)
             //        {
-<<<<<<< HEAD
             //            DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStopResponse));
-=======
-            //           DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStopResponse));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //        }
 
             //        #endregion
@@ -906,11 +882,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //        }
             //        catch (Exception e)
             //        {
-<<<<<<< HEAD
             //            DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStopRequest));
-=======
-            //           DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStopRequest));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //        }
 
             //        #endregion
@@ -948,11 +920,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //        }
             //        catch (Exception e)
             //        {
-<<<<<<< HEAD
             //            DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStopResponse));
-=======
-            //           DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStopResponse));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //        }
 
             //        #endregion
@@ -1033,11 +1001,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //    }
             //    catch (Exception e)
             //    {
-<<<<<<< HEAD
             //        DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStopRequest));
-=======
-            //       DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeEVSEStopRequest));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //    }
 
             //    #endregion
@@ -1073,11 +1037,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //    }
             //    catch (Exception e)
             //    {
-<<<<<<< HEAD
             //        DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnChargeDetailRecordResponse));
-=======
-            //       DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnChargeDetailRecordResponse));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //    }
 
             //    #endregion
@@ -1227,11 +1187,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //}
             //catch (Exception e)
             //{
-<<<<<<< HEAD
             //    DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnGetChargeDetailRecordsRequest));
-=======
-            //   DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnGetChargeDetailRecordsRequest));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //}
 
             //#endregion
@@ -1303,11 +1259,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             //}
             //catch (Exception e)
             //{
-<<<<<<< HEAD
             //    DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnGetChargeDetailRecordsResponse));
-=======
-            //   DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnGetChargeDetailRecordsResponse));
->>>>>>> e4867bfcf100529e21ffddbf7eeff47d7b55aa4a
             //}
 
             //#endregion
