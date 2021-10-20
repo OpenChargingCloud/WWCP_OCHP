@@ -974,6 +974,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="TransmissionRetryDelay">The delay between transmission retries.</param>
         /// <param name="MaxNumberOfRetries">The maximum number of transmission retries for HTTP request.</param>
         /// <param name="DisableLogging">Disable all logging.</param>
+        /// <param name="LoggingPath">The logging path.</param>
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// <param name="DNSClient">The DNS client to use.</param>
@@ -991,6 +992,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          TransmissionRetryDelayDelegate       TransmissionRetryDelay       = null,
                          UInt16?                              MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
                          Boolean                              DisableLogging               = false,
+                         String                               LoggingPath                  = null,
                          String                               LoggingContext               = Logger.DefaultContext,
                          LogfileCreatorDelegate               LogfileCreator               = null,
                          DNSClient                            DNSClient                    = null)
@@ -1017,6 +1019,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
             base.HTTPLogger         = DisableLogging == false
                                           ? new Logger(this,
+                                                       LoggingPath,
                                                        LoggingContext,
                                                        LogfileCreator)
                                           : null;

@@ -59,13 +59,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Create a new OCHP CPO server logger using the default logging delegates.
         /// </summary>
         /// <param name="CPOServer">A OCHP CPO server.</param>
+        /// <param name="LoggingPath">The logging path.</param>
         /// <param name="Context">A context of this API.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public CPOServerLogger(CPOServer               CPOServer,
+                               String                  LoggingPath,
                                String                  Context         = DefaultContext,
                                LogfileCreatorDelegate  LogFileCreator  = null)
 
             : this(CPOServer,
+                   LoggingPath,
                    Context.IsNotNullOrEmpty() ? Context : DefaultContext,
                    null,
                    null,
@@ -84,6 +87,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// Create a new OCHP CPO server logger using the given logging delegates.
         /// </summary>
         /// <param name="CPOServer">A OCHP CPO server.</param>
+        /// <param name="LoggingPath">The logging path.</param>
         /// <param name="Context">A context of this API.</param>
         /// 
         /// <param name="LogHTTPRequest_toConsole">A delegate to log incoming HTTP requests to console.</param>
@@ -103,6 +107,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// 
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public CPOServerLogger(CPOServer                   CPOServer,
+                               String                      LoggingPath,
                                String                      Context,
 
                                HTTPRequestLoggerDelegate   LogHTTPRequest_toConsole,
@@ -123,6 +128,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                LogfileCreatorDelegate      LogFileCreator              = null)
 
             : base(CPOServer.SOAPServer.HTTPServer,
+                   LoggingPath,
                    Context.IsNotNullOrEmpty() ? Context : DefaultContext,
 
                    LogHTTPRequest_toConsole,

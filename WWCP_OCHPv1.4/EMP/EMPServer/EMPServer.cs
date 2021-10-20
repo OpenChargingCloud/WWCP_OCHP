@@ -127,6 +127,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         /// <param name="ContentType">An optional HTTP content type to use.</param>
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
+        /// <param name="ServerLoggingPath">The logging path.</param>
         /// <param name="ServerLoggingContext">An optional context for logging server methods.</param>
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
@@ -138,6 +139,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                          HTTPPath?               URLSuffix                 = null,
                          HTTPContentType         ContentType               = null,
                          Boolean                 RegisterHTTPRootService   = true,
+                         String                  ServerLoggingPath         = null,
                          String                  ServerLoggingContext      = EMPServerLogger.DefaultContext,
                          LogfileCreatorDelegate  LogfileCreator            = null,
                          DNSClient               DNSClient                 = null,
@@ -157,6 +159,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
             this.ServiceId    = ServiceName ?? "OCHP " + Version.Number + " " + nameof(EMPServer);
             this.URLSuffix    = URLSuffix   ?? DefaultURLSuffix;
             this.HTTPLogger   = new EMPServerLogger(this,
+                                                    ServerLoggingPath,
                                                     ServerLoggingContext ?? CPOServerLogger.DefaultContext,
                                                     LogfileCreator);
 

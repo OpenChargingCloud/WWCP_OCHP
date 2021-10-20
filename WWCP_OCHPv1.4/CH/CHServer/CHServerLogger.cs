@@ -59,13 +59,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// Create a new OCHP CH server logger using the default logging delegates.
         /// </summary>
         /// <param name="CHServer">A OCHP CH server.</param>
+        /// <param name="LoggingPath">The logging path.</param>
         /// <param name="Context">A context of this API.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-        public CHServerLogger(CHServer                 CHServer,
-                               String                  Context         = DefaultContext,
-                               LogfileCreatorDelegate  LogFileCreator  = null)
+        public CHServerLogger(CHServer                CHServer,
+                              String                  LoggingPath,
+                              String                  Context         = DefaultContext,
+                              LogfileCreatorDelegate  LogFileCreator  = null)
 
             : this(CHServer,
+                   LoggingPath,
                    Context.IsNotNullOrEmpty() ? Context : DefaultContext,
                    null,
                    null,
@@ -83,6 +86,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// Create a new OCHP CH server logger using the given logging delegates.
         /// </summary>
         /// <param name="CHServer">A OCHP CH server.</param>
+        /// <param name="LoggingPath">The logging path.</param>
         /// <param name="Context">A context of this API.</param>
         /// 
         /// <param name="LogHTTPRequest_toConsole">A delegate to log incoming HTTP requests to console.</param>
@@ -101,27 +105,29 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="LogHTTPError_toHTTPSSE">A delegate to log HTTP errors to a HTTP server sent events source.</param>
         /// 
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-        public CHServerLogger(CHServer                     CHServer,
-                               String                      Context,
+        public CHServerLogger(CHServer                    CHServer,
+                              String                      LoggingPath,
+                              String                      Context,
 
-                               HTTPRequestLoggerDelegate   LogHTTPRequest_toConsole,
-                               HTTPResponseLoggerDelegate  LogHTTPResponse_toConsole,
-                               HTTPRequestLoggerDelegate   LogHTTPRequest_toDisc,
-                               HTTPResponseLoggerDelegate  LogHTTPResponse_toDisc,
+                              HTTPRequestLoggerDelegate   LogHTTPRequest_toConsole,
+                              HTTPResponseLoggerDelegate  LogHTTPResponse_toConsole,
+                              HTTPRequestLoggerDelegate   LogHTTPRequest_toDisc,
+                              HTTPResponseLoggerDelegate  LogHTTPResponse_toDisc,
 
-                               HTTPRequestLoggerDelegate   LogHTTPRequest_toNetwork    = null,
-                               HTTPResponseLoggerDelegate  LogHTTPResponse_toNetwork   = null,
-                               HTTPRequestLoggerDelegate   LogHTTPRequest_toHTTPSSE    = null,
-                               HTTPResponseLoggerDelegate  LogHTTPResponse_toHTTPSSE   = null,
+                              HTTPRequestLoggerDelegate   LogHTTPRequest_toNetwork    = null,
+                              HTTPResponseLoggerDelegate  LogHTTPResponse_toNetwork   = null,
+                              HTTPRequestLoggerDelegate   LogHTTPRequest_toHTTPSSE    = null,
+                              HTTPResponseLoggerDelegate  LogHTTPResponse_toHTTPSSE   = null,
 
-                               HTTPResponseLoggerDelegate  LogHTTPError_toConsole      = null,
-                               HTTPResponseLoggerDelegate  LogHTTPError_toDisc         = null,
-                               HTTPResponseLoggerDelegate  LogHTTPError_toNetwork      = null,
-                               HTTPResponseLoggerDelegate  LogHTTPError_toHTTPSSE      = null,
+                              HTTPResponseLoggerDelegate  LogHTTPError_toConsole      = null,
+                              HTTPResponseLoggerDelegate  LogHTTPError_toDisc         = null,
+                              HTTPResponseLoggerDelegate  LogHTTPError_toNetwork      = null,
+                              HTTPResponseLoggerDelegate  LogHTTPError_toHTTPSSE      = null,
 
-                               LogfileCreatorDelegate      LogFileCreator              = null)
+                              LogfileCreatorDelegate      LogFileCreator              = null)
 
             : base(CHServer.SOAPServer.HTTPServer,
+                   LoggingPath,
                    Context.IsNotNullOrEmpty() ? Context : DefaultContext,
 
                    LogHTTPRequest_toConsole,

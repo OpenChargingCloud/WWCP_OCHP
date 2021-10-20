@@ -59,13 +59,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Create a new OCHP EMP server logger using the default logging delegates.
         /// </summary>
         /// <param name="EMPServer">A OCHP EMP server.</param>
+        /// <param name="LoggingPath">The logging path.</param>
         /// <param name="Context">A context of this API.</param>
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public EMPServerLogger(EMPServer               EMPServer,
+                               String                  LoggingPath,
                                String                  Context         = DefaultContext,
                                LogfileCreatorDelegate  LogFileCreator  = null)
 
             : this(EMPServer,
+                   LoggingPath,
                    Context.IsNotNullOrEmpty() ? Context : DefaultContext,
                    null,
                    null,
@@ -83,6 +86,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// Create a new OCHP EMP server logger using the given logging delegates.
         /// </summary>
         /// <param name="EMPServer">A OCHP EMP server.</param>
+        /// <param name="LoggingPath">The logging path.</param>
         /// <param name="Context">A context of this API.</param>
         /// 
         /// <param name="LogHTTPRequest_toConsole">A delegate to log incoming HTTP requests to console.</param>
@@ -102,6 +106,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// 
         /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
         public EMPServerLogger(EMPServer                   EMPServer,
+                               String                      LoggingPath,
                                String                      Context,
 
                                HTTPRequestLoggerDelegate   LogHTTPRequest_toConsole,
@@ -122,6 +127,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                                LogfileCreatorDelegate      LogFileCreator              = null)
 
             : base(EMPServer.SOAPServer.HTTPServer,
+                   LoggingPath,
                    Context.IsNotNullOrEmpty() ? Context : DefaultContext,
 
                    LogHTTPRequest_toConsole,
