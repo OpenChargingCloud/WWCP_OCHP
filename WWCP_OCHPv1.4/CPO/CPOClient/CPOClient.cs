@@ -970,6 +970,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="HTTPUserAgent">The HTTP user agent identification.</param>
         /// <param name="URLPathPrefix">An optional default URL path prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
+        /// <param name="HTTPContentType">The HTTP content type to use.</param>
         /// <param name="RequestTimeout">An optional request timeout.</param>
         /// <param name="TransmissionRetryDelay">The delay between transmission retries.</param>
         /// <param name="MaxNumberOfRetries">The maximum number of transmission retries for HTTP request.</param>
@@ -988,6 +989,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                          HTTPPath?                            URLPathPrefix                = null,
                          HTTPPath?                            LiveURLPathPrefix            = null,
                          Tuple<String, String>                WSSLoginPassword             = null,
+                         HTTPContentType                      HTTPContentType              = null,
                          TimeSpan?                            RequestTimeout               = null,
                          TransmissionRetryDelayDelegate       TransmissionRetryDelay       = null,
                          UInt16?                              MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
@@ -1006,6 +1008,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                    HTTPUserAgent,
                    URLPathPrefix ?? DefaultURLPathPrefix,
                    WSSLoginPassword,
+                   HTTPContentType,
                    RequestTimeout,
                    TransmissionRetryDelay,
                    MaxNumberOfRetries,
