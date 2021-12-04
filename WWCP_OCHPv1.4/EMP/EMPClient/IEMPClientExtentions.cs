@@ -32,9 +32,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
-    /// Extention methods for the EMP client interface.
+    /// Extension methods for the EMP client interface.
     /// </summary>
-    public static class IEMPClientExtentions
+    public static class IEMPClientExtensions
     {
 
         // OCHP

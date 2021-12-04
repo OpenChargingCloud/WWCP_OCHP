@@ -32,9 +32,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 {
 
     /// <summary>
-    /// Extention methods for the OCHP CPO client interface.
+    /// Extension methods for the OCHP CPO client interface.
     /// </summary>
-    public static class ICPOClientExtentions
+    public static class ICPOClientExtensions
     {
 
         #region SetChargePointList   (ChargePointInfos, IncludeChargePoints = null, ...)

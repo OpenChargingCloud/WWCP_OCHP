@@ -18,7 +18,7 @@
 namespace org.GraphDefined.WWCP.OCHPv1_4
 {
 
-    public static class ConnectorStandardsExtentions
+    public static class ConnectorStandardsExtensions
     {
 
         public static ChargePointTypes GetChargePointType(this ConnectorStandards ConnectorStandard)
