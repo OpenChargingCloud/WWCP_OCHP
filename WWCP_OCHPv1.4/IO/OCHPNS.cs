@@ -36,7 +36,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public static readonly XNamespace Default  = "http://ochp.eu/1.4";
 
         /// <summary>
-        /// The namespace of the Open Clearing House Protocol (OCHP) Direct Extention Version 0.2.
+        /// The namespace of the Open Clearing House Protocol (OCHP) Direct Extension Version 0.2.
         /// </summary>
         public static readonly XNamespace Direct   = "http://ochp.eu/direct/0.2/";
 

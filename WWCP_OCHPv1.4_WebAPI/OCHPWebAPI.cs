@@ -40,7 +40,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
     /// <summary>
     /// OCHP+ HTTP API extention methods.
     /// </summary>
-    public static class ExtentionMethods
+    public static class ExtensionMethods
     {
 
         #region ParseRoamingNetwork(this HTTPRequest, HTTPServer, out RoamingNetwork, out HTTPResponse)
