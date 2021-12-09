@@ -287,7 +287,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                        ? new XElement(OCHPNS.Default + "houseNumber", HouseNumber)
                        : null,
 
-                   new XElement(OCHPNS.Default + "address",  Street),
+                   new XElement(OCHPNS.Default + "address",  Street.SubstringMax(45)),
                    new XElement(OCHPNS.Default + "city",     City),
                    new XElement(OCHPNS.Default + "zipCode",  ZIPCode),
                    new XElement(OCHPNS.Default + "country",  Country.Alpha3Code)
