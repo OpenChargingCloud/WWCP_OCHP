@@ -209,6 +209,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         public IEnumerable<KeyValuePair<String, String>>     HTTPLogins         { get; }
 
 
+        public Boolean                                       DisableLogging     { get; }
+
         public String                                        LoggingPath        { get; }
 
         /// <summary>
@@ -304,7 +306,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             HTTPServer.ErrorLog     += (HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException) => ErrorLog.   WhenAll(HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException);
 
             // Logging
-            this.LoggingPath           = LoggingPath ?? Path.Combine(AppContext.BaseDirectory, "OCHPWebAPI");
+            this.DisableLogging        = DisableLogging ?? false;
+            this.LoggingPath           = LoggingPath    ?? Path.Combine(AppContext.BaseDirectory, "OCHPWebAPI");
 
             if (this.LoggingPath[^1] != Path.DirectorySeparatorChar)
                 this.LoggingPath += Path.DirectorySeparatorChar;
