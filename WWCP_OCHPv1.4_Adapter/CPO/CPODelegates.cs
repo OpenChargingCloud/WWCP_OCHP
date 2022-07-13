@@ -18,6 +18,7 @@
 #region Usings
 
 using System;
+using System.Xml.Linq;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -145,5 +146,69 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                                                                 TimeSpan?                        RequestTimeout,
                                                                 PushEVSEStatusResult             Result,
                                                                 TimeSpan                         Runtime);
+
+
+
+
+
+
+
+
+
+        /// <summary>
+    /// A delegate which allows you to modify the convertion from WWCP charge detail records to OCHP charge detail records.
+    /// </summary>
+    /// <param name="WWCPChargeDetailRecord">A WWCP charge detail record.</param>
+    /// <param name="OCHPChargeDetailRecord">An OCHP charge detail record.</param>
+    public delegate CDRInfo             WWCPChargeDetailRecord2ChargeDetailRecordDelegate(ChargeDetailRecord  WWCPChargeDetailRecord,
+                                                                                          CDRInfo             OCHPChargeDetailRecord);
+
+    /// <summary>
+    /// A delegate which allows you to modify the convertion from OCHP charge detail records to WWCP charge detail records.
+    /// </summary>
+    /// <param name="OCHPChargeDetailRecord">An OCHP charge detail record.</param>
+    /// <param name="WWCPChargeDetailRecord">A WWCP charge detail record.</param>
+    public delegate ChargeDetailRecord  ChargeDetailRecord2WWCPChargeDetailRecordDelegate(CDRInfo             OCHPChargeDetailRecord,
+                                                                                          ChargeDetailRecord  WWCPChargeDetailRecord);
+
+
+
+    #region ChargePointInfo2XMLDelegate
+
+    /// <summary>
+    /// A delegate which allows you to modify the XML representation of charge point
+    /// information before sending them upstream.
+    /// </summary>
+    /// <param name="RoamingNetwork">A roaming network.</param>
+    /// <param name="ChargePointInfo">A charge point information.</param>
+    /// <param name="XML">The XML representation of a charge point information.</param>
+    public delegate XElement ChargePointInfo2XMLDelegate(RoamingNetwork    RoamingNetwork,
+                                                         ChargePointInfo   ChargePointInfo,
+                                                         XElement          XML);
+
+    #endregion
+
+    #region EVSEStatus2XMLDelegate
+
+    /// <summary>
+    /// A delegate which allows you to modify the XML representation
+    /// of EVSE status before sending them upstream.
+    /// </summary>
+    /// <param name="RoamingNetwork">An EVSE roaming network.</param>
+    /// <param name="EVSEStatus">An EVSE status.</param>
+    /// <param name="XML">The XML representation of an EVSE status record.</param>
+    public delegate XElement EVSEStatus2XMLDelegate(RoamingNetwork   RoamingNetwork,
+                                                    EVSEStatus       EVSEStatus,
+                                                    XElement         XML);
+
+    #endregion
+
+    #region XMLPostProcessingDelegate
+
+    public delegate XElement XMLPostProcessingDelegate(XElement   XML);
+
+    #endregion
+
+
 
 }

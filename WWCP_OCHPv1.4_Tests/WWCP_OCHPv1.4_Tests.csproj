@@ -14,12 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Hermod\NET6\HermodTests\HermodTests.csproj" />
-    <ProjectReference Include="..\..\..\Hermod\NET6\Hermod\Hermod.csproj" />
-    <ProjectReference Include="..\..\..\Styx\NET6\StyxTests\StyxTests.csproj" />
-    <ProjectReference Include="..\..\..\Styx\NET6\Styx\Styx.csproj" />
-    <ProjectReference Include="..\..\..\WWCP_Core\NET6\WWCP_Core\WWCP_Core.csproj" />
-    <ProjectReference Include="..\..\..\WWCP_Core\NET6\WWCP_Core_Tests\WWCP_Core_Tests.csproj" />
+    <ProjectReference Include="..\..\Hermod\HermodTests\HermodTests.csproj" />
+    <ProjectReference Include="..\..\Hermod\Hermod\Hermod.csproj" />
+    <ProjectReference Include="..\..\Styx\StyxTests\StyxTests.csproj" />
+    <ProjectReference Include="..\..\Styx\Styx\Styx.csproj" />
+    <ProjectReference Include="..\..\WWCP_Core\WWCP_Core\WWCP_Core.csproj" />
+    <ProjectReference Include="..\..\WWCP_Core\WWCP_Core_Tests\WWCP_Core_Tests.csproj" />
     <ProjectReference Include="..\WWCP_OCHPv1.4\WWCP_OCHPv1.4.csproj" />
     <ProjectReference Include="..\WWCP_OCHPv1.4_Adapter\WWCP_OCHPv1.4_Adapter.csproj" />
     <ProjectReference Include="..\WWCP_OCHPv1.4_WebAPI\WWCP_OCHPv1.4_WebAPI.csproj" />

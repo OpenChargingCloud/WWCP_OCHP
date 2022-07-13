@@ -191,7 +191,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <summary>
         /// The HTTP server for serving the OCHP+ WebAPI.
         /// </summary>
-        public HTTPServer<RoamingNetworks, RoamingNetwork>  HTTPServer          { get; }
+        public HTTPServer<RoamingNetworks, RoamingNetwork>   HTTPServer         { get; }
 
         /// <summary>
         /// The HTTP URI prefix.
@@ -208,6 +208,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// </summary>
         public IEnumerable<KeyValuePair<String, String>>     HTTPLogins         { get; }
 
+
+        public Boolean                                       DisableLogging     { get; }
+
+        public String                                        LoggingPath        { get; }
 
         /// <summary>
         /// Send debug information via HTTP Server Sent Events.
@@ -275,7 +279,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                           EVSE2ChargePointInfoDelegate                 EVSE2ChargePointInfo  = null,
                           ChargePointInfo2XMLDelegate                  ChargePointInfo2XML   = null,
                           EVSEStatus2XMLDelegate                       EVSEStatus2XML        = null,
-                          XMLPostProcessingDelegate                    XMLPostProcessing     = null)
+                          XMLPostProcessingDelegate                    XMLPostProcessing     = null,
+
+                          Boolean?                                     DisableLogging        = false,
+                          String?                                      LoggingPath           = null)
+
         {
 
             this.HTTPServer            = HTTPServer    ?? throw new ArgumentNullException(nameof(HTTPServer), "The given HTTP server must not be null!");
@@ -297,14 +305,24 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
             HTTPServer.ResponseLog  += (HTTPProcessor, ServerTimestamp, Request, Response)                       => ResponseLog.WhenAll(HTTPProcessor, ServerTimestamp, Request, Response);
             HTTPServer.ErrorLog     += (HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException) => ErrorLog.   WhenAll(HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException);
 
-            var LogfilePrefix          = "HTTPSSEs" + Path.DirectorySeparatorChar;
+            // Logging
+            this.DisableLogging        = DisableLogging ?? false;
+            this.LoggingPath           = LoggingPath    ?? Path.Combine(AppContext.BaseDirectory, "OCHPWebAPI");
+
+            if (this.LoggingPath[^1] != Path.DirectorySeparatorChar)
+                this.LoggingPath += Path.DirectorySeparatorChar;
+
+            if (DisableLogging == false)
+            {
+                Directory.CreateDirectory(this.LoggingPath);
+            }
 
             this.DebugLog              = HTTPServer.AddJSONEventSource(EventIdentification:      DebugLogId,
-                                                                       URLTemplate:              this.URLPathPrefix + "/DebugLog",
+                                                                       URLTemplate:              this.URLPathPrefix + "/" + DebugLogId.ToString(),
                                                                        MaxNumberOfCachedEvents:  10000,
                                                                        RetryIntervall:           TimeSpan.FromSeconds(5),
                                                                        EnableLogging:            true,
-                                                                       LogfilePrefix:            LogfilePrefix);
+                                                                       LogfilePath:              this.LoggingPath);
 
             RegisterURITemplates();
 

@@ -42,4 +42,13 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
     //public delegate WWCP.ChargeDetailRecord  ChargeDetailRecord2WWCPChargeDetailRecordDelegate(ChargeDetailRecord       ChargeDetailRecord,
     //                                                                                           WWCP.ChargeDetailRecord  WWCPChargeDetailRecord);
 
+    /// <summary>
+    /// A delegate which allows you to modify charge point infos
+    /// after receiving them.
+    /// </summary>
+    /// <param name="ChargePointInfo">An OCHP charge point info.</param>
+    /// <param name="EVSE">A WWCP EVSE.</param>
+    public delegate EVSE ChargePointInfo2EVSEDelegate(ChargePointInfo  ChargePointInfo,
+                                                      EVSE             EVSE);
+
 }

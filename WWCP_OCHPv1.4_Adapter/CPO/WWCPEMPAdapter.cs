@@ -3792,17 +3792,17 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<AuthStartResult>
 
-            AuthorizeStart(LocalAuthentication          LocalAuthentication,
-                           ChargingLocation             ChargingLocation      = null,
-                           ChargingProduct              ChargingProduct       = null,   // [maxlength: 100]
-                           ChargingSession_Id?          SessionId             = null,
-                           ChargingSession_Id?          CPOPartnerSessionId   = null,
-                           ChargingStationOperator_Id?  OperatorId            = null,
+            AuthorizeStart(LocalAuthentication               LocalAuthentication,
+                           ChargingLocation                  ChargingLocation      = null,
+                           ChargingProduct                   ChargingProduct       = null,   // [maxlength: 100]
+                           ChargingSession_Id?               SessionId             = null,
+                           ChargingSession_Id?               CPOPartnerSessionId   = null,
+                           WWCP.ChargingStationOperator_Id?  OperatorId            = null,
 
-                           DateTime?                    Timestamp             = null,
-                           CancellationToken?           CancellationToken     = null,
-                           EventTracking_Id             EventTrackingId       = null,
-                           TimeSpan?                    RequestTimeout        = null)
+                           DateTime?                         Timestamp             = null,
+                           CancellationToken?                CancellationToken     = null,
+                           EventTracking_Id                  EventTrackingId       = null,
+                           TimeSpan?                         RequestTimeout        = null)
 
         {
 
@@ -4020,16 +4020,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<AuthStopResult>
 
-            AuthorizeStop(ChargingSession_Id           SessionId,
-                          LocalAuthentication          LocalAuthentication,
-                          ChargingLocation             ChargingLocation      = null,
-                          ChargingSession_Id?          CPOPartnerSessionId   = null,
-                          ChargingStationOperator_Id?  OperatorId            = null,
+            AuthorizeStop(ChargingSession_Id                SessionId,
+                          LocalAuthentication               LocalAuthentication,
+                          ChargingLocation                  ChargingLocation      = null,
+                          ChargingSession_Id?               CPOPartnerSessionId   = null,
+                          WWCP.ChargingStationOperator_Id?  OperatorId            = null,
 
-                          DateTime?                    Timestamp             = null,
-                          CancellationToken?           CancellationToken     = null,
-                          EventTracking_Id             EventTrackingId       = null,
-                          TimeSpan?                    RequestTimeout        = null)
+                          DateTime?                         Timestamp             = null,
+                          CancellationToken?                CancellationToken     = null,
+                          EventTracking_Id                  EventTrackingId       = null,
+                          TimeSpan?                         RequestTimeout        = null)
         {
 
             #region Initial checks
