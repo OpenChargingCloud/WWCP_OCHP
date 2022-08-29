@@ -17,16 +17,13 @@
 
 #region Usings
 
-using System;
-using System.Xml.Linq;
 using System.Net.Security;
-using System.Threading.Tasks;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
-using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
 #endregion
 
@@ -34,7 +31,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
 {
 
     /// <summary>
-    /// An OICP roaming client for EMPs.
+    /// An OHCP roaming client for EMPs.
     /// </summary>
     public class EMPRoaming : IEMPClient
     {
@@ -89,6 +86,19 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
         /// </summary>
         X509Certificate IHTTPClient.ClientCert
             => EMPClient.ClientCert;
+
+                /// <summary>
+        /// The TLS protocol to use.
+        /// </summary>
+        SslProtocols                         IHTTPClient.TLSProtocol
+            => EMPClient.TLSProtocol;
+
+        /// <summary>
+        /// Prefer IPv4 instead of IPv6.
+        /// </summary>
+        Boolean                              IHTTPClient.PreferIPv4
+            => EMPClient.PreferIPv4;
+
 
         /// <summary>
         /// The HTTP user agent identification.
