@@ -17,10 +17,9 @@
 
 #region Usings
 
-using System;
-
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+using org.GraphDefined.Vanaheimr.Hermod.Logging;
 
 #endregion
 
@@ -53,7 +52,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
 
         #region Constructor(s)
 
-        #region CHServerLogger(CHServer, Context = DefaultContext, LogFileCreator = null)
+        #region CHServerLogger(CHServer, Context = DefaultContext, LogfileCreator = null)
 
         /// <summary>
         /// Create a new OCHP CH server logger using the default logging delegates.
@@ -61,11 +60,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="CHServer">A OCHP CH server.</param>
         /// <param name="LoggingPath">The logging path.</param>
         /// <param name="Context">A context of this API.</param>
-        /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-        public CHServerLogger(CHServer                CHServer,
-                              String                  LoggingPath,
-                              String                  Context         = DefaultContext,
-                              LogfileCreatorDelegate  LogFileCreator  = null)
+        /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
+        public CHServerLogger(CHServer                 CHServer,
+                              String                   LoggingPath,
+                              String                   Context         = DefaultContext,
+                              LogfileCreatorDelegate?  LogfileCreator  = null)
 
             : this(CHServer,
                    LoggingPath,
@@ -74,7 +73,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                    null,
                    null,
                    null,
-                   LogFileCreator: LogFileCreator)
+                   LogfileCreator: LogfileCreator)
 
         { }
 
@@ -104,27 +103,27 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
         /// <param name="LogHTTPError_toNetwork">A delegate to log HTTP errors to a network target.</param>
         /// <param name="LogHTTPError_toHTTPSSE">A delegate to log HTTP errors to a HTTP server sent events source.</param>
         /// 
-        /// <param name="LogFileCreator">A delegate to create a log file from the given context and log file name.</param>
-        public CHServerLogger(CHServer                    CHServer,
-                              String                      LoggingPath,
-                              String                      Context,
+        /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
+        public CHServerLogger(CHServer                     CHServer,
+                              String                       LoggingPath,
+                              String                       Context,
 
-                              HTTPRequestLoggerDelegate   LogHTTPRequest_toConsole,
-                              HTTPResponseLoggerDelegate  LogHTTPResponse_toConsole,
-                              HTTPRequestLoggerDelegate   LogHTTPRequest_toDisc,
-                              HTTPResponseLoggerDelegate  LogHTTPResponse_toDisc,
+                              HTTPRequestLoggerDelegate?   LogHTTPRequest_toConsole    = null,
+                              HTTPResponseLoggerDelegate?  LogHTTPResponse_toConsole   = null,
+                              HTTPRequestLoggerDelegate?   LogHTTPRequest_toDisc       = null,
+                              HTTPResponseLoggerDelegate?  LogHTTPResponse_toDisc      = null,
 
-                              HTTPRequestLoggerDelegate   LogHTTPRequest_toNetwork    = null,
-                              HTTPResponseLoggerDelegate  LogHTTPResponse_toNetwork   = null,
-                              HTTPRequestLoggerDelegate   LogHTTPRequest_toHTTPSSE    = null,
-                              HTTPResponseLoggerDelegate  LogHTTPResponse_toHTTPSSE   = null,
+                              HTTPRequestLoggerDelegate?   LogHTTPRequest_toNetwork    = null,
+                              HTTPResponseLoggerDelegate?  LogHTTPResponse_toNetwork   = null,
+                              HTTPRequestLoggerDelegate?   LogHTTPRequest_toHTTPSSE    = null,
+                              HTTPResponseLoggerDelegate?  LogHTTPResponse_toHTTPSSE   = null,
 
-                              HTTPResponseLoggerDelegate  LogHTTPError_toConsole      = null,
-                              HTTPResponseLoggerDelegate  LogHTTPError_toDisc         = null,
-                              HTTPResponseLoggerDelegate  LogHTTPError_toNetwork      = null,
-                              HTTPResponseLoggerDelegate  LogHTTPError_toHTTPSSE      = null,
+                              HTTPResponseLoggerDelegate?  LogHTTPError_toConsole      = null,
+                              HTTPResponseLoggerDelegate?  LogHTTPError_toDisc         = null,
+                              HTTPResponseLoggerDelegate?  LogHTTPError_toNetwork      = null,
+                              HTTPResponseLoggerDelegate?  LogHTTPError_toHTTPSSE      = null,
 
-                              LogfileCreatorDelegate      LogFileCreator              = null)
+                              LogfileCreatorDelegate?      LogfileCreator              = null)
 
             : base(CHServer.SOAPServer.HTTPServer,
                    LoggingPath,
@@ -145,7 +144,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CH
                    LogHTTPError_toNetwork,
                    LogHTTPError_toHTTPSSE,
 
-                   LogFileCreator)
+                   LogfileCreator)
 
         {
 
