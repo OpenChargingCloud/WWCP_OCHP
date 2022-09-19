@@ -252,7 +252,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                                Dictionary<String, Object>          InternalData          = null)
 
-            : base(InternalData)
+            : base(null,
+                   InternalData)
 
         {
 
