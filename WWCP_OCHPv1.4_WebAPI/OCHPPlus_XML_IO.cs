@@ -25,11 +25,12 @@ using System.Collections.Generic;
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
-using org.GraphDefined.WWCP.OCHPv1_4.CPO;
+using cloud.charging.open.protocols.WWCP;
+using cloud.charging.open.protocols.OCHPv1_4.CPO;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
+namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 {
 
     /// <summary>
@@ -52,7 +53,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                                      RoamingNetwork                     RoamingNetwork,
                                      XMLNamespacesDelegate              XMLNamespaces        = null,
                                      ChargePointInfo2XMLDelegate        ChargePointInfo2XML  = null,
-                                     XMLPostProcessingDelegate          XMLPostProcessing    = null)
+                                     CPO.XMLPostProcessingDelegate      XMLPostProcessing    = null)
         {
 
             #region Initial checks
@@ -132,11 +133,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         /// <param name="XMLNamespaces">An optional delegate to process the XML namespaces.</param>
         /// <param name="EVSEStatusRecord2XML">An optional delegate to process an EVSE status record XML before sending it somewhere.</param>
         /// <param name="XMLPostProcessing">An optional delegate to process the XML after its final creation.</param>
-        public static XElement ToXML(this IEnumerable<EVSE>        EVSEs,
-                                     RoamingNetwork                RoamingNetwork,
-                                     XMLNamespacesDelegate         XMLNamespaces         = null,
-                                     EVSEStatus2XMLDelegate        EVSEStatusRecord2XML  = null,
-                                     XMLPostProcessingDelegate     XMLPostProcessing     = null)
+        public static XElement ToXML(this IEnumerable<EVSE>         EVSEs,
+                                     RoamingNetwork                 RoamingNetwork,
+                                     XMLNamespacesDelegate          XMLNamespaces          = null,
+                                     EVSEStatus2XMLDelegate         EVSEStatusRecord2XML   = null,
+                                     CPO.XMLPostProcessingDelegate  XMLPostProcessing      = null)
         {
 
             #region Initial checks

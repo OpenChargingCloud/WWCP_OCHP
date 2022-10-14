@@ -25,10 +25,11 @@ using System.Text.RegularExpressions;
 
 using org.GraphDefined.Vanaheimr.Aegir;
 using org.GraphDefined.Vanaheimr.Illias;
+using Newtonsoft.Json.Linq;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     /// <summary>
@@ -250,9 +251,10 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                IEnumerable<String>                 UserInterfaceLang     = null,
                                TimeSpan?                           MaxReservation        = null,
 
-                               Dictionary<String, Object>          InternalData          = null)
+                               JObject?                            CustomData            = null,
+                               UserDefinedDictionary?              InternalData          = null)
 
-            : base(null,
+            : base(CustomData,
                    InternalData)
 
         {

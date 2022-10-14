@@ -22,11 +22,11 @@ using System.Threading.Tasks;
 
 using NUnit.Framework;
 
-using org.GraphDefined.WWCP.OCHPv1_4.CPO;
+using cloud.charging.open.protocols.OCHPv1_4.CPO;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
+namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 {
 
     /// <summary>

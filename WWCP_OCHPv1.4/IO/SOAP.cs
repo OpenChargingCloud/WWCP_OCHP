@@ -28,7 +28,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     /// <summary>
@@ -43,7 +43,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// <param name="SOAPBody">The internal XML for the SOAP body.</param>
         /// <param name="XMLNamespaces">An optional delegate to process the XML namespaces.</param>
         public static XElement Encapsulation(XElement                                     SOAPBody,
-                                             Vanaheimr.Hermod.SOAP.XMLNamespacesDelegate  XMLNamespaces = null)
+                                             org.GraphDefined.Vanaheimr.Hermod.SOAP.XMLNamespacesDelegate  XMLNamespaces = null)
         {
 
             #region Initial checks
@@ -80,7 +80,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         public static XElement Encapsulation(String                                       WSSUsername,
                                              String                                       WSSPassword,
                                              XElement                                     SOAPBody,
-                                             Vanaheimr.Hermod.SOAP.XMLNamespacesDelegate  XMLNamespaces = null)
+                                             org.GraphDefined.Vanaheimr.Hermod.SOAP.XMLNamespacesDelegate  XMLNamespaces = null)
         {
 
             #region Initial checks

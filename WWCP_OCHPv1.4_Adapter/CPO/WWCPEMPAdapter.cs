@@ -30,10 +30,11 @@ using Org.BouncyCastle.Crypto.Parameters;
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+using cloud.charging.open.protocols.WWCP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
+namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 {
 
     /// <summary>
@@ -364,9 +365,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
                               PublicKeyCertificates                                PublicKeyCertificates            = null)
 
             : base(Id,
+                   RoamingNetwork,
                    Name,
                    Description,
-                   RoamingNetwork,
 
                    IncludeEVSEIds,
                    IncludeEVSEs,
@@ -1508,12 +1509,12 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
         Task<PushEVSEDataResult>
 
             ISendPOIData.SetStaticData(EVSE                EVSE,
-                                    TransmissionTypes   TransmissionType,
+                                       TransmissionTypes   TransmissionType,
 
-                                    DateTime?           Timestamp,
-                                    CancellationToken?  CancellationToken,
-                                    EventTracking_Id    EventTrackingId,
-                                    TimeSpan?           RequestTimeout)
+                                       DateTime?           Timestamp,
+                                       CancellationToken?  CancellationToken,
+                                       EventTracking_Id    EventTrackingId,
+                                       TimeSpan?           RequestTimeout)
 
         {
 
@@ -3899,7 +3900,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     result = AuthStartResult.Authorized(Id,
                                                         this,
-                                                        ChargingSession_Id.New,
+                                                        ChargingSession_Id.NewRandom,
                                                         ProviderId:     response.Content.RoamingAuthorisationInfo != null
                                                                             ? response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
                                                                             : eMobilityProvider_Id.Parse(Country.Germany, "GEF"),
@@ -4119,7 +4120,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
 
                     result = AuthStopResult.Authorized(Id,
                                                        this,
-                                                       ChargingSession_Id.New,
+                                                       ChargingSession_Id.NewRandom,
                                                        ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
                                                        Runtime:     Runtime);
 

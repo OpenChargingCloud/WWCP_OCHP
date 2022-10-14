@@ -22,7 +22,7 @@ using System.Xml.Linq;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     public delegate TB CustomMapperDelegate<T, TB>(XElement XML, TB ResponseBuilder);

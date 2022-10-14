@@ -17,13 +17,11 @@
 
 #region Usings
 
-using System;
-
-using org.GraphDefined.WWCP;
+using cloud.charging.open.protocols.WWCP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     public class EVSEToOCHPException : OCHPException

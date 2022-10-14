@@ -24,11 +24,11 @@ using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
-using org.GraphDefined.WWCP.OCHPv1_4.CPO;
+using cloud.charging.open.protocols.OCHPv1_4.CPO;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
+namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 {
 
     // OCHPdirect

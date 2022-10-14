@@ -29,12 +29,12 @@ using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
-using org.GraphDefined.WWCP.OCHPv1_4.CPO;
-using org.GraphDefined.WWCP.OCHPv1_4.EMP;
+using cloud.charging.open.protocols.OCHPv1_4.CPO;
+using cloud.charging.open.protocols.OCHPv1_4.EMP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.CH
+namespace cloud.charging.open.protocols.OCHPv1_4.CH
 {
 
     /// <summary>

@@ -23,7 +23,7 @@ using org.GraphDefined.Vanaheimr.Hermod.Logging;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.CH
+namespace cloud.charging.open.protocols.OCHPv1_4.CH
 {
 
     /// <summary>

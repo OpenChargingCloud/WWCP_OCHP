@@ -22,10 +22,11 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using cloud.charging.open.protocols.WWCP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.CPO
+namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 {
 
     /// <summary>

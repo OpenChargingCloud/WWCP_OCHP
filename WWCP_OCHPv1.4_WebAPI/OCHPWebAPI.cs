@@ -30,11 +30,12 @@ using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
-using org.GraphDefined.WWCP.OCHPv1_4.CPO;
+using cloud.charging.open.protocols.WWCP;
+using cloud.charging.open.protocols.OCHPv1_4.CPO;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
+namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 {
 
     /// <summary>
@@ -180,7 +181,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
         private readonly       EVSE2ChargePointInfoDelegate  EVSE2ChargePointInfo;
         private readonly       ChargePointInfo2XMLDelegate   ChargePointInfo2XML;
         private readonly       EVSEStatus2XMLDelegate        EVSEStatusRecord2XML;
-        private readonly       XMLPostProcessingDelegate     XMLPostProcessing;
+        private readonly       CPO.XMLPostProcessingDelegate XMLPostProcessing;
 
         public static readonly HTTPEventSource_Id            DebugLogId                 = HTTPEventSource_Id.Parse("OCHPDebugLog");
 
@@ -279,7 +280,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
                           EVSE2ChargePointInfoDelegate                 EVSE2ChargePointInfo  = null,
                           ChargePointInfo2XMLDelegate                  ChargePointInfo2XML   = null,
                           EVSEStatus2XMLDelegate                       EVSEStatus2XML        = null,
-                          XMLPostProcessingDelegate                    XMLPostProcessing     = null,
+                          CPO.XMLPostProcessingDelegate                XMLPostProcessing     = null,
 
                           Boolean?                                     DisableLogging        = false,
                           String?                                      LoggingPath           = null)

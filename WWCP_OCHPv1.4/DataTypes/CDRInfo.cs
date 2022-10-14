@@ -23,10 +23,11 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using Newtonsoft.Json.Linq;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     /// <summary>
@@ -174,15 +175,16 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
 
                        Address                              ChargePointAddress,
 
-                       TimeSpan?                            Duration     = null,
-                       Ratings                              Ratings      = null,
-                       String                               MeterId      = null,
-                       Decimal?                             TotalCosts   = null,
+                       TimeSpan?                            Duration       = null,
+                       Ratings?                             Ratings        = null,
+                       String?                              MeterId        = null,
+                       Decimal?                             TotalCosts     = null,
 
-                       IReadOnlyDictionary<String, Object>  CustomData   = null)
+                       JObject?                             CustomData     = null,
+                       UserDefinedDictionary?               InternalData   = null)
 
-            : base(null,
-                   CustomData)
+            : base(CustomData,
+                   InternalData)
 
         {
 

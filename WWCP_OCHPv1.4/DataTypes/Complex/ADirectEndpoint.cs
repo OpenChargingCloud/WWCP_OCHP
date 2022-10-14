@@ -23,7 +23,7 @@ using System.Text.RegularExpressions;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     /// <summary>

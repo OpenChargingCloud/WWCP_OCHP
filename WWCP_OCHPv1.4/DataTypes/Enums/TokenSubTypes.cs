@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     /// <summary>

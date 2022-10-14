@@ -27,7 +27,7 @@ using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.UnitTests
+namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 {
 
     /// <summary>

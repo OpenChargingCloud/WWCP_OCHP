@@ -15,7 +15,13 @@
  * limitations under the License.
  */
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
+#region Usings
+
+using cloud.charging.open.protocols.WWCP;
+
+#endregion
+
+namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 {
 
     ///// <summary>

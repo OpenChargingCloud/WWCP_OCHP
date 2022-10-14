@@ -21,7 +21,7 @@ using System.Xml.Linq;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.WebAPI
+namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 {
 
     /// <summary>

@@ -22,10 +22,11 @@ using System.Linq;
 using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
+using cloud.charging.open.protocols.WWCP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4
+namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     /// <summary>
@@ -214,7 +215,7 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Maps a WWCP address to an OCHP address.
         /// </summary>
         /// <param name="WWCPAddress">A WWCP address.</param>
-        public static Address ToOCHP(this Vanaheimr.Illias.Address WWCPAddress)
+        public static Address ToOCHP(this org.GraphDefined.Vanaheimr.Illias.Address WWCPAddress)
 
             => new Address(WWCPAddress.HouseNumber.ToUpper(),
                            WWCPAddress.Street,
@@ -227,9 +228,9 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
         /// Maps an OCHP accessibility type to a WWCP accessibility type.
         /// </summary>
         /// <param name="OCHPAddress">A accessibility type.</param>
-        public static Vanaheimr.Illias.Address ToWWCP(this Address OCHPAddress)
+        public static org.GraphDefined.Vanaheimr.Illias.Address ToWWCP(this Address OCHPAddress)
 
-            => new Vanaheimr.Illias.Address(OCHPAddress.Street,
+            => new org.GraphDefined.Vanaheimr.Illias.Address(OCHPAddress.Street,
                                             OCHPAddress.ZIPCode,
                                             I18NString.Create(Languages.unknown, OCHPAddress.City),
                                             OCHPAddress.Country,
@@ -492,12 +493,15 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                           MeterId:              ChargeDetailRecord.EnergyMeterId?.ToString(),
                           TotalCosts:           null,
 
-                          CustomData:           new Dictionary<String, Object> {
-                                                    { WWCP_CDR, ChargeDetailRecord }
-                                                }
-                      );
+                          CustomData:           ChargeDetailRecord.CustomData,
+                          InternalData:         new UserDefinedDictionary(
+                                                    new Dictionary<String, Object?> {
+                                                        { WWCP_CDR, ChargeDetailRecord }
+                                                    }
+                                                )
+                      );;
 
-            if (WWCPChargeDetailRecord2ChargeDetailRecord != null)
+            if (WWCPChargeDetailRecord2ChargeDetailRecord is not null)
                 CDR = WWCPChargeDetailRecord2ChargeDetailRecord(ChargeDetailRecord, CDR);
 
             return CDR;
@@ -583,9 +587,11 @@ namespace org.GraphDefined.WWCP.OCHPv1_4
                                                           null,                                // Ratings
                                                           null,                                // UserInterface language
                                                           null,                                // Max Reservation Time
-                                                          internalData);
 
-                return EVSE2ChargePointInfo != null
+                                                          EVSE.CustomData,
+                                                          EVSE.InternalData);
+
+                return EVSE2ChargePointInfo is not null
                            ? EVSE2ChargePointInfo(EVSE, chargePointInfo)
                            : chargePointInfo;
 

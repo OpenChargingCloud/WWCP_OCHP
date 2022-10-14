@@ -33,17 +33,20 @@ using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+using cloud.charging.open.protocols.WWCP;
 
 #endregion
 
-namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
+namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 {
 
     /// <summary>
     /// A WWCP wrapper for the OCHP EMP roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPCPOAdapter : ACryptoEMobilityEntity<CSORoamingProvider_Id>,
+    public class WWCPCPOAdapter : ACryptoEMobilityEntity<CSORoamingProvider_Id,
+                                                         CSORoamingProviderAdminStatusTypes,
+                                                         CSORoamingProviderStatusTypes>,
                                   ICSORoamingProvider,
                                   ISendAuthenticationData
     {
@@ -397,8 +400,8 @@ namespace org.GraphDefined.WWCP.OCHPv1_4.EMP
                               UInt64?                      DefaultDistanceKM                 = null)
 
             : base(Id,
-                   Name,
-                   RoamingNetwork)
+                   RoamingNetwork,
+                   Name)
 
         {
 

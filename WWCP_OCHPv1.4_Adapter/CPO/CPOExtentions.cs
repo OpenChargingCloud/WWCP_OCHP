@@ -17,16 +17,14 @@
 
 #region Usings
 
-using System;
-
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 
-using org.GraphDefined.WWCP.OCHPv1_4.CPO;
+using cloud.charging.open.protocols.OCHPv1_4.CPO;
 
 #endregion
 
-namespace org.GraphDefined.WWCP
+namespace cloud.charging.open.protocols.WWCP
 {
 
     /// <summary>
