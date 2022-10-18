@@ -111,7 +111,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
         #region PullDataService
 
-        public Boolean  PullOperatorInfos_IsDisabled { get; set; }
+        public Boolean  PullEVSEData_IsDisabled         { get; set; }
+        public Boolean  PullOperatorInfos_IsDisabled    { get; set; }
 
         private UInt32 _PullDataServiceEvery;
 
@@ -137,7 +138,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
         public DateTime? TimestampOfLastPullDataRun { get; }
 
-        private static SemaphoreSlim PullEVSEDataLock = new SemaphoreSlim(1, 1);
+        private static SemaphoreSlim PullEVSEDataLock = new (1, 1);
 
         public delegate void PullEVSEDataDelegate(DateTime Timestamp, WWCPCPOAdapter Sender, TimeSpan Every);
 
