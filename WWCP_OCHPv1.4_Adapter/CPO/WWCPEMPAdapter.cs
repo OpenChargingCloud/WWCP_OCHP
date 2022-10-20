@@ -5060,8 +5060,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                             if (_EVSEId.HasValue)
                                 AllEVSEStatusRefreshments.Add(new EVSEStatus(_EVSEId.Value,
-                                                                             evsestatus.Status.Value.AsEVSEMajorStatus(),
-                                                                             evsestatus.Status.Value.AsEVSEMinorStatus()));
+                                                                             evsestatus.Status.AsEVSEMajorStatus(),
+                                                                             evsestatus.Status.AsEVSEMinorStatus()));
 
                         }
 
