@@ -169,22 +169,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
         #region Convert Provider Ids...
 
-        public static Provider_Id ToOCHP(this eMobilityProvider_Id ProviderId)
+        public static Provider_Id ToOCHP(this EMobilityProvider_Id ProviderId)
             => Provider_Id.Parse(ProviderId.ToString());
 
-        public static Provider_Id? ToOCHP(this eMobilityProvider_Id? ProviderId)
+        public static Provider_Id? ToOCHP(this EMobilityProvider_Id? ProviderId)
             => ProviderId.HasValue
                    ? Provider_Id.Parse(ProviderId.ToString())
                    : new Provider_Id?();
 
 
-        public static eMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)
-            => eMobilityProvider_Id.Parse(ProviderId.ToString());
+        public static EMobilityProvider_Id ToWWCP(this Provider_Id ProviderId)
+            => EMobilityProvider_Id.Parse(ProviderId.ToString());
 
-        public static eMobilityProvider_Id? ToWWCP(this Provider_Id? ProviderId)
+        public static EMobilityProvider_Id? ToWWCP(this Provider_Id? ProviderId)
             => ProviderId.HasValue
-                   ? eMobilityProvider_Id.Parse(ProviderId.ToString())
-                   : new eMobilityProvider_Id?();
+                   ? EMobilityProvider_Id.Parse(ProviderId.ToString())
+                   : new EMobilityProvider_Id?();
 
         #endregion
 

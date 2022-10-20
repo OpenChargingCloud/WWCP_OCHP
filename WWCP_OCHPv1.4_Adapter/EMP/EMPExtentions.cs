@@ -84,7 +84,7 @@ namespace cloud.charging.open.protocols.WWCP
                                               Boolean                                   DisablePullStatus                 = false,
                                               TimeSpan?                                 PullStatusServiceRequestTimeout   = null,
 
-                                              eMobilityProvider                         DefaultProvider                   = null,
+                                              EMobilityProvider                         DefaultProvider                   = null,
                                               GeoCoordinate?                            DefaultSearchCenter               = null,
                                               UInt64?                                   DefaultDistanceKM                 = null,
 
