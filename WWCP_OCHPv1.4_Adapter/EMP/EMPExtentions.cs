@@ -136,7 +136,7 @@ namespace cloud.charging.open.protocols.WWCP
             OCHPConfigurator?.Invoke(NewRoamingProvider);
 
             return RoamingNetwork.
-                       CreateNewRoamingProvider(NewRoamingProvider,
+                       CreateCSORoamingProvider(NewRoamingProvider,
                                                 Configurator) as WWCPCPOAdapter;
 
         }
