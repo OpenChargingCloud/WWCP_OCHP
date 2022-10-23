@@ -1287,11 +1287,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             throw new NotImplementedException();
         }
 
-        public Task<ReservationResult> Reserve(WWCP.EVSE_Id EVSEId, DateTime? StartTime = null, TimeSpan? Duration = null, ChargingReservation_Id? ReservationId = null, EMobilityProvider_Id? ProviderId = null, RemoteAuthentication Identification = null, ChargingProduct ChargingProduct = null, IEnumerable<Auth_Token> AuthTokens = null, IEnumerable<eMobilityAccount_Id> eMAIds = null, IEnumerable<uint> PINs = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<CancelReservationResult> CancelReservation(ChargingReservation_Id ReservationId, ChargingReservationCancellationReason Reason, EMobilityProvider_Id? ProviderId = null, WWCP.EVSE_Id? EVSEId = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
         {
             throw new NotImplementedException();
@@ -1307,7 +1302,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             throw new NotImplementedException();
         }
 
-        public Task<ReservationResult> Reserve(ChargingLocation ChargingLocation, ChargingReservationLevel ReservationLevel = ChargingReservationLevel.EVSE, DateTime? StartTime = null, TimeSpan? Duration = null, ChargingReservation_Id? ReservationId = null, EMobilityProvider_Id? ProviderId = null, RemoteAuthentication RemoteAuthentication = null, ChargingProduct ChargingProduct = null, IEnumerable<Auth_Token> AuthTokens = null, IEnumerable<eMobilityAccount_Id> eMAIds = null, IEnumerable<uint> PINs = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        public Task<ReservationResult> Reserve(ChargingLocation ChargingLocation, ChargingReservationLevel ReservationLevel = ChargingReservationLevel.EVSE, DateTime? StartTime = null, TimeSpan? Duration = null, ChargingReservation_Id? ReservationId = null, ChargingReservation_Id? LinkedReservationId = null, EMobilityProvider_Id? ProviderId = null, RemoteAuthentication? RemoteAuthentication = null, ChargingProduct? ChargingProduct = null, IEnumerable<Auth_Token>? AuthTokens = null, IEnumerable<eMobilityAccount_Id>? eMAIds = null, IEnumerable<UInt32>? PINs = null, DateTime? Timestamp = null, CancellationToken? CancellationToken = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null)
         {
             throw new NotImplementedException();
         }
@@ -1772,7 +1767,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //                                        #region Update matching EVSE...
 
-            //                                        if (_ChargingStation.TryGetEVSEbyId(CurrentEVSEDataRecord.Id.ToWWCP().Value, out _EVSE))
+            //                                        if (_ChargingStation.TryGetEVSEById(CurrentEVSEDataRecord.Id.ToWWCP().Value, out _EVSE))
             //                                        {
 
             //                                            // Update via events!
@@ -2049,7 +2044,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //                                CurrentEVSEId = CurrentEVSEDataRecord.Id.ToWWCP();
 
             //                                if (CurrentEVSEId.HasValue &&
-            //                                    WWCPChargingStationOperator.TryGetEVSEbyId(CurrentEVSEId, out CurrentEVSE))
+            //                                    WWCPChargingStationOperator.TryGetEVSEById(CurrentEVSEId, out CurrentEVSE))
             //                                {
             //                                    CurrentEVSE.Status = CurrentEVSEDataRecord.Status.AsWWCPEVSEStatus();
             //                                    EVSEsUpdated++;

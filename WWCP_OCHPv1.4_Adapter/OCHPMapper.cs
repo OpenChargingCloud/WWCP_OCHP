@@ -52,10 +52,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                     {
 
                         case EVSEMinorStatusTypes.Available:
-                            return WWCP.EVSEStatusTypes.Available;
+                            return EVSEStatusTypes.Available;
 
                         default:
-                            return WWCP.EVSEStatusTypes.Unspecified;
+                            return EVSEStatusTypes.Unspecified;
 
                     }
 
@@ -65,16 +65,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                     {
 
                         case EVSEMinorStatusTypes.Available:
-                            return WWCP.EVSEStatusTypes.Available;
+                            return EVSEStatusTypes.Available;
 
                         default:
-                            return WWCP.EVSEStatusTypes.Unspecified;
+                            return EVSEStatusTypes.Unspecified;
 
                     }
 
 
                 default:
-                    return WWCP.EVSEStatusTypes.Unspecified;
+                    return EVSEStatusTypes.Unspecified;
 
             }
 
@@ -92,16 +92,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static EVSEMajorStatusTypes AsEVSEMajorStatus(this EVSEStatusTypes EVSEStatusType)
         {
 
-            switch (EVSEStatusType)
-            {
+            if (EVSEStatusType == EVSEStatusTypes.Available)
+                return EVSEMajorStatusTypes.Available;
 
-                case EVSEStatusTypes.Available:
-                    return EVSEMajorStatusTypes.Available;
-
-                default:
-                    return EVSEMajorStatusTypes.NotAvailable;
-
-            }
+            else
+                return EVSEMajorStatusTypes.NotAvailable;
 
         }
 
@@ -117,24 +112,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static EVSEMinorStatusTypes AsEVSEMinorStatus(this EVSEStatusTypes EVSEStatusType)
         {
 
-            switch (EVSEStatusType)
-            {
+            // Unused: EVSEMinorStatusTypes.Blocked;
 
-                // Unused: EVSEMinorStatusTypes.Blocked;
+            if (EVSEStatusType == EVSEStatusTypes.Available)
+                return EVSEMinorStatusTypes.Available;
 
-                case EVSEStatusTypes.Available:
-                    return EVSEMinorStatusTypes.Available;
+            else if (EVSEStatusType == EVSEStatusTypes.Reserved)
+                return EVSEMinorStatusTypes.Reserved;
 
-                case EVSEStatusTypes.Reserved:
-                    return EVSEMinorStatusTypes.Reserved;
+            else if (EVSEStatusType == EVSEStatusTypes.Charging)
+                return EVSEMinorStatusTypes.Charging;
 
-                case EVSEStatusTypes.Charging:
-                    return EVSEMinorStatusTypes.Charging;
-
-                default:
-                    return EVSEMinorStatusTypes.OutOfOrder;
-
-            }
+            else
+                return EVSEMinorStatusTypes.OutOfOrder;
 
         }
 
