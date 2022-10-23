@@ -42,7 +42,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// </summary>
     /// <param name="EVSE">A WWCP EVSE.</param>
     /// <param name="ChargePointInfo">An OCHP charge point info.</param>
-    public delegate ChargePointInfo  EVSE2ChargePointInfoDelegate       (EVSE              EVSE,
+    public delegate ChargePointInfo  EVSE2ChargePointInfoDelegate       (IEVSE             EVSE,
                                                                          ChargePointInfo   ChargePointInfo);
 
 

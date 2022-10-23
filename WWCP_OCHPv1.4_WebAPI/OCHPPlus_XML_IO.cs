@@ -17,12 +17,8 @@
 
 #region Usings
 
-using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
 
-using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 
 using cloud.charging.open.protocols.WWCP;
@@ -49,11 +45,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
         /// <param name="XMLNamespaces">An optional delegate to process the XML namespaces.</param>
         /// <param name="ChargePointInfo2XML">An optional delegate to process a charge point information XML before sending it somewhere.</param>
         /// <param name="XMLPostProcessing">An optional delegate to process the XML after its final creation.</param>
-        public static XElement ToXML(this IEnumerable<ChargePointInfo>  ChargePointInfos,
-                                     RoamingNetwork                     RoamingNetwork,
-                                     XMLNamespacesDelegate              XMLNamespaces        = null,
-                                     ChargePointInfo2XMLDelegate        ChargePointInfo2XML  = null,
-                                     CPO.XMLPostProcessingDelegate      XMLPostProcessing    = null)
+        public static XElement ToXML(this IEnumerable<ChargePointInfo>   ChargePointInfos,
+                                     RoamingNetwork                      RoamingNetwork,
+                                     XMLNamespacesDelegate?              XMLNamespaces        = null,
+                                     ChargePointInfo2XMLDelegate?        ChargePointInfo2XML  = null,
+                                     CPO.XMLPostProcessingDelegate?      XMLPostProcessing    = null)
         {
 
             #region Initial checks
@@ -133,11 +129,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
         /// <param name="XMLNamespaces">An optional delegate to process the XML namespaces.</param>
         /// <param name="EVSEStatusRecord2XML">An optional delegate to process an EVSE status record XML before sending it somewhere.</param>
         /// <param name="XMLPostProcessing">An optional delegate to process the XML after its final creation.</param>
-        public static XElement ToXML(this IEnumerable<EVSE>         EVSEs,
-                                     RoamingNetwork                 RoamingNetwork,
-                                     XMLNamespacesDelegate          XMLNamespaces          = null,
-                                     EVSEStatus2XMLDelegate         EVSEStatusRecord2XML   = null,
-                                     CPO.XMLPostProcessingDelegate  XMLPostProcessing      = null)
+        public static XElement ToXML(this IEnumerable<IEVSE>         EVSEs,
+                                     RoamingNetwork                  RoamingNetwork,
+                                     XMLNamespacesDelegate?          XMLNamespaces          = null,
+                                     EVSEStatus2XMLDelegate?         EVSEStatusRecord2XML   = null,
+                                     CPO.XMLPostProcessingDelegate?  XMLPostProcessing      = null)
         {
 
             #region Initial checks

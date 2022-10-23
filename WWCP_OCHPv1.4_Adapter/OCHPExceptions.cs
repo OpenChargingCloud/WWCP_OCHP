@@ -27,9 +27,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
     public class EVSEToOCHPException : OCHPException
     {
 
-        public EVSE  EVSE   { get; }
+        public IEVSE  EVSE    { get; }
 
-        public EVSEToOCHPException(EVSE       EVSE,
+        public EVSEToOCHPException(IEVSE      EVSE,
                                    Exception  InnerException)
 
             : base("Could not convert EVSE to a ChargePointInfo!",

@@ -137,7 +137,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
     public static class OCHPMapper
     {
 
-        public static ChargePointInfo AsChargePointInfo(EVSE                          EVSE,
+        public static ChargePointInfo AsChargePointInfo(IEVSE                         EVSE,
                                                         EVSE2ChargePointInfoDelegate  EVSE2EVSEDataRecord)
         {
             return null;
@@ -497,16 +497,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                         : new WWCP.EVSEStatusTypes?();
 
                 var statusFilter  = WWCPStatus.HasValue
-                                        ? Request.QueryString.CreateEnumFilter<EVSE, EVSEMajorStatusTypes>("majorstatus",
-                                                                                                           (evse, status) => evse.Status == WWCPStatus.Value)
+                                        ? Request.QueryString.CreateEnumFilter<IEVSE, EVSEMajorStatusTypes>("majorstatus",
+                                                                                                            (evse, status) => evse.Status == WWCPStatus.Value)
                                         : evse => true;
 
-                var matchFilter   = Request.QueryString.CreateStringFilter<EVSE>  ("match",
-                                                                                   (evse, match) => evse.Id.ToString().Contains(match) ||
-                                                                                                    evse.ChargingStation.Name.FirstText().Contains(match));
+                var matchFilter   = Request.QueryString.CreateStringFilter<IEVSE>  ("match",
+                                                                                    (evse, match) => evse.Id.ToString().Contains(match) ||
+                                                                                                     evse.ChargingStation.Name.FirstText().Contains(match));
 
-                var sinceFilter   = Request.QueryString.CreateDateTimeFilter<EVSE>("since",
-                                                                                   (evse, timestamp) => evse.Status.Timestamp >= timestamp);
+                var sinceFilter   = Request.QueryString.CreateDateTimeFilter<IEVSE>("since",
+                                                                                    (evse, timestamp) => evse.Status.Timestamp >= timestamp);
 
                 #endregion
 
@@ -563,7 +563,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
             #region HTMLDelegate
 
-            Func<EVSE, String> EVSEStatusColorSelector = evse =>
+            Func<IEVSE, String> EVSEStatusColorSelector = evse =>
             {
                 switch (evse.Status.Value.AsEVSEMinorStatus())
                 {
@@ -634,15 +634,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                         : new WWCP.EVSEStatusTypes?();
 
                 var statusFilter  = WWCPStatus.HasValue
-                                        ? Request.QueryString.CreateEnumFilter<EVSE, EVSEMajorStatusTypes>("majorstatus",
+                                        ? Request.QueryString.CreateEnumFilter<IEVSE, EVSEMajorStatusTypes>("majorstatus",
                                                                                                            (evse, status) => evse.Status == WWCPStatus.Value)
                                         : evse => true;
 
-                var matchFilter   = Request.QueryString.CreateStringFilter<EVSE>  ("match",
+                var matchFilter   = Request.QueryString.CreateStringFilter<IEVSE>  ("match",
                                                                                    (evse, match) => evse.Id.ToString().Contains(match) ||
                                                                                                     evse.ChargingStation.Name.FirstText().Contains(match));
 
-                var sinceFilter   = Request.QueryString.CreateDateTimeFilter<EVSE>("since",
+                var sinceFilter   = Request.QueryString.CreateDateTimeFilter<IEVSE>("since",
                                                                                    (evse, timestamp) => evse.Status.Timestamp >= timestamp);
 
                 #endregion

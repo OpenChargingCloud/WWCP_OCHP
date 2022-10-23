@@ -17,11 +17,8 @@
 
 #region Usings
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
 using org.GraphDefined.Vanaheimr.Illias;
+
 using cloud.charging.open.protocols.WWCP;
 
 #endregion
@@ -535,12 +532,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="EVSE">A WWCP EVSE.</param>
         /// <param name="CustomEVSEIdMapper">A custom WWCP EVSE Id to OCHP EVSE Id mapper.</param>
         /// <param name="EVSE2ChargePointInfo">A delegate to process an OCHP charge point info, e.g. before pushing it to a roaming provider.</param>
-        public static ChargePointInfo ToOCHP(this EVSE                         EVSE,
-                                             CPO.CustomEVSEIdMapperDelegate    CustomEVSEIdMapper     = null,
-                                             CPO.EVSE2ChargePointInfoDelegate  EVSE2ChargePointInfo   = null)
+        public static ChargePointInfo? ToOCHP(this IEVSE                         EVSE,
+                                              CPO.CustomEVSEIdMapperDelegate?    CustomEVSEIdMapper     = null,
+                                              CPO.EVSE2ChargePointInfoDelegate?  EVSE2ChargePointInfo   = null)
         {
 
-            if (EVSE == null)
+            if (EVSE is null)
                 return null;
 
             try
