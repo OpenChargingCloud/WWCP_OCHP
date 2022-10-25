@@ -183,6 +183,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
         public IEnumerable<ChargingSession>                        ChargingSessions      => throw new NotImplementedException();
 
+        public TimeSpan MaxReservationDuration { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         #endregion
 
         #region Events
