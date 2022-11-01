@@ -17,12 +17,7 @@
 
 #region Usings
 
-using System;
-using System.Xml.Linq;
-
 using NUnit.Framework;
-
-using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
 
