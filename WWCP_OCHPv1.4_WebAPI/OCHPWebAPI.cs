@@ -319,6 +319,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             }
 
             this.DebugLog              = HTTPServer.AddJSONEventSource(EventIdentification:      DebugLogId,
+                                                                       HTTPAPI:                  null,
                                                                        URLTemplate:              this.URLPathPrefix + "/" + DebugLogId.ToString(),
                                                                        MaxNumberOfCachedEvents:  10000,
                                                                        RetryIntervall:           TimeSpan.FromSeconds(5),
@@ -339,7 +340,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
             #region / (HTTPRoot)
 
-            HTTPServer.RegisterResourcesFolder(HTTPHostname.Any,
+            HTTPServer.RegisterResourcesFolder(null,
+                                               HTTPHostname.Any,
                                                URLPathPrefix + "/",
                                                "org.GraphDefined.WWCP.OCHPv2_1.WebAPI.HTTPRoot",
                                                DefaultFilename: "index.html");
@@ -432,7 +434,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             // ------------------------------------------------------------------------------------------------
             // curl -v -H "Accept: application/json" http://127.0.0.1:3004/RNs/Prod/ext/OCHPPlus/ChargePoints
             // ------------------------------------------------------------------------------------------------
-            HTTPServer.AddMethodCallback(HTTPHostname.Any,
+            HTTPServer.AddMethodCallback(null,
+                                         HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/ChargePoints",
                                          HTTPContentType.XML_UTF8,
@@ -441,7 +444,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             // -----------------------------------------------------------------------------------------------
             // curl -v -H "Accept: application/vnd.OCHPPlus+xml" http://127.0.0.1:3004/RNs/Prod/ChargePoints
             // -----------------------------------------------------------------------------------------------
-            HTTPServer.AddMethodCallback(HTTPHostname.Any,
+            HTTPServer.AddMethodCallback(null,
+                                         HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}/ChargePoints",
                                          OCHPPlusXMLContentType,
@@ -545,7 +549,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             // ---------------------------------------------------------------------------------------------
             // curl -v -H "Accept: application/xml" http://127.0.0.1:3004/RNs/Prod/ext/OCHPPlus/EVSEStatus
             // ---------------------------------------------------------------------------------------------
-            HTTPServer.AddMethodCallback(HTTPHostname.Any,
+            HTTPServer.AddMethodCallback(null,
+                                         HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/EVSEStatus",
                                          HTTPContentType.XML_UTF8,
@@ -554,7 +559,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             // ---------------------------------------------------------------------------------------------
             // curl -v -H "Accept: application/vnd.OCHPPlus+xml" http://127.0.0.1:3004/RNs/Prod/EVSEStatus
             // ---------------------------------------------------------------------------------------------
-            HTTPServer.AddMethodCallback(HTTPHostname.Any,
+            HTTPServer.AddMethodCallback(null,
+                                         HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}/EVSEStatus",
                                          OCHPPlusXMLContentType,
@@ -717,7 +723,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             // ---------------------------------------------------------------------------------------
             // curl -v -H "Accept: text/html" http://127.0.0.1:3004/RNs/Prod/ext/OCHPPlus/EVSEStatus
             // ---------------------------------------------------------------------------------------
-            HTTPServer.AddMethodCallback(HTTPHostname.Any,
+            HTTPServer.AddMethodCallback(null,
+                                         HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/EVSEStatus",
                                          HTTPContentType.HTML_UTF8,
@@ -726,7 +733,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             // ----------------------------------------------------------------------------------------------
             // curl -v -H "Accept: application/vnd.OCHPPlus+html" http://127.0.0.1:3004/RNs/Prod/EVSEStatus
             // ----------------------------------------------------------------------------------------------
-            HTTPServer.AddMethodCallback(HTTPHostname.Any,
+            HTTPServer.AddMethodCallback(null,
+                                         HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}/EVSEStatus",
                                          OCHPPlusHTMLContentType,

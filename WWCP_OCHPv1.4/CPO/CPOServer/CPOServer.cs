@@ -284,7 +284,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - SelectEVSE
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + URLSuffix,
                                             "SelectEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "SelectEvseRequest").FirstOrDefault(),
@@ -386,7 +387,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - ControlEVSE
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + URLSuffix,
                                             "ControlEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ControlEvseRequest").FirstOrDefault(),
@@ -493,7 +495,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - ReleaseEVSE
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + URLSuffix,
                                             "ReleaseEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ReleaseEvseRequest").FirstOrDefault(),
@@ -593,7 +596,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - GetEVSEStatus
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + URLSuffix,
                                             "DirectEvseStatusRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "DirectEvseStatusRequest").FirstOrDefault(),
@@ -693,7 +697,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - ReportDiscrepancy
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + URLSuffix,
                                             "ReportDiscrepancyRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ReportDiscrepancyRequest").FirstOrDefault(),

@@ -214,7 +214,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region / - InformProviderMessage
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + URLSuffix,
                                             "InformProviderMessage",
                                             XML => XML.Descendants(OCHPNS.Default + "InformProviderMessage").FirstOrDefault(),

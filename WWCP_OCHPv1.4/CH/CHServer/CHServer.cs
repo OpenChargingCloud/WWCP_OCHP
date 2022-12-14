@@ -526,7 +526,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - AddServiceEndpointsRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "AddServiceEndpointsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "AddServiceEndpointsRequest").FirstOrDefault(),
@@ -627,7 +628,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetServiceEndpointsRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetServiceEndpointsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetServiceEndpointsRequest").FirstOrDefault(),
@@ -729,7 +731,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - AddCDRsRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "AddCDRsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "AddCDRsRequest").FirstOrDefault(),
@@ -829,7 +832,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - CheckCDRsRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "CheckCDRsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "CheckCDRsRequest").FirstOrDefault(),
@@ -929,7 +933,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetRoamingAuthorisationListRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetRoamingAuthorisationListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetRoamingAuthorisationListRequest").FirstOrDefault(),
@@ -1028,7 +1033,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetRoamingAuthorisationListUpdatesRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetRoamingAuthorisationListUpdatesRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetRoamingAuthorisationListUpdatesRequest").FirstOrDefault(),
@@ -1128,7 +1134,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetSingleRoamingAuthorisationRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetSingleRoamingAuthorisationRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetSingleRoamingAuthorisationRequest").FirstOrDefault(),
@@ -1228,7 +1235,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - SetChargePointListRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "SetChargePointListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "SetChargePointListRequest").FirstOrDefault(),
@@ -1328,7 +1336,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - UpdateChargePointListRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "UpdateChargePointListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateChargePointListRequest").FirstOrDefault(),
@@ -1428,7 +1437,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - UpdateStatusRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "UpdateStatusRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateStatusRequest").FirstOrDefault(),
@@ -1530,7 +1540,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - UpdateTariffsRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "UpdateTariffsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateTariffsRequest").FirstOrDefault(),
@@ -1633,7 +1644,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetCDRsRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetCDRsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetCDRsRequest").FirstOrDefault(),
@@ -1733,7 +1745,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - ConfirmCDRsRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "ConfirmCDRsRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ConfirmCDRsRequest").FirstOrDefault(),
@@ -1834,7 +1847,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetChargePointListRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetChargePointListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetChargePointListRequest").FirstOrDefault(),
@@ -1933,7 +1947,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetChargePointListUpdatesRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetChargePointListUpdatesRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetChargePointListUpdatesRequest").FirstOrDefault(),
@@ -2033,7 +2048,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetStatusRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetStatusRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetStatusRequest").FirstOrDefault(),
@@ -2134,7 +2150,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - GetTariffUpdatesRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "GetTariffUpdatesRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "GetTariffUpdatesRequest").FirstOrDefault(),
@@ -2234,7 +2251,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - SetRoamingAuthorisationListRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "SetRoamingAuthorisationListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "SetRoamingAuthorisationListRequest").FirstOrDefault(),
@@ -2334,7 +2352,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region / - UpdateRoamingAuthorisationListRequest
 
-            SOAPServer.RegisterSOAPDelegate(HTTPHostname.Any,
+            SOAPServer.RegisterSOAPDelegate(null,
+                                            HTTPHostname.Any,
                                             URLPrefix + "/",
                                             "UpdateRoamingAuthorisationListRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "UpdateRoamingAuthorisationListRequest").FirstOrDefault(),
