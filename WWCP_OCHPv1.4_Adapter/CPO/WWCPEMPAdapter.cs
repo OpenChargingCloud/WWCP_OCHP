@@ -4945,9 +4945,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             var EVSEsToUpdateQueueCopy             = new HashSet<IEVSE>();
             var EVSEStatusChangesDelayedQueueCopy  = new List<EVSEStatusUpdate>();
             var EVSEsToRemoveQueueCopy             = new HashSet<IEVSE>();
-            var EVSEsUpdateLogCopy                 = new Dictionary<IEVSE,            PropertyUpdateInfos[]>();
-            var ChargingStationsUpdateLogCopy      = new Dictionary<IChargingStation, PropertyUpdateInfos[]>();
-            var ChargingPoolsUpdateLogCopy         = new Dictionary<IChargingPool,    PropertyUpdateInfos[]>();
+            var EVSEsUpdateLogCopy                 = new Dictionary<IEVSE,            PropertyUpdateInfo[]>();
+            var ChargingStationsUpdateLogCopy      = new Dictionary<IChargingStation, PropertyUpdateInfo[]>();
+            var ChargingPoolsUpdateLogCopy         = new Dictionary<IChargingPool,    PropertyUpdateInfo[]>();
 
             await DataAndStatusLock.WaitAsync();
 
