@@ -559,17 +559,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                                           EVSE.SocketOutlets.SafeSelect(ToOCHP),
                                                           ChargePointTypes.AC,                 // FixMe: ChargePointTypes.AC!
                                                           DateTime.Now,                        // timestamp of last edit
-                                                          new EVSEImageURL[0],
-                                                          new RelatedResource[0],
-                                                          new ExtendedGeoCoordinate[0],
+                                                          Array.Empty<EVSEImageURL>(),
+                                                          Array.Empty<RelatedResource>(),
+                                                          Array.Empty<ExtendedGeoCoordinate>(),
                                                           null,                                // Timezone
                                                           Hours.Open24_7,
                                                           ChargePointStatus.Operative,
-                                                          new ChargePointSchedule[0],
-                                                          EVSE.ChargingStation.HotlinePhoneNumber.IsNeitherNullNorEmpty()
-                                                              ? EVSE.ChargingStation.HotlinePhoneNumber.FirstText().Replace("+", "00") // ToDo: Bugfix for VW!
+                                                          Array.Empty<ChargePointSchedule>(),
+                                                          EVSE.ChargingStation.HotlinePhoneNumber.HasValue
+                                                              ? EVSE.ChargingStation.HotlinePhoneNumber.ToString().Replace("+", "00") // ToDo: Bugfix for VW!
                                                               : null,
-                                                          new ParkingSpotInfo[0],
+                                                          Array.Empty<ParkingSpotInfo>(),
                                                           RestrictionTypes.EVOnly,
                                                           null,                                // Ratings
                                                           null,                                // UserInterface language
