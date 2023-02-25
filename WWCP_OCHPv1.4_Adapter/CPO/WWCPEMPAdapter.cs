@@ -1641,7 +1641,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                Task.FromResult(PushEVSEDataResult.Enqueued(Id, this, new IEVSE[] { EVSE }));
+                return Task.FromResult(PushEVSEDataResult.Enqueued(Id, this, new IEVSE[] { EVSE }));
 
             }
 
