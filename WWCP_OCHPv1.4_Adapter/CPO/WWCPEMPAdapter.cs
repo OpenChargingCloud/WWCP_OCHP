@@ -111,7 +111,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         IId IAuthorizeStartStop.AuthId
             => Id;
 
-        IId ISendChargeDetailRecords.Id
+        IId ISendChargeDetailRecords.SendChargeDetailRecordsId
             => Id;
 
         /// <summary>
