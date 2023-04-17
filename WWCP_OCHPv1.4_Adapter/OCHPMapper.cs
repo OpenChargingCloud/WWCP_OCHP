@@ -334,53 +334,53 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
         #endregion
 
-        #region Convert SocketOutlets...
+        #region Convert ChargingConnectors...
 
-        public static ConnectorType ToOCHP(this SocketOutlet WWCPSocketOutlet)
+        public static ConnectorType ToOCHP(this ChargingConnector WWCPChargingConnector)
         {
 
-            switch (WWCPSocketOutlet.Plug)
+            switch (WWCPChargingConnector.Plug)
             {
 
                 //case PlugTypes.SmallPaddleInductive:
                 //case PlugTypes.LargePaddleInductive:
                 //case PlugTypes.AVCONConnector:
 
-                case PlugTypes.TESLA_Roadster:
+                case ChargingPlugTypes.TESLA_Roadster:
                     return new ConnectorType(ConnectorStandards.TESLA_R,
                                              ConnectorFormats.Socket);
 
-                case PlugTypes.TESLA_ModelS:
+                case ChargingPlugTypes.TESLA_ModelS:
                     return new ConnectorType(ConnectorStandards.TESLA_S,
                                              ConnectorFormats.Socket);
 
                 //case PlugTypes.NEMA5_20:
 
-                case PlugTypes.TypeEFrenchStandard:
+                case ChargingPlugTypes.TypeEFrenchStandard:
                     return new ConnectorType(ConnectorStandards.DOMESTIC_E,
                                              ConnectorFormats.Socket);
 
-                case PlugTypes.TypeFSchuko:
+                case ChargingPlugTypes.TypeFSchuko:
                     return new ConnectorType(ConnectorStandards.DOMESTIC_F,
                                              ConnectorFormats.Socket);
 
-                case PlugTypes.TypeGBritishStandard:
+                case ChargingPlugTypes.TypeGBritishStandard:
                     return new ConnectorType(ConnectorStandards.DOMESTIC_G,
                                              ConnectorFormats.Socket);
 
-                case PlugTypes.TypeJSwissStandard:
+                case ChargingPlugTypes.TypeJSwissStandard:
                     return new ConnectorType(ConnectorStandards.DOMESTIC_J,
                                              ConnectorFormats.Socket);
 
-                case PlugTypes.Type1Connector_CableAttached:
+                case ChargingPlugTypes.Type1Connector_CableAttached:
                     return new ConnectorType(ConnectorStandards.IEC_62196_T1,
                                              ConnectorFormats.Socket);
 
-                case PlugTypes.Type2Outlet:
+                case ChargingPlugTypes.Type2Outlet:
                     return new ConnectorType(ConnectorStandards.IEC_62196_T2,
                                              ConnectorFormats.Socket);
 
-                case PlugTypes.Type2Connector_CableAttached:
+                case ChargingPlugTypes.Type2Connector_CableAttached:
                     return new ConnectorType(ConnectorStandards.IEC_62196_T2,
                                              ConnectorFormats.Cable);
 
@@ -388,25 +388,25 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 //return ConnectorStandards.IEC_62196_T3A;
                 //return ConnectorStandards.IEC_62196_T3C;
 
-                case PlugTypes.IEC60309SinglePhase:
+                case ChargingPlugTypes.IEC60309SinglePhase:
                     return new ConnectorType(ConnectorStandards.IEC_60309_2_single_16,
                                              ConnectorFormats.Socket);
 
-                case PlugTypes.IEC60309ThreePhase:
+                case ChargingPlugTypes.IEC60309ThreePhase:
                     return new ConnectorType(ConnectorStandards.IEC_60309_2_three_16,
                                              ConnectorFormats.Socket);
                 //return ConnectorStandards.IEC_60309_2_three_32;
                 //return ConnectorStandards.IEC_60309_2_three_64;
 
-                case PlugTypes.CCSCombo1Plug_CableAttached:
+                case ChargingPlugTypes.CCSCombo1Plug_CableAttached:
                     return new ConnectorType(ConnectorStandards.IEC_62196_T1_COMBO,
                                              ConnectorFormats.Cable);
 
-                case PlugTypes.CCSCombo2Plug_CableAttached:
+                case ChargingPlugTypes.CCSCombo2Plug_CableAttached:
                     return new ConnectorType(ConnectorStandards.IEC_62196_T2_COMBO,
                                              ConnectorFormats.Cable);
 
-                case PlugTypes.CHAdeMO:
+                case ChargingPlugTypes.CHAdeMO:
                     return new ConnectorType(ConnectorStandards.Chademo,
                                              ConnectorFormats.Socket);
 
@@ -556,7 +556,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                                                                    Select(mode => mode.ToOCHP()).
                                                                                    Where(mode => mode != AuthMethodTypes.Unknown).
                                                                                    Reduce(),
-                                                          EVSE.SocketOutlets.SafeSelect(ToOCHP),
+                                                          EVSE.ChargingConnectors.SafeSelect(ToOCHP),
                                                           ChargePointTypes.AC,                 // FixMe: ChargePointTypes.AC!
                                                           DateTime.Now,                        // timestamp of last edit
                                                           Array.Empty<EVSEImageURL>(),
