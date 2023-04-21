@@ -336,7 +336,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
         #region Convert ChargingConnectors...
 
-        public static ConnectorType ToOCHP(this ChargingConnector WWCPChargingConnector)
+        public static ConnectorType ToOCHP(this IChargingConnector WWCPChargingConnector)
         {
 
             switch (WWCPChargingConnector.Plug)
@@ -556,7 +556,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                                                                    Select(mode => mode.ToOCHP()).
                                                                                    Where(mode => mode != AuthMethodTypes.Unknown).
                                                                                    Reduce(),
-                                                          EVSE.ChargingConnectors.SafeSelect(ToOCHP),
+                                                          EVSE.ChargingConnectors.Select(ToOCHP),
                                                           ChargePointTypes.AC,                 // FixMe: ChargePointTypes.AC!
                                                           DateTime.Now,                        // timestamp of last edit
                                                           Array.Empty<EVSEImageURL>(),
