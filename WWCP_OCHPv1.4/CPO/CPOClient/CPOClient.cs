@@ -1140,20 +1140,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<SetChargePointListResponse>(
-
+                                                         return HTTPResponse<SetChargePointListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new SetChargePointListResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1172,10 +1167,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<SetChargePointListResponse>(
-
+                                                             return HTTPResponse<SetChargePointListResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new SetChargePointListResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -1183,16 +1176,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 ));
 
                                                          }
 
-                                                         return new HTTPResponse<SetChargePointListResponse>(
-
+                                                         return HTTPResponse<SetChargePointListResponse>.IsFault(
                                                              httpresponse,
-
                                                              new SetChargePointListResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -1200,10 +1189,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -1386,20 +1372,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<UpdateChargePointListResponse>(
-
+                                                         return HTTPResponse<UpdateChargePointListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new UpdateChargePointListResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1418,10 +1399,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<UpdateChargePointListResponse>(
-
+                                                             return HTTPResponse<UpdateChargePointListResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new UpdateChargePointListResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -1429,16 +1408,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 )
+                                                             );
 
                                                          }
 
-                                                         return new HTTPResponse<UpdateChargePointListResponse>(
-
+                                                         return HTTPResponse<UpdateChargePointListResponse>.IsFault(
                                                              httpresponse,
-
                                                              new UpdateChargePointListResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -1446,10 +1422,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -1642,20 +1615,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<UpdateStatusResponse>(
-
+                                                         return HTTPResponse<UpdateStatusResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new UpdateStatusResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1674,10 +1642,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<UpdateStatusResponse>(
-
+                                                             return HTTPResponse<UpdateStatusResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new UpdateStatusResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -1685,16 +1651,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 )
+                                                             );
 
                                                          }
 
-                                                         return new HTTPResponse<UpdateStatusResponse>(
-
+                                                         return HTTPResponse<UpdateStatusResponse>.IsFault(
                                                              httpresponse,
-
                                                              new UpdateStatusResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -1702,10 +1665,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -1892,20 +1852,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<UpdateTariffsResponse>(
-
+                                                         return HTTPResponse<UpdateTariffsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new UpdateTariffsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1924,10 +1879,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<UpdateTariffsResponse>(
-
+                                                             return HTTPResponse<UpdateTariffsResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new UpdateTariffsResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -1935,16 +1888,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 )
+                                                             );
 
                                                          }
 
-                                                         return new HTTPResponse<UpdateTariffsResponse>(
-
+                                                         return HTTPResponse<UpdateTariffsResponse>.IsFault(
                                                              httpresponse,
-
                                                              new UpdateTariffsResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -1952,10 +1902,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -2130,20 +2077,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetSingleRoamingAuthorisationResponse>(
-
+                                                         return HTTPResponse<GetSingleRoamingAuthorisationResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetSingleRoamingAuthorisationResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2162,10 +2104,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<GetSingleRoamingAuthorisationResponse>(
-
+                                                             return HTTPResponse<GetSingleRoamingAuthorisationResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new GetSingleRoamingAuthorisationResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -2173,16 +2113,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 )
+                                                             );
 
                                                          }
 
-                                                         return new HTTPResponse<GetSingleRoamingAuthorisationResponse>(
-
+                                                         return HTTPResponse<GetSingleRoamingAuthorisationResponse>.IsFault(
                                                              httpresponse,
-
                                                              new GetSingleRoamingAuthorisationResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -2190,10 +2127,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -2366,20 +2300,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetRoamingAuthorisationListResponse>(
-
+                                                         return HTTPResponse<GetRoamingAuthorisationListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetRoamingAuthorisationListResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2398,10 +2327,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<GetRoamingAuthorisationListResponse>(
-
+                                                             return HTTPResponse<GetRoamingAuthorisationListResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new GetRoamingAuthorisationListResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -2409,16 +2336,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 )
+                                                             );
 
                                                          }
 
-                                                         return new HTTPResponse<GetRoamingAuthorisationListResponse>(
-
+                                                         return HTTPResponse<GetRoamingAuthorisationListResponse>.IsFault(
                                                              httpresponse,
-
                                                              new GetRoamingAuthorisationListResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -2426,10 +2350,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -2602,20 +2523,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>(
-
+                                                         return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetRoamingAuthorisationListUpdatesResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2634,10 +2550,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>(
-
+                                                             return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new GetRoamingAuthorisationListUpdatesResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -2645,16 +2559,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 )
+                                                             );
 
                                                          }
 
-                                                         return new HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>(
-
+                                                         return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.IsFault(
                                                              httpresponse,
-
                                                              new GetRoamingAuthorisationListUpdatesResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -2662,10 +2573,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -2854,20 +2762,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<AddCDRsResponse>(
-
+                                                         return HTTPResponse<AddCDRsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new AddCDRsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2886,10 +2789,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<AddCDRsResponse>(
-
+                                                             return HTTPResponse<AddCDRsResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new AddCDRsResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -2897,16 +2798,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 ));
 
                                                          }
 
-                                                         return new HTTPResponse<AddCDRsResponse>(
-
+                                                         return HTTPResponse<AddCDRsResponse>.IsFault(
                                                              httpresponse,
-
                                                              new AddCDRsResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -2914,10 +2811,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -3091,20 +2985,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return new HTTPResponse<CheckCDRsResponse>(
-
+                                                         return HTTPResponse<CheckCDRsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new CheckCDRsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3123,10 +3012,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return new HTTPResponse<CheckCDRsResponse>(
-
+                                                             return HTTPResponse<CheckCDRsResponse>.IsFault(
                                                                  httpresponse,
-
                                                                  new CheckCDRsResponse(
                                                                      Request,
                                                                      Result.Server(
@@ -3134,16 +3021,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                           " => " +
                                                                           httpresponse.HTTPBody.ToUTF8String()
                                                                      )
-                                                                 ),
-
-                                                                 IsFault: true);
+                                                                 )
+                                                              );
 
                                                          }
 
-                                                         return new HTTPResponse<CheckCDRsResponse>(
-
+                                                         return HTTPResponse<CheckCDRsResponse>.IsFault(
                                                              httpresponse,
-
                                                              new CheckCDRsResponse(
                                                                  Request,
                                                                  Result.Server(
@@ -3151,10 +3035,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       " => " +
                                                                       httpresponse.HTTPBody.ToUTF8String()
                                                                  )
-                                                             ),
-
-                                                             IsFault: true
-
+                                                             )
                                                          );
 
                                                      },
@@ -3351,20 +3232,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<AddServiceEndpointsResponse>(
-
+                                                         return HTTPResponse<AddServiceEndpointsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new AddServiceEndpointsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3377,10 +3253,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<AddServiceEndpointsResponse>(
-
+                                                         return HTTPResponse<AddServiceEndpointsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new AddServiceEndpointsResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -3388,10 +3262,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3573,20 +3444,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetServiceEndpointsResponse>(
-
+                                                         return HTTPResponse<GetServiceEndpointsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetServiceEndpointsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3599,10 +3465,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<GetServiceEndpointsResponse>(
-
+                                                         return HTTPResponse<GetServiceEndpointsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetServiceEndpointsResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -3610,10 +3474,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3874,13 +3735,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<InformProviderResponse>(httpresponse,
-                                                                                                     InformProviderResponse.Format(
-                                                                                                        Request,
-                                                                                                        "Invalid SOAP => " +
-                                                                                                        httpresponse.HTTPBody.ToUTF8String()
-                                                                                                     ),
-                                                                                                     IsFault: true);
+                                                     return HTTPResponse<InformProviderResponse>.IsFault(
+                                                                httpresponse,
+                                                                InformProviderResponse.Format(
+                                                                   Request,
+                                                                   "Invalid SOAP => " +
+                                                                   httpresponse.HTTPBody.ToUTF8String()
+                                                                )
+                                                            );
 
                                                  },
 
@@ -3892,14 +3754,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<InformProviderResponse>(httpresponse,
-                                                                                                     InformProviderResponse.Server(
-                                                                                                         Request,
-                                                                                                         httpresponse.HTTPStatusCode.ToString() +
-                                                                                                         " => " +
-                                                                                                         httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                     ),
-                                                                                                     IsFault: true);
+                                                     return HTTPResponse<InformProviderResponse>.IsFault(
+                                                                httpresponse,
+                                                                InformProviderResponse.Server(
+                                                                    Request,
+                                                                    httpresponse.HTTPStatusCode.ToString() +
+                                                                    " => " +
+                                                                    httpresponse.HTTPBody.      ToUTF8String()
+                                                                )
+                                                            );
 
                                                  },
 

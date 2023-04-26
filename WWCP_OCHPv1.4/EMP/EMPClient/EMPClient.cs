@@ -1182,20 +1182,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetChargePointListResponse>(
-
+                                                         return HTTPResponse<GetChargePointListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetChargePointListResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1208,10 +1203,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<GetChargePointListResponse>(
-
+                                                         return HTTPResponse<GetChargePointListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetChargePointListResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -1219,10 +1212,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1405,20 +1395,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetChargePointListUpdatesResponse>(
-
+                                                         return HTTPResponse<GetChargePointListUpdatesResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetChargePointListUpdatesResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1431,10 +1416,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<GetChargePointListUpdatesResponse>(
-
+                                                         return HTTPResponse<GetChargePointListUpdatesResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetChargePointListUpdatesResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -1442,10 +1425,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1631,20 +1611,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetStatusResponse>(
-
+                                                         return HTTPResponse<GetStatusResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetStatusResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1657,10 +1632,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<GetStatusResponse>(
-
+                                                         return HTTPResponse<GetStatusResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetStatusResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -1668,10 +1641,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1856,20 +1826,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetTariffUpdatesResponse>(
-
+                                                         return HTTPResponse<GetTariffUpdatesResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetTariffUpdatesResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -1882,10 +1847,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<GetTariffUpdatesResponse>(
-
+                                                         return HTTPResponse<GetTariffUpdatesResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetTariffUpdatesResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -1893,10 +1856,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2095,20 +2055,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<SetRoamingAuthorisationListResponse>(
-
+                                                         return HTTPResponse<SetRoamingAuthorisationListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new SetRoamingAuthorisationListResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2121,10 +2076,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<SetRoamingAuthorisationListResponse>(
-
+                                                         return HTTPResponse<SetRoamingAuthorisationListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new SetRoamingAuthorisationListResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -2132,10 +2085,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2336,20 +2286,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<UpdateRoamingAuthorisationListResponse>(
-
+                                                         return HTTPResponse<UpdateRoamingAuthorisationListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new UpdateRoamingAuthorisationListResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2362,10 +2307,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<UpdateRoamingAuthorisationListResponse>(
-
+                                                         return HTTPResponse<UpdateRoamingAuthorisationListResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new UpdateRoamingAuthorisationListResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -2373,10 +2316,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2564,20 +2504,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetCDRsResponse>(
-
+                                                         return HTTPResponse<GetCDRsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetCDRsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2590,10 +2525,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<GetCDRsResponse>(
-
+                                                         return HTTPResponse<GetCDRsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetCDRsResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -2601,10 +2534,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2803,20 +2733,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<ConfirmCDRsResponse>(
-
+                                                         return HTTPResponse<ConfirmCDRsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new ConfirmCDRsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -2829,10 +2754,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<ConfirmCDRsResponse>(
-
+                                                         return HTTPResponse<ConfirmCDRsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new ConfirmCDRsResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -2840,10 +2763,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3044,20 +2964,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<AddServiceEndpointsResponse>(
-
+                                                         return HTTPResponse<AddServiceEndpointsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new AddServiceEndpointsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3070,10 +2985,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<AddServiceEndpointsResponse>(
-
+                                                         return HTTPResponse<AddServiceEndpointsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new AddServiceEndpointsResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -3081,10 +2994,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3266,20 +3176,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return new HTTPResponse<GetServiceEndpointsResponse>(
-
+                                                         return HTTPResponse<GetServiceEndpointsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetServiceEndpointsResponse(
                                                                         Request,
                                                                         Result.Format(
                                                                             "Invalid SOAP => " +
                                                                             httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3292,10 +3197,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return new HTTPResponse<GetServiceEndpointsResponse>(
-
+                                                         return HTTPResponse<GetServiceEndpointsResponse>.IsFault(
                                                                     httpresponse,
-
                                                                     new GetServiceEndpointsResponse(
                                                                         Request,
                                                                         Result.Server(
@@ -3303,10 +3206,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                                              " => " +
                                                                              httpresponse.HTTPBody.ToUTF8String()
                                                                         )
-                                                                    ),
-
-                                                                    IsFault: true
-
+                                                                    )
                                                                 );
 
                                                      },
@@ -3500,15 +3400,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<SelectEVSEResponse>(httpresponse,
-                                                                                                 new SelectEVSEResponse(
-                                                                                                     Request,
-                                                                                                     Result.Format(
-                                                                                                         "Invalid SOAP => " +
-                                                                                                         httpresponse.HTTPBody.ToUTF8String()
-                                                                                                     )
-                                                                                                 ),
-                                                                                                 IsFault: true);
+                                                     return HTTPResponse<SelectEVSEResponse>.IsFault(
+                                                                httpresponse,
+                                                                new SelectEVSEResponse(
+                                                                    Request,
+                                                                    Result.Format(
+                                                                        "Invalid SOAP => " +
+                                                                        httpresponse.HTTPBody.ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -3520,16 +3421,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<SelectEVSEResponse>(httpresponse,
-                                                                                                 new SelectEVSEResponse(
-                                                                                                     Request,
-                                                                                                     Result.Server(
-                                                                                                          httpresponse.HTTPStatusCode.ToString() +
-                                                                                                          " => " +
-                                                                                                          httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                     )
-                                                                                                 ),
-                                                                                                 IsFault: true);
+                                                     return HTTPResponse<SelectEVSEResponse>.IsFault(
+                                                                httpresponse,
+                                                                new SelectEVSEResponse(
+                                                                    Request,
+                                                                    Result.Server(
+                                                                         httpresponse.HTTPStatusCode.ToString() +
+                                                                         " => " +
+                                                                         httpresponse.HTTPBody.      ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -3722,15 +3624,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<ControlEVSEResponse>(httpresponse,
-                                                                                                  new ControlEVSEResponse(
-                                                                                                      Request,
-                                                                                                      Result.Format(
-                                                                                                          "Invalid SOAP => " +
-                                                                                                          httpresponse.HTTPBody.ToUTF8String()
-                                                                                                      )
-                                                                                                  ),
-                                                                                                  IsFault: true);
+                                                     return HTTPResponse<ControlEVSEResponse>.IsFault(
+                                                                httpresponse,
+                                                                new ControlEVSEResponse(
+                                                                    Request,
+                                                                    Result.Format(
+                                                                        "Invalid SOAP => " +
+                                                                        httpresponse.HTTPBody.ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -3742,16 +3645,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<ControlEVSEResponse>(httpresponse,
-                                                                                                  new ControlEVSEResponse(
-                                                                                                      Request,
-                                                                                                      Result.Server(
-                                                                                                           httpresponse.HTTPStatusCode.ToString() +
-                                                                                                           " => " +
-                                                                                                           httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                      )
-                                                                                                  ),
-                                                                                                  IsFault: true);
+                                                     return HTTPResponse<ControlEVSEResponse>.IsFault(
+                                                                httpresponse,
+                                                                new ControlEVSEResponse(
+                                                                    Request,
+                                                                    Result.Server(
+                                                                         httpresponse.HTTPStatusCode.ToString() +
+                                                                         " => " +
+                                                                         httpresponse.HTTPBody.      ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -3919,15 +3823,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<ReleaseEVSEResponse>(httpresponse,
-                                                                                                  new ReleaseEVSEResponse(
-                                                                                                      Request,
-                                                                                                      Result.Format(
-                                                                                                          "Invalid SOAP => " +
-                                                                                                          httpresponse.HTTPBody.ToUTF8String()
-                                                                                                      )
-                                                                                                  ),
-                                                                                                  IsFault: true);
+                                                     return HTTPResponse<ReleaseEVSEResponse>.IsFault(
+                                                                httpresponse,
+                                                                new ReleaseEVSEResponse(
+                                                                    Request,
+                                                                    Result.Format(
+                                                                        "Invalid SOAP => " +
+                                                                        httpresponse.HTTPBody.ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -3939,16 +3844,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<ReleaseEVSEResponse>(httpresponse,
-                                                                                                  new ReleaseEVSEResponse(
-                                                                                                      Request,
-                                                                                                      Result.Server(
-                                                                                                           httpresponse.HTTPStatusCode.ToString() +
-                                                                                                           " => " +
-                                                                                                           httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                      )
-                                                                                                  ),
-                                                                                                  IsFault: true);
+                                                     return HTTPResponse<ReleaseEVSEResponse>.IsFault(
+                                                                httpresponse,
+                                                                new ReleaseEVSEResponse(
+                                                                    Request,
+                                                                    Result.Server(
+                                                                         httpresponse.HTTPStatusCode.ToString() +
+                                                                         " => " +
+                                                                         httpresponse.HTTPBody.      ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -4110,15 +4016,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<GetEVSEStatusResponse>(httpresponse,
-                                                                                                       new GetEVSEStatusResponse(
-                                                                                                           Request,
-                                                                                                           Result.Format(
-                                                                                                               "Invalid SOAP => " +
-                                                                                                               httpresponse.HTTPBody.ToUTF8String()
-                                                                                                           )
-                                                                                                       ),
-                                                                                                       IsFault: true);
+                                                     return HTTPResponse<GetEVSEStatusResponse>.IsFault(
+                                                                httpresponse,
+                                                                new GetEVSEStatusResponse(
+                                                                    Request,
+                                                                    Result.Format(
+                                                                        "Invalid SOAP => " +
+                                                                        httpresponse.HTTPBody.ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -4130,16 +4037,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<GetEVSEStatusResponse>(httpresponse,
-                                                                                                       new GetEVSEStatusResponse(
-                                                                                                           Request,
-                                                                                                           Result.Server(
-                                                                                                                httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                " => " +
-                                                                                                                httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                           )
-                                                                                                       ),
-                                                                                                       IsFault: true);
+                                                     return HTTPResponse<GetEVSEStatusResponse>.IsFault(
+                                                                httpresponse,
+                                                                new GetEVSEStatusResponse(
+                                                                    Request,
+                                                                    Result.Server(
+                                                                         httpresponse.HTTPStatusCode.ToString() +
+                                                                         " => " +
+                                                                         httpresponse.HTTPBody.      ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -4305,15 +4213,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<ReportDiscrepancyResponse>(httpresponse,
-                                                                                                        new ReportDiscrepancyResponse(
-                                                                                                            Request,
-                                                                                                            Result.Format(
-                                                                                                                "Invalid SOAP => " +
-                                                                                                                httpresponse.HTTPBody.ToUTF8String()
-                                                                                                            )
-                                                                                                        ),
-                                                                                                        IsFault: true);
+                                                     return HTTPResponse<ReportDiscrepancyResponse>.IsFault(
+                                                                httpresponse,
+                                                                new ReportDiscrepancyResponse(
+                                                                    Request,
+                                                                    Result.Format(
+                                                                        "Invalid SOAP => " +
+                                                                        httpresponse.HTTPBody.ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -4325,16 +4234,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<ReportDiscrepancyResponse>(httpresponse,
-                                                                                                        new ReportDiscrepancyResponse(
-                                                                                                            Request,
-                                                                                                            Result.Server(
-                                                                                                                 httpresponse.HTTPStatusCode.ToString() +
-                                                                                                                 " => " +
-                                                                                                                 httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                            )
-                                                                                                        ),
-                                                                                                        IsFault: true);
+                                                     return HTTPResponse<ReportDiscrepancyResponse>.IsFault(
+                                                                httpresponse,
+                                                                new ReportDiscrepancyResponse(
+                                                                    Request,
+                                                                    Result.Server(
+                                                                         httpresponse.HTTPStatusCode.ToString() +
+                                                                         " => " +
+                                                                         httpresponse.HTTPBody.      ToUTF8String()
+                                                                    )
+                                                                )
+                                                            );
 
                                                  },
 
@@ -4496,13 +4406,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return new HTTPResponse<GetInformProviderResponse>(httpresponse,
-                                                                                                        GetInformProviderResponse.Format(
-                                                                                                            Request,
-                                                                                                            "Invalid SOAP => " +
-                                                                                                            httpresponse.HTTPBody.ToUTF8String()
-                                                                                                        ),
-                                                                                                        IsFault: true);
+                                                     return HTTPResponse<GetInformProviderResponse>.IsFault(
+                                                                httpresponse,
+                                                                GetInformProviderResponse.Format(
+                                                                    Request,
+                                                                    "Invalid SOAP => " +
+                                                                    httpresponse.HTTPBody.ToUTF8String()
+                                                                )
+                                                            );
 
                                                  },
 
@@ -4514,14 +4425,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return new HTTPResponse<GetInformProviderResponse>(httpresponse,
-                                                                                                        GetInformProviderResponse.Server(
-                                                                                                             Request,
-                                                                                                             httpresponse.HTTPStatusCode.ToString() +
-                                                                                                             " => " +
-                                                                                                             httpresponse.HTTPBody.      ToUTF8String()
-                                                                                                        ),
-                                                                                                        IsFault: true);
+                                                     return HTTPResponse<GetInformProviderResponse>.IsFault(
+                                                                httpresponse,
+                                                                GetInformProviderResponse.Server(
+                                                                     Request,
+                                                                     httpresponse.HTTPStatusCode.ToString() +
+                                                                     " => " +
+                                                                     httpresponse.HTTPBody.      ToUTF8String()
+                                                                )
+                                                            );
 
                                                  },
 
