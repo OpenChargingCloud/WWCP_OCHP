@@ -1706,9 +1706,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         Task<PushEVSEDataResult>
 
             ISendPOIData.UpdateStaticData(IEVSE               EVSE,
-                                          String?             PropertyName,
-                                          Object?             OldValue,
+                                          String              PropertyName,
                                           Object?             NewValue,
+                                          Object?             OldValue,
+                                          String?             DataSource,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,
@@ -2329,8 +2330,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             ISendPOIData.UpdateStaticData(IChargingStation    ChargingStation,
                                           String?             PropertyName,
-                                          Object?             OldValue,
                                           Object?             NewValue,
+                                          Object?             OldValue,
+                                          String?             DataSource,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,
@@ -3000,8 +3002,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             ISendPOIData.UpdateStaticData(IChargingPool       ChargingPool,
                                           String?             PropertyName,
-                                          Object?             OldValue,
                                           Object?             NewValue,
+                                          Object?             OldValue,
+                                          String?             DataSource,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,
@@ -3558,8 +3561,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             ISendPOIData.UpdateStaticData(IChargingStationOperator  ChargingStationOperator,
                                           String?                   PropertyName,
-                                          Object?                   OldValue,
                                           Object?                   NewValue,
+                                          Object?                   OldValue,
+                                          String?                   DataSource,
                                           TransmissionTypes         TransmissionType,
 
                                           DateTime?                 Timestamp,
@@ -3928,9 +3932,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         async Task<PushEVSEDataResult>
 
             ISendPOIData.UpdateStaticData(IRoamingNetwork     RoamingNetwork,
-                                          String?             PropertyName,
-                                          Object?             OldValue,
+                                          String              PropertyName,
                                           Object?             NewValue,
+                                          Object?             OldValue,
+                                          String?             DataSource,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,
