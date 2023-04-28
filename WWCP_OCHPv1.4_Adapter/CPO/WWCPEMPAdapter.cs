@@ -17,12 +17,6 @@
 
 #region Usings
 
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using Org.BouncyCastle.Crypto.Parameters;
@@ -30,6 +24,8 @@ using Org.BouncyCastle.Crypto.Parameters;
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+using org.GraphDefined.Vanaheimr.Hermod.Logging;
+
 using cloud.charging.open.protocols.WWCP;
 
 #endregion
@@ -95,7 +91,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         private readonly         TimeSpan                                       EVSEStatusRefreshEvery;
         private readonly         Timer                                          EVSEStatusRefreshTimer;
 
-        private                  UInt64                                         _ServiceRunId;
+        private                  UInt64                                         serviceRunId;
 
         public readonly static   TimeSpan                                       DefaultRequestTimeout = TimeSpan.FromSeconds(30);
 
@@ -330,40 +326,58 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
-        public WWCPEMPAdapter(EMPRoamingProvider_Id                                Id,
-                              I18NString                                           Name,
-                              I18NString                                           Description,
-                              RoamingNetwork                                       RoamingNetwork,
-                              CPORoaming                                           CPORoaming,
+        public WWCPEMPAdapter(EMPRoamingProvider_Id                           Id,
+                              I18NString                                      Name,
+                              I18NString                                      Description,
+                              RoamingNetwork                                  RoamingNetwork,
+                              CPORoaming                                      CPORoaming,
 
-                              EVSE2ChargePointInfoDelegate                         EVSE2ChargePointInfo             = null,
-                              EVSEStatusUpdate2EVSEStatusDelegate                  EVSEStatusUpdate2EVSEStatus      = null,
-                              ChargePointInfo2XMLDelegate                          ChargePointInfo2XML              = null,
-                              EVSEStatus2XMLDelegate                               EVSEStatus2XML                   = null,
+                              EVSE2ChargePointInfoDelegate?                   EVSE2ChargePointInfo                = null,
+                              EVSEStatusUpdate2EVSEStatusDelegate?            EVSEStatusUpdate2EVSEStatus         = null,
+                              ChargePointInfo2XMLDelegate?                    ChargePointInfo2XML                 = null,
+                              EVSEStatus2XMLDelegate?                         EVSEStatus2XML                      = null,
 
-                              IncludeEVSEIdDelegate                                IncludeEVSEIds                   = null,
-                              IncludeEVSEDelegate                                  IncludeEVSEs                     = null,
-                              IncludeChargingStationIdDelegate                     IncludeChargingStationIds        = null,
-                              IncludeChargingStationDelegate                       IncludeChargingStations          = null,
-                              IncludeChargePointDelegate                           IncludeChargePoints              = null,
-                              ChargeDetailRecordFilterDelegate                     ChargeDetailRecordFilter         = null,
-                              CustomEVSEIdMapperDelegate                           CustomEVSEIdMapper               = null,
+                              //WWCP.IncludeChargingStationOperatorIdDelegate?  IncludeChargingStationOperatorIds   = null,
+                              //WWCP.IncludeChargingStationOperatorDelegate?    IncludeChargingStationOperators     = null,
+                              //WWCP.IncludeChargingPoolIdDelegate?             IncludeChargingPoolIds              = null,
+                              //WWCP.IncludeChargingPoolDelegate?               IncludeChargingPools                = null,
+                              WWCP.IncludeChargingStationIdDelegate?          IncludeChargingStationIds           = null,
+                              WWCP.IncludeChargingStationDelegate?            IncludeChargingStations             = null,
+                              WWCP.IncludeEVSEIdDelegate?                     IncludeEVSEIds                      = null,
+                              WWCP.IncludeEVSEDelegate?                       IncludeEVSEs                        = null,
 
-                              TimeSpan?                                            ServiceCheckEvery                = null,
-                              TimeSpan?                                            StatusCheckEvery                 = null,
-                              TimeSpan?                                            EVSEStatusRefreshEvery           = null,
-                              TimeSpan?                                            CDRCheckEvery                    = null,
+                              IncludeChargePointDelegate?                     IncludeChargePoints                 = null,
 
-                              Boolean                                              DisablePushData                  = false,
-                              Boolean                                              DisablePushAdminStatus           = true,
-                              Boolean                                              DisablePushStatus                = false,
-                              Boolean                                              DisableEVSEStatusRefresh         = false,
-                              Boolean                                              DisableAuthentication            = false,
-                              Boolean                                              DisableSendChargeDetailRecords   = false,
+                              CustomEVSEIdMapperDelegate?                     CustomEVSEIdMapper                  = null,
+                              WWCP.ChargeDetailRecordFilterDelegate?          ChargeDetailRecordFilter            = null,
 
-                              String                                               EllipticCurve                    = "P-256",
-                              ECPrivateKeyParameters                               PrivateKey                       = null,
-                              PublicKeyCertificates                                PublicKeyCertificates            = null)
+                              TimeSpan?                                       ServiceCheckEvery                   = null,
+                              TimeSpan?                                       StatusCheckEvery                    = null,
+                              TimeSpan?                                       EVSEStatusRefreshEvery              = null,
+                              TimeSpan?                                       CDRCheckEvery                       = null,
+
+                              Boolean                                         DisablePushData                     = false,
+                              Boolean                                         DisablePushStatus                   = false,
+                              Boolean                                         DisableEVSEStatusRefresh            = false,
+                              Boolean                                         DisableAuthentication               = false,
+                              Boolean                                         DisableSendChargeDetailRecords      = false,
+
+                              String                                          EllipticCurve                       = "P-256",
+                              ECPrivateKeyParameters?                         PrivateKey                          = null,
+                              PublicKeyCertificates?                          PublicKeyCertificates               = null,
+
+                              Boolean?                                        IsDevelopment                       = null,
+                              IEnumerable<String>?                            DevelopmentServers                  = null,
+                              Boolean?                                        DisableLogging                      = false,
+                              String?                                         LoggingPath                         = null,
+                              String?                                         LoggingContext                      = null,
+                              String?                                         LogfileName                         = null,
+                              LogfileCreatorDelegate?                         LogfileCreator                      = null,
+
+                              String?                                         ClientsLoggingPath                  = null,
+                              String?                                         ClientsLoggingContext               = null,
+                              LogfileCreatorDelegate?                         ClientsLogfileCreator               = null,
+                              DNSClient?                                      DNSClient                           = null)
 
             : base(Id,
                    RoamingNetwork,
@@ -379,21 +393,36 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                    null,
                    null,
                    ChargeDetailRecordFilter,
-                   //CustomEVSEIdMapper,
 
                    ServiceCheckEvery,
                    StatusCheckEvery,
+                   EVSEStatusRefreshEvery,
                    CDRCheckEvery,
 
                    DisablePushData,
-                   DisablePushAdminStatus,
+                   true,
                    DisablePushStatus,
+                   DisableEVSEStatusRefresh,
+                   true,
                    DisableAuthentication,
                    DisableSendChargeDetailRecords,
 
                    EllipticCurve,
                    PrivateKey,
-                   PublicKeyCertificates)
+                   PublicKeyCertificates,
+
+                   IsDevelopment,
+                   DevelopmentServers,
+                   DisableLogging,
+                   LoggingPath,
+                   LoggingContext,
+                   LogfileName,
+                   LogfileCreator,
+
+                   ClientsLoggingPath,
+                   ClientsLoggingContext,
+                   ClientsLogfileCreator,
+                   DNSClient)
 
         {
 
@@ -443,11 +472,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             //this.DisableAuthentication                = DisableAuthentication;
             //this.DisableSendChargeDetailRecords       = DisableSendChargeDetailRecords;
 
-            //this.EVSEsToAddQueue                      = new HashSet<EVSE>();
-            //this.EVSEsToUpdateQueue                   = new HashSet<EVSE>();
-            //this.EVSEStatusChangesFastQueue           = new List<EVSEStatusUpdate>();
-            //this.EVSEStatusChangesDelayedQueue        = new List<EVSEStatusUpdate>();
-            //this.EVSEsToRemoveQueue                   = new HashSet<EVSE>();
+            //this.evsesToAddQueue                      = new HashSet<EVSE>();
+            //this.evsesToUpdateQueue                   = new HashSet<EVSE>();
+            //this.evseStatusChangesFastQueue           = new List<EVSEStatusUpdate>();
+            //this.evseStatusChangesDelayedQueue        = new List<EVSEStatusUpdate>();
+            //this.evsesToRemoveQueue                   = new HashSet<EVSE>();
 
             this._Lookup                              = new Dictionary<EMT_Id, Contract_Id>();
 
@@ -1552,7 +1581,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     if (IncludeEVSEs(EVSE))
                     {
 
-                        EVSEsToAddQueue.Add(EVSE);
+                        evsesToAddQueue.Add(EVSE);
 
                         ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -1633,7 +1662,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     if (IncludeEVSEs(EVSE))
                     {
 
-                        EVSEsToAddQueue.Add(EVSE);
+                        evsesToAddQueue.Add(EVSE);
 
                         ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -1721,7 +1750,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     if (IncludeEVSEs(EVSE))
                     {
 
-                        EVSEsToUpdateQueue.Add(EVSE);
+                        evsesToUpdateQueue.Add(EVSE);
 
                         ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -2041,11 +2070,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             {
 
                                 // Delay the status update until the EVSE data had been uploaded!
-                                if (EVSEsToAddQueue.Any(evse => evse.Id == Update.Id))
-                                    EVSEStatusChangesDelayedQueue.Add(Update);
+                                if (evsesToAddQueue.Any(evse => evse.Id == Update.Id))
+                                    evseStatusChangesDelayedQueue.Add(Update);
 
                                 else
-                                    EVSEStatusChangesFastQueue.Add(Update);
+                                    evseStatusChangesFastQueue.Add(Update);
 
                             }
 
@@ -2144,7 +2173,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEs(evse))
                         {
 
-                            EVSEsToAddQueue.Add(evse);
+                            evsesToAddQueue.Add(evse);
 
                             ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -2243,7 +2272,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEs(evse))
                         {
 
-                            EVSEsToAddQueue.Add(evse);
+                            evsesToAddQueue.Add(evse);
 
                             ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -2346,7 +2375,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEs(evse))
                         {
 
-                            EVSEsToUpdateQueue.Add(evse);
+                            evsesToUpdateQueue.Add(evse);
 
                             ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -2445,7 +2474,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEs(evse))
                         {
 
-                            EVSEsToAddQueue.Add(evse);
+                            evsesToAddQueue.Add(evse);
 
                             ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -2815,7 +2844,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEs(evse))
                         {
 
-                            EVSEsToAddQueue.Add(evse);
+                            evsesToAddQueue.Add(evse);
 
                             ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -2914,7 +2943,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEs(evse))
                         {
 
-                            EVSEsToAddQueue.Add(evse);
+                            evsesToAddQueue.Add(evse);
 
                             ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -3017,7 +3046,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEs(evse))
                         {
 
-                            EVSEsToUpdateQueue.Add(evse);
+                            evsesToUpdateQueue.Add(evse);
 
                             ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -3116,7 +3145,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEs(evse))
                         {
 
-                            EVSEsToUpdateQueue.Add(evse);
+                            evsesToUpdateQueue.Add(evse);
 
                             ServiceCheckTimer.Change(_ServiceCheckEvery, Timeout.Infinite);
 
@@ -4573,7 +4602,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                 try
                                 {
 
-                                    ChargeDetailRecordsQueue.Add(chargeDetailRecord.ToOCHP(ContractIdDelegate: emtid => _Lookup[emtid],
+                                    chargeDetailRecordsQueue.Add(chargeDetailRecord.ToOCHP(ContractIdDelegate: emtid => _Lookup[emtid],
                                                                                            CustomEVSEIdMapper: null));
                                     EnquenedCDRsResults.Add(SendCDRResult.Enqueued(DateTime.UtcNow,
                                                                                    chargeDetailRecord));
@@ -4801,13 +4830,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #region Make a thread local copy of all data
 
             //ToDo: AsyncLocal is currently not implemented in Mono!
-            //var EVSEDataQueueCopy   = new AsyncLocal<HashSet<EVSE>>();
+            //var evseDataQueueCopy   = new AsyncLocal<HashSet<EVSE>>();
             //var EVSEStatusQueueCopy = new AsyncLocal<List<EVSEStatusChange>>();
 
-            var EVSEsToAddQueueCopy                = new ThreadLocal<HashSet<IEVSE>>();
-            var EVSEDataQueueCopy                  = new ThreadLocal<HashSet<IEVSE>>();
-            var EVSEStatusChangesDelayedQueueCopy  = new ThreadLocal<List<EVSEStatusUpdate>>();
-            var EVSEsToRemoveQueueCopy             = new ThreadLocal<HashSet<IEVSE>>();
+            var evsesToAddQueueCopy                = new ThreadLocal<HashSet<IEVSE>>();
+            var evseDataQueueCopy                  = new ThreadLocal<HashSet<IEVSE>>();
+            var evseStatusChangesDelayedQueueCopy  = new ThreadLocal<List<EVSEStatusUpdate>>();
+            var evsesToRemoveQueueCopy             = new ThreadLocal<HashSet<IEVSE>>();
 
             if (Monitor.TryEnter(ServiceCheckLock))
             {
@@ -4815,33 +4844,33 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 try
                 {
 
-                    if (EVSEsToAddQueue.              Count == 0 &&
-                        EVSEsToUpdateQueue.           Count == 0 &&
-                        EVSEStatusChangesDelayedQueue.Count == 0 &&
-                        EVSEsToRemoveQueue.           Count == 0 &&
-                        ChargeDetailRecordsQueue.     Count == 0)
+                    if (evsesToAddQueue.              Count == 0 &&
+                        evsesToUpdateQueue.           Count == 0 &&
+                        evseStatusChangesDelayedQueue.Count == 0 &&
+                        evsesToRemoveQueue.           Count == 0 &&
+                        chargeDetailRecordsQueue.     Count == 0)
                     {
                         return;
                     }
 
-                    _ServiceRunId++;
+                    serviceRunId++;
 
                     // Copy 'EVSEs to add', remove originals...
-                    EVSEsToAddQueueCopy.Value                = new HashSet<IEVSE>         (EVSEsToAddQueue);
-                    EVSEsToAddQueue.Clear();
+                    evsesToAddQueueCopy.Value                = new HashSet<IEVSE>         (evsesToAddQueue);
+                    evsesToAddQueue.Clear();
 
                     // Copy 'EVSEs to update', remove originals...
-                    EVSEDataQueueCopy.Value                  = new HashSet<IEVSE>         (EVSEsToUpdateQueue);
-                    EVSEsToUpdateQueue.Clear();
+                    evseDataQueueCopy.Value                  = new HashSet<IEVSE>         (evsesToUpdateQueue);
+                    evsesToUpdateQueue.Clear();
 
                     // Copy 'EVSE status changes', remove originals...
-                    EVSEStatusChangesDelayedQueueCopy.Value  = new List<EVSEStatusUpdate>(EVSEStatusChangesDelayedQueue);
-                    EVSEStatusChangesDelayedQueueCopy.Value.AddRange(EVSEsToAddQueueCopy.Value.SafeSelect(evse => new EVSEStatusUpdate(evse.Id, evse.Status, evse.Status)));
-                    EVSEStatusChangesDelayedQueue.Clear();
+                    evseStatusChangesDelayedQueueCopy.Value  = new List<EVSEStatusUpdate>(evseStatusChangesDelayedQueue);
+                    evseStatusChangesDelayedQueueCopy.Value.AddRange(evsesToAddQueueCopy.Value.SafeSelect(evse => new EVSEStatusUpdate(evse.Id, evse.Status, evse.Status)));
+                    evseStatusChangesDelayedQueue.Clear();
 
                     // Copy 'EVSEs to remove', remove originals...
-                    EVSEsToRemoveQueueCopy.Value             = new HashSet<IEVSE>         (EVSEsToRemoveQueue);
-                    EVSEsToRemoveQueue.Clear();
+                    evsesToRemoveQueueCopy.Value             = new HashSet<IEVSE>         (evsesToRemoveQueue);
+                    evsesToRemoveQueue.Clear();
 
                     // Stop the timer. Will be rescheduled by next EVSE data/status change...
                     ServiceCheckTimer.Change(Timeout.Infinite, Timeout.Infinite);
@@ -4875,10 +4904,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #endregion
 
             // Upload status changes...
-            if (EVSEsToAddQueueCopy.              Value != null ||
-                EVSEDataQueueCopy.                Value != null ||
-                EVSEStatusChangesDelayedQueueCopy.Value != null ||
-                EVSEsToRemoveQueueCopy.           Value != null)
+            if (evsesToAddQueueCopy.              Value != null ||
+                evseDataQueueCopy.                Value != null ||
+                evseStatusChangesDelayedQueueCopy.Value != null ||
+                evsesToRemoveQueueCopy.           Value != null)
             {
 
                 // Use the events to evaluate if something went wrong!
@@ -4887,12 +4916,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 #region Send new EVSE data
 
-                if (EVSEsToAddQueueCopy.Value.Count > 0)
+                if (evsesToAddQueueCopy.Value.Count > 0)
                 {
 
-                    var EVSEsToAddTask = _ServiceRunId == 1
-                                             ? (this as ISendPOIData).SetStaticData(EVSEsToAddQueueCopy.Value, EventTrackingId: EventTrackingId)
-                                             : (this as ISendPOIData).AddStaticData(EVSEsToAddQueueCopy.Value, EventTrackingId: EventTrackingId);
+                    var EVSEsToAddTask = serviceRunId == 1
+                                             ? (this as ISendPOIData).SetStaticData(evsesToAddQueueCopy.Value, EventTrackingId: EventTrackingId)
+                                             : (this as ISendPOIData).AddStaticData(evsesToAddQueueCopy.Value, EventTrackingId: EventTrackingId);
 
                     EVSEsToAddTask.Wait();
 
@@ -4902,12 +4931,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 #region Send changed EVSE data
 
-                if (EVSEDataQueueCopy.Value.Count > 0)
+                if (evseDataQueueCopy.Value.Count > 0)
                 {
 
                     // Surpress EVSE data updates for all newly added EVSEs
-                    var EVSEsWithoutNewEVSEs = EVSEDataQueueCopy.Value.
-                                                   Where(evse => !EVSEsToAddQueueCopy.Value.Contains(evse)).
+                    var EVSEsWithoutNewEVSEs = evseDataQueueCopy.Value.
+                                                   Where(evse => !evsesToAddQueueCopy.Value.Contains(evse)).
                                                    ToArray();
 
 
@@ -4926,10 +4955,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 #region Send changed EVSE status
 
-                if (EVSEStatusChangesDelayedQueueCopy.Value.Count > 0)
+                if (evseStatusChangesDelayedQueueCopy.Value.Count > 0)
                 {
 
-                    var UpdateEVSEStatusTask = UpdateEVSEStatus(EVSEStatusChangesDelayedQueueCopy.Value,
+                    var UpdateEVSEStatusTask = UpdateEVSEStatus(evseStatusChangesDelayedQueueCopy.Value,
                                                                 EventTrackingId: EventTrackingId);
 
                     UpdateEVSEStatusTask.Wait();
@@ -4951,20 +4980,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         #region (timer) FlushEVSEDataAndStatus()
 
         protected override Boolean SkipFlushEVSEDataAndStatusQueues()
-            => EVSEsToAddQueue.              Count == 0 &&
-               EVSEsToUpdateQueue.           Count == 0 &&
-               EVSEStatusChangesDelayedQueue.Count == 0 &&
-               EVSEsToRemoveQueue.           Count == 0;
+            => evsesToAddQueue.              Count == 0 &&
+               evsesToUpdateQueue.           Count == 0 &&
+               evseStatusChangesDelayedQueue.Count == 0 &&
+               evsesToRemoveQueue.           Count == 0;
 
         protected override async Task FlushEVSEDataAndStatusQueues()
         {
 
             #region Get a copy of all current EVSE data and delayed status
 
-            var EVSEsToAddQueueCopy                = new HashSet<IEVSE>();
+            var evsesToAddQueueCopy                = new HashSet<IEVSE>();
             var EVSEsToUpdateQueueCopy             = new HashSet<IEVSE>();
-            var EVSEStatusChangesDelayedQueueCopy  = new List<EVSEStatusUpdate>();
-            var EVSEsToRemoveQueueCopy             = new HashSet<IEVSE>();
+            var evseStatusChangesDelayedQueueCopy  = new List<EVSEStatusUpdate>();
+            var evsesToRemoveQueueCopy             = new HashSet<IEVSE>();
             var EVSEsUpdateLogCopy                 = new Dictionary<IEVSE,            PropertyUpdateInfo[]>();
             var ChargingStationsUpdateLogCopy      = new Dictionary<IChargingStation, PropertyUpdateInfo[]>();
             var ChargingPoolsUpdateLogCopy         = new Dictionary<IChargingPool,    PropertyUpdateInfo[]>();
@@ -4975,33 +5004,33 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 // Copy 'EVSEs to add', remove originals...
-                EVSEsToAddQueueCopy                      = new HashSet<IEVSE>                (EVSEsToAddQueue);
-                EVSEsToAddQueue.Clear();
+                evsesToAddQueueCopy                      = new HashSet<IEVSE>                (evsesToAddQueue);
+                evsesToAddQueue.Clear();
 
                 // Copy 'EVSEs to update', remove originals...
-                EVSEsToUpdateQueueCopy                   = new HashSet<IEVSE>                (EVSEsToUpdateQueue);
-                EVSEsToUpdateQueue.Clear();
+                EVSEsToUpdateQueueCopy                   = new HashSet<IEVSE>                (evsesToUpdateQueue);
+                evsesToUpdateQueue.Clear();
 
                 // Copy 'EVSE status changes', remove originals...
-                EVSEStatusChangesDelayedQueueCopy        = new List<EVSEStatusUpdate>       (EVSEStatusChangesDelayedQueue);
-                EVSEStatusChangesDelayedQueueCopy.AddRange(EVSEsToAddQueueCopy.SafeSelect(evse => new EVSEStatusUpdate(evse.Id, evse.Status, evse.Status)));
-                EVSEStatusChangesDelayedQueue.Clear();
+                evseStatusChangesDelayedQueueCopy        = new List<EVSEStatusUpdate>       (evseStatusChangesDelayedQueue);
+                evseStatusChangesDelayedQueueCopy.AddRange(evsesToAddQueueCopy.SafeSelect(evse => new EVSEStatusUpdate(evse.Id, evse.Status, evse.Status)));
+                evseStatusChangesDelayedQueue.Clear();
 
                 // Copy 'EVSEs to remove', remove originals...
-                EVSEsToRemoveQueueCopy                   = new HashSet<IEVSE>                (EVSEsToRemoveQueue);
-                EVSEsToRemoveQueue.Clear();
+                evsesToRemoveQueueCopy                   = new HashSet<IEVSE>                (evsesToRemoveQueue);
+                evsesToRemoveQueue.Clear();
 
                 // Copy EVSE property updates
-                EVSEsUpdateLog.           ForEach(_ => EVSEsUpdateLogCopy.           Add(_.Key, _.Value.ToArray()));
-                EVSEsUpdateLog.Clear();
+                evsesUpdateLog.           ForEach(_ => EVSEsUpdateLogCopy.           Add(_.Key, _.Value.ToArray()));
+                evsesUpdateLog.Clear();
 
                 // Copy charging station property updates
-                ChargingStationsUpdateLog.ForEach(_ => ChargingStationsUpdateLogCopy.Add(_.Key, _.Value.ToArray()));
-                ChargingStationsUpdateLog.Clear();
+                chargingStationsUpdateLog.ForEach(_ => ChargingStationsUpdateLogCopy.Add(_.Key, _.Value.ToArray()));
+                chargingStationsUpdateLog.Clear();
 
                 // Copy charging pool property updates
-                ChargingPoolsUpdateLog.   ForEach(_ => ChargingPoolsUpdateLogCopy.   Add(_.Key, _.Value.ToArray()));
-                ChargingPoolsUpdateLog.Clear();
+                chargingPoolsUpdateLog.   ForEach(_ => ChargingPoolsUpdateLogCopy.   Add(_.Key, _.Value.ToArray()));
+                chargingPoolsUpdateLog.Clear();
 
 
                 // Stop the timer. Will be rescheduled by next EVSE data/status change...
@@ -5022,10 +5051,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send new EVSE data
 
-            if (EVSEsToAddQueueCopy.Count > 0)
+            if (evsesToAddQueueCopy.Count > 0)
             {
 
-                //var EVSEsToAddTask = PushEVSEData(EVSEsToAddQueueCopy,
+                //var EVSEsToAddTask = PushEVSEData(evsesToAddQueueCopy,
                 //                                  _FlushEVSEDataRunId == 1
                 //                                      ? ActionTypes.fullLoad
                 //                                      : ActionTypes.update,
@@ -5053,7 +5082,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 // Surpress EVSE data updates for all newly added EVSEs
-                foreach (var _evse in EVSEsToUpdateQueueCopy.Where(evse => EVSEsToAddQueueCopy.Contains(evse)).ToArray())
+                foreach (var _evse in EVSEsToUpdateQueueCopy.Where(evse => evsesToAddQueueCopy.Contains(evse)).ToArray())
                     EVSEsToUpdateQueueCopy.Remove(_evse);
 
                 if (EVSEsToUpdateQueueCopy.Any())
@@ -5084,10 +5113,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #region Send changed EVSE status
 
             if (!DisablePushStatus &&
-                EVSEStatusChangesDelayedQueueCopy.Count > 0)
+                evseStatusChangesDelayedQueueCopy.Count > 0)
             {
 
-                var pushEVSEStatusResult = await UpdateStatus(EVSEStatusChangesDelayedQueueCopy,
+                var pushEVSEStatusResult = await UpdateStatus(evseStatusChangesDelayedQueueCopy,
                                                               TransmissionTypes.Direct,
 
                                                               DateTime.UtcNow,
@@ -5112,10 +5141,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send removed charging stations
 
-            if (EVSEsToRemoveQueueCopy.Count > 0)
+            if (evsesToRemoveQueueCopy.Count > 0)
             {
 
-                var EVSEsToRemove = EVSEsToRemoveQueueCopy.ToArray();
+                var EVSEsToRemove = evsesToRemoveQueueCopy.ToArray();
 
                 if (EVSEsToRemove.Length > 0)
                 {
@@ -5149,7 +5178,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         #region (timer) FlushEVSEFastStatus()
 
         protected override Boolean SkipFlushEVSEFastStatusQueues()
-            => EVSEStatusChangesFastQueue.Count == 0;
+            => evseStatusChangesFastQueue.Count == 0;
 
         protected override async Task FlushEVSEFastStatusQueues()
         {
@@ -5166,21 +5195,21 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 if (LockTaken)
                 {
 
-                    if (EVSEStatusChangesFastQueue.Count == 0)
+                    if (evseStatusChangesFastQueue.Count == 0)
                         return;
 
                     _StatusRunId++;
 
                     // Copy 'EVSE status changes', remove originals...
-                    EVSEStatusFastQueueCopy = new List<EVSEStatusUpdate>(EVSEStatusChangesFastQueue.Where(evsestatuschange => !EVSEsToAddQueue.Any(evse => evse.Id == evsestatuschange.Id)));
+                    EVSEStatusFastQueueCopy = new List<EVSEStatusUpdate>(evseStatusChangesFastQueue.Where(evsestatuschange => !evsesToAddQueue.Any(evse => evse.Id == evsestatuschange.Id)));
 
                     // Add all evse status changes of EVSE *NOT YET UPLOADED* into the delayed queue...
-                    var EVSEStatusChangesDelayed = EVSEStatusChangesFastQueue.Where(evsestatuschange => EVSEsToAddQueue.Any(evse => evse.Id == evsestatuschange.Id)).ToArray();
+                    var EVSEStatusChangesDelayed = evseStatusChangesFastQueue.Where(evsestatuschange => evsesToAddQueue.Any(evse => evse.Id == evsestatuschange.Id)).ToArray();
 
                     if (EVSEStatusChangesDelayed.Length > 0)
-                        EVSEStatusChangesDelayedQueue.AddRange(EVSEStatusChangesDelayed);
+                        evseStatusChangesDelayedQueue.AddRange(EVSEStatusChangesDelayed);
 
-                    EVSEStatusChangesFastQueue.Clear();
+                    evseStatusChangesFastQueue.Clear();
 
                     // Stop the timer. Will be rescheduled by next EVSE status change...
                     FlushEVSEFastStatusTimer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
@@ -5407,7 +5436,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         #region (timer) FlushChargeDetailRecords()
 
         protected override Boolean SkipFlushChargeDetailRecordsQueues()
-            => ChargeDetailRecordsQueue.Count == 0;
+            => chargeDetailRecordsQueue.Count == 0;
 
         protected override async Task FlushChargeDetailRecordsQueues(IEnumerable<CDRInfo> CDRInfos)
         {

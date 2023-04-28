@@ -21,6 +21,8 @@ using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 
 using cloud.charging.open.protocols.OCHPv1_4.CPO;
+using org.GraphDefined.Vanaheimr.Hermod.Logging;
+using Org.BouncyCastle.Crypto.Parameters;
 
 #endregion
 
@@ -62,39 +64,57 @@ namespace cloud.charging.open.protocols.WWCP
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public static WWCPEMPAdapter
 
-            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                                RoamingNetwork,
-                                              EMPRoamingProvider_Id                              Id,
-                                              I18NString                                         Name,
-                                              I18NString                                         Description,
-                                              CPORoaming                                         CPORoaming,
+            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                                 RoamingNetwork,
+                                              EMPRoamingProvider_Id                               Id,
+                                              I18NString                                          Name,
+                                              I18NString                                          Description,
+                                              CPORoaming                                          CPORoaming,
 
-                                              OCHPv1_4.CPO.CustomEVSEIdMapperDelegate            CustomEVSEIdMapper                  = null,
-                                              OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate          EVSE2ChargePointInfo                = null,
-                                              OCHPv1_4.CPO.EVSEStatusUpdate2EVSEStatusDelegate   EVSEStatusUpdate2EVSEStatus         = null,
-                                              OCHPv1_4.CPO.ChargePointInfo2XMLDelegate           ChargePointInfo2XML                 = null,
-                                              OCHPv1_4.CPO.EVSEStatus2XMLDelegate                EVSEStatus2XML                      = null,
+                                              OCHPv1_4.CPO.EVSE2ChargePointInfoDelegate?          EVSE2ChargePointInfo                = null,
+                                              OCHPv1_4.CPO.EVSEStatusUpdate2EVSEStatusDelegate?   EVSEStatusUpdate2EVSEStatus         = null,
+                                              OCHPv1_4.CPO.ChargePointInfo2XMLDelegate?           ChargePointInfo2XML                 = null,
+                                              OCHPv1_4.CPO.EVSEStatus2XMLDelegate?                EVSEStatus2XML                      = null,
 
-                                              IncludeEVSEIdDelegate                              IncludeEVSEIds                      = null,
-                                              IncludeEVSEDelegate                                IncludeEVSEs                        = null,
-                                              IncludeChargingStationIdDelegate                   IncludeChargingStationIds           = null,
-                                              IncludeChargingStationDelegate                     IncludeChargingStations             = null,
-                                              OCHPv1_4.CPO.IncludeChargePointDelegate            IncludeChargePoints                 = null,
-                                              ChargeDetailRecordFilterDelegate                   ChargeDetailRecordFilter            = null,
+                                              IncludeEVSEIdDelegate?                              IncludeEVSEIds                      = null,
+                                              IncludeEVSEDelegate?                                IncludeEVSEs                        = null,
+                                              IncludeChargingStationIdDelegate?                   IncludeChargingStationIds           = null,
+                                              IncludeChargingStationDelegate?                     IncludeChargingStations             = null,
 
-                                              TimeSpan?                                          ServiceCheckEvery                   = null,
-                                              TimeSpan?                                          StatusCheckEvery                    = null,
-                                              TimeSpan?                                          EVSEStatusRefreshEvery              = null,
-                                              TimeSpan?                                          CDRCheckEvery                       = null,
+                                              OCHPv1_4.CPO.IncludeChargePointDelegate?            IncludeChargePoints                 = null,
 
-                                              Boolean                                            DisablePushData                     = false,
-                                              Boolean                                            DisablePushStatus                   = false,
-                                              Boolean                                            DisableEVSEStatusRefresh            = false,
-                                              Boolean                                            DisableAuthentication               = false,
-                                              Boolean                                            DisableSendChargeDetailRecords      = false,
+                                              OCHPv1_4.CPO.CustomEVSEIdMapperDelegate?            CustomEVSEIdMapper                  = null,
+                                              ChargeDetailRecordFilterDelegate?                   ChargeDetailRecordFilter            = null,
 
-                                              Action<OCHPv1_4.CPO.WWCPEMPAdapter>                OCHPConfigurator                    = null,
-                                              Action<IEMPRoamingProvider>                        Configurator                        = null,
-                                              DNSClient                                          DNSClient                           = null)
+                                              TimeSpan?                                           ServiceCheckEvery                   = null,
+                                              TimeSpan?                                           StatusCheckEvery                    = null,
+                                              TimeSpan?                                           EVSEStatusRefreshEvery              = null,
+                                              TimeSpan?                                           CDRCheckEvery                       = null,
+
+                                              Boolean                                             DisablePushData                     = false,
+                                              Boolean                                             DisablePushStatus                   = false,
+                                              Boolean                                             DisableEVSEStatusRefresh            = false,
+                                              Boolean                                             DisableAuthentication               = false,
+                                              Boolean                                             DisableSendChargeDetailRecords      = false,
+
+                                              String                                              EllipticCurve                       = "P-256",
+                                              ECPrivateKeyParameters?                             PrivateKey                          = null,
+                                              PublicKeyCertificates?                              PublicKeyCertificates               = null,
+
+                                              Boolean?                                            IsDevelopment                       = null,
+                                              IEnumerable<String>?                                DevelopmentServers                  = null,
+                                              Boolean?                                            DisableLogging                      = false,
+                                              String?                                             LoggingPath                         = null,
+                                              String?                                             LoggingContext                      = null,
+                                              String?                                             LogfileName                         = null,
+                                              LogfileCreatorDelegate?                             LogfileCreator                      = null,
+
+                                              String?                                             ClientsLoggingPath                  = null,
+                                              String?                                             ClientsLoggingContext               = null,
+                                              LogfileCreatorDelegate?                             ClientsLogfileCreator               = null,
+                                              DNSClient?                                          DNSClient                           = null,
+
+                                              Action<OCHPv1_4.CPO.WWCPEMPAdapter>?                OCHPConfigurator                    = null,
+                                              Action<IEMPRoamingProvider>?                        Configurator                        = null)
 
         {
 
@@ -102,9 +122,6 @@ namespace cloud.charging.open.protocols.WWCP
 
             if (RoamingNetwork == null)
                 throw new ArgumentNullException(nameof(RoamingNetwork),  "The given roaming network must not be null!");
-
-            if (Id == null)
-                throw new ArgumentNullException(nameof(Id),              "The given unique roaming provider identification must not be null!");
 
             if (Name.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Name),            "The given roaming provider name must not be null or empty!");
@@ -125,13 +142,14 @@ namespace cloud.charging.open.protocols.WWCP
                                                         ChargePointInfo2XML,
                                                         EVSEStatus2XML,
 
-                                                        IncludeEVSEIds,
-                                                        IncludeEVSEs,
                                                         IncludeChargingStationIds,
                                                         IncludeChargingStations,
+                                                        IncludeEVSEIds,
+                                                        IncludeEVSEs,
                                                         IncludeChargePoints,
-                                                        ChargeDetailRecordFilter,
+
                                                         CustomEVSEIdMapper,
+                                                        ChargeDetailRecordFilter,
 
                                                         ServiceCheckEvery,
                                                         StatusCheckEvery,
@@ -142,7 +160,24 @@ namespace cloud.charging.open.protocols.WWCP
                                                         DisablePushStatus,
                                                         DisableEVSEStatusRefresh,
                                                         DisableAuthentication,
-                                                        DisableSendChargeDetailRecords);
+                                                        DisableSendChargeDetailRecords,
+
+                                                        EllipticCurve,
+                                                        PrivateKey,
+                                                        PublicKeyCertificates,
+
+                                                        IsDevelopment,
+                                                        DevelopmentServers,
+                                                        DisableLogging,
+                                                        LoggingPath,
+                                                        LoggingContext,
+                                                        LogfileName,
+                                                        LogfileCreator,
+
+                                                        ClientsLoggingPath,
+                                                        ClientsLoggingContext,
+                                                        ClientsLogfileCreator,
+                                                        DNSClient);
 
             OCHPConfigurator?.Invoke(newRoamingProvider);
 
