@@ -67,7 +67,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="EVSEId">The unique identification of the EVSE.</param>
         /// <param name="MajorStatus">The current major status of the given EVSE.</param>
         /// <param name="MinorStatus">An optional current minor status of the given EVSE.</param>
-        /// <param name="TTL">The time to live is set as the deadline until which the status value is to be considered valid. Should be set to the expected status change.</param>
+        /// <param name="TTL">The time to live is set as the deadline until which the status value is to be considered valid. Should be set to the expected status update.</param>
         public EVSEStatus(EVSE_Id                EVSEId,
                           EVSEMajorStatusTypes   MajorStatus,
                           EVSEMinorStatusTypes?  MinorStatus  = null,

@@ -61,7 +61,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ParkingId">The unique identification of the parking space.</param>
         /// <param name="Status">The current status of the given parking space.</param>
-        /// <param name="TTL">The time to live is set as the deadline until which the status value is to be considered valid. Should be set to the expected status change.</param>
+        /// <param name="TTL">The time to live is set as the deadline until which the status value is to be considered valid. Should be set to the expected status update.</param>
         public ParkingStatus(Parking_Id          ParkingId,
                              ParkingStatusTypes  Status,
                              DateTime?           TTL = null)

@@ -1709,7 +1709,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           String              PropertyName,
                                           Object?             NewValue,
                                           Object?             OldValue,
-                                          String?             DataSource,
+                                          Context?            DataSource,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,
@@ -2332,7 +2332,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           String?             PropertyName,
                                           Object?             NewValue,
                                           Object?             OldValue,
-                                          String?             DataSource,
+                                          Context?            DataSource,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,
@@ -3004,7 +3004,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           String?             PropertyName,
                                           Object?             NewValue,
                                           Object?             OldValue,
-                                          String?             DataSource,
+                                          Context?            DataSource,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,
@@ -3563,7 +3563,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           String?                   PropertyName,
                                           Object?                   NewValue,
                                           Object?                   OldValue,
-                                          String?                   DataSource,
+                                          Context?                  DataSource,
                                           TransmissionTypes         TransmissionType,
 
                                           DateTime?                 Timestamp,
@@ -3935,7 +3935,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           String              PropertyName,
                                           Object?             NewValue,
                                           Object?             OldValue,
-                                          String?             DataSource,
+                                          Context?            DataSource,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,

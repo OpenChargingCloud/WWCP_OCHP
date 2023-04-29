@@ -401,7 +401,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             if (!(Object is EVSE_Id))
-                throw new ArgumentException("The given object is not a EVSEId!", nameof(Object));
+                throw new ArgumentException("The given object is not an EVSEId!", nameof(Object));
 
             return CompareTo((EVSE_Id) Object);
 
