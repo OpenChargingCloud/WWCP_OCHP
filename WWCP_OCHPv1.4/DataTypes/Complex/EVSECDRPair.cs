@@ -165,7 +165,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, EVSECDRPairXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, EVSECDRPairXML, e);
 
                 EVSECDRPair = default(EVSECDRPair);
                 return false;
@@ -201,7 +201,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, EVSECDRPairText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, EVSECDRPairText, e);
             }
 
             EVSECDRPair = default(EVSECDRPair);

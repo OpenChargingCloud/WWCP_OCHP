@@ -59,7 +59,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public AddServiceEndpointsRequest(IEnumerable<OperatorEndpoint>  OperatorEndpoints,
 
                                           DateTime?                      Timestamp           = null,
-                                          CancellationToken?             CancellationToken   = null,
+                                          CancellationToken              CancellationToken   = default,
                                           EventTracking_Id               EventTrackingId     = null,
                                           TimeSpan?                      RequestTimeout      = null)
 
@@ -197,7 +197,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, AddServiceEndpointsRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, AddServiceEndpointsRequestXML, e);
 
                 AddServiceEndpointsRequest = null;
                 return false;
@@ -233,7 +233,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, AddServiceEndpointsRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, AddServiceEndpointsRequestText, e);
             }
 
             AddServiceEndpointsRequest = null;

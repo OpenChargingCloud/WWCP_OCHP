@@ -450,7 +450,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, CDRInfoXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, CDRInfoXML, e);
 
                 CDRInfo = null;
                 return false;
@@ -486,7 +486,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, CDRInfoText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, CDRInfoText, e);
             }
 
             CDRInfo = null;

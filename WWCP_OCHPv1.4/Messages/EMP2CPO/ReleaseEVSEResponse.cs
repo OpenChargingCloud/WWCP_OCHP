@@ -143,7 +143,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (SessionTimeoutAt.HasValue && SessionTimeoutAt.Value <= DateTime.UtcNow)
+            if (SessionTimeoutAt.HasValue && SessionTimeoutAt.Value <= Timestamp.Now)
                 throw new ArgumentException("The given reservation end time must be after than the current time!");
 
             #endregion
@@ -275,7 +275,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, ReleaseEVSEResponseXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ReleaseEVSEResponseXML, e);
 
                 ReleaseEVSEResponse = null;
                 return false;
@@ -314,7 +314,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, ReleaseEVSEResponseText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ReleaseEVSEResponseText, e);
             }
 
             ReleaseEVSEResponse = null;

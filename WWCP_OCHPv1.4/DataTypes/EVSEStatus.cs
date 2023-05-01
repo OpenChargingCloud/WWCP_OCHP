@@ -233,7 +233,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, EVSEStatusXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, EVSEStatusXML, e);
 
                 EVSEStatus = default(EVSEStatus);
                 return false;
@@ -269,7 +269,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, EVSEStatusText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, EVSEStatusText, e);
             }
 
             EVSEStatus = default(EVSEStatus);

@@ -296,7 +296,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnSelectEVSESOAPRequest?.Invoke(DateTime.UtcNow,
+                        OnSelectEVSESOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                         this.SOAPServer.HTTPServer,
                                                         Request);
 
@@ -322,7 +322,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         var results = OnSelectEVSERequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnSelectEVSEDelegate)
-                                              (DateTime.UtcNow,
+                                              (Timestamp.Now,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -353,7 +353,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.HTTPServer.DefaultServerName,
-                        Date            = DateTime.UtcNow,
+                        Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };
@@ -399,7 +399,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnControlEVSESOAPRequest?.Invoke(DateTime.UtcNow,
+                        OnControlEVSESOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                          this.SOAPServer.HTTPServer,
                                                          Request);
 
@@ -425,7 +425,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         var results = OnControlEVSERequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnControlEVSEDelegate)
-                                              (DateTime.UtcNow,
+                                              (Timestamp.Now,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -461,7 +461,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.HTTPServer.DefaultServerName,
-                        Date            = DateTime.UtcNow,
+                        Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };
@@ -507,7 +507,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnReleaseEVSESOAPRequest?.Invoke(DateTime.UtcNow,
+                        OnReleaseEVSESOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                          this.SOAPServer.HTTPServer,
                                                          Request);
 
@@ -533,7 +533,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         var results = OnReleaseEVSERequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnReleaseEVSEDelegate)
-                                              (DateTime.UtcNow,
+                                              (Timestamp.Now,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -562,7 +562,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.HTTPServer.DefaultServerName,
-                        Date            = DateTime.UtcNow,
+                        Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };
@@ -608,7 +608,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnGetEVSEStatusSOAPRequest?.Invoke(DateTime.UtcNow,
+                        OnGetEVSEStatusSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                            this.SOAPServer.HTTPServer,
                                                            Request);
 
@@ -634,7 +634,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         var results = OnGetEVSEStatusRequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnGetEVSEStatusDelegate)
-                                              (DateTime.UtcNow,
+                                              (Timestamp.Now,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -663,7 +663,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.HTTPServer.DefaultServerName,
-                        Date            = DateTime.UtcNow,
+                        Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };
@@ -709,7 +709,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnReportDiscrepancySOAPRequest?.Invoke(DateTime.UtcNow,
+                        OnReportDiscrepancySOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                this.SOAPServer.HTTPServer,
                                                                Request);
 
@@ -735,7 +735,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         var results = OnReportDiscrepancyRequest?.
                                           GetInvocationList()?.
                                           SafeSelect(subscriber => (subscriber as OnReportDiscrepancyDelegate)
-                                              (DateTime.UtcNow,
+                                              (Timestamp.Now,
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
@@ -765,7 +765,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
                         Server          = SOAPServer.HTTPServer.DefaultServerName,
-                        Date            = DateTime.UtcNow,
+                        Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.XMLTEXT_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                     };

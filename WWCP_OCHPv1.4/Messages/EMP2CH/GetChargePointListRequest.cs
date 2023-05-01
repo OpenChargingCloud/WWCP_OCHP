@@ -44,7 +44,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public GetChargePointListRequest(DateTime?           Timestamp           = null,
-                                         CancellationToken?  CancellationToken   = null,
+                                         CancellationToken   CancellationToken   = default,
                                          EventTracking_Id    EventTrackingId     = null,
                                          TimeSpan?           RequestTimeout      = null)
 
@@ -144,7 +144,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, GetChargePointListRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetChargePointListRequestXML, e);
 
                 GetChargePointListRequest = null;
                 return false;
@@ -180,7 +180,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, GetChargePointListRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetChargePointListRequestText, e);
             }
 
             GetChargePointListRequest = null;

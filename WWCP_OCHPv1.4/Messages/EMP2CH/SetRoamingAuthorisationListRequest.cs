@@ -59,7 +59,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public SetRoamingAuthorisationListRequest(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
                                                   DateTime?                              Timestamp           = null,
-                                                  CancellationToken?                     CancellationToken   = null,
+                                                  CancellationToken                      CancellationToken   = default,
                                                   EventTracking_Id                       EventTrackingId     = null,
                                                   TimeSpan?                              RequestTimeout      = null)
 
@@ -171,7 +171,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, SetRoamingAuthorisationListRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, SetRoamingAuthorisationListRequestXML, e);
 
                 SetRoamingAuthorisationListRequest = null;
                 return false;
@@ -207,7 +207,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, SetRoamingAuthorisationListRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, SetRoamingAuthorisationListRequestText, e);
             }
 
             SetRoamingAuthorisationListRequest = null;

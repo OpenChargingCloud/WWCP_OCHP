@@ -711,7 +711,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, ChargePointInfoXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ChargePointInfoXML, e);
 
                 ChargePointInfo = null;
                 return false;
@@ -747,7 +747,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, ChargePointInfoText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ChargePointInfoText, e);
             }
 
             ChargePointInfo = null;

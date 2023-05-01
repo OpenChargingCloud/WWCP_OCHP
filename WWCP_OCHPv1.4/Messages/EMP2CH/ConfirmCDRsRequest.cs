@@ -66,8 +66,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                   IEnumerable<EVSECDRPair>  Declined            = null,
 
                                   DateTime?                 Timestamp           = null,
-                                  CancellationToken?        CancellationToken   = null,
-                                  EventTracking_Id          EventTrackingId     = null,
+                                  CancellationToken         CancellationToken   = default,
+                                  EventTracking_Id?         EventTrackingId     = null,
                                   TimeSpan?                 RequestTimeout      = null)
 
             : base(Timestamp,
@@ -190,7 +190,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, ConfirmCDRsRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ConfirmCDRsRequestXML, e);
 
                 ConfirmCDRsRequest = null;
                 return false;
@@ -226,7 +226,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, ConfirmCDRsRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ConfirmCDRsRequestText, e);
             }
 
             ConfirmCDRsRequest = null;

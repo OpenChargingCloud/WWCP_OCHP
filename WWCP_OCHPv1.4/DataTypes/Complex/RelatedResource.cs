@@ -175,7 +175,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, RelatedResourceXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, RelatedResourceXML, e);
 
                 RelatedResource = null;
                 return false;
@@ -211,7 +211,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, RelatedResourceText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, RelatedResourceText, e);
             }
 
             RelatedResource = null;

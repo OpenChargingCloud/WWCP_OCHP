@@ -268,7 +268,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, SetRoamingAuthorisationListResponseXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, SetRoamingAuthorisationListResponseXML, e);
 
                 SetRoamingAuthorisationListResponse = null;
                 return false;
@@ -307,7 +307,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, SetRoamingAuthorisationListResponseText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, SetRoamingAuthorisationListResponseText, e);
             }
 
             SetRoamingAuthorisationListResponse = null;

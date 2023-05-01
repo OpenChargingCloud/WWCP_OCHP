@@ -64,7 +64,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                 StatusTypes?        StatusType          = null,
 
                                 DateTime?           Timestamp           = null,
-                                CancellationToken?  CancellationToken   = null,
+                                CancellationToken   CancellationToken   = default,
                                 EventTracking_Id    EventTrackingId     = null,
                                 TimeSpan?           RequestTimeout      = null)
 
@@ -183,7 +183,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, GetStatusRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetStatusRequestXML, e);
 
                 GetStatusRequest = null;
                 return false;
@@ -219,7 +219,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, GetStatusRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetStatusRequestText, e);
             }
 
             GetStatusRequest = null;

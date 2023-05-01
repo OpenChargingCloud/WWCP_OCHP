@@ -238,7 +238,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, ParkingSpotInfoXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ParkingSpotInfoXML, e);
 
                 ParkingSpotInfo = null;
                 return false;
@@ -274,7 +274,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, ParkingSpotInfoText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ParkingSpotInfoText, e);
             }
 
             ParkingSpotInfo = null;

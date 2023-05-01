@@ -57,7 +57,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public GetCDRsRequest(CDRStatus?          CDRStatus           = null,
 
                               DateTime?           Timestamp           = null,
-                              CancellationToken?  CancellationToken   = null,
+                              CancellationToken   CancellationToken   = default,
                               EventTracking_Id    EventTrackingId     = null,
                               TimeSpan?           RequestTimeout      = null)
 
@@ -169,7 +169,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, GetCDRsRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetCDRsRequestXML, e);
 
                 GetCDRsRequest = null;
                 return false;
@@ -205,7 +205,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, GetCDRsRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetCDRsRequestText, e);
             }
 
             GetCDRsRequest = null;

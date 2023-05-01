@@ -259,7 +259,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, GetTariffUpdatesResponseXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetTariffUpdatesResponseXML, e);
 
                 GetTariffUpdatesResponse = null;
                 return false;
@@ -298,7 +298,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, GetTariffUpdatesResponseText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetTariffUpdatesResponseText, e);
             }
 
             GetTariffUpdatesResponse = null;

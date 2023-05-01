@@ -59,8 +59,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public UpdateChargePointListRequest(IEnumerable<ChargePointInfo>  ChargePointInfos,
 
                                             DateTime?                     Timestamp           = null,
-                                            CancellationToken?            CancellationToken   = null,
-                                            EventTracking_Id              EventTrackingId     = null,
+                                            CancellationToken             CancellationToken   = default,
+                                            EventTracking_Id?             EventTrackingId     = null,
                                             TimeSpan?                     RequestTimeout      = null)
 
             : base(Timestamp,
@@ -178,7 +178,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, UpdateChargePointListRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, UpdateChargePointListRequestXML, e);
 
                 UpdateChargePointListRequest = null;
                 return false;
@@ -214,7 +214,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, UpdateChargePointListRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, UpdateChargePointListRequestText, e);
             }
 
             UpdateChargePointListRequest = null;

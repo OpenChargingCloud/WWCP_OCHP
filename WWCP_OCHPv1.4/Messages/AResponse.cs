@@ -125,7 +125,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             this.Result             = Result;
             this.CustomData         = CustomData;
-            this.ResponseTimestamp  = DateTime.UtcNow;
+            this.ResponseTimestamp  = Timestamp.Now;
 
         }
 

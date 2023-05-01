@@ -18,8 +18,6 @@
 #region Usings
 
 using org.GraphDefined.Vanaheimr.Illias;
-using System;
-using System.Threading;
 
 #endregion
 
@@ -78,16 +76,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public ARequest(DateTime?                                 Timestamp           = null,
-                        CancellationToken?                        CancellationToken   = null,
-                        EventTracking_Id                          EventTrackingId     = null,
-                        TimeSpan?                                 RequestTimeout      = null)
+        public ARequest(DateTime?          Timestamp           = null,
+                        CancellationToken  CancellationToken   = default,
+                        EventTracking_Id?  EventTrackingId     = null,
+                        TimeSpan?          RequestTimeout      = null)
         {
 
-            this.Timestamp          = Timestamp.        HasValue ? Timestamp            : DateTime.UtcNow;
-            this.CancellationToken  = CancellationToken.HasValue ? CancellationToken    : new CancellationTokenSource().Token;
-            this.EventTrackingId    = EventTrackingId != null    ? EventTrackingId      : EventTracking_Id.New;
-            this.RequestTimeout     = RequestTimeout.   HasValue ? RequestTimeout.Value : DefaultRequestTimeout;
+            this.Timestamp          = Timestamp       ?? org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            this.CancellationToken  = CancellationToken;
+            this.EventTrackingId    = EventTrackingId ?? EventTracking_Id.New;
+            this.RequestTimeout     = RequestTimeout  ?? DefaultRequestTimeout;
 
         }
 

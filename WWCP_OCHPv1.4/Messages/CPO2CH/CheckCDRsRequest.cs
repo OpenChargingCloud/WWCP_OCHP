@@ -54,12 +54,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public CheckCDRsRequest(CDRStatus?            CDRStatus           = null,
+        public CheckCDRsRequest(CDRStatus?         CDRStatus           = null,
 
-                                DateTime?             Timestamp           = null,
-                                CancellationToken?    CancellationToken   = null,
-                                EventTracking_Id      EventTrackingId     = null,
-                                TimeSpan?             RequestTimeout      = null)
+                                DateTime?          Timestamp           = null,
+                                CancellationToken  CancellationToken   = default,
+                                EventTracking_Id?  EventTrackingId     = null,
+                                TimeSpan?          RequestTimeout      = null)
 
             : base(Timestamp,
                    CancellationToken,
@@ -169,7 +169,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, CheckCDRsRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, CheckCDRsRequestXML, e);
 
                 CheckCDRsRequest = null;
                 return false;
@@ -205,7 +205,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, CheckCDRsRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, CheckCDRsRequestText, e);
             }
 
             CheckCDRsRequest = null;

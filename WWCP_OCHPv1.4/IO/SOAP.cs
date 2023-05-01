@@ -105,7 +105,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             XNamespace WSU        = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd";
 
             var Nonce             = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 16);
-            var CreatedTimestamp  = DateTime.UtcNow.ToIso8601();
+            var CreatedTimestamp  = Timestamp.Now.ToIso8601();
             var HashedPassword    = Convert.ToBase64String(new SHA1CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(Nonce + CreatedTimestamp + WSSPassword)));
 
             #endregion

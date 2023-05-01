@@ -1113,7 +1113,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetChargePointListRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -1263,7 +1263,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetChargePointListResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -1325,7 +1325,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetChargePointListUpdatesRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -1476,7 +1476,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetChargePointListUpdatesResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -1540,7 +1540,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetStatusRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -1692,7 +1692,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetStatusResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -1756,7 +1756,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetTariffUpdatesRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -1907,7 +1907,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetTariffUpdatesResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -1971,7 +1971,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnSetRoamingAuthorisationListRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -2139,7 +2139,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetRoamingAuthorisationListResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2202,7 +2202,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnUpdateRoamingAuthorisationListRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -2370,7 +2370,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetRoamingAuthorisationListResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2434,7 +2434,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetCDRsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -2585,7 +2585,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetCDRsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2648,7 +2648,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnConfirmCDRsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -2814,7 +2814,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnConfirmCDRsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2880,7 +2880,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnAddServiceEndpointsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -3045,7 +3045,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnAddServiceEndpointsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -3107,7 +3107,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetServiceEndpointsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -3257,7 +3257,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Send OnGetServiceEndpointsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -3309,8 +3309,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                        DateTime?           ReserveUntil       = null,
 
                        DateTime?           Timestamp          = null,
-                       CancellationToken?  CancellationToken  = null,
-                       EventTracking_Id    EventTrackingId    = null,
+                       CancellationToken   CancellationToken  = default,
+                       EventTracking_Id?   EventTrackingId    = null,
                        TimeSpan?           RequestTimeout     = null)
 
         {
@@ -3320,15 +3320,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             if (ContractId == null)
                 throw new ArgumentNullException(nameof(ContractId),  "The given identification of the e-mobility contract must not be null!");
 
-            if (ReserveUntil.HasValue && ReserveUntil.Value <= DateTime.UtcNow)
+            if (ReserveUntil.HasValue && ReserveUntil.Value <= org.GraphDefined.Vanaheimr.Illias.Timestamp.Now)
                 throw new ArgumentException("The given reservation end time must be after than the current time!");
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (EventTrackingId == null)
                 EventTrackingId = EventTracking_Id.New;
@@ -3346,15 +3343,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnSelectEVSERequest?.Invoke(DateTime.UtcNow,
-                                                     Timestamp.Value,
-                                                     this,
-                                                     Description,
-                                                     EventTrackingId,
-                                                     EVSEId,
-                                                     ContractId,
-                                                     ReserveUntil,
-                                                     RequestTimeout);
+                OnSelectEVSERequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
+                                            Timestamp.Value,
+                                            this,
+                                            Description,
+                                            EventTrackingId,
+                                            EVSEId,
+                                            ContractId,
+                                            ReserveUntil,
+                                            RequestTimeout);
 
             }
             catch (Exception e)
@@ -3469,7 +3466,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnSelectEVSEResponse?.Invoke(DateTime.UtcNow,
+                OnSelectEVSEResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                              Timestamp.Value,
                                              this,
                                              Description,
@@ -3479,7 +3476,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                              ReserveUntil,
                                              RequestTimeout,
                                              result.Content,
-                                             DateTime.UtcNow - Timestamp.Value);
+                                             org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -3526,7 +3523,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                         DateTime?           Departure          = null,
 
                         DateTime?           Timestamp          = null,
-                        CancellationToken?  CancellationToken  = null,
+                        CancellationToken   CancellationToken  = default,
                         EventTracking_Id    EventTrackingId    = null,
                         TimeSpan?           RequestTimeout     = null)
 
@@ -3539,10 +3536,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (EventTrackingId == null)
                 EventTrackingId = EventTracking_Id.New;
@@ -3560,7 +3554,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnControlEVSERequest?.Invoke(DateTime.UtcNow,
+                OnControlEVSERequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                              Timestamp.Value,
                                              this,
                                              Description,
@@ -3691,7 +3685,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnControlEVSEResponse?.Invoke(DateTime.UtcNow,
+                OnControlEVSEResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                               Timestamp.Value,
                                               this,
                                               Description,
@@ -3706,7 +3700,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                               Departure,
                                               RequestTimeout,
                                               result.Content,
-                                              DateTime.UtcNow - Timestamp.Value);
+                                              org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -3739,7 +3733,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             ReleaseEVSE(Direct_Id           DirectId,
 
                         DateTime?           Timestamp          = null,
-                        CancellationToken?  CancellationToken  = null,
+                        CancellationToken   CancellationToken  = default,
                         EventTracking_Id    EventTrackingId    = null,
                         TimeSpan?           RequestTimeout     = null)
 
@@ -3752,10 +3746,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (EventTrackingId == null)
                 EventTrackingId = EventTracking_Id.New;
@@ -3773,7 +3764,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnReleaseEVSERequest?.Invoke(DateTime.UtcNow,
+                OnReleaseEVSERequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                              Timestamp.Value,
                                              this,
                                              Description,
@@ -3893,7 +3884,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnReleaseEVSEResponse?.Invoke(DateTime.UtcNow,
+                OnReleaseEVSEResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                               Timestamp.Value,
                                               this,
                                               Description,
@@ -3901,7 +3892,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                               DirectId,
                                               RequestTimeout,
                                               result.Content,
-                                              DateTime.UtcNow - Timestamp.Value);
+                                              org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -3947,7 +3938,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -3968,7 +3959,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnGetEVSEStatusRequest?.Invoke(DateTime.UtcNow,
+                OnGetEVSEStatusRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                Timestamp.Value,
                                                this,
                                                Description,
@@ -4083,7 +4074,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnGetEVSEStatusResponse?.Invoke(DateTime.UtcNow,
+                OnGetEVSEStatusResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                 Timestamp.Value,
                                                 this,
                                                 Description,
@@ -4091,7 +4082,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                 EVSEIds,
                                                 RequestTimeout,
                                                 result.Content,
-                                                DateTime.UtcNow - Timestamp.Value);
+                                                org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -4141,7 +4132,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -4162,7 +4153,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnReportDiscrepancyRequest?.Invoke(DateTime.UtcNow,
+                OnReportDiscrepancyRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                    Timestamp.Value,
                                                    this,
                                                    Description,
@@ -4280,7 +4271,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnReportDiscrepancyResponse?.Invoke(DateTime.UtcNow,
+                OnReportDiscrepancyResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                     Timestamp.Value,
                                                     this,
                                                     Description,
@@ -4289,7 +4280,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                     Report,
                                                     RequestTimeout,
                                                     result.Content,
-                                                    DateTime.UtcNow - Timestamp.Value);
+                                                    org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - Timestamp.Value);
 
             }
             catch (Exception e)
@@ -4322,7 +4313,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             GetInformProvider(Direct_Id           DirectId,
 
                               DateTime?           Timestamp          = null,
-                              CancellationToken?  CancellationToken  = null,
+                              CancellationToken   CancellationToken  = default,
                               EventTracking_Id    EventTrackingId    = null,
                               TimeSpan?           RequestTimeout     = null)
 
@@ -4335,10 +4326,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
-
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (EventTrackingId == null)
                 EventTrackingId = EventTracking_Id.New;
@@ -4356,7 +4344,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnGetInformProviderRequest?.Invoke(DateTime.UtcNow,
+                OnGetInformProviderRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                    Timestamp.Value,
                                                    this,
                                                    Description,
@@ -4472,7 +4460,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                OnGetInformProviderResponse?.Invoke(DateTime.UtcNow,
+                OnGetInformProviderResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                     Timestamp.Value,
                                                     this,
                                                     Description,
@@ -4480,7 +4468,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                     DirectId,
                                                     RequestTimeout,
                                                     result.Content,
-                                                    DateTime.UtcNow - Timestamp.Value);
+                                                    org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - Timestamp.Value);
 
             }
             catch (Exception e)

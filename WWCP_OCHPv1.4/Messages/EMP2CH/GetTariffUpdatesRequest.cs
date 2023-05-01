@@ -57,7 +57,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public GetTariffUpdatesRequest(DateTime?           LastUpdate          = null,
 
                                        DateTime?           Timestamp           = null,
-                                       CancellationToken?  CancellationToken   = null,
+                                       CancellationToken   CancellationToken   = default,
                                        EventTracking_Id    EventTrackingId     = null,
                                        TimeSpan?           RequestTimeout      = null)
 
@@ -169,7 +169,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, GetTariffUpdatesRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetTariffUpdatesRequestXML, e);
 
                 GetTariffUpdatesRequest = null;
                 return false;
@@ -205,7 +205,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, GetTariffUpdatesRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetTariffUpdatesRequestText, e);
             }
 
             GetTariffUpdatesRequest = null;

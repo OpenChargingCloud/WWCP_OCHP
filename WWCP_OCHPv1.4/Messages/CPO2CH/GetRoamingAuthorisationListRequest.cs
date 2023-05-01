@@ -44,7 +44,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public GetRoamingAuthorisationListRequest(DateTime?           Timestamp           = null,
-                                                  CancellationToken?  CancellationToken   = null,
+                                                  CancellationToken   CancellationToken   = default,
                                                   EventTracking_Id    EventTrackingId     = null,
                                                   TimeSpan?           RequestTimeout      = null)
 
@@ -144,7 +144,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, GetRoamingAuthorisationListRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetRoamingAuthorisationListRequestXML, e);
 
                 GetRoamingAuthorisationListRequest = null;
                 return false;
@@ -180,7 +180,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, GetRoamingAuthorisationListRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetRoamingAuthorisationListRequestText, e);
             }
 
             GetRoamingAuthorisationListRequest = null;

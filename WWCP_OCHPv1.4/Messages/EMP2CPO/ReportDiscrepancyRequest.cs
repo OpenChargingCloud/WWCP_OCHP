@@ -168,7 +168,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, ReportDiscrepancyRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ReportDiscrepancyRequestXML, e);
 
                 ReportDiscrepancyRequest = null;
                 return false;
@@ -204,7 +204,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, ReportDiscrepancyRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ReportDiscrepancyRequestText, e);
             }
 
             ReportDiscrepancyRequest = null;

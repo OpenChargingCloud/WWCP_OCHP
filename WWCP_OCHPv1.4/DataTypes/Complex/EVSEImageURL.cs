@@ -216,7 +216,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, EVSEImageURLXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, EVSEImageURLXML, e);
 
                 EVSEImageURL = null;
                 return false;
@@ -252,7 +252,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, EVSEImageURLText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, EVSEImageURLText, e);
             }
 
             EVSEImageURL = null;

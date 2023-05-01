@@ -195,7 +195,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, AddServiceEndpointsRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, AddServiceEndpointsRequestXML, e);
 
                 AddServiceEndpointsRequest = null;
                 return false;
@@ -231,7 +231,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, AddServiceEndpointsRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, AddServiceEndpointsRequestText, e);
             }
 
             AddServiceEndpointsRequest = null;

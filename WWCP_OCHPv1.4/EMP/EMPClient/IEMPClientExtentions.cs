@@ -53,7 +53,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             GetChargePointList(this IEMPClient     IEMPClient,
 
                                DateTime?           Timestamp           = null,
-                               CancellationToken?  CancellationToken   = null,
+                               CancellationToken   CancellationToken   = default,
                                EventTracking_Id    EventTrackingId     = null,
                                TimeSpan?           RequestTimeout      = null)
 
@@ -81,7 +81,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                       DateTime            LastUpdate,
 
                                       DateTime?           Timestamp          = null,
-                                      CancellationToken?  CancellationToken  = null,
+                                      CancellationToken   CancellationToken  = default,
                                       EventTracking_Id    EventTrackingId    = null,
                                       TimeSpan?           RequestTimeout     = null)
 
@@ -114,7 +114,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                       StatusTypes?        StatusType          = null,
 
                       DateTime?           Timestamp           = null,
-                      CancellationToken?  CancellationToken   = null,
+                      CancellationToken   CancellationToken   = default,
                       EventTracking_Id    EventTrackingId     = null,
                       TimeSpan?           RequestTimeout      = null)
 
@@ -146,7 +146,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                              DateTime?           LastUpdate         = null,
 
                              DateTime?           Timestamp          = null,
-                             CancellationToken?  CancellationToken  = null,
+                             CancellationToken   CancellationToken  = default,
                              EventTracking_Id    EventTrackingId    = null,
                              TimeSpan?           RequestTimeout     = null)
 
@@ -177,8 +177,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                         RoamingAuthorisationInfo  RoamingAuthorisationInfo,
 
                                         DateTime?                 Timestamp           = null,
-                                        CancellationToken?        CancellationToken   = null,
-                                        EventTracking_Id          EventTrackingId     = null,
+                                        CancellationToken         CancellationToken   = default,
+                                        EventTracking_Id?         EventTrackingId     = null,
                                         TimeSpan?                 RequestTimeout      = null)
 
 
@@ -208,7 +208,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                         IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
                                         DateTime?                              Timestamp           = null,
-                                        CancellationToken?                     CancellationToken   = null,
+                                        CancellationToken                      CancellationToken   = default,
                                         EventTracking_Id                       EventTrackingId     = null,
                                         TimeSpan?                              RequestTimeout      = null)
 
@@ -239,8 +239,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                            RoamingAuthorisationInfo  RoamingAuthorisationInfo,
 
                                            DateTime?                 Timestamp           = null,
-                                           CancellationToken?        CancellationToken   = null,
-                                           EventTracking_Id          EventTrackingId     = null,
+                                           CancellationToken         CancellationToken   = default,
+                                           EventTracking_Id?         EventTrackingId     = null,
                                            TimeSpan?                 RequestTimeout      = null)
 
 
@@ -270,7 +270,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                            IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
                                            DateTime?                              Timestamp           = null,
-                                           CancellationToken?                     CancellationToken   = null,
+                                           CancellationToken                      CancellationToken   = default,
                                            EventTracking_Id                       EventTrackingId     = null,
                                            TimeSpan?                              RequestTimeout      = null)
 
@@ -302,7 +302,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                     CDRStatus?          CDRStatus           = null,
 
                     DateTime?           Timestamp           = null,
-                    CancellationToken?  CancellationToken   = null,
+                    CancellationToken   CancellationToken   = default,
                     EventTracking_Id    EventTrackingId     = null,
                     TimeSpan?           RequestTimeout      = null)
 
@@ -335,8 +335,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                         IEnumerable<EVSECDRPair>  Declined           = null,
 
                         DateTime?                 Timestamp          = null,
-                        CancellationToken?        CancellationToken  = null,
-                        EventTracking_Id          EventTrackingId    = null,
+                        CancellationToken         CancellationToken  = default,
+                        EventTracking_Id?         EventTrackingId    = null,
                         TimeSpan?                 RequestTimeout     = null)
 
 
@@ -370,7 +370,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                 IEnumerable<ProviderEndpoint>  ProviderEndpoints,
 
                                 DateTime?                      Timestamp           = null,
-                                CancellationToken?             CancellationToken   = null,
+                                CancellationToken              CancellationToken   = default,
                                 EventTracking_Id               EventTrackingId     = null,
                                 TimeSpan?                      RequestTimeout      = null)
 
@@ -397,7 +397,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             GetServiceEndpoints(this IEMPClient     IEMPClient,
                                 DateTime?           Timestamp           = null,
-                                CancellationToken?  CancellationToken   = null,
+                                CancellationToken   CancellationToken   = default,
                                 EventTracking_Id    EventTrackingId     = null,
                                 TimeSpan?           RequestTimeout      = null)
 

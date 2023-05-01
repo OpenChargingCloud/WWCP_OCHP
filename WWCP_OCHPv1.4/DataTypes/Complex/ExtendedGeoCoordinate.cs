@@ -177,7 +177,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, ExtendedGeoCoordinateXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ExtendedGeoCoordinateXML, e);
 
                 ExtendedGeoCoordinate = null;
                 return false;
@@ -213,7 +213,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, ExtendedGeoCoordinateText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ExtendedGeoCoordinateText, e);
             }
 
             ExtendedGeoCoordinate = null;

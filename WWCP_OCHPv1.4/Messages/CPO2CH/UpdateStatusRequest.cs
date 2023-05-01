@@ -73,8 +73,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                    DateTime?                   DefaultTTL          = null,
 
                                    DateTime?                   Timestamp           = null,
-                                   CancellationToken?          CancellationToken   = null,
-                                   EventTracking_Id            EventTrackingId     = null,
+                                   CancellationToken           CancellationToken   = default,
+                                   EventTracking_Id?           EventTrackingId     = null,
                                    TimeSpan?                   RequestTimeout      = null)
 
             : base(Timestamp,
@@ -177,7 +177,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
         public static Boolean TryParse(XElement                 UpdateStatusRequestXML,
                                        out UpdateStatusRequest  UpdateStatusRequest,
-                                       OnExceptionDelegate      OnException  = null)
+                                       OnExceptionDelegate?     OnException  = null)
         {
 
             try
@@ -205,7 +205,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, UpdateStatusRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, UpdateStatusRequestXML, e);
 
                 UpdateStatusRequest = null;
                 return false;
@@ -241,7 +241,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, UpdateStatusRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, UpdateStatusRequestText, e);
             }
 
             UpdateStatusRequest = null;

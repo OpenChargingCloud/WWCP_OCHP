@@ -57,7 +57,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public GetSingleRoamingAuthorisationRequest(EMT_Id              EMTId,
 
                                                     DateTime?           Timestamp           = null,
-                                                    CancellationToken?  CancellationToken   = null,
+                                                    CancellationToken   CancellationToken   = default,
                                                     EventTracking_Id    EventTrackingId     = null,
                                                     TimeSpan?           RequestTimeout      = null)
 
@@ -181,7 +181,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, GetSingleRoamingAuthorisationRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetSingleRoamingAuthorisationRequestXML, e);
 
                 GetSingleRoamingAuthorisationRequest = null;
                 return false;
@@ -217,7 +217,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, GetSingleRoamingAuthorisationRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetSingleRoamingAuthorisationRequestText, e);
             }
 
             GetSingleRoamingAuthorisationRequest = null;

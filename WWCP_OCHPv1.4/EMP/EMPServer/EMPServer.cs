@@ -323,7 +323,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 try
                 {
 
-                    OnInformProviderHTTPRequest?.Invoke(DateTime.UtcNow,
+                    OnInformProviderHTTPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                         this.SOAPServer.HTTPServer,
                                                         Request);
 
@@ -349,7 +349,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                     var results = OnInformProviderRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnInformProviderDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -396,7 +396,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };

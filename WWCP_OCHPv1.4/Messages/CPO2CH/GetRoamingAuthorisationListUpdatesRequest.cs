@@ -57,7 +57,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public GetRoamingAuthorisationListUpdatesRequest(DateTime            LastUpdate,
 
                                                          DateTime?           Timestamp           = null,
-                                                         CancellationToken?  CancellationToken   = null,
+                                                         CancellationToken   CancellationToken   = default,
                                                          EventTracking_Id    EventTrackingId     = null,
                                                          TimeSpan?           RequestTimeout      = null)
 
@@ -168,7 +168,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(DateTime.UtcNow, GetRoamingAuthorisationListUpdatesRequestXML, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetRoamingAuthorisationListUpdatesRequestXML, e);
 
                 GetRoamingAuthorisationListUpdatesRequest = null;
                 return false;
@@ -204,7 +204,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(DateTime.UtcNow, GetRoamingAuthorisationListUpdatesRequestText, e);
+                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetRoamingAuthorisationListUpdatesRequestText, e);
             }
 
             GetRoamingAuthorisationListUpdatesRequest = null;

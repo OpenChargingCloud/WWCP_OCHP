@@ -1062,7 +1062,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnSetChargePointListRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -1236,7 +1236,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnSetChargePointListResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -1299,7 +1299,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnUpdateChargePointListRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -1469,7 +1469,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnUpdateChargePointListResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -1532,7 +1532,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnUpdateStatusRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -1712,7 +1712,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnUpdateStatusResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -1779,7 +1779,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnUpdateTariffsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -1949,7 +1949,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnUpdateTariffsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2013,7 +2013,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnGetSingleRoamingAuthorisationRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -2174,7 +2174,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnGetSingleRoamingAuthorisationResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2237,7 +2237,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -2397,7 +2397,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2459,7 +2459,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListUpdatesRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -2620,7 +2620,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnGetRoamingAuthorisationListUpdatesResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2684,7 +2684,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnAddCDRsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -2858,7 +2858,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnAddCDRsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -2921,7 +2921,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnCheckCDRsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -3082,7 +3082,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnCheckCDRsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -3148,7 +3148,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnAddServiceEndpointsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -3313,7 +3313,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnAddServiceEndpointsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -3375,7 +3375,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnGetServiceEndpointsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
@@ -3525,7 +3525,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnGetServiceEndpointsResponse event
 
-            var Endtime = DateTime.UtcNow;
+            var Endtime = Timestamp.Now;
 
             try
             {
@@ -3625,7 +3625,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (!CancellationToken.HasValue)
                 CancellationToken = new CancellationTokenSource().Token;
@@ -3643,7 +3643,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnInformProviderSOAPRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             try
             {
@@ -3803,7 +3803,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnInformProviderResponse event
 
-            var EndTime = DateTime.UtcNow;
+            var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             try
             {

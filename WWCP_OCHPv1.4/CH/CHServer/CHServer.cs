@@ -538,7 +538,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnAddServiceEndpointsSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnAddServiceEndpointsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                              this.SOAPServer.HTTPServer,
                                                              Request);
 
@@ -564,7 +564,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnAddServiceEndpointsRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnAddServiceEndpointsDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -594,7 +594,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -640,7 +640,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetServiceEndpointsSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetServiceEndpointsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                              this.SOAPServer.HTTPServer,
                                                              Request);
 
@@ -666,7 +666,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetServiceEndpointsRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetServiceEndpointsDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -694,7 +694,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -743,7 +743,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnAddCDRsSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnAddCDRsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                  this.SOAPServer.HTTPServer,
                                                  Request);
 
@@ -769,7 +769,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnAddCDRsRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnAddCDRsDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -798,7 +798,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -844,7 +844,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnCheckCDRsSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnCheckCDRsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                  this.SOAPServer.HTTPServer,
                                                  Request);
 
@@ -870,7 +870,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnCheckCDRsRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnCheckCDRsDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -899,7 +899,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -945,7 +945,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetRoamingAuthorisationListSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetRoamingAuthorisationListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                      this.SOAPServer.HTTPServer,
                                                                      Request);
 
@@ -971,7 +971,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetRoamingAuthorisationListRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetRoamingAuthorisationListDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -999,7 +999,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1045,7 +1045,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetRoamingAuthorisationListUpdatesSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetRoamingAuthorisationListUpdatesSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                             this.SOAPServer.HTTPServer,
                                                                             Request);
 
@@ -1071,7 +1071,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetRoamingAuthorisationListUpdatesRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetRoamingAuthorisationListUpdatesDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1100,7 +1100,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1146,7 +1146,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetSingleRoamingAuthorisationSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetSingleRoamingAuthorisationSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                        this.SOAPServer.HTTPServer,
                                                                        Request);
 
@@ -1172,7 +1172,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetSingleRoamingAuthorisationRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetSingleRoamingAuthorisationDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1201,7 +1201,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1247,7 +1247,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnSetChargePointListSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnSetChargePointListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                             this.SOAPServer.HTTPServer,
                                                             Request);
 
@@ -1273,7 +1273,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnSetChargePointListRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnSetChargePointListDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1302,7 +1302,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1348,7 +1348,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateChargePointListSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnUpdateChargePointListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                this.SOAPServer.HTTPServer,
                                                                Request);
 
@@ -1374,7 +1374,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnUpdateChargePointListRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnUpdateChargePointListDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1403,7 +1403,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1449,7 +1449,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateStatusSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnUpdateStatusSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                       this.SOAPServer.HTTPServer,
                                                       Request);
 
@@ -1475,7 +1475,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnUpdateStatusRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnUpdateStatusDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1506,7 +1506,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1552,7 +1552,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateTariffsSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnUpdateTariffsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                        this.SOAPServer.HTTPServer,
                                                        Request);
 
@@ -1578,7 +1578,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnUpdateTariffsRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnUpdateTariffsDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1607,7 +1607,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1656,7 +1656,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetCDRsSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetCDRsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                  this.SOAPServer.HTTPServer,
                                                  Request);
 
@@ -1682,7 +1682,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetCDRsRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetCDRsDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1711,7 +1711,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1757,7 +1757,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnConfirmCDRsSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnConfirmCDRsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                      this.SOAPServer.HTTPServer,
                                                      Request);
 
@@ -1783,7 +1783,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnConfirmCDRsRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnConfirmCDRsDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1813,7 +1813,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1859,7 +1859,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetChargePointListSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetChargePointListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                             this.SOAPServer.HTTPServer,
                                                             Request);
 
@@ -1885,7 +1885,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetChargePointListRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetChargePointListDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -1913,7 +1913,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -1959,7 +1959,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetChargePointListUpdatesSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetChargePointListUpdatesSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                    this.SOAPServer.HTTPServer,
                                                                    Request);
 
@@ -1985,7 +1985,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetChargePointListUpdatesRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetChargePointListUpdatesDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -2014,7 +2014,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -2060,7 +2060,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetStatusSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetStatusSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                    this.SOAPServer.HTTPServer,
                                                    Request);
 
@@ -2086,7 +2086,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetStatusRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetStatusDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -2116,7 +2116,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -2162,7 +2162,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetTariffUpdatesSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnGetTariffUpdatesSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                           this.SOAPServer.HTTPServer,
                                                           Request);
 
@@ -2188,7 +2188,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnGetTariffUpdatesRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnGetTariffUpdatesDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -2217,7 +2217,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -2263,7 +2263,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnSetRoamingAuthorisationListSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnSetRoamingAuthorisationListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                      this.SOAPServer.HTTPServer,
                                                                      Request);
 
@@ -2289,7 +2289,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnSetRoamingAuthorisationListRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnSetRoamingAuthorisationListDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -2318,7 +2318,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
@@ -2364,7 +2364,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateRoamingAuthorisationListSOAPRequest?.Invoke(DateTime.UtcNow,
+                    OnUpdateRoamingAuthorisationListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                         this.SOAPServer.HTTPServer,
                                                                         Request);
 
@@ -2390,7 +2390,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                     var results = OnUpdateRoamingAuthorisationListRequest?.
                                       GetInvocationList()?.
                                       SafeSelect(subscriber => (subscriber as OnUpdateRoamingAuthorisationListDelegate)
-                                          (DateTime.UtcNow,
+                                          (Timestamp.Now,
                                            this,
                                            Request.CancellationToken,
                                            Request.EventTrackingId,
@@ -2419,7 +2419,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
-                    Date            = DateTime.UtcNow,
+                    Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.XMLTEXT_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
