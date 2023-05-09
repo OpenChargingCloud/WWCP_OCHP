@@ -989,11 +989,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                          TimeSpan?                            RequestTimeout               = null,
                          TransmissionRetryDelayDelegate       TransmissionRetryDelay       = null,
                          UInt16?                              MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
-                         Boolean                              DisableLogging               = false,
-                         String                               LoggingPath                  = null,
+                         Boolean?                             DisableLogging               = false,
+                         String?                              LoggingPath                  = null,
                          String                               LoggingContext               = Logger.DefaultContext,
-                         LogfileCreatorDelegate               LogfileCreator               = null,
-                         DNSClient                            DNSClient                    = null)
+                         LogfileCreatorDelegate?              LogfileCreator               = null,
+                         DNSClient?                           DNSClient                    = null)
 
             : base(RemoteURL,
                    VirtualHostname,
@@ -1011,6 +1011,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                    TransmissionRetryDelay,
                    MaxNumberOfRetries,
                    false,
+                   DisableLogging,
                    null,
                    DNSClient)
 
@@ -1018,7 +1019,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             this.LiveURLPathPrefix  = LiveURLPathPrefix ?? DefaultLiveURLPathPrefix;
 
-            base.HTTPLogger         = DisableLogging == false
+            base.HTTPLogger         = this.DisableLogging == false
                                           ? new Logger(this,
                                                        LoggingPath,
                                                        LoggingContext,

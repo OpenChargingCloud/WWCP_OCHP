@@ -307,7 +307,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             HTTPServer.ErrorLog     += (HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException) => ErrorLog.   WhenAll(HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException);
 
             // Logging
-            this.DisableLogging        = DisableLogging ?? false;
+            this.DisableLogging        = this.DisableLogging == false;
             this.LoggingPath           = LoggingPath    ?? Path.Combine(AppContext.BaseDirectory, "OCHPWebAPI");
 
             if (this.LoggingPath[^1] != Path.DirectorySeparatorChar)

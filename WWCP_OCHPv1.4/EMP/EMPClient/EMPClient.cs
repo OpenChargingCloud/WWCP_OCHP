@@ -1039,11 +1039,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                          TimeSpan?                            RequestTimeout               = null,
                          TransmissionRetryDelayDelegate       TransmissionRetryDelay       = null,
                          UInt16?                              MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
-                         Boolean                              DisableLogging               = false,
-                         String                               LoggingPath                  = null,
-                         String                               LoggingContext               = Logger.DefaultContext,
-                         LogfileCreatorDelegate               LogfileCreator               = null,
-                         DNSClient                            DNSClient                    = null)
+                         Boolean?                             DisableLogging               = false,
+                         String?                              LoggingPath                  = null,
+                         String?                              LoggingContext               = Logger.DefaultContext,
+                         LogfileCreatorDelegate?              LogfileCreator               = null,
+                         DNSClient?                           DNSClient                    = null)
 
             : base(RemoteURL,
                    VirtualHostname,
@@ -1061,6 +1061,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                    TransmissionRetryDelay,
                    MaxNumberOfRetries,
                    false,
+                   DisableLogging,
                    null,
                    DNSClient)
 
@@ -1069,7 +1070,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             this.LiveURLPathPrefix  = LiveURLPathPrefix ?? DefaultLiveURLPathPrefix;
             this._EndpointInfos     = new EndpointInfos();
 
-            base.HTTPLogger         = DisableLogging == false
+            base.HTTPLogger         = this.DisableLogging == false
                                           ? new Logger(this,
                                                        LoggingPath,
                                                        LoggingContext,
