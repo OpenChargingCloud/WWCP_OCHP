@@ -45,8 +45,8 @@ namespace cloud.charging.open.protocols.WWCP
         /// <param name="Id">The unique identification of the roaming provider.</param>
         /// <param name="Name">The offical (multi-language) name of the roaming provider.</param>
         /// 
-        /// <param name="EVSE2ChargePointInfo">A delegate to process an charge point info, e.g. before pushing it to the roaming provider.</param>
-        /// <param name="ChargePointInfo2XML">A delegate to process the XML representation of an charge point info, e.g. before pushing it to the roaming provider.</param>
+        /// <param name="EVSE2ChargePointInfo">A delegate to process a charge point info, e.g. before pushing it to the roaming provider.</param>
+        /// <param name="ChargePointInfo2XML">A delegate to process the XML representation of a charge point info, e.g. before pushing it to the roaming provider.</param>
         /// 
         /// <param name="IncludeEVSEs">Only include the EVSEs matching the given delegate.</param>
         /// <param name="ServiceCheckEvery">The service check intervall.</param>

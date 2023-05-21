@@ -313,8 +313,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="RoamingNetwork">A WWCP roaming network.</param>
         /// 
         /// <param name="CPORoaming">A OCHP CPO roaming object to be mapped to WWCP.</param>
-        /// <param name="EVSE2ChargePointInfo">A delegate to process an charge point info, e.g. before pushing it to the roaming provider.</param>
-        /// <param name="ChargePointInfo2XML">A delegate to process the XML representation of an charge point info, e.g. before pushing it to the roaming provider.</param>
+        /// <param name="EVSE2ChargePointInfo">A delegate to process a charge point info, e.g. before pushing it to the roaming provider.</param>
+        /// <param name="ChargePointInfo2XML">A delegate to process the XML representation of a charge point info, e.g. before pushing it to the roaming provider.</param>
         /// 
         /// <param name="IncludeEVSEs">Only include the EVSEs matching the given delegate.</param>
         /// <param name="ServiceCheckEvery">The service check intervall.</param>

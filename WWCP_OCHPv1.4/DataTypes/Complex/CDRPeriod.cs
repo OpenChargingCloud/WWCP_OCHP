@@ -372,7 +372,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             if (Object == null)
                 return false;
 
-            // Check if the given object is an charge detail record period.
+            // Check if the given object is a charge detail record period.
             var CDRPeriod = Object as CDRPeriod;
             if ((Object) CDRPeriod == null)
                 return false;

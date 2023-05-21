@@ -39,7 +39,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         #region Data
 
         /// <summary>
-        /// The regular expression for parsing an charge point identification.
+        /// The regular expression for parsing a charge point identification.
         /// </summary>
         public static readonly Regex EVSEId_RegEx = new Regex(@"^([A-Za-z]{2}\*[A-Za-z0-9]{3})\*[Ee]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$ |" +
                                                               @"^([A-Za-z]{2}[A-Za-z0-9]{3})[Ee]([A-Za-z0-9][A-Za-z0-9\*]{0,30})$",
@@ -110,16 +110,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         #region Parse(Text)
 
         /// <summary>
-        /// Parse the given string as an charge point identification.
+        /// Parse the given string as a charge point identification.
         /// </summary>
-        /// <param name="Text">A text representation of an charge point identification.</param>
+        /// <param name="Text">A text representation of a charge point identification.</param>
         public static EVSE_Id Parse(String Text)
         {
 
             #region Initial checks
 
             if (Text.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Text),  "The given text representation of an charge point identification must not be null or empty!");
+                throw new ArgumentNullException(nameof(Text),  "The given text representation of a charge point identification must not be null or empty!");
 
             #endregion
 
@@ -150,7 +150,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         #region Parse(OperatorId, Suffix)
 
         /// <summary>
-        /// Parse the given string as an charge point identification.
+        /// Parse the given string as a charge point identification.
         /// </summary>
         /// <param name="OperatorId">The unique identification of a charging station operator.</param>
         /// <param name="Suffix">The suffix of the charge point identification.</param>
@@ -176,9 +176,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         #region TryParse(Text)
 
         /// <summary>
-        /// Parse the given string as an charge point identification.
+        /// Parse the given string as a charge point identification.
         /// </summary>
-        /// <param name="Text">A text representation of an charge point identification.</param>
+        /// <param name="Text">A text representation of a charge point identification.</param>
         public static EVSE_Id? TryParse(String Text)
         {
 
@@ -196,9 +196,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         #region TryParse(Text, out EVSEId)
 
         /// <summary>
-        /// Parse the given string as an charge point identification.
+        /// Parse the given string as a charge point identification.
         /// </summary>
-        /// <param name="Text">A text representation of an charge point identification.</param>
+        /// <param name="Text">A text representation of a charge point identification.</param>
         /// <param name="EVSEId">The parsed charge point identification.</param>
         public static Boolean TryParse(String Text, out EVSE_Id EVSEId)
         {
