@@ -2416,6 +2416,21 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             => "OCHP" + Version.Number + " EMP Adapter " + Id;
 
+        public Boolean TryGetChargingReservationsById(ChargingReservation_Id ReservationId, out ChargingReservationCollection? ChargingReservations)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ChargingReservation? GetChargingReservationById(ChargingReservation_Id ReservationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ChargingReservationCollection? GetChargingReservationsById(ChargingReservation_Id ReservationId)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
 
