@@ -508,7 +508,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                    new StartEndDateTime(CDRInfo.StartDateTime, CDRInfo.EndDateTime),
                    Duration:             CDRInfo.Duration,
                    EVSEId:               CDRInfo.EVSEId.ToWWCP(),
-                   AuthenticationStart:  RemoteAuthentication.FromRemoteIdentification(eMobilityAccount_Id.Parse(CDRInfo.ContractId.ToString()))
+                   AuthenticationStart:  RemoteAuthentication.FromRemoteIdentification(EMobilityAccount_Id.Parse(CDRInfo.ContractId.ToString()))
                );
 
         #endregion
