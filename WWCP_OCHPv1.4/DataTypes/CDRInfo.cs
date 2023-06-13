@@ -184,7 +184,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                        UserDefinedDictionary?               InternalData   = null)
 
             : base(CustomData,
-                   InternalData)
+                   InternalData,
+                   Timestamp.Now)
 
         {
 
