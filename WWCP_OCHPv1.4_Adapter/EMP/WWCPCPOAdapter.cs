@@ -2431,6 +2431,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             throw new NotImplementedException();
         }
 
+        public Boolean Contains(ChargingSession_Id ChargingSessionId)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
 
