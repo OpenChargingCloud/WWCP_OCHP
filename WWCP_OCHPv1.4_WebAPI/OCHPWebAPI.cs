@@ -398,7 +398,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                         Date                          = DateTime.Now,
                         AccessControlAllowOrigin      = "*",
                         AccessControlAllowMethods     = new[] { "GET" },
-                        AccessControlAllowHeaders     = "Content-Type, Authorization",
+                        AccessControlAllowHeaders     = new[] { "Content-Type", "Authorization" },
                         ETag                          = "1",
                         ContentType                   = Request.Accept.FirstOrDefault()?.ContentType,
                         Content                       = _RoamingNetwork.EVSEs.
@@ -524,7 +524,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                         Date                          = DateTime.Now,
                         AccessControlAllowOrigin      = "*",
                         AccessControlAllowMethods     = new[] { "GET" },
-                        AccessControlAllowHeaders     = "Content-Type, Authorization",
+                        AccessControlAllowHeaders     = new[] { "Content-Type", "Authorization" },
                         ETag                          = "1",
                         ContentType                   = Request.Accept.FirstOrDefault()?.ContentType,
                         Content                       = _RoamingNetwork.EVSEs.
@@ -663,7 +663,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                         Date                          = DateTime.Now,
                         AccessControlAllowOrigin      = "*",
                         AccessControlAllowMethods     = new[] { "GET" },
-                        AccessControlAllowHeaders     = "Content-Type, Authorization",
+                        AccessControlAllowHeaders     = new[] { "Content-Type", "Authorization" },
                         ETag                          = "1",
                         ContentType                   = Request.Accept.FirstOrDefault()?.ContentType,
                         Content                       = String.Concat(@"<html>", Environment.NewLine,
