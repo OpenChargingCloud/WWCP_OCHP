@@ -143,7 +143,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             var MatchCollection = OperatorId_RegEx.Matches(Text.ToUpper());
 
             if (MatchCollection.Count != 1)
-                throw new ArgumentException("Illegal text representation of a charging station operator identification: '" + Text + "'!",
+                throw new ArgumentException("Illegal text representation of a charging station operator identification: '{Text}'!",
                                             nameof(Text));
 
             // DE...
@@ -152,7 +152,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                                       MatchCollection[0].Groups[3].Value,
                                                       MatchCollection[0].Groups[2].Value == "*" ? OperatorIdFormats.ISO_STAR : OperatorIdFormats.ISO);
 
-            throw new ArgumentException("Illegal text representation of a charging station operator identification: '" + Text + "'!",
+            throw new ArgumentException("Illegal text representation of a charging station operator identification: '{Text}'!",
                                         nameof(Text));
 
         }
@@ -268,7 +268,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
 #pragma warning disable RCS1075  // Avoid empty catch clause that catches System.Exception.
 #pragma warning disable RECS0022 // A catch clause that catches System.Exception and has an empty body
-            catch (Exception)
+            catch
 #pragma warning restore RECS0022 // A catch clause that catches System.Exception and has an empty body
 #pragma warning restore RCS1075  // Avoid empty catch clause that catches System.Exception.
             { }
