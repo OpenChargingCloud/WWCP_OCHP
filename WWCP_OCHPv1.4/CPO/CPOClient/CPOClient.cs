@@ -3589,56 +3589,43 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<InformProviderResponse>>
 
-            InformProvider(DirectMessages          DirectMessage,
-                           EVSE_Id                 EVSEId,
-                           Contract_Id             ContractId,
-                           Direct_Id               DirectId,
+            InformProvider(DirectMessages           DirectMessage,
+                           EVSE_Id                  EVSEId,
+                           Contract_Id              ContractId,
+                           Direct_Id                DirectId,
 
-                           DateTime?               SessionTimeoutAt   = null,
-                           Single?                 StateOfCharge      = null,
-                           Single?                 MaxPower           = null,
-                           Single?                 MaxCurrent         = null,
-                           Boolean?                OnePhase           = null,
-                           Single?                 MaxEnergy          = null,
-                           Single?                 MinEnergy          = null,
-                           DateTime?               Departure          = null,
-                           Single?                 CurrentPower       = null,
-                           Single?                 ChargedEnergy      = null,
-                           Timestamped<Single>?    MeterReading       = null,
-                           IEnumerable<CDRPeriod>  ChargingPeriods    = null,
-                           Single?                 CurrentCost        = null,
-                           Currency                Currency           = null,
+                           DateTime?                SessionTimeoutAt    = null,
+                           Single?                  StateOfCharge       = null,
+                           Single?                  MaxPower            = null,
+                           Single?                  MaxCurrent          = null,
+                           Boolean?                 OnePhase            = null,
+                           Single?                  MaxEnergy           = null,
+                           Single?                  MinEnergy           = null,
+                           DateTime?                Departure           = null,
+                           Single?                  CurrentPower        = null,
+                           Single?                  ChargedEnergy       = null,
+                           Timestamped<Single>?     MeterReading        = null,
+                           IEnumerable<CDRPeriod>?  ChargingPeriods     = null,
+                           Single?                  CurrentCost         = null,
+                           Currency?                Currency            = null,
 
-                           DateTime?               Timestamp          = null,
-                           CancellationToken?      CancellationToken  = null,
-                           EventTracking_Id        EventTrackingId    = null,
-                           TimeSpan?               RequestTimeout     = null)
+                           DateTime?                Timestamp           = null,
+                           EventTracking_Id?        EventTrackingId     = null,
+                           TimeSpan?                RequestTimeout      = null,
+                           CancellationToken        CancellationToken   = default)
 
         {
 
             #region Initial checks
 
-            if (ContractId == null)
-                throw new ArgumentNullException(nameof(ContractId),  "The given identification of an e-mobility contract must not be null!");
-
-            if (DirectId   == null)
-                throw new ArgumentNullException(nameof(DirectId),    "The given identification of an direct charging process must not be null!");
-
-
             if (!Timestamp.HasValue)
                 Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
+            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimeout  ??= this.RequestTimeout;
 
 
-            HTTPResponse<InformProviderResponse> result = null;
+            HTTPResponse<InformProviderResponse>? result = null;
 
             #endregion
 

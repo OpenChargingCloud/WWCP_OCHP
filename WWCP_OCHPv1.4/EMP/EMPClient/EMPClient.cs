@@ -3307,35 +3307,25 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             SelectEVSE(EVSE_Id             EVSEId,
                        Contract_Id         ContractId,
-                       DateTime?           ReserveUntil       = null,
+                       DateTime?           ReserveUntil        = null,
 
-                       DateTime?           Timestamp          = null,
-                       CancellationToken   CancellationToken  = default,
-                       EventTracking_Id?   EventTrackingId    = null,
-                       TimeSpan?           RequestTimeout     = null)
+                       DateTime?           Timestamp           = null,
+                       EventTracking_Id?   EventTrackingId     = null,
+                       TimeSpan?           RequestTimeout      = null,
+                       CancellationToken   CancellationToken   = default)
 
         {
 
             #region Initial checks
 
-            if (ContractId == null)
-                throw new ArgumentNullException(nameof(ContractId),  "The given identification of the e-mobility contract must not be null!");
-
             if (ReserveUntil.HasValue && ReserveUntil.Value <= org.GraphDefined.Vanaheimr.Illias.Timestamp.Now)
                 throw new ArgumentException("The given reservation end time must be after than the current time!");
 
+            Timestamp       ??= org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimeout  ??= this.RequestTimeout;
 
-            if (!Timestamp.HasValue)
-                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
-
-
-            HTTPResponse<SelectEVSEResponse> result = null;
+            HTTPResponse<SelectEVSEResponse>? result = null;
 
             #endregion
 
@@ -3516,37 +3506,27 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             ControlEVSE(Direct_Id           DirectId,
                         DirectOperations    Operation,
-                        Single?             MaxPower           = null,
-                        Single?             MaxCurrent         = null,
-                        Boolean?            OnePhase           = null,
-                        Single?             MaxEnergy          = null,
-                        Single?             MinEnergy          = null,
-                        DateTime?           Departure          = null,
+                        Single?             MaxPower            = null,
+                        Single?             MaxCurrent          = null,
+                        Boolean?            OnePhase            = null,
+                        Single?             MaxEnergy           = null,
+                        Single?             MinEnergy           = null,
+                        DateTime?           Departure           = null,
 
-                        DateTime?           Timestamp          = null,
-                        CancellationToken   CancellationToken  = default,
-                        EventTracking_Id    EventTrackingId    = null,
-                        TimeSpan?           RequestTimeout     = null)
+                        DateTime?           Timestamp           = null,
+                        EventTracking_Id?   EventTrackingId     = null,
+                        TimeSpan?           RequestTimeout      = null,
+                        CancellationToken   CancellationToken   = default)
 
         {
 
             #region Initial checks
 
-            if (DirectId == null)
-                throw new ArgumentNullException(nameof(DirectId),  "The given direct charging process session identification must not be null!");
+            Timestamp       ??= org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimeout  ??= this.RequestTimeout;
 
-
-            if (!Timestamp.HasValue)
-                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
-
-
-            HTTPResponse<ControlEVSEResponse> result = null;
+            HTTPResponse<ControlEVSEResponse>? result = null;
 
             #endregion
 
@@ -3731,32 +3711,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<ReleaseEVSEResponse>>
 
-            ReleaseEVSE(Direct_Id           DirectId,
+            ReleaseEVSE(Direct_Id          DirectId,
 
-                        DateTime?           Timestamp          = null,
-                        CancellationToken   CancellationToken  = default,
-                        EventTracking_Id    EventTrackingId    = null,
-                        TimeSpan?           RequestTimeout     = null)
+                        DateTime?          Timestamp           = null,
+                        EventTracking_Id?  EventTrackingId     = null,
+                        TimeSpan?          RequestTimeout      = null,
+                        CancellationToken  CancellationToken   = default)
 
         {
 
             #region Initial checks
 
-            if (DirectId == null)
-                throw new ArgumentNullException(nameof(DirectId),  "The given direct charging session identification must not be null!");
+            Timestamp       ??= org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimeout  ??= this.RequestTimeout;
 
-
-            if (!Timestamp.HasValue)
-                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
-
-
-            HTTPResponse<ReleaseEVSEResponse> result = null;
+            HTTPResponse<ReleaseEVSEResponse>? result = null;
 
             #endregion
 
@@ -3925,33 +3895,24 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             GetEVSEStatus(IEnumerable<EVSE_Id>  EVSEIds,
 
-                          DateTime?             Timestamp          = null,
-                          CancellationToken?    CancellationToken  = null,
-                          EventTracking_Id      EventTrackingId    = null,
-                          TimeSpan?             RequestTimeout     = null)
+                          DateTime?             Timestamp           = null,
+                          EventTracking_Id?     EventTrackingId     = null,
+                          TimeSpan?             RequestTimeout      = null,
+                          CancellationToken     CancellationToken   = default)
 
         {
 
             #region Initial checks
 
-            if (EVSEIds == null)
-                throw new ArgumentNullException(nameof(EVSEIds),  "The given enumeration of EVSE identifications must not be null!");
+            if (!EVSEIds.Any())
+                throw new ArgumentNullException(nameof(EVSEIds),  "The given enumeration of EVSE identifications must not be empty!");
 
 
-            if (!Timestamp.HasValue)
-                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            Timestamp       ??= org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimeout  ??= this.RequestTimeout;
 
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
-
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
-
-
-            HTTPResponse<GetEVSEStatusResponse> result = null;
+            HTTPResponse<GetEVSEStatusResponse>? result = null;
 
             #endregion
 
@@ -4116,13 +4077,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<ReportDiscrepancyResponse>>
 
-            ReportDiscrepancy(EVSE_Id               EVSEId,
-                              String                Report,
+            ReportDiscrepancy(EVSE_Id            EVSEId,
+                              String             Report,
 
-                              DateTime?             Timestamp          = null,
-                              CancellationToken?    CancellationToken  = null,
-                              EventTracking_Id      EventTrackingId    = null,
-                              TimeSpan?             RequestTimeout     = null)
+                              DateTime?          Timestamp           = null,
+                              EventTracking_Id?  EventTrackingId     = null,
+                              TimeSpan?          RequestTimeout      = null,
+                              CancellationToken  CancellationToken   = default)
 
         {
 
@@ -4135,17 +4096,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             if (!Timestamp.HasValue)
                 Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
-            if (!CancellationToken.HasValue)
-                CancellationToken = new CancellationTokenSource().Token;
+            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimeout  ??= this.RequestTimeout;
 
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = this.RequestTimeout;
-
-
-            HTTPResponse<ReportDiscrepancyResponse> result = null;
+            HTTPResponse<ReportDiscrepancyResponse>? result = null;
 
             #endregion
 
@@ -4313,10 +4267,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             GetInformProvider(Direct_Id           DirectId,
 
-                              DateTime?           Timestamp          = null,
-                              CancellationToken   CancellationToken  = default,
-                              EventTracking_Id    EventTrackingId    = null,
-                              TimeSpan?           RequestTimeout     = null)
+                              DateTime?           Timestamp           = null,
+                              EventTracking_Id?   EventTrackingId     = null,
+                              TimeSpan?           RequestTimeout      = null,
+                              CancellationToken   CancellationToken   = default)
 
         {
 
@@ -4485,6 +4439,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         }
 
         #endregion
+
 
     }
 

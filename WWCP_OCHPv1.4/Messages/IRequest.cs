@@ -17,9 +17,6 @@
 
 #region Usings
 
-using System;
-using System.Threading;
-
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -36,22 +33,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The optional timestamp of the request.
         /// </summary>
-        DateTime?           Timestamp           { get; }
+        DateTime?          Timestamp            { get; }
 
         /// <summary>
         /// An optional token to cancel this request.
         /// </summary>
-        CancellationToken?  CancellationToken   { get; }
+        CancellationToken  CancellationToken    { get; }
 
         /// <summary>
         /// An optional event tracking identification for correlating this request with other events.
         /// </summary>
-        EventTracking_Id    EventTrackingId     { get; }
+        EventTracking_Id   EventTrackingId      { get; }
 
         /// <summary>
         /// An optional timeout for this request.
         /// </summary>
-        TimeSpan?           RequestTimeout      { get; }
+        TimeSpan?          RequestTimeout       { get; }
 
     }
 
