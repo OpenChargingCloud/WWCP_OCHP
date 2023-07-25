@@ -19,6 +19,7 @@
 
 using System.Xml.Linq;
 using System.Net.Security;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -975,34 +976,37 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// <param name="DNSClient">The DNS client to use.</param>
-        public CPOClient(URL                                  RemoteURL,
-                         HTTPHostname?                        VirtualHostname              = null,
-                         String                               Description                  = null,
-                         RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
-                         LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
-                         X509Certificate                      ClientCert                   = null,
-                         String                               HTTPUserAgent                = DefaultHTTPUserAgent,
-                         HTTPPath?                            URLPathPrefix                = null,
-                         HTTPPath?                            LiveURLPathPrefix            = null,
-                         Tuple<String, String>                WSSLoginPassword             = null,
-                         HTTPContentType                      HTTPContentType              = null,
-                         TimeSpan?                            RequestTimeout               = null,
-                         TransmissionRetryDelayDelegate       TransmissionRetryDelay       = null,
-                         UInt16?                              MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
-                         Boolean?                             DisableLogging               = false,
-                         String?                              LoggingPath                  = null,
-                         String                               LoggingContext               = Logger.DefaultContext,
-                         LogfileCreatorDelegate?              LogfileCreator               = null,
-                         DNSClient?                           DNSClient                    = null)
+        public CPOClient(URL                                   RemoteURL,
+                         HTTPHostname?                         VirtualHostname              = null,
+                         String?                               Description                  = null,
+                         Boolean?                              PreferIPv4                   = null,
+                         RemoteCertificateValidationCallback?  RemoteCertificateValidator   = null,
+                         LocalCertificateSelectionCallback?    ClientCertificateSelector    = null,
+                         X509Certificate?                      ClientCert                   = null,
+                         SslProtocols?                         TLSProtocol                  = null,
+                         String                                HTTPUserAgent                = DefaultHTTPUserAgent,
+                         HTTPPath?                             URLPathPrefix                = null,
+                         HTTPPath?                             LiveURLPathPrefix            = null,
+                         Tuple<String, String>?                WSSLoginPassword             = null,
+                         HTTPContentType?                      HTTPContentType              = null,
+                         TimeSpan?                             RequestTimeout               = null,
+                         TransmissionRetryDelayDelegate?       TransmissionRetryDelay       = null,
+                         UInt16?                               MaxNumberOfRetries           = null,
+                         UInt32?                               InternalBufferSize           = null,
+                         Boolean?                              DisableLogging               = false,
+                         String?                               LoggingPath                  = null,
+                         String                                LoggingContext               = Logger.DefaultContext,
+                         LogfileCreatorDelegate?               LogfileCreator               = null,
+                         DNSClient?                            DNSClient                    = null)
 
             : base(RemoteURL,
                    VirtualHostname,
                    Description,
+                   PreferIPv4,
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
                    ClientCert,
-                   null,
-                   false,
+                   TLSProtocol,
                    HTTPUserAgent,
                    URLPathPrefix ?? DefaultURLPathPrefix,
                    WSSLoginPassword,
@@ -1010,6 +1014,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                    RequestTimeout,
                    TransmissionRetryDelay,
                    MaxNumberOfRetries,
+                   InternalBufferSize,
                    false,
                    DisableLogging,
                    null,
@@ -1106,7 +1111,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -1115,7 +1120,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomSetChargePointListSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomSetChargePointListSOAPRequestMapper(Request,
                                                                                                 SOAP.Encapsulation(
                                                                                                     WSSLoginPassword.Item1,
                                                                                                     WSSLoginPassword.Item2,
@@ -1343,7 +1348,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -1352,7 +1357,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
+                    result = await ochpClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
                                                      "http://ochp.eu/1.4/UpdateChargePointList",
                                                      RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
@@ -1581,7 +1586,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -1590,7 +1595,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomUpdateStatusSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomUpdateStatusSOAPRequestMapper(Request,
                                                                                           SOAP.Encapsulation(
                                                                                               WSSLoginPassword.Item1,
                                                                                               WSSLoginPassword.Item2,
@@ -1823,7 +1828,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -1832,7 +1837,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
+                    result = await ochpClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
                                                      "http://ochp.eu/1.4/UpdateTariffs",
                                                      RequestLogDelegate:   OnUpdateTariffsSOAPRequest,
                                                      ResponseLogDelegate:  OnUpdateTariffsSOAPResponse,
@@ -2043,7 +2048,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -2052,7 +2057,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomGetSingleRoamingAuthorisationSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomGetSingleRoamingAuthorisationSOAPRequestMapper(Request,
                                                                                                            SOAP.Encapsulation(
                                                                                                                WSSLoginPassword.Item1,
                                                                                                                WSSLoginPassword.Item2,
@@ -2266,7 +2271,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -2275,7 +2280,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomGetRoamingAuthorisationListSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomGetRoamingAuthorisationListSOAPRequestMapper(Request,
                                                                                                          SOAP.Encapsulation(
                                                                                                              WSSLoginPassword.Item1,
                                                                                                              WSSLoginPassword.Item2,
@@ -2489,7 +2494,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -2498,7 +2503,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomGetRoamingAuthorisationListUpdatesSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomGetRoamingAuthorisationListUpdatesSOAPRequestMapper(Request,
                                                                                                                 SOAP.Encapsulation(
                                                                                                                     WSSLoginPassword.Item1,
                                                                                                                     WSSLoginPassword.Item2,
@@ -2728,7 +2733,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -2737,7 +2742,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomAddCDRsSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomAddCDRsSOAPRequestMapper(Request,
                                                                                      SOAP.Encapsulation(
                                                                                          WSSLoginPassword.Item1,
                                                                                          WSSLoginPassword.Item2,
@@ -2951,7 +2956,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -2960,7 +2965,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomCheckCDRsSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomCheckCDRsSOAPRequestMapper(Request,
                                                                                        SOAP.Encapsulation(
                                                                                            WSSLoginPassword.Item1,
                                                                                            WSSLoginPassword.Item2,
@@ -3192,7 +3197,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -3201,7 +3206,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomAddServiceEndpointsSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomAddServiceEndpointsSOAPRequestMapper(Request,
                                                                                      SOAP.Encapsulation(
                                                                                          WSSLoginPassword.Item1,
                                                                                          WSSLoginPassword.Item2,
@@ -3404,7 +3409,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             do
             {
 
-                using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+                using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
                                                         ClientCertificateSelector:   ClientCertificateSelector,
@@ -3413,7 +3418,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         DNSClient:                   DNSClient))
                 {
 
-                    result = await _OCHPClient.Query(_CustomGetServiceEndpointsSOAPRequestMapper(Request,
+                    result = await ochpClient.Query(_CustomGetServiceEndpointsSOAPRequestMapper(Request,
                                                                                      SOAP.Encapsulation(
                                                                                          WSSLoginPassword.Item1,
                                                                                          WSSLoginPassword.Item2,
@@ -3694,7 +3699,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                     Currency);
 
 
-            using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
+            using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                     VirtualHostname:             VirtualHostname,
                                                     RemoteCertificateValidator:  RemoteCertificateValidator,
                                                     ClientCertificateSelector:   ClientCertificateSelector,
@@ -3703,7 +3708,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                     DNSClient:                   DNSClient))
             {
 
-                result = await _OCHPClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
+                result = await ochpClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
                                                  "InformProviderMessage",
                                                  RequestLogDelegate:   OnInformProviderSOAPRequest,
                                                  ResponseLogDelegate:  OnInformProviderSOAPResponse,

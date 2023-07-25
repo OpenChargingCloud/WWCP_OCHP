@@ -19,6 +19,7 @@
 
 using System.Xml.Linq;
 using System.Net.Security;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -1025,34 +1026,37 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// <param name="DNSClient">The DNS client to use.</param>
-        public EMPClient(URL                                  RemoteURL,
-                         HTTPHostname?                        VirtualHostname              = null,
-                         String                               Description                  = null,
-                         RemoteCertificateValidationCallback  RemoteCertificateValidator   = null,
-                         LocalCertificateSelectionCallback    ClientCertificateSelector    = null,
-                         X509Certificate                      ClientCert                   = null,
-                         String                               HTTPUserAgent                = DefaultHTTPUserAgent,
-                         HTTPPath?                            URLPathPrefix                = null,
-                         HTTPPath?                            LiveURLPathPrefix            = null,
-                         Tuple<String, String>                WSSLoginPassword             = null,
-                         HTTPContentType                      HTTPContentType              = null,
-                         TimeSpan?                            RequestTimeout               = null,
-                         TransmissionRetryDelayDelegate       TransmissionRetryDelay       = null,
-                         UInt16?                              MaxNumberOfRetries           = DefaultMaxNumberOfRetries,
-                         Boolean?                             DisableLogging               = false,
-                         String?                              LoggingPath                  = null,
-                         String?                              LoggingContext               = Logger.DefaultContext,
-                         LogfileCreatorDelegate?              LogfileCreator               = null,
-                         DNSClient?                           DNSClient                    = null)
+        public EMPClient(URL                                   RemoteURL,
+                         HTTPHostname?                         VirtualHostname              = null,
+                         String?                               Description                  = null,
+                         Boolean?                              PreferIPv4                   = null,
+                         RemoteCertificateValidationCallback?  RemoteCertificateValidator   = null,
+                         LocalCertificateSelectionCallback?    ClientCertificateSelector    = null,
+                         X509Certificate?                      ClientCert                   = null,
+                         SslProtocols?                         TLSProtocol                  = null,
+                         String?                               HTTPUserAgent                = DefaultHTTPUserAgent,
+                         HTTPPath?                             URLPathPrefix                = null,
+                         HTTPPath?                             LiveURLPathPrefix            = null,
+                         Tuple<String, String>?                WSSLoginPassword             = null,
+                         HTTPContentType?                      HTTPContentType              = null,
+                         TimeSpan?                             RequestTimeout               = null,
+                         TransmissionRetryDelayDelegate?       TransmissionRetryDelay       = null,
+                         UInt16?                               MaxNumberOfRetries           = null,
+                         UInt32?                               InternalBufferSize           = null,
+                         Boolean?                              DisableLogging               = false,
+                         String?                               LoggingPath                  = null,
+                         String?                               LoggingContext               = Logger.DefaultContext,
+                         LogfileCreatorDelegate?               LogfileCreator               = null,
+                         DNSClient?                            DNSClient                    = null)
 
             : base(RemoteURL,
                    VirtualHostname,
                    Description,
+                   PreferIPv4,
                    RemoteCertificateValidator,
                    ClientCertificateSelector,
                    ClientCert,
-                   null,
-                   false,
+                   TLSProtocol,
                    HTTPUserAgent,
                    URLPathPrefix ?? DefaultURLPathPrefix,
                    WSSLoginPassword,
@@ -1060,6 +1064,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                    RequestTimeout,
                    TransmissionRetryDelay,
                    MaxNumberOfRetries,
+                   InternalBufferSize,
                    false,
                    DisableLogging,
                    null,

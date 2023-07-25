@@ -133,18 +133,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
-        public EMPServer(String                  ServerName                = DefaultHTTPServerName,
-                         IPPort?                 TCPPort                   = null,
-                         String                  ServiceName               = null,
-                         HTTPPath?               URLPrefix                 = null,
-                         HTTPPath?               URLSuffix                 = null,
-                         HTTPContentType         ContentType               = null,
-                         Boolean                 RegisterHTTPRootService   = true,
-                         String                  ServerLoggingPath         = null,
-                         String                  ServerLoggingContext      = EMPServerLogger.DefaultContext,
-                         LogfileCreatorDelegate  LogfileCreator            = null,
-                         DNSClient               DNSClient                 = null,
-                         Boolean                 AutoStart                 = false)
+        public EMPServer(String?                  ServerName                = DefaultHTTPServerName,
+                         IPPort?                  TCPPort                   = null,
+                         String?                  ServiceName               = null,
+                         HTTPPath?                URLPrefix                 = null,
+                         HTTPPath?                URLSuffix                 = null,
+                         HTTPContentType?         ContentType               = null,
+                         Boolean                  RegisterHTTPRootService   = true,
+                         String?                  ServerLoggingPath         = null,
+                         String?                  ServerLoggingContext      = EMPServerLogger.DefaultContext,
+                         LogfileCreatorDelegate?  LogfileCreator            = null,
+                         DNSClient?               DNSClient                 = null,
+                         Boolean                  AutoStart                 = false)
 
             : base(ServerName.IsNotNullOrEmpty() ? ServerName : DefaultHTTPServerName,
                    TCPPort     ?? DefaultHTTPServerPort,
@@ -183,7 +183,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         public EMPServer(SOAPServer  SOAPServer,
-                         String      ServiceName   = null,
+                         String?     ServiceName   = null,
                          HTTPPath?   URLPrefix     = null,
                          HTTPPath?   URLSuffix     = null)
 
