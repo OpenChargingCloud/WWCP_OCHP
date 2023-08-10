@@ -17,18 +17,13 @@
 
 #region Usings
 
-using System;
-using System.Threading;
-using System.Net.Security;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
-using System.Security.Authentication;
 
 #endregion
 
@@ -65,7 +60,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// An optional description of this CPO client.
         /// </summary>
-        String                               IHTTPClient.Description
+        String?                              IHTTPClient.Description
         {
 
             get
@@ -83,13 +78,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The remote SSL/TLS certificate validator.
         /// </summary>
-        RemoteCertificateValidationCallback  IHTTPClient.RemoteCertificateValidator
+        RemoteCertificateValidationHandler?  IHTTPClient.RemoteCertificateValidator
             => CPOClient.RemoteCertificateValidator;
 
         /// <summary>
         /// The SSL/TLS client certificate to use of HTTP authentication.
         /// </summary>
-        X509Certificate                      IHTTPClient.ClientCert
+        X509Certificate?                     IHTTPClient.ClientCert
             => CPOClient.ClientCert;
 
         /// <summary>
@@ -169,7 +164,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The DNS client defines which DNS servers to use.
         /// </summary>
-        public DNSClient DNSClient
+        public DNSClient? DNSClient
             => CPOServer?.DNSClient;
 
         #endregion

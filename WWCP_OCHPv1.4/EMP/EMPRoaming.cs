@@ -61,7 +61,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// An optional description of this CPO client.
         /// </summary>
-        String IHTTPClient.Description
+        String? IHTTPClient.Description
         {
 
             get
@@ -79,13 +79,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The remote SSL/TLS certificate validator.
         /// </summary>
-        RemoteCertificateValidationCallback IHTTPClient.RemoteCertificateValidator
+        RemoteCertificateValidationHandler? IHTTPClient.RemoteCertificateValidator
             => EMPClient.RemoteCertificateValidator;
 
         /// <summary>
         /// The SSL/TLS client certificate to use of HTTP authentication.
         /// </summary>
-        X509Certificate IHTTPClient.ClientCert
+        X509Certificate? IHTTPClient.ClientCert
             => EMPClient.ClientCert;
 
                 /// <summary>
@@ -146,7 +146,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The CPO client (HTTP client) logger.
         /// </summary>
-        HTTPClientLogger IHTTPClient.HTTPLogger
+        HTTPClientLogger? IHTTPClient.HTTPLogger
             => EMPClient.HTTPLogger;
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The DNS client defines which DNS servers to use.
         /// </summary>
-        public DNSClient DNSClient
+        public DNSClient?       DNSClient
             => EMPServer?.DNSClient;
 
         #endregion
@@ -1485,77 +1485,83 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="ServerAutoStart">Start the server immediately.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public EMPRoaming(URL                                   RemoteURL,
-                          HTTPHostname?                         VirtualHostname                 = null,
-                          String?                               Description                     = null,
-                          Boolean?                              PreferIPv4                      = null,
-                          RemoteCertificateValidationCallback?  RemoteCertificateValidator      = null,
-                          LocalCertificateSelectionCallback?    ClientCertificateSelector       = null,
-                          X509Certificate?                      ClientCert                      = null,
-                          SslProtocols?                         TLSProtocol                     = null,
-                          String?                               HTTPUserAgent                   = null,
-                          HTTPPath?                             URLPathPrefix                   = null,
-                          HTTPPath?                             LiveURLPathPrefix               = null,
-                          Tuple<String, String>?                WSSLoginPassword                = null,
-                          HTTPContentType?                      HTTPContentType                 = null,
-                          TimeSpan?                             RequestTimeout                  = null,
-                          TransmissionRetryDelayDelegate?       TransmissionRetryDelay          = null,
-                          UInt16?                               MaxNumberOfRetries              = null,
-                          UInt32?                               InternalBufferSize              = null,
-                          Boolean                               ClientDisableLogging            = false,
-                          String?                               ClientLoggingPath               = null,
-                          String?                               ClientLoggingContext            = null,
-                          LogfileCreatorDelegate?               ClientLogfileCreator            = null,
+        public EMPRoaming(URL                                  RemoteURL,
+                          HTTPHostname?                        VirtualHostname                 = null,
+                          String?                              Description                     = null,
+                          Boolean?                             PreferIPv4                      = null,
+                          RemoteCertificateValidationHandler?  RemoteCertificateValidator      = null,
+                          LocalCertificateSelectionHandler?    ClientCertificateSelector       = null,
+                          X509Certificate?                     ClientCert                      = null,
+                          SslProtocols?                        TLSProtocol                     = null,
+                          String?                              HTTPUserAgent                   = null,
+                          IHTTPAuthentication?                 HTTPAuthentication              = null,
+                          HTTPPath?                            URLPathPrefix                   = null,
+                          HTTPPath?                            LiveURLPathPrefix               = null,
+                          Tuple<String, String>?               WSSLoginPassword                = null,
+                          HTTPContentType?                     HTTPContentType                 = null,
+                          TimeSpan?                            RequestTimeout                  = null,
+                          TransmissionRetryDelayDelegate?      TransmissionRetryDelay          = null,
+                          UInt16?                              MaxNumberOfRetries              = null,
+                          UInt32?                              InternalBufferSize              = null,
+                          Boolean                              ClientDisableLogging            = false,
+                          String?                              ClientLoggingPath               = null,
+                          String?                              ClientLoggingContext            = null,
+                          LogfileCreatorDelegate?              ClientLogfileCreator            = null,
 
-                          String?                               ServerName                      = null,
-                          IPPort?                               ServerTCPPort                   = null,
-                          String?                               ServerServiceName               = null,
-                          HTTPPath?                             ServerURLPrefix                 = null,
-                          HTTPPath?                             ServerURLSuffix                 = null,
-                          HTTPContentType?                      ServerContentType               = null,
-                          Boolean                               ServerRegisterHTTPRootService   = true,
-                          String?                               ServerLoggingPath               = null,
-                          String?                               ServerLoggingContext            = null,
-                          LogfileCreatorDelegate?               ServerLogfileCreator            = null,
-                          Boolean                               ServerAutoStart                 = false,
+                          String?                              ServerName                      = null,
+                          IPPort?                              ServerTCPPort                   = null,
+                          String?                              ServerServiceName               = null,
+                          HTTPPath?                            ServerURLPrefix                 = null,
+                          HTTPPath?                            ServerURLSuffix                 = null,
+                          HTTPContentType?                     ServerContentType               = null,
+                          Boolean                              ServerRegisterHTTPRootService   = true,
+                          String?                              ServerLoggingPath               = null,
+                          String?                              ServerLoggingContext            = null,
+                          LogfileCreatorDelegate?              ServerLogfileCreator            = null,
+                          Boolean                              ServerAutoStart                 = false,
 
-                          DNSClient?                            DNSClient                       = null)
+                          DNSClient?                           DNSClient                       = null)
 
-            : this(new EMPClient(RemoteURL,
-                                 VirtualHostname,
-                                 Description,
-                                 PreferIPv4,
-                                 RemoteCertificateValidator,
-                                 ClientCertificateSelector,
-                                 ClientCert,
-                                 TLSProtocol,
-                                 HTTPUserAgent,
-                                 URLPathPrefix,
-                                 LiveURLPathPrefix,
-                                 WSSLoginPassword,
-                                 HTTPContentType,
-                                 RequestTimeout,
-                                 TransmissionRetryDelay,
-                                 MaxNumberOfRetries,
-                                 InternalBufferSize,
-                                 ClientDisableLogging,
-                                 ClientLoggingPath,
-                                 ClientLoggingContext,
-                                 ClientLogfileCreator,
-                                 DNSClient),
+            : this(new EMPClient(
+                       RemoteURL,
+                       VirtualHostname,
+                       Description,
+                       PreferIPv4,
+                       RemoteCertificateValidator,
+                       ClientCertificateSelector,
+                       ClientCert,
+                       TLSProtocol,
+                       HTTPUserAgent,
+                       HTTPAuthentication,
+                       URLPathPrefix,
+                       LiveURLPathPrefix,
+                       WSSLoginPassword,
+                       HTTPContentType,
+                       RequestTimeout,
+                       TransmissionRetryDelay,
+                       MaxNumberOfRetries,
+                       InternalBufferSize,
+                       ClientDisableLogging,
+                       ClientLoggingPath,
+                       ClientLoggingContext,
+                       ClientLogfileCreator,
+                       DNSClient
+                   ),
 
-                   new EMPServer(ServerName,
-                                 ServerTCPPort,
-                                 ServerServiceName,
-                                 ServerURLPrefix ?? EMPServer.DefaultURLPrefix,
-                                 ServerURLSuffix ?? EMPServer.DefaultURLSuffix,
-                                 ServerContentType,
-                                 ServerRegisterHTTPRootService,
-                                 ServerLoggingPath,
-                                 ServerLoggingContext,
-                                 ServerLogfileCreator,
-                                 DNSClient,
-                                 false))
+                   new EMPServer(
+                       ServerName,
+                       ServerTCPPort,
+                       ServerServiceName,
+                       ServerURLPrefix ?? EMPServer.DefaultURLPrefix,
+                       ServerURLSuffix ?? EMPServer.DefaultURLSuffix,
+                       ServerContentType,
+                       ServerRegisterHTTPRootService,
+                       ServerLoggingPath,
+                       ServerLoggingContext,
+                       ServerLogfileCreator,
+                       DNSClient,
+                       false
+                   ))
 
         {
 
