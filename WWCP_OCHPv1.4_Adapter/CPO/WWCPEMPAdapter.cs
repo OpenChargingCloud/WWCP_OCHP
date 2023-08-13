@@ -1530,7 +1530,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         Task<PushEVSEDataResult>
 
-            IPushPOIData.AddEVSE(IEVSE               EVSE,
+            ISendPOIData.AddEVSE(IEVSE               EVSE,
                                  TransmissionTypes   TransmissionType,
 
                                  DateTime?           Timestamp,
@@ -1611,7 +1611,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            IPushPOIData.AddOrUpdateEVSE(IEVSE               EVSE,
+            ISendPOIData.AddOrUpdateEVSE(IEVSE               EVSE,
                                          TransmissionTypes   TransmissionType,
 
                                          DateTime?           Timestamp,
@@ -1696,7 +1696,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         Task<PushEVSEDataResult>
 
-            IPushPOIData.UpdateEVSE(IEVSE               EVSE,
+            ISendPOIData.UpdateEVSE(IEVSE               EVSE,
                                     String              PropertyName,
                                     Object?             NewValue,
                                     Object?             OldValue,
@@ -1781,7 +1781,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         Task<PushEVSEDataResult>
 
-            IPushPOIData.DeleteEVSE(IEVSE               EVSE,
+            ISendPOIData.DeleteEVSE(IEVSE               EVSE,
                                     TransmissionTypes   TransmissionType,
 
                                     DateTime?           Timestamp,
@@ -1807,7 +1807,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         Task<PushEVSEDataResult>
 
-            IPushPOIData.AddEVSEs(IEnumerable<IEVSE>  EVSEs,
+            ISendPOIData.AddEVSEs(IEnumerable<IEVSE>  EVSEs,
                                   TransmissionTypes   TransmissionType,
 
                                   DateTime?           Timestamp,
@@ -1848,7 +1848,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            IPushPOIData.AddOrUpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
+            ISendPOIData.AddOrUpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
                                           TransmissionTypes   TransmissionType,
 
                                           DateTime?           Timestamp,
@@ -1889,7 +1889,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         Task<PushEVSEDataResult>
 
-            IPushPOIData.UpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
+            ISendPOIData.UpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
                                      TransmissionTypes   TransmissionType,
 
                                      DateTime?           Timestamp,
@@ -1930,7 +1930,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         Task<PushEVSEDataResult>
 
-            IPushPOIData.DeleteEVSEs(IEnumerable<IEVSE>  EVSEs,
+            ISendPOIData.DeleteEVSEs(IEnumerable<IEVSE>  EVSEs,
                                      TransmissionTypes   TransmissionType,
 
                                      DateTime?           Timestamp,
@@ -2934,8 +2934,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 {
 
                     var EVSEsToAddTask = serviceRunId == 1
-                                             ? (this as IPushPOIData).AddOrUpdateEVSEs(evsesToAddQueueCopy.Value, EventTrackingId: EventTrackingId)
-                                             : (this as IPushPOIData).AddEVSEs(evsesToAddQueueCopy.Value, EventTrackingId: EventTrackingId);
+                                             ? (this as ISendPOIData).AddOrUpdateEVSEs(evsesToAddQueueCopy.Value, EventTrackingId: EventTrackingId)
+                                             : (this as ISendPOIData).AddEVSEs(evsesToAddQueueCopy.Value, EventTrackingId: EventTrackingId);
 
                     EVSEsToAddTask.Wait();
 
@@ -2957,7 +2957,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     if (EVSEsWithoutNewEVSEs.Length > 0)
                     {
 
-                        var SetChargePointInfosTask = (this as IPushPOIData).UpdateEVSEs(EVSEsWithoutNewEVSEs, EventTrackingId: EventTrackingId);
+                        var SetChargePointInfosTask = (this as ISendPOIData).UpdateEVSEs(EVSEsWithoutNewEVSEs, EventTrackingId: EventTrackingId);
 
                         SetChargePointInfosTask.Wait();
 
