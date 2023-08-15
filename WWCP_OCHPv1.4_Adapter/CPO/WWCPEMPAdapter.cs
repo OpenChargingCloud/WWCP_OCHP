@@ -37,7 +37,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPEMPAdapter : AWWCPEMPAdapter<CDRInfo>,
+    public class WWCPEMPAdapter : AWWCP__CSOAdapter<CDRInfo>,
                                   IEMPRoamingProvider,
                                   IEquatable<WWCPEMPAdapter>,
                                   IComparable<WWCPEMPAdapter>,
@@ -928,24 +928,24 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EVSEs">An enumeration of EVSEs.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        private async Task<PushEVSEDataResult>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        private async Task<ReplaceEVSEsResult>
 
             SetChargePointInfos(IEnumerable<IEVSE>  EVSEs,
 
                                 DateTime?           Timestamp           = null,
-                                CancellationToken   CancellationToken   = default,
                                 EventTracking_Id?   EventTrackingId     = null,
-                                TimeSpan?           RequestTimeout      = null)
+                                TimeSpan?           RequestTimeout      = null,
+                                CancellationToken   CancellationToken   = default)
 
         {
 
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             EventTrackingId ??= EventTracking_Id.New;
 
@@ -953,14 +953,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 RequestTimeout = CPOClient?.RequestTimeout;
 
 
-            PushEVSEDataResult result;
+            ReplaceEVSEsResult result;
 
             #endregion
 
             #region Get effective list of EVSEs/ChargePointInfos to upload
 
-            var Warnings          = new List<Warning>();
-            var ChargePointInfos  = new List<ChargePointInfo>();
+            var warnings          = new List<Warning>();
+            var chargePointInfos  = new List<ChargePointInfo>();
 
             if (EVSEs.IsNeitherNullNorEmpty())
             {
@@ -970,22 +970,26 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        if (evse == null)
+                        if (evse is null)
                             continue;
 
-                        if (IncludeEVSEs(evse) && IncludeEVSEIds(evse.Id))
-                            // WWCP EVSE will be added as internal data "WWCP.EVSE"...
-                            ChargePointInfos.Add(evse.ToOCHP(_CustomEVSEIdMapper,
-                                                             _EVSE2ChargePointInfo));
+                        if (IncludeEVSEs  (evse) &&
+                            IncludeEVSEIds(evse.Id))
+                        {
 
-                        else
-                            DebugX.Log(evse.Id + " was filtered!");
+                            // WWCP EVSE will be added as internal data "WWCP.EVSE"...
+                            var chargePointInfo = evse.ToOCHP(_CustomEVSEIdMapper,
+                                                              _EVSE2ChargePointInfo);
+
+                            if (chargePointInfo is not null)
+                                chargePointInfos.Add(chargePointInfo);
+
+                        }
 
                     }
                     catch (Exception e)
                     {
-                        DebugX.Log(e.Message);
-                        Warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evse));
+                        warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evse));
                     }
 
                 }
@@ -995,21 +999,21 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnSetChargePointInfosWWCPRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var startTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             try
             {
 
-                OnSetChargePointInfosWWCPRequest?.Invoke(StartTime,
-                                                          Timestamp.Value,
-                                                          this,
-                                                          Id,
-                                                          EventTrackingId,
-                                                          RoamingNetwork.Id,
-                                                          ChargePointInfos.ULongCount(),
-                                                          ChargePointInfos,
-                                                          Warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
-                                                          RequestTimeout);
+                OnSetChargePointInfosWWCPRequest?.Invoke(startTime,
+                                                         Timestamp.Value,
+                                                         this,
+                                                         Id,
+                                                         EventTrackingId,
+                                                         RoamingNetwork.Id,
+                                                         chargePointInfos.ULongCount(),
+                                                         chargePointInfos,
+                                                         warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
+                                                         RequestTimeout);
 
             }
             catch (Exception e)
@@ -1020,14 +1024,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #endregion
 
 
-            DateTime Endtime;
-            TimeSpan Runtime;
+            DateTime endtime;
+            TimeSpan runtime;
 
-            if (ChargePointInfos.Count > 0)
+            if (chargePointInfos.Count > 0)
             {
 
                 var response = await CPORoaming.
-                                         SetChargePointList(ChargePointInfos,
+                                         SetChargePointList(chargePointInfos,
                                                             IncludeChargePoints,
 
                                                             Timestamp,
@@ -1036,39 +1040,58 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                             RequestTimeout);
 
 
-                Endtime = DateTime.UtcNow;
-                Runtime = Endtime - StartTime;
+                endtime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+                runtime = endtime - startTime;
 
                 if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                    response.Content != null)
+                    response.Content is not null)
                 {
 
                     if (response.Content.Result.ResultCode == ResultCodes.OK)
-                        result = PushEVSEDataResult.Success(Id,
-                                                            this,
-                                                            ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
-                                                            response.Content.Result.Description,
-                                                            null,
-                                                            Runtime);
+                        result = ReplaceEVSEsResult.Added(
+                                     EVSEs,
+                                     Id,
+                                     this,
+                                     EventTrackingId,
+                                     //ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
+                                     response.Content.Result.Description.ToI18NString(),
+                                     null,
+                                     runtime
+                                 );
 
                     else
-                        result = PushEVSEDataResult.Error(Id,
-                                                          this,
-                                                          ChargePointInfos.Select(chargePointInfo => new PushSingleEVSEDataResult(chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE, PushSingleDataResultTypes.Error)),
-                                                          response.Content.Result.Description,
-                                                          null,
-                                                          Runtime);
+                        result = ReplaceEVSEsResult.Error(
+                                     EVSEs,
+                                     response.Content.Result.Description.ToI18NString(),
+                                     EventTrackingId,
+                                     Id,
+                                     this,
+                                     //ChargePointInfos.Select(chargePointInfo => new PushSingleEVSEDataResult(chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE, PushSingleDataResultTypes.Error)),
+                                     null,
+                                     runtime
+                                 );
 
                 }
                 else
-                    result = PushEVSEDataResult.Error(Id,
-                                                      this,
-                                                      ChargePointInfos.Select(chargePointInfo => new PushSingleEVSEDataResult(chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE, PushSingleDataResultTypes.Error)),
-                                                      response.HTTPStatusCode.ToString(),
-                                                      response.HTTPBody != null
-                                                          ? Warnings.AddAndReturnList(I18NString.Create(Languages.en, response.HTTPBody.ToUTF8String()))
-                                                          : Warnings.AddAndReturnList(I18NString.Create(Languages.en, "No HTTP body received!")),
-                                                      Runtime);
+                {
+
+                    warnings.Add(Warning.Create(response.HTTPStatusCode.ToString()));
+                    warnings.Add(Warning.Create(response.HTTPBody is not null
+                                                    ? response.HTTPBody.ToUTF8String()
+                                                    : "No HTTP body received!"));
+
+                    result = ReplaceEVSEsResult.Error(
+                                 EVSEs,
+                                 (response.Content?.Result.Description ?? "error").ToI18NString(),
+                                 EventTrackingId,
+                                 Id,
+                                 this,
+                                 //ChargePointInfos.Select(chargePointInfo => new PushSingleEVSEDataResult(chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE, PushSingleDataResultTypes.Error)),
+                                 warnings,
+                                 runtime
+                             );
+
+                }
 
             }
 
@@ -1077,14 +1100,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else
             {
 
-                Endtime  = DateTime.UtcNow;
-                Runtime  = Endtime - StartTime;
-                result   = PushEVSEDataResult.NoOperation(Id,
-                                                          this,
-                                                          EVSEs,
-                                                          "No ChargePointInfos to push!",
-                                                          Warnings,
-                                                          DateTime.UtcNow - StartTime);
+                endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+                runtime  = endtime - startTime;
+                result   = ReplaceEVSEsResult.NoOperation(
+                               EVSEs,
+                               Id,
+                               this,
+                               EventTrackingId,
+                               "No ChargePointInfos to push!".ToI18NString(),
+                               warnings,
+                               org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - startTime
+                           );
 
             }
 
@@ -1096,17 +1122,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                OnSetChargePointInfosWWCPResponse?.Invoke(Endtime,
+                OnSetChargePointInfosWWCPResponse?.Invoke(endtime,
                                                           Timestamp.Value,
                                                           this,
                                                           Id,
                                                           EventTrackingId,
                                                           RoamingNetwork.Id,
-                                                          ChargePointInfos.ULongCount(),
-                                                          ChargePointInfos,
+                                                          chargePointInfos.ULongCount(),
+                                                          chargePointInfos,
                                                           RequestTimeout,
                                                           result,
-                                                          Runtime);
+                                                          runtime);
 
             }
             catch (Exception e)
@@ -1130,40 +1156,34 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EVSEs">An enumeration of EVSEs.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        private async Task<PushEVSEDataResult>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        private async Task<UpdateEVSEsResult>
 
             UpdateChargePointInfos(IEnumerable<IEVSE>  EVSEs,
 
                                    DateTime?           Timestamp           = null,
-                                   CancellationToken   CancellationToken   = default,
                                    EventTracking_Id?   EventTrackingId     = null,
-                                   TimeSpan?           RequestTimeout      = null)
+                                   TimeSpan?           RequestTimeout      = null,
+                                   CancellationToken   CancellationToken   = default)
 
         {
 
             #region Initial checks
 
-            if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+            Timestamp       ??= org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimeout  ??= CPOClient?.RequestTimeout;
 
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
-
-            if (!RequestTimeout.HasValue)
-                RequestTimeout = CPOClient?.RequestTimeout;
-
-
-            PushEVSEDataResult result;
+            UpdateEVSEsResult result;
 
             #endregion
 
             #region Get effective list of EVSEs/ChargePointInfos to upload
 
-            var Warnings          = new List<Warning>();
-            var ChargePointInfos  = new List<ChargePointInfo>();
+            var warnings          = new List<Warning>();
+            var chargePointInfos  = new List<ChargePointInfo>();
 
             if (EVSEs.IsNeitherNullNorEmpty())
             {
@@ -1178,7 +1198,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                         if (IncludeEVSEs(evse) && IncludeEVSEIds(evse.Id))
                             // WWCP EVSE will be added as internal data "WWCP.EVSE"...
-                            ChargePointInfos.Add(evse.ToOCHP(_CustomEVSEIdMapper,
+                            chargePointInfos.Add(evse.ToOCHP(_CustomEVSEIdMapper,
                                                              _EVSE2ChargePointInfo));
 
                         else
@@ -1188,7 +1208,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     catch (Exception e)
                     {
                         DebugX.Log(e.Message);
-                        Warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evse));
+                        warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evse));
                     }
 
                 }
@@ -1198,20 +1218,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnSetChargePointInfosWWCPRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var startTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             try
             {
 
-                OnUpdateChargePointInfosWWCPRequest?.Invoke(StartTime,
+                OnUpdateChargePointInfosWWCPRequest?.Invoke(startTime,
                                                             Timestamp.Value,
                                                             this,
                                                             Id,
                                                             EventTrackingId,
                                                             RoamingNetwork.Id,
-                                                            ChargePointInfos.ULongCount(),
-                                                            ChargePointInfos,
-                                                            Warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
+                                                            chargePointInfos.ULongCount(),
+                                                            chargePointInfos,
+                                                            warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
                                                             RequestTimeout);
 
             }
@@ -1223,14 +1243,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #endregion
 
 
-            DateTime Endtime;
-            TimeSpan Runtime;
+            DateTime endtime;
+            TimeSpan runtime;
 
-            if (ChargePointInfos.Count > 0)
+            if (chargePointInfos.Count > 0)
             {
 
                 var response = await CPORoaming.
-                                         UpdateChargePointList(ChargePointInfos,
+                                         UpdateChargePointList(chargePointInfos,
                                                                IncludeChargePoints,
 
                                                                Timestamp,
@@ -1239,39 +1259,57 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                RequestTimeout).
                                          ConfigureAwait(false);
 
-                Endtime = DateTime.UtcNow;
-                Runtime = Endtime - StartTime;
+                endtime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+                runtime = endtime - startTime;
 
                 if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                    response.Content        != null)
+                    response.Content        is not null)
                 {
 
                     if (response.Content.Result.ResultCode == ResultCodes.OK)
-                        result = PushEVSEDataResult.Success(Id,
-                                                            this,
-                                                            ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
-                                                            response.Content.Result.Description,
-                                                            null,
-                                                            Runtime);
+                        result = UpdateEVSEsResult.Success(
+                                     EVSEs,
+                                     Id,
+                                     this,
+                                     EventTrackingId,
+                                     //ChargePointInfos.Select(chargePointInfo => chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE),
+                                     response.Content.Result.Description.ToI18NString(),
+                                     null,
+                                     runtime
+                                 );
 
                     else
-                        result = PushEVSEDataResult.Error(Id,
-                                                          this,
-                                                          ChargePointInfos.Select(chargePointInfo => new PushSingleEVSEDataResult(chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE, PushSingleDataResultTypes.Error)),
-                                                          response.Content.Result.Description,
-                                                          null,
-                                                          Runtime);
+                        result = UpdateEVSEsResult.Error(
+                                     EVSEs,
+                                     response.Content.Result.Description.ToI18NString(),
+                                     EventTrackingId,
+                                     Id,
+                                     this,
+                                     //ChargePointInfos.Select(chargePointInfo => new PushSingleEVSEDataResult(chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE, PushSingleDataResultTypes.Error)),
+                                     null,
+                                     runtime
+                                 );
 
                 }
                 else
-                    result = PushEVSEDataResult.Error(Id,
-                                                      this,
-                                                      ChargePointInfos.Select(chargePointInfo => new PushSingleEVSEDataResult(chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE, PushSingleDataResultTypes.Error)),
-                                                      response.HTTPStatusCode.ToString(),
-                                                      response.HTTPBody != null
-                                                          ? Warnings.AddAndReturnList(I18NString.Create(Languages.en, response.HTTPBody.ToUTF8String()))
-                                                          : Warnings.AddAndReturnList(I18NString.Create(Languages.en, "No HTTP body received!")),
-                                                      Runtime);
+                {
+
+                    warnings.Add(Warning.Create(response.HTTPStatusCode.ToString()));
+                    warnings.Add(Warning.Create(response.HTTPBody is not null
+                                                    ? response.HTTPBody.ToUTF8String()
+                                                    : "No HTTP body received!"));
+
+                    result = UpdateEVSEsResult.Error(
+                             EVSEs,
+                             (response.Content?.Result.Description ?? "error").ToI18NString(),
+                             EventTrackingId,
+                             Id,
+                             this,
+                             //chargePointInfos.Select(chargePointInfo => new PushSingleEVSEDataResult(chargePointInfo.GetInternalData("WWCP.EVSE") as EVSE, PushSingleDataResultTypes.Error)),
+                             warnings,
+                             runtime);
+
+                }
 
             }
 
@@ -1280,14 +1318,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else
             {
 
-                Endtime  = DateTime.UtcNow;
-                Runtime  = Endtime - StartTime;
-                result   = PushEVSEDataResult.NoOperation(Id,
-                                                          this,
-                                                          EVSEs,
-                                                          "No ChargePointInfos to push!",
-                                                          Warnings,
-                                                          DateTime.UtcNow - StartTime);
+                endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+                runtime  = endtime - startTime;
+                result   = UpdateEVSEsResult.NoOperation(
+                               EVSEs,
+                               Id,
+                               this,
+                               EventTrackingId,
+                               "No ChargePointInfos to push!".ToI18NString(),
+                               warnings,
+                               org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - startTime
+                           );
 
             }
 
@@ -1299,17 +1340,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                OnUpdateChargePointInfosWWCPResponse?.Invoke(Endtime,
+                OnUpdateChargePointInfosWWCPResponse?.Invoke(endtime,
                                                              Timestamp.Value,
                                                              this,
                                                              Id,
                                                              EventTrackingId,
                                                              RoamingNetwork.Id,
-                                                             ChargePointInfos.ULongCount(),
-                                                             ChargePointInfos,
+                                                             chargePointInfos.ULongCount(),
+                                                             chargePointInfos,
                                                              RequestTimeout,
                                                              result,
-                                                             Runtime);
+                                                             runtime);
 
             }
             catch (Exception e)
@@ -1333,17 +1374,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EVSEStatusUpdates">An enumeration of EVSE status updates.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public async Task<PushEVSEStatusResult>
 
             UpdateEVSEStatus(IEnumerable<EVSEStatusUpdate>  EVSEStatusUpdates,
 
                              DateTime?                      Timestamp           = null,
-                             CancellationToken              CancellationToken   = default,
-                             EventTracking_Id               EventTrackingId     = null,
-                             TimeSpan?                      RequestTimeout      = null)
+                             EventTracking_Id?              EventTrackingId     = null,
+                             TimeSpan?                      RequestTimeout      = null,
+                             CancellationToken              CancellationToken   = default)
 
         {
 
@@ -1354,7 +1395,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (EventTrackingId == null)
                 EventTrackingId = EventTracking_Id.New;
@@ -1366,9 +1407,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Get effective number of EVSEStatus/EVSEStatusRecords to upload
 
-            var Warnings = new List<Warning>();
+            var warnings    = new List<Warning>();
 
-            var _EVSEStatus = EVSEStatusUpdates.
+            var evseStatus  = EVSEStatusUpdates.
                                   Where       (evsestatusupdate => IncludeEVSEIds(evsestatusupdate.Id)).
                                   ToLookup    (evsestatusupdate => evsestatusupdate.Id,
                                                evsestatusupdate => evsestatusupdate).
@@ -1395,35 +1436,36 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                       catch (Exception e)
                                       {
                                           DebugX.  Log(e.Message);
-                                          Warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evsestatusupdate));
+                                          warnings.Add(Warning.Create(I18NString.Create(Languages.en, e.Message), evsestatusupdate));
                                       }
 
                                       return null;
 
                                   }).
-                                  Where(evsestatusrecord => evsestatusrecord != null).
+                                  Where(evsestatusrecord => evsestatusrecord is not null).
+                                  Cast<EVSEStatus>().
                                   ToArray();
 
-            PushEVSEStatusResult result = null;
+            PushEVSEStatusResult? result  = null;
 
             #endregion
 
             #region Send OnUpdateEVSEStatusWWCPRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var startTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             try
             {
 
-                OnUpdateEVSEStatusWWCPRequest?.Invoke(StartTime,
+                OnUpdateEVSEStatusWWCPRequest?.Invoke(startTime,
                                                       Timestamp.Value,
                                                       this,
                                                       Id,
                                                       EventTrackingId,
                                                       RoamingNetwork.Id,
-                                                      _EVSEStatus.ULongCount(),
-                                                      _EVSEStatus,
-                                                      Warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
+                                                      evseStatus.ULongCount(),
+                                                      evseStatus,
+                                                      warnings.Where(warning => warning.IsNeitherNullNorEmpty()),
                                                       RequestTimeout);
 
             }
@@ -1436,9 +1478,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
 
             var response = await CPORoaming.
-                                     UpdateStatus(_EVSEStatus,
+                                     UpdateStatus(evseStatus,
                                                   null,
-                                                  DateTime.UtcNow + EVSEStatusRefreshEvery,
+                                                  org.GraphDefined.Vanaheimr.Illias.Timestamp.Now + EVSEStatusRefreshEvery,
                                                   null,
 
                                                   Timestamp,
@@ -1448,38 +1490,38 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                      ConfigureAwait(false);
 
 
-            var Endtime = DateTime.UtcNow;
-            var Runtime = Endtime - StartTime;
+            var endtime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            var runtime = endtime - startTime;
 
             if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                response.Content        != null)
+                response.Content        is not null)
             {
 
                 if (response.Content.Result.ResultCode == ResultCodes.OK)
                     result = PushEVSEStatusResult.Success(Id,
-                                                      this,
-                                                      response.Content.Result.Description,
-                                                      null,
-                                                      Runtime);
+                                                          this,
+                                                          response.Content.Result.Description,
+                                                          null,
+                                                          runtime);
 
                 else
                     result = PushEVSEStatusResult.Error(Id,
-                                                    this,
-                                                    EVSEStatusUpdates,
-                                                    response.Content.Result.Description,
-                                                    null,
-                                                    Runtime);
+                                                        this,
+                                                        EVSEStatusUpdates,
+                                                        response.Content.Result.Description,
+                                                        null,
+                                                        runtime);
 
             }
             else
                 result = PushEVSEStatusResult.Error(Id,
-                                                this,
-                                                EVSEStatusUpdates,
-                                                response.HTTPStatusCode.ToString(),
-                                                response.HTTPBody != null
-                                                    ? Warnings.AddAndReturnList(I18NString.Create(Languages.en, response.HTTPBody.ToUTF8String()))
-                                                    : Warnings.AddAndReturnList(I18NString.Create(Languages.en, "No HTTP body received!")),
-                                                Runtime);
+                                                    this,
+                                                    EVSEStatusUpdates,
+                                                    response.HTTPStatusCode.ToString(),
+                                                    response.HTTPBody != null
+                                                        ? warnings.AddAndReturnList(I18NString.Create(Languages.en, response.HTTPBody.ToUTF8String()))
+                                                        : warnings.AddAndReturnList(I18NString.Create(Languages.en, "No HTTP body received!")),
+                                                    runtime);
 
 
             #region Send OnUpdateEVSEStatusWWCPResponse event
@@ -1487,17 +1529,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                OnUpdateEVSEStatusWWCPResponse?.Invoke(Endtime,
+                OnUpdateEVSEStatusWWCPResponse?.Invoke(endtime,
                                                        Timestamp.Value,
                                                        this,
                                                        Id,
                                                        EventTrackingId,
                                                        RoamingNetwork.Id,
-                                                       _EVSEStatus.ULongCount(),
-                                                       _EVSEStatus,
+                                                       evseStatus.ULongCount(),
+                                                       evseStatus,
                                                        RequestTimeout,
                                                        result,
-                                                       Runtime);
+                                                       runtime);
 
             }
             catch (Exception e)
@@ -1528,15 +1570,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        Task<PushEVSEDataResult>
+        public override async Task<AddEVSEResult>
 
-            ISendPOIData.AddEVSE(IEVSE               EVSE,
-                                 TransmissionTypes   TransmissionType,
+            AddEVSE(IEVSE               EVSE,
+                    TransmissionTypes   TransmissionType    = TransmissionTypes.Enqueue,
 
-                                 DateTime?           Timestamp,
-                                 EventTracking_Id?   EventTrackingId,
-                                 TimeSpan?           RequestTimeout,
-                                 CancellationToken   CancellationToken)
+                    DateTime?           Timestamp           = null,
+                    EventTracking_Id?   EventTrackingId     = null,
+                    TimeSpan?           RequestTimeout      = null,
+                    CancellationToken   CancellationToken   = default)
 
         {
 
@@ -1550,7 +1592,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 //try
                 //{
 
-                //    OnEnqueueSendCDRRequest?.Invoke(DateTime.UtcNow,
+                //    OnEnqueueSendCDRRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                 //                                    Timestamp.Value,
                 //                                    this,
                 //                                    EventTrackingId,
@@ -1580,18 +1622,35 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                return Task.FromResult(PushEVSEDataResult.Enqueued(Id, this, new IEVSE[] { EVSE }));
+                return AddEVSEResult.Enqueued(
+                           EVSE,
+                           EventTrackingId,
+                           Id,
+                           this
+                       );
 
             }
 
             #endregion
 
-            return UpdateChargePointInfos(new IEVSE[] { EVSE },
+            var result = await UpdateChargePointInfos(new IEVSE[] { EVSE },
 
-                                          Timestamp,
-                                          CancellationToken,
-                                          EventTrackingId,
-                                          RequestTimeout);
+                                                      Timestamp,
+                                                      EventTrackingId,
+                                                      RequestTimeout,
+                                                      CancellationToken);
+
+            return new AddEVSEResult(
+                       EVSE,
+                       result.Result,
+                       result.EventTrackingId,
+                       result.AuthId,
+                       result.SendPOIData,
+                       null,
+                       result.Description,
+                       result.Warnings,
+                       result.Runtime
+                   );
 
         }
 
@@ -1609,15 +1668,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        Task<PushEVSEDataResult>
+        public override async Task<AddOrUpdateEVSEResult>
 
-            ISendPOIData.AddOrUpdateEVSE(IEVSE               EVSE,
-                                         TransmissionTypes   TransmissionType,
+            AddOrUpdateEVSE(IEVSE               EVSE,
+                            TransmissionTypes   TransmissionType    = TransmissionTypes.Enqueue,
 
-                                         DateTime?           Timestamp,
-                                         EventTracking_Id?   EventTrackingId,
-                                         TimeSpan?           RequestTimeout,
-                                         CancellationToken   CancellationToken)
+                            DateTime?           Timestamp           = null,
+                            EventTracking_Id?   EventTrackingId     = null,
+                            TimeSpan?           RequestTimeout      = null,
+                            CancellationToken   CancellationToken   = default)
 
         {
 
@@ -1631,7 +1690,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 //try
                 //{
 
-                //    OnEnqueueSendCDRRequest?.Invoke(DateTime.UtcNow,
+                //    OnEnqueueSendCDRRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                 //                                    Timestamp.Value,
                 //                                    this,
                 //                                    EventTrackingId,
@@ -1661,18 +1720,36 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                return Task.FromResult(PushEVSEDataResult.Enqueued(Id, this, new IEVSE[] { EVSE }));
+                return AddOrUpdateEVSEResult.Enqueued(
+                           EVSE,
+                           EventTrackingId,
+                           Id,
+                           this
+                       );
 
             }
 
             #endregion
 
-            return SetChargePointInfos(new IEVSE[] { EVSE },
+            var result = await UpdateChargePointInfos(new IEVSE[] { EVSE },
 
-                                       Timestamp,
-                                       CancellationToken,
-                                       EventTrackingId,
-                                       RequestTimeout);
+                                                      Timestamp,
+                                                      EventTrackingId,
+                                                      RequestTimeout,
+                                                      CancellationToken);
+
+            return new AddOrUpdateEVSEResult(
+                       EVSE,
+                       result.Result,
+                       result.EventTrackingId,
+                       result.AuthId,
+                       result.SendPOIData,
+                       null,
+                       org.GraphDefined.Vanaheimr.Hermod.AddedOrUpdated.Update,
+                       result.Description,
+                       result.Warnings,
+                       result.Runtime
+                   );
 
         }
 
@@ -1694,19 +1771,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        Task<PushEVSEDataResult>
+        public override async Task<UpdateEVSEResult>
 
-            ISendPOIData.UpdateEVSE(IEVSE               EVSE,
-                                    String              PropertyName,
-                                    Object?             NewValue,
-                                    Object?             OldValue,
-                                    Context?            DataSource,
-                                    TransmissionTypes   TransmissionType,
+            UpdateEVSE(IEVSE               EVSE,
+                       String              PropertyName,
+                       Object?             NewValue,
+                       Object?             OldValue,
+                       Context?            DataSource,
+                       TransmissionTypes   TransmissionType    = TransmissionTypes.Enqueue,
 
-                                    DateTime?           Timestamp,
-                                    EventTracking_Id?   EventTrackingId,
-                                    TimeSpan?           RequestTimeout,
-                                    CancellationToken   CancellationToken)
+                       DateTime?           Timestamp           = null,
+                       EventTracking_Id?   EventTrackingId     = null,
+                       TimeSpan?           RequestTimeout      = null,
+                       CancellationToken   CancellationToken   = default)
 
         {
 
@@ -1720,7 +1797,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 //try
                 //{
 
-                //    OnEnqueueSendCDRRequest?.Invoke(DateTime.UtcNow,
+                //    OnEnqueueSendCDRRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                 //                                    Timestamp.Value,
                 //                                    this,
                 //                                    EventTrackingId,
@@ -1750,46 +1827,37 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                return Task.FromResult(PushEVSEDataResult.Enqueued(Id, this, new IEVSE[] { EVSE }));
+                return UpdateEVSEResult.Enqueued(
+                           EVSE,
+                           EventTrackingId,
+                           Id,
+                           this
+                       );
 
             }
 
             #endregion
 
-            return UpdateChargePointInfos(new IEVSE[] { EVSE },
+            var result = await UpdateChargePointInfos(new IEVSE[] { EVSE },
 
-                                          Timestamp,
-                                          CancellationToken,
-                                          EventTrackingId,
-                                          RequestTimeout);
+                                                      Timestamp,
+                                                      EventTrackingId,
+                                                      RequestTimeout,
+                                                      CancellationToken);
+
+            return new UpdateEVSEResult(
+                       EVSE,
+                       result.Result,
+                       result.EventTrackingId,
+                       result.AuthId,
+                       result.SendPOIData,
+                       null,
+                       result.Description,
+                       result.Warnings,
+                       result.Runtime
+                   );
 
         }
-
-        #endregion
-
-        #region DeleteEVSE      (EVSE, TransmissionType = Enqueue, ...)
-
-        /// <summary>
-        /// Delete the static data of the given EVSE.
-        /// </summary>
-        /// <param name="EVSE">An EVSE to delete.</param>
-        /// <param name="TransmissionType">Whether to send the EVSE deletion directly or enqueue it for a while.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        Task<PushEVSEDataResult>
-
-            ISendPOIData.DeleteEVSE(IEVSE               EVSE,
-                                    TransmissionTypes   TransmissionType,
-
-                                    DateTime?           Timestamp,
-                                    EventTracking_Id?   EventTrackingId,
-                                    TimeSpan?           RequestTimeout,
-                                    CancellationToken   CancellationToken)
-
-                => Task.FromResult(PushEVSEDataResult.NoOperation(Id, this, new IEVSE[] { EVSE }));
 
         #endregion
 
@@ -1805,31 +1873,73 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        Task<PushEVSEDataResult>
+        public override async Task<AddEVSEsResult>
 
-            ISendPOIData.AddEVSEs(IEnumerable<IEVSE>  EVSEs,
-                                  TransmissionTypes   TransmissionType,
+            AddEVSEs(IEnumerable<IEVSE>  EVSEs,
+                     TransmissionTypes   TransmissionType    = TransmissionTypes.Enqueue,
 
-                                  DateTime?           Timestamp,
-                                  EventTracking_Id?   EventTrackingId,
-                                  TimeSpan?           RequestTimeout,
-                                  CancellationToken   CancellationToken)
+                     DateTime?           Timestamp           = null,
+                     EventTracking_Id?   EventTrackingId     = null,
+                     TimeSpan?           RequestTimeout      = null,
+                     CancellationToken   CancellationToken   = default)
 
         {
 
             #region Initial checks
 
             if (!EVSEs.Any())
-                Task.FromResult(PushEVSEDataResult.NoOperation(Id, this, EVSEs));
+                return AddEVSEsResult.NoOperation(
+                           EVSEs,
+                           Id,
+                           this,
+                           EventTrackingId
+                       );
 
             #endregion
 
-            return UpdateChargePointInfos(EVSEs,
+            var result = await UpdateChargePointInfos(EVSEs,
 
-                                          Timestamp,
-                                          CancellationToken,
-                                          EventTrackingId,
-                                          RequestTimeout);
+                                                      Timestamp,
+                                                      EventTrackingId,
+                                                      RequestTimeout,
+                                                      CancellationToken);
+
+            return new AddEVSEsResult(
+
+                       result.Result,
+
+                       result.SuccessfulItems.Select(updateEVSEResult => new AddEVSEResult(
+                                                                             updateEVSEResult.EVSE,
+                                                                             updateEVSEResult.Result,
+                                                                             updateEVSEResult.EventTrackingId,
+                                                                             updateEVSEResult.AuthId,
+                                                                             updateEVSEResult.Sender,
+                                                                             null,
+                                                                             updateEVSEResult.Description,
+                                                                             updateEVSEResult.Warnings,
+                                                                             updateEVSEResult.Runtime
+                                                                         )),
+
+                       result.RejectedItems.  Select(updateEVSEResult => new AddEVSEResult(
+                                                                             updateEVSEResult.EVSE,
+                                                                             updateEVSEResult.Result,
+                                                                             updateEVSEResult.EventTrackingId,
+                                                                             updateEVSEResult.AuthId,
+                                                                             updateEVSEResult.Sender,
+                                                                             null,
+                                                                             updateEVSEResult.Description,
+                                                                             updateEVSEResult.Warnings,
+                                                                             updateEVSEResult.Runtime
+                                                                         )),
+
+                       result.AuthId,
+                       result.SendPOIData,
+                       null,
+                       result.Description,
+                       result.Warnings,
+                       result.Runtime
+
+                   );
 
         }
 
@@ -1846,31 +1956,75 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        Task<PushEVSEDataResult>
+        public override async Task<AddOrUpdateEVSEsResult>
 
-            ISendPOIData.AddOrUpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
-                                          TransmissionTypes   TransmissionType,
+            AddOrUpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
+                             TransmissionTypes   TransmissionType    = TransmissionTypes.Enqueue,
 
-                                          DateTime?           Timestamp,
-                                          EventTracking_Id?   EventTrackingId,
-                                          TimeSpan?           RequestTimeout,
-                                          CancellationToken   CancellationToken)
+                             DateTime?           Timestamp           = null,
+                             EventTracking_Id?   EventTrackingId     = null,
+                             TimeSpan?           RequestTimeout      = null,
+                             CancellationToken   CancellationToken   = default)
 
         {
 
             #region Initial checks
 
             if (!EVSEs.Any())
-                Task.FromResult(PushEVSEDataResult.NoOperation(Id, this, EVSEs));
+                return AddOrUpdateEVSEsResult.NoOperation(
+                           EVSEs,
+                           Id,
+                           this,
+                           EventTrackingId
+                       );
 
             #endregion
 
-            return SetChargePointInfos(EVSEs,
+            var result = await UpdateChargePointInfos(EVSEs,
 
-                                       Timestamp,
-                                       CancellationToken,
-                                       EventTrackingId,
-                                       RequestTimeout);
+                                                      Timestamp,
+                                                      EventTrackingId,
+                                                      RequestTimeout,
+                                                      CancellationToken);
+
+            return new AddOrUpdateEVSEsResult(
+
+                       result.Result,
+
+                       result.SuccessfulItems.Select(updateEVSEResult => new AddOrUpdateEVSEResult(
+                                                                             updateEVSEResult.EVSE,
+                                                                             updateEVSEResult.Result,
+                                                                             updateEVSEResult.EventTrackingId,
+                                                                             updateEVSEResult.AuthId,
+                                                                             updateEVSEResult.Sender,
+                                                                             null,
+                                                                             org.GraphDefined.Vanaheimr.Hermod.AddedOrUpdated.Update,
+                                                                             updateEVSEResult.Description,
+                                                                             updateEVSEResult.Warnings,
+                                                                             updateEVSEResult.Runtime
+                                                                         )),
+
+                       result.RejectedItems.  Select(updateEVSEResult => new AddOrUpdateEVSEResult(
+                                                                             updateEVSEResult.EVSE,
+                                                                             updateEVSEResult.Result,
+                                                                             updateEVSEResult.EventTrackingId,
+                                                                             updateEVSEResult.AuthId,
+                                                                             updateEVSEResult.Sender,
+                                                                             null,
+                                                                             org.GraphDefined.Vanaheimr.Hermod.AddedOrUpdated.Update,
+                                                                             updateEVSEResult.Description,
+                                                                             updateEVSEResult.Warnings,
+                                                                             updateEVSEResult.Runtime
+                                                                         )),
+
+                       result.AuthId,
+                       result.SendPOIData,
+                       null,
+                       result.Description,
+                       result.Warnings,
+                       result.Runtime
+
+                   );
 
         }
 
@@ -1887,72 +2041,36 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        Task<PushEVSEDataResult>
+        public override async Task<UpdateEVSEsResult>
 
-            ISendPOIData.UpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
-                                     TransmissionTypes   TransmissionType,
+            UpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
+                        TransmissionTypes   TransmissionType    = TransmissionTypes.Enqueue,
 
-                                     DateTime?           Timestamp,
-                                     EventTracking_Id?   EventTrackingId,
-                                     TimeSpan?           RequestTimeout,
-                                     CancellationToken   CancellationToken)
-
-        {
-
-            #region Initial checks
-
-            if (!EVSEs.Any())
-                Task.FromResult(PushEVSEDataResult.NoOperation(Id, this, EVSEs));
-
-            #endregion
-
-            return UpdateChargePointInfos(EVSEs,
-
-                                          Timestamp,
-                                          CancellationToken,
-                                          EventTrackingId,
-                                          RequestTimeout);
-
-        }
-
-        #endregion
-
-        #region DeleteEVSEs     (EVSEs, ...)
-
-        /// <summary>
-        /// Delete the given enumeration of EVSEs from the static EVSE data at the OCHP server.
-        /// </summary>
-        /// <param name="EVSEs">An enumeration of EVSEs.</param>
-        /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
-        /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        Task<PushEVSEDataResult>
-
-            ISendPOIData.DeleteEVSEs(IEnumerable<IEVSE>  EVSEs,
-                                     TransmissionTypes   TransmissionType,
-
-                                     DateTime?           Timestamp,
-                                     EventTracking_Id?   EventTrackingId,
-                                     TimeSpan?           RequestTimeout,
-                                     CancellationToken   CancellationToken)
+                        DateTime?           Timestamp           = null,
+                        EventTracking_Id?   EventTrackingId     = null,
+                        TimeSpan?           RequestTimeout      = null,
+                        CancellationToken   CancellationToken   = default)
 
         {
 
             #region Initial checks
 
             if (!EVSEs.Any())
-                Task.FromResult(PushEVSEDataResult.NoOperation(Id, this, EVSEs));
+                return UpdateEVSEsResult.NoOperation(
+                           EVSEs,
+                           Id,
+                           this,
+                           EventTrackingId
+                       );
 
             #endregion
 
-            return UpdateChargePointInfos(EVSEs,
+            return await UpdateChargePointInfos(EVSEs,
 
-                                          Timestamp,
-                                          CancellationToken,
-                                          EventTrackingId,
-                                          RequestTimeout);
+                                                Timestamp,
+                                                EventTrackingId,
+                                                RequestTimeout,
+                                                CancellationToken);
 
         }
 
@@ -1968,25 +2086,28 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="TransmissionType">Whether to send the EVSE status updates directly or enqueue it for a while.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public async Task<PushEVSEStatusResult>
 
             UpdateStatus(IEnumerable<EVSEStatusUpdate>  StatusUpdates,
-                         TransmissionTypes              TransmissionType,
+                         TransmissionTypes              TransmissionType    = TransmissionTypes.Enqueue,
 
-                         DateTime?                      Timestamp,
-                         CancellationToken              CancellationToken,
-                         EventTracking_Id?              EventTrackingId,
-                         TimeSpan?                      RequestTimeout)
+                         DateTime?                      Timestamp           = null,
+                         EventTracking_Id?              EventTrackingId     = null,
+                         TimeSpan?                      RequestTimeout      = null,
+                         CancellationToken              CancellationToken   = default)
 
         {
 
             #region Initial checks
 
-            if (StatusUpdates == null || !StatusUpdates.Any())
-                return PushEVSEStatusResult.NoOperation(Id, this);
+            if (!StatusUpdates.Any())
+                return PushEVSEStatusResult.NoOperation(
+                           Id,
+                           this
+                       );
 
             #endregion
 
@@ -2000,7 +2121,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 //try
                 //{
 
-                //    OnEnqueueSendCDRRequest?.Invoke(DateTime.UtcNow,
+                //    OnEnqueueSendCDRRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                 //                                    Timestamp.Value,
                 //                                    this,
                 //                                    EventTrackingId,
@@ -2064,12 +2185,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #endregion
 
+
             return await UpdateEVSEStatus(StatusUpdates,
 
                                           Timestamp,
-                                          CancellationToken,
                                           EventTrackingId,
-                                          RequestTimeout);
+                                          RequestTimeout,
+                                          CancellationToken);
 
         }
 
@@ -2115,7 +2237,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (EventTrackingId == null)
                 EventTrackingId = EventTracking_Id.New;
@@ -2127,7 +2249,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnAuthorizeStartRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             try
             {
@@ -2165,7 +2287,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (DisableAuthentication)
             {
 
-                Endtime  = DateTime.UtcNow;
+                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                 Runtime  = Endtime - StartTime;
                 result   = AuthStartResult.AdminDown(Id,
                                                      this,
@@ -2191,7 +2313,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                                RequestTimeout);
 
 
-                Endtime  = DateTime.UtcNow;
+                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                 Runtime  = Endtime - StartTime;
 
                 if (response?.HTTPStatusCode            == HTTPStatusCode.OK &&
@@ -2231,7 +2353,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             // Add
                             _Lookup.Add(EMTId, response.Content.RoamingAuthorisationInfo.ContractId);
 
-                            var time = DateTime.UtcNow;
+                            var time = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                             var file = String.Concat(Directory.GetCurrentDirectory(), Path.DirectorySeparatorChar, "OCHPv1.4", Path.DirectorySeparatorChar, "EMTIds_2_ContractIds_", time.ToUniversalTime().Year, "-", time.ToUniversalTime().Month.ToString("D2"), ".log");
 
                             File.AppendAllText(file, String.Concat("ADD", rs, EMTId.Instance, rs, response.Content.RoamingAuthorisationInfo.ContractId));
@@ -2334,7 +2456,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (EventTrackingId == null)
                 EventTrackingId = EventTracking_Id.New;
@@ -2346,7 +2468,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnAuthorizeStopRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             try
             {
@@ -2381,7 +2503,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             if (DisableAuthentication)
             {
-                Endtime  = DateTime.UtcNow;
+                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                 Runtime  = Endtime - StartTime;
                 result   = AuthStopResult.AdminDown(Id,
                                                     this,
@@ -2404,7 +2526,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                               RequestTimeout).ConfigureAwait(false);
 
 
-                Endtime  = DateTime.UtcNow;
+                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                 Runtime  = Endtime - StartTime;
 
                 if (response?.HTTPStatusCode            == HTTPStatusCode.OK &&
@@ -2493,7 +2615,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #region Initial checks
 
             if (!Timestamp.HasValue)
-                Timestamp = DateTime.UtcNow;
+                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             if (EventTrackingId == null)
                 EventTrackingId = EventTracking_Id.New;
@@ -2515,7 +2637,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     ForwardedCDRs.Add(cdr);
 
                 else
-                    FilteredCDRs.Add(SendCDRResult.Filtered(DateTime.UtcNow,
+                    FilteredCDRs.Add(SendCDRResult.Filtered(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                             cdr,
                                                             Warning: Warning.Create(I18NString.Create(Languages.en, "This charge detail record was filtered!"))));
 
@@ -2525,7 +2647,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnSendCDRsRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             try
             {
@@ -2557,9 +2679,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (DisableSendChargeDetailRecords)
             {
 
-                Endtime  = DateTime.UtcNow;
+                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                 Runtime  = Endtime - StartTime;
-                results  = SendCDRsResult.AdminDown(DateTime.UtcNow,
+                results  = SendCDRsResult.AdminDown(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                     Id,
                                                     this,
                                                     ChargeDetailRecords,
@@ -2591,7 +2713,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             try
                             {
 
-                                OnEnqueueSendCDRsRequest?.Invoke(DateTime.UtcNow,
+                                OnEnqueueSendCDRsRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                  Timestamp.Value,
                                                                  this,
                                                                  Id.ToString(),
@@ -2618,24 +2740,24 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                     chargeDetailRecordsQueue.Add(chargeDetailRecord.ToOCHP(ContractIdDelegate: emtid => _Lookup[emtid],
                                                                                            CustomEVSEIdMapper: null));
-                                    EnquenedCDRsResults.Add(SendCDRResult.Enqueued(DateTime.UtcNow,
+                                    EnquenedCDRsResults.Add(SendCDRResult.Enqueued(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                    chargeDetailRecord));
 
                                 }
                                 catch (Exception e)
                                 {
-                                    EnquenedCDRsResults.Add(SendCDRResult.CouldNotConvertCDRFormat(DateTime.UtcNow,
+                                    EnquenedCDRsResults.Add(SendCDRResult.CouldNotConvertCDRFormat(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                    chargeDetailRecord,
                                                                                                    Warning: Warning.Create(I18NString.Create(Languages.en, e.Message))));
                                 }
 
                             }
 
-                            Endtime      = DateTime.UtcNow;
+                            Endtime      = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                             Runtime      = Endtime - StartTime;
                             results      = (!FilteredCDRs.Any())
-                                               ? SendCDRsResult.Enqueued(DateTime.UtcNow, Id, this, ForwardedCDRs, I18NString.Create(Languages.en, "Enqueued for at least " + FlushChargeDetailRecordsEvery.TotalSeconds + " seconds!"), Runtime: Runtime)
-                                               : SendCDRsResult.Mixed   (DateTime.UtcNow, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Enqueued(DateTime.UtcNow, cdr))), Runtime: Runtime);
+                                               ? SendCDRsResult.Enqueued(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, ForwardedCDRs, I18NString.Create(Languages.en, "Enqueued for at least " + FlushChargeDetailRecordsEvery.TotalSeconds + " seconds!"), Runtime: Runtime)
+                                               : SendCDRsResult.Mixed   (org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Enqueued(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, cdr))), Runtime: Runtime);
                             invokeTimer  = true;
 
                         }
@@ -2674,22 +2796,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                         case ResultCodes.OK:
                                             if (!FilteredCDRs.Any())
-                                                results = SendCDRsResult.Success(DateTime.UtcNow, Id, this, ForwardedCDRs);
+                                                results = SendCDRsResult.Success(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, ForwardedCDRs);
                                             else
-                                                results = SendCDRsResult.Mixed  (DateTime.UtcNow, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Success(DateTime.UtcNow, cdr))));
+                                                results = SendCDRsResult.Mixed  (org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Success(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, cdr))));
                                             break;
 
                                         case ResultCodes.Partly:
                                             if (!FilteredCDRs.Any())
-                                                results = SendCDRsResult.Mixed  (DateTime.UtcNow, Id, this, ForwardedCDRs.  Select(cdr => SendCDRResult.Success(DateTime.UtcNow, cdr)).Concat(
-                                                                                                            ImplausibleCDRs.Select(cdr => SendCDRResult.Error  (DateTime.UtcNow,
+                                                results = SendCDRsResult.Mixed  (org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, ForwardedCDRs.  Select(cdr => SendCDRResult.Success(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, cdr)).Concat(
+                                                                                                            ImplausibleCDRs.Select(cdr => SendCDRResult.Error  (org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                                                                                 cdr,
                                                                                                                                                                 Warning: Warning.Create(I18NString.Create(Languages.en, "Implausible charge detail record!"))))
                                                                                             ));
                                             else
-                                                results = SendCDRsResult.Mixed  (DateTime.UtcNow, Id, this, FilteredCDRs.Concat(
-                                                                                                                ForwardedCDRs.  Select(cdr => SendCDRResult.Success(DateTime.UtcNow, cdr)).Concat(
-                                                                                                                ImplausibleCDRs.Select(cdr => SendCDRResult.Error(DateTime.UtcNow,
+                                                results = SendCDRsResult.Mixed  (org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, FilteredCDRs.Concat(
+                                                                                                                ForwardedCDRs.  Select(cdr => SendCDRResult.Success(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, cdr)).Concat(
+                                                                                                                ImplausibleCDRs.Select(cdr => SendCDRResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                                                                                   cdr,
                                                                                                                                                                   Warning: Warning.Create(I18NString.Create(Languages.en, "Implausible charge detail record!"))))
                                                                                             )));
@@ -2697,9 +2819,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                         default:
                                             if (!FilteredCDRs.Any())
-                                                results = SendCDRsResult.Error(DateTime.UtcNow, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.en, response.Content.Result.ResultCode + " - " + response.Content.Result.Description)));
+                                                results = SendCDRsResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.en, response.Content.Result.ResultCode + " - " + response.Content.Result.Description)));
                                             else
-                                                results = SendCDRsResult.Mixed(DateTime.UtcNow, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(DateTime.UtcNow,
+                                                results = SendCDRsResult.Mixed(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, FilteredCDRs.Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                                                                                               cdr,
                                                                                                                                                                               Warning.Create(I18NString.Create(Languages.en, response.Content.Result.ResultCode + " - " + response.Content.Result.Description))))));
                                             break;
@@ -2710,23 +2832,23 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                 else
                                     if (!FilteredCDRs.Any())
-                                        results = SendCDRsResult.Error(DateTime.UtcNow, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.en, response.HTTPBodyAsUTF8String)));
+                                        results = SendCDRsResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.en, response.HTTPBodyAsUTF8String)));
                                     else
-                                        results = SendCDRsResult.Mixed(DateTime.UtcNow, Id, this, FilteredCDRs.
-                                                                                     Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(DateTime.UtcNow, cdr, Warning.Create(I18NString.Create(Languages.en, response.HTTPBodyAsUTF8String))))));
+                                        results = SendCDRsResult.Mixed(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, FilteredCDRs.
+                                                                                     Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, cdr, Warning.Create(I18NString.Create(Languages.en, response.HTTPBodyAsUTF8String))))));
 
                             }
                             catch (Exception e)
                             {
                                 if (!FilteredCDRs.Any())
-                                    results = SendCDRsResult.Error(DateTime.UtcNow, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.en, e.Message)));
+                                    results = SendCDRsResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, ForwardedCDRs, Warning.Create(I18NString.Create(Languages.en, e.Message)));
                                 else
-                                    results = SendCDRsResult.Mixed(DateTime.UtcNow, Id, this, FilteredCDRs.
-                                                                                 Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(DateTime.UtcNow, cdr, Warning.Create(I18NString.Create(Languages.en, e.Message))))));
+                                    results = SendCDRsResult.Mixed(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, Id, this, FilteredCDRs.
+                                                                                 Concat(ForwardedCDRs.Select(cdr => SendCDRResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, cdr, Warning.Create(I18NString.Create(Languages.en, e.Message))))));
                             }
 
 
-                            Endtime  = DateTime.UtcNow;
+                            Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                             Runtime  = Endtime - StartTime;
 
                             foreach (var result in results)
@@ -2743,9 +2865,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     else
                     {
 
-                        Endtime  = DateTime.UtcNow;
+                        Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                         Runtime  = Endtime - StartTime;
-                        results  = SendCDRsResult.Timeout(DateTime.UtcNow,
+                        results  = SendCDRsResult.Timeout(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                           Id,
                                                           this,
                                                           ChargeDetailRecords,
@@ -2826,7 +2948,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     DebugX.Log("A exception occured during ServiceCheck: " + e.Message + Environment.NewLine + e.StackTrace);
 
-                    OnWWCPCPOAdapterException?.Invoke(DateTime.UtcNow,
+                    OnWWCPCPOAdapterException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                       this,
                                                       e);
 
@@ -2918,26 +3040,43 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #endregion
 
             // Upload status changes...
-            if (evsesToAddQueueCopy.              Value != null ||
-                evseDataQueueCopy.                Value != null ||
-                evseStatusChangesDelayedQueueCopy.Value != null ||
-                evsesToRemoveQueueCopy.           Value != null)
+            if (evsesToAddQueueCopy.              Value is not null ||
+                evseDataQueueCopy.                Value is not null ||
+                evseStatusChangesDelayedQueueCopy.Value is not null ||
+                evsesToRemoveQueueCopy.           Value is not null)
             {
 
                 // Use the events to evaluate if something went wrong!
 
-                var EventTrackingId = EventTracking_Id.New;
+                var now                      = Timestamp.Now;
+                var eventTrackingId          = EventTracking_Id.New;
+                var cancellationTokenSource  = new CancellationTokenSource();
 
                 #region Send new EVSE data
 
-                if (evsesToAddQueueCopy.Value.Count > 0)
+                if (evsesToAddQueueCopy.Value is not null &&
+                    evsesToAddQueueCopy.Value.Count > 0)
                 {
 
-                    var EVSEsToAddTask = serviceRunId == 1
-                                             ? (this as ISendPOIData).AddOrUpdateEVSEs(evsesToAddQueueCopy.Value, EventTrackingId: EventTrackingId)
-                                             : (this as ISendPOIData).AddEVSEs(evsesToAddQueueCopy.Value, EventTrackingId: EventTrackingId);
+                    if (serviceRunId == 1)
+                        await ReplaceEVSEs(
+                                  evsesToAddQueueCopy.Value,
+                                  TransmissionTypes.Direct,
+                                  now,
+                                  eventTrackingId,
+                                  null,
+                                  cancellationTokenSource.Token
+                              );
 
-                    EVSEsToAddTask.Wait();
+                    else
+                        await AddEVSEs(
+                                  evsesToAddQueueCopy.Value,
+                                  TransmissionTypes.Direct,
+                                  now,
+                                  eventTrackingId,
+                                  null,
+                                  cancellationTokenSource.Token
+                              );
 
                 }
 
@@ -2945,7 +3084,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 #region Send changed EVSE data
 
-                if (evseDataQueueCopy.Value.Count > 0)
+                if (evseDataQueueCopy.Value is not null &&
+                    evseDataQueueCopy.Value.Count > 0)
                 {
 
                     // Surpress EVSE data updates for all newly added EVSEs
@@ -2955,13 +3095,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
 
                     if (EVSEsWithoutNewEVSEs.Length > 0)
-                    {
-
-                        var SetChargePointInfosTask = (this as ISendPOIData).UpdateEVSEs(EVSEsWithoutNewEVSEs, EventTrackingId: EventTrackingId);
-
-                        SetChargePointInfosTask.Wait();
-
-                    }
+                        await UpdateEVSEs(EVSEsWithoutNewEVSEs, EventTrackingId: eventTrackingId);
 
                 }
 
@@ -2969,14 +3103,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 #region Send changed EVSE status
 
-                if (evseStatusChangesDelayedQueueCopy.Value.Count > 0)
+                if (evseStatusChangesDelayedQueueCopy.Value is not null &&
+                    evseStatusChangesDelayedQueueCopy.Value.Count > 0)
                 {
-
-                    var UpdateEVSEStatusTask = UpdateEVSEStatus(evseStatusChangesDelayedQueueCopy.Value,
-                                                                EventTrackingId: EventTrackingId);
-
-                    UpdateEVSEStatusTask.Wait();
-
+                    await UpdateEVSEStatus(evseStatusChangesDelayedQueueCopy.Value,
+                                           EventTrackingId: eventTrackingId);
                 }
 
                 #endregion
@@ -3079,7 +3210,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 //if (EVSEsToAddTask.Result.Warnings.Any())
                 //{
 
-                //    SendOnWarnings(DateTime.UtcNow,
+                //    SendOnWarnings(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                 //                   nameof(WWCPCPOAdapter) + Id,
                 //                   "EVSEsToAddTask",
                 //                   EVSEsToAddTask.Result.Warnings);
@@ -3111,7 +3242,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     //if (PushEVSEDataTask.Result.Warnings.Any())
                     //{
 
-                    //    SendOnWarnings(DateTime.UtcNow,
+                    //    SendOnWarnings(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                     //                   nameof(WWCPCPOAdapter) + Id,
                     //                   "PushEVSEDataTask",
                     //                   PushEVSEDataTask.Result.Warnings);
@@ -3133,16 +3264,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 var pushEVSEStatusResult = await UpdateStatus(evseStatusChangesDelayedQueueCopy,
                                                               TransmissionTypes.Direct,
 
-                                                              DateTime.UtcNow,
-                                                              new CancellationTokenSource().Token,
+                                                              Timestamp.Now,
                                                               EventTrackingId,
-                                                              DefaultRequestTimeout).
+                                                              DefaultRequestTimeout,
+                                                              new CancellationTokenSource().Token).
                                                      ConfigureAwait(false);
 
                 if (pushEVSEStatusResult.Warnings.Any())
                 {
 
-                    SendOnWarnings(DateTime.UtcNow,
+                    SendOnWarnings(Timestamp.Now,
                                    nameof(WWCPEMPAdapter) + Id,
                                    "UpdateStatus",
                                    pushEVSEStatusResult.Warnings);
@@ -3172,7 +3303,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     //if (EVSEsToRemoveTask.Result.Warnings.Any())
                     //{
 
-                    //    SendOnWarnings(DateTime.UtcNow,
+                    //    SendOnWarnings(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                     //                   nameof(WWCPCPOAdapter) + Id,
                     //                   "EVSEsToRemoveTask",
                     //                   EVSEsToRemoveTask.Result.Warnings);
@@ -3246,16 +3377,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 var pushEVSEStatusResult = await UpdateEVSEStatus(EVSEStatusFastQueueCopy,
 
-                                                                  DateTime.UtcNow,
-                                                                  new CancellationTokenSource().Token,
+                                                                  Timestamp.Now,
                                                                   EventTracking_Id.New,
-                                                                  DefaultRequestTimeout).
+                                                                  DefaultRequestTimeout,
+                                                                  new CancellationTokenSource().Token).
                                                      ConfigureAwait(false);
 
                 if (pushEVSEStatusResult.Warnings.Any())
                 {
 
-                    SendOnWarnings(DateTime.UtcNow,
+                    SendOnWarnings(Timestamp.Now,
                                    nameof(WWCPEMPAdapter) + Id,
                                    "PushEVSEStatus",
                                    pushEVSEStatusResult.Warnings);
@@ -3312,7 +3443,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #endregion
 
 
-            EVSEStatusRefreshEvent?.Invoke(DateTime.UtcNow,
+            EVSEStatusRefreshEvent?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                            this,
                                            "EVSE status refresh, as every " + EVSEStatusRefreshEvery.TotalHours.ToString() + " hours!");
 
@@ -3321,7 +3452,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             EVSE_Id?             _EVSEId;
             PushEVSEStatusResult result = null;
 
-            var StartTime                  = DateTime.UtcNow;
+            var StartTime                  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
             var Warnings                   = new List<Warning>();
             var AllEVSEStatusRefreshments  = new List<EVSEStatus>();
 
@@ -3372,7 +3503,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                              UpdateStatus(AllEVSEStatusRefreshments,
                                                           null,
                                                           // TTL => 2x refresh intervall
-                                                          DateTime.UtcNow + EVSEStatusRefreshEvery + EVSEStatusRefreshEvery
+                                                          org.GraphDefined.Vanaheimr.Illias.Timestamp.Now + EVSEStatusRefreshEvery + EVSEStatusRefreshEvery
 
                                                          //Timestamp,
                                                          //CancellationToken,
@@ -3381,7 +3512,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                          );
 
 
-                    var Endtime = DateTime.UtcNow;
+                    var Endtime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                     var Runtime = Endtime - StartTime;
 
                     if (response.HTTPStatusCode == HTTPStatusCode.OK &&
@@ -3432,7 +3563,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                 new EVSEStatusUpdate[0],
                                                 e.Message,
                                                 Warnings,
-                                                DateTime.UtcNow - StartTime);
+                                                org.GraphDefined.Vanaheimr.Illias.Timestamp.Now - StartTime);
 
             }
 
@@ -3460,7 +3591,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 var response = await CPORoaming.AddCDRs(CDRInfos,
 
-                                                        DateTime.UtcNow,
+                                                        org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                         new CancellationTokenSource().Token,
                                                         EventTracking_Id.New,
                                                         DefaultRequestTimeout).
@@ -3477,7 +3608,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             {
                                 foreach (var CDRInfo in CDRInfos)
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
-                                                                              SendCDRResult.Success(DateTime.UtcNow,
+                                                                              SendCDRResult.Success(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                     CDRInfo.GetInternalDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                                     Runtime: response.Runtime));
                             }
@@ -3491,11 +3622,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                 foreach (var CDRInfo in CDRInfos)
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
                                                                               implausibleCDRs.Contains(CDRInfo.CDRId)
-                                                                                  ? SendCDRResult.Error  (DateTime.UtcNow,
+                                                                                  ? SendCDRResult.Error  (org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                           CDRInfo.GetInternalDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                                           Warning.Create(I18NString.Create(Languages.en, "implausible charge detail record!")),
                                                                                                           Runtime: response.Runtime)
-                                                                                  : SendCDRResult.Success(DateTime.UtcNow,
+                                                                                  : SendCDRResult.Success(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                           CDRInfo.GetInternalDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                                           Runtime: response.Runtime));
 
@@ -3506,7 +3637,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             {
                                 foreach (var CDRInfo in CDRInfos)
                                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
-                                                                              SendCDRResult.Error(DateTime.UtcNow,
+                                                                              SendCDRResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                   CDRInfo.GetInternalDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                                   Warning.Create(I18NString.Create(Languages.en, response.Content.Result.ResultCode.ToString() + " - " + response.Content.Result.Description)),
                                                                                                   Runtime: response.Runtime));
@@ -3524,7 +3655,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
                 foreach (var CDRInfo in CDRInfos)
                     RoamingNetwork.SessionsStore.CDRForwarded(CDRInfo.CDRId.ToWWCP(),
-                                                              SendCDRResult.Error(DateTime.UtcNow,
+                                                              SendCDRResult.Error(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                   CDRInfo.GetInternalDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
                                                                                   Warning.Create(I18NString.Create(Languages.en, e.Message)),
                                                                                   Runtime: TimeSpan.Zero));
@@ -3533,6 +3664,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         }
 
         #endregion
+
 
         // -----------------------------------------------------------------------------------------------------
 

@@ -472,7 +472,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Send OnAuthorizeEVSEStartRequest event
 
-            //        var StartTime = DateTime.UtcNow;
+            //        var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        try
             //        {
@@ -512,7 +512,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Send OnAuthorizeEVSEStartResponse event
 
-            //        var EndTime = DateTime.UtcNow;
+            //        var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        try
             //        {
@@ -602,7 +602,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Send OnAuthorizeStartRequest event
 
-            //        var StartTime = DateTime.UtcNow;
+            //        var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        try
             //        {
@@ -640,7 +640,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Send OnAuthorizeStartResponse event
 
-            //        var EndTime = DateTime.UtcNow;
+            //        var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        try
             //        {
@@ -755,7 +755,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Send OnAuthorizeEVSEStopRequest event
 
-            //        var StartTime = DateTime.UtcNow;
+            //        var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        try
             //        {
@@ -793,7 +793,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Send OnAuthorizeEVSEStopResponse event
 
-            //        var EndTime = DateTime.UtcNow;
+            //        var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        try
             //        {
@@ -869,7 +869,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Send OnAuthorizeStopRequest event
 
-            //        var StartTime = DateTime.UtcNow;
+            //        var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        try
             //        {
@@ -905,7 +905,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Send OnAuthorizeStopResponse event
 
-            //        var EndTime = DateTime.UtcNow;
+            //        var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        try
             //        {
@@ -990,7 +990,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //    #region Send OnChargeDetailRecordRequest event
 
-            //    var StartTime = DateTime.UtcNow;
+            //    var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //    try
             //    {
@@ -1024,7 +1024,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //    #region Send OnChargeDetailRecordResponse event
 
-            //    var EndTime = DateTime.UtcNow;
+            //    var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //    try
             //    {
@@ -1152,11 +1152,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //#region Initial checks
 
             //if (!To.HasValue)
-            //    To = DateTime.UtcNow;
+            //    To = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
 
             //if (!Timestamp.HasValue)
-            //    Timestamp = DateTime.UtcNow;
+            //    Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //if (!CancellationToken.HasValue)
             //    CancellationToken = new CancellationTokenSource().Token;
@@ -1174,7 +1174,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //#region Send OnGetChargeDetailRecordsRequest event
 
-            //var StartTime = DateTime.UtcNow;
+            //var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //try
             //{
@@ -1244,7 +1244,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //#region Send OnGetChargeDetailRecordsResponse event
 
-            //var EndTime = DateTime.UtcNow;
+            //var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //try
             //{
@@ -1371,13 +1371,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //    Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
 
-            //    var StartTime = DateTime.UtcNow;
+            //    var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
             //    DebugX.LogT("[" + Id + "] 'Pull data service' started at " + StartTime.ToIso8601());
 
             //    try
             //    {
 
-            //        var TimestampBeforeLastPullDataRun = DateTime.UtcNow;
+            //        var TimestampBeforeLastPullDataRun = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        var PullEVSEData  = await EMPRoaming.PullEVSEData(DefaultProviderId.Value,
             //                                                          DefaultSearchCenter,
@@ -1396,7 +1396,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //        //                                                                          "PullEvseDataResponse_2017-07-19_PROD.xml", Encoding.UTF8)).Root)
             //        //};
 
-            //        var DownloadTime = DateTime.UtcNow;
+            //        var DownloadTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        TimestampOfLastPullDataRun = TimestampBeforeLastPullDataRun;
 
@@ -1919,7 +1919,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //            #endregion
 
 
-            //        var EndTime = DateTime.UtcNow;
+            //        var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
             //        DebugX.LogT("[" + Id + "] 'Pull data service' finished after " + (EndTime - StartTime).TotalSeconds + " seconds (" + (DownloadTime - StartTime).TotalSeconds + "/" + (EndTime - DownloadTime).TotalSeconds + ")");
 
             //    }
@@ -1972,7 +1972,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //    Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
 
-            //    var StartTime = DateTime.UtcNow;
+            //    var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
             //    DebugX.LogT("[" + Id + "] 'Pull status service' started at " + StartTime.ToIso8601());
 
             //    try
@@ -1988,7 +1988,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        PullEVSEStatusTask.Wait();
 
-            //        var DownloadTime = DateTime.UtcNow;
+            //        var DownloadTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        #region Everything is ok!
 
@@ -2155,7 +2155,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //        #endregion
 
 
-            //        var EndTime = DateTime.UtcNow;
+            //        var EndTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
             //        DebugX.LogT("[" + Id + "] 'Pull status service' finished after " + (EndTime - StartTime).TotalSeconds + " seconds (" + (DownloadTime - StartTime).TotalSeconds + "/" + (EndTime - DownloadTime).TotalSeconds + ")");
 

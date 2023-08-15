@@ -83,7 +83,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                    UInt64                           NumberOfChargePointInfos,
                                                                    IEnumerable<ChargePointInfo>     ChargePointInfos,
                                                                    TimeSpan?                        RequestTimeout,
-                                                                   PushEVSEDataResult               Result,
+                                                                   ReplaceEVSEsResult               Result,
                                                                    TimeSpan                         Runtime);
 
 
@@ -114,7 +114,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                       UInt64                           NumberOfChargePointInfos,
                                                                       IEnumerable<ChargePointInfo>     ChargePointInfos,
                                                                       TimeSpan?                        RequestTimeout,
-                                                                      PushEVSEDataResult               Result,
+                                                                      UpdateEVSEsResult                Result,
                                                                       TimeSpan                         Runtime);
 
 
