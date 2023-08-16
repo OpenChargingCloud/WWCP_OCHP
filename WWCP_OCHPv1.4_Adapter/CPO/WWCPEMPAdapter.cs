@@ -37,7 +37,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPEMPAdapter : AWWCP__CSOAdapter<CDRInfo>,
+    public class WWCPEMPAdapter : AWWCPCSOAdapter<CDRInfo>,
                                   IEMPRoamingProvider,
                                   IEquatable<WWCPEMPAdapter>,
                                   IComparable<WWCPEMPAdapter>,
