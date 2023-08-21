@@ -226,9 +226,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
         public DNSClient                                     DNSClient          { get; }
 
 
-        private readonly List<WWCPEMPAdapter> _CPOAdapters;
+        private readonly List<WWCPCSOAdapter> _CPOAdapters;
 
-        public IEnumerable<WWCPEMPAdapter> CPOAdapters
+        public IEnumerable<WWCPCSOAdapter> CPOAdapters
             => _CPOAdapters;
 
         #endregion
@@ -299,7 +299,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             this.EVSEStatusRecord2XML  = EVSEStatus2XML;
             this.XMLPostProcessing     = XMLPostProcessing;
 
-            this._CPOAdapters          = new List<WWCPEMPAdapter>();
+            this._CPOAdapters          = new List<WWCPCSOAdapter>();
 
             // Link HTTP events...
             HTTPServer.RequestLog   += (HTTPProcessor, ServerTimestamp, Request)                                 => RequestLog. WhenAll(HTTPProcessor, ServerTimestamp, Request);
@@ -747,7 +747,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
         #endregion
 
 
-        public void Add(WWCPEMPAdapter CPOAdapter)
+        public void Add(WWCPCSOAdapter CPOAdapter)
         {
 
             _CPOAdapters.Add(CPOAdapter);

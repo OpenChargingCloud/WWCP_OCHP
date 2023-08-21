@@ -44,10 +44,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// A WWCP wrapper for the OCHP EMP roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPCPOAdapter : ACryptoEMobilityEntity<CSORoamingProvider_Id,
-                                                         CSORoamingProviderAdminStatusTypes,
-                                                         CSORoamingProviderStatusTypes>,
-                                  ICSORoamingProvider,
+    public class WWCPEMPAdapter : ACryptoEMobilityEntity<EMPRoamingProvider_Id,
+                                                         EMPRoamingProviderAdminStatusTypes,
+                                                         EMPRoamingProviderStatusTypes>,
+                                  IEMPRoamingProvider,
                                   ISendAuthenticationData
     {
 
@@ -102,7 +102,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         #region OnWWCPEMPAdapterException
 
         public delegate Task OnWWCPEMPAdapterExceptionDelegate(DateTime        Timestamp,
-                                                               WWCPCPOAdapter  Sender,
+                                                               WWCPEMPAdapter  Sender,
                                                                Exception       Exception);
 
         public event OnWWCPEMPAdapterExceptionDelegate OnWWCPEMPAdapterException;
@@ -140,7 +140,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
         private static SemaphoreSlim PullEVSEDataLock = new (1, 1);
 
-        public delegate void PullEVSEDataDelegate(DateTime Timestamp, WWCPCPOAdapter Sender, TimeSpan Every);
+        public delegate void PullEVSEDataDelegate(DateTime Timestamp, WWCPEMPAdapter Sender, TimeSpan Every);
 
         public event PullEVSEDataDelegate FlushServiceQueuesEvent;
 
@@ -382,7 +382,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// 
         /// <param name="EMPRoaming">A OCHP EMP roaming object to be mapped to WWCP.</param>
         /// <param name="EVSEDataRecord2EVSE">A delegate to process an EVSE data record after receiving it from the roaming provider.</param>
-        public WWCPCPOAdapter(CSORoamingProvider_Id        Id,
+        public WWCPEMPAdapter(EMPRoamingProvider_Id        Id,
                               I18NString                   Name,
                               RoamingNetwork               RoamingNetwork,
                               EMPRoaming                   EMPRoaming,
@@ -2201,7 +2201,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (WWCPCPOAdapter WWCPEMPAdapter1, WWCPCPOAdapter WWCPEMPAdapter2)
+        public static Boolean operator == (WWCPEMPAdapter WWCPEMPAdapter1, WWCPEMPAdapter WWCPEMPAdapter2)
         {
 
             // If both are null, or both are same instance, return true.
@@ -2226,7 +2226,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (WWCPCPOAdapter WWCPEMPAdapter1, WWCPCPOAdapter WWCPEMPAdapter2)
+        public static Boolean operator != (WWCPEMPAdapter WWCPEMPAdapter1, WWCPEMPAdapter WWCPEMPAdapter2)
 
             => !(WWCPEMPAdapter1 == WWCPEMPAdapter2);
 
@@ -2240,8 +2240,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator < (WWCPCPOAdapter  WWCPEMPAdapter1,
-                                          WWCPCPOAdapter  WWCPEMPAdapter2)
+        public static Boolean operator < (WWCPEMPAdapter  WWCPEMPAdapter1,
+                                          WWCPEMPAdapter  WWCPEMPAdapter2)
         {
 
             if ((Object) WWCPEMPAdapter1 == null)
@@ -2261,8 +2261,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator <= (WWCPCPOAdapter WWCPEMPAdapter1,
-                                           WWCPCPOAdapter WWCPEMPAdapter2)
+        public static Boolean operator <= (WWCPEMPAdapter WWCPEMPAdapter1,
+                                           WWCPEMPAdapter WWCPEMPAdapter2)
 
             => !(WWCPEMPAdapter1 > WWCPEMPAdapter2);
 
@@ -2276,8 +2276,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator > (WWCPCPOAdapter WWCPEMPAdapter1,
-                                          WWCPCPOAdapter WWCPEMPAdapter2)
+        public static Boolean operator > (WWCPEMPAdapter WWCPEMPAdapter1,
+                                          WWCPEMPAdapter WWCPEMPAdapter2)
         {
 
             if ((Object) WWCPEMPAdapter1 == null)
@@ -2297,8 +2297,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="WWCPEMPAdapter1">A WWCPEMPAdapter.</param>
         /// <param name="WWCPEMPAdapter2">Another WWCPEMPAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator >= (WWCPCPOAdapter WWCPEMPAdapter1,
-                                           WWCPCPOAdapter WWCPEMPAdapter2)
+        public static Boolean operator >= (WWCPEMPAdapter WWCPEMPAdapter1,
+                                           WWCPEMPAdapter WWCPEMPAdapter2)
 
             => !(WWCPEMPAdapter1 < WWCPEMPAdapter2);
 
@@ -2320,7 +2320,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             if (Object == null)
                 throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
 
-            var WWCPEMPAdapter = Object as WWCPCPOAdapter;
+            var WWCPEMPAdapter = Object as WWCPEMPAdapter;
             if ((Object) WWCPEMPAdapter == null)
                 throw new ArgumentException("The given object is not an WWCPEMPAdapter!", nameof(Object));
 
@@ -2336,7 +2336,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Compares two instances of this object.
         /// </summary>
         /// <param name="WWCPEMPAdapter">An WWCPEMPAdapter object to compare with.</param>
-        public Int32 CompareTo(WWCPCPOAdapter WWCPEMPAdapter)
+        public Int32 CompareTo(WWCPEMPAdapter WWCPEMPAdapter)
         {
 
             if ((Object) WWCPEMPAdapter == null)
@@ -2365,7 +2365,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             if (Object == null)
                 return false;
 
-            var WWCPEMPAdapter = Object as WWCPCPOAdapter;
+            var WWCPEMPAdapter = Object as WWCPEMPAdapter;
             if ((Object) WWCPEMPAdapter == null)
                 return false;
 
@@ -2382,7 +2382,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="WWCPEMPAdapter">An WWCPEMPAdapter to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(WWCPCPOAdapter WWCPEMPAdapter)
+        public Boolean Equals(WWCPEMPAdapter WWCPEMPAdapter)
         {
 
             if ((Object) WWCPEMPAdapter == null)

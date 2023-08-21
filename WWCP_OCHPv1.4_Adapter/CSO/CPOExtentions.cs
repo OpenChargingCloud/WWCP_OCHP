@@ -17,12 +17,13 @@
 
 #region Usings
 
+using Org.BouncyCastle.Crypto.Parameters;
+
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
+using org.GraphDefined.Vanaheimr.Hermod.Logging;
 
 using cloud.charging.open.protocols.OCHPv1_4.CPO;
-using org.GraphDefined.Vanaheimr.Hermod.Logging;
-using Org.BouncyCastle.Crypto.Parameters;
 
 #endregion
 
@@ -32,7 +33,7 @@ namespace cloud.charging.open.protocols.WWCP
     /// <summary>
     /// Extensions methods for the WWCP wrapper for OCHP roaming clients for charging station operators.
     /// </summary>
-    public static class EMPExtensions
+    public static class CPOExtensions
     {
 
         /// <summary>
@@ -62,10 +63,10 @@ namespace cloud.charging.open.protocols.WWCP
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public static WWCPEMPAdapter
+        public static WWCPCSOAdapter
 
             CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                                 RoamingNetwork,
-                                              EMPRoamingProvider_Id                               Id,
+                                              CSORoamingProvider_Id                               Id,
                                               I18NString                                          Name,
                                               I18NString                                          Description,
                                               CPORoaming                                          CPORoaming,
@@ -113,8 +114,8 @@ namespace cloud.charging.open.protocols.WWCP
                                               LogfileCreatorDelegate?                             ClientsLogfileCreator               = null,
                                               DNSClient?                                          DNSClient                           = null,
 
-                                              Action<OCHPv1_4.CPO.WWCPEMPAdapter>?                OCHPConfigurator                    = null,
-                                              Action<IEMPRoamingProvider>?                        Configurator                        = null)
+                                              Action<OCHPv1_4.CPO.WWCPCSOAdapter>?                OCHPConfigurator                    = null,
+                                              Action<ICSORoamingProvider>?                        Configurator                        = null)
 
         {
 
@@ -131,7 +132,7 @@ namespace cloud.charging.open.protocols.WWCP
 
             #endregion
 
-            var newRoamingProvider = new WWCPEMPAdapter(Id,
+            var newRoamingProvider = new WWCPCSOAdapter(Id,
                                                         Name,
                                                         Description,
                                                         RoamingNetwork,
@@ -182,8 +183,8 @@ namespace cloud.charging.open.protocols.WWCP
             OCHPConfigurator?.Invoke(newRoamingProvider);
 
             return RoamingNetwork.
-                       CreateEMPRoamingProvider(newRoamingProvider,
-                                                Configurator) as WWCPEMPAdapter;
+                       CreateCSORoamingProvider(newRoamingProvider,
+                                                Configurator) as WWCPCSOAdapter;
 
         }
 

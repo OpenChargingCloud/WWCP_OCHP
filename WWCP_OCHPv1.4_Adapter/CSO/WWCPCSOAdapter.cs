@@ -37,10 +37,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// A WWCP wrapper for the OCHP CPO Roaming client which maps
     /// WWCP data structures onto OCHP data structures and vice versa.
     /// </summary>
-    public class WWCPEMPAdapter : AWWCPCSOAdapter<CDRInfo>,
-                                  IEMPRoamingProvider,
-                                  IEquatable<WWCPEMPAdapter>,
-                                  IComparable<WWCPEMPAdapter>,
+    public class WWCPCSOAdapter : AWWCPCSOAdapter<CDRInfo>,
+                                  ICSORoamingProvider,
+                                  IEquatable<WWCPCSOAdapter>,
+                                  IComparable<WWCPCSOAdapter>,
                                   IComparable
     {
 
@@ -279,7 +279,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         #region OnWWCPCPOAdapterException
 
         public delegate Task OnWWCPCPOAdapterExceptionDelegate(DateTime        Timestamp,
-                                                               WWCPEMPAdapter  Sender,
+                                                               WWCPCSOAdapter  Sender,
                                                                Exception       Exception);
 
         public event OnWWCPCPOAdapterExceptionDelegate OnWWCPCPOAdapterException;
@@ -287,17 +287,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         #endregion
 
 
-        public delegate void FlushServiceQueuesDelegate(WWCPEMPAdapter Sender, TimeSpan Every);
+        public delegate void FlushServiceQueuesDelegate(WWCPCSOAdapter Sender, TimeSpan Every);
 
         public event FlushServiceQueuesDelegate FlushServiceQueuesEvent;
 
 
-        public delegate void FlushEVSEStatusUpdateQueuesDelegate(WWCPEMPAdapter Sender, TimeSpan Every);
+        public delegate void FlushEVSEStatusUpdateQueuesDelegate(WWCPCSOAdapter Sender, TimeSpan Every);
 
         public event FlushEVSEStatusUpdateQueuesDelegate FlushEVSEStatusUpdateQueuesEvent;
 
 
-        public delegate void EVSEStatusRefreshEventDelegate(DateTime Timestamp, WWCPEMPAdapter Sender, String Message);
+        public delegate void EVSEStatusRefreshEventDelegate(DateTime Timestamp, WWCPCSOAdapter Sender, String Message);
 
         public event EVSEStatusRefreshEventDelegate EVSEStatusRefreshEvent;
 
@@ -326,7 +326,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="DisableEVSEStatusRefresh">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableAuthentication">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisableSendChargeDetailRecords">This service can be disabled, e.g. for debugging reasons.</param>
-        public WWCPEMPAdapter(EMPRoamingProvider_Id                           Id,
+        public WWCPCSOAdapter(CSORoamingProvider_Id                           Id,
                               I18NString                                      Name,
                               I18NString                                      Description,
                               RoamingNetwork                                  RoamingNetwork,
@@ -1018,7 +1018,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnSetChargePointInfosWWCPRequest));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnSetChargePointInfosWWCPRequest));
             }
 
             #endregion
@@ -1137,7 +1137,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnSetChargePointInfosWWCPResponse));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnSetChargePointInfosWWCPResponse));
             }
 
             #endregion
@@ -1237,7 +1237,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnSetChargePointInfosWWCPRequest));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnSetChargePointInfosWWCPRequest));
             }
 
             #endregion
@@ -1355,7 +1355,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnUpdateChargePointInfosWWCPResponse));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnUpdateChargePointInfosWWCPResponse));
             }
 
             #endregion
@@ -1471,7 +1471,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPRequest));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPRequest));
             }
 
             #endregion
@@ -1544,7 +1544,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPResponse));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnUpdateEVSEStatusWWCPResponse));
             }
 
             #endregion
@@ -1644,8 +1644,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                        EVSE,
                        result.Result,
                        result.EventTrackingId,
-                       result.AuthId,
-                       result.SendPOIData,
+                       result.SenderId,
+                       result.Sender,
                        null,
                        result.Description,
                        result.Warnings,
@@ -1742,10 +1742,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                        EVSE,
                        result.Result,
                        result.EventTrackingId,
-                       result.AuthId,
-                       result.SendPOIData,
+                       result.SenderId,
+                       result.Sender,
                        null,
-                       org.GraphDefined.Vanaheimr.Hermod.AddedOrUpdated.Update,
+                       AddedOrUpdated.Update,
                        result.Description,
                        result.Warnings,
                        result.Runtime
@@ -1849,8 +1849,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                        EVSE,
                        result.Result,
                        result.EventTrackingId,
-                       result.AuthId,
-                       result.SendPOIData,
+                       result.SenderId,
+                       result.Sender,
                        null,
                        result.Description,
                        result.Warnings,
@@ -1912,7 +1912,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                              updateEVSEResult.EVSE,
                                                                              updateEVSEResult.Result,
                                                                              updateEVSEResult.EventTrackingId,
-                                                                             updateEVSEResult.AuthId,
+                                                                             updateEVSEResult.SenderId,
                                                                              updateEVSEResult.Sender,
                                                                              null,
                                                                              updateEVSEResult.Description,
@@ -1924,7 +1924,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                              updateEVSEResult.EVSE,
                                                                              updateEVSEResult.Result,
                                                                              updateEVSEResult.EventTrackingId,
-                                                                             updateEVSEResult.AuthId,
+                                                                             updateEVSEResult.SenderId,
                                                                              updateEVSEResult.Sender,
                                                                              null,
                                                                              updateEVSEResult.Description,
@@ -1932,8 +1932,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                              updateEVSEResult.Runtime
                                                                          )),
 
-                       result.AuthId,
-                       result.SendPOIData,
+                       result.SenderId,
+                       result.Sender,
                        null,
                        result.Description,
                        result.Warnings,
@@ -1995,10 +1995,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                              updateEVSEResult.EVSE,
                                                                              updateEVSEResult.Result,
                                                                              updateEVSEResult.EventTrackingId,
-                                                                             updateEVSEResult.AuthId,
+                                                                             updateEVSEResult.SenderId,
                                                                              updateEVSEResult.Sender,
                                                                              null,
-                                                                             org.GraphDefined.Vanaheimr.Hermod.AddedOrUpdated.Update,
+                                                                             AddedOrUpdated.Update,
                                                                              updateEVSEResult.Description,
                                                                              updateEVSEResult.Warnings,
                                                                              updateEVSEResult.Runtime
@@ -2008,17 +2008,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                              updateEVSEResult.EVSE,
                                                                              updateEVSEResult.Result,
                                                                              updateEVSEResult.EventTrackingId,
-                                                                             updateEVSEResult.AuthId,
+                                                                             updateEVSEResult.SenderId,
                                                                              updateEVSEResult.Sender,
                                                                              null,
-                                                                             org.GraphDefined.Vanaheimr.Hermod.AddedOrUpdated.Update,
+                                                                             AddedOrUpdated.Update,
                                                                              updateEVSEResult.Description,
                                                                              updateEVSEResult.Warnings,
                                                                              updateEVSEResult.Runtime
                                                                          )),
 
-                       result.AuthId,
-                       result.SendPOIData,
+                       result.SenderId,
+                       result.Sender,
                        null,
                        result.Description,
                        result.Warnings,
@@ -2274,7 +2274,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStartRequest));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnAuthorizeStartRequest));
             }
 
             #endregion
@@ -2323,7 +2323,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     result = AuthStartResult.Authorized(Id,
                                                         this,
-                                                        SessionId:      ChargingSession_Id.NewRandom,
+                                                        SessionId:      ChargingSession_Id.NewRandom(),
                                                         ProviderId:     response.Content.RoamingAuthorisationInfo != null
                                                                             ? response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
                                                                             : EMobilityProvider_Id.Parse(Country.Germany, "GEF"),
@@ -2413,7 +2413,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStartResponse));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnAuthorizeStartResponse));
             }
 
             #endregion
@@ -2491,7 +2491,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStopRequest));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnAuthorizeStopRequest));
             }
 
             #endregion
@@ -2530,13 +2530,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 Runtime  = Endtime - StartTime;
 
                 if (response?.HTTPStatusCode            == HTTPStatusCode.OK &&
-                    response?.Content                   != null              &&
+                    response?.Content                   is not null &&
                     response?.Content.Result.ResultCode == ResultCodes.OK)
                 {
 
                     result = AuthStopResult.Authorized(Id,
                                                        this,
-                                                       SessionId:   ChargingSession_Id.NewRandom,
+                                                       SessionId:   ChargingSession_Id.NewRandom(),
                                                        ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP(),
                                                        Runtime:     Runtime);
 
@@ -2576,7 +2576,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnAuthorizeStopResponse));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnAuthorizeStopResponse));
             }
 
             #endregion
@@ -2664,7 +2664,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnSendCDRsRequest));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnSendCDRsRequest));
             }
 
             #endregion
@@ -2725,7 +2725,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             }
                             catch (Exception e)
                             {
-                                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnSendCDRsRequest));
+                                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnSendCDRsRequest));
                             }
 
                             #endregion
@@ -2911,7 +2911,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPEMPAdapter) + "." + nameof(OnSendCDRsResponse));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnSendCDRsResponse));
             }
 
             #endregion
@@ -3018,7 +3018,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     while (e.InnerException != null)
                         e = e.InnerException;
 
-                    DebugX.LogT(nameof(WWCPEMPAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
+                    DebugX.LogT(nameof(WWCPCSOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
 
                 }
 
@@ -3274,7 +3274,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 {
 
                     SendOnWarnings(Timestamp.Now,
-                                   nameof(WWCPEMPAdapter) + Id,
+                                   nameof(WWCPCSOAdapter) + Id,
                                    "UpdateStatus",
                                    pushEVSEStatusResult.Warnings);
 
@@ -3387,7 +3387,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 {
 
                     SendOnWarnings(Timestamp.Now,
-                                   nameof(WWCPEMPAdapter) + Id,
+                                   nameof(WWCPCSOAdapter) + Id,
                                    "PushEVSEStatus",
                                    pushEVSEStatusResult.Warnings);
 
@@ -3556,7 +3556,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 while (e.InnerException != null)
                     e = e.InnerException;
 
-                DebugX.LogT(nameof(WWCPEMPAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
+                DebugX.LogT(nameof(WWCPCSOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
 
                 result = PushEVSEStatusResult.Error(Id,
                                                 this,
@@ -3679,7 +3679,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public static Boolean operator == (WWCPEMPAdapter WWCPCPOAdapter1, WWCPEMPAdapter WWCPCPOAdapter2)
+        public static Boolean operator == (WWCPCSOAdapter WWCPCPOAdapter1, WWCPCSOAdapter WWCPCPOAdapter2)
         {
 
             // If both are null, or both are same instance, return true.
@@ -3704,7 +3704,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>False if both match; True otherwise.</returns>
-        public static Boolean operator != (WWCPEMPAdapter WWCPCPOAdapter1, WWCPEMPAdapter WWCPCPOAdapter2)
+        public static Boolean operator != (WWCPCSOAdapter WWCPCPOAdapter1, WWCPCSOAdapter WWCPCPOAdapter2)
 
             => !(WWCPCPOAdapter1 == WWCPCPOAdapter2);
 
@@ -3718,8 +3718,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator < (WWCPEMPAdapter  WWCPCPOAdapter1,
-                                          WWCPEMPAdapter  WWCPCPOAdapter2)
+        public static Boolean operator < (WWCPCSOAdapter  WWCPCPOAdapter1,
+                                          WWCPCSOAdapter  WWCPCPOAdapter2)
         {
 
             if ((Object) WWCPCPOAdapter1 == null)
@@ -3739,8 +3739,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator <= (WWCPEMPAdapter WWCPCPOAdapter1,
-                                           WWCPEMPAdapter WWCPCPOAdapter2)
+        public static Boolean operator <= (WWCPCSOAdapter WWCPCPOAdapter1,
+                                           WWCPCSOAdapter WWCPCPOAdapter2)
 
             => !(WWCPCPOAdapter1 > WWCPCPOAdapter2);
 
@@ -3754,8 +3754,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator > (WWCPEMPAdapter WWCPCPOAdapter1,
-                                          WWCPEMPAdapter WWCPCPOAdapter2)
+        public static Boolean operator > (WWCPCSOAdapter WWCPCPOAdapter1,
+                                          WWCPCSOAdapter WWCPCPOAdapter2)
         {
 
             if ((Object) WWCPCPOAdapter1 == null)
@@ -3775,8 +3775,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="WWCPCPOAdapter1">A WWCPCPOAdapter.</param>
         /// <param name="WWCPCPOAdapter2">Another WWCPCPOAdapter.</param>
         /// <returns>true|false</returns>
-        public static Boolean operator >= (WWCPEMPAdapter WWCPCPOAdapter1,
-                                           WWCPEMPAdapter WWCPCPOAdapter2)
+        public static Boolean operator >= (WWCPCSOAdapter WWCPCPOAdapter1,
+                                           WWCPCSOAdapter WWCPCPOAdapter2)
 
             => !(WWCPCPOAdapter1 < WWCPCPOAdapter2);
 
@@ -3798,7 +3798,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (Object == null)
                 throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
 
-            var WWCPCPOAdapter = Object as WWCPEMPAdapter;
+            var WWCPCPOAdapter = Object as WWCPCSOAdapter;
             if ((Object) WWCPCPOAdapter == null)
                 throw new ArgumentException("The given object is not an WWCPCPOAdapter!", nameof(Object));
 
@@ -3814,7 +3814,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// Compares two instances of this object.
         /// </summary>
         /// <param name="WWCPCPOAdapter">An WWCPCPOAdapter object to compare with.</param>
-        public Int32 CompareTo(WWCPEMPAdapter WWCPCPOAdapter)
+        public Int32 CompareTo(WWCPCSOAdapter WWCPCPOAdapter)
         {
 
             if ((Object) WWCPCPOAdapter == null)
@@ -3843,7 +3843,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (Object == null)
                 return false;
 
-            var WWCPCPOAdapter = Object as WWCPEMPAdapter;
+            var WWCPCPOAdapter = Object as WWCPCSOAdapter;
             if ((Object) WWCPCPOAdapter == null)
                 return false;
 
@@ -3860,7 +3860,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="WWCPCPOAdapter">An WWCPCPOAdapter to compare with.</param>
         /// <returns>True if both match; False otherwise.</returns>
-        public Boolean Equals(WWCPEMPAdapter WWCPCPOAdapter)
+        public Boolean Equals(WWCPCSOAdapter WWCPCPOAdapter)
         {
 
             if ((Object) WWCPCPOAdapter == null)

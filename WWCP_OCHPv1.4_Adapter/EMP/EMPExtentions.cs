@@ -31,7 +31,7 @@ namespace cloud.charging.open.protocols.WWCP
     /// <summary>
     /// Extensions methods for the WWCP wrapper for OCHP roaming clients for e-mobility providers/EMPs.
     /// </summary>
-    public static class CPOExtensions
+    public static class EMPExtensions
     {
 
         /// <summary>
@@ -65,10 +65,10 @@ namespace cloud.charging.open.protocols.WWCP
         /// 
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
-        public static OCHPv1_4.EMP.WWCPCPOAdapter
+        public static OCHPv1_4.EMP.WWCPEMPAdapter
 
-            CreateOCHPv1_4_CPORoamingProvider(this RoamingNetwork                       RoamingNetwork,
-                                              CSORoamingProvider_Id                     Id,
+            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                       RoamingNetwork,
+                                              EMPRoamingProvider_Id                     Id,
                                               I18NString                                Name,
                                               EMPRoaming                                EMPRoaming,
 
@@ -84,34 +84,25 @@ namespace cloud.charging.open.protocols.WWCP
                                               Boolean                                   DisablePullStatus                 = false,
                                               TimeSpan?                                 PullStatusServiceRequestTimeout   = null,
 
-                                              EMobilityProvider                         DefaultProvider                   = null,
+                                              EMobilityProvider?                        DefaultProvider                   = null,
                                               GeoCoordinate?                            DefaultSearchCenter               = null,
                                               UInt64?                                   DefaultDistanceKM                 = null,
 
-                                              DNSClient                                 DNSClient                         = null,
+                                              DNSClient?                                DNSClient                         = null,
 
-                                              Action<OCHPv1_4.EMP.WWCPCPOAdapter>       OCHPConfigurator                  = null,
-                                              Action<ICSORoamingProvider>               Configurator                      = null)
+                                              Action<OCHPv1_4.EMP.WWCPEMPAdapter>?      OCHPConfigurator                  = null,
+                                              Action<IEMPRoamingProvider>?              Configurator                      = null)
 
         {
 
             #region Initial checks
 
-            if (RoamingNetwork == null)
-                throw new ArgumentNullException(nameof(RoamingNetwork),  "The given roaming network must not be null!");
-
-            if (Id == null)
-                throw new ArgumentNullException(nameof(Id),              "The given unique roaming provider identification must not be null!");
-
             if (Name.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(Name),            "The given roaming provider name must not be null or empty!");
-
-            if (EMPRoaming is null)
-                throw new ArgumentNullException(nameof(EMPRoaming),      "The given EMP roaming must not be null!");
+                throw new ArgumentNullException(nameof(Name), "The given name of the roaming provider name must not be null or empty!");
 
             #endregion
 
-            var NewRoamingProvider = new WWCPCPOAdapter(Id,
+            var NewRoamingProvider = new WWCPEMPAdapter(Id,
                                                         Name,
                                                         RoamingNetwork,
                                                         EMPRoaming,
@@ -136,8 +127,8 @@ namespace cloud.charging.open.protocols.WWCP
             OCHPConfigurator?.Invoke(NewRoamingProvider);
 
             return RoamingNetwork.
-                       CreateCSORoamingProvider(NewRoamingProvider,
-                                                Configurator) as WWCPCPOAdapter;
+                       CreateEMPRoamingProvider(NewRoamingProvider,
+                                                Configurator) as WWCPEMPAdapter;
 
         }
 
