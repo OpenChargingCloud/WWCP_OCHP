@@ -77,13 +77,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         }
 
         /// <summary>
-        /// The remote SSL/TLS certificate validator.
+        /// The remote TLS certificate validator.
         /// </summary>
         RemoteCertificateValidationHandler? IHTTPClient.RemoteCertificateValidator
             => EMPClient.RemoteCertificateValidator;
 
         /// <summary>
-        /// The SSL/TLS client certificate to use of HTTP authentication.
+        /// The TLS client certificate to use of HTTP authentication.
         /// </summary>
         X509Certificate? IHTTPClient.ClientCert
             => EMPClient.ClientCert;
@@ -1459,9 +1459,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="RemoteURL">The remote URL of the OICP HTTP endpoint to connect to.</param>
         /// <param name="VirtualHostname">An optional HTTP virtual hostname.</param>
         /// <param name="Description">An optional description of this CPO client.</param>
-        /// <param name="RemoteCertificateValidator">The remote SSL/TLS certificate validator.</param>
+        /// <param name="RemoteCertificateValidator">The remote TLS certificate validator.</param>
         /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
-        /// <param name="ClientCert">The SSL/TLS client certificate to use of HTTP authentication.</param>
+        /// <param name="ClientCert">The TLS client certificate to use of HTTP authentication.</param>
         /// <param name="HTTPUserAgent">The HTTP user agent identification.</param>
         /// <param name="URLPathPrefix">An optional default URL path prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
