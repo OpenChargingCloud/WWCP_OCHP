@@ -17,7 +17,6 @@
 
 #region Usings
 
-using System;
 using System.Text.RegularExpressions;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -30,9 +29,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP parking spot.
     /// </summary>
-    public struct Parking_Id : IId,
-                               IEquatable <Parking_Id>,
-                               IComparable<Parking_Id>
+    public readonly struct Parking_Id : IId,
+                                        IEquatable <Parking_Id>,
+                                        IComparable<Parking_Id>
 
     {
 
@@ -69,6 +68,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         public Boolean IsNullOrEmpty
             => Suffix.IsNullOrEmpty();
+
+        /// <summary>
+        /// Indicates whether this identification is NOT null or empty.
+        /// </summary>
+        public Boolean IsNotNullOrEmpty
+            => Suffix.IsNotNullOrEmpty();
 
         /// <summary>
         /// Returns the length of the identification.

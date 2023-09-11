@@ -30,9 +30,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP charge detail record.
     /// </summary>
-    public struct CDR_Id : IId,
-                           IEquatable <CDR_Id>,
-                           IComparable<CDR_Id>
+    public readonly struct CDR_Id : IId,
+                                    IEquatable <CDR_Id>,
+                                    IComparable<CDR_Id>
 
     {
 
@@ -75,6 +75,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         public Boolean IsNullOrEmpty
             => Suffix.IsNullOrEmpty();
+
+        /// <summary>
+        /// Indicates whether this identification is NOT null or empty.
+        /// </summary>
+        public Boolean IsNotNullOrEmpty
+            => Suffix.IsNotNullOrEmpty();
 
         /// <summary>
         /// Returns the length of the identification.

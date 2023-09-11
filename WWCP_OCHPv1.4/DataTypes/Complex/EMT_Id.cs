@@ -31,9 +31,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP token.
     /// </summary>
-    public struct EMT_Id : IId,
-                           IEquatable <EMT_Id>,
-                           IComparable<EMT_Id>
+    public readonly struct EMT_Id : IId,
+                                    IEquatable <EMT_Id>,
+                                    IComparable<EMT_Id>
 
     {
 
@@ -66,6 +66,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         public Boolean IsNullOrEmpty
             => Instance.IsNullOrEmpty();
+
+        /// <summary>
+        /// Indicates whether this identification is NOT null or empty.
+        /// </summary>
+        public Boolean IsNotNullOrEmpty
+            => Instance.IsNotNullOrEmpty();
 
         /// <summary>
         /// Returns the length of the identification.

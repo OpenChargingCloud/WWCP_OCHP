@@ -17,9 +17,6 @@
 
 #region Usings
 
-using System;
-using System.Text.RegularExpressions;
-
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -51,10 +48,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             => InternalId.IsNullOrEmpty();
 
         /// <summary>
+        /// Indicates whether this identification is NOT null or empty.
+        /// </summary>
+        public Boolean IsNotNullOrEmpty
+            => InternalId.IsNotNullOrEmpty();
+
+        /// <summary>
         /// The length of the tag identification.
         /// </summary>
         public UInt64 Length
-            => (UInt64) InternalId?.Length;
+            => (UInt64) (InternalId?.Length ?? 0);
 
         #endregion
 

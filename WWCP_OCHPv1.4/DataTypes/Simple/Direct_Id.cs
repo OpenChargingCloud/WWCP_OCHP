@@ -74,6 +74,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             => Suffix.IsNullOrEmpty();
 
         /// <summary>
+        /// Indicates whether this identification is NOT null or empty.
+        /// </summary>
+        public Boolean IsNotNullOrEmpty
+            => Suffix.IsNotNullOrEmpty();
+
+        /// <summary>
         /// Returns the length of the identification.
         /// </summary>
         public UInt64 Length

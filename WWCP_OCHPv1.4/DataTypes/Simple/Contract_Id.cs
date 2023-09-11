@@ -30,9 +30,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
     /// <summary>
     /// The unique identification of an OCHP contract (also knwon as EVCO Id or eMA Id).
     /// </summary>
-    public struct Contract_Id : IId,
-                                IEquatable <Contract_Id>,
-                                IComparable<Contract_Id>
+    public readonly struct Contract_Id : IId,
+                                         IEquatable <Contract_Id>,
+                                         IComparable<Contract_Id>
 
     {
 
@@ -71,6 +71,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         public Boolean IsNullOrEmpty
             => Suffix.IsNullOrEmpty();
+
+        /// <summary>
+        /// Indicates whether this identification is NOT null or empty.
+        /// </summary>
+        public Boolean IsNotNullOrEmpty
+            => Suffix.IsNotNullOrEmpty();
 
         /// <summary>
         /// Returns the length of the identification.

@@ -17,7 +17,6 @@
 
 #region Usings
 
-using System;
 using System.Text.RegularExpressions;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -30,9 +29,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
     /// <summary>
     /// The unique identification of a charging station operator (CSO).
     /// </summary>
-    public struct ChargingStationOperator_Id : IId,
-                                               IEquatable<ChargingStationOperator_Id>,
-                                               IComparable<ChargingStationOperator_Id>
+    public readonly struct ChargingStationOperator_Id : IId,
+                                                        IEquatable<ChargingStationOperator_Id>,
+                                                        IComparable<ChargingStationOperator_Id>
 
     {
 
@@ -72,24 +71,23 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             => Suffix.IsNullOrEmpty();
 
         /// <summary>
+        /// Indicates whether this identification is NOT null or empty.
+        /// </summary>
+        public Boolean IsNotNullOrEmpty
+            => Suffix.IsNotNullOrEmpty();
+
+        /// <summary>
         /// Returns the length of the identification.
         /// </summary>
         public UInt64 Length
         {
             get
             {
-
-                switch (Format)
-                {
-
-                    case OperatorIdFormats.ISO_STAR:
-                        return (UInt64) (CountryCode.Alpha2Code.Length             + 1 + Suffix.Length);
-
-                    default:  // ISO
-                        return (UInt64) (CountryCode.Alpha2Code.Length                 + Suffix.Length);
-
-                }
-
+                return Format switch {
+                    OperatorIdFormats.ISO_STAR  => (UInt64) (CountryCode.Alpha2Code.Length + 1 + Suffix.Length),
+                    // ISO
+                    _                           => (UInt64) (CountryCode.Alpha2Code.Length +     Suffix.Length),
+                };
             }
         }
 
