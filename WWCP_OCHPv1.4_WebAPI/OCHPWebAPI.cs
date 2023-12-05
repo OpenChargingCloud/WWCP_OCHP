@@ -99,7 +99,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                     HTTPStatusCode  = HTTPStatusCode.BadRequest,
                     Server          = HTTPServer.DefaultServerName,
                     Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.JSON_UTF8,
+                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                     Content         = @"{ ""description"": ""Invalid RoamingNetworkId!"" }".ToUTF8Bytes()
                 };
 
@@ -117,7 +117,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                     HTTPStatusCode  = HTTPStatusCode.NotFound,
                     Server          = HTTPServer.DefaultServerName,
                     Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.JSON_UTF8,
+                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                     Content         = @"{ ""description"": ""Unknown RoamingNetworkId!"" }".ToUTF8Bytes()
                 };
 
@@ -340,11 +340,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
             #region / (HTTPRoot)
 
-            HTTPServer.RegisterResourcesFolder(null,
-                                               HTTPHostname.Any,
-                                               URLPathPrefix + "/",
-                                               "org.GraphDefined.WWCP.OCHPv2_1.WebAPI.HTTPRoot",
-                                               DefaultFilename: "index.html");
+            //this.MapResourceAssemblyFolder(HTTPHostname.Any,
+            //                               URLPathPrefix + "/",
+            //                               "org.GraphDefined.WWCP.OCHPv2_1.WebAPI.HTTPRoot",
+            //                               DefaultFilename: "index.html");
 
             #endregion
 
@@ -438,7 +437,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                          HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/ChargePoints",
-                                         HTTPContentType.XML_UTF8,
+                                         HTTPContentType.Application.XML_UTF8,
                                          HTTPDelegate: EVSEsDelegate);
 
             // -----------------------------------------------------------------------------------------------
@@ -553,7 +552,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                          HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/EVSEStatus",
-                                         HTTPContentType.XML_UTF8,
+                                         HTTPContentType.Application.XML_UTF8,
                                          HTTPDelegate: EVSEStatusXMLDelegate);
 
             // ---------------------------------------------------------------------------------------------
@@ -727,7 +726,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                          HTTPHostname.Any,
                                          HTTPMethod.GET,
                                          URLPathPrefix + "/RNs/{RoamingNetworkId}" + URLPathPrefix + "/EVSEStatus",
-                                         HTTPContentType.HTML_UTF8,
+                                         HTTPContentType.Text.HTML_UTF8,
                                          HTTPDelegate: EVSEStatusHTMLDelegate);
 
             // ----------------------------------------------------------------------------------------------

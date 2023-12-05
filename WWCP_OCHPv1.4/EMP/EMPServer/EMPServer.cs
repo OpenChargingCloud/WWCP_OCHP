@@ -68,7 +68,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The default HTTP/SOAP/XML content type.
         /// </summary>
-        public new static readonly HTTPContentType  DefaultContentType     = HTTPContentType.XMLTEXT_UTF8;
+        public new static readonly HTTPContentType  DefaultContentType     = HTTPContentType.Text.XML_UTF8;
 
         /// <summary>
         /// The default request timeout.
@@ -397,7 +397,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                     HTTPStatusCode  = HTTPStatusCode.OK,
                     Server          = SOAPServer.HTTPServer.DefaultServerName,
                     Date            = Timestamp.Now,
-                    ContentType     = HTTPContentType.XMLTEXT_UTF8,
+                    ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
                 };
 
