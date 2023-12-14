@@ -345,7 +345,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                        );
 
-            return CustomGetSingleRoamingAuthorisationResponseSerializer != null
+            return CustomGetSingleRoamingAuthorisationResponseSerializer is not null
                        ? CustomGetSingleRoamingAuthorisationResponseSerializer(this, JSON)
                        : JSON;
 

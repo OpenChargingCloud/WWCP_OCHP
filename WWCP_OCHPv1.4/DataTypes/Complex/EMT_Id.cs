@@ -362,7 +362,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
                );
 
-            return CustomEMTIdSerializer != null
+            return CustomEMTIdSerializer is not null
                        ? CustomEMTIdSerializer(this, JSON)
                        : JSON;
 

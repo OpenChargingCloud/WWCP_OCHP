@@ -286,7 +286,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
                        );
 
-            return CustomRoamingAuthorisationInfoSerializer != null
+            return CustomRoamingAuthorisationInfoSerializer is not null
                        ? CustomRoamingAuthorisationInfoSerializer(this, JSON)
                        : JSON;
 

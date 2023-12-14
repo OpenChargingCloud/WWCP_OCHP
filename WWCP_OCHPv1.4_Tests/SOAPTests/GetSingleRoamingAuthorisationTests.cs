@@ -17,10 +17,8 @@
 
 #region Usings
 
-using System;
-using System.Threading.Tasks;
-
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using cloud.charging.open.protocols.OCHPv1_4.CPO;
 
@@ -95,7 +93,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                                                                     TokenTypes.RFID,
                                                                                     TokenSubTypes.MifareClassic));
 
-            Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+            ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
 
         }
 
@@ -112,7 +110,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                                                                     TokenTypes.RFID,
                                                                                     TokenSubTypes.MifareClassic));
 
-            Assert.AreEqual(ResultCodes.InvalidId, Response.Content.Result.ResultCode);
+            ClassicAssert.AreEqual(ResultCodes.InvalidId, Response.Content.Result.ResultCode);
 
         }
 

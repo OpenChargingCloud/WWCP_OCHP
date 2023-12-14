@@ -20,6 +20,7 @@
 using System.Xml.Linq;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -43,22 +44,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
             var Now = DateTime.Now;
 
-            Assert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
+            ClassicAssert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
                                new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available));
 
-            Assert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.NotAvailable),
+            ClassicAssert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.NotAvailable),
                                new ParkingStatus(Parking_Id.Parse("DEGEFP1234"),   ParkingStatusTypes.NotAvailable));
 
-            Assert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available, Now),
+            ClassicAssert.AreEqual   (new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available, Now),
                                new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available, Now));
 
-            Assert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
+            ClassicAssert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
                                new ParkingStatus(Parking_Id.Parse("DE*GEF*P5678"), ParkingStatusTypes.Available));
 
-            Assert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
+            ClassicAssert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
                                new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.NotAvailable));
 
-            Assert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
+            ClassicAssert.AreNotEqual(new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available),
                                new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available, DateTime.Now));
 
         }
@@ -74,9 +75,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
             var Now = DateTime.Parse(DateTime.Now.ToIso8601()); // Avoid <ms issues!
 
             var ParkingStatus1 = new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available);
-            Assert.AreEqual(ParkingStatus1, ParkingStatus.Parse(ParkingStatus1.ToXML()));
+            ClassicAssert.AreEqual(ParkingStatus1, ParkingStatus.Parse(ParkingStatus1.ToXML()));
 
-            Assert.AreEqual(new XElement(OCHPNS.Default + "parking",
+            ClassicAssert.AreEqual(new XElement(OCHPNS.Default + "parking",
                                 new XAttribute(OCHPNS.Default + "status",    "available"),
                                 new XElement  (OCHPNS.Default + "parkingId", "DE*GEF*P1234")
                             ).ToString(),
@@ -84,9 +85,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
 
             var ParkingStatus2 = new ParkingStatus(Parking_Id.Parse("DEGEFP1234"), ParkingStatusTypes.NotAvailable, Now);
-            Assert.AreEqual(ParkingStatus2, ParkingStatus.Parse(ParkingStatus2.ToXML()));
+            ClassicAssert.AreEqual(ParkingStatus2, ParkingStatus.Parse(ParkingStatus2.ToXML()));
 
-            Assert.AreEqual(new XElement(OCHPNS.Default + "parking",
+            ClassicAssert.AreEqual(new XElement(OCHPNS.Default + "parking",
                                 new XAttribute(OCHPNS.Default + "status",    "not-available"),
                                 new XAttribute(OCHPNS.Default + "ttl",       Now.ToIso8601()),
                                 new XElement  (OCHPNS.Default + "parkingId", "DE*GEF*P1234")

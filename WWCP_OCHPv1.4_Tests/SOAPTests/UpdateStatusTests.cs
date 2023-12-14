@@ -17,16 +17,12 @@
 
 #region Usings
 
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
 using NUnit.Framework;
-
-using cloud.charging.open.protocols.OCHPv1_4.CPO;
+using NUnit.Framework.Legacy;
 
 using org.GraphDefined.Vanaheimr.Illias;
+
+using cloud.charging.open.protocols.OCHPv1_4.CPO;
 using cloud.charging.open.protocols.OCHPv1_4.EMP;
 
 #endregion
@@ -131,10 +127,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
             using (var Response = await EMPClient.GetStatus())
             {
 
-                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(0, Response.Content.EVSEStatus.    Count(), "The number of charge point status at the clearing house is invalid!");
-                Assert.AreEqual(0, Response.Content.ParkingStatus. Count(), "The number of parking status at the clearing house is invalid!");
-                Assert.AreEqual(0, Response.Content.CombinedStatus.Count(), "The number of combined status at the clearing house is invalid!");
+                ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                ClassicAssert.AreEqual(0, Response.Content.EVSEStatus.    Count(), "The number of charge point status at the clearing house is invalid!");
+                ClassicAssert.AreEqual(0, Response.Content.ParkingStatus. Count(), "The number of parking status at the clearing house is invalid!");
+                ClassicAssert.AreEqual(0, Response.Content.CombinedStatus.Count(), "The number of combined status at the clearing house is invalid!");
 
             }
 
@@ -168,27 +164,27 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                                                }))
             {
 
-                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(3, ClearingHouse_EVSEStatus.    Count, "The number of charge point status at the clearing house is invalid!");
-                Assert.AreEqual(2, ClearingHouse_ParkingStatus. Count, "The number of parking status at the clearing house is invalid!");
+                ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                ClassicAssert.AreEqual(3, ClearingHouse_EVSEStatus.    Count, "The number of charge point status at the clearing house is invalid!");
+                ClassicAssert.AreEqual(2, ClearingHouse_ParkingStatus. Count, "The number of parking status at the clearing house is invalid!");
 
-                Assert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId1));
-                Assert.AreEqual(EVSEMajorStatus1_1, ClearingHouse_EVSEStatus[EVSEId1].Value.MajorStatus);
-                Assert.IsFalse (ClearingHouse_EVSEStatus[EVSEId1].Value.MinorStatus.HasValue);
-                Assert.IsFalse (ClearingHouse_EVSEStatus[EVSEId1].Value.TTL.HasValue);
+                ClassicAssert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId1));
+                ClassicAssert.AreEqual(EVSEMajorStatus1_1, ClearingHouse_EVSEStatus[EVSEId1].Value.MajorStatus);
+                ClassicAssert.IsFalse (ClearingHouse_EVSEStatus[EVSEId1].Value.MinorStatus.HasValue);
+                ClassicAssert.IsFalse (ClearingHouse_EVSEStatus[EVSEId1].Value.TTL.HasValue);
 
-                Assert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId2));
-                Assert.AreEqual(EVSEMajorStatus2_1, ClearingHouse_EVSEStatus[EVSEId2].Value.MajorStatus);
-                Assert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId2].Value.MinorStatus.HasValue);
-                Assert.AreEqual(EVSEMinorStatus2_1, ClearingHouse_EVSEStatus[EVSEId2].Value.MinorStatus);
-                Assert.IsFalse  (ClearingHouse_EVSEStatus[EVSEId2].Value.TTL.HasValue);
+                ClassicAssert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId2));
+                ClassicAssert.AreEqual(EVSEMajorStatus2_1, ClearingHouse_EVSEStatus[EVSEId2].Value.MajorStatus);
+                ClassicAssert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId2].Value.MinorStatus.HasValue);
+                ClassicAssert.AreEqual(EVSEMinorStatus2_1, ClearingHouse_EVSEStatus[EVSEId2].Value.MinorStatus);
+                ClassicAssert.IsFalse  (ClearingHouse_EVSEStatus[EVSEId2].Value.TTL.HasValue);
 
-                Assert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId3));
-                Assert.AreEqual(EVSEMajorStatus3_1, ClearingHouse_EVSEStatus[EVSEId3].Value.MajorStatus);
-                Assert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId3].Value.MinorStatus.HasValue);
-                Assert.AreEqual(EVSEMinorStatus3_1, ClearingHouse_EVSEStatus[EVSEId3].Value.MinorStatus);
-                Assert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId3].Value.TTL.HasValue);
-                Assert.AreEqual(Now1 + TimeSpan.FromHours(1), ClearingHouse_EVSEStatus[EVSEId3].Value.TTL);
+                ClassicAssert.IsTrue  (ClearingHouse_EVSEStatus.ContainsKey(EVSEId3));
+                ClassicAssert.AreEqual(EVSEMajorStatus3_1, ClearingHouse_EVSEStatus[EVSEId3].Value.MajorStatus);
+                ClassicAssert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId3].Value.MinorStatus.HasValue);
+                ClassicAssert.AreEqual(EVSEMinorStatus3_1, ClearingHouse_EVSEStatus[EVSEId3].Value.MinorStatus);
+                ClassicAssert.IsTrue  (ClearingHouse_EVSEStatus[EVSEId3].Value.TTL.HasValue);
+                ClassicAssert.AreEqual(Now1 + TimeSpan.FromHours(1), ClearingHouse_EVSEStatus[EVSEId3].Value.TTL);
 
             }
 
@@ -199,10 +195,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
             using (var Response = await EMPClient.GetStatus())
             {
 
-                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(3, Response.Content.EVSEStatus.    Count(), "The number of charge point status at the clearing house is invalid!");
-                Assert.AreEqual(2, Response.Content.ParkingStatus. Count(), "The number of parking status at the clearing house is invalid!");
-                Assert.AreEqual(0, Response.Content.CombinedStatus.Count(), "The number of combined status at the clearing house is invalid!");
+                ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                ClassicAssert.AreEqual(3, Response.Content.EVSEStatus.    Count(), "The number of charge point status at the clearing house is invalid!");
+                ClassicAssert.AreEqual(2, Response.Content.ParkingStatus. Count(), "The number of parking status at the clearing house is invalid!");
+                ClassicAssert.AreEqual(0, Response.Content.CombinedStatus.Count(), "The number of combined status at the clearing house is invalid!");
 
             }
 

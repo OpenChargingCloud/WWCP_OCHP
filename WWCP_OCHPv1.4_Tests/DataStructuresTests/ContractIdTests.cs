@@ -18,6 +18,7 @@
 #region Usings
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 #endregion
 
@@ -37,7 +38,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
         public void ContractId_EqualityTest()
         {
 
-            Assert.AreEqual(Contract_Id.Parse("DE-GDF-123456789-1"),
+            ClassicAssert.AreEqual(Contract_Id.Parse("DE-GDF-123456789-1"),
                             Contract_Id.Parse("DEGDF1234567891"));
 
         }

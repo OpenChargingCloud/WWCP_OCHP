@@ -17,14 +17,11 @@
 
 #region Usings
 
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
-using org.GraphDefined.Vanaheimr.Aegir;
 using org.GraphDefined.Vanaheimr.Illias;
+
 using cloud.charging.open.protocols.OCHPv1_4.CPO;
 using cloud.charging.open.protocols.OCHPv1_4.EMP;
 
@@ -123,8 +120,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
             using (var Response = await EMPClient.GetTariffUpdates())
             {
 
-                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(0, Response.Content.TariffInfos.Count(), "The number of tariff infos at the clearing house is invalid!");
+                ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                ClassicAssert.AreEqual(0, Response.Content.TariffInfos.Count(), "The number of tariff infos at the clearing house is invalid!");
 
             }
 
@@ -198,9 +195,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                         ))
             {
 
-                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(1, ClearingHouse_TariffInfos.Count,             "The number of charging tariffs at the clearing house is invalid!");
-                Assert.AreEqual(0, Response.Content.RefusedTariffInfos.Count(), "The number of refused charging tariffs is invalid!");
+                ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                ClassicAssert.AreEqual(1, ClearingHouse_TariffInfos.Count,             "The number of charging tariffs at the clearing house is invalid!");
+                ClassicAssert.AreEqual(0, Response.Content.RefusedTariffInfos.Count(), "The number of refused charging tariffs is invalid!");
 
             }
 
@@ -211,8 +208,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
             using (var Response = await EMPClient.GetTariffUpdates())
             {
 
-                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(1, Response.Content.TariffInfos.Count(), "The number of tariff infos at the clearing house is invalid!");
+                ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                ClassicAssert.AreEqual(1, Response.Content.TariffInfos.Count(), "The number of tariff infos at the clearing house is invalid!");
 
             }
 
@@ -286,9 +283,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                         ))
             {
 
-                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(2, ClearingHouse_TariffInfos.Count,             "The number of charging tariffs at the clearing house is invalid!");
-                Assert.AreEqual(0, Response.Content.RefusedTariffInfos.Count(), "The number of refused charging tariffs is invalid!");
+                ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                ClassicAssert.AreEqual(2, ClearingHouse_TariffInfos.Count,             "The number of charging tariffs at the clearing house is invalid!");
+                ClassicAssert.AreEqual(0, Response.Content.RefusedTariffInfos.Count(), "The number of refused charging tariffs is invalid!");
 
             }
 
@@ -299,8 +296,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
             using (var Response = await EMPClient.GetTariffUpdates())
             {
 
-                Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
-                Assert.AreEqual(2, Response.Content.TariffInfos.Count(), "The number of tariff infos at the clearing house is invalid!");
+                ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+                ClassicAssert.AreEqual(2, Response.Content.TariffInfos.Count(), "The number of tariff infos at the clearing house is invalid!");
 
             }
 

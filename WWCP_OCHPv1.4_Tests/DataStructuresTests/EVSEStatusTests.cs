@@ -20,6 +20,7 @@
 using System.Xml.Linq;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -56,28 +57,28 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
             var Now = DateTime.Now;
 
-            Assert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*1"), EVSEMajorStatusTypes.Available),
+            ClassicAssert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*1"), EVSEMajorStatusTypes.Available),
                                new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*1"), EVSEMajorStatusTypes.Available));
 
-            Assert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*2"), EVSEMajorStatusTypes.NotAvailable),
+            ClassicAssert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*2"), EVSEMajorStatusTypes.NotAvailable),
                                new EVSEStatus(EVSE_Id.Parse("DEGEFE1234*2"),   EVSEMajorStatusTypes.NotAvailable));
 
-            Assert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Charging),
+            ClassicAssert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Charging),
                                new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Charging));
 
-            Assert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.Available, TTL: Now),
+            ClassicAssert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.Available, TTL: Now),
                                new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.Available, TTL: Now));
 
-            Assert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Charging, Now),
+            ClassicAssert.AreEqual   (new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Charging, Now),
                                new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*3"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Charging, Now));
 
-            Assert.AreNotEqual(new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.Available),
+            ClassicAssert.AreNotEqual(new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.Available),
                                new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.NotAvailable));
 
-            Assert.AreNotEqual(new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Blocked),
+            ClassicAssert.AreNotEqual(new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Blocked),
                                new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Charging));
 
-            Assert.AreNotEqual(new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.Available),
+            ClassicAssert.AreNotEqual(new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.Available),
                                new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234*4"), EVSEMajorStatusTypes.Available, TTL: DateTime.Now));
 
         }
@@ -93,9 +94,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
             var Now = DateTime.Parse(DateTime.Now.ToIso8601()); // Avoid <ms issues!
 
             var EVSEStatus1 = new EVSEStatus(EVSE_Id.Parse("DE*GEF*E1234"), EVSEMajorStatusTypes.Available);
-            Assert.AreEqual(EVSEStatus1, EVSEStatus.Parse(EVSEStatus1.ToXML()));
+            ClassicAssert.AreEqual(EVSEStatus1, EVSEStatus.Parse(EVSEStatus1.ToXML()));
 
-            Assert.AreEqual(new XElement(OCHPNS.Default + "evse",
+            ClassicAssert.AreEqual(new XElement(OCHPNS.Default + "evse",
                                 new XAttribute(OCHPNS.Default + "major",   "available"),
                                 new XElement  (OCHPNS.Default + "evseId",  "DE*GEF*E1234")
                             ).ToString(),
@@ -103,9 +104,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
 
             var EVSEStatus2 = new EVSEStatus(EVSE_Id.Parse("DEGEFE1234"), EVSEMajorStatusTypes.NotAvailable, TTL: Now);
-            Assert.AreEqual(EVSEStatus2, EVSEStatus.Parse(EVSEStatus2.ToXML()));
+            ClassicAssert.AreEqual(EVSEStatus2, EVSEStatus.Parse(EVSEStatus2.ToXML()));
 
-            Assert.AreEqual(new XElement(OCHPNS.Default + "evse",
+            ClassicAssert.AreEqual(new XElement(OCHPNS.Default + "evse",
                                 new XAttribute(OCHPNS.Default + "major",   "not-available"),
                                 new XAttribute(OCHPNS.Default + "ttl",     Now.ToIso8601()),
                                 new XElement  (OCHPNS.Default + "evseId",  "DE*GEF*E1234")
@@ -114,9 +115,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
 
             var EVSEStatus3 = new EVSEStatus(EVSE_Id.Parse("DEGEFE1234"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Charging);
-            Assert.AreEqual(EVSEStatus3, EVSEStatus.Parse(EVSEStatus3.ToXML()));
+            ClassicAssert.AreEqual(EVSEStatus3, EVSEStatus.Parse(EVSEStatus3.ToXML()));
 
-            Assert.AreEqual(new XElement(OCHPNS.Default + "evse",
+            ClassicAssert.AreEqual(new XElement(OCHPNS.Default + "evse",
                                 new XAttribute(OCHPNS.Default + "major",   "not-available"),
                                 new XAttribute(OCHPNS.Default + "minor",   "charging"),
                                 new XElement  (OCHPNS.Default + "evseId",  "DE*GEF*E1234")
@@ -125,9 +126,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
 
             var EVSEStatus4 = new EVSEStatus(EVSE_Id.Parse("DEGEFE1234"), EVSEMajorStatusTypes.NotAvailable, EVSEMinorStatusTypes.Reserved, Now);
-            Assert.AreEqual(EVSEStatus4, EVSEStatus.Parse(EVSEStatus4.ToXML()));
+            ClassicAssert.AreEqual(EVSEStatus4, EVSEStatus.Parse(EVSEStatus4.ToXML()));
 
-            Assert.AreEqual(new XElement(OCHPNS.Default + "evse",
+            ClassicAssert.AreEqual(new XElement(OCHPNS.Default + "evse",
                                 new XAttribute(OCHPNS.Default + "major",   "not-available"),
                                 new XAttribute(OCHPNS.Default + "minor",   "reserved"),
                                 new XAttribute(OCHPNS.Default + "ttl",     Now.ToIso8601()),

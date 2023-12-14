@@ -338,7 +338,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
                        );
 
-            return CustomResultSerializer != null
+            return CustomResultSerializer is not null
                        ? CustomResultSerializer(this, JSON)
                        : JSON;
 

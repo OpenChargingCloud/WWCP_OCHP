@@ -17,10 +17,8 @@
 
 #region Usings
 
-using System;
-using System.Threading.Tasks;
-
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using cloud.charging.open.protocols.OCHPv1_4.CPO;
 
@@ -142,28 +140,28 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                }
                            ).ConfigureAwait(false);
 
-            Assert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
+            ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
 
 
-            Assert.AreEqual(1, ClearingHouse_CDRInfos.Count, "The number of charge detail records at the clearing house is invalid!");
+            ClassicAssert.AreEqual(1, ClearingHouse_CDRInfos.Count, "The number of charge detail records at the clearing house is invalid!");
 
-            //Assert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId1));
-            //Assert.AreEqual(EVSEMajorStatus1_1, ClearingHouseEVSEStatus[EVSEId1].MajorStatus);
-            //Assert.IsFalse (ClearingHouseEVSEStatus[EVSEId1].MinorStatus.HasValue);
-            //Assert.IsFalse (ClearingHouseEVSEStatus[EVSEId1].TTL.        HasValue);
+            //ClassicAssert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId1));
+            //ClassicAssert.AreEqual(EVSEMajorStatus1_1, ClearingHouseEVSEStatus[EVSEId1].MajorStatus);
+            //ClassicAssert.IsFalse (ClearingHouseEVSEStatus[EVSEId1].MinorStatus.HasValue);
+            //ClassicAssert.IsFalse (ClearingHouseEVSEStatus[EVSEId1].TTL.        HasValue);
 
-            //Assert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId2));
-            //Assert.AreEqual(EVSEMajorStatus2_1, ClearingHouseEVSEStatus[EVSEId2].MajorStatus);
-            //Assert.IsTrue  (ClearingHouseEVSEStatus[EVSEId2].MinorStatus.HasValue);
-            //Assert.AreEqual(EVSEMinorStatus2_1, ClearingHouseEVSEStatus[EVSEId2].MinorStatus);
-            //Assert.IsFalse (ClearingHouseEVSEStatus[EVSEId2].TTL.        HasValue);
+            //ClassicAssert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId2));
+            //ClassicAssert.AreEqual(EVSEMajorStatus2_1, ClearingHouseEVSEStatus[EVSEId2].MajorStatus);
+            //ClassicAssert.IsTrue  (ClearingHouseEVSEStatus[EVSEId2].MinorStatus.HasValue);
+            //ClassicAssert.AreEqual(EVSEMinorStatus2_1, ClearingHouseEVSEStatus[EVSEId2].MinorStatus);
+            //ClassicAssert.IsFalse (ClearingHouseEVSEStatus[EVSEId2].TTL.        HasValue);
 
-            //Assert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId3));
-            //Assert.AreEqual(EVSEMajorStatus3_1, ClearingHouseEVSEStatus[EVSEId3].MajorStatus);
-            //Assert.IsTrue  (ClearingHouseEVSEStatus[EVSEId3].MinorStatus.HasValue);
-            //Assert.AreEqual(EVSEMinorStatus3_1, ClearingHouseEVSEStatus[EVSEId3].MinorStatus);
-            //Assert.IsTrue  (ClearingHouseEVSEStatus[EVSEId3].TTL.        HasValue);
-            //Assert.AreEqual(Now + TimeSpan.FromHours(1), ClearingHouseEVSEStatus[EVSEId3].TTL);
+            //ClassicAssert.IsTrue  (ClearingHouseEVSEStatus.ContainsKey(EVSEId3));
+            //ClassicAssert.AreEqual(EVSEMajorStatus3_1, ClearingHouseEVSEStatus[EVSEId3].MajorStatus);
+            //ClassicAssert.IsTrue  (ClearingHouseEVSEStatus[EVSEId3].MinorStatus.HasValue);
+            //ClassicAssert.AreEqual(EVSEMinorStatus3_1, ClearingHouseEVSEStatus[EVSEId3].MinorStatus);
+            //ClassicAssert.IsTrue  (ClearingHouseEVSEStatus[EVSEId3].TTL.        HasValue);
+            //ClassicAssert.AreEqual(Now + TimeSpan.FromHours(1), ClearingHouseEVSEStatus[EVSEId3].TTL);
 
 
         }
