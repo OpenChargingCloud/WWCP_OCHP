@@ -2588,13 +2588,45 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         #endregion
 
 
-        #region SendChargeDetailRecords(ChargeDetailRecords, TransmissionType = Enqueue, ...)
+        #region SendChargeDetailRecord (ChargeDetailRecord,  TransmissionType = Enqueue, ...)
 
         /// <summary>
         /// Send a charge detail record to an OCHP server.
         /// </summary>
-        /// <param name="ChargeDetailRecords">An enumeration of charge detail records.</param>
+        /// <param name="ChargeDetailRecord">A charge detail record.</param>
         /// <param name="TransmissionType">Whether to send the CDR directly or enqueue it for a while.</param>
+        /// 
+        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
+        /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        public async Task<SendCDRResult>
+
+            SendChargeDetailRecord(ChargeDetailRecord  ChargeDetailRecord,
+                                   TransmissionTypes   TransmissionType    = TransmissionTypes.Enqueue,
+
+                                   DateTime?           Timestamp           = null,
+                                   EventTracking_Id?   EventTrackingId     = null,
+                                   TimeSpan?           RequestTimeout      = null,
+                                   CancellationToken   CancellationToken   = default)
+
+            => (await SendChargeDetailRecords(
+                      [ ChargeDetailRecord ],
+                      TransmissionType,
+                      Timestamp,
+                      EventTrackingId,
+                      RequestTimeout,
+                      CancellationToken)).First();
+
+        #endregion
+
+        #region SendChargeDetailRecords(ChargeDetailRecords, TransmissionType = Enqueue, ...)
+
+        /// <summary>
+        /// Send charge detail records to an OCHP server.
+        /// </summary>
+        /// <param name="ChargeDetailRecords">An enumeration of charge detail records.</param>
+        /// <param name="TransmissionType">Whether to send the CDRs directly or enqueue them for a while.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
@@ -2642,7 +2674,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                             Id,
                             cdr,
-                            Warning: Warning.Create("This charge detail record was filtered!")
+                            Warnings: Warnings.Create("This charge detail record was filtered!")
                         )
                     );
 
@@ -2766,7 +2798,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                             org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                             Id,
                                             chargeDetailRecord,
-                                            Warning: Warning.Create(e.Message)
+                                            Warnings: Warnings.Create(e.Message)
                                         )
                                     );
                                 }
@@ -2837,7 +2869,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                                                                                      org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                                                      Id,
                                                                                                                                      cdr,
-                                                                                                                                     Warning: Warning.Create("Implausible charge detail record!")
+                                                                                                                                     Warnings: Warnings.Create("Implausible charge detail record!")
                                                                                                                                  ))
                                                                                                )
                                                           );
@@ -2856,7 +2888,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                                                                                          org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                                                          Id,
                                                                                                                                          cdr,
-                                                                                                                                         Warning: Warning.Create("Implausible charge detail record!")
+                                                                                                                                         Warnings: Warnings.Create("Implausible charge detail record!")
                                                                                                                                      ))
                                                                                                    )
                                                               )
@@ -2884,7 +2916,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                                                   org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                                   Id,
                                                                                                   cdr,
-                                                                                                  Warning.Create($"{response.Content.Result.ResultCode} - {response.Content.Result.Description}")
+                                                                                                  Warnings: Warnings.Create($"{response.Content.Result.ResultCode} - {response.Content.Result.Description}")
                                                                                               ))
                                                               )
                                                           );
@@ -2914,7 +2946,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                                           org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                           Id,
                                                                                           cdr,
-                                                                                          Warning.Create(response.HTTPBodyAsUTF8String)
+                                                                                          Warnings: Warnings.Create(response.HTTPBodyAsUTF8String)
                                                                                       ))
                                                       )
                                                   );
@@ -2941,7 +2973,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                                       org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                                                       Id,
                                                                                       cdr,
-                                                                                      Warning.Create(e.Message)
+                                                                                      Warnings: Warnings.Create(e.Message)
                                                                                   ))
                                                   )
                                               );
@@ -3737,7 +3769,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         Timestamp.Now,
                                                         Id,
                                                         CDRInfo.GetInternalDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
-                                                        Warning.Create("implausible charge detail record!"),
+                                                        Warnings: Warnings.Create("implausible charge detail record!"),
                                                         Runtime: response.Runtime
                                                     )
 
@@ -3762,8 +3794,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                   Timestamp.Now,
                                                   Id,
                                                   CDRInfo.GetInternalDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
-                                                  Warning.Create($"{response.Content.Result.ResultCode} - {response.Content.Result.Description}"),
-                                                  Runtime: response.Runtime
+                                                  Warnings: Warnings.Create($"{response.Content.Result.ResultCode} - {response.Content.Result.Description}"),
+                                                  Runtime:  response.Runtime
                                               )
                                           );
                             }
@@ -3785,8 +3817,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                   Timestamp.Now,
                                   Id,
                                   CDRInfo.GetInternalDataAs<ChargeDetailRecord>(OCHPMapper.WWCP_CDR),
-                                  Warning.Create(e.Message),
-                                  Runtime: TimeSpan.Zero
+                                  Warnings: Warnings.Create(e.Message),
+                                  Runtime:  TimeSpan.Zero
                               )
                           );
             }
