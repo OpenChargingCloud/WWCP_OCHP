@@ -2835,7 +2835,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                     RequestTimeout);
 
                                 if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                                    response.Content        != null)
+                                    response.Content        is not null)
                                 {
 
                                     var ImplausibleCDRIds = response.Content.ImplausibleCDRs?.ToHashSet() ?? new HashSet<CDR_Id>();
@@ -2983,8 +2983,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                             Runtime  = Endtime - StartTime;
 
-                            foreach (var result in results)
-                                await RoamingNetwork.SessionsStore.CDRForwarded(result.ChargeDetailRecord.SessionId, result);
+                            await RoamingNetwork.ReceiveSendChargeDetailRecordResults(results);
 
                         }
 
@@ -3741,8 +3740,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         case ResultCodes.OK:
                             {
                                 foreach (var CDRInfo in CDRInfos)
-                                    await RoamingNetwork.SessionsStore.CDRForwarded(
-                                              CDRInfo.CDRId.ToWWCP(),
+                                    await RoamingNetwork.ReceiveSendChargeDetailRecordResult(
                                               SendCDRResult.Success(
                                                   Timestamp.Now,
                                                   Id,
@@ -3759,9 +3757,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                 var implausibleCDRs = response.Content.ImplausibleCDRs.ToHashSet();
 
                                 foreach (var CDRInfo in CDRInfos)
-                                    await RoamingNetwork.SessionsStore.CDRForwarded(
-
-                                              CDRInfo.CDRId.ToWWCP(),
+                                    await RoamingNetwork.ReceiveSendChargeDetailRecordResult(
 
                                               implausibleCDRs.Contains(CDRInfo.CDRId)
 
@@ -3788,8 +3784,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         default:
                             {
                                 foreach (var CDRInfo in CDRInfos)
-                                    await RoamingNetwork.SessionsStore.CDRForwarded(
-                                              CDRInfo.CDRId.ToWWCP(),
+                                    await RoamingNetwork.ReceiveSendChargeDetailRecordResult(
                                               SendCDRResult.Error(
                                                   Timestamp.Now,
                                                   Id,
@@ -3811,8 +3806,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
                 foreach (var CDRInfo in CDRInfos)
-                    await RoamingNetwork.SessionsStore.CDRForwarded(
-                              CDRInfo.CDRId.ToWWCP(),
+                    await RoamingNetwork.ReceiveSendChargeDetailRecordResult(
                               SendCDRResult.Error(
                                   Timestamp.Now,
                                   Id,
