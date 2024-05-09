@@ -17,7 +17,6 @@
 
 #region Usings
 
-using System.Net.Security;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 
@@ -79,7 +78,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The remote TLS certificate validator.
         /// </summary>
-        RemoteCertificateValidationHandler? IHTTPClient.RemoteCertificateValidator
+        RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  IHTTPClient.RemoteCertificateValidator
             => EMPClient.RemoteCertificateValidator;
 
         /// <summary>
@@ -1485,42 +1484,42 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="ServerAutoStart">Start the server immediately.</param>
         /// 
         /// <param name="DNSClient">An optional DNS client to use.</param>
-        public EMPRoaming(URL                                  RemoteURL,
-                          HTTPHostname?                        VirtualHostname                 = null,
-                          String?                              Description                     = null,
-                          Boolean?                             PreferIPv4                      = null,
-                          RemoteCertificateValidationHandler?  RemoteCertificateValidator      = null,
-                          LocalCertificateSelectionHandler?    ClientCertificateSelector       = null,
-                          X509Certificate?                     ClientCert                      = null,
-                          SslProtocols?                        TLSProtocol                     = null,
-                          String?                              HTTPUserAgent                   = null,
-                          IHTTPAuthentication?                 HTTPAuthentication              = null,
-                          HTTPPath?                            URLPathPrefix                   = null,
-                          HTTPPath?                            LiveURLPathPrefix               = null,
-                          Tuple<String, String>?               WSSLoginPassword                = null,
-                          HTTPContentType?                     HTTPContentType                 = null,
-                          TimeSpan?                            RequestTimeout                  = null,
-                          TransmissionRetryDelayDelegate?      TransmissionRetryDelay          = null,
-                          UInt16?                              MaxNumberOfRetries              = null,
-                          UInt32?                              InternalBufferSize              = null,
-                          Boolean                              ClientDisableLogging            = false,
-                          String?                              ClientLoggingPath               = null,
-                          String?                              ClientLoggingContext            = null,
-                          LogfileCreatorDelegate?              ClientLogfileCreator            = null,
+        public EMPRoaming(URL                                                        RemoteURL,
+                          HTTPHostname?                                              VirtualHostname                 = null,
+                          String?                                                    Description                     = null,
+                          Boolean?                                                   PreferIPv4                      = null,
+                          RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator      = null,
+                          LocalCertificateSelectionHandler?                          ClientCertificateSelector       = null,
+                          X509Certificate?                                           ClientCert                      = null,
+                          SslProtocols?                                              TLSProtocol                     = null,
+                          String?                                                    HTTPUserAgent                   = null,
+                          IHTTPAuthentication?                                       HTTPAuthentication              = null,
+                          HTTPPath?                                                  URLPathPrefix                   = null,
+                          HTTPPath?                                                  LiveURLPathPrefix               = null,
+                          Tuple<String, String>?                                     WSSLoginPassword                = null,
+                          HTTPContentType?                                           HTTPContentType                 = null,
+                          TimeSpan?                                                  RequestTimeout                  = null,
+                          TransmissionRetryDelayDelegate?                            TransmissionRetryDelay          = null,
+                          UInt16?                                                    MaxNumberOfRetries              = null,
+                          UInt32?                                                    InternalBufferSize              = null,
+                          Boolean                                                    ClientDisableLogging            = false,
+                          String?                                                    ClientLoggingPath               = null,
+                          String?                                                    ClientLoggingContext            = null,
+                          LogfileCreatorDelegate?                                    ClientLogfileCreator            = null,
 
-                          String?                              ServerName                      = null,
-                          IPPort?                              ServerTCPPort                   = null,
-                          String?                              ServerServiceName               = null,
-                          HTTPPath?                            ServerURLPrefix                 = null,
-                          HTTPPath?                            ServerURLSuffix                 = null,
-                          HTTPContentType?                     ServerContentType               = null,
-                          Boolean                              ServerRegisterHTTPRootService   = true,
-                          String?                              ServerLoggingPath               = null,
-                          String?                              ServerLoggingContext            = null,
-                          LogfileCreatorDelegate?              ServerLogfileCreator            = null,
-                          Boolean                              ServerAutoStart                 = false,
+                          String?                                                    ServerName                      = null,
+                          IPPort?                                                    ServerTCPPort                   = null,
+                          String?                                                    ServerServiceName               = null,
+                          HTTPPath?                                                  ServerURLPrefix                 = null,
+                          HTTPPath?                                                  ServerURLSuffix                 = null,
+                          HTTPContentType?                                           ServerContentType               = null,
+                          Boolean                                                    ServerRegisterHTTPRootService   = true,
+                          String?                                                    ServerLoggingPath               = null,
+                          String?                                                    ServerLoggingContext            = null,
+                          LogfileCreatorDelegate?                                    ServerLogfileCreator            = null,
+                          Boolean                                                    ServerAutoStart                 = false,
 
-                          DNSClient?                           DNSClient                       = null)
+                          DNSClient?                                                 DNSClient                       = null)
 
             : this(new EMPClient(
                        RemoteURL,

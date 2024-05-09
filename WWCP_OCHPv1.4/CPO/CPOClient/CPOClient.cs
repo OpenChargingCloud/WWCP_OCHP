@@ -962,7 +962,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="VirtualHostname">An optional HTTP virtual hostname.</param>
         /// <param name="Description">An optional description of this CPO client.</param>
         /// <param name="RemoteCertificateValidator">The remote TLS certificate validator.</param>
-        /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
+        /// <param name="LocalCertificateSelector">A delegate to select a TLS client certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use of HTTP authentication.</param>
         /// <param name="HTTPUserAgent">The HTTP user agent identification.</param>
         /// <param name="URLPathPrefix">An optional default URL path prefix.</param>
@@ -976,36 +976,36 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="LoggingContext">An optional context for logging client methods.</param>
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
         /// <param name="DNSClient">The DNS client to use.</param>
-        public CPOClient(URL                                  RemoteURL,
-                         HTTPHostname?                        VirtualHostname              = null,
-                         String?                              Description                  = null,
-                         Boolean?                             PreferIPv4                   = null,
-                         RemoteCertificateValidationHandler?  RemoteCertificateValidator   = null,
-                         LocalCertificateSelectionHandler?    ClientCertificateSelector    = null,
-                         X509Certificate?                     ClientCert                   = null,
-                         SslProtocols?                        TLSProtocol                  = null,
-                         String                               HTTPUserAgent                = DefaultHTTPUserAgent,
-                         IHTTPAuthentication?                 HTTPAuthentication           = null,
-                         HTTPPath?                            URLPathPrefix                = null,
-                         HTTPPath?                            LiveURLPathPrefix            = null,
-                         Tuple<String, String>?               WSSLoginPassword             = null,
-                         HTTPContentType?                     HTTPContentType              = null,
-                         TimeSpan?                            RequestTimeout               = null,
-                         TransmissionRetryDelayDelegate?      TransmissionRetryDelay       = null,
-                         UInt16?                              MaxNumberOfRetries           = null,
-                         UInt32?                              InternalBufferSize           = null,
-                         Boolean?                             DisableLogging               = false,
-                         String?                              LoggingPath                  = null,
-                         String                               LoggingContext               = Logger.DefaultContext,
-                         LogfileCreatorDelegate?              LogfileCreator               = null,
-                         DNSClient?                           DNSClient                    = null)
+        public CPOClient(URL                                                        RemoteURL,
+                         HTTPHostname?                                              VirtualHostname              = null,
+                         String?                                                    Description                  = null,
+                         Boolean?                                                   PreferIPv4                   = null,
+                         RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator   = null,
+                         LocalCertificateSelectionHandler?                          LocalCertificateSelector    = null,
+                         X509Certificate?                                           ClientCert                   = null,
+                         SslProtocols?                                              TLSProtocol                  = null,
+                         String                                                     HTTPUserAgent                = DefaultHTTPUserAgent,
+                         IHTTPAuthentication?                                       HTTPAuthentication           = null,
+                         HTTPPath?                                                  URLPathPrefix                = null,
+                         HTTPPath?                                                  LiveURLPathPrefix            = null,
+                         Tuple<String, String>?                                     WSSLoginPassword             = null,
+                         HTTPContentType?                                           HTTPContentType              = null,
+                         TimeSpan?                                                  RequestTimeout               = null,
+                         TransmissionRetryDelayDelegate?                            TransmissionRetryDelay       = null,
+                         UInt16?                                                    MaxNumberOfRetries           = null,
+                         UInt32?                                                    InternalBufferSize           = null,
+                         Boolean?                                                   DisableLogging               = false,
+                         String?                                                    LoggingPath                  = null,
+                         String                                                     LoggingContext               = Logger.DefaultContext,
+                         LogfileCreatorDelegate?                                    LogfileCreator               = null,
+                         DNSClient?                                                 DNSClient                    = null)
 
             : base(RemoteURL,
                    VirtualHostname,
                    Description,
                    PreferIPv4,
                    RemoteCertificateValidator,
-                   ClientCertificateSelector,
+                   LocalCertificateSelector,
                    ClientCert,
                    TLSProtocol,
                    HTTPUserAgent,
@@ -1027,10 +1027,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             this.LiveURLPathPrefix  = LiveURLPathPrefix ?? DefaultLiveURLPathPrefix;
 
             base.HTTPLogger         = this.DisableLogging == false
-                                          ? new Logger(this,
-                                                       LoggingPath,
-                                                       LoggingContext,
-                                                       LogfileCreator)
+                                          ? new Logger(
+                                                this,
+                                                LoggingPath,
+                                                LoggingContext,
+                                                LogfileCreator
+                                            )
                                           : null;
 
         }
@@ -1114,12 +1116,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomSetChargePointListSOAPRequestMapper(Request,
@@ -1353,7 +1355,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -1591,7 +1593,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -1833,7 +1835,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -2053,7 +2055,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -2276,7 +2278,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -2499,7 +2501,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -2738,7 +2740,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -2961,7 +2963,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -3202,7 +3204,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -3414,7 +3416,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        ClientCertificateSelector:   ClientCertificateSelector,
+                                                        LocalCertificateSelector:   LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -3704,7 +3706,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                     VirtualHostname:             VirtualHostname,
                                                     RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                    ClientCertificateSelector:   ClientCertificateSelector,
+                                                    LocalCertificateSelector:   LocalCertificateSelector,
                                                     HTTPUserAgent:               HTTPUserAgent,
                                                     RequestTimeout:              RequestTimeout,
                                                     DNSClient:                   DNSClient))

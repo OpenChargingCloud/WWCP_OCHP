@@ -78,7 +78,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The remote TLS certificate validator.
         /// </summary>
-        RemoteCertificateValidationHandler?  IHTTPClient.RemoteCertificateValidator
+        RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  IHTTPClient.RemoteCertificateValidator
             => CPOClient.RemoteCertificateValidator;
 
         /// <summary>
