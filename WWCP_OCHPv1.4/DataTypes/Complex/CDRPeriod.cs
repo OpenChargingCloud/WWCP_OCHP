@@ -17,7 +17,6 @@
 
 #region Usings
 
-using System;
 using System.Xml.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -53,7 +52,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The value the EVSP is charged for. The unit of the value depends on the billingItem.
         /// </summary>
-        public Decimal       BillingValue    { get; }
+        public WattHour      BillingValue    { get; }
 
         /// <summary>
         /// Price per unit of the billingItem in the given currency.
@@ -87,7 +86,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public CDRPeriod(DateTime      Start,
                          DateTime      End,
                          BillingItems  BillingItem,
-                         Decimal       BillingValue,
+                         WattHour      BillingValue,
                          Decimal       ItemPrice,
                          Decimal?      PeriodCost  = null,
                          Decimal?      TaxRate     = null)
@@ -211,7 +210,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                                                 XML_IO.AsBillingItem),
 
                                 CDRPeriodXML.MapValueOrFail    (OCHPNS.Default + "billingValue",
-                                                                Decimal.Parse),
+                                                                WattHour.Parse),
 
                                 CDRPeriodXML.MapValueOrFail    (OCHPNS.Default + "itemPrice",
                                                                 Decimal.Parse),
@@ -282,9 +281,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Return a XML representation of this object.
         /// </summary>
         /// <param name="XName">An alternative XML element name [default: "OCHPNS:chargingPeriod"]</param>
-        public XElement ToXML(XName XName = null)
+        public XElement ToXML(XName? XName = null)
 
-            => new XElement(XName ?? OCHPNS.Default + "chargingPeriod",
+            => new (XName ?? OCHPNS.Default + "chargingPeriod",
 
                    new XElement(OCHPNS.Default + "startDateTime",
                        new XElement(OCHPNS.Default + "LocalDateTime",     Start.ToIso8601WithOffset(false))
@@ -298,15 +297,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                        new XElement(OCHPNS.Default + "BillingItemType",   BillingItem.AsText())
                    ),
 
-                   new XElement(OCHPNS.Default + "billingValue",          BillingValue.ToString(".####")),
-                   new XElement(OCHPNS.Default + "itemPrice",             ItemPrice.ToString(".####")),
+                   new XElement(OCHPNS.Default + "billingValue",          BillingValue.kWh.ToString(".####")),
+                   new XElement(OCHPNS.Default + "itemPrice",             ItemPrice.       ToString(".####")),
 
                    PeriodCost.HasValue
                        ? new XElement(OCHPNS.Default + "periodCost",      PeriodCost.Value.ToString(".####"))
                        : null,
 
                    TaxRate.HasValue
-                       ? new XElement(OCHPNS.Default + "taxrate",         TaxRate.Value.ToString(".####"))
+                       ? new XElement(OCHPNS.Default + "taxrate",         TaxRate.   Value.ToString(".####"))
                        : null
 
                );

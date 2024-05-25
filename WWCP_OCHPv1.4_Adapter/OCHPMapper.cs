@@ -465,13 +465,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                           Status:               CDRStatus.New,
                           StartDateTime:        ChargeDetailRecord.SessionTime.StartTime,
                           EndDateTime:          ChargeDetailRecord.SessionTime.EndTime.Value,
-                          ChargingPeriods:      new CDRPeriod[] {
-                                                    new CDRPeriod(ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
-                                                                  ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
-                                                                  BillingItems.Energy,
-                                                                  ChargeDetailRecord.ConsumedEnergy ?? ChargeDetailRecord.EnergyMeteringValues.Last().Value - ChargeDetailRecord.EnergyMeteringValues.First().Value,
-                                                                  0)
-                                                },
+                          ChargingPeriods:      [
+                                                    new CDRPeriod(
+                                                        ChargeDetailRecord.EnergyMeteringValues.First().Timestamp,
+                                                        ChargeDetailRecord.EnergyMeteringValues.Last(). Timestamp,
+                                                        BillingItems.Energy,
+                                                        ChargeDetailRecord.ConsumedEnergy ?? (ChargeDetailRecord.EnergyMeteringValues.Last().WattHours - ChargeDetailRecord.EnergyMeteringValues.First().WattHours),
+                                                        0
+                                                    )
+                                                ],
                           Currency:             Currency.EUR,
 
                           ChargePointAddress:   ChargeDetailRecord.EVSE?.ChargingStation?.ChargingPool?.Address?.ToOCHP(),

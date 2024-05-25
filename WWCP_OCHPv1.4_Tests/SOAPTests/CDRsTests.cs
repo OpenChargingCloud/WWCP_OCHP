@@ -89,7 +89,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
             var Now = DateTime.Parse(DateTime.Now.ToIso8601());
 
             var Response = await CPOClient.AddCDRs(
-                               new CDRInfo[] {
+                               [
 
                                    new CDRInfo(
                                        CDR_Id. Parse("DEGEF1234AABBCC5678"),
@@ -111,17 +111,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                        CDRStatus.New,
                                        DateTime.Now - TimeSpan.FromHours(1),
                                        DateTime.Now,
-                                       new CDRPeriod[] {
-
+                                       [
                                            new CDRPeriod(
                                                DateTime.Now - TimeSpan.FromHours(1),
                                                DateTime.Now,
                                                BillingItems.UsageTime,
-                                               23.5m,
+                                               WattHour.ParseKWh(23.5m),
                                                23.5m
                                            )
-
-                                       },
+                                       ],
                                        Currency.EUR,
 
                                        new Address(
@@ -137,7 +135,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                        23.5m
                                    )
 
-                               }
+                               ]
                            ).ConfigureAwait(false);
 
             ClassicAssert.AreEqual(ResultCodes.OK, Response.Content.Result.ResultCode);
