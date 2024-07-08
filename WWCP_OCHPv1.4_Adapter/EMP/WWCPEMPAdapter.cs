@@ -17,22 +17,13 @@
 
 #region Usings
 
-using System;
-using System.IO;
-using System.Text;
-using System.Linq;
-using System.Xml.Linq;
-using System.Threading;
-using System.Net.Security;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json.Linq;
 
 using org.GraphDefined.Vanaheimr.Aegir;
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
-using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+
 using cloud.charging.open.protocols.WWCP;
 
 #endregion
@@ -1314,12 +1305,29 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             throw new NotImplementedException();
         }
 
-        public bool TryGetChargingSessionById(ChargingSession_Id ChargingSessionId, out ChargingSession ChargingSession)
+        public ChargingSession? GetChargingSessionById(ChargingSession_Id ChargingSessionId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<RemoteStartResult> RemoteStart(ChargingLocation ChargingLocation, ChargingProduct ChargingProduct = null, ChargingReservation_Id? ReservationId = null, ChargingSession_Id? SessionId = null, EMobilityProvider_Id? ProviderId = null, RemoteAuthentication RemoteAuthentication = null, Auth_Path? AuthenticationPath = null, DateTime? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
+        public bool TryGetChargingSessionById(ChargingSession_Id   ChargingSessionId,
+                                              out ChargingSession  ChargingSession)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RemoteStartResult> RemoteStart(ChargingLocation         ChargingLocation,
+                                                   ChargingProduct?         ChargingProduct          = null,
+                                                   ChargingReservation_Id?  ReservationId            = null,
+                                                   ChargingSession_Id?      SessionId                = null,
+                                                   EMobilityProvider_Id?    ProviderId               = null,
+                                                   RemoteAuthentication?    RemoteAuthentication     = null,
+                                                   JObject?                 AdditionalSessionInfos   = null,
+                                                   Auth_Path?               AuthenticationPath       = null,
+                                                   DateTime?                Timestamp                = null,
+                                                   EventTracking_Id?        EventTrackingId          = null,
+                                                   TimeSpan?                RequestTimeout           = null,
+                                                   CancellationToken        CancellationToken        = default)
         {
             throw new NotImplementedException();
         }
