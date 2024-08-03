@@ -2284,7 +2284,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             TimeSpan         Runtime;
             AuthStartResult  result;
 
-            if (DisableAuthentication)
+            if (DisableAuthorization)
             {
 
                 Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
@@ -2501,7 +2501,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             TimeSpan        Runtime;
             AuthStopResult  result;
 
-            if (DisableAuthentication)
+            if (DisableAuthorization)
             {
                 Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                 Runtime  = Endtime - StartTime;
