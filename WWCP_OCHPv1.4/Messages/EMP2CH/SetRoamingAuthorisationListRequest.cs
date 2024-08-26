@@ -59,18 +59,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public SetRoamingAuthorisationListRequest(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
                                                   DateTime?                              Timestamp           = null,
-                                                  CancellationToken                      CancellationToken   = default,
-                                                  EventTracking_Id                       EventTrackingId     = null,
-                                                  TimeSpan?                              RequestTimeout      = null)
+                                                  EventTracking_Id?                      EventTrackingId     = null,
+                                                  TimeSpan?                              RequestTimeout      = null,
+                                                  CancellationToken                      CancellationToken   = default)
 
             : base(Timestamp,
-                   CancellationToken,
                    EventTrackingId,
-                   RequestTimeout)
+                   RequestTimeout,
+                   CancellationToken)
 
         {
 
-            this.RoamingAuthorisationInfos = RoamingAuthorisationInfos ?? new RoamingAuthorisationInfo[0];
+            this.RoamingAuthorisationInfos = RoamingAuthorisationInfos;
 
         }
 

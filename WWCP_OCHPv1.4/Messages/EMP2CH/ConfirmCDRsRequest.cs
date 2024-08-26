@@ -59,26 +59,26 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Declined">An enumeration of declined charge detail records.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public ConfirmCDRsRequest(IEnumerable<EVSECDRPair>  Approved            = null,
-                                  IEnumerable<EVSECDRPair>  Declined            = null,
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        public ConfirmCDRsRequest(IEnumerable<EVSECDRPair>?  Approved            = null,
+                                  IEnumerable<EVSECDRPair>?  Declined            = null,
 
-                                  DateTime?                 Timestamp           = null,
-                                  CancellationToken         CancellationToken   = default,
-                                  EventTracking_Id?         EventTrackingId     = null,
-                                  TimeSpan?                 RequestTimeout      = null)
+                                  DateTime?                  Timestamp           = null,
+                                  EventTracking_Id?          EventTrackingId     = null,
+                                  TimeSpan?                  RequestTimeout      = null,
+                                  CancellationToken          CancellationToken   = default)
 
             : base(Timestamp,
-                   CancellationToken,
                    EventTrackingId,
-                   RequestTimeout)
+                   RequestTimeout,
+                   CancellationToken)
 
         {
 
-            this.Approved  = Approved ?? new EVSECDRPair[0];
-            this.Declined  = Declined ?? new EVSECDRPair[0];
+            this.Approved  = Approved ?? [];
+            this.Declined  = Declined ?? [];
 
         }
 

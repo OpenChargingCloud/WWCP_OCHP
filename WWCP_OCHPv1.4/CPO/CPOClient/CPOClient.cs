@@ -978,7 +978,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="DNSClient">The DNS client to use.</param>
         public CPOClient(URL                                                        RemoteURL,
                          HTTPHostname?                                              VirtualHostname              = null,
-                         String?                                                    Description                  = null,
+                         I18NString?                                                Description                  = null,
                          Boolean?                                                   PreferIPv4                   = null,
                          RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionHandler?                          LocalCertificateSelector    = null,
@@ -1077,13 +1077,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnSetChargePointListRequest != null)
+                if (OnSetChargePointListRequest is not null)
                     await Task.WhenAll(OnSetChargePointListRequest.GetInvocationList().
                                        Cast<OnSetChargePointListRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ChargePointInfos,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -1251,13 +1250,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnSetChargePointListResponse != null)
+                if (OnSetChargePointListResponse is not null)
                     await Task.WhenAll(OnSetChargePointListResponse.GetInvocationList().
                                        Cast<OnSetChargePointListResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ChargePointInfos,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -1314,13 +1312,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnUpdateChargePointListRequest != null)
+                if (OnUpdateChargePointListRequest is not null)
                     await Task.WhenAll(OnUpdateChargePointListRequest.GetInvocationList().
                                        Cast<OnUpdateChargePointListRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ChargePointInfos,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -1353,30 +1350,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:   LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
-                                                     "http://ochp.eu/1.4/UpdateChargePointList",
-                                                     RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
-                                                     ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
-                                                     CancellationToken:    Request.CancellationToken,
-                                                     EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
-                                                     NumberOfRetry:        TransmissionRetry,
+                                                    "http://ochp.eu/1.4/UpdateChargePointList",
+                                                    RequestLogDelegate:   OnUpdateChargePointListSOAPRequest,
+                                                    ResponseLogDelegate:  OnUpdateChargePointListSOAPResponse,
+                                                    CancellationToken:    Request.CancellationToken,
+                                                    EventTrackingId:      Request.EventTrackingId,
+                                                    RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
+                                                    NumberOfRetry:        TransmissionRetry,
 
-                                                     #region OnSuccess
+                                                    #region OnSuccess
 
-                                                     OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, UpdateChargePointListResponse.Parse),
+                                                    OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, UpdateChargePointListResponse.Parse),
 
-                                                     #endregion
+                                                    #endregion
 
-                                                     #region OnSOAPFault
+                                                    #region OnSOAPFault
 
                                                      OnSOAPFault: (timestamp, soapclient, httpresponse) => {
 
@@ -1397,7 +1394,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      #endregion
 
-                                                     #region OnHTTPError
+                                                    #region OnHTTPError
 
                                                      OnHTTPError: (timestamp, soapclient, httpresponse) => {
 
@@ -1439,7 +1436,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      #endregion
 
-                                                     #region OnException
+                                                    #region OnException
 
                                                      OnException: (timestamp, sender, exception) => {
 
@@ -1462,7 +1459,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      #endregion
 
-                                                    );
+                                                   );
 
                 }
 
@@ -1484,13 +1481,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnUpdateChargePointListResponse != null)
+                if (OnUpdateChargePointListResponse is not null)
                     await Task.WhenAll(OnUpdateChargePointListResponse.GetInvocationList().
                                        Cast<OnUpdateChargePointListResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ChargePointInfos,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -1547,13 +1543,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnUpdateStatusRequest != null)
+                if (OnUpdateStatusRequest is not null)
                     await Task.WhenAll(OnUpdateStatusRequest.GetInvocationList().
                                        Cast<OnUpdateStatusRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.EVSEStatus.   ULongCount(),
                                                      Request.EVSEStatus,
@@ -1591,12 +1586,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomUpdateStatusSOAPRequestMapper(Request,
@@ -1727,13 +1722,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnUpdateStatusResponse != null)
+                if (OnUpdateStatusResponse is not null)
                     await Task.WhenAll(OnUpdateStatusResponse.GetInvocationList().
                                        Cast<OnUpdateStatusResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.EVSEStatus.ULongCount(),
                                                      Request.EVSEStatus,
@@ -1794,13 +1788,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnUpdateTariffsRequest != null)
+                if (OnUpdateTariffsRequest is not null)
                     await Task.WhenAll(OnUpdateTariffsRequest.GetInvocationList().
                                        Cast<OnUpdateTariffsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.TariffInfos,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -1833,12 +1826,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
@@ -1964,13 +1957,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnUpdateTariffsResponse != null)
+                if (OnUpdateTariffsResponse is not null)
                     await Task.WhenAll(OnUpdateTariffsResponse.GetInvocationList().
                                        Cast<OnUpdateTariffsResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.TariffInfos,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -2028,13 +2020,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnGetSingleRoamingAuthorisationRequest != null)
+                if (OnGetSingleRoamingAuthorisationRequest is not null)
                     await Task.WhenAll(OnGetSingleRoamingAuthorisationRequest.GetInvocationList().
                                        Cast<OnGetSingleRoamingAuthorisationRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.EMTId,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -2053,12 +2044,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomGetSingleRoamingAuthorisationSOAPRequestMapper(Request,
@@ -2189,13 +2180,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnGetSingleRoamingAuthorisationResponse != null)
+                if (OnGetSingleRoamingAuthorisationResponse is not null)
                     await Task.WhenAll(OnGetSingleRoamingAuthorisationResponse.GetInvocationList().
                                        Cast<OnGetSingleRoamingAuthorisationResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.EMTId,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -2252,13 +2242,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnGetRoamingAuthorisationListRequest != null)
+                if (OnGetRoamingAuthorisationListRequest is not null)
                     await Task.WhenAll(OnGetRoamingAuthorisationListRequest.GetInvocationList().
                                        Cast<OnGetRoamingAuthorisationListRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
+                                                     //Description,
                                                      Request.EventTrackingId,
                                                      Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
@@ -2276,20 +2266,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomGetRoamingAuthorisationListSOAPRequestMapper(Request,
-                                                                                                         SOAP.Encapsulation(
-                                                                                                             WSSLoginPassword.Item1,
-                                                                                                             WSSLoginPassword.Item2,
-                                                                                                             Request.ToXML()
-                                                                                                         )),
+                                                                                                        SOAP.Encapsulation(
+                                                                                                            WSSLoginPassword.Item1,
+                                                                                                            WSSLoginPassword.Item2,
+                                                                                                            Request.ToXML()
+                                                                                                        )),
                                                      "http://ochp.eu/1.4/GetRoamingAuthorisationList",
                                                      RequestLogDelegate:   OnGetRoamingAuthorisationListSOAPRequest,
                                                      ResponseLogDelegate:  OnGetRoamingAuthorisationListSOAPResponse,
@@ -2412,13 +2402,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnGetRoamingAuthorisationListResponse != null)
+                if (OnGetRoamingAuthorisationListResponse is not null)
                     await Task.WhenAll(OnGetRoamingAuthorisationListResponse.GetInvocationList().
                                        Cast<OnGetRoamingAuthorisationListResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
@@ -2474,13 +2463,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnGetRoamingAuthorisationListUpdatesRequest != null)
+                if (OnGetRoamingAuthorisationListUpdatesRequest is not null)
                     await Task.WhenAll(OnGetRoamingAuthorisationListUpdatesRequest.GetInvocationList().
                                        Cast<OnGetRoamingAuthorisationListUpdatesRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
+                                                     //Description,
                                                      Request.EventTrackingId,
                                                      Request.LastUpdate,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -2499,20 +2488,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomGetRoamingAuthorisationListUpdatesSOAPRequestMapper(Request,
-                                                                                                                SOAP.Encapsulation(
-                                                                                                                    WSSLoginPassword.Item1,
-                                                                                                                    WSSLoginPassword.Item2,
-                                                                                                                    Request.ToXML()
-                                                                                                                )),
+                                                                                                               SOAP.Encapsulation(
+                                                                                                                   WSSLoginPassword.Item1,
+                                                                                                                   WSSLoginPassword.Item2,
+                                                                                                                   Request.ToXML()
+                                                                                                               )),
                                                      "http://ochp.eu/1.4/GetRoamingAuthorisationListUpdates",
                                                      RequestLogDelegate:   OnGetRoamingAuthorisationListUpdatesSOAPRequest,
                                                      ResponseLogDelegate:  OnGetRoamingAuthorisationListUpdatesSOAPResponse,
@@ -2635,13 +2624,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnGetRoamingAuthorisationListUpdatesResponse != null)
+                if (OnGetRoamingAuthorisationListUpdatesResponse is not null)
                     await Task.WhenAll(OnGetRoamingAuthorisationListUpdatesResponse.GetInvocationList().
                                        Cast<OnGetRoamingAuthorisationListUpdatesResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastUpdate,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -2699,13 +2687,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnAddCDRsRequest != null)
+                if (OnAddCDRsRequest is not null)
                     await Task.WhenAll(OnAddCDRsRequest.GetInvocationList().
                                        Cast<OnAddCDRsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRInfos,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -2738,20 +2725,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomAddCDRsSOAPRequestMapper(Request,
-                                                                                     SOAP.Encapsulation(
-                                                                                         WSSLoginPassword.Item1,
-                                                                                         WSSLoginPassword.Item2,
-                                                                                         Request.ToXML()
-                                                                                     )),
+                                                                                    SOAP.Encapsulation(
+                                                                                        WSSLoginPassword.Item1,
+                                                                                        WSSLoginPassword.Item2,
+                                                                                        Request.ToXML()
+                                                                                    )),
                                                      "http://ochp.eu/1.4/AddCDRs",
                                                      RequestLogDelegate:   OnAddCDRsSOAPRequest,
                                                      ResponseLogDelegate:  OnAddCDRsSOAPResponse,
@@ -2873,13 +2860,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnAddCDRsResponse != null)
+                if (OnAddCDRsResponse is not null)
                     await Task.WhenAll(OnAddCDRsResponse.GetInvocationList().
                                        Cast<OnAddCDRsResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRInfos,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -2936,13 +2922,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnCheckCDRsRequest != null)
+                if (OnCheckCDRsRequest is not null)
                     await Task.WhenAll(OnCheckCDRsRequest.GetInvocationList().
                                        Cast<OnCheckCDRsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRStatus,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -2961,20 +2946,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomCheckCDRsSOAPRequestMapper(Request,
-                                                                                       SOAP.Encapsulation(
-                                                                                           WSSLoginPassword.Item1,
-                                                                                           WSSLoginPassword.Item2,
-                                                                                           Request.ToXML()
-                                                                                       )),
+                                                                                      SOAP.Encapsulation(
+                                                                                          WSSLoginPassword.Item1,
+                                                                                          WSSLoginPassword.Item2,
+                                                                                          Request.ToXML()
+                                                                                      )),
                                                      "http://ochp.eu/1.4/CheckCDRs",
                                                      RequestLogDelegate:   OnCheckCDRsSOAPRequest,
                                                      ResponseLogDelegate:  OnCheckCDRsSOAPResponse,
@@ -3082,7 +3067,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 if (result == null)
                     result = HTTPResponse<CheckCDRsResponse>.ClientError(
                                  new CheckCDRsResponse(Request,
-                                                                           Result.Client("HTTP request failed!"))
+                                                       Result.Client("HTTP request failed!"))
                              );
 
             }
@@ -3097,13 +3082,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnCheckCDRsResponse != null)
+                if (OnCheckCDRsResponse is not null)
                     await Task.WhenAll(OnCheckCDRsResponse.GetInvocationList().
                                        Cast<OnCheckCDRsResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRStatus,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -3163,13 +3147,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnAddServiceEndpointsRequest != null)
+                if (OnAddServiceEndpointsRequest is not null)
                     await Task.WhenAll(OnAddServiceEndpointsRequest.GetInvocationList().
                                        Cast<OnAddServiceEndpointsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.OperatorEndpoints,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -3202,20 +3185,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomAddServiceEndpointsSOAPRequestMapper(Request,
-                                                                                     SOAP.Encapsulation(
-                                                                                         WSSLoginPassword.Item1,
-                                                                                         WSSLoginPassword.Item2,
-                                                                                         Request.ToXML()
-                                                                                    )),
+                                                                                                SOAP.Encapsulation(
+                                                                                                    WSSLoginPassword.Item1,
+                                                                                                    WSSLoginPassword.Item2,
+                                                                                                    Request.ToXML()
+                                                                                                )),
                                                      "http://ochp.eu/1.4/AddServiceEndpoints",
                                                      RequestLogDelegate:   OnAddServiceEndpointsSOAPRequest,
                                                      ResponseLogDelegate:  OnAddServiceEndpointsSOAPResponse,
@@ -3328,12 +3311,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnAddServiceEndpointsResponse != null)
+                if (OnAddServiceEndpointsResponse is not null)
                     await Task.WhenAll(OnAddServiceEndpointsResponse.GetInvocationList().
                                        Cast<OnAddServiceEndpointsResponseDelegate>().
                                        Select(e => e(Endtime,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.OperatorEndpoints,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -3390,13 +3372,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnGetServiceEndpointsRequest != null)
+                if (OnGetServiceEndpointsRequest is not null)
                     await Task.WhenAll(OnGetServiceEndpointsRequest.GetInvocationList().
                                        Cast<OnGetServiceEndpointsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
+                                                     //Description,
                                                      Request.EventTrackingId,
                                                      Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
@@ -3414,20 +3396,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                        VirtualHostname:             VirtualHostname,
-                                                        RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
-                                                        HTTPUserAgent:               HTTPUserAgent,
-                                                        RequestTimeout:              RequestTimeout,
-                                                        DNSClient:                   DNSClient))
+                                                       VirtualHostname:             VirtualHostname,
+                                                       RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                       LocalCertificateSelector:    LocalCertificateSelector,
+                                                       HTTPUserAgent:               HTTPUserAgent,
+                                                       RequestTimeout:              RequestTimeout,
+                                                       DNSClient:                   DNSClient))
                 {
 
                     result = await ochpClient.Query(_CustomGetServiceEndpointsSOAPRequestMapper(Request,
-                                                                                     SOAP.Encapsulation(
-                                                                                         WSSLoginPassword.Item1,
-                                                                                         WSSLoginPassword.Item2,
-                                                                                         Request.ToXML()
-                                                                                    )),
+                                                                                                SOAP.Encapsulation(
+                                                                                                    WSSLoginPassword.Item1,
+                                                                                                    WSSLoginPassword.Item2,
+                                                                                                    Request.ToXML()
+                                                                                                )),
                                                      "http://ochp.eu/1.4/GetServiceEndpoints",
                                                      RequestLogDelegate:   OnGetServiceEndpointsSOAPRequest,
                                                      ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
@@ -3540,12 +3522,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                if (OnGetServiceEndpointsResponse != null)
+                if (OnGetServiceEndpointsResponse is not null)
                     await Task.WhenAll(OnGetServiceEndpointsResponse.GetInvocationList().
                                        Cast<OnGetServiceEndpointsResponseDelegate>().
                                        Select(e => e(Endtime,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
@@ -3648,7 +3629,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 OnInformProviderRequest?.Invoke(StartTime,
                                                 Timestamp.Value,
                                                 this,
-                                                Description,
                                                 EventTrackingId,
 
                                                 DirectMessage,
@@ -3704,12 +3684,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
 
             using (var ochpClient = new SOAPClient(RemoteURL:                   RemoteURL,
-                                                    VirtualHostname:             VirtualHostname,
-                                                    RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                    LocalCertificateSelector:   LocalCertificateSelector,
-                                                    HTTPUserAgent:               HTTPUserAgent,
-                                                    RequestTimeout:              RequestTimeout,
-                                                    DNSClient:                   DNSClient))
+                                                   VirtualHostname:             VirtualHostname,
+                                                   RemoteCertificateValidator:  RemoteCertificateValidator,
+                                                   LocalCertificateSelector:    LocalCertificateSelector,
+                                                   HTTPUserAgent:               HTTPUserAgent,
+                                                   RequestTimeout:              RequestTimeout,
+                                                   DNSClient:                   DNSClient))
             {
 
                 result = await ochpClient.Query(SOAP.Encapsulation(WSSLoginPassword.Item1, WSSLoginPassword.Item2, Request.ToXML()),
@@ -3808,7 +3788,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 OnInformProviderResponse?.Invoke(EndTime,
                                                  Timestamp.Value,
                                                  this,
-                                                 Description,
                                                  EventTrackingId,
 
                                                  DirectMessage,

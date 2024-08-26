@@ -17,12 +17,6 @@
 
 #region Usings
 
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 
@@ -46,9 +40,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<SetChargePointListResponse>>
 
             SetChargePointList(this ICPOClient               ICPOClient,
@@ -56,21 +50,21 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                IncludeChargePointDelegate?   IncludeChargePoints   = null,
 
                                DateTime?                     Timestamp             = null,
-                               CancellationToken             CancellationToken     = default,
                                EventTracking_Id?             EventTrackingId       = null,
-                               TimeSpan?                     RequestTimeout        = null)
+                               TimeSpan?                     RequestTimeout        = null,
+                               CancellationToken             CancellationToken     = default)
 
 
-                => ICPOClient?.SetChargePointList(
+                => ICPOClient.SetChargePointList(
                        new SetChargePointListRequest(
-                           IncludeChargePoints == null
+                           IncludeChargePoints is null
                                ? ChargePointInfos
                                : ChargePointInfos.Where(cpo => IncludeChargePoints(cpo)),
 
                            Timestamp,
-                           CancellationToken,
                            EventTrackingId,
-                           RequestTimeout ?? ICPOClient.RequestTimeout
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -95,21 +89,21 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                   IncludeChargePointDelegate?   IncludeChargePoints   = null,
 
                                   DateTime?                     Timestamp             = null,
-                                  CancellationToken             CancellationToken     = default,
                                   EventTracking_Id?             EventTrackingId       = null,
-                                  TimeSpan?                     RequestTimeout        = null)
+                                  TimeSpan?                     RequestTimeout        = null,
+                                  CancellationToken             CancellationToken     = default)
 
 
-                => ICPOClient?.UpdateChargePointList(
+                => ICPOClient.UpdateChargePointList(
                        new UpdateChargePointListRequest(
-                           IncludeChargePoints == null
+                           IncludeChargePoints is null
                                ? ChargePointInfos
                                : ChargePointInfos.Where(cpo => IncludeChargePoints(cpo)),
 
                            Timestamp,
-                           CancellationToken,
                            EventTrackingId,
-                           RequestTimeout ?? ICPOClient.RequestTimeout
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -131,30 +125,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public static Task<HTTPResponse<UpdateStatusResponse>>
 
-            UpdateStatus(this ICPOClient             ICPOClient,
-                         IEnumerable<EVSEStatus>     EVSEStatus          = null,
-                         IEnumerable<ParkingStatus>  ParkingStatus       = null,
-                         DateTime?                   DefaultTTL          = null,
-                         IncludeEVSEIdsDelegate      IncludeEVSEIds      = null,
+            UpdateStatus(this ICPOClient              ICPOClient,
+                         IEnumerable<EVSEStatus>?     EVSEStatus          = null,
+                         IEnumerable<ParkingStatus>?  ParkingStatus       = null,
+                         DateTime?                    DefaultTTL          = null,
+                         IncludeEVSEIdsDelegate?      IncludeEVSEIds      = null,
 
-                         DateTime?                   Timestamp           = null,
-                         CancellationToken           CancellationToken   = default,
-                         EventTracking_Id            EventTrackingId     = null,
-                         TimeSpan?                   RequestTimeout      = null)
+                         DateTime?                    Timestamp           = null,
+                         EventTracking_Id?            EventTrackingId     = null,
+                         TimeSpan?                    RequestTimeout      = null,
+                         CancellationToken            CancellationToken   = default)
 
 
-                => ICPOClient?.UpdateStatus(
+                => ICPOClient.UpdateStatus(
                        new UpdateStatusRequest(
-                           IncludeEVSEIds == null
+                           IncludeEVSEIds is null
                                ? EVSEStatus
-                               : EVSEStatus.   Where(evsestatus =>  IncludeEVSEIds(evsestatus.EVSEId)),
+                               : EVSEStatus?.Where(evseStatus => IncludeEVSEIds(evseStatus.EVSEId)),
                            ParkingStatus,
                            DefaultTTL,
 
                            Timestamp,
-                           CancellationToken,
                            EventTrackingId,
-                           RequestTimeout ?? ICPOClient.RequestTimeout
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -177,18 +171,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                           IEnumerable<TariffInfo>  TariffInfos,
 
                           DateTime?                Timestamp          = null,
-                          CancellationToken        CancellationToken  = default,
                           EventTracking_Id?        EventTrackingId    = null,
-                          TimeSpan?                RequestTimeout     = null)
+                          TimeSpan?                RequestTimeout     = null,
+                          CancellationToken        CancellationToken  = default)
 
 
-                => ICPOClient?.UpdateTariffs(
-                       new UpdateTariffsRequest(TariffInfos,
+                => ICPOClient.UpdateTariffs(
+                       new UpdateTariffsRequest(
+                           TariffInfos,
 
-                                                Timestamp,
-                                                CancellationToken,
-                                                EventTrackingId,
-                                                RequestTimeout
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -212,19 +207,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           EMT_Id             EMTId,
 
                                           DateTime?          Timestamp           = null,
-                                          CancellationToken  CancellationToken   = default,
                                           EventTracking_Id?  EventTrackingId     = null,
-                                          TimeSpan?          RequestTimeout      = null)
+                                          TimeSpan?          RequestTimeout      = null,
+                                          CancellationToken  CancellationToken   = default)
 
 
-                => ICPOClient?.GetSingleRoamingAuthorisation(
+                => ICPOClient.GetSingleRoamingAuthorisation(
                        new GetSingleRoamingAuthorisationRequest(
                            EMTId,
 
                            Timestamp,
-                           CancellationToken,
                            EventTrackingId,
-                           RequestTimeout ?? ICPOClient.RequestTimeout
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -236,25 +231,25 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// Get the entire current version of the roaming authorisation list.
         /// </summary>
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
 
             GetRoamingAuthorisationList(this ICPOClient     ICPOClient,
 
                                         DateTime?           Timestamp           = null,
-                                        CancellationToken   CancellationToken   = default,
                                         EventTracking_Id?   EventTrackingId     = null,
-                                        TimeSpan?           RequestTimeout      = null)
+                                        TimeSpan?           RequestTimeout      = null,
+                                        CancellationToken   CancellationToken   = default)
 
 
-                => ICPOClient?.GetRoamingAuthorisationList(
+                => ICPOClient.GetRoamingAuthorisationList(
                        new GetRoamingAuthorisationListRequest(
                            Timestamp,
-                           CancellationToken,
                            EventTrackingId,
-                           RequestTimeout ?? ICPOClient.RequestTimeout
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -277,19 +272,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                DateTime            LastUpdate,
 
                                                DateTime?           Timestamp           = null,
-                                               CancellationToken   CancellationToken   = default,
                                                EventTracking_Id?   EventTrackingId     = null,
-                                               TimeSpan?           RequestTimeout      = null)
+                                               TimeSpan?           RequestTimeout      = null,
+                                               CancellationToken   CancellationToken   = default)
 
 
-                => ICPOClient?.GetRoamingAuthorisationListUpdates(
+                => ICPOClient.GetRoamingAuthorisationListUpdates(
                        new GetRoamingAuthorisationListUpdatesRequest(
                            LastUpdate,
 
                            Timestamp,
-                           CancellationToken,
                            EventTrackingId,
-                           RequestTimeout ?? ICPOClient.RequestTimeout
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -304,27 +299,28 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CDRInfo">A charge detail record.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<AddCDRsResponse>>
 
             AddCDR(this ICPOClient     ICPOClient,
                    CDRInfo             CDRInfo,
 
                    DateTime?           Timestamp           = null,
-                   CancellationToken   CancellationToken   = default,
-                   EventTracking_Id    EventTrackingId     = null,
-                   TimeSpan?           RequestTimeout      = null)
+                   EventTracking_Id?   EventTrackingId     = null,
+                   TimeSpan?           RequestTimeout      = null,
+                   CancellationToken   CancellationToken   = default)
 
 
-                => ICPOClient?.AddCDRs(
-                       new AddCDRsRequest(new CDRInfo[] { CDRInfo },
+                => ICPOClient.AddCDRs(
+                       new AddCDRsRequest(
+                           [ CDRInfo ],
 
-                                          Timestamp,
-                                          CancellationToken,
-                                          EventTrackingId,
-                                          RequestTimeout ?? ICPOClient.RequestTimeout
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -338,27 +334,28 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CDRInfos">An enumeration of charge detail records.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<AddCDRsResponse>>
 
             AddCDRs(this ICPOClient       ICPOClient,
                     IEnumerable<CDRInfo>  CDRInfos,
 
                     DateTime?             Timestamp           = null,
-                    CancellationToken     CancellationToken   = default,
-                    EventTracking_Id      EventTrackingId     = null,
-                    TimeSpan?             RequestTimeout      = null)
+                    EventTracking_Id?     EventTrackingId     = null,
+                    TimeSpan?             RequestTimeout      = null,
+                    CancellationToken     CancellationToken   = default)
 
 
-                => ICPOClient?.AddCDRs(
-                       new AddCDRsRequest(CDRInfos,
+                => ICPOClient.AddCDRs(
+                       new AddCDRsRequest(
+                           CDRInfos,
 
-                                          Timestamp,
-                                          CancellationToken,
-                                          EventTrackingId,
-                                          RequestTimeout ?? ICPOClient.RequestTimeout
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -372,27 +369,28 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CDRStatus">The status of the requested charge detail records.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<CheckCDRsResponse>>
 
             CheckCDRs(this ICPOClient    ICPOClient,
                       CDRStatus?         CDRStatus           = null,
 
                       DateTime?          Timestamp           = null,
-                      CancellationToken  CancellationToken   = default,
                       EventTracking_Id?  EventTrackingId     = null,
-                      TimeSpan?          RequestTimeout      = null)
+                      TimeSpan?          RequestTimeout      = null,
+                      CancellationToken  CancellationToken   = default)
 
 
-                => ICPOClient?.CheckCDRs(
-                       new CheckCDRsRequest(CDRStatus,
+                => ICPOClient.CheckCDRs(
+                       new CheckCDRsRequest(
+                           CDRStatus,
 
-                                            Timestamp,
-                                            CancellationToken,
-                                            EventTrackingId,
-                                            RequestTimeout ?? ICPOClient.RequestTimeout
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
                        )
                    );
 
@@ -418,17 +416,21 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                 IEnumerable<OperatorEndpoint>  OperatorEndpoints,
 
                                 DateTime?                      Timestamp           = null,
-                                CancellationToken              CancellationToken   = default,
-                                EventTracking_Id               EventTrackingId     = null,
-                                TimeSpan?                      RequestTimeout      = null)
+                                EventTracking_Id?              EventTrackingId     = null,
+                                TimeSpan?                      RequestTimeout      = null,
+                                CancellationToken              CancellationToken   = default)
 
 
-                => ICPOClient?.AddServiceEndpoints(new AddServiceEndpointsRequest(OperatorEndpoints,
+                => ICPOClient.AddServiceEndpoints(
+                       new AddServiceEndpointsRequest(
+                           OperatorEndpoints,
 
-                                                                                  Timestamp,
-                                                                                  CancellationToken,
-                                                                                  EventTrackingId,
-                                                                                  RequestTimeout ?? ICPOClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout  ?? ICPOClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -445,15 +447,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             GetServiceEndpoints(this ICPOClient     ICPOClient,
                                 DateTime?           Timestamp           = null,
-                                CancellationToken   CancellationToken   = default,
-                                EventTracking_Id    EventTrackingId     = null,
-                                TimeSpan?           RequestTimeout      = null)
+                                EventTracking_Id?   EventTrackingId     = null,
+                                TimeSpan?           RequestTimeout      = null,
+                                CancellationToken   CancellationToken   = default)
 
 
-                => ICPOClient?.GetServiceEndpoints(new GetServiceEndpointsRequest(Timestamp,
-                                                                                  CancellationToken,
-                                                                                  EventTrackingId,
-                                                                                  RequestTimeout ?? ICPOClient.RequestTimeout));
+                => ICPOClient.GetServiceEndpoints(
+                       new GetServiceEndpointsRequest(
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? ICPOClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 

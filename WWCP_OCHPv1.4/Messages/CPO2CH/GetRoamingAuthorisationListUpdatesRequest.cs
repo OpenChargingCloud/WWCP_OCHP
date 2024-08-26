@@ -57,14 +57,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public GetRoamingAuthorisationListUpdatesRequest(DateTime            LastUpdate,
 
                                                          DateTime?           Timestamp           = null,
-                                                         CancellationToken   CancellationToken   = default,
-                                                         EventTracking_Id    EventTrackingId     = null,
-                                                         TimeSpan?           RequestTimeout      = null)
+                                                         EventTracking_Id?   EventTrackingId     = null,
+                                                         TimeSpan?           RequestTimeout      = null,
+                                                         CancellationToken   CancellationToken   = default)
 
             : base(Timestamp,
-                   CancellationToken,
                    EventTrackingId,
-                   RequestTimeout)
+                   RequestTimeout,
+                   CancellationToken)
 
         {
 

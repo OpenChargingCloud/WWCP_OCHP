@@ -48,12 +48,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The optional timestamp of the request.
         /// </summary>
-        public DateTime?          Timestamp            { get; }
-
-        /// <summary>
-        /// An optional token to cancel this request.
-        /// </summary>
-        public CancellationToken  CancellationToken    { get; }
+        public DateTime           Timestamp            { get; }
 
         /// <summary>
         /// An optional event tracking identification for correlating this request with other events.
@@ -65,6 +60,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         public TimeSpan?          RequestTimeout       { get; }
 
+        /// <summary>
+        /// An optional token to cancel this request.
+        /// </summary>
+        public CancellationToken  CancellationToken    { get; }
+
         #endregion
 
         #region Constructor(s)
@@ -73,19 +73,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Create a new generic OCHP request message.
         /// </summary>
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public ARequest(DateTime?          Timestamp           = null,
-                        CancellationToken  CancellationToken   = default,
                         EventTracking_Id?  EventTrackingId     = null,
-                        TimeSpan?          RequestTimeout      = null)
+                        TimeSpan?          RequestTimeout      = null,
+                        CancellationToken  CancellationToken   = default)
         {
 
             this.Timestamp          = Timestamp       ?? org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-            this.CancellationToken  = CancellationToken;
             this.EventTrackingId    = EventTrackingId ?? EventTracking_Id.New;
             this.RequestTimeout     = RequestTimeout  ?? DefaultRequestTimeout;
+            this.CancellationToken  = CancellationToken;
 
         }
 
@@ -98,7 +98,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Compare two requests for equality.
         /// </summary>
         /// <param name="ARequest">Another abstract generic OICP request.</param>
-        public abstract Boolean Equals(T ARequest);
+        public abstract Boolean Equals(T? ARequest);
 
         #endregion
 

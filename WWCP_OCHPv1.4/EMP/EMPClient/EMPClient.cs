@@ -1028,10 +1028,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="DNSClient">The DNS client to use.</param>
         public EMPClient(URL                                                        RemoteURL,
                          HTTPHostname?                                              VirtualHostname              = null,
-                         String?                                                    Description                  = null,
+                         I18NString?                                                Description                  = null,
                          Boolean?                                                   PreferIPv4                   = null,
                          RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator   = null,
-                         LocalCertificateSelectionHandler?                          LocalCertificateSelector    = null,
+                         LocalCertificateSelectionHandler?                          LocalCertificateSelector     = null,
                          X509Certificate?                                           ClientCert                   = null,
                          SslProtocols?                                              TLSProtocol                  = null,
                          String?                                                    HTTPUserAgent                = DefaultHTTPUserAgent,
@@ -1128,13 +1128,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetChargePointListRequest != null)
+                if (OnGetChargePointListRequest is not null)
                     await Task.WhenAll(OnGetChargePointListRequest.GetInvocationList().
                                        Cast<OnGetChargePointListRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
@@ -1161,11 +1160,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 {
 
                     result = await _OCHPClient.Query(_CustomGetChargePointListSOAPRequestMapper(Request,
-                                                                                     SOAP.Encapsulation(
-                                                                                         WSSLoginPassword.Item1,
-                                                                                         WSSLoginPassword.Item2,
-                                                                                         Request.ToXML()
-                                                                                    )),
+                                                                                                SOAP.Encapsulation(
+                                                                                                    WSSLoginPassword.Item1,
+                                                                                                    WSSLoginPassword.Item2,
+                                                                                                    Request.ToXML()
+                                                                                               )),
                                                      "http://ochp.eu/1.4/GetChargePointList",
                                                      RequestLogDelegate:   OnGetChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnGetChargePointListSOAPResponse,
@@ -1278,13 +1277,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetChargePointListResponse != null)
+                if (OnGetChargePointListResponse is not null)
                     await Task.WhenAll(OnGetChargePointListResponse.GetInvocationList().
                                        Cast<OnGetChargePointListResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
@@ -1340,13 +1338,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetChargePointListUpdatesRequest != null)
+                if (OnGetChargePointListUpdatesRequest is not null)
                     await Task.WhenAll(OnGetChargePointListUpdatesRequest.GetInvocationList().
                                        Cast<OnGetChargePointListUpdatesRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastUpdate,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -1491,13 +1488,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetChargePointListUpdatesResponse != null)
+                if (OnGetChargePointListUpdatesResponse is not null)
                     await Task.WhenAll(OnGetChargePointListUpdatesResponse.GetInvocationList().
                                        Cast<OnGetChargePointListUpdatesResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastUpdate,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -1555,13 +1551,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetStatusRequest != null)
+                if (OnGetStatusRequest is not null)
                     await Task.WhenAll(OnGetStatusRequest.GetInvocationList().
                                        Cast<OnGetStatusRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastRequest,
                                                      Request.StatusType,
@@ -1707,13 +1702,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetStatusResponse != null)
+                if (OnGetStatusResponse is not null)
                     await Task.WhenAll(OnGetStatusResponse.GetInvocationList().
                                        Cast<OnGetStatusResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastRequest,
                                                      Request.StatusType,
@@ -1771,13 +1765,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetTariffUpdatesRequest != null)
+                if (OnGetTariffUpdatesRequest is not null)
                     await Task.WhenAll(OnGetTariffUpdatesRequest.GetInvocationList().
                                        Cast<OnGetTariffUpdatesRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastUpdate,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -1922,13 +1915,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetTariffUpdatesResponse != null)
+                if (OnGetTariffUpdatesResponse is not null)
                     await Task.WhenAll(OnGetTariffUpdatesResponse.GetInvocationList().
                                        Cast<OnGetTariffUpdatesResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.LastUpdate,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -1986,13 +1978,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnSetRoamingAuthorisationListRequest != null)
+                if (OnSetRoamingAuthorisationListRequest is not null)
                     await Task.WhenAll(OnSetRoamingAuthorisationListRequest.GetInvocationList().
                                        Cast<OnSetRoamingAuthorisationListRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RoamingAuthorisationInfos,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -2154,13 +2145,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnSetRoamingAuthorisationListResponse != null)
+                if (OnSetRoamingAuthorisationListResponse is not null)
                     await Task.WhenAll(OnSetRoamingAuthorisationListResponse.GetInvocationList().
                                        Cast<OnSetRoamingAuthorisationListResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RoamingAuthorisationInfos,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -2217,13 +2207,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnUpdateRoamingAuthorisationListRequest != null)
+                if (OnUpdateRoamingAuthorisationListRequest is not null)
                     await Task.WhenAll(OnUpdateRoamingAuthorisationListRequest.GetInvocationList().
                                        Cast<OnUpdateRoamingAuthorisationListRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RoamingAuthorisationInfos,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -2385,13 +2374,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnUpdateRoamingAuthorisationListResponse != null)
+                if (OnUpdateRoamingAuthorisationListResponse is not null)
                     await Task.WhenAll(OnUpdateRoamingAuthorisationListResponse.GetInvocationList().
                                        Cast<OnUpdateRoamingAuthorisationListResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RoamingAuthorisationInfos,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -2449,13 +2437,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetCDRsRequest != null)
+                if (OnGetCDRsRequest is not null)
                     await Task.WhenAll(OnGetCDRsRequest.GetInvocationList().
                                        Cast<OnGetCDRsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRStatus,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -2600,13 +2587,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetCDRsResponse != null)
+                if (OnGetCDRsResponse is not null)
                     await Task.WhenAll(OnGetCDRsResponse.GetInvocationList().
                                        Cast<OnGetCDRsResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.CDRStatus,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -2663,13 +2649,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnConfirmCDRsRequest != null)
+                if (OnConfirmCDRsRequest is not null)
                     await Task.WhenAll(OnConfirmCDRsRequest.GetInvocationList().
                                        Cast<OnConfirmCDRsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.Approved,
                                                      Request.Declined,
@@ -2829,13 +2814,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnConfirmCDRsResponse != null)
+                if (OnConfirmCDRsResponse is not null)
                     await Task.WhenAll(OnConfirmCDRsResponse.GetInvocationList().
                                        Cast<OnConfirmCDRsResponseDelegate>().
                                        Select(e => e(Endtime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.Approved,
                                                      Request.Declined,
@@ -2895,13 +2879,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnAddServiceEndpointsRequest != null)
+                if (OnAddServiceEndpointsRequest is not null)
                     await Task.WhenAll(OnAddServiceEndpointsRequest.GetInvocationList().
                                        Cast<OnAddServiceEndpointsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ProviderEndpoints,
                                                      Request.RequestTimeout ?? RequestTimeout))).
@@ -2936,7 +2919,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
+                                                        LocalCertificateSelector:    LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
@@ -3060,12 +3043,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnAddServiceEndpointsResponse != null)
+                if (OnAddServiceEndpointsResponse is not null)
                     await Task.WhenAll(OnAddServiceEndpointsResponse.GetInvocationList().
                                        Cast<OnAddServiceEndpointsResponseDelegate>().
                                        Select(e => e(Endtime,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.ProviderEndpoints,
                                                      Request.RequestTimeout ?? RequestTimeout,
@@ -3122,13 +3104,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetServiceEndpointsRequest != null)
+                if (OnGetServiceEndpointsRequest is not null)
                     await Task.WhenAll(OnGetServiceEndpointsRequest.GetInvocationList().
                                        Cast<OnGetServiceEndpointsRequestDelegate>().
                                        Select(e => e(StartTime,
-                                                     Request.Timestamp.Value,
+                                                     Request.Timestamp,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RequestTimeout ?? RequestTimeout))).
                                        ConfigureAwait(false);
@@ -3148,18 +3129,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 using (var _OCHPClient = new SOAPClient(RemoteURL:                   RemoteURL,
                                                         VirtualHostname:             VirtualHostname,
                                                         RemoteCertificateValidator:  RemoteCertificateValidator,
-                                                        LocalCertificateSelector:   LocalCertificateSelector,
+                                                        LocalCertificateSelector:    LocalCertificateSelector,
                                                         HTTPUserAgent:               HTTPUserAgent,
                                                         RequestTimeout:              RequestTimeout,
                                                         DNSClient:                   DNSClient))
                 {
 
                     result = await _OCHPClient.Query(_CustomGetServiceEndpointsSOAPRequestMapper(Request,
-                                                                                     SOAP.Encapsulation(
-                                                                                         WSSLoginPassword.Item1,
-                                                                                         WSSLoginPassword.Item2,
-                                                                                         Request.ToXML()
-                                                                                    )),
+                                                                                                 SOAP.Encapsulation(
+                                                                                                     WSSLoginPassword.Item1,
+                                                                                                     WSSLoginPassword.Item2,
+                                                                                                     Request.ToXML()
+                                                                                                 )),
                                                      "http://ochp.eu/1.4/GetServiceEndpoints",
                                                      RequestLogDelegate:   OnGetServiceEndpointsSOAPRequest,
                                                      ResponseLogDelegate:  OnGetServiceEndpointsSOAPResponse,
@@ -3272,12 +3253,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             try
             {
 
-                if (OnGetServiceEndpointsResponse != null)
+                if (OnGetServiceEndpointsResponse is not null)
                     await Task.WhenAll(OnGetServiceEndpointsResponse.GetInvocationList().
                                        Cast<OnGetServiceEndpointsResponseDelegate>().
                                        Select(e => e(Endtime,
                                                      this,
-                                                     Description,
                                                      Request.EventTrackingId,
                                                      Request.RequestTimeout ?? RequestTimeout,
                                                      result.Content,
@@ -3346,7 +3326,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnSelectEVSERequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                             Timestamp.Value,
                                             this,
-                                            Description,
                                             EventTrackingId,
                                             EVSEId,
                                             ContractId,
@@ -3469,7 +3448,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnSelectEVSEResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                              Timestamp.Value,
                                              this,
-                                             Description,
                                              EventTrackingId,
                                              EVSEId,
                                              ContractId,
@@ -3547,7 +3525,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnControlEVSERequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                              Timestamp.Value,
                                              this,
-                                             Description,
                                              EventTrackingId,
                                              DirectId,
                                              Operation,
@@ -3678,7 +3655,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnControlEVSEResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                               Timestamp.Value,
                                               this,
-                                              Description,
                                               EventTrackingId,
                                               DirectId,
                                               Operation,
@@ -3747,7 +3723,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnReleaseEVSERequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                              Timestamp.Value,
                                              this,
-                                             Description,
                                              EventTrackingId,
                                              DirectId,
                                              RequestTimeout);
@@ -3867,7 +3842,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnReleaseEVSEResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                               Timestamp.Value,
                                               this,
-                                              Description,
                                               EventTrackingId,
                                               DirectId,
                                               RequestTimeout,
@@ -3933,7 +3907,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnGetEVSEStatusRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                Timestamp.Value,
                                                this,
-                                               Description,
                                                EventTrackingId,
                                                EVSEIds,
                                                RequestTimeout);
@@ -4048,7 +4021,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnGetEVSEStatusResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                 Timestamp.Value,
                                                 this,
-                                                Description,
                                                 EventTrackingId,
                                                 EVSEIds,
                                                 RequestTimeout,
@@ -4120,7 +4092,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnReportDiscrepancyRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                    Timestamp.Value,
                                                    this,
-                                                   Description,
                                                    EventTrackingId,
                                                    EVSEId,
                                                    Report,
@@ -4238,7 +4209,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnReportDiscrepancyResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                     Timestamp.Value,
                                                     this,
-                                                    Description,
                                                     EventTrackingId,
                                                     EVSEId,
                                                     Report,
@@ -4311,7 +4281,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnGetInformProviderRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                    Timestamp.Value,
                                                    this,
-                                                   Description,
                                                    EventTrackingId,
                                                    DirectId,
                                                    RequestTimeout);
@@ -4427,7 +4396,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 OnGetInformProviderResponse?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                     Timestamp.Value,
                                                     this,
-                                                    Description,
                                                     EventTrackingId,
                                                     DirectId,
                                                     RequestTimeout,

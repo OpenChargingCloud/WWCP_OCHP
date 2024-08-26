@@ -17,11 +17,7 @@
 
 #region Usings
 
-using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Threading;
-using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -68,25 +64,25 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public UpdateStatusRequest(IEnumerable<EVSEStatus>     EVSEStatus          = null,
-                                   IEnumerable<ParkingStatus>  ParkingStatus       = null,
-                                   DateTime?                   DefaultTTL          = null,
+        public UpdateStatusRequest(IEnumerable<EVSEStatus>?     EVSEStatus          = null,
+                                   IEnumerable<ParkingStatus>?  ParkingStatus       = null,
+                                   DateTime?                    DefaultTTL          = null,
 
-                                   DateTime?                   Timestamp           = null,
-                                   CancellationToken           CancellationToken   = default,
-                                   EventTracking_Id?           EventTrackingId     = null,
-                                   TimeSpan?                   RequestTimeout      = null)
+                                   DateTime?                    Timestamp           = null,
+                                   EventTracking_Id?            EventTrackingId     = null,
+                                   TimeSpan?                    RequestTimeout      = null,
+                                   CancellationToken            CancellationToken   = default)
 
             : base(Timestamp,
-                   CancellationToken,
                    EventTrackingId,
-                   RequestTimeout)
+                   RequestTimeout,
+                   CancellationToken)
 
         {
 
-            this.EVSEStatus     = EVSEStatus    ?? new EVSEStatus[0];
-            this.ParkingStatus  = ParkingStatus ?? new ParkingStatus[0];
-            this.DefaultTTL     = DefaultTTL    ?? new DateTime?();
+            this.EVSEStatus     = EVSEStatus    ?? [];
+            this.ParkingStatus  = ParkingStatus ?? [];
+            this.DefaultTTL     = DefaultTTL;
 
         }
 

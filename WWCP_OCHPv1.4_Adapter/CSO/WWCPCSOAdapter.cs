@@ -1030,14 +1030,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (chargePointInfos.Count > 0)
             {
 
-                var response = await CPORoaming.
-                                         SetChargePointList(chargePointInfos,
-                                                            IncludeChargePoints,
+                var response = await CPORoaming.SetChargePointList(
+                                         chargePointInfos,
+                                         IncludeChargePoints,
 
-                                                            Timestamp,
-                                                            CancellationToken,
-                                                            EventTrackingId,
-                                                            RequestTimeout);
+                                         Timestamp,
+                                         EventTrackingId,
+                                         RequestTimeout,
+                                         CancellationToken
+                                     );
 
 
                 endtime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
@@ -1193,7 +1194,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        if (evse == null)
+                        if (evse is null)
                             continue;
 
                         if (IncludeEVSEs(evse) && IncludeEVSEIds(evse.Id))
@@ -1249,15 +1250,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (chargePointInfos.Count > 0)
             {
 
-                var response = await CPORoaming.
-                                         UpdateChargePointList(chargePointInfos,
-                                                               IncludeChargePoints,
+                var response = await CPORoaming.UpdateChargePointList(
+                                         chargePointInfos,
+                                         IncludeChargePoints,
 
-                                                               Timestamp,
-                                                               CancellationToken,
-                                                               EventTrackingId,
-                                                               RequestTimeout).
-                                         ConfigureAwait(false);
+                                         Timestamp,
+                                         EventTrackingId,
+                                         RequestTimeout,
+                                         CancellationToken
+                                     ).
+                                     ConfigureAwait(false);
 
                 endtime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                 runtime = endtime - startTime;
@@ -1477,17 +1479,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #endregion
 
 
-            var response = await CPORoaming.
-                                     UpdateStatus(evseStatus,
-                                                  null,
-                                                  org.GraphDefined.Vanaheimr.Illias.Timestamp.Now + EVSEStatusRefreshEvery,
-                                                  null,
+            var response = await CPORoaming.UpdateStatus(
+                                     evseStatus,
+                                     null,
+                                     org.GraphDefined.Vanaheimr.Illias.Timestamp.Now + EVSEStatusRefreshEvery,
+                                     null,
 
-                                                  Timestamp,
-                                                  CancellationToken,
-                                                  EventTrackingId,
-                                                  RequestTimeout).
-                                     ConfigureAwait(false);
+                                     Timestamp,
+                                     EventTrackingId,
+                                     RequestTimeout,
+                                     CancellationToken
+                                 ).
+                                 ConfigureAwait(false);
 
 
             var endtime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
@@ -2305,19 +2308,21 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                     TokenTypes.RFID
                                 );
 
-                var response  = await CPORoaming.GetSingleRoamingAuthorisation(EMTId,
+                var response  = await CPORoaming.GetSingleRoamingAuthorisation(
+                                          EMTId,
 
-                                                                               Timestamp,
-                                                                               CancellationToken,
-                                                                               EventTrackingId,
-                                                                               RequestTimeout);
+                                          Timestamp,
+                                          EventTrackingId,
+                                          RequestTimeout,
+                                          CancellationToken
+                                      );
 
 
                 Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                 Runtime  = Endtime - StartTime;
 
                 if (response?.HTTPStatusCode            == HTTPStatusCode.OK &&
-                    response?.Content                   != null              &&
+                    response?.Content                   is not null          &&
                     response?.Content.Result.ResultCode == ResultCodes.OK)
                 {
 
@@ -2514,16 +2519,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             else
             {
 
-                var response = await CPORoaming.GetSingleRoamingAuthorisation(new EMT_Id(
-                                                                                  LocalAuthentication.AuthToken.ToString(),
-                                                                                  TokenRepresentations.Plain,
-                                                                                  TokenTypes.RFID
-                                                                              ),
+                var response = await CPORoaming.GetSingleRoamingAuthorisation(
+                                         new EMT_Id(
+                                             LocalAuthentication.AuthToken?.ToString(),
+                                             TokenRepresentations.Plain,
+                                             TokenTypes.RFID
+                                         ),
 
-                                                                              Timestamp,
-                                                                              CancellationToken,
-                                                                              EventTrackingId,
-                                                                              RequestTimeout).ConfigureAwait(false);
+                                         Timestamp,
+                                         EventTrackingId,
+                                         RequestTimeout,
+                                         CancellationToken
+                                     ).ConfigureAwait(false);
 
 
                 Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
@@ -2826,13 +2833,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             try
                             {
 
-                                response = await CPORoaming.AddCDRs(ForwardedCDRs.Select(cdr => cdr.ToOCHP(ContractIdDelegate:  emtid => _Lookup[emtid],
-                                                                                                           CustomEVSEIdMapper:  null)).ToArray(),
+                                response = await CPORoaming.AddCDRs(
+                                                     ForwardedCDRs.Select(cdr => cdr.ToOCHP(ContractIdDelegate:  emtid => _Lookup[emtid],
+                                                                                            CustomEVSEIdMapper:  null)).ToArray(),
 
-                                                                    Timestamp,
-                                                                    CancellationToken,
-                                                                    EventTrackingId,
-                                                                    RequestTimeout);
+                                                     Timestamp,
+                                                     EventTrackingId,
+                                                     RequestTimeout,
+                                                     CancellationToken
+                                                 );
 
                                 if (response.HTTPStatusCode == HTTPStatusCode.OK &&
                                     response.Content        is not null)
@@ -2841,7 +2850,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                     var ImplausibleCDRIds = response.Content.ImplausibleCDRs?.ToHashSet() ?? new HashSet<CDR_Id>();
                                     var ImplausibleCDRs   = response.Content.ImplausibleCDRs.SafeAny()
                                                                 ? ChargeDetailRecords.Where(cdr => ImplausibleCDRIds.Contains(cdr.SessionId.ToOCHP()))
-                                                                : new ChargeDetailRecord[0];
+                                                                : [];
 
                                     switch (response.Content.Result.ResultCode)
                                     {
@@ -3722,16 +3731,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                var response = await CPORoaming.AddCDRs(CDRInfos,
+                var response = await CPORoaming.AddCDRs(
+                                         CDRInfos,
 
-                                                        org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                        new CancellationTokenSource().Token,
-                                                        EventTracking_Id.New,
-                                                        DefaultRequestTimeout).
-                                                ConfigureAwait(false);
+                                         Timestamp.Now,
+                                         EventTracking_Id.New,
+                                         DefaultRequestTimeout,
+                                         new CancellationTokenSource().Token
+                                     ).
+                                     ConfigureAwait(false);
 
                 if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                    response.Content        != null)
+                    response.Content        is not null)
                 {
 
                     switch (response.Content.Result.ResultCode)

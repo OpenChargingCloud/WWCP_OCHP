@@ -20,6 +20,7 @@
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 
+using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
@@ -60,7 +61,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// An optional description of this CPO client.
         /// </summary>
-        String? IHTTPClient.Description
+        I18NString IHTTPClient.Description
         {
 
             get
@@ -1486,7 +1487,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public EMPRoaming(URL                                                        RemoteURL,
                           HTTPHostname?                                              VirtualHostname                 = null,
-                          String?                                                    Description                     = null,
+                          I18NString?                                                Description                     = null,
                           Boolean?                                                   PreferIPv4                      = null,
                           RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionHandler?                          ClientCertificateSelector       = null,

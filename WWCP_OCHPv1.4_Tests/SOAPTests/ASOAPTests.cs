@@ -86,7 +86,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
             CPOClient                                = new CPO.CPOClient(URL.Parse("http://localhost:" + ClearingHouseServer.IPPorts.First()),
                                                                          null,
-                                                                         "CPOClient #1",
+                                                                         I18NString.Create("CPOClient #1"),
                                                                          DNSClient:  DNSClient);
 
             CPOServer                                = new CPO.CPOServer(TCPPort:    IPPort.Parse(10001),
@@ -97,7 +97,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
             EMPClient                                = new EMP.EMPClient(URL.Parse("http://localhost:" + ClearingHouseServer.IPPorts.First()),
                                                                          null,
-                                                                         "EMPClient #1",
+                                                                         I18NString.Create("EMPClient #1"),
                                                                          DNSClient:  DNSClient);
 
             EMPServer                                = new EMP.EMPServer(TCPPort:    IPPort.Parse(10002),

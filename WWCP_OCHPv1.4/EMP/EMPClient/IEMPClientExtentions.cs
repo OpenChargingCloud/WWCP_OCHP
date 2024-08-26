@@ -45,22 +45,26 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Download the current charge point list.
         /// </summary>
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<GetChargePointListResponse>>
 
             GetChargePointList(this IEMPClient     IEMPClient,
 
                                DateTime?           Timestamp           = null,
-                               CancellationToken   CancellationToken   = default,
-                               EventTracking_Id    EventTrackingId     = null,
-                               TimeSpan?           RequestTimeout      = null)
+                               EventTracking_Id?   EventTrackingId     = null,
+                               TimeSpan?           RequestTimeout      = null,
+                               CancellationToken   CancellationToken   = default)
 
-                => IEMPClient?.GetChargePointList(new GetChargePointListRequest(Timestamp,
-                                                                                CancellationToken,
-                                                                                EventTrackingId,
-                                                                                RequestTimeout ?? IEMPClient.RequestTimeout));
+                => IEMPClient.GetChargePointList(
+                       new GetChargePointListRequest(
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -72,25 +76,29 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="LastUpdate">The timestamp of the last call to this method.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<GetChargePointListUpdatesResponse>>
 
             GetChargePointListUpdates(this IEMPClient     IEMPClient,
                                       DateTime            LastUpdate,
 
-                                      DateTime?           Timestamp          = null,
-                                      CancellationToken   CancellationToken  = default,
-                                      EventTracking_Id    EventTrackingId    = null,
-                                      TimeSpan?           RequestTimeout     = null)
+                                      DateTime?           Timestamp           = null,
+                                      EventTracking_Id?   EventTrackingId     = null,
+                                      TimeSpan?           RequestTimeout      = null,
+                                      CancellationToken   CancellationToken   = default)
 
-                => IEMPClient?.GetChargePointListUpdates(new GetChargePointListUpdatesRequest(LastUpdate,
+                => IEMPClient.GetChargePointListUpdates(
+                       new GetChargePointListUpdatesRequest(
+                           LastUpdate,
 
-                                                                                              Timestamp,
-                                                                                              CancellationToken,
-                                                                                              EventTrackingId,
-                                                                                              RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -104,9 +112,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="StatusType">A status type filter.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<GetStatusResponse>>
 
             GetStatus(this IEMPClient     IEMPClient,
@@ -114,18 +122,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                       StatusTypes?        StatusType          = null,
 
                       DateTime?           Timestamp           = null,
-                      CancellationToken   CancellationToken   = default,
-                      EventTracking_Id    EventTrackingId     = null,
-                      TimeSpan?           RequestTimeout      = null)
+                      EventTracking_Id?   EventTrackingId     = null,
+                      TimeSpan?           RequestTimeout      = null,
+                      CancellationToken   CancellationToken   = default)
 
 
-                => IEMPClient?.GetStatus(new GetStatusRequest(LastRequest,
-                                                              StatusType,
+                => IEMPClient.GetStatus(
+                       new GetStatusRequest(
+                           LastRequest,
+                           StatusType,
 
-                                                              Timestamp,
-                                                              CancellationToken,
-                                                              EventTrackingId,
-                                                              RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -137,25 +149,29 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="LastUpdate">The timestamp of the last call to this method.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<GetTariffUpdatesResponse>>
 
             GetTariffUpdates(this IEMPClient     IEMPClient,
-                             DateTime?           LastUpdate         = null,
+                             DateTime?           LastUpdate          = null,
 
-                             DateTime?           Timestamp          = null,
-                             CancellationToken   CancellationToken  = default,
-                             EventTracking_Id    EventTrackingId    = null,
-                             TimeSpan?           RequestTimeout     = null)
+                             DateTime?           Timestamp           = null,
+                             EventTracking_Id?   EventTrackingId     = null,
+                             TimeSpan?           RequestTimeout      = null,
+                             CancellationToken   CancellationToken   = default)
 
-                => IEMPClient?.GetTariffUpdates(new GetTariffUpdatesRequest(LastUpdate,
+                => IEMPClient.GetTariffUpdates(
+                       new GetTariffUpdatesRequest(
+                           LastUpdate,
 
-                                                                            Timestamp,
-                                                                            CancellationToken,
-                                                                            EventTrackingId,
-                                                                            RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -168,26 +184,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="RoamingAuthorisationInfo">A roaming authorisation info.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
 
             SetRoamingAuthorisationList(this IEMPClient           IEMPClient,
                                         RoamingAuthorisationInfo  RoamingAuthorisationInfo,
 
                                         DateTime?                 Timestamp           = null,
-                                        CancellationToken         CancellationToken   = default,
                                         EventTracking_Id?         EventTrackingId     = null,
-                                        TimeSpan?                 RequestTimeout      = null)
+                                        TimeSpan?                 RequestTimeout      = null,
+                                        CancellationToken         CancellationToken   = default)
 
 
-                => IEMPClient?.SetRoamingAuthorisationList(new SetRoamingAuthorisationListRequest(new RoamingAuthorisationInfo[] { RoamingAuthorisationInfo },
+                => IEMPClient.SetRoamingAuthorisationList(
+                       new SetRoamingAuthorisationListRequest(
+                           [ RoamingAuthorisationInfo ],
 
-                                                                                                  Timestamp,
-                                                                                                  CancellationToken,
-                                                                                                  EventTrackingId,
-                                                                                                  RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -199,26 +219,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="RoamingAuthorisationInfos">An enumeration of roaming authorisation infos.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
 
             SetRoamingAuthorisationList(this IEMPClient                        IEMPClient,
                                         IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
                                         DateTime?                              Timestamp           = null,
-                                        CancellationToken                      CancellationToken   = default,
-                                        EventTracking_Id                       EventTrackingId     = null,
-                                        TimeSpan?                              RequestTimeout      = null)
+                                        EventTracking_Id?                      EventTrackingId     = null,
+                                        TimeSpan?                              RequestTimeout      = null,
+                                        CancellationToken                      CancellationToken   = default)
 
 
-                => IEMPClient?.SetRoamingAuthorisationList(new SetRoamingAuthorisationListRequest(RoamingAuthorisationInfos,
+                => IEMPClient.SetRoamingAuthorisationList(
+                       new SetRoamingAuthorisationListRequest(
+                           RoamingAuthorisationInfos,
 
-                                                                                                  Timestamp,
-                                                                                                  CancellationToken,
-                                                                                                  EventTrackingId,
-                                                                                                  RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -230,26 +254,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="RoamingAuthorisationInfo">A roaming authorisation info.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<UpdateRoamingAuthorisationListResponse>>
 
             UpdateRoamingAuthorisationList(this IEMPClient           IEMPClient,
                                            RoamingAuthorisationInfo  RoamingAuthorisationInfo,
 
                                            DateTime?                 Timestamp           = null,
-                                           CancellationToken         CancellationToken   = default,
                                            EventTracking_Id?         EventTrackingId     = null,
-                                           TimeSpan?                 RequestTimeout      = null)
+                                           TimeSpan?                 RequestTimeout      = null,
+                                           CancellationToken         CancellationToken   = default)
 
 
-                => IEMPClient?.UpdateRoamingAuthorisationList(new UpdateRoamingAuthorisationListRequest(new RoamingAuthorisationInfo[] { RoamingAuthorisationInfo },
+                => IEMPClient.UpdateRoamingAuthorisationList(
+                       new UpdateRoamingAuthorisationListRequest(
+                           [ RoamingAuthorisationInfo ],
 
-                                                                                                        Timestamp,
-                                                                                                        CancellationToken,
-                                                                                                        EventTrackingId,
-                                                                                                        RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -261,26 +289,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="RoamingAuthorisationInfos">An enumeration of roaming authorisation infos.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<UpdateRoamingAuthorisationListResponse>>
 
             UpdateRoamingAuthorisationList(this IEMPClient                        IEMPClient,
                                            IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
                                            DateTime?                              Timestamp           = null,
-                                           CancellationToken                      CancellationToken   = default,
-                                           EventTracking_Id                       EventTrackingId     = null,
-                                           TimeSpan?                              RequestTimeout      = null)
+                                           EventTracking_Id?                      EventTrackingId     = null,
+                                           TimeSpan?                              RequestTimeout      = null,
+                                           CancellationToken                      CancellationToken   = default)
 
 
-                => IEMPClient?.UpdateRoamingAuthorisationList(new UpdateRoamingAuthorisationListRequest(RoamingAuthorisationInfos,
+                => IEMPClient.UpdateRoamingAuthorisationList(
+                       new UpdateRoamingAuthorisationListRequest(
+                           RoamingAuthorisationInfos,
 
-                                                                                                        Timestamp,
-                                                                                                        CancellationToken,
-                                                                                                        EventTrackingId,
-                                                                                                        RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -293,26 +325,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="CDRStatus">The status of the requested charge detail records.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<GetCDRsResponse>>
 
             GetCDRs(this IEMPClient     IEMPClient,
                     CDRStatus?          CDRStatus           = null,
 
                     DateTime?           Timestamp           = null,
-                    CancellationToken   CancellationToken   = default,
-                    EventTracking_Id    EventTrackingId     = null,
-                    TimeSpan?           RequestTimeout      = null)
+                    EventTracking_Id?   EventTrackingId     = null,
+                    TimeSpan?           RequestTimeout      = null,
+                    CancellationToken   CancellationToken   = default)
 
 
-                => IEMPClient?.GetCDRs(new GetCDRsRequest(CDRStatus,
+                => IEMPClient.GetCDRs(
+                       new GetCDRsRequest(
+                           CDRStatus,
 
-                                                          Timestamp,
-                                                          CancellationToken,
-                                                          EventTrackingId,
-                                                          RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -325,28 +361,32 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Declined">An enumeration of declined charge detail records.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<ConfirmCDRsResponse>>
 
-            ConfirmCDRs(this IEMPClient           IEMPClient,
-                        IEnumerable<EVSECDRPair>  Approved           = null,
-                        IEnumerable<EVSECDRPair>  Declined           = null,
+            ConfirmCDRs(this IEMPClient            IEMPClient,
+                        IEnumerable<EVSECDRPair>?  Approved            = null,
+                        IEnumerable<EVSECDRPair>?  Declined            = null,
 
-                        DateTime?                 Timestamp          = null,
-                        CancellationToken         CancellationToken  = default,
-                        EventTracking_Id?         EventTrackingId    = null,
-                        TimeSpan?                 RequestTimeout     = null)
+                        DateTime?                  Timestamp           = null,
+                        EventTracking_Id?          EventTrackingId     = null,
+                        TimeSpan?                  RequestTimeout      = null,
+                        CancellationToken          CancellationToken   = default)
 
 
-                => IEMPClient?.ConfirmCDRs(new ConfirmCDRsRequest(Approved,
-                                                                  Declined,
+                => IEMPClient.ConfirmCDRs(
+                       new ConfirmCDRsRequest(
+                           Approved,
+                           Declined,
 
-                                                                  Timestamp,
-                                                                  CancellationToken,
-                                                                  EventTrackingId,
-                                                                  RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -361,26 +401,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="ProviderEndpoints">An enumeration of provider endpoints.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<AddServiceEndpointsResponse>>
 
             AddServiceEndpoints(this IEMPClient                IEMPClient,
                                 IEnumerable<ProviderEndpoint>  ProviderEndpoints,
 
                                 DateTime?                      Timestamp           = null,
-                                CancellationToken              CancellationToken   = default,
-                                EventTracking_Id               EventTrackingId     = null,
-                                TimeSpan?                      RequestTimeout      = null)
+                                EventTracking_Id?              EventTrackingId     = null,
+                                TimeSpan?                      RequestTimeout      = null,
+                                CancellationToken              CancellationToken   = default)
 
 
-                => IEMPClient?.AddServiceEndpoints(new AddServiceEndpointsRequest(ProviderEndpoints,
+                => IEMPClient.AddServiceEndpoints(
+                       new AddServiceEndpointsRequest(
+                           ProviderEndpoints,
 
-                                                                                  Timestamp,
-                                                                                  CancellationToken,
-                                                                                  EventTrackingId,
-                                                                                  RequestTimeout ?? IEMPClient.RequestTimeout));
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 
@@ -390,22 +434,26 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Download OCHPdirect provider endpoints.
         /// </summary>
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public static Task<HTTPResponse<GetServiceEndpointsResponse>>
 
             GetServiceEndpoints(this IEMPClient     IEMPClient,
                                 DateTime?           Timestamp           = null,
-                                CancellationToken   CancellationToken   = default,
-                                EventTracking_Id    EventTrackingId     = null,
-                                TimeSpan?           RequestTimeout      = null)
+                                EventTracking_Id?   EventTrackingId     = null,
+                                TimeSpan?           RequestTimeout      = null,
+                                CancellationToken   CancellationToken   = default)
 
 
-                => IEMPClient?.GetServiceEndpoints(new GetServiceEndpointsRequest(Timestamp,
-                                                                                  CancellationToken,
-                                                                                  EventTrackingId,
-                                                                                  RequestTimeout ?? IEMPClient.RequestTimeout));
+                => IEMPClient.GetServiceEndpoints(
+                       new GetServiceEndpointsRequest(
+                           Timestamp,
+                           EventTrackingId,
+                           RequestTimeout ?? IEMPClient.RequestTimeout,
+                           CancellationToken
+                       )
+                   );
 
         #endregion
 

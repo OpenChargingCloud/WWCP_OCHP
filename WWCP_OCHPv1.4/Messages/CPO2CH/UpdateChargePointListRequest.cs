@@ -17,11 +17,7 @@
 
 #region Usings
 
-using System;
-using System.Linq;
 using System.Xml.Linq;
-using System.Threading;
-using System.Collections.Generic;
 
 using org.GraphDefined.Vanaheimr.Illias;
 
@@ -53,20 +49,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="ChargePointInfos">An enumeration of charge point infos.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public UpdateChargePointListRequest(IEnumerable<ChargePointInfo>  ChargePointInfos,
 
                                             DateTime?                     Timestamp           = null,
-                                            CancellationToken             CancellationToken   = default,
                                             EventTracking_Id?             EventTrackingId     = null,
-                                            TimeSpan?                     RequestTimeout      = null)
+                                            TimeSpan?                     RequestTimeout      = null,
+                                            CancellationToken             CancellationToken   = default)
 
             : base(Timestamp,
-                   CancellationToken,
                    EventTrackingId,
-                   RequestTimeout)
+                   RequestTimeout,
+                   CancellationToken)
 
         {
 

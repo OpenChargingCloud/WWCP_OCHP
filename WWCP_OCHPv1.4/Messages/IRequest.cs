@@ -33,12 +33,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The optional timestamp of the request.
         /// </summary>
-        DateTime?          Timestamp            { get; }
-
-        /// <summary>
-        /// An optional token to cancel this request.
-        /// </summary>
-        CancellationToken  CancellationToken    { get; }
+        DateTime           Timestamp            { get; }
 
         /// <summary>
         /// An optional event tracking identification for correlating this request with other events.
@@ -49,6 +44,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// An optional timeout for this request.
         /// </summary>
         TimeSpan?          RequestTimeout       { get; }
+
+        /// <summary>
+        /// An optional token to cancel this request.
+        /// </summary>
+        CancellationToken  CancellationToken    { get; }
 
     }
 

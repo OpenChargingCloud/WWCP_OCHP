@@ -60,7 +60,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// An optional description of this CPO client.
         /// </summary>
-        String?                              IHTTPClient.Description
+        I18NString                           IHTTPClient.Description
         {
 
             get

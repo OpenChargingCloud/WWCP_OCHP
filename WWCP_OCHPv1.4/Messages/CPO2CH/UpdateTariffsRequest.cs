@@ -53,24 +53,24 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="TariffInfos">An enumeration of tariff infos.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public UpdateTariffsRequest(IEnumerable<TariffInfo>  TariffInfos,
 
                                     DateTime?                Timestamp           = null,
-                                    CancellationToken        CancellationToken   = default,
                                     EventTracking_Id?        EventTrackingId     = null,
-                                    TimeSpan?                RequestTimeout      = null)
+                                    TimeSpan?                RequestTimeout      = null,
+                                    CancellationToken        CancellationToken   = default)
 
             : base(Timestamp,
-                   CancellationToken,
                    EventTrackingId,
-                   RequestTimeout)
+                   RequestTimeout,
+                   CancellationToken)
 
         {
 
-            this.TariffInfos = TariffInfos ?? new TariffInfo[0];
+            this.TariffInfos = TariffInfos ?? [];
 
         }
 
