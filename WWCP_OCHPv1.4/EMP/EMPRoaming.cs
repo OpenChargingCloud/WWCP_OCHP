@@ -155,6 +155,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         DNSClient IHTTPClient.DNSClient
             => EMPClient.DNSClient;
 
+        Boolean IHTTPClient.Connected
+            => EMPClient.Connected;
+
+        IIPAddress? IHTTPClient.RemoteIPAddress
+            => EMPClient.RemoteIPAddress;
+
         #endregion
 
         /// <summary>

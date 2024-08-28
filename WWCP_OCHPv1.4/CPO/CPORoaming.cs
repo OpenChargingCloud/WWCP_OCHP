@@ -153,6 +153,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         DNSClient                            IHTTPClient.DNSClient
             => CPOClient.DNSClient;
 
+        Boolean IHTTPClient.Connected
+            => CPOClient.Connected;
+
+        IIPAddress? IHTTPClient.RemoteIPAddress
+            => CPOClient.RemoteIPAddress;
+
         #endregion
 
         /// <summary>
