@@ -496,8 +496,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                 var majorStatus   = Request.QueryString.TryParseEnum<EVSEMajorStatusTypes>("majorstatus");
                 var minorStatus   = Request.QueryString.TryParseEnum<EVSEMinorStatusTypes>("minorstatus");
                 var WWCPStatus    = majorStatus.HasValue && minorStatus.HasValue
-                                        ? new WWCP.EVSEStatusTypes?(OCHPv1_4.OCHPMapper.AsWWCPEVSEStatus(majorStatus.Value, minorStatus.Value))
-                                        : new WWCP.EVSEStatusTypes?();
+                                        ? new WWCP.EVSEStatusType?(OCHPv1_4.OCHPMapper.AsWWCPEVSEStatus(majorStatus.Value, minorStatus.Value))
+                                        : new WWCP.EVSEStatusType?();
 
                 var statusFilter  = WWCPStatus.HasValue
                                         ? Request.QueryString.CreateEnumFilter<IEVSE, EVSEMajorStatusTypes>("majorstatus",
@@ -635,8 +635,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                 var majorStatus   = Request.QueryString.TryParseEnum<EVSEMajorStatusTypes>("majorstatus");
                 var minorStatus   = Request.QueryString.TryParseEnum<EVSEMinorStatusTypes>("minorstatus");
                 var WWCPStatus    = majorStatus.HasValue && minorStatus.HasValue
-                                        ? new WWCP.EVSEStatusTypes?(OCHPv1_4.OCHPMapper.AsWWCPEVSEStatus(majorStatus.Value, minorStatus.Value))
-                                        : new WWCP.EVSEStatusTypes?();
+                                        ? new WWCP.EVSEStatusType?(OCHPv1_4.OCHPMapper.AsWWCPEVSEStatus(majorStatus.Value, minorStatus.Value))
+                                        : new WWCP.EVSEStatusType?();
 
                 var statusFilter  = WWCPStatus.HasValue
                                         ? Request.QueryString.CreateEnumFilter<IEVSE, EVSEMajorStatusTypes>("majorstatus",

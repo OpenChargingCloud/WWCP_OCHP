@@ -40,7 +40,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="EVSEMajorStatus">An OCHP EVSE major status.</param>
         /// <param name="EVSEMinorStatus">An OCHP EVSE minor status.</param>
         /// <returns>The corresponding WWCP EVSE status.</returns>
-        public static EVSEStatusTypes AsWWCPEVSEStatus(EVSEMajorStatusTypes  EVSEMajorStatus,
+        public static EVSEStatusType AsWWCPEVSEStatus(EVSEMajorStatusTypes  EVSEMajorStatus,
                                                        EVSEMinorStatusTypes  EVSEMinorStatus)
         {
 
@@ -52,10 +52,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                     {
 
                         case EVSEMinorStatusTypes.Available:
-                            return EVSEStatusTypes.Available;
+                            return EVSEStatusType.Available;
 
                         default:
-                            return EVSEStatusTypes.Unspecified;
+                            return EVSEStatusType.Unspecified;
 
                     }
 
@@ -65,16 +65,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                     {
 
                         case EVSEMinorStatusTypes.Available:
-                            return EVSEStatusTypes.Available;
+                            return EVSEStatusType.Available;
 
                         default:
-                            return EVSEStatusTypes.Unspecified;
+                            return EVSEStatusType.Unspecified;
 
                     }
 
 
                 default:
-                    return EVSEStatusTypes.Unspecified;
+                    return EVSEStatusType.Unspecified;
 
             }
 
@@ -89,10 +89,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EVSEStatusType">An WWCP EVSE status.</param>
         /// <returns>The corresponding OCHP EVSE major status.</returns>
-        public static EVSEMajorStatusTypes AsEVSEMajorStatus(this EVSEStatusTypes EVSEStatusType)
+        public static EVSEMajorStatusTypes AsEVSEMajorStatus(this EVSEStatusType EVSEStatusType)
         {
 
-            if (EVSEStatusType == EVSEStatusTypes.Available)
+            if (EVSEStatusType == EVSEStatusType.Available)
                 return EVSEMajorStatusTypes.Available;
 
             else
@@ -109,18 +109,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EVSEStatusType">An WWCP EVSE status.</param>
         /// <returns>The corresponding OCHP EVSE minor status.</returns>
-        public static EVSEMinorStatusTypes AsEVSEMinorStatus(this EVSEStatusTypes EVSEStatusType)
+        public static EVSEMinorStatusTypes AsEVSEMinorStatus(this EVSEStatusType EVSEStatusType)
         {
 
             // Unused: EVSEMinorStatusTypes.Blocked;
 
-            if (EVSEStatusType == EVSEStatusTypes.Available)
+            if (EVSEStatusType == EVSEStatusType.Available)
                 return EVSEMinorStatusTypes.Available;
 
-            else if (EVSEStatusType == EVSEStatusTypes.Reserved)
+            else if (EVSEStatusType == EVSEStatusType.Reserved)
                 return EVSEMinorStatusTypes.Reserved;
 
-            else if (EVSEStatusType == EVSEStatusTypes.Charging)
+            else if (EVSEStatusType == EVSEStatusType.Charging)
                 return EVSEMinorStatusTypes.Charging;
 
             else
