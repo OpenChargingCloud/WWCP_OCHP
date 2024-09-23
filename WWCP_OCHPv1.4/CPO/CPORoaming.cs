@@ -24,6 +24,7 @@ using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+using System.Net.Mime;
 
 #endregion
 
@@ -41,7 +42,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The CPO client.
         /// </summary>
-        public CPOClient        CPOClient         { get; }
+        public CPOClient             CPOClient         { get; }
 
         #region ICPOClient
 
@@ -98,6 +99,30 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         Boolean                              IHTTPClient.PreferIPv4
             => CPOClient.PreferIPv4;
+
+        /// <summary>
+        /// The optional HTTP connection type.
+        /// </summary>
+        ConnectionType?                      IHTTPClient.Connection
+            => CPOClient.Connection;
+
+        /// <summary>
+        /// The optional HTTP content type.
+        /// </summary>
+        HTTPContentType?                     IHTTPClient.ContentType
+            => CPOClient.ContentType;
+
+        /// <summary>
+        /// The optional HTTP accept header.
+        /// </summary>
+        AcceptTypes?                         IHTTPClient.Accept
+            => CPOClient.Accept;
+
+        /// <summary>
+        /// The optional HTTP authentication to use.
+        /// </summary>
+        IHTTPAuthentication?                 IHTTPClient.Authentication
+            => CPOClient.Authentication;
 
         /// <summary>
         /// The HTTP user agent identification.
@@ -164,7 +189,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The CPO server.
         /// </summary>
-        public CPOServer        CPOServer           { get; }
+        public CPOServer             CPOServer           { get; }
+
 
 
         /// <summary>

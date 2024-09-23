@@ -100,11 +100,34 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         Boolean                              IHTTPClient.PreferIPv4
             => EMPClient.PreferIPv4;
 
+        /// <summary>
+        /// The optional HTTP connection type.
+        /// </summary>
+        ConnectionType?                      IHTTPClient.Connection
+            => EMPClient.Connection;
+
+        /// <summary>
+        /// The optional HTTP content type.
+        /// </summary>
+        HTTPContentType?                     IHTTPClient.ContentType
+            => EMPClient.ContentType;
+
+        /// <summary>
+        /// The optional HTTP accept header.
+        /// </summary>
+        AcceptTypes?                         IHTTPClient.Accept
+            => EMPClient.Accept;
+
+        /// <summary>
+        /// The optional HTTP authentication to use.
+        /// </summary>
+        IHTTPAuthentication?                 IHTTPClient.Authentication
+            => EMPClient.Authentication;
 
         /// <summary>
         /// The HTTP user agent identification.
         /// </summary>
-        String IHTTPClient.HTTPUserAgent
+        String                               IHTTPClient.HTTPUserAgent
             => EMPClient.HTTPUserAgent;
 
         /// <summary>
@@ -1468,6 +1491,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="RemoteCertificateValidator">The remote TLS certificate validator.</param>
         /// <param name="ClientCertificateSelector">A delegate to select a TLS client certificate.</param>
         /// <param name="ClientCert">The TLS client certificate to use of HTTP authentication.</param>
+        /// <param name="Accept">The optional HTTP accept header.</param>
+        /// <param name="HTTPAuthentication">The optional HTTP authentication to use, e.g. HTTP Basic Auth.</param>
         /// <param name="HTTPUserAgent">The HTTP user agent identification.</param>
         /// <param name="URLPathPrefix">An optional default URL path prefix.</param>
         /// <param name="WSSLoginPassword">The WebService-Security username/password.</param>
@@ -1499,12 +1524,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                           LocalCertificateSelectionHandler?                          ClientCertificateSelector       = null,
                           X509Certificate?                                           ClientCert                      = null,
                           SslProtocols?                                              TLSProtocol                     = null,
-                          String?                                                    HTTPUserAgent                   = null,
+                          AcceptTypes?                                               Accept                          = null,
                           IHTTPAuthentication?                                       HTTPAuthentication              = null,
+                          String?                                                    HTTPUserAgent                   = null,
                           HTTPPath?                                                  URLPathPrefix                   = null,
                           HTTPPath?                                                  LiveURLPathPrefix               = null,
                           Tuple<String, String>?                                     WSSLoginPassword                = null,
-                          HTTPContentType?                                           HTTPContentType                 = null,
                           TimeSpan?                                                  RequestTimeout                  = null,
                           TransmissionRetryDelayDelegate?                            TransmissionRetryDelay          = null,
                           UInt16?                                                    MaxNumberOfRetries              = null,
@@ -1537,12 +1562,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                        ClientCertificateSelector,
                        ClientCert,
                        TLSProtocol,
-                       HTTPUserAgent,
+                       Accept,
                        HTTPAuthentication,
+                       HTTPUserAgent,
                        URLPathPrefix,
                        LiveURLPathPrefix,
                        WSSLoginPassword,
-                       HTTPContentType,
                        RequestTimeout,
                        TransmissionRetryDelay,
                        MaxNumberOfRetries,

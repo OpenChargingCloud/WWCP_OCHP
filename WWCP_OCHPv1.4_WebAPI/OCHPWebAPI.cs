@@ -364,10 +364,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                     return Task.FromResult(
                         new HTTPResponse.Builder(Request) {
                             HTTPStatusCode   = HTTPStatusCode.Unauthorized,
-                            WWWAuthenticate  = @"Basic realm=""" + HTTPRealm + @"""",
+                            WWWAuthenticate  = WWWAuthenticate.Basic(HTTPRealm),
                             Server           = HTTPServer.DefaultServerName,
                             Date             = DateTime.Now,
-                            Connection       = "close"
+                            Connection       = ConnectionType.Close
                         }.AsImmutable);
 
                 }
@@ -468,10 +468,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                     return Task.FromResult(
                         new HTTPResponse.Builder(Request) {
                             HTTPStatusCode   = HTTPStatusCode.Unauthorized,
-                            WWWAuthenticate  = @"Basic realm=""" + HTTPRealm + @"""",
+                            WWWAuthenticate  = WWWAuthenticate.Basic(HTTPRealm),
                             Server           = HTTPServer.DefaultServerName,
                             Date             = DateTime.Now,
-                            Connection       = "close"
+                            Connection       = ConnectionType.Close
                         }.AsImmutable);
 
                 }
@@ -607,10 +607,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                     return Task.FromResult(
                         new HTTPResponse.Builder(Request) {
                             HTTPStatusCode   = HTTPStatusCode.Unauthorized,
-                            WWWAuthenticate  = @"Basic realm=""" + HTTPRealm + @"""",
+                            WWWAuthenticate  = WWWAuthenticate.Basic(HTTPRealm),
                             Server           = HTTPServer.DefaultServerName,
                             Date             = DateTime.Now,
-                            Connection       = "close"
+                            Connection       = ConnectionType.Close
                         }.AsImmutable);
 
                 }
