@@ -77,11 +77,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The attached HTTP client logger.
         /// </summary>
-        public new Logger HTTPLogger
+        public new HTTP_Logger HTTPLogger
         {
             get
             {
-                return base.HTTPLogger as Logger;
+                return base.HTTPLogger as HTTP_Logger;
             }
             set
             {
@@ -983,7 +983,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                          I18NString?                                                Description                  = null,
                          Boolean?                                                   PreferIPv4                   = null,
                          RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator   = null,
-                         LocalCertificateSelectionHandler?                          LocalCertificateSelector    = null,
+                         LocalCertificateSelectionHandler?                          LocalCertificateSelector     = null,
                          X509Certificate?                                           ClientCert                   = null,
                          SslProtocols?                                              TLSProtocol                  = null,
                          HTTPContentType?                                           ContentType                  = null,
@@ -1000,7 +1000,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                          UInt32?                                                    InternalBufferSize           = null,
                          Boolean?                                                   DisableLogging               = false,
                          String?                                                    LoggingPath                  = null,
-                         String                                                     LoggingContext               = Logger.DefaultContext,
+                         String                                                     LoggingContext               = HTTP_Logger.DefaultContext,
                          LogfileCreatorDelegate?                                    LogfileCreator               = null,
                          DNSClient?                                                 DNSClient                    = null)
 
@@ -1033,7 +1033,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             this.LiveURLPathPrefix  = LiveURLPathPrefix ?? DefaultLiveURLPathPrefix;
 
             base.HTTPLogger         = this.DisableLogging == false
-                                          ? new Logger(
+                                          ? new HTTP_Logger(
                                                 this,
                                                 LoggingPath,
                                                 LoggingContext,
@@ -1130,11 +1130,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 {
 
                     result = await ochpClient.Query(_CustomSetChargePointListSOAPRequestMapper(Request,
-                                                                                                SOAP.Encapsulation(
-                                                                                                    WSSLoginPassword.Item1,
-                                                                                                    WSSLoginPassword.Item2,
-                                                                                                    Request.ToXML()
-                                                                                                )),
+                                                                                               SOAP.Encapsulation(
+                                                                                                   WSSLoginPassword.Item1,
+                                                                                                   WSSLoginPassword.Item2,
+                                                                                                   Request.ToXML()
+                                                                                               )),
                                                      "http://ochp.eu/1.4/SetChargepointList",
                                                      RequestLogDelegate:   OnSetChargePointListSOAPRequest,
                                                      ResponseLogDelegate:  OnSetChargePointListSOAPResponse,
@@ -1601,26 +1601,26 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 {
 
                     result = await ochpClient.Query(_CustomUpdateStatusSOAPRequestMapper(Request,
-                                                                                          SOAP.Encapsulation(
-                                                                                              WSSLoginPassword.Item1,
-                                                                                              WSSLoginPassword.Item2,
-                                                                                              Request.ToXML()
-                                                                                          )),
-                                                     "http://ochp.e-clearing.net/service/UpdateStatus",
-                                                     RequestLogDelegate:   OnUpdateStatusSOAPRequest,
-                                                     ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
-                                                     CancellationToken:    Request.CancellationToken,
-                                                     EventTrackingId:      Request.EventTrackingId,
-                                                     RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
-                                                     NumberOfRetry:        TransmissionRetry,
+                                                                                         SOAP.Encapsulation(
+                                                                                             WSSLoginPassword.Item1,
+                                                                                             WSSLoginPassword.Item2,
+                                                                                             Request.ToXML()
+                                                                                         )),
+                                                    "http://ochp.e-clearing.net/service/UpdateStatus",
+                                                    RequestLogDelegate:   OnUpdateStatusSOAPRequest,
+                                                    ResponseLogDelegate:  OnUpdateStatusSOAPResponse,
+                                                    CancellationToken:    Request.CancellationToken,
+                                                    EventTrackingId:      Request.EventTrackingId,
+                                                    RequestTimeout:       Request.RequestTimeout ?? RequestTimeout,
+                                                    NumberOfRetry:        TransmissionRetry,
 
-                                                     #region OnSuccess
+                                                    #region OnSuccess
 
                                                      OnSuccess: XMLResponse => XMLResponse.ConvertContent(Request, UpdateStatusResponse.Parse),
 
                                                      #endregion
 
-                                                     #region OnSOAPFault
+                                                    #region OnSOAPFault
 
                                                      OnSOAPFault: (timestamp, soapclient, httpresponse) => {
 
@@ -1641,7 +1641,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      #endregion
 
-                                                     #region OnHTTPError
+                                                    #region OnHTTPError
 
                                                      OnHTTPError: (timestamp, soapclient, httpresponse) => {
 
@@ -1683,7 +1683,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      #endregion
 
-                                                     #region OnException
+                                                    #region OnException
 
                                                      OnException: (timestamp, sender, exception) => {
 
@@ -1706,7 +1706,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      #endregion
 
-                                                    );
+                                                   );
 
                 }
 

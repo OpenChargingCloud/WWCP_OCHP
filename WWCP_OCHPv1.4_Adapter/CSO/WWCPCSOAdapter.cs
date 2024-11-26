@@ -483,75 +483,79 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             lock (_Lookup)
             {
 
-                var elements                          = new String[0];
-
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar.ToString() + "OCHPv1.4");
+                var elements                          = Array.Empty<String>();
 
                 EMT_Id       EMTId       = default;
                 Contract_Id  ContractId  = default;
 
-                foreach (var inputfile in Directory.EnumerateFiles(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar.ToString() + "OCHPv1.4",
-                                                                   "EMTIds_2_ContractIds_*.log",
-                                                                   SearchOption.TopDirectoryOnly))
+                var path = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar.ToString() + "OCHPv1.4";
+
+                if (Directory.Exists(path))
                 {
 
-                    foreach (var line in File.ReadLines(inputfile))
+                    foreach (var inputfile in Directory.EnumerateFiles(path,
+                                                                       "EMTIds_2_ContractIds_*.log",
+                                                                       SearchOption.TopDirectoryOnly))
                     {
 
-                        try
+                        foreach (var line in File.ReadLines(inputfile))
                         {
 
-                            if (!line.StartsWith("#") && !line.StartsWith("//") && !line.IsNullOrEmpty())
+                            try
                             {
 
-                                elements = line.Split(rs, StringSplitOptions.None);
-
-                                if (elements.Length == 3)
+                                if (!line.StartsWith("#") && !line.StartsWith("//") && !line.IsNullOrEmpty())
                                 {
 
-                                    EMTId       = new EMT_Id(elements[1]?.Trim(),
-                                                             TokenRepresentations.Plain,
-                                                             TokenTypes.RFID,
-                                                             TokenSubTypes.MifareClassic);
+                                    elements = line.Split(rs, StringSplitOptions.None);
 
-                                    ContractId  = Contract_Id.Parse(elements[2]);
-
-                                    if (!_Lookup.ContainsKey(EMTId))
-                                        _Lookup.Add(EMTId, ContractId);
-
-                                    else
+                                    if (elements.Length == 3)
                                     {
 
-                                        if (_Lookup[EMTId] != ContractId)
+                                        EMTId       = new EMT_Id(elements[1]?.Trim(),
+                                                                 TokenRepresentations.Plain,
+                                                                 TokenTypes.RFID,
+                                                                 TokenSubTypes.MifareClassic);
+
+                                        ContractId  = Contract_Id.Parse(elements[2]);
+
+                                        if (!_Lookup.ContainsKey(EMTId))
+                                            _Lookup.Add(EMTId, ContractId);
+
+                                        else
                                         {
+
+                                            if (_Lookup[EMTId] != ContractId)
+                                            {
+
+                                            }
 
                                         }
 
                                     }
 
+                                    else if (elements.Length == 5)
+                                        _Lookup.Add(new EMT_Id(elements[0]?.Trim(),
+                                                               (TokenRepresentations) Enum.Parse(typeof(TokenRepresentations), elements[1]?.Trim(), ignoreCase: true),
+                                                               (TokenTypes)           Enum.Parse(typeof(TokenTypes),           elements[2]?.Trim(), ignoreCase: true),
+                                                               elements[3]?.Trim().IsNotNullOrEmpty() == true
+                                                                   ? new TokenSubTypes?((TokenSubTypes) Enum.Parse(typeof(TokenSubTypes), elements[3]?.Trim(), ignoreCase: true))
+                                                                   : null),
+                                                    Contract_Id.Parse(elements[4]));
+
                                 }
 
-                                else if (elements.Length == 5)
-                                    _Lookup.Add(new EMT_Id(elements[0]?.Trim(),
-                                                           (TokenRepresentations) Enum.Parse(typeof(TokenRepresentations), elements[1]?.Trim(), ignoreCase: true),
-                                                           (TokenTypes)           Enum.Parse(typeof(TokenTypes),           elements[2]?.Trim(), ignoreCase: true),
-                                                           elements[3]?.Trim().IsNotNullOrEmpty() == true
-                                                               ? new TokenSubTypes?((TokenSubTypes) Enum.Parse(typeof(TokenSubTypes), elements[3]?.Trim(), ignoreCase: true))
-                                                               : null),
-                                                Contract_Id.Parse(elements[4]));
-
+                            }
+                            catch (Exception e)
+                            {
+                                DebugX.Log("Could not read logfile " + inputfile + @""": " + e.Message);
                             }
 
-                        }
-                        catch (Exception e)
-                        {
-                            DebugX.Log("Could not read logfile " + inputfile + @""": " + e.Message);
                         }
 
                     }
 
                 }
-
 
             }
 

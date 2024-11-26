@@ -36,7 +36,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The OCHP CPO HTTP/SOAP client logger.
         /// </summary>
-        public class Logger : HTTPClientLogger
+        public class HTTP_Logger : HTTPClientLogger
         {
 
             #region Data
@@ -44,7 +44,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             /// <summary>
             /// The default context for this logger.
             /// </summary>
-            public const String DefaultContext = "OCHP_CPOClient";
+            public const String DefaultContext = "OCHPCPOClient";
 
             #endregion
 
@@ -53,7 +53,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             /// <summary>
             /// The attached OCHP CPO client.
             /// </summary>
-            public ICPOClient  CPOClient   { get; }
+            public ICPOClient  CPOClient    { get; }
 
             #endregion
 
@@ -68,14 +68,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             /// <param name="LoggingPath">The logging path.</param>
             /// <param name="Context">A context of this API.</param>
             /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
-            public Logger(CPOClient                CPOClient,
-                          String                   LoggingPath,
-                          String                   Context          = DefaultContext,
-                          LogfileCreatorDelegate?  LogfileCreator   = null)
+            public HTTP_Logger(CPOClient                CPOClient,
+                               String?                  LoggingPath      = null,
+                               String?                  Context          = DefaultContext,
+                               LogfileCreatorDelegate?  LogfileCreator   = null)
 
                 : this(CPOClient,
                        LoggingPath,
-                       Context.IsNotNullOrEmpty() ? Context : DefaultContext,
+                       Context is not null && Context.IsNotNullOrEmpty()
+                           ? Context
+                           : DefaultContext,
                        null,
                        null,
                        null,
@@ -112,30 +114,32 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             /// <param name="LogHTTPError_toHTTPSSE">A delegate to log HTTP errors to a HTTP client sent events source.</param>
             /// 
             /// <param name="LogfileCreator">A delegate to create a log file from the given context and log file name.</param>
-            public Logger(ICPOClient                   CPOClient,
-                          String                       LoggingPath,
-                          String                       Context,
+            public HTTP_Logger(ICPOClient                   CPOClient,
+                               String?                      LoggingPath                 = null,
+                               String?                      Context                     = DefaultContext,
 
-                          HTTPRequestLoggerDelegate?   LogHTTPRequest_toConsole    = null,
-                          HTTPResponseLoggerDelegate?  LogHTTPResponse_toConsole   = null,
-                          HTTPRequestLoggerDelegate?   LogHTTPRequest_toDisc       = null,
-                          HTTPResponseLoggerDelegate?  LogHTTPResponse_toDisc      = null,
+                               HTTPRequestLoggerDelegate?   LogHTTPRequest_toConsole    = null,
+                               HTTPResponseLoggerDelegate?  LogHTTPResponse_toConsole   = null,
+                               HTTPRequestLoggerDelegate?   LogHTTPRequest_toDisc       = null,
+                               HTTPResponseLoggerDelegate?  LogHTTPResponse_toDisc      = null,
 
-                          HTTPRequestLoggerDelegate?   LogHTTPRequest_toNetwork    = null,
-                          HTTPResponseLoggerDelegate?  LogHTTPResponse_toNetwork   = null,
-                          HTTPRequestLoggerDelegate?   LogHTTPRequest_toHTTPSSE    = null,
-                          HTTPResponseLoggerDelegate?  LogHTTPResponse_toHTTPSSE   = null,
+                               HTTPRequestLoggerDelegate?   LogHTTPRequest_toNetwork    = null,
+                               HTTPResponseLoggerDelegate?  LogHTTPResponse_toNetwork   = null,
+                               HTTPRequestLoggerDelegate?   LogHTTPRequest_toHTTPSSE    = null,
+                               HTTPResponseLoggerDelegate?  LogHTTPResponse_toHTTPSSE   = null,
 
-                          HTTPResponseLoggerDelegate?  LogHTTPError_toConsole      = null,
-                          HTTPResponseLoggerDelegate?  LogHTTPError_toDisc         = null,
-                          HTTPResponseLoggerDelegate?  LogHTTPError_toNetwork      = null,
-                          HTTPResponseLoggerDelegate?  LogHTTPError_toHTTPSSE      = null,
+                               HTTPResponseLoggerDelegate?  LogHTTPError_toConsole      = null,
+                               HTTPResponseLoggerDelegate?  LogHTTPError_toDisc         = null,
+                               HTTPResponseLoggerDelegate?  LogHTTPError_toNetwork      = null,
+                               HTTPResponseLoggerDelegate?  LogHTTPError_toHTTPSSE      = null,
 
-                          LogfileCreatorDelegate?      LogfileCreator              = null)
+                               LogfileCreatorDelegate?      LogfileCreator              = null)
 
                 : base(CPOClient,
                        LoggingPath,
-                       Context.IsNotNullOrEmpty() ? Context : DefaultContext,
+                       Context is not null && Context.IsNotNullOrEmpty()
+                           ? Context
+                           : DefaultContext,
 
                        LogHTTPRequest_toConsole,
                        LogHTTPResponse_toConsole,

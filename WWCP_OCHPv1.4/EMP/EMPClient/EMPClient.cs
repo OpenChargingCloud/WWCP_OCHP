@@ -79,11 +79,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The attached HTTP client logger.
         /// </summary>
-        public new Logger HTTPLogger
+        public new HTTP_Logger HTTPLogger
         {
             get
             {
-                return base.HTTPLogger as Logger;
+                return base.HTTPLogger as HTTP_Logger;
             }
             set
             {
@@ -1048,7 +1048,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                          UInt32?                                                    InternalBufferSize           = null,
                          Boolean?                                                   DisableLogging               = false,
                          String?                                                    LoggingPath                  = null,
-                         String?                                                    LoggingContext               = Logger.DefaultContext,
+                         String?                                                    LoggingContext               = HTTP_Logger.DefaultContext,
                          LogfileCreatorDelegate?                                    LogfileCreator               = null,
                          DNSClient?                                                 DNSClient                    = null)
 
@@ -1082,7 +1082,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             this._EndpointInfos     = new EndpointInfos();
 
             base.HTTPLogger         = this.DisableLogging == false
-                                          ? new Logger(
+                                          ? new HTTP_Logger(
                                                 this,
                                                 LoggingPath,
                                                 LoggingContext,
