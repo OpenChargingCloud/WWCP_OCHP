@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2014-2024 GraphDefined GmbH <achim.friedland@graphdefined.com>
+ * Copyright (c) 2014-2025 GraphDefined GmbH <achim.friedland@graphdefined.com>
  * This file is part of WWCP OCHP <https://github.com/OpenChargingCloud/WWCP_OCHP>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -1422,26 +1422,63 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
 
 
-        #region Start()
+        #region Start    (EventTrackingId = null)
 
-        public void Start()
+        /// <summary>
+        /// Start this HTTP API.
+        /// </summary>
+        /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
+        public async Task<Boolean> Start(EventTracking_Id? EventTrackingId = null)
         {
-            CPOServer.Start();
+
+            var result = await CPOServer.Start(
+                                   EventTrackingId ?? EventTracking_Id.New
+                               );
+
+            //SendStarted(this, CurrentTimestamp);
+
+            return result;
+
         }
 
         #endregion
 
-        #region Shutdown(Message = null, Wait = true)
+        #region Shutdown (EventTrackingId = null, Message = null, Wait = true)
 
-        public void Shutdown(String Message = null, Boolean Wait = true)
+        /// <summary>
+        /// Shutdown this HTTP API.
+        /// </summary>
+        /// <param name="EventTrackingId">An unique event tracking identification for correlating this request with other events.</param>
+        /// <param name="Message">An optional shutdown message.</param>
+        /// <param name="Wait">Whether to wait for the shutdown to complete.</param>
+        public async virtual Task<Boolean> Shutdown(EventTracking_Id?  EventTrackingId   = null,
+                                                    String?            Message           = null,
+                                                    Boolean            Wait              = true)
         {
-            CPOServer.Shutdown(Message, Wait);
+
+            var result = await CPOServer.Shutdown(
+                                   EventTrackingId ?? EventTracking_Id.New,
+                                   Message,
+                                   Wait
+                               );
+
+            //SendShutdown(this, CurrentTimestamp);
+
+            return result;
+
         }
 
         #endregion
 
-        public void Dispose()
-        { }
+        #region Dispose()
+
+        public virtual void Dispose()
+        {
+            CPOServer.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
 
     }
 
