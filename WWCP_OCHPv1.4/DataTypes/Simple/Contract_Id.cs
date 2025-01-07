@@ -278,15 +278,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
         #endregion
 
-        #region Clone
+        #region Clone()
 
         /// <summary>
         /// Clone this EVSE identification.
         /// </summary>
-        public Contract_Id Clone
+        public Contract_Id Clone()
 
-            => new Contract_Id(ProviderId.Clone,
-                               Suffix);
+            => new (
+                   ProviderId.Clone(),
+                   Suffix.    CloneString()
+               );
 
         #endregion
 

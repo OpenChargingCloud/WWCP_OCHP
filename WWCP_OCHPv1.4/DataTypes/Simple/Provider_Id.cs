@@ -391,16 +391,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
         #endregion
 
-        #region Clone
+        #region Clone()
 
         /// <summary>
         /// Clone this e-mobility provider identification.
         /// </summary>
-        public Provider_Id Clone
+        public Provider_Id Clone()
 
-            => new Provider_Id(CountryCode,
-                               new String(Suffix.ToCharArray()),
-                               Format);
+            => new (
+                   CountryCode.Clone(),
+                   Suffix.     CloneString(),
+                   Format
+               );
 
         #endregion
 

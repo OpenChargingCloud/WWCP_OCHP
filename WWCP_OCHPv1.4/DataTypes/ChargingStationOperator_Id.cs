@@ -292,16 +292,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
         #endregion
 
-        #region Clone
+        #region Clone()
 
         /// <summary>
         /// Clone this charging station operator identification.
         /// </summary>
-        public ChargingStationOperator_Id Clone
+        public ChargingStationOperator_Id Clone()
 
-            => new ChargingStationOperator_Id(CountryCode,
-                                              Suffix,
-                                              Format);
+            => new (
+                   CountryCode.Clone(),
+                   Suffix.     CloneString(),
+                   Format
+               );
 
         #endregion
 

@@ -267,15 +267,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
         #endregion
 
-        #region Clone
+        #region Clone()
 
         /// <summary>
         /// Clone this charging process identification.
         /// </summary>
-        public Direct_Id Clone
+        public Direct_Id Clone()
 
-            => new Direct_Id(OperatorId.Clone,
-                             new String(Suffix.ToCharArray()));
+            => new (
+                   OperatorId.Clone(),
+                   Suffix.    CloneString()
+               );
 
         #endregion
 

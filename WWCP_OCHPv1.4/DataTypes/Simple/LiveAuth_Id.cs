@@ -135,14 +135,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
         #endregion
 
-        #region Clone
+        #region Clone()
 
         /// <summary>
         /// Clone this live authentication identification.
         /// </summary>
-        public LiveAuth_Id Clone
+        public LiveAuth_Id Clone()
 
-            => new LiveAuth_Id(new String(InternalId.ToCharArray()));
+            => new (
+                   InternalId.CloneString()
+               );
 
         #endregion
 
