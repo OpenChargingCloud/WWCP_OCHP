@@ -96,7 +96,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public readonly static   TimeSpan                                       DefaultRequestTimeout = TimeSpan.FromSeconds(30);
 
 
-        private readonly         Dictionary<EMT_Id, Contract_Id>                _Lookup;
+        private readonly         Dictionary<EMT_Id, Contract_Id>                lookup;
 
         private static readonly  Char[] rs                                      = new Char[] { (Char) 30 };
 
@@ -431,14 +431,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (Name.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Name),        "The given roaming provider name must not be null or empty!");
 
-            if (CPORoaming == null)
+            if (CPORoaming is null)
                 throw new ArgumentNullException(nameof(CPORoaming),  "The given OCHP CPO Roaming object must not be null!");
 
             #endregion
-
-            //this.Name                                 = Name;
-            //this._ISendData                           = this as ISendData;
-            //this._ISendStatus                         = this as ISendStatus;
 
             this.CPORoaming                           = CPORoaming;
             this._CustomEVSEIdMapper                  = CustomEVSEIdMapper;
@@ -447,8 +443,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             this._ChargePointInfo2XML                 = ChargePointInfo2XML;
             this._EVSEStatus2XML                      = EVSEStatus2XML;
 
-            //this._IncludeEVSEIds                      = IncludeEVSEIds ?? (evseid => true);
-            //this.IncludeEVSEs                        = IncludeEVSEs   ?? (evse   => true);
             this.IncludeChargePoints                  = IncludeChargePoints ?? (cp => true);
 
             this.ServiceCheckLock                     = new Object();
@@ -457,30 +451,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                      : DefaultServiceCheckEvery.TotalMilliseconds);
             this.ServiceCheckTimer                    = new Timer(ServiceCheck,           null,                           0, _ServiceCheckEvery);
 
-            //this.StatusCheckLock                      = new Object();
-            //this._FlushEVSEStatusUpdatesEvery                    = (UInt32) (StatusCheckEvery.HasValue
-            //                                                         ? StatusCheckEvery.Value.  TotalMilliseconds
-            //                                                         : DefaultStatusCheckEvery. TotalMilliseconds);
-            //this.StatusCheckTimer                     = new Timer(FlushEVSEStatusUpdates, null,                           0, _FlushEVSEStatusUpdatesEvery);
-
             this.EVSEStatusRefreshEvery               = EVSEStatusRefreshEvery ?? DefaultEVSEStatusRefreshEvery;
             this.EVSEStatusRefreshTimer               = new Timer(EVSEStatusRefresh, null, this.EVSEStatusRefreshEvery, this.EVSEStatusRefreshEvery);
 
-            //this.DisablePushData                      = DisablePushData;
-            //this.DisablePushStatus                    = DisablePushStatus;
             this.DisableEVSEStatusRefresh             = DisableEVSEStatusRefresh;
-            //this.DisableAuthentication                = DisableAuthentication;
-            //this.DisableSendChargeDetailRecords       = DisableSendChargeDetailRecords;
 
-            //this.evsesToAddQueue                      = new HashSet<EVSE>();
-            //this.evsesToUpdateQueue                   = new HashSet<EVSE>();
-            //this.evseStatusChangesFastQueue           = new List<EVSEStatusUpdate>();
-            //this.evseStatusChangesDelayedQueue        = new List<EVSEStatusUpdate>();
-            //this.evsesToRemoveQueue                   = new HashSet<EVSE>();
+            this.lookup                               = [];
 
-            this._Lookup                              = new Dictionary<EMT_Id, Contract_Id>();
-
-            lock (_Lookup)
+            lock (lookup)
             {
 
                 var elements                          = Array.Empty<String>();
@@ -519,13 +497,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                         ContractId  = Contract_Id.Parse(elements[2]);
 
-                                        if (!_Lookup.ContainsKey(EMTId))
-                                            _Lookup.Add(EMTId, ContractId);
+                                        if (!lookup.ContainsKey(EMTId))
+                                            lookup.Add(EMTId, ContractId);
 
                                         else
                                         {
 
-                                            if (_Lookup[EMTId] != ContractId)
+                                            if (lookup[EMTId] != ContractId)
                                             {
 
                                             }
@@ -535,13 +513,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                     }
 
                                     else if (elements.Length == 5)
-                                        _Lookup.Add(new EMT_Id(elements[0]?.Trim(),
-                                                               (TokenRepresentations) Enum.Parse(typeof(TokenRepresentations), elements[1]?.Trim(), ignoreCase: true),
-                                                               (TokenTypes)           Enum.Parse(typeof(TokenTypes),           elements[2]?.Trim(), ignoreCase: true),
-                                                               elements[3]?.Trim().IsNotNullOrEmpty() == true
-                                                                   ? new TokenSubTypes?((TokenSubTypes) Enum.Parse(typeof(TokenSubTypes), elements[3]?.Trim(), ignoreCase: true))
-                                                                   : null),
-                                                    Contract_Id.Parse(elements[4]));
+                                        lookup.Add(
+                                            new EMT_Id(
+                                                elements[0]?.Trim() ?? "",
+                                                Enum.Parse<TokenRepresentations>(elements[1]?.Trim() ?? "", ignoreCase: true),
+                                                Enum.Parse<TokenTypes>          (elements[2]?.Trim() ?? "", ignoreCase: true),
+                                                elements[3]?.Trim().IsNotNullOrEmpty() == true
+                                                    ? new TokenSubTypes?(Enum.Parse<TokenSubTypes>(elements[3]?.Trim() ?? "", ignoreCase: true))
+                                                    : null
+                                            ),
+                                            Contract_Id.Parse(elements[4])
+                                        );
 
                                 }
 
@@ -2341,10 +2323,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         ExpiryDate:     response.Content.RoamingAuthorisationInfo.ExpiryDate,
                                                         Runtime:        Runtime);
 
-                    lock (_Lookup)
+                    lock (lookup)
                     {
 
-                        if (_Lookup.TryGetValue(EMTId, out Contract_Id ExistingContractId))
+                        if (lookup.TryGetValue(EMTId, out Contract_Id ExistingContractId))
                         {
 
                             if (ExistingContractId != response.Content.RoamingAuthorisationInfo.ContractId)
@@ -2360,7 +2342,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         {
 
                             // Add
-                            _Lookup.Add(EMTId, response.Content.RoamingAuthorisationInfo.ContractId);
+                            lookup.Add(EMTId, response.Content.RoamingAuthorisationInfo.ContractId);
 
                             var time = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
                             var file = String.Concat(Directory.GetCurrentDirectory(), Path.DirectorySeparatorChar, "OCHPv1.4", Path.DirectorySeparatorChar, "EMTIds_2_ContractIds_", time.ToUniversalTime().Year, "-", time.ToUniversalTime().Month.ToString("D2"), ".log");
@@ -2381,12 +2363,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                            // response.Content.ProviderId.ToWWCP(),
                                                            Runtime: Runtime);
 
-                    lock (_Lookup)
+                    lock (lookup)
                     {
 
                         // Remove
 
-                        _Lookup.Remove(EMTId);
+                        lookup.Remove(EMTId);
 
                     }
 
@@ -2788,7 +2770,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                     chargeDetailRecordsQueue.Add(
                                         chargeDetailRecord.ToOCHP(
-                                            ContractIdDelegate:  emtid => _Lookup[emtid],
+                                            ContractIdDelegate:  emtid => lookup[emtid],
                                             CustomEVSEIdMapper:  null
                                         )
                                     );
@@ -2838,7 +2820,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             {
 
                                 response = await CPORoaming.AddCDRs(
-                                                     ForwardedCDRs.Select(cdr => cdr.ToOCHP(ContractIdDelegate:  emtid => _Lookup[emtid],
+                                                     ForwardedCDRs.Select(cdr => cdr.ToOCHP(ContractIdDelegate:  emtid => lookup[emtid],
                                                                                             CustomEVSEIdMapper:  null)).ToArray(),
 
                                                      Timestamp,

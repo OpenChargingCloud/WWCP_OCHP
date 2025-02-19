@@ -121,7 +121,7 @@ namespace cloud.charging.open.protocols.WWCP
 
             #region Initial checks
 
-            if (RoamingNetwork == null)
+            if (RoamingNetwork is null)
                 throw new ArgumentNullException(nameof(RoamingNetwork),  "The given roaming network must not be null!");
 
             if (Name.IsNullOrEmpty())
@@ -132,53 +132,57 @@ namespace cloud.charging.open.protocols.WWCP
 
             #endregion
 
-            var newRoamingProvider = new WWCPCSOAdapter(Id,
-                                                        Name,
-                                                        Description,
-                                                        RoamingNetwork,
-                                                        CPORoaming,
+            var newRoamingProvider = new WWCPCSOAdapter(
 
-                                                        EVSE2ChargePointInfo,
-                                                        EVSEStatusUpdate2EVSEStatus,
-                                                        ChargePointInfo2XML,
-                                                        EVSEStatus2XML,
+                                         Id,
+                                         Name,
+                                         Description,
+                                         RoamingNetwork,
+                                         CPORoaming,
 
-                                                        IncludeChargingStationIds,
-                                                        IncludeChargingStations,
-                                                        IncludeEVSEIds,
-                                                        IncludeEVSEs,
-                                                        IncludeChargePoints,
+                                         EVSE2ChargePointInfo,
+                                         EVSEStatusUpdate2EVSEStatus,
+                                         ChargePointInfo2XML,
+                                         EVSEStatus2XML,
 
-                                                        CustomEVSEIdMapper,
-                                                        ChargeDetailRecordFilter,
+                                         IncludeChargingStationIds,
+                                         IncludeChargingStations,
+                                         IncludeEVSEIds,
+                                         IncludeEVSEs,
+                                         IncludeChargePoints,
 
-                                                        ServiceCheckEvery,
-                                                        StatusCheckEvery,
-                                                        EVSEStatusRefreshEvery,
-                                                        CDRCheckEvery,
+                                         CustomEVSEIdMapper,
+                                         ChargeDetailRecordFilter,
 
-                                                        DisablePushData,
-                                                        DisablePushStatus,
-                                                        DisableEVSEStatusRefresh,
-                                                        DisableAuthentication,
-                                                        DisableSendChargeDetailRecords,
+                                         ServiceCheckEvery,
+                                         StatusCheckEvery,
+                                         EVSEStatusRefreshEvery,
+                                         CDRCheckEvery,
 
-                                                        EllipticCurve,
-                                                        PrivateKey,
-                                                        PublicKeyCertificates,
+                                         DisablePushData,
+                                         DisablePushStatus,
+                                         DisableEVSEStatusRefresh,
+                                         DisableAuthentication,
+                                         DisableSendChargeDetailRecords,
 
-                                                        IsDevelopment,
-                                                        DevelopmentServers,
-                                                        DisableLogging,
-                                                        LoggingPath,
-                                                        LoggingContext,
-                                                        LogfileName,
-                                                        LogfileCreator,
+                                         EllipticCurve,
+                                         PrivateKey,
+                                         PublicKeyCertificates,
 
-                                                        ClientsLoggingPath,
-                                                        ClientsLoggingContext,
-                                                        ClientsLogfileCreator,
-                                                        DNSClient);
+                                         IsDevelopment,
+                                         DevelopmentServers,
+                                         DisableLogging,
+                                         LoggingPath,
+                                         LoggingContext,
+                                         LogfileName,
+                                         LogfileCreator,
+
+                                         ClientsLoggingPath,
+                                         ClientsLoggingContext,
+                                         ClientsLogfileCreator,
+                                         DNSClient
+
+                                     );
 
             OCHPConfigurator?.Invoke(newRoamingProvider);
 
