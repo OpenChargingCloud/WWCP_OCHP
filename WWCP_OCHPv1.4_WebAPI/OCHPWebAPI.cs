@@ -322,7 +322,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                                                        HTTPAPI:                  null,
                                                                        URLTemplate:              this.URLPathPrefix + "/" + DebugLogId.ToString(),
                                                                        MaxNumberOfCachedEvents:  10000,
-                                                                       RetryIntervall:           TimeSpan.FromSeconds(5),
+                                                                       RetryInterval:            TimeSpan.FromSeconds(5),
                                                                        EnableLogging:            true,
                                                                        LogfilePath:              this.LoggingPath);
 

@@ -25,7 +25,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 {
 
     ///// <summary>
-    ///// A delegate which allows you to modify the convertion from EVSE data records to WWCP EVSEs.
+    ///// A delegate which allows you to modify the conversion from EVSE data records to WWCP EVSEs.
     ///// </summary>
     ///// <param name="EVSEDataRecord">An OCHP EVSE data record.</param>
     ///// <param name="EVSE">A WWCP EVSE.</param>
@@ -33,7 +33,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     //                                                                                           EVSE                     EVSE);
 
     ///// <summary>
-    ///// A delegate which allows you to modify the convertion from EVSE status records to WWCP EVSE status updates.
+    ///// A delegate which allows you to modify the conversion from EVSE status records to WWCP EVSE status updates.
     ///// </summary>
     ///// <param name="EVSEStatusRecord">An OCHP EVSE status record.</param>
     ///// <param name="EVSEStatusUpdate">A WWCP EVSE status update.</param>
@@ -41,7 +41,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     //                                                                                           EVSEStatusUpdate         EVSEStatusUpdate);
 
     ///// <summary>
-    ///// A delegate which allows you to modify the convertion from charge detail records to WWCP charge detail records.
+    ///// A delegate which allows you to modify the conversion from charge detail records to WWCP charge detail records.
     ///// </summary>
     ///// <param name="EVSEStatusRecord">An OCHP charge detail record.</param>
     ///// <param name="EVSEStatus">A WWCP charge detail record.</param>

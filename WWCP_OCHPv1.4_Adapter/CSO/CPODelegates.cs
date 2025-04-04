@@ -157,7 +157,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
 
         /// <summary>
-    /// A delegate which allows you to modify the convertion from WWCP charge detail records to OCHP charge detail records.
+    /// A delegate which allows you to modify the conversion from WWCP charge detail records to OCHP charge detail records.
     /// </summary>
     /// <param name="WWCPChargeDetailRecord">A WWCP charge detail record.</param>
     /// <param name="OCHPChargeDetailRecord">An OCHP charge detail record.</param>
@@ -165,7 +165,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                                           CDRInfo             OCHPChargeDetailRecord);
 
     /// <summary>
-    /// A delegate which allows you to modify the convertion from OCHP charge detail records to WWCP charge detail records.
+    /// A delegate which allows you to modify the conversion from OCHP charge detail records to WWCP charge detail records.
     /// </summary>
     /// <param name="OCHPChargeDetailRecord">An OCHP charge detail record.</param>
     /// <param name="WWCPChargeDetailRecord">A WWCP charge detail record.</param>
