@@ -42,7 +42,7 @@ namespace cloud.charging.open.protocols.WWCP
         /// 
         /// <param name="RoamingNetwork">A WWCP roaming network.</param>
         /// <param name="Id">The unique identification of the roaming provider.</param>
-        /// <param name="Name">The offical (multi-language) name of the roaming provider.</param>
+        /// <param name="Name">The official (multi-language) name of the roaming provider.</param>
         /// <param name="SOAPServer">An optional identification string for the HTTP server.</param>
         /// <param name="ServerURLPrefix">An optional prefix for the HTTP URIs.</param>
         /// 

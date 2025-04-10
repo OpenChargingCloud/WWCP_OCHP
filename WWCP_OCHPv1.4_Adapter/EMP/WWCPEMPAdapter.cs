@@ -368,7 +368,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Create a new WWCP wrapper for the OCHP EMP Roaming client for e-mobility providers/EMPs.
         /// </summary>
         /// <param name="Id">The unique identification of the roaming provider.</param>
-        /// <param name="Name">The offical (multi-language) name of the roaming provider.</param>
+        /// <param name="Name">The official (multi-language) name of the roaming provider.</param>
         /// <param name="RoamingNetwork">A WWCP roaming network.</param>
         /// 
         /// <param name="EMPRoaming">A OCHP EMP roaming object to be mapped to WWCP.</param>

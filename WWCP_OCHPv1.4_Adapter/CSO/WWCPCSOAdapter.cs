@@ -309,7 +309,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// Create a new WWCP wrapper for the OCHP roaming client for Charging Station Operators/CPOs.
         /// </summary>
         /// <param name="Id">The unique identification of the roaming provider.</param>
-        /// <param name="Name">The offical (multi-language) name of the roaming provider.</param>
+        /// <param name="Name">The official (multi-language) name of the roaming provider.</param>
         /// <param name="RoamingNetwork">A WWCP roaming network.</param>
         /// 
         /// <param name="CPORoaming">A OCHP CPO roaming object to be mapped to WWCP.</param>
