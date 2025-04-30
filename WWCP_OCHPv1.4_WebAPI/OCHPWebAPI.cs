@@ -39,7 +39,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 {
 
     /// <summary>
-    /// OCHP+ HTTP API extention methods.
+    /// OCHP+ HTTP API extension methods.
     /// </summary>
     public static class ExtensionMethods
     {
