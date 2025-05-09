@@ -139,7 +139,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
             #region Set
 
-            var Now1                = DateTime.Parse(DateTime.Now.ToIso8601());
+            var Now1                = DateTime.Parse(DateTime.Now.ToISO8601());
 
             var EVSEId1             = EVSE_Id.Parse("DE*GEF*E1234*1");
             var EVSEMajorStatus1_1  = EVSEMajorStatusTypes.Available;

@@ -86,7 +86,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
         public async Task AddCDRsTests1()
         {
 
-            var Now = DateTime.Parse(DateTime.Now.ToIso8601());
+            var Now = DateTime.Parse(DateTime.Now.ToISO8601());
 
             var Response = await CPOClient.AddCDRs(
                                [

@@ -244,7 +244,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                       ReserveUntil.HasValue
                                           ? new XElement(OCHPNS.Default + "reserveUntil",
-                                                new XElement(OCHPNS.Default + "DateTime",  ReserveUntil.Value.ToIso8601())
+                                                new XElement(OCHPNS.Default + "DateTime",  ReserveUntil.Value.ToISO8601())
                                             )
                                           : null
 
@@ -378,7 +378,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                              ContractId,
 
                              ReserveUntil.HasValue
-                                 ? " reserved till " + ReserveUntil.Value.ToIso8601()
+                                 ? " reserved till " + ReserveUntil.Value.ToISO8601()
                                  : "");
 
         #endregion

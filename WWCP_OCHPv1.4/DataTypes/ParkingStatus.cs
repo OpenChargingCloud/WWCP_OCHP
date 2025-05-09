@@ -222,7 +222,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                    new XAttribute(OCHPNS.Default + "status",      XML_IO.AsText(Status)),
 
                    TTL.HasValue
-                       ? new XAttribute(OCHPNS.Default + "ttl",   TTL.Value.ToIso8601())
+                       ? new XAttribute(OCHPNS.Default + "ttl",   TTL.Value.ToISO8601())
                        : null,
 
                    new XElement  (OCHPNS.Default + "parkingId",   ParkingId.ToString())
@@ -357,7 +357,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             => String.Concat("'", ParkingId, "' is '", Status, "'",
                              TTL.HasValue
-                                 ? " till " + TTL.Value.ToIso8601()
+                                 ? " till " + TTL.Value.ToISO8601()
                                  : "");
 
         #endregion

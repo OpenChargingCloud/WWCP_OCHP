@@ -341,7 +341,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                    SessionTimeoutAt.HasValue
                        ? new XElement(OCHPNS.Default + "ttl",
-                             new XElement(OCHPNS.Default + "DateTime", SessionTimeoutAt.Value.ToIso8601())
+                             new XElement(OCHPNS.Default + "DateTime", SessionTimeoutAt.Value.ToISO8601())
                          )
                        : null
 
@@ -488,7 +488,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                  : "",
 
                              SessionTimeoutAt.HasValue
-                                 ? " timeout at " + SessionTimeoutAt.Value.ToIso8601()
+                                 ? " timeout at " + SessionTimeoutAt.Value.ToISO8601()
                                  : "");
 
         #endregion

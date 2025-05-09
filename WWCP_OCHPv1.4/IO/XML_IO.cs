@@ -1874,11 +1874,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             => new XElement(XName ?? OCHPNS.Default + "exceptionalOpenings",
 
                                 new XElement(OCHPNS.Default + "periodBegin",
-                                    new XElement(OCHPNS.Default + "DateTime", ExceptionalPeriod.Begin.ToIso8601())
+                                    new XElement(OCHPNS.Default + "DateTime", ExceptionalPeriod.Begin.ToISO8601())
                                 ),
 
                                 new XElement(OCHPNS.Default + "periodEnd",
-                                    new XElement(OCHPNS.Default + "DateTime", ExceptionalPeriod.End.  ToIso8601())
+                                    new XElement(OCHPNS.Default + "DateTime", ExceptionalPeriod.End.  ToISO8601())
                                 )
 
                             );

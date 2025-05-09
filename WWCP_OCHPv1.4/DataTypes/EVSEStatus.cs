@@ -296,7 +296,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                        : null,
 
                    TTL.HasValue
-                       ? new XAttribute("ttl",     TTL.Value.ToIso8601())
+                       ? new XAttribute("ttl",     TTL.Value.ToISO8601())
                        : null,
 
                    new XElement  (OCHPNS.Default + "evseId",        EVSEId.ToString())
@@ -443,7 +443,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                  : "",
 
                              TTL.HasValue
-                                 ? " till " + TTL.Value.ToIso8601()
+                                 ? " till " + TTL.Value.ToISO8601()
                                  : "");
 
         #endregion

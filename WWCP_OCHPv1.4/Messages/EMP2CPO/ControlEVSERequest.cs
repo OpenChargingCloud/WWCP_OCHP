@@ -340,7 +340,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                       Departure.HasValue
                                           ? new XElement(OCHPNS.Default + "departure",
-                                                new XElement(OCHPNS.Default + "departure",  Departure. Value.ToIso8601())
+                                                new XElement(OCHPNS.Default + "departure",  Departure. Value.ToISO8601())
                                             )
                                           : null
 
@@ -545,7 +545,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                  : "",
 
                              Departure.HasValue
-                                 ? ", depature at " + Departure.Value.ToIso8601()
+                                 ? ", depature at " + Departure.Value.ToISO8601()
                                  : "");
 
         #endregion

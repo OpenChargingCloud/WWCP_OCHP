@@ -236,12 +236,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             => new XElement(OCHPNS.Default + "statusSchedule",
 
                    new XElement(OCHPNS.Default + "startDate",
-                       new XElement(OCHPNS.Default + "DateTime", StartDate.ToIso8601())
+                       new XElement(OCHPNS.Default + "DateTime", StartDate.ToISO8601())
                    ),
 
                    EndDate.HasValue
                        ? new XElement(OCHPNS.Default + "endDate",
-                             new XElement(OCHPNS.Default + "DateTime", EndDate.Value.ToIso8601())
+                             new XElement(OCHPNS.Default + "DateTime", EndDate.Value.ToISO8601())
                          )
                        : null,
 
@@ -261,7 +261,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         public override String ToString()
 
-            => String.Concat(ChargePointStatus, " from ", StartDate.ToIso8601(), EndDate.HasValue ? " to " + EndDate.Value.ToIso8601() : "");
+            => String.Concat(ChargePointStatus, " from ", StartDate.ToISO8601(), EndDate.HasValue ? " to " + EndDate.Value.ToISO8601() : "");
 
         #endregion
 

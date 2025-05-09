@@ -517,11 +517,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                    ),
 
                    new XElement(OCHPNS.Default + "startDateTime",
-                       new XElement(OCHPNS.Default + "LocalDateTime",   StartDateTime.ToIso8601WithOffset(false))
+                       new XElement(OCHPNS.Default + "LocalDateTime",   StartDateTime.ToISO8601WithOffset(false))
                    ),
 
                    new XElement(OCHPNS.Default + "endDateTime",
-                       new XElement(OCHPNS.Default + "LocalDateTime",   EndDateTime.ToIso8601WithOffset(false))
+                       new XElement(OCHPNS.Default + "LocalDateTime",   EndDateTime.ToISO8601WithOffset(false))
                    ),
 
                    Duration.HasValue

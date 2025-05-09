@@ -224,7 +224,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             => new XElement(OCHPNS.Default + "GetChargePointListUpdatesRequest",
                                 new XElement(OCHPNS.Default + "lastUpdate",
                                     new XElement(OCHPNS.Default + "DateTime",
-                                        LastUpdate.ToIso8601(false)
+                                        LastUpdate.ToISO8601(false)
                            )));
 
         #endregion
@@ -345,7 +345,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         public override String ToString()
 
-            => "last update " + LastUpdate.ToIso8601();
+            => "last update " + LastUpdate.ToISO8601();
 
         #endregion
 

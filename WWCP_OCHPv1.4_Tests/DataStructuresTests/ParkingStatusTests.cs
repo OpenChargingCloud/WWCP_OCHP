@@ -72,7 +72,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
         public void ParkingStatus_XMLTest()
         {
 
-            var Now = DateTime.Parse(DateTime.Now.ToIso8601()); // Avoid <ms issues!
+            var Now = DateTime.Parse(DateTime.Now.ToISO8601()); // Avoid <ms issues!
 
             var ParkingStatus1 = new ParkingStatus(Parking_Id.Parse("DE*GEF*P1234"), ParkingStatusTypes.Available);
             ClassicAssert.AreEqual(ParkingStatus1, ParkingStatus.Parse(ParkingStatus1.ToXML()));
@@ -89,7 +89,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
 
             ClassicAssert.AreEqual(new XElement(OCHPNS.Default + "parking",
                                 new XAttribute(OCHPNS.Default + "status",    "not-available"),
-                                new XAttribute(OCHPNS.Default + "ttl",       Now.ToIso8601()),
+                                new XAttribute(OCHPNS.Default + "ttl",       Now.ToISO8601()),
                                 new XElement  (OCHPNS.Default + "parkingId", "DE*GEF*P1234")
                             ).ToString(),
                             ParkingStatus2.ToXML().ToString());
