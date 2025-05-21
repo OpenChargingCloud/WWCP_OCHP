@@ -1567,6 +1567,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     DateTime?           Timestamp           = null,
                     EventTracking_Id?   EventTrackingId     = null,
                     TimeSpan?           RequestTimeout      = null,
+                    User_Id?            CurrentUserId       = null,
                     CancellationToken   CancellationToken   = default)
 
         {
@@ -1665,6 +1666,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             DateTime?           Timestamp           = null,
                             EventTracking_Id?   EventTrackingId     = null,
                             TimeSpan?           RequestTimeout      = null,
+                            User_Id?            CurrentUserId       = null,
                             CancellationToken   CancellationToken   = default)
 
         {
@@ -1772,6 +1774,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                        DateTime?           Timestamp           = null,
                        EventTracking_Id?   EventTrackingId     = null,
                        TimeSpan?           RequestTimeout      = null,
+                       User_Id?            CurrentUserId       = null,
                        CancellationToken   CancellationToken   = default)
 
         {
@@ -1870,6 +1873,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                      DateTime?           Timestamp           = null,
                      EventTracking_Id?   EventTrackingId     = null,
                      TimeSpan?           RequestTimeout      = null,
+                     User_Id?            CurrentUserId       = null,
                      CancellationToken   CancellationToken   = default)
 
         {
@@ -1953,6 +1957,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                              DateTime?           Timestamp           = null,
                              EventTracking_Id?   EventTrackingId     = null,
                              TimeSpan?           RequestTimeout      = null,
+                             User_Id?            CurrentUserId       = null,
                              CancellationToken   CancellationToken   = default)
 
         {
@@ -2038,6 +2043,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         DateTime?           Timestamp           = null,
                         EventTracking_Id?   EventTrackingId     = null,
                         TimeSpan?           RequestTimeout      = null,
+                        User_Id?            CurrentUserId       = null,
                         CancellationToken   CancellationToken   = default)
 
         {
@@ -2086,6 +2092,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                          DateTime?                      Timestamp           = null,
                          EventTracking_Id?              EventTrackingId     = null,
                          TimeSpan?                      RequestTimeout      = null,
+                         User_Id?                       CurrentUserId       = null,
                          CancellationToken              CancellationToken   = default)
 
         {
@@ -3191,6 +3198,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                   now,
                                   eventTrackingId,
                                   null,
+                                  null,
                                   cancellationTokenSource.Token
                               );
 
@@ -3200,6 +3208,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                   TransmissionTypes.Direct,
                                   now,
                                   eventTrackingId,
+                                  null,
                                   null,
                                   cancellationTokenSource.Token
                               );
@@ -3393,6 +3402,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                               Timestamp.Now,
                                                               EventTrackingId,
                                                               DefaultRequestTimeout,
+                                                              null,
                                                               new CancellationTokenSource().Token).
                                                      ConfigureAwait(false);
 
