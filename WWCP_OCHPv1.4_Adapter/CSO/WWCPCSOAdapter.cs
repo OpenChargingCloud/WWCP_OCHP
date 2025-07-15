@@ -67,17 +67,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public  static readonly  ChargingStationOperatorNameSelectorDelegate   DefaultOperatorNameSelector = I18N => I18N.FirstText();
 
                 /// <summary>
-        /// The default service check intervall.
+        /// The default service check interval.
         /// </summary>
         public  readonly static  TimeSpan                                       DefaultServiceCheckEvery       = TimeSpan.FromSeconds(31);
 
         /// <summary>
-        /// The default status check intervall.
+        /// The default status check interval.
         /// </summary>
         public  readonly static  TimeSpan                                       DefaultStatusCheckEvery        = TimeSpan.FromSeconds(3);
 
         /// <summary>
-        /// The default EVSE status refresh intervall.
+        /// The default EVSE status refresh interval.
         /// </summary>
         public  readonly static  TimeSpan                                       DefaultEVSEStatusRefreshEvery  = TimeSpan.FromHours(12);
 
@@ -147,7 +147,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         private UInt32 _ServiceCheckEvery;
 
         /// <summary>
-        /// The service check intervall.
+        /// The service check interval.
         /// </summary>
         public TimeSpan ServiceCheckEvery
         {
@@ -317,9 +317,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="ChargePointInfo2XML">A delegate to process the XML representation of a charge point info, e.g. before pushing it to the roaming provider.</param>
         /// 
         /// <param name="IncludeEVSEs">Only include the EVSEs matching the given delegate.</param>
-        /// <param name="ServiceCheckEvery">The service check intervall.</param>
-        /// <param name="StatusCheckEvery">The status check intervall.</param>
-        /// <param name="EVSEStatusRefreshEvery">The EVSE status refresh intervall.</param>
+        /// <param name="ServiceCheckEvery">The service check interval.</param>
+        /// <param name="StatusCheckEvery">The status check interval.</param>
+        /// <param name="EVSEStatusRefreshEvery">The EVSE status refresh interval.</param>
         /// 
         /// <param name="DisablePushData">This service can be disabled, e.g. for debugging reasons.</param>
         /// <param name="DisablePushStatus">This service can be disabled, e.g. for debugging reasons.</param>
@@ -3638,7 +3638,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     var response = await CPORoaming.
                                              UpdateStatus(AllEVSEStatusRefreshments,
                                                           null,
-                                                          // TTL => 2x refresh intervall
+                                                          // TTL => 2x refresh interval
                                                           org.GraphDefined.Vanaheimr.Illias.Timestamp.Now + EVSEStatusRefreshEvery + EVSEStatusRefreshEvery
 
                                                          //Timestamp,

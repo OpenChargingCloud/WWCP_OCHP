@@ -56,7 +56,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         private readonly        Timer          PullDataServiceTimer;
 
         /// <summary>
-        /// The default status check intervall.
+        /// The default status check interval.
         /// </summary>
         public  readonly static TimeSpan       DefaultPullDataServiceEvery              = TimeSpan.FromMinutes(15);
 
@@ -67,7 +67,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         private readonly        Timer          PullStatusServiceTimer;
 
         /// <summary>
-        /// The default status check intervall.
+        /// The default status check interval.
         /// </summary>
         public  readonly static TimeSpan       DefaultPullStatusServiceEvery            = TimeSpan.FromMinutes(1);
 
@@ -110,7 +110,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public TimeSpan PullDataServiceRequestTimeout { get; }
 
         /// <summary>
-        /// The 'Pull Status' service intervall.
+        /// The 'Pull Status' service interval.
         /// </summary>
         public TimeSpan PullDataServiceEvery
         {
@@ -146,7 +146,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public TimeSpan PullStatusServiceRequestTimeout { get; }
 
         /// <summary>
-        /// The 'Pull Status' service intervall.
+        /// The 'Pull Status' service interval.
         /// </summary>
         public TimeSpan PullStatusServiceEvery
         {

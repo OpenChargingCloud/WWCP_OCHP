@@ -33,7 +33,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
         /// <summary>
         /// The XML namspace for OCHP+ common types.
         /// </summary>
-        public static XNamespace CommonTypes   = "http://ld.charing.cloud/OCHPPlus/CommonTypes/v1.4";
+        public static XNamespace CommonTypes   = "http://ld.charging.cloud/OCHPPlus/CommonTypes/v1.4";
 
     }
 
