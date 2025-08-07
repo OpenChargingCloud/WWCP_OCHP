@@ -69,10 +69,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return CPOClient.Description;
             }
 
-            set
-            {
-                CPOClient.Description = value;
-            }
+            //set
+            //{
+            //    CPOClient.Description = value;
+            //}
 
         }
 
@@ -91,8 +91,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The TLS protocol to use.
         /// </summary>
-        SslProtocols                         IHTTPClient.TLSProtocol
-            => CPOClient.TLSProtocol;
+        SslProtocols                         IHTTPClient.TLSProtocols
+            => CPOClient.TLSProtocols;
 
         /// <summary>
         /// Prefer IPv4 instead of IPv6.
