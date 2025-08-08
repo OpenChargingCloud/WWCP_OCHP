@@ -58,7 +58,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public SetChargePointListRequest(IEnumerable<ChargePointInfo>  ChargePointInfos,
 
-                                         DateTime?                     Timestamp           = null,
+                                         DateTimeOffset?               Timestamp           = null,
                                          EventTracking_Id?             EventTrackingId     = null,
                                          TimeSpan?                     RequestTimeout      = null,
                                          CancellationToken             CancellationToken   = default)

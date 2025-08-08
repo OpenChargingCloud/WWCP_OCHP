@@ -33,7 +33,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The optional timestamp of the request.
         /// </summary>
-        DateTime           Timestamp            { get; }
+        DateTimeOffset     Timestamp            { get; }
 
         /// <summary>
         /// An optional event tracking identification for correlating this request with other events.

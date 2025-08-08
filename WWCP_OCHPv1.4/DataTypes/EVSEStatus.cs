@@ -55,7 +55,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// status value is to be considered valid. Should be set to
         /// the expected status change.
         /// </summary>
-        public DateTime?              TTL           { get; }
+        public DateTimeOffset?        TTL           { get; }
 
         #endregion
 
@@ -71,7 +71,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public EVSEStatus(EVSE_Id                EVSEId,
                           EVSEMajorStatusTypes   MajorStatus,
                           EVSEMinorStatusTypes?  MinorStatus  = null,
-                          DateTime?              TTL          = null)
+                          DateTimeOffset?        TTL          = null)
         {
 
             this.EVSEId       = EVSEId;

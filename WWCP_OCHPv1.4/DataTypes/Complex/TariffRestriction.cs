@@ -45,12 +45,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// Start date, for example: 2015-12-24, valid from this day (midnight, i.e. including this day).
         /// </summary>
-        public DateTime?                  StartDate      { get; }
+        public DateTimeOffset?            StartDate      { get; }
 
         /// <summary>
         /// End date, for example: 2015-12-27, valid until this day (midnight, i.e. excluding this day).
         /// </summary>
-        public DateTime?                  EndDate        { get; }
+        public DateTimeOffset?            EndDate        { get; }
 
         /// <summary>
         /// Minimum used energy in kWh, for example 20.0, valid from this amount of energy is used.
@@ -99,8 +99,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="MinDuration">Minimum duration, valid for the given amount of time.</param>
         /// <param name="MaxDuration">Maximum duration, valid for the given amount of time.</param>
         public TariffRestriction(IEnumerable<RegularHours>  RegularHours,
-                                 DateTime?                  StartDate,
-                                 DateTime?                  EndDate,
+                                 DateTimeOffset?            StartDate,
+                                 DateTimeOffset?            EndDate,
                                  Single?                    MinEnergy,
                                  Single?                    MaxEnergy,
                                  Single?                    MinPower,

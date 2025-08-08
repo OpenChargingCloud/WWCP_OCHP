@@ -73,7 +73,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// Scheduled time of departure.
         /// </summary>
-        public DateTime?         Departure      { get; }
+        public DateTimeOffset?   Departure      { get; }
 
         #endregion
 
@@ -97,7 +97,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                   Boolean?          OnePhase   = null,
                                   Single?           MaxEnergy  = null,
                                   Single?           MinEnergy  = null,
-                                  DateTime?         Departure  = null)
+                                  DateTimeOffset?   Departure  = null)
 
         {
 

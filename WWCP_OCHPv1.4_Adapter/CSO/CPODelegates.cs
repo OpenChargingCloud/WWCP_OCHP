@@ -59,8 +59,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever new charge point infos will be send upstream.
     /// </summary>
-    public delegate void OnSetChargePointInfosWWCPRequestDelegate (DateTime                         LogTimestamp,
-                                                                   DateTime                         RequestTimestamp,
+    public delegate void OnSetChargePointInfosWWCPRequestDelegate (DateTimeOffset                   LogTimestamp,
+                                                                   DateTimeOffset                   RequestTimestamp,
                                                                    Object                           Sender,
                                                                    CSORoamingProvider_Id            SenderId,
                                                                    EventTracking_Id                 EventTrackingId,
@@ -74,8 +74,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever new charge point infos had been send upstream.
     /// </summary>
-    public delegate void OnSetChargePointInfosWWCPResponseDelegate(DateTime                         LogTimestamp,
-                                                                   DateTime                         RequestTimestamp,
+    public delegate void OnSetChargePointInfosWWCPResponseDelegate(DateTimeOffset                   LogTimestamp,
+                                                                   DateTimeOffset                   RequestTimestamp,
                                                                    Object                           Sender,
                                                                    CSORoamingProvider_Id            SenderId,
                                                                    EventTracking_Id                 EventTrackingId,
@@ -90,8 +90,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever charge point info updates will be send upstream.
     /// </summary>
-    public delegate void OnUpdateChargePointInfosWWCPRequestDelegate (DateTime                         LogTimestamp,
-                                                                      DateTime                         RequestTimestamp,
+    public delegate void OnUpdateChargePointInfosWWCPRequestDelegate (DateTimeOffset                   LogTimestamp,
+                                                                      DateTimeOffset                   RequestTimestamp,
                                                                       Object                           Sender,
                                                                       CSORoamingProvider_Id            SenderId,
                                                                       EventTracking_Id                 EventTrackingId,
@@ -105,8 +105,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever charge point info updates had been send upstream.
     /// </summary>
-    public delegate void OnUpdateChargePointInfosWWCPResponseDelegate(DateTime                         LogTimestamp,
-                                                                      DateTime                         RequestTimestamp,
+    public delegate void OnUpdateChargePointInfosWWCPResponseDelegate(DateTimeOffset                   LogTimestamp,
+                                                                      DateTimeOffset                   RequestTimestamp,
                                                                       Object                           Sender,
                                                                       CSORoamingProvider_Id            SenderId,
                                                                       EventTracking_Id                 EventTrackingId,
@@ -121,8 +121,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever EVSE status updates will be send upstream.
     /// </summary>
-    public delegate void OnUpdateEVSEStatusWWCPRequestDelegate (DateTime                         LogTimestamp,
-                                                                DateTime                         RequestTimestamp,
+    public delegate void OnUpdateEVSEStatusWWCPRequestDelegate (DateTimeOffset                   LogTimestamp,
+                                                                DateTimeOffset                   RequestTimestamp,
                                                                 Object                           Sender,
                                                                 CSORoamingProvider_Id            SenderId,
                                                                 EventTracking_Id                 EventTrackingId,
@@ -136,8 +136,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever EVSE status updates had been send upstream.
     /// </summary>
-    public delegate void OnUpdateEVSEStatusWWCPResponseDelegate(DateTime                         LogTimestamp,
-                                                                DateTime                         RequestTimestamp,
+    public delegate void OnUpdateEVSEStatusWWCPResponseDelegate(DateTimeOffset                   LogTimestamp,
+                                                                DateTimeOffset                   RequestTimestamp,
                                                                 Object                           Sender,
                                                                 CSORoamingProvider_Id            SenderId,
                                                                 EventTracking_Id                 EventTrackingId,

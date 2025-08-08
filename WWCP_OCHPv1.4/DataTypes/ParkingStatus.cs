@@ -50,7 +50,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// status value is to be considered valid. Should be set to
         /// the expected status change.
         /// </summary>
-        public DateTime?           TTL          { get; }
+        public DateTimeOffset?     TTL          { get; }
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="TTL">The time to live is set as the deadline until which the status value is to be considered valid. Should be set to the expected status update.</param>
         public ParkingStatus(Parking_Id          ParkingId,
                              ParkingStatusTypes  Status,
-                             DateTime?           TTL = null)
+                             DateTimeOffset?     TTL = null)
         {
 
             this.ParkingId  = ParkingId;

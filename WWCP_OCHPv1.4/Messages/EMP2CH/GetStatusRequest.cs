@@ -39,12 +39,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// Only return status data newer than the given timestamp.
         /// </summary>
-        public DateTime?     LastRequest   { get; }
+        public DateTimeOffset?  LastRequest   { get; }
 
         /// <summary>
         /// A status type filter.
         /// </summary>
-        public StatusTypes?  StatusType    { get; }
+        public StatusTypes?     StatusType    { get; }
 
         #endregion
 
@@ -60,10 +60,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        public GetStatusRequest(DateTime?           LastRequest         = null,
+        public GetStatusRequest(DateTimeOffset?     LastRequest         = null,
                                 StatusTypes?        StatusType          = null,
 
-                                DateTime?           Timestamp           = null,
+                                DateTimeOffset?     Timestamp           = null,
                                 EventTracking_Id?   EventTrackingId     = null,
                                 TimeSpan?           RequestTimeout      = null,
                                 CancellationToken   CancellationToken   = default)

@@ -17,7 +17,6 @@
 
 #region Usings
 
-using System;
 using System.Xml.Linq;
 
 #endregion
@@ -37,12 +36,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The machine-readable result code.
         /// </summary>
-        Result    Result              { get; }
+        Result          Result              { get; }
 
         /// <summary>
         /// The timestamp of the response message creation.
         /// </summary>
-        DateTime  ResponseTimestamp   { get; }
+        DateTimeOffset  ResponseTimestamp   { get; }
 
     }
 

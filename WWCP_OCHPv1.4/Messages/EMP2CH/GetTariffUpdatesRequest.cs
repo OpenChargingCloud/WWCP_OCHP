@@ -39,7 +39,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// An optional timestamp of the last tariff update.
         /// </summary>
-        public DateTime?  LastUpdate   { get; }
+        public DateTimeOffset?  LastUpdate    { get; }
 
         #endregion
 
@@ -54,9 +54,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        public GetTariffUpdatesRequest(DateTime?           LastUpdate          = null,
+        public GetTariffUpdatesRequest(DateTimeOffset?     LastUpdate          = null,
 
-                                       DateTime?           Timestamp           = null,
+                                       DateTimeOffset?     Timestamp           = null,
                                        EventTracking_Id?   EventTrackingId     = null,
                                        TimeSpan?           RequestTimeout      = null,
                                        CancellationToken   CancellationToken   = default)

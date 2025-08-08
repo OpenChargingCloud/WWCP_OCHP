@@ -65,7 +65,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public ConfirmCDRsRequest(IEnumerable<EVSECDRPair>?  Approved            = null,
                                   IEnumerable<EVSECDRPair>?  Declined            = null,
 
-                                  DateTime?                  Timestamp           = null,
+                                  DateTimeOffset?            Timestamp           = null,
                                   EventTracking_Id?          EventTrackingId     = null,
                                   TimeSpan?                  RequestTimeout      = null,
                                   CancellationToken          CancellationToken   = default)

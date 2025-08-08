@@ -17,10 +17,6 @@
 
 #region Usings
 
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion
@@ -35,8 +31,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a request for the list of charge points will be send upstream.
     /// </summary>
-    public delegate Task OnGetChargePointListRequestDelegate        (DateTime                            LogTimestamp,
-                                                                     DateTime                            RequestTimestamp,
+    public delegate Task OnGetChargePointListRequestDelegate        (DateTimeOffset                      LogTimestamp,
+                                                                     DateTimeOffset                      RequestTimestamp,
                                                                      EMPClient                           Sender,
                                                                      //String                              SenderId,
                                                                      EventTracking_Id                    EventTrackingId,
@@ -45,8 +41,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response on a request for the list of charge points was received.
     /// </summary>
-    public delegate Task OnGetChargePointListResponseDelegate       (DateTime                            LogTimestamp,
-                                                                     DateTime                            RequestTimestamp,
+    public delegate Task OnGetChargePointListResponseDelegate       (DateTimeOffset                      LogTimestamp,
+                                                                     DateTimeOffset                      RequestTimestamp,
                                                                      EMPClient                           Sender,
                                                                      //String                              SenderId,
                                                                      EventTracking_Id                    EventTrackingId,
@@ -58,23 +54,23 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a request for a list of charge point updates will be send upstream.
     /// </summary>
-    public delegate Task OnGetChargePointListUpdatesRequestDelegate (DateTime                            LogTimestamp,
-                                                                     DateTime                            RequestTimestamp,
+    public delegate Task OnGetChargePointListUpdatesRequestDelegate (DateTimeOffset                      LogTimestamp,
+                                                                     DateTimeOffset                      RequestTimestamp,
                                                                      EMPClient                           Sender,
                                                                      //String                              SenderId,
                                                                      EventTracking_Id                    EventTrackingId,
-                                                                     DateTime                            LastUpdate,
+                                                                     DateTimeOffset                      LastUpdate,
                                                                      TimeSpan?                           RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response on a request for a list of charge point updates was received.
     /// </summary>
-    public delegate Task OnGetChargePointListUpdatesResponseDelegate(DateTime                            LogTimestamp,
-                                                                     DateTime                            RequestTimestamp,
+    public delegate Task OnGetChargePointListUpdatesResponseDelegate(DateTimeOffset                      LogTimestamp,
+                                                                     DateTimeOffset                      RequestTimestamp,
                                                                      EMPClient                           Sender,
                                                                      //String                              SenderId,
                                                                      EventTracking_Id                    EventTrackingId,
-                                                                     DateTime                            LastUpdate,
+                                                                     DateTimeOffset                      LastUpdate,
                                                                      TimeSpan?                           RequestTimeout,
                                                                      GetChargePointListUpdatesResponse   Result,
                                                                      TimeSpan                            Duration);
@@ -86,24 +82,24 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a get status request will be send upstream.
     /// </summary>
-    public delegate Task OnGetStatusRequestDelegate (DateTime               LogTimestamp,
-                                                     DateTime               RequestTimestamp,
+    public delegate Task OnGetStatusRequestDelegate (DateTimeOffset         LogTimestamp,
+                                                     DateTimeOffset         RequestTimestamp,
                                                      EMPClient              Sender,
                                                      //String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
-                                                     DateTime?              LastRequest,
+                                                     DateTimeOffset?        LastRequest,
                                                      StatusTypes?           StatusType,
                                                      TimeSpan?              RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending a get status request upstream had been received.
     /// </summary>
-    public delegate Task OnGetStatusResponseDelegate(DateTime               LogTimestamp,
-                                                     DateTime               RequestTimestamp,
+    public delegate Task OnGetStatusResponseDelegate(DateTimeOffset         LogTimestamp,
+                                                     DateTimeOffset         RequestTimestamp,
                                                      EMPClient              Sender,
                                                      //String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
-                                                     DateTime?              LastRequest,
+                                                     DateTimeOffset?        LastRequest,
                                                      StatusTypes?           StatusType,
                                                      TimeSpan?              RequestTimeout,
                                                      GetStatusResponse      Result,
@@ -116,23 +112,23 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a get tariff updates request will be send upstream.
     /// </summary>
-    public delegate Task OnGetTariffUpdatesRequestDelegate (DateTime                   LogTimestamp,
-                                                            DateTime                   RequestTimestamp,
+    public delegate Task OnGetTariffUpdatesRequestDelegate (DateTimeOffset             LogTimestamp,
+                                                            DateTimeOffset             RequestTimestamp,
                                                             EMPClient                  Sender,
                                                             //String                     SenderId,
                                                             EventTracking_Id           EventTrackingId,
-                                                            DateTime?                  LastRequest,
+                                                            DateTimeOffset?            LastRequest,
                                                             TimeSpan?                  RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending a get tariff updates request upstream had been received.
     /// </summary>
-    public delegate Task OnGetTariffUpdatesResponseDelegate(DateTime                   LogTimestamp,
-                                                            DateTime                   RequestTimestamp,
+    public delegate Task OnGetTariffUpdatesResponseDelegate(DateTimeOffset             LogTimestamp,
+                                                            DateTimeOffset             RequestTimestamp,
                                                             EMPClient                  Sender,
                                                             //String                     SenderId,
                                                             EventTracking_Id           EventTrackingId,
-                                                            DateTime?                  LastRequest,
+                                                            DateTimeOffset?            LastRequest,
                                                             TimeSpan?                  RequestTimeout,
                                                             GetTariffUpdatesResponse   Result,
                                                             TimeSpan                   Duration);
@@ -144,8 +140,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a roaming authorisation list will be send upstream.
     /// </summary>
-    public delegate Task OnSetRoamingAuthorisationListRequestDelegate    (DateTime                                 LogTimestamp,
-                                                                          DateTime                                 RequestTimestamp,
+    public delegate Task OnSetRoamingAuthorisationListRequestDelegate    (DateTimeOffset                           LogTimestamp,
+                                                                          DateTimeOffset                           RequestTimestamp,
                                                                           EMPClient                                Sender,
                                                                           //String                                   SenderId,
                                                                           EventTracking_Id                         EventTrackingId,
@@ -155,8 +151,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response on sending a roaming authorisation list had been received.
     /// </summary>
-    public delegate Task OnSetRoamingAuthorisationListResponseDelegate   (DateTime                                 LogTimestamp,
-                                                                          DateTime                                 RequestTimestamp,
+    public delegate Task OnSetRoamingAuthorisationListResponseDelegate   (DateTimeOffset                           LogTimestamp,
+                                                                          DateTimeOffset                           RequestTimestamp,
                                                                           EMPClient                                Sender,
                                                                           //String                                   SenderId,
                                                                           EventTracking_Id                         EventTrackingId,
@@ -169,8 +165,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever an update for a roaming authorisation list will be send upstream.
     /// </summary>
-    public delegate Task OnUpdateRoamingAuthorisationListRequestDelegate (DateTime                                 LogTimestamp,
-                                                                          DateTime                                 RequestTimestamp,
+    public delegate Task OnUpdateRoamingAuthorisationListRequestDelegate (DateTimeOffset                           LogTimestamp,
+                                                                          DateTimeOffset                           RequestTimestamp,
                                                                           EMPClient                                Sender,
                                                                           //String                                   SenderId,
                                                                           EventTracking_Id                         EventTrackingId,
@@ -180,8 +176,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response on a roaming authorisation list update had been received.
     /// </summary>
-    public delegate Task OnUpdateRoamingAuthorisationListResponseDelegate(DateTime                                 LogTimestamp,
-                                                                          DateTime                                 RequestTimestamp,
+    public delegate Task OnUpdateRoamingAuthorisationListResponseDelegate(DateTimeOffset                           LogTimestamp,
+                                                                          DateTimeOffset                           RequestTimestamp,
                                                                           EMPClient                                Sender,
                                                                           //String                                   SenderId,
                                                                           EventTracking_Id                         EventTrackingId,
@@ -197,8 +193,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a get charge detail records request will be send upstream.
     /// </summary>
-    public delegate Task OnGetCDRsRequestDelegate     (DateTime               LogTimestamp,
-                                                       DateTime               RequestTimestamp,
+    public delegate Task OnGetCDRsRequestDelegate     (DateTimeOffset         LogTimestamp,
+                                                       DateTimeOffset         RequestTimestamp,
                                                        EMPClient              Sender,
                                                        //String                 SenderId,
                                                        EventTracking_Id       EventTrackingId,
@@ -208,8 +204,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a get charge detail records request upstream had been received.
     /// </summary>
-    public delegate Task OnGetCDRsResponseDelegate    (DateTime               LogTimestamp,
-                                                       DateTime               RequestTimestamp,
+    public delegate Task OnGetCDRsResponseDelegate    (DateTimeOffset         LogTimestamp,
+                                                       DateTimeOffset         RequestTimestamp,
                                                        EMPClient              Sender,
                                                        //String                 SenderId,
                                                        EventTracking_Id       EventTrackingId,
@@ -222,8 +218,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a confirm charge detail records request will be send upstream.
     /// </summary>
-    public delegate Task OnConfirmCDRsRequestDelegate (DateTime                   LogTimestamp,
-                                                       DateTime                   RequestTimestamp,
+    public delegate Task OnConfirmCDRsRequestDelegate (DateTimeOffset             LogTimestamp,
+                                                       DateTimeOffset             RequestTimestamp,
                                                        EMPClient                  Sender,
                                                        //String                     SenderId,
                                                        EventTracking_Id           EventTrackingId,
@@ -234,8 +230,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a confirm charge detail records request upstream had been received.
     /// </summary>
-    public delegate Task OnConfirmCDRsResponseDelegate(DateTime                   LogTimestamp,
-                                                       DateTime                   RequestTimestamp,
+    public delegate Task OnConfirmCDRsResponseDelegate(DateTimeOffset             LogTimestamp,
+                                                       DateTimeOffset             RequestTimestamp,
                                                        EMPClient                  Sender,
                                                        //String                     SenderId,
                                                        EventTracking_Id           EventTrackingId,
@@ -255,8 +251,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever an add service endpoints request will be send upstream.
     /// </summary>
-    public delegate Task OnAddServiceEndpointsRequestDelegate (DateTime                        LogTimestamp,
-                                                               DateTime                        RequestTimestamp,
+    public delegate Task OnAddServiceEndpointsRequestDelegate (DateTimeOffset                  LogTimestamp,
+                                                               DateTimeOffset                  RequestTimestamp,
                                                                EMPClient                       Sender,
                                                                //String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
@@ -266,8 +262,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending an add service endpoints request upstream had been received.
     /// </summary>
-    public delegate Task OnAddServiceEndpointsResponseDelegate(//DateTime                        LogTimestamp,
-                                                               DateTime                        RequestTimestamp,
+    public delegate Task OnAddServiceEndpointsResponseDelegate(//DateTimeOffset                  LogTimestamp,
+                                                               DateTimeOffset                  RequestTimestamp,
                                                                EMPClient                       Sender,
                                                                //String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
@@ -281,8 +277,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a get service endpoints request will be send upstream.
     /// </summary>
-    public delegate Task OnGetServiceEndpointsRequestDelegate (DateTime                      LogTimestamp,
-                                                               DateTime                      RequestTimestamp,
+    public delegate Task OnGetServiceEndpointsRequestDelegate (DateTimeOffset                LogTimestamp,
+                                                               DateTimeOffset                RequestTimestamp,
                                                                EMPClient                     Sender,
                                                                //String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
@@ -291,8 +287,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a get service endpoints request upstream had been received.
     /// </summary>
-    public delegate Task OnGetServiceEndpointsResponseDelegate(//DateTime                      LogTimestamp,
-                                                               DateTime                      RequestTimestamp,
+    public delegate Task OnGetServiceEndpointsResponseDelegate(//DateTimeOffset                LogTimestamp,
+                                                               DateTimeOffset                RequestTimestamp,
                                                                EMPClient                     Sender,
                                                                //String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
@@ -307,27 +303,27 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a select EVSE request will be send to a charge point operator.
     /// </summary>
-    public delegate Task OnSelectEVSERequestDelegate (DateTime               LogTimestamp,
-                                                      DateTime               RequestTimestamp,
+    public delegate Task OnSelectEVSERequestDelegate (DateTimeOffset         LogTimestamp,
+                                                      DateTimeOffset         RequestTimestamp,
                                                       EMPClient              Sender,
                                                       //String                 SenderId,
                                                       EventTracking_Id       EventTrackingId,
                                                       EVSE_Id                EVSEId,
                                                       Contract_Id            ContractId,
-                                                      DateTime?              ReserveUntil,
+                                                      DateTimeOffset?        ReserveUntil,
                                                       TimeSpan?              RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending a select EVSE request to a charge point operator had been received.
     /// </summary>
-    public delegate Task OnSelectEVSEResponseDelegate(DateTime               LogTimestamp,
-                                                      DateTime               RequestTimestamp,
+    public delegate Task OnSelectEVSEResponseDelegate(DateTimeOffset         LogTimestamp,
+                                                      DateTimeOffset         RequestTimestamp,
                                                       EMPClient              Sender,
                                                       //String                 SenderId,
                                                       EventTracking_Id       EventTrackingId,
                                                       EVSE_Id                EVSEId,
                                                       Contract_Id            ContractId,
-                                                      DateTime?              ReserveUntil,
+                                                      DateTimeOffset?        ReserveUntil,
                                                       TimeSpan?              RequestTimeout,
                                                       SelectEVSEResponse     Result,
                                                       TimeSpan               Duration);
@@ -337,8 +333,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a control EVSE request will be send to a charge point operator.
     /// </summary>
-    public delegate Task OnControlEVSERequestDelegate (DateTime              LogTimestamp,
-                                                       DateTime              RequestTimestamp,
+    public delegate Task OnControlEVSERequestDelegate (DateTimeOffset        LogTimestamp,
+                                                       DateTimeOffset        RequestTimestamp,
                                                        EMPClient             Sender,
                                                        //String                SenderId,
                                                        EventTracking_Id      EventTrackingId,
@@ -349,14 +345,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                        Boolean?              OnePhase,
                                                        Single?               MaxEnergy,
                                                        Single?               MinEnergy,
-                                                       DateTime?             Departure,
+                                                       DateTimeOffset?       Departure,
                                                        TimeSpan?             RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending a control EVSE request to a charge point operator had been received.
     /// </summary>
-    public delegate Task OnControlEVSEResponseDelegate(DateTime              LogTimestamp,
-                                                       DateTime              RequestTimestamp,
+    public delegate Task OnControlEVSEResponseDelegate(DateTimeOffset        LogTimestamp,
+                                                       DateTimeOffset        RequestTimestamp,
                                                        EMPClient             Sender,
                                                        //String                SenderId,
                                                        EventTracking_Id      EventTrackingId,
@@ -367,7 +363,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                        Boolean?              OnePhase,
                                                        Single?               MaxEnergy,
                                                        Single?               MinEnergy,
-                                                       DateTime?             Departure,
+                                                       DateTimeOffset?       Departure,
                                                        TimeSpan?             RequestTimeout,
                                                        ControlEVSEResponse   Result,
                                                        TimeSpan              Duration);
@@ -377,8 +373,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a release EVSE request will be send to a charge point operator.
     /// </summary>
-    public delegate Task OnReleaseEVSERequestDelegate (DateTime              LogTimestamp,
-                                                       DateTime              RequestTimestamp,
+    public delegate Task OnReleaseEVSERequestDelegate (DateTimeOffset        LogTimestamp,
+                                                       DateTimeOffset        RequestTimestamp,
                                                        EMPClient             Sender,
                                                        //String                SenderId,
                                                        EventTracking_Id      EventTrackingId,
@@ -388,8 +384,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a release EVSE request to a charge point operator had been received.
     /// </summary>
-    public delegate Task OnReleaseEVSEResponseDelegate(DateTime              LogTimestamp,
-                                                       DateTime              RequestTimestamp,
+    public delegate Task OnReleaseEVSEResponseDelegate(DateTimeOffset        LogTimestamp,
+                                                       DateTimeOffset        RequestTimestamp,
                                                        EMPClient             Sender,
                                                        //String                SenderId,
                                                        EventTracking_Id      EventTrackingId,
@@ -405,8 +401,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever an EVSE status request will be send to a charge point operator.
     /// </summary>
-    public delegate Task OnGetEVSEStatusRequestDelegate (DateTime                LogTimestamp,
-                                                         DateTime                RequestTimestamp,
+    public delegate Task OnGetEVSEStatusRequestDelegate (DateTimeOffset          LogTimestamp,
+                                                         DateTimeOffset          RequestTimestamp,
                                                          EMPClient               Sender,
                                                          //String                  SenderId,
                                                          EventTracking_Id        EventTrackingId,
@@ -416,8 +412,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending an EVSE status request to a charge point operator had been received.
     /// </summary>
-    public delegate Task OnGetEVSEStatusResponseDelegate(DateTime                LogTimestamp,
-                                                         DateTime                RequestTimestamp,
+    public delegate Task OnGetEVSEStatusResponseDelegate(DateTimeOffset          LogTimestamp,
+                                                         DateTimeOffset          RequestTimestamp,
                                                          EMPClient               Sender,
                                                          //String                  SenderId,
                                                          EventTracking_Id        EventTrackingId,
@@ -433,8 +429,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a report discrepancy request will be send to a charge point operator.
     /// </summary>
-    public delegate Task OnReportDiscrepancyRequestDelegate (DateTime                    LogTimestamp,
-                                                             DateTime                    RequestTimestamp,
+    public delegate Task OnReportDiscrepancyRequestDelegate (DateTimeOffset              LogTimestamp,
+                                                             DateTimeOffset              RequestTimestamp,
                                                              EMPClient                   Sender,
                                                              //String                      SenderId,
                                                              EventTracking_Id            EventTrackingId,
@@ -445,8 +441,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a report discrepancy request to a charge point operator had been received.
     /// </summary>
-    public delegate Task OnReportDiscrepancyResponseDelegate(DateTime                    LogTimestamp,
-                                                             DateTime                    RequestTimestamp,
+    public delegate Task OnReportDiscrepancyResponseDelegate(DateTimeOffset              LogTimestamp,
+                                                             DateTimeOffset              RequestTimestamp,
                                                              EMPClient                   Sender,
                                                              //String                      SenderId,
                                                              EventTracking_Id            EventTrackingId,
@@ -463,8 +459,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a get inform provider request will be send to a charge point operator.
     /// </summary>
-    public delegate Task OnGetInformProviderRequestDelegate (DateTime                    LogTimestamp,
-                                                             DateTime                    RequestTimestamp,
+    public delegate Task OnGetInformProviderRequestDelegate (DateTimeOffset              LogTimestamp,
+                                                             DateTimeOffset              RequestTimestamp,
                                                              EMPClient                   Sender,
                                                              //String                      SenderId,
                                                              EventTracking_Id            EventTrackingId,
@@ -474,8 +470,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// A delegate called whenever a response after sending a get inform provider request to a charge point operator had been received.
     /// </summary>
-    public delegate Task OnGetInformProviderResponseDelegate(DateTime                    LogTimestamp,
-                                                             DateTime                    RequestTimestamp,
+    public delegate Task OnGetInformProviderResponseDelegate(DateTimeOffset              LogTimestamp,
+                                                             DateTimeOffset              RequestTimestamp,
                                                              EMPClient                   Sender,
                                                              //String                      SenderId,
                                                              EventTracking_Id            EventTrackingId,

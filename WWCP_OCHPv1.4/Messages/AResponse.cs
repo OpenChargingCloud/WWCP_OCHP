@@ -108,7 +108,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The timestamp of the response message creation.
         /// </summary>
-        public DateTime                             ResponseTimestamp   { get; }
+        public DateTimeOffset                       ResponseTimestamp   { get; }
 
         #endregion
 
@@ -119,8 +119,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="Result">A generic OCHP result.</param>
         /// <param name="CustomData">Optional customer-specific semi-structured data.</param>
-        public AResponse(Result                               Result,
-                         IReadOnlyDictionary<String, Object>  CustomData  = null)
+        public AResponse(Result                                Result,
+                         IReadOnlyDictionary<String, Object>?  CustomData   = null)
         {
 
             this.Result             = Result;

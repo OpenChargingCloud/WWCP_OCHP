@@ -48,7 +48,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The optional timestamp of the request.
         /// </summary>
-        public DateTime           Timestamp            { get; }
+        public DateTimeOffset     Timestamp            { get; }
 
         /// <summary>
         /// An optional event tracking identification for correlating this request with other events.
@@ -76,7 +76,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        public ARequest(DateTime?          Timestamp           = null,
+        public ARequest(DateTimeOffset?    Timestamp           = null,
                         EventTracking_Id?  EventTrackingId     = null,
                         TimeSpan?          RequestTimeout      = null,
                         CancellationToken  CancellationToken   = default)

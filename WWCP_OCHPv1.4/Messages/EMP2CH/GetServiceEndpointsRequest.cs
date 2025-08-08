@@ -43,7 +43,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        public GetServiceEndpointsRequest(DateTime?           Timestamp           = null,
+        public GetServiceEndpointsRequest(DateTimeOffset?     Timestamp           = null,
                                           EventTracking_Id?   EventTrackingId     = null,
                                           TimeSpan?           RequestTimeout      = null,
                                           CancellationToken   CancellationToken   = default)

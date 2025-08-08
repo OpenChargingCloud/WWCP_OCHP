@@ -52,7 +52,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             GetChargePointList(this IEMPClient     IEMPClient,
 
-                               DateTime?           Timestamp           = null,
+                               DateTimeOffset?     Timestamp           = null,
                                EventTracking_Id?   EventTrackingId     = null,
                                TimeSpan?           RequestTimeout      = null,
                                CancellationToken   CancellationToken   = default)
@@ -82,9 +82,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public static Task<HTTPResponse<GetChargePointListUpdatesResponse>>
 
             GetChargePointListUpdates(this IEMPClient     IEMPClient,
-                                      DateTime            LastUpdate,
+                                      DateTimeOffset      LastUpdate,
 
-                                      DateTime?           Timestamp           = null,
+                                      DateTimeOffset?     Timestamp           = null,
                                       EventTracking_Id?   EventTrackingId     = null,
                                       TimeSpan?           RequestTimeout      = null,
                                       CancellationToken   CancellationToken   = default)
@@ -118,10 +118,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public static Task<HTTPResponse<GetStatusResponse>>
 
             GetStatus(this IEMPClient     IEMPClient,
-                      DateTime?           LastRequest         = null,
+                      DateTimeOffset?     LastRequest         = null,
                       StatusTypes?        StatusType          = null,
 
-                      DateTime?           Timestamp           = null,
+                      DateTimeOffset?     Timestamp           = null,
                       EventTracking_Id?   EventTrackingId     = null,
                       TimeSpan?           RequestTimeout      = null,
                       CancellationToken   CancellationToken   = default)
@@ -155,9 +155,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public static Task<HTTPResponse<GetTariffUpdatesResponse>>
 
             GetTariffUpdates(this IEMPClient     IEMPClient,
-                             DateTime?           LastUpdate          = null,
+                             DateTimeOffset?     LastUpdate          = null,
 
-                             DateTime?           Timestamp           = null,
+                             DateTimeOffset?     Timestamp           = null,
                              EventTracking_Id?   EventTrackingId     = null,
                              TimeSpan?           RequestTimeout      = null,
                              CancellationToken   CancellationToken   = default)
@@ -192,7 +192,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             SetRoamingAuthorisationList(this IEMPClient           IEMPClient,
                                         RoamingAuthorisationInfo  RoamingAuthorisationInfo,
 
-                                        DateTime?                 Timestamp           = null,
+                                        DateTimeOffset?           Timestamp           = null,
                                         EventTracking_Id?         EventTrackingId     = null,
                                         TimeSpan?                 RequestTimeout      = null,
                                         CancellationToken         CancellationToken   = default)
@@ -227,7 +227,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             SetRoamingAuthorisationList(this IEMPClient                        IEMPClient,
                                         IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
-                                        DateTime?                              Timestamp           = null,
+                                        DateTimeOffset?                        Timestamp           = null,
                                         EventTracking_Id?                      EventTrackingId     = null,
                                         TimeSpan?                              RequestTimeout      = null,
                                         CancellationToken                      CancellationToken   = default)
@@ -262,7 +262,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             UpdateRoamingAuthorisationList(this IEMPClient           IEMPClient,
                                            RoamingAuthorisationInfo  RoamingAuthorisationInfo,
 
-                                           DateTime?                 Timestamp           = null,
+                                           DateTimeOffset?           Timestamp           = null,
                                            EventTracking_Id?         EventTrackingId     = null,
                                            TimeSpan?                 RequestTimeout      = null,
                                            CancellationToken         CancellationToken   = default)
@@ -297,7 +297,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             UpdateRoamingAuthorisationList(this IEMPClient                        IEMPClient,
                                            IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
-                                           DateTime?                              Timestamp           = null,
+                                           DateTimeOffset?                        Timestamp           = null,
                                            EventTracking_Id?                      EventTrackingId     = null,
                                            TimeSpan?                              RequestTimeout      = null,
                                            CancellationToken                      CancellationToken   = default)
@@ -333,7 +333,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             GetCDRs(this IEMPClient     IEMPClient,
                     CDRStatus?          CDRStatus           = null,
 
-                    DateTime?           Timestamp           = null,
+                    DateTimeOffset?     Timestamp           = null,
                     EventTracking_Id?   EventTrackingId     = null,
                     TimeSpan?           RequestTimeout      = null,
                     CancellationToken   CancellationToken   = default)
@@ -370,7 +370,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                         IEnumerable<EVSECDRPair>?  Approved            = null,
                         IEnumerable<EVSECDRPair>?  Declined            = null,
 
-                        DateTime?                  Timestamp           = null,
+                        DateTimeOffset?            Timestamp           = null,
                         EventTracking_Id?          EventTrackingId     = null,
                         TimeSpan?                  RequestTimeout      = null,
                         CancellationToken          CancellationToken   = default)
@@ -409,7 +409,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             AddServiceEndpoints(this IEMPClient                IEMPClient,
                                 IEnumerable<ProviderEndpoint>  ProviderEndpoints,
 
-                                DateTime?                      Timestamp           = null,
+                                DateTimeOffset?                Timestamp           = null,
                                 EventTracking_Id?              EventTrackingId     = null,
                                 TimeSpan?                      RequestTimeout      = null,
                                 CancellationToken              CancellationToken   = default)
@@ -440,7 +440,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public static Task<HTTPResponse<GetServiceEndpointsResponse>>
 
             GetServiceEndpoints(this IEMPClient     IEMPClient,
-                                DateTime?           Timestamp           = null,
+                                DateTimeOffset?     Timestamp           = null,
                                 EventTracking_Id?   EventTrackingId     = null,
                                 TimeSpan?           RequestTimeout      = null,
                                 CancellationToken   CancellationToken   = default)

@@ -17,11 +17,6 @@
 
 #region Usings
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
 using org.GraphDefined.Vanaheimr.Illias;
 
 using cloud.charging.open.protocols.OCHPv1_4.CPO;
@@ -50,7 +45,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<AddServiceEndpointsResponse>
 
-        OnAddServiceEndpointsDelegate(DateTime                       Timestamp,
+        OnAddServiceEndpointsDelegate(DateTimeOffset                 Timestamp,
                                       CHServer                       Sender,
                                       CancellationToken              CancellationToken,
                                       EventTracking_Id               EventTrackingId,
@@ -74,7 +69,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetServiceEndpointsResponse>
 
-        OnGetServiceEndpointsDelegate(DateTime            Timestamp,
+        OnGetServiceEndpointsDelegate(DateTimeOffset      Timestamp,
                                       CHServer            Sender,
                                       CancellationToken   CancellationToken,
                                       EventTracking_Id    EventTrackingId,
@@ -100,7 +95,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<AddCDRsResponse>
 
-        OnAddCDRsDelegate(DateTime               Timestamp,
+        OnAddCDRsDelegate(DateTimeOffset         Timestamp,
                           CHServer               Sender,
                           CancellationToken      CancellationToken,
                           EventTracking_Id       EventTrackingId,
@@ -126,7 +121,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<CheckCDRsResponse>
 
-        OnCheckCDRsDelegate(DateTime            Timestamp,
+        OnCheckCDRsDelegate(DateTimeOffset      Timestamp,
                             CHServer            Sender,
                             CancellationToken   CancellationToken,
                             EventTracking_Id    EventTrackingId,
@@ -149,7 +144,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetRoamingAuthorisationListResponse>
 
-        OnGetRoamingAuthorisationListDelegate(DateTime            Timestamp,
+        OnGetRoamingAuthorisationListDelegate(DateTimeOffset      Timestamp,
                                               CHServer            Sender,
                                               CancellationToken   CancellationToken,
                                               EventTracking_Id    EventTrackingId,
@@ -172,7 +167,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetRoamingAuthorisationListUpdatesResponse>
 
-        OnGetRoamingAuthorisationListUpdatesDelegate(DateTime            Timestamp,
+        OnGetRoamingAuthorisationListUpdatesDelegate(DateTimeOffset      Timestamp,
                                                      CHServer            Sender,
                                                      CancellationToken   CancellationToken,
                                                      EventTracking_Id    EventTrackingId,
@@ -198,7 +193,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetSingleRoamingAuthorisationResponse>
 
-        OnGetSingleRoamingAuthorisationDelegate(DateTime            Timestamp,
+        OnGetSingleRoamingAuthorisationDelegate(DateTimeOffset      Timestamp,
                                                 CHServer            Sender,
                                                 CancellationToken   CancellationToken,
                                                 EventTracking_Id    EventTrackingId,
@@ -224,7 +219,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<SetChargePointListResponse>
 
-        OnSetChargePointListDelegate(DateTime                       Timestamp,
+        OnSetChargePointListDelegate(DateTimeOffset                 Timestamp,
                                      CHServer                       Sender,
                                      CancellationToken              CancellationToken,
                                      EventTracking_Id               EventTrackingId,
@@ -250,7 +245,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<UpdateChargePointListResponse>
 
-        OnUpdateChargePointListDelegate(DateTime                       Timestamp,
+        OnUpdateChargePointListDelegate(DateTimeOffset                 Timestamp,
                                         CHServer                       Sender,
                                         CancellationToken              CancellationToken,
                                         EventTracking_Id               EventTrackingId,
@@ -278,14 +273,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<UpdateStatusResponse>
 
-        OnUpdateStatusDelegate(DateTime                     Timestamp,
+        OnUpdateStatusDelegate(DateTimeOffset               Timestamp,
                                CHServer                     Sender,
                                CancellationToken            CancellationToken,
                                EventTracking_Id             EventTrackingId,
 
                                IEnumerable<EVSEStatus>      EVSEStatus,
                                IEnumerable<ParkingStatus>   ParkingStatus,
-                               DateTime?                    DefaultTTL,
+                               DateTimeOffset?              DefaultTTL,
 
                                TimeSpan?                    QueryTimeout  = null);
 
@@ -306,7 +301,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<UpdateTariffsResponse>
 
-        OnUpdateTariffsDelegate(DateTime                  Timestamp,
+        OnUpdateTariffsDelegate(DateTimeOffset            Timestamp,
                                 CHServer                  Sender,
                                 CancellationToken         CancellationToken,
                                 EventTracking_Id          EventTrackingId,
@@ -335,7 +330,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetCDRsResponse>
 
-        OnGetCDRsDelegate(DateTime            Timestamp,
+        OnGetCDRsDelegate(DateTimeOffset      Timestamp,
                           CHServer            Sender,
                           CancellationToken   CancellationToken,
                           EventTracking_Id    EventTrackingId,
@@ -362,7 +357,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<ConfirmCDRsResponse>
 
-        OnConfirmCDRsDelegate(DateTime                   Timestamp,
+        OnConfirmCDRsDelegate(DateTimeOffset             Timestamp,
                               CHServer                   Sender,
                               CancellationToken          CancellationToken,
                               EventTracking_Id           EventTrackingId,
@@ -386,7 +381,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetChargePointListResponse>
 
-        OnGetChargePointListDelegate(DateTime            Timestamp,
+        OnGetChargePointListDelegate(DateTimeOffset      Timestamp,
                                      CHServer            Sender,
                                      CancellationToken   CancellationToken,
                                      EventTracking_Id    EventTrackingId,
@@ -409,12 +404,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetChargePointListUpdatesResponse>
 
-        OnGetChargePointListUpdatesDelegate(DateTime            Timestamp,
+        OnGetChargePointListUpdatesDelegate(DateTimeOffset      Timestamp,
                                             CHServer            Sender,
                                             CancellationToken   CancellationToken,
                                             EventTracking_Id    EventTrackingId,
 
-                                            DateTime            LastUpdate,
+                                            DateTimeOffset      LastUpdate,
 
                                             TimeSpan?           QueryTimeout  = null);
 
@@ -436,12 +431,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetStatusResponse>
 
-        OnGetStatusDelegate(DateTime            Timestamp,
+        OnGetStatusDelegate(DateTimeOffset      Timestamp,
                             CHServer            Sender,
                             CancellationToken   CancellationToken,
                             EventTracking_Id    EventTrackingId,
 
-                            DateTime?           LastRequest,
+                            DateTimeOffset?     LastRequest,
                             StatusTypes?        StatusType,
 
                             TimeSpan?           QueryTimeout  = null);
@@ -463,12 +458,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<GetTariffUpdatesResponse>
 
-        OnGetTariffUpdatesDelegate(DateTime            Timestamp,
+        OnGetTariffUpdatesDelegate(DateTimeOffset      Timestamp,
                                    CHServer            Sender,
                                    CancellationToken   CancellationToken,
                                    EventTracking_Id    EventTrackingId,
 
-                                   DateTime?           LastUpdate,
+                                   DateTimeOffset?     LastUpdate,
 
                                    TimeSpan?           QueryTimeout  = null);
 
@@ -489,7 +484,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<SetRoamingAuthorisationListResponse>
 
-        OnSetRoamingAuthorisationListDelegate(DateTime                                Timestamp,
+        OnSetRoamingAuthorisationListDelegate(DateTimeOffset                          Timestamp,
                                               CHServer                                Sender,
                                               CancellationToken                       CancellationToken,
                                               EventTracking_Id                        EventTrackingId,
@@ -515,7 +510,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<UpdateRoamingAuthorisationListResponse>
 
-        OnUpdateRoamingAuthorisationListDelegate(DateTime                                Timestamp,
+        OnUpdateRoamingAuthorisationListDelegate(DateTimeOffset                          Timestamp,
                                                  CHServer                                Sender,
                                                  CancellationToken                       CancellationToken,
                                                  EventTracking_Id                        EventTrackingId,

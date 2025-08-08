@@ -47,7 +47,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The default time to live for these status.
         /// </summary>
-        public DateTime?                   DefaultTTL      { get; }
+        public DateTimeOffset?             DefaultTTL      { get; }
 
         #endregion
 
@@ -66,9 +66,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public UpdateStatusRequest(IEnumerable<EVSEStatus>?     EVSEStatus          = null,
                                    IEnumerable<ParkingStatus>?  ParkingStatus       = null,
-                                   DateTime?                    DefaultTTL          = null,
+                                   DateTimeOffset?              DefaultTTL          = null,
 
-                                   DateTime?                    Timestamp           = null,
+                                   DateTimeOffset?              Timestamp           = null,
                                    EventTracking_Id?            EventTrackingId     = null,
                                    TimeSpan?                    RequestTimeout      = null,
                                    CancellationToken            CancellationToken   = default)

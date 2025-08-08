@@ -38,17 +38,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The unique identification of the selected EVSE.
         /// </summary>
-        public EVSE_Id      EVSEId          { get; }
+        public EVSE_Id          EVSEId          { get; }
 
         /// <summary>
         /// The unique identification of an e-mobility contract.
         /// </summary>
-        public Contract_Id  ContractId      { get; }
+        public Contract_Id      ContractId      { get; }
 
         /// <summary>
         /// An optional timestamp till when then given EVSE should be reserved.
         /// </summary>
-        public DateTime?    ReserveUntil    { get; }
+        public DateTimeOffset?  ReserveUntil    { get; }
 
         #endregion
 
@@ -60,9 +60,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="EVSEId">The unique identification of the selected EVSE.</param>
         /// <param name="ContractId">The unique identification of an e-mobility contract.</param>
         /// <param name="ReserveUntil">An optional timestamp till when then given EVSE should be reserved.</param>
-        public SelectEVSERequest(EVSE_Id      EVSEId,
-                                 Contract_Id  ContractId,
-                                 DateTime?    ReserveUntil)
+        public SelectEVSERequest(EVSE_Id          EVSEId,
+                                 Contract_Id      ContractId,
+                                 DateTimeOffset?  ReserveUntil)
         {
 
             #region Initial checks

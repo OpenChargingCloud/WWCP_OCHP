@@ -39,12 +39,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The session identification for a direct charging process.
         /// </summary>
-        public Direct_Id  DirectId        { get; }
+        public Direct_Id        DirectId        { get; }
 
         /// <summary>
         /// An optional timestamp until when the given EVSE is reserved.
         /// </summary>
-        public DateTime?  ReservedUntil   { get; }
+        public DateTimeOffset?  ReservedUntil   { get; }
 
         #endregion
 
@@ -135,7 +135,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public SelectEVSEResponse(SelectEVSERequest  Request,
                                   Result             Result,
                                   Direct_Id          DirectId       = null,
-                                  DateTime?          ReservedUntil  = null)
+                                  DateTimeOffset?    ReservedUntil  = null)
 
             : base(Request, Result)
 

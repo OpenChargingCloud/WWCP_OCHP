@@ -56,7 +56,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public GetRoamingAuthorisationListUpdatesRequest(DateTime            LastUpdate,
 
-                                                         DateTime?           Timestamp           = null,
+                                                         DateTimeOffset?     Timestamp           = null,
                                                          EventTracking_Id?   EventTrackingId     = null,
                                                          TimeSpan?           RequestTimeout      = null,
                                                          CancellationToken   CancellationToken   = default)

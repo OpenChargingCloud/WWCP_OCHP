@@ -17,11 +17,6 @@
 
 #region Usings
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
 using org.GraphDefined.Vanaheimr.Illias;
 
 using cloud.charging.open.protocols.OCHPv1_4.CPO;
@@ -66,7 +61,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <param name="QueryTimeout">An optional timeout for this request.</param>
     public delegate Task<InformProviderResponse>
 
-        OnInformProviderDelegate(DateTime                 Timestamp,
+        OnInformProviderDelegate(DateTimeOffset           Timestamp,
                                  EMPServer                Sender,
                                  CancellationToken        CancellationToken,
                                  EventTracking_Id         EventTrackingId,
@@ -76,14 +71,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                  Contract_Id              ContractId,
                                  Direct_Id                DirectId,
 
-                                 DateTime?                SessionTimeoutAt,
+                                 DateTimeOffset?          SessionTimeoutAt,
                                  Single?                  StateOfCharge,
                                  Single?                  MaxPower,
                                  Single?                  MaxCurrent,
                                  Boolean?                 OnePhase,
                                  Single?                  MaxEnergy,
                                  Single?                  MinEnergy,
-                                 DateTime?                Departure,
+                                 DateTimeOffset?          Departure,
                                  Single?                  CurrentPower,
                                  Single?                  ChargedEnergy,
                                  Timestamped<Single>?     MeterReading,

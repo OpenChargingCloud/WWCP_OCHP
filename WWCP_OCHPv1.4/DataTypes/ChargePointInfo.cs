@@ -75,7 +75,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Date and time of the latest data update for this ChargePointInfo.
         /// When set it must be updated if any value is changed.
         /// </summary>
-        public DateTime?                             Timestamp               { get; }
+        public DateTimeOffset?                       Timestamp               { get; }
 
         /// <summary>
         /// Official name; should be unique in the geographical area. [100]
@@ -236,7 +236,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                IEnumerable<ConnectorType>          Connectors,
                                ChargePointTypes                    ChargePointType,
 
-                               DateTime?                           Timestamp             = null,
+                               DateTimeOffset?                     Timestamp             = null,
                                IEnumerable<EVSEImageURL>           Images                = null,
                                IEnumerable<RelatedResource>        RelatedResources      = null,
                                IEnumerable<ExtendedGeoCoordinate>  RelatedLocations      = null,

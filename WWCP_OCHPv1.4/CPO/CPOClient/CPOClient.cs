@@ -3590,14 +3590,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                            Contract_Id              ContractId,
                            Direct_Id                DirectId,
 
-                           DateTime?                SessionTimeoutAt    = null,
+                           DateTimeOffset?          SessionTimeoutAt    = null,
                            Single?                  StateOfCharge       = null,
                            Single?                  MaxPower            = null,
                            Single?                  MaxCurrent          = null,
                            Boolean?                 OnePhase            = null,
                            Single?                  MaxEnergy           = null,
                            Single?                  MinEnergy           = null,
-                           DateTime?                Departure           = null,
+                           DateTimeOffset?          Departure           = null,
                            Single?                  CurrentPower        = null,
                            Single?                  ChargedEnergy       = null,
                            Timestamped<Single>?     MeterReading        = null,
@@ -3605,7 +3605,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                            Single?                  CurrentCost         = null,
                            Currency?                Currency            = null,
 
-                           DateTime?                Timestamp           = null,
+                           DateTimeOffset?          Timestamp           = null,
                            EventTracking_Id?        EventTrackingId     = null,
                            TimeSpan?                RequestTimeout      = null,
                            CancellationToken        CancellationToken   = default)

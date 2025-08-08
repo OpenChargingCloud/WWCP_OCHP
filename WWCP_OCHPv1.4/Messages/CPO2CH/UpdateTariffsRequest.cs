@@ -58,7 +58,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public UpdateTariffsRequest(IEnumerable<TariffInfo>  TariffInfos,
 
-                                    DateTime?                Timestamp           = null,
+                                    DateTimeOffset?          Timestamp           = null,
                                     EventTracking_Id?        EventTrackingId     = null,
                                     TimeSpan?                RequestTimeout      = null,
                                     CancellationToken        CancellationToken   = default)

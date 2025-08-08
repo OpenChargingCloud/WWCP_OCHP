@@ -51,7 +51,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// End of the scheduled period, if known.
         /// </summary>
-        public DateTime?          EndDate              { get; }
+        public DateTimeOffset?    EndDate              { get; }
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="EndDate">End of the scheduled period, if known.</param>
         public ChargePointSchedule(ChargePointStatus  ChargePointStatus,
                                    DateTime           StartDate,
-                                   DateTime?          EndDate  = null)
+                                   DateTimeOffset?    EndDate  = null)
         {
 
             this.ChargePointStatus  = ChargePointStatus;

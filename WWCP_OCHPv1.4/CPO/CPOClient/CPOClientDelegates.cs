@@ -35,8 +35,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a charge point list will be send upstream.
     /// </summary>
-    public delegate Task OnSetChargePointListRequestDelegate    (DateTime                        LogTimestamp,
-                                                                 DateTime                        RequestTimestamp,
+    public delegate Task OnSetChargePointListRequestDelegate    (DateTimeOffset                  LogTimestamp,
+                                                                 DateTimeOffset                  RequestTimestamp,
                                                                  CPOClient                       Sender,
                                                                  //String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
@@ -46,8 +46,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response on a set charge point list was received.
     /// </summary>
-    public delegate Task OnSetChargePointListResponseDelegate   (DateTime                        LogTimestamp,
-                                                                 DateTime                        RequestTimestamp,
+    public delegate Task OnSetChargePointListResponseDelegate   (DateTimeOffset                  LogTimestamp,
+                                                                 DateTimeOffset                  RequestTimestamp,
                                                                  CPOClient                       Sender,
                                                                  //String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
@@ -60,8 +60,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a charge point list update will be send upstream.
     /// </summary>
-    public delegate Task OnUpdateChargePointListRequestDelegate (DateTime                        LogTimestamp,
-                                                                 DateTime                        RequestTimestamp,
+    public delegate Task OnUpdateChargePointListRequestDelegate (DateTimeOffset                  LogTimestamp,
+                                                                 DateTimeOffset                  RequestTimestamp,
                                                                  CPOClient                       Sender,
                                                                  //String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
@@ -71,8 +71,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response on an update charge point list was received.
     /// </summary>
-    public delegate Task OnUpdateChargePointListResponseDelegate(DateTime                        LogTimestamp,
-                                                                 DateTime                        RequestTimestamp,
+    public delegate Task OnUpdateChargePointListResponseDelegate(DateTimeOffset                  LogTimestamp,
+                                                                 DateTimeOffset                  RequestTimestamp,
                                                                  CPOClient                       Sender,
                                                                  //String                          SenderId,
                                                                  EventTracking_Id                EventTrackingId,
@@ -88,8 +88,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever evse and parking status will be send upstream.
     /// </summary>
-    public delegate Task OnUpdateStatusRequestDelegate (DateTime                     LogTimestamp,
-                                                        DateTime                     RequestTimestamp,
+    public delegate Task OnUpdateStatusRequestDelegate (DateTimeOffset               LogTimestamp,
+                                                        DateTimeOffset               RequestTimestamp,
                                                         CPOClient                    Sender,
                                                         //String                       SenderId,
                                                         EventTracking_Id             EventTrackingId,
@@ -97,14 +97,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         IEnumerable<EVSEStatus>      EVSEStatus,
                                                         UInt64                       NumberOfParkingStatus,
                                                         IEnumerable<ParkingStatus>   ParkingStatus,
-                                                        DateTime?                    DefaultTTL,
+                                                        DateTimeOffset?              DefaultTTL,
                                                         TimeSpan                     RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever a response after sending evse and parking status upstream had been received.
     /// </summary>
-    public delegate Task OnUpdateStatusResponseDelegate(DateTime                     LogTimestamp,
-                                                        DateTime                     RequestTimestamp,
+    public delegate Task OnUpdateStatusResponseDelegate(DateTimeOffset               LogTimestamp,
+                                                        DateTimeOffset               RequestTimestamp,
                                                         CPOClient                    Sender,
                                                         //String                       SenderId,
                                                         EventTracking_Id             EventTrackingId,
@@ -112,7 +112,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         IEnumerable<EVSEStatus>      EVSEStatus,
                                                         UInt64                       NumberOfParkingStatus,
                                                         IEnumerable<ParkingStatus>   ParkingStatus,
-                                                        DateTime?                    DefaultTTL,
+                                                        DateTimeOffset?              DefaultTTL,
                                                         TimeSpan                     RequestTimeout,
                                                         UpdateStatusResponse         Result,
                                                         TimeSpan                     Runtime);
@@ -124,8 +124,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever tariff infos will be send upstream.
     /// </summary>
-    public delegate Task OnUpdateTariffsRequestDelegate (DateTime                     LogTimestamp,
-                                                         DateTime                     RequestTimestamp,
+    public delegate Task OnUpdateTariffsRequestDelegate (DateTimeOffset               LogTimestamp,
+                                                         DateTimeOffset               RequestTimestamp,
                                                          CPOClient                    Sender,
                                                          //String                       SenderId,
                                                          EventTracking_Id             EventTrackingId,
@@ -135,8 +135,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response after sending tariff infos upstream had been received.
     /// </summary>
-    public delegate Task OnUpdateTariffsResponseDelegate(DateTime                     LogTimestamp,
-                                                         DateTime                     RequestTimestamp,
+    public delegate Task OnUpdateTariffsResponseDelegate(DateTimeOffset               LogTimestamp,
+                                                         DateTimeOffset               RequestTimestamp,
                                                          CPOClient                    Sender,
                                                          //String                       SenderId,
                                                          EventTracking_Id             EventTrackingId,
@@ -153,8 +153,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever an e-mobility token authentication will be send upstream.
     /// </summary>
-    public delegate Task OnGetSingleRoamingAuthorisationRequestDelegate (DateTime                                LogTimestamp,
-                                                                         DateTime                                RequestTimestamp,
+    public delegate Task OnGetSingleRoamingAuthorisationRequestDelegate (DateTimeOffset                          LogTimestamp,
+                                                                         DateTimeOffset                          RequestTimestamp,
                                                                          CPOClient                               Sender,
                                                                          //String                                  SenderId,
                                                                          EventTracking_Id                        EventTrackingId,
@@ -164,8 +164,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response on an e-mobility token authentication was received.
     /// </summary>
-    public delegate Task OnGetSingleRoamingAuthorisationResponseDelegate(DateTime                                LogTimestamp,
-                                                                         DateTime                                RequestTimestamp,
+    public delegate Task OnGetSingleRoamingAuthorisationResponseDelegate(DateTimeOffset                          LogTimestamp,
+                                                                         DateTimeOffset                          RequestTimestamp,
                                                                          CPOClient                               Sender,
                                                                          //String                                  SenderId,
                                                                          EventTracking_Id                        EventTrackingId,
@@ -181,8 +181,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a request for the current roaming authorisation list will be send upstream.
     /// </summary>
-    public delegate Task OnGetRoamingAuthorisationListRequestDelegate (DateTime                              LogTimestamp,
-                                                                       DateTime                              RequestTimestamp,
+    public delegate Task OnGetRoamingAuthorisationListRequestDelegate (DateTimeOffset                        LogTimestamp,
+                                                                       DateTimeOffset                        RequestTimestamp,
                                                                        CPOClient                             Sender,
                                                                        //String                                SenderId,
                                                                        EventTracking_Id                      EventTrackingId,
@@ -191,8 +191,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever the current roaming authorisation list had been received.
     /// </summary>
-    public delegate Task OnGetRoamingAuthorisationListResponseDelegate(DateTime                              LogTimestamp,
-                                                                       DateTime                              RequestTimestamp,
+    public delegate Task OnGetRoamingAuthorisationListResponseDelegate(DateTimeOffset                        LogTimestamp,
+                                                                       DateTimeOffset                        RequestTimestamp,
                                                                        CPOClient                             Sender,
                                                                        //String                                SenderId,
                                                                        EventTracking_Id                      EventTrackingId,
@@ -204,23 +204,23 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a request for updates for the roaming authorisation list will be send upstream.
     /// </summary>
-    public delegate Task OnGetRoamingAuthorisationListUpdatesRequestDelegate (DateTime                                    LogTimestamp,
-                                                                              DateTime                                    RequestTimestamp,
+    public delegate Task OnGetRoamingAuthorisationListUpdatesRequestDelegate (DateTimeOffset                              LogTimestamp,
+                                                                              DateTimeOffset                              RequestTimestamp,
                                                                               CPOClient                                   Sender,
                                                                               //String                                      SenderId,
                                                                               EventTracking_Id                            EventTrackingId,
-                                                                              DateTime                                    LastUpdate,
+                                                                              DateTimeOffset                              LastUpdate,
                                                                               TimeSpan                                    RequestTimeout);
 
     /// <summary>
     /// A delegate called whenever updates of the roaming authorisation list had been received.
     /// </summary>
-    public delegate Task OnGetRoamingAuthorisationListUpdatesResponseDelegate(DateTime                                    LogTimestamp,
-                                                                              DateTime                                    RequestTimestamp,
+    public delegate Task OnGetRoamingAuthorisationListUpdatesResponseDelegate(DateTimeOffset                              LogTimestamp,
+                                                                              DateTimeOffset                              RequestTimestamp,
                                                                               CPOClient                                   Sender,
                                                                               //String                                      SenderId,
                                                                               EventTracking_Id                            EventTrackingId,
-                                                                              DateTime                                    LastUpdate,
+                                                                              DateTimeOffset                              LastUpdate,
                                                                               TimeSpan                                    RequestTimeout,
                                                                               GetRoamingAuthorisationListUpdatesResponse  Result,
                                                                               TimeSpan                                    Runtime);
@@ -233,8 +233,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever charge detail records will be send upstream.
     /// </summary>
-    public delegate Task OnAddCDRsRequestDelegate   (DateTime               LogTimestamp,
-                                                     DateTime               RequestTimestamp,
+    public delegate Task OnAddCDRsRequestDelegate   (DateTimeOffset         LogTimestamp,
+                                                     DateTimeOffset         RequestTimestamp,
                                                      CPOClient              Sender,
                                                      //String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
@@ -244,8 +244,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response after sending charge detail records upstream had been received.
     /// </summary>
-    public delegate Task OnAddCDRsResponseDelegate  (DateTime               LogTimestamp,
-                                                     DateTime               RequestTimestamp,
+    public delegate Task OnAddCDRsResponseDelegate  (DateTimeOffset         LogTimestamp,
+                                                     DateTimeOffset         RequestTimestamp,
                                                      CPOClient              Sender,
                                                      //String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
@@ -259,8 +259,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a check charge detail records request will be send upstream.
     /// </summary>
-    public delegate Task OnCheckCDRsRequestDelegate (DateTime               LogTimestamp,
-                                                     DateTime               RequestTimestamp,
+    public delegate Task OnCheckCDRsRequestDelegate (DateTimeOffset         LogTimestamp,
+                                                     DateTimeOffset         RequestTimestamp,
                                                      CPOClient              Sender,
                                                      //String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
@@ -270,8 +270,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response after sending a check charge detail records request upstream had been received.
     /// </summary>
-    public delegate Task OnCheckCDRsResponseDelegate(DateTime               LogTimestamp,
-                                                     DateTime               RequestTimestamp,
+    public delegate Task OnCheckCDRsResponseDelegate(DateTimeOffset         LogTimestamp,
+                                                     DateTimeOffset         RequestTimestamp,
                                                      CPOClient              Sender,
                                                      //String                 SenderId,
                                                      EventTracking_Id       EventTrackingId,
@@ -290,8 +290,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever an add service endpoints request will be send upstream.
     /// </summary>
-    public delegate Task OnAddServiceEndpointsRequestDelegate (DateTime                        LogTimestamp,
-                                                               DateTime                        RequestTimestamp,
+    public delegate Task OnAddServiceEndpointsRequestDelegate (DateTimeOffset                  LogTimestamp,
+                                                               DateTimeOffset                  RequestTimestamp,
                                                                IOCHPClient                     Sender,
                                                                //String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
@@ -301,8 +301,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response after sending an add service endpoints request upstream had been received.
     /// </summary>
-    public delegate Task OnAddServiceEndpointsResponseDelegate(//DateTime                        LogTimestamp,
-                                                               DateTime                        RequestTimestamp,
+    public delegate Task OnAddServiceEndpointsResponseDelegate(//DateTimeOffset                  LogTimestamp,
+                                                               DateTimeOffset                  RequestTimestamp,
                                                                IOCHPClient                     Sender,
                                                                //String                          SenderId,
                                                                EventTracking_Id                EventTrackingId,
@@ -318,8 +318,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a get service endpoints request will be send upstream.
     /// </summary>
-    public delegate Task OnGetServiceEndpointsRequestDelegate (DateTime                      LogTimestamp,
-                                                               DateTime                      RequestTimestamp,
+    public delegate Task OnGetServiceEndpointsRequestDelegate (DateTimeOffset                LogTimestamp,
+                                                               DateTimeOffset                RequestTimestamp,
                                                                IOCHPClient                   Sender,
                                                                //String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
@@ -328,8 +328,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response after sending a get service endpoints request upstream had been received.
     /// </summary>
-    public delegate Task OnGetServiceEndpointsResponseDelegate(//DateTime                      LogTimestamp,
-                                                               DateTime                      RequestTimestamp,
+    public delegate Task OnGetServiceEndpointsResponseDelegate(//DateTimeOffset                LogTimestamp,
+                                                               DateTimeOffset                RequestTimestamp,
                                                                IOCHPClient                   Sender,
                                                                //String                        SenderId,
                                                                EventTracking_Id              EventTrackingId,
@@ -345,8 +345,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever an inform provider message will be send to an e-mobility provider.
     /// </summary>
-    public delegate Task OnInformProviderRequestDelegate (DateTime                 LogTimestamp,
-                                                          DateTime                 RequestTimestamp,
+    public delegate Task OnInformProviderRequestDelegate (DateTimeOffset           LogTimestamp,
+                                                          DateTimeOffset           RequestTimestamp,
                                                           CPOClient                Sender,
                                                           //String                   SenderId,
                                                           EventTracking_Id         EventTrackingId,
@@ -356,14 +356,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                           Contract_Id              ContractId,
                                                           Direct_Id                DirectId,
 
-                                                          DateTime?                SessionTimeoutAt,
+                                                          DateTimeOffset?          SessionTimeoutAt,
                                                           Single?                  StateOfCharge,
                                                           Single?                  MaxPower,
                                                           Single?                  MaxCurrent,
                                                           Boolean?                 OnePhase,
                                                           Single?                  MaxEnergy,
                                                           Single?                  MinEnergy,
-                                                          DateTime?                Departure,
+                                                          DateTimeOffset?          Departure,
                                                           Single?                  CurrentPower,
                                                           Single?                  ChargedEnergy,
                                                           Timestamped<Single>?     MeterReading,
@@ -376,8 +376,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// A delegate called whenever a response after sending an inform provider message to an e-mobility provider had been received.
     /// </summary>
-    public delegate Task OnInformProviderResponseDelegate(DateTime                 LogTimestamp,
-                                                          DateTime                 RequestTimestamp,
+    public delegate Task OnInformProviderResponseDelegate(DateTimeOffset           LogTimestamp,
+                                                          DateTimeOffset           RequestTimestamp,
                                                           CPOClient                Sender,
                                                           //String                   SenderId,
                                                           EventTracking_Id         EventTrackingId,
@@ -387,14 +387,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                           Contract_Id              ContractId,
                                                           Direct_Id                DirectId,
 
-                                                          DateTime?                SessionTimeoutAt,
+                                                          DateTimeOffset?          SessionTimeoutAt,
                                                           Single?                  StateOfCharge,
                                                           Single?                  MaxPower,
                                                           Single?                  MaxCurrent,
                                                           Boolean?                 OnePhase,
                                                           Single?                  MaxEnergy,
                                                           Single?                  MinEnergy,
-                                                          DateTime?                Departure,
+                                                          DateTimeOffset?          Departure,
                                                           Single?                  CurrentPower,
                                                           Single?                  ChargedEnergy,
                                                           Timestamped<Single>?     MeterReading,

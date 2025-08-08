@@ -76,14 +76,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Start date and time of the charge session (login with the RFID badge).
         /// Local time of the charge point is used.
         /// </summary>
-        public DateTime                StartDateTime        { get; }
+        public DateTimeOffset          StartDateTime        { get; }
 
         /// <summary>
         /// End date and time of the charge session (log-off with the RFID badge
         /// or physical disconnect).
         /// Must be set in the local time of the charge point.
         /// </summary>
-        public DateTime                EndDateTime          { get; }
+        public DateTimeOffset          EndDateTime          { get; }
 
         /// <summary>
         /// Duration of the charge session, whenever it is more
@@ -168,8 +168,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                        ConnectorType                        ConnectorType,
 
                        CDRStatus                            Status,
-                       DateTime                             StartDateTime,
-                       DateTime                             EndDateTime,
+                       DateTimeOffset                       StartDateTime,
+                       DateTimeOffset                       EndDateTime,
                        IEnumerable<CDRPeriod>               ChargingPeriods,
                        Currency                             Currency,
 

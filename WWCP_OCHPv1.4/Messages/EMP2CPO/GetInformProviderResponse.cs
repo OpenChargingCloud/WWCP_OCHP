@@ -61,7 +61,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// On success the timeout for this session.
         /// </summary>
-        public DateTime?               SessionTimeoutAt    { get; }
+        public DateTimeOffset?         SessionTimeoutAt    { get; }
 
         /// <summary>
         /// Current state of charge of the connected EV in percent.
@@ -96,7 +96,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// Scheduled time of departure.
         /// </summary>
-        public DateTime?               Departure           { get; }
+        public DateTimeOffset?         Departure           { get; }
 
         /// <summary>
         /// The currently supplied power limit in kWs (in case of load management).
@@ -247,14 +247,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                          Contract_Id               ContractId,
                                          Direct_Id                 DirectId,
 
-                                         DateTime?                 SessionTimeoutAt  = null,
+                                         DateTimeOffset?           SessionTimeoutAt  = null,
                                          Single?                   StateOfCharge     = null,
                                          Single?                   MaxPower          = null,
                                          Single?                   MaxCurrent        = null,
                                          Boolean?                  OnePhase          = null,
                                          Single?                   MaxEnergy         = null,
                                          Single?                   MinEnergy         = null,
-                                         DateTime?                 Departure         = null,
+                                         DateTimeOffset?           Departure         = null,
                                          Single?                   CurrentPower      = null,
                                          Single?                   ChargedEnergy     = null,
                                          Timestamped<Single>?      MeterReading      = null,

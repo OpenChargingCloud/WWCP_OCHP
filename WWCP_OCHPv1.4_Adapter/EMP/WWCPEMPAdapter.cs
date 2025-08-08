@@ -1127,11 +1127,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public async Task<IEnumerable<WWCP.ChargeDetailRecord>>
 
-            GetChargeDetailRecords(DateTime               From,
-                                   DateTime?              To                  = null,
+            GetChargeDetailRecords(DateTimeOffset         From,
+                                   DateTimeOffset?        To                  = null,
                                    EMobilityProvider_Id?  ProviderId          = null,
 
-                                   DateTime?              Timestamp           = null,
+                                   DateTimeOffset?        Timestamp           = null,
                                    EventTracking_Id?      EventTrackingId     = null,
                                    TimeSpan?              RequestTimeout      = null,
                                    CancellationToken      CancellationToken   = default)
@@ -1267,25 +1267,25 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
         #endregion
 
-        public Task<POIDataPull<EVSE>> PullEVSEData(DateTime? LastCall = null,
-            GeoCoordinate? SearchCenter = null, float DistanceKM = 0, EMobilityProvider_Id? ProviderId = null, IEnumerable<WWCP.ChargingStationOperator_Id>? OperatorIdFilter = null, IEnumerable<Country> CountryCodeFilter = null, DateTime? Timestamp = null,
-            CancellationToken CancellationToken = default, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        public Task<POIDataPull<EVSE>> PullEVSEData(DateTimeOffset? LastCall = null,
+            GeoCoordinate? SearchCenter = null, float DistanceKM = 0, EMobilityProvider_Id? ProviderId = null, IEnumerable<WWCP.ChargingStationOperator_Id>? OperatorIdFilter = null, IEnumerable<Country> CountryCodeFilter = null, DateTimeOffset? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null,
+            CancellationToken CancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<StatusPull<WWCP.EVSEStatus>> PullEVSEStatus(DateTime? LastCall = null, GeoCoordinate? SearchCenter = null, float DistanceKM = 0, EVSEStatusType? EVSEStatusFilter = null, EMobilityProvider_Id? ProviderId = null, DateTime? Timestamp = null,
-            CancellationToken CancellationToken = default, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null)
+        public Task<StatusPull<WWCP.EVSEStatus>> PullEVSEStatus(DateTimeOffset? LastCall = null, GeoCoordinate? SearchCenter = null, float DistanceKM = 0, EVSEStatusType? EVSEStatusFilter = null, EMobilityProvider_Id? ProviderId = null, DateTimeOffset? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null,
+            CancellationToken CancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CancelReservationResult> CancelReservation(ChargingReservation_Id ReservationId, ChargingReservationCancellationReason Reason, EMobilityProvider_Id? ProviderId = null, WWCP.EVSE_Id? EVSEId = null, DateTime? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
+        public Task<CancelReservationResult> CancelReservation(ChargingReservation_Id ReservationId, ChargingReservationCancellationReason Reason, EMobilityProvider_Id? ProviderId = null, WWCP.EVSE_Id? EVSEId = null, DateTimeOffset? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<RemoteStopResult> RemoteStop(ChargingSession_Id SessionId, ReservationHandling? ReservationHandling = null, EMobilityProvider_Id? ProviderId = null, RemoteAuthentication? eMAId = null, Auth_Path? AuthenticationPath = null, DateTime? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
+        public Task<RemoteStopResult> RemoteStop(ChargingSession_Id SessionId, ReservationHandling? ReservationHandling = null, EMobilityProvider_Id? ProviderId = null, RemoteAuthentication? eMAId = null, Auth_Path? AuthenticationPath = null, DateTimeOffset? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -1295,12 +1295,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             throw new NotImplementedException();
         }
 
-        public Task<ReservationResult> Reserve(ChargingLocation ChargingLocation, ChargingReservationLevel ReservationLevel = ChargingReservationLevel.EVSE, DateTime? StartTime = null, TimeSpan? Duration = null, ChargingReservation_Id? ReservationId = null, ChargingReservation_Id? LinkedReservationId = null, EMobilityProvider_Id? ProviderId = null, RemoteAuthentication? RemoteAuthentication = null, Auth_Path? AuthenticationPath = null, ChargingProduct? ChargingProduct = null, IEnumerable<AuthenticationToken>? AuthTokens = null, IEnumerable<EMobilityAccount_Id>? eMAIds = null, IEnumerable<UInt32>? PINs = null, DateTime? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
+        public Task<ReservationResult> Reserve(ChargingLocation ChargingLocation, ChargingReservationLevel ReservationLevel = ChargingReservationLevel.EVSE, DateTimeOffset? StartTime = null, TimeSpan? Duration = null, ChargingReservation_Id? ReservationId = null, ChargingReservation_Id? LinkedReservationId = null, EMobilityProvider_Id? ProviderId = null, RemoteAuthentication? RemoteAuthentication = null, Auth_Path? AuthenticationPath = null, ChargingProduct? ChargingProduct = null, IEnumerable<AuthenticationToken>? AuthTokens = null, IEnumerable<EMobilityAccount_Id>? eMAIds = null, IEnumerable<UInt32>? PINs = null, DateTimeOffset? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CancelReservationResult> CancelReservation(ChargingReservation_Id ReservationId, ChargingReservationCancellationReason Reason, DateTime? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
+        public Task<CancelReservationResult> CancelReservation(ChargingReservation_Id ReservationId, ChargingReservationCancellationReason Reason, DateTimeOffset? Timestamp = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, CancellationToken CancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -1324,7 +1324,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                                    RemoteAuthentication?    RemoteAuthentication     = null,
                                                    JObject?                 AdditionalSessionInfos   = null,
                                                    Auth_Path?               AuthenticationPath       = null,
-                                                   DateTime?                Timestamp                = null,
+                                                   DateTimeOffset?          Timestamp                = null,
                                                    EventTracking_Id?        EventTrackingId          = null,
                                                    TimeSpan?                RequestTimeout           = null,
                                                    CancellationToken        CancellationToken        = default)

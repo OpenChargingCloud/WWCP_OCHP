@@ -39,12 +39,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The session identification for a direct charging process.
         /// </summary>
-        public Direct_Id  DirectId         { get; }
+        public Direct_Id        DirectId         { get; }
 
         /// <summary>
         /// An optional timestamp until when the session will timeout.
         /// </summary>
-        public DateTime?  SessionTimeout   { get; }
+        public DateTimeOffset?  SessionTimeout   { get; }
 
         #endregion
 
@@ -135,7 +135,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public ControlEVSEResponse(ControlEVSERequest  Request,
                                    Result              Result,
                                    Direct_Id           DirectId        = null,
-                                   DateTime?           SessionTimeout  = null)
+                                   DateTimeOffset?     SessionTimeout  = null)
 
             : base(Request, Result)
 
@@ -148,7 +148,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #endregion
 
-            this.DirectId       = DirectId;
+            this.DirectId        = DirectId;
             this.SessionTimeout  = SessionTimeout ?? new DateTime?();
 
         }

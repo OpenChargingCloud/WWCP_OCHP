@@ -37,37 +37,37 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// Starting time of period. Must be equal or later than startDateTime of the CDRInfo.
         /// </summary>
-        public DateTime      Start           { get; }
+        public DateTimeOffset  Start           { get; }
 
         /// <summary>
         /// Ending time of the period. Must be equal or earlier than endDateTime of the CDRInfo.
         /// </summary>
-        public DateTime      End             { get; }
+        public DateTimeOffset  End             { get; }
 
         /// <summary>
         /// Defines what the EVSP is charged for during this period.
         /// </summary>
-        public BillingItems  BillingItem     { get; }
+        public BillingItems    BillingItem     { get; }
 
         /// <summary>
         /// The value the EVSP is charged for. The unit of the value depends on the billingItem.
         /// </summary>
-        public WattHour      BillingValue    { get; }
+        public WattHour        BillingValue    { get; }
 
         /// <summary>
         /// Price per unit of the billingItem in the given currency.
         /// </summary>
-        public Decimal       ItemPrice       { get; }
+        public Decimal         ItemPrice       { get; }
 
         /// <summary>
         /// The cost of the period in the given currency.
         /// </summary>
-        public Decimal?      PeriodCost      { get; }
+        public Decimal?        PeriodCost      { get; }
 
         /// <summary>
         /// Tax rate in percent that is to be paid for charging processes in the country of origin.
         /// </summary>
-        public Decimal?      TaxRate         { get; }
+        public Decimal?        TaxRate         { get; }
 
         #endregion
 
@@ -83,13 +83,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="ItemPrice">Price per unit of the billingItem in the given currency.</param>
         /// <param name="PeriodCost">The cost of the period in the given currency.</param>
         /// <param name="TaxRate">Tax rate in percent that is to be paid for charging processes in the country of origin.</param>
-        public CDRPeriod(DateTime      Start,
-                         DateTime      End,
-                         BillingItems  BillingItem,
-                         WattHour      BillingValue,
-                         Decimal       ItemPrice,
-                         Decimal?      PeriodCost  = null,
-                         Decimal?      TaxRate     = null)
+        public CDRPeriod(DateTimeOffset  Start,
+                         DateTimeOffset  End,
+                         BillingItems    BillingItem,
+                         WattHour        BillingValue,
+                         Decimal         ItemPrice,
+                         Decimal?        PeriodCost  = null,
+                         Decimal?        TaxRate     = null)
 
         {
 

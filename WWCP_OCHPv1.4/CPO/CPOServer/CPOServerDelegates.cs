@@ -17,11 +17,6 @@
 
 #region Usings
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
 using org.GraphDefined.Vanaheimr.Illias;
 
 using cloud.charging.open.protocols.OCHPv1_4.EMP;
@@ -48,14 +43,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<SelectEVSEResponse>
 
-        OnSelectEVSEDelegate(DateTime             Timestamp,
-                             CPOServer            Sender,
-                             CancellationToken    CancellationToken,
-                             EventTracking_Id     EventTrackingId,
-                             EVSE_Id              EVSEId,
-                             Contract_Id          ContractId,
-                             DateTime?            ReserveUntil,
-                             TimeSpan?            RequestTimeout  = null);
+        OnSelectEVSEDelegate(DateTimeOffset     Timestamp,
+                             CPOServer          Sender,
+                             CancellationToken  CancellationToken,
+                             EventTracking_Id   EventTrackingId,
+                             EVSE_Id            EVSEId,
+                             Contract_Id        ContractId,
+                             DateTimeOffset?    ReserveUntil,
+                             TimeSpan?          RequestTimeout  = null);
 
     #endregion
 
@@ -79,19 +74,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<ControlEVSEResponse>
 
-        OnControlEVSEDelegate(DateTime             Timestamp,
-                              CPOServer            Sender,
-                              CancellationToken    CancellationToken,
-                              EventTracking_Id     EventTrackingId,
-                              Direct_Id            DirectId,
-                              DirectOperations     Operation,
-                              Single?              MaxPower,
-                              Single?              MaxCurrent,
-                              Boolean?             OnePhase,
-                              Single?              MaxEnergy,
-                              Single?              MinEnergy,
-                              DateTime?            Departure,
-                              TimeSpan?            RequestTimeout  = null);
+        OnControlEVSEDelegate(DateTimeOffset     Timestamp,
+                              CPOServer          Sender,
+                              CancellationToken  CancellationToken,
+                              EventTracking_Id   EventTrackingId,
+                              Direct_Id          DirectId,
+                              DirectOperations   Operation,
+                              Single?            MaxPower,
+                              Single?            MaxCurrent,
+                              Boolean?           OnePhase,
+                              Single?            MaxEnergy,
+                              Single?            MinEnergy,
+                              DateTimeOffset?    Departure,
+                              TimeSpan?          RequestTimeout  = null);
 
     #endregion
 
@@ -108,12 +103,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<ReleaseEVSEResponse>
 
-        OnReleaseEVSEDelegate(DateTime             Timestamp,
-                              CPOServer            Sender,
-                              CancellationToken    CancellationToken,
-                              EventTracking_Id     EventTrackingId,
-                              Direct_Id            DirectId,
-                              TimeSpan?            RequestTimeout  = null);
+        OnReleaseEVSEDelegate(DateTimeOffset     Timestamp,
+                              CPOServer          Sender,
+                              CancellationToken  CancellationToken,
+                              EventTracking_Id   EventTrackingId,
+                              Direct_Id          DirectId,
+                              TimeSpan?          RequestTimeout  = null);
 
     #endregion
 
@@ -130,12 +125,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<GetEVSEStatusResponse>
 
-        OnGetEVSEStatusDelegate(DateTime                Timestamp,
-                                CPOServer               Sender,
-                                CancellationToken       CancellationToken,
-                                EventTracking_Id        EventTrackingId,
-                                IEnumerable<EVSE_Id>    EVSEIds,
-                                TimeSpan?               RequestTimeout  = null);
+        OnGetEVSEStatusDelegate(DateTimeOffset        Timestamp,
+                                CPOServer             Sender,
+                                CancellationToken     CancellationToken,
+                                EventTracking_Id      EventTrackingId,
+                                IEnumerable<EVSE_Id>  EVSEIds,
+                                TimeSpan?             RequestTimeout  = null);
 
     #endregion
 
@@ -153,13 +148,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <param name="RequestTimeout">An optional timeout for this request.</param>
     public delegate Task<ReportDiscrepancyResponse>
 
-        OnReportDiscrepancyDelegate(DateTime             Timestamp,
-                                    CPOServer            Sender,
-                                    CancellationToken    CancellationToken,
-                                    EventTracking_Id     EventTrackingId,
-                                    EVSE_Id              EVSEId,
-                                    String               Report,
-                                    TimeSpan?            RequestTimeout  = null);
+        OnReportDiscrepancyDelegate(DateTimeOffset     Timestamp,
+                                    CPOServer          Sender,
+                                    CancellationToken  CancellationToken,
+                                    EventTracking_Id   EventTrackingId,
+                                    EVSE_Id            EVSEId,
+                                    String             Report,
+                                    TimeSpan?          RequestTimeout  = null);
 
     #endregion
 

@@ -58,7 +58,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public UpdateRoamingAuthorisationListRequest(IEnumerable<RoamingAuthorisationInfo>  RoamingAuthorisationInfos,
 
-                                                     DateTime?                              Timestamp           = null,
+                                                     DateTimeOffset?                        Timestamp           = null,
                                                      EventTracking_Id?                      EventTrackingId     = null,
                                                      TimeSpan?                              RequestTimeout      = null,
                                                      CancellationToken                      CancellationToken   = default)

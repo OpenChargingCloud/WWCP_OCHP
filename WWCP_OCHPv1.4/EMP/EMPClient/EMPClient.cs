@@ -3300,9 +3300,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             SelectEVSE(EVSE_Id             EVSEId,
                        Contract_Id         ContractId,
-                       DateTime?           ReserveUntil        = null,
+                       DateTimeOffset?     ReserveUntil        = null,
 
-                       DateTime?           Timestamp           = null,
+                       DateTimeOffset?     Timestamp           = null,
                        EventTracking_Id?   EventTrackingId     = null,
                        TimeSpan?           RequestTimeout      = null,
                        CancellationToken   CancellationToken   = default)
@@ -3346,9 +3346,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
 
             var ep      = _EndpointInfos.Get(EVSEId);
-            var Request = new SelectEVSERequest(EVSEId,
-                                                ContractId,
-                                                ReserveUntil);
+            var Request = new SelectEVSERequest(
+                              EVSEId,
+                              ContractId,
+                              ReserveUntil
+                          );
 
 
             using (var _OCHPClient = new SOAPClient(ep.First().URL,
@@ -3502,9 +3504,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                         Boolean?            OnePhase            = null,
                         Single?             MaxEnergy           = null,
                         Single?             MinEnergy           = null,
-                        DateTime?           Departure           = null,
+                        DateTimeOffset?     Departure           = null,
 
-                        DateTime?           Timestamp           = null,
+                        DateTimeOffset?     Timestamp           = null,
                         EventTracking_Id?   EventTrackingId     = null,
                         TimeSpan?           RequestTimeout      = null,
                         CancellationToken   CancellationToken   = default)
@@ -3702,7 +3704,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             ReleaseEVSE(Direct_Id          DirectId,
 
-                        DateTime?          Timestamp           = null,
+                        DateTimeOffset?    Timestamp           = null,
                         EventTracking_Id?  EventTrackingId     = null,
                         TimeSpan?          RequestTimeout      = null,
                         CancellationToken  CancellationToken   = default)
@@ -3882,7 +3884,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             GetEVSEStatus(IEnumerable<EVSE_Id>  EVSEIds,
 
-                          DateTime?             Timestamp           = null,
+                          DateTimeOffset?       Timestamp           = null,
                           EventTracking_Id?     EventTrackingId     = null,
                           TimeSpan?             RequestTimeout      = null,
                           CancellationToken     CancellationToken   = default)
@@ -4065,7 +4067,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             ReportDiscrepancy(EVSE_Id            EVSEId,
                               String             Report,
 
-                              DateTime?          Timestamp           = null,
+                              DateTimeOffset?    Timestamp           = null,
                               EventTracking_Id?  EventTrackingId     = null,
                               TimeSpan?          RequestTimeout      = null,
                               CancellationToken  CancellationToken   = default)
@@ -4250,7 +4252,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             GetInformProvider(Direct_Id           DirectId,
 
-                              DateTime?           Timestamp           = null,
+                              DateTimeOffset?     Timestamp           = null,
                               EventTracking_Id?   EventTrackingId     = null,
                               TimeSpan?           RequestTimeout      = null,
                               CancellationToken   CancellationToken   = default)
