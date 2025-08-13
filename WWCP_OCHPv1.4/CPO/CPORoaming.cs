@@ -155,7 +155,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             => CPOClient.TransmissionRetryDelay;
 
         /// <summary>
-        /// The maximum number of retries when communicationg with the remote OICP service.
+        /// The maximum number of retries when communicating with the remote OICP service.
         /// </summary>
         UInt16                               IHTTPClient.MaxNumberOfRetries
             => CPOClient.MaxNumberOfRetries;
@@ -178,11 +178,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         DNSClient                            IHTTPClient.DNSClient
             => CPOClient.DNSClient;
 
-        Boolean IHTTPClient.Connected
+        Boolean                              IHTTPClient.Connected
             => CPOClient.Connected;
 
-        IIPAddress? IHTTPClient.RemoteIPAddress
+        IIPAddress?                          IHTTPClient.RemoteIPAddress
             => CPOClient.RemoteIPAddress;
+
+        UInt64                               IHTTPClient.KeepAliveMessageCount
+            => CPOClient.KeepAliveMessageCount;
 
         #endregion
 
