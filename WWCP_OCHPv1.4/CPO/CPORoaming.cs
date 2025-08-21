@@ -175,7 +175,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The DNS client defines which DNS servers to use.
         /// </summary>
-        DNSClient                            IHTTPClient.DNSClient
+        IDNSClient                           IHTTPClient.DNSClient
             => CPOClient.DNSClient;
 
         Boolean                              IHTTPClient.Connected
