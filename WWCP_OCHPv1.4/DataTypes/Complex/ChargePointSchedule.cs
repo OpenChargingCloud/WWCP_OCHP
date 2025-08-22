@@ -180,7 +180,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ChargePointScheduleXML, e);
+                OnException?.Invoke(Timestamp.Now, ChargePointScheduleXML, e);
 
                 ChargePointSchedule = null;
                 return false;
@@ -216,7 +216,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ChargePointScheduleText, e);
+                OnException?.Invoke(Timestamp.Now, ChargePointScheduleText, e);
             }
 
             ChargePointSchedule = null;

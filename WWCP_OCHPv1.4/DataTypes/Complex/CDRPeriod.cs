@@ -229,7 +229,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, CDRPeriodXML, e);
+                OnException?.Invoke(Timestamp.Now, CDRPeriodXML, e);
 
                 CDRPeriod = null;
                 return false;
@@ -265,7 +265,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, CDRPeriodText, e);
+                OnException?.Invoke(Timestamp.Now, CDRPeriodText, e);
             }
 
             CDRPeriod = null;

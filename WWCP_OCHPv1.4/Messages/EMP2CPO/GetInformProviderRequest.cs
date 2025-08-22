@@ -155,7 +155,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetInformProviderRequestXML, e);
+                OnException?.Invoke(Timestamp.Now, GetInformProviderRequestXML, e);
 
                 GetInformProviderRequest = null;
                 return false;
@@ -191,7 +191,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetInformProviderRequestText, e);
+                OnException?.Invoke(Timestamp.Now, GetInformProviderRequestText, e);
             }
 
             GetInformProviderRequest = null;

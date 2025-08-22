@@ -201,7 +201,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, UpdateStatusRequestXML, e);
+                OnException?.Invoke(Timestamp.Now, UpdateStatusRequestXML, e);
 
                 UpdateStatusRequest = null;
                 return false;
@@ -237,7 +237,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, UpdateStatusRequestText, e);
+                OnException?.Invoke(Timestamp.Now, UpdateStatusRequestText, e);
             }
 
             UpdateStatusRequest = null;

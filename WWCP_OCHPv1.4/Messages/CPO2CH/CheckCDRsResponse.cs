@@ -254,7 +254,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, CheckCDRsResponseXML, e);
+                OnException?.Invoke(Timestamp.Now, CheckCDRsResponseXML, e);
 
                 CheckCDRsResponse = null;
                 return false;
@@ -293,7 +293,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, CheckCDRsResponseText, e);
+                OnException?.Invoke(Timestamp.Now, CheckCDRsResponseText, e);
             }
 
             CheckCDRsResponse = null;

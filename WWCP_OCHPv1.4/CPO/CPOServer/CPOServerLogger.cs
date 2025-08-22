@@ -31,7 +31,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP CPO server logger.
     /// </summary>
-    public class CPOServerLogger : HTTPServerLogger
+    public class CPOServerLogger : HTTPServerLoggerX
     {
 
         #region Data
@@ -165,91 +165,91 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region SelectEVSE
 
-            RegisterEvent("SelectEVSERequest",
+            RegisterEvent2("SelectEVSERequest",
                           handler => CPOServer.OnSelectEVSESOAPRequest += handler,
                           handler => CPOServer.OnSelectEVSESOAPRequest -= handler,
                           "SelectEVSE", "OCHPdirect", "Requests", "All").
-                RegisterDefaultConsoleLogTarget(this).
-                RegisterDefaultDiscLogTarget(this);
+                RegisterDefaultConsoleLogTargetX(this).
+                RegisterDefaultDiscLogTargetX(this);
 
-            RegisterEvent("SelectEVSEResponse",
+            RegisterEvent2("SelectEVSEResponse",
                           handler => CPOServer.OnSelectEVSESOAPResponse += handler,
                           handler => CPOServer.OnSelectEVSESOAPResponse -= handler,
                           "SelectEVSE", "OCHPdirect", "Responses", "All").
-               RegisterDefaultConsoleLogTarget(this).
-               RegisterDefaultDiscLogTarget(this);
+               RegisterDefaultConsoleLogTargetX(this).
+               RegisterDefaultDiscLogTargetX(this);
 
             #endregion
 
             #region ControlEVSE
 
-            RegisterEvent("ControlEVSERequest",
+            RegisterEvent2("ControlEVSERequest",
                           handler => CPOServer.OnControlEVSESOAPRequest += handler,
                           handler => CPOServer.OnControlEVSESOAPRequest -= handler,
                           "ControlEVSE", "OCHPdirect", "Requests", "All").
-                RegisterDefaultConsoleLogTarget(this).
-                RegisterDefaultDiscLogTarget(this);
+                RegisterDefaultConsoleLogTargetX(this).
+                RegisterDefaultDiscLogTargetX(this);
 
-            RegisterEvent("ControlEVSEResponse",
+            RegisterEvent2("ControlEVSEResponse",
                           handler => CPOServer.OnControlEVSESOAPResponse += handler,
                           handler => CPOServer.OnControlEVSESOAPResponse -= handler,
                           "ControlEVSE", "OCHPdirect", "Responses", "All").
-               RegisterDefaultConsoleLogTarget(this).
-               RegisterDefaultDiscLogTarget(this);
+               RegisterDefaultConsoleLogTargetX(this).
+               RegisterDefaultDiscLogTargetX(this);
 
             #endregion
 
             #region ReleaseEVSE
 
-            RegisterEvent("ReleaseEVSERequest",
+            RegisterEvent2("ReleaseEVSERequest",
                           handler => CPOServer.OnReleaseEVSESOAPRequest += handler,
                           handler => CPOServer.OnReleaseEVSESOAPRequest -= handler,
                           "ReleaseEVSE", "OCHPdirect", "Requests", "All").
-                RegisterDefaultConsoleLogTarget(this).
-                RegisterDefaultDiscLogTarget(this);
+                RegisterDefaultConsoleLogTargetX(this).
+                RegisterDefaultDiscLogTargetX(this);
 
-            RegisterEvent("ReleaseEVSEResponse",
+            RegisterEvent2("ReleaseEVSEResponse",
                           handler => CPOServer.OnReleaseEVSESOAPResponse += handler,
                           handler => CPOServer.OnReleaseEVSESOAPResponse -= handler,
                           "ReleaseEVSE", "OCHPdirect", "Responses", "All").
-               RegisterDefaultConsoleLogTarget(this).
-               RegisterDefaultDiscLogTarget(this);
+               RegisterDefaultConsoleLogTargetX(this).
+               RegisterDefaultDiscLogTargetX(this);
 
             #endregion
 
             #region GetEVSEStatus
 
-            RegisterEvent("GetEVSEStatusRequest",
+            RegisterEvent2("GetEVSEStatusRequest",
                           handler => CPOServer.OnGetEVSEStatusSOAPRequest += handler,
                           handler => CPOServer.OnGetEVSEStatusSOAPRequest -= handler,
                           "GetEVSEStatus", "OCHPdirect", "Requests", "All").
-                RegisterDefaultConsoleLogTarget(this).
-                RegisterDefaultDiscLogTarget(this);
+                RegisterDefaultConsoleLogTargetX(this).
+                RegisterDefaultDiscLogTargetX(this);
 
-            RegisterEvent("GetEVSEStatusResponse",
+            RegisterEvent2("GetEVSEStatusResponse",
                           handler => CPOServer.OnGetEVSEStatusSOAPResponse += handler,
                           handler => CPOServer.OnGetEVSEStatusSOAPResponse -= handler,
                           "GetEVSEStatus", "OCHPdirect", "Responses", "All").
-               RegisterDefaultConsoleLogTarget(this).
-               RegisterDefaultDiscLogTarget(this);
+               RegisterDefaultConsoleLogTargetX(this).
+               RegisterDefaultDiscLogTargetX(this);
 
             #endregion
 
             #region ReportDiscrepancy
 
-            RegisterEvent("ReportDiscrepancyRequest",
+            RegisterEvent2("ReportDiscrepancyRequest",
                           handler => CPOServer.OnReportDiscrepancySOAPRequest += handler,
                           handler => CPOServer.OnReportDiscrepancySOAPRequest -= handler,
                           "ReportDiscrepancy", "OCHPdirect", "Requests", "All").
-                RegisterDefaultConsoleLogTarget(this).
-                RegisterDefaultDiscLogTarget(this);
+                RegisterDefaultConsoleLogTargetX(this).
+                RegisterDefaultDiscLogTargetX(this);
 
-            RegisterEvent("ReportDiscrepancyResponse",
+            RegisterEvent2("ReportDiscrepancyResponse",
                           handler => CPOServer.OnReportDiscrepancySOAPResponse += handler,
                           handler => CPOServer.OnReportDiscrepancySOAPResponse -= handler,
                           "ReportDiscrepancy", "OCHPdirect", "Responses", "All").
-               RegisterDefaultConsoleLogTarget(this).
-               RegisterDefaultDiscLogTarget(this);
+               RegisterDefaultConsoleLogTargetX(this).
+               RegisterDefaultDiscLogTargetX(this);
 
             #endregion
 

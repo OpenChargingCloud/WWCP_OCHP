@@ -339,7 +339,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, HoursXML, e);
+                OnException?.Invoke(Timestamp.Now, HoursXML, e);
 
                 Hours = null;
                 return false;
@@ -375,7 +375,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, HoursText, e);
+                OnException?.Invoke(Timestamp.Now, HoursText, e);
             }
 
             Hours = null;

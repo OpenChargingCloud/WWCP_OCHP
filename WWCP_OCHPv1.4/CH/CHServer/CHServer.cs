@@ -81,12 +81,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an add service endpoints SOAP request was received.
         /// </summary>
-        public event RequestLogHandler              OnAddServiceEndpointsSOAPRequest;
+        public event HTTPRequestLogHandlerX         OnAddServiceEndpointsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an add service endpoints SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler               OnAddServiceEndpointsSOAPResponse;
+        public event HTTPResponseLogHandlerX        OnAddServiceEndpointsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an add service endpoints request was received.
@@ -100,12 +100,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get service endpoints SOAP request was received.
         /// </summary>
-        public event RequestLogHandler              OnGetServiceEndpointsSOAPRequest;
+        public event HTTPRequestLogHandlerX         OnGetServiceEndpointsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get service endpoints SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler               OnGetServiceEndpointsSOAPResponse;
+        public event HTTPResponseLogHandlerX        OnGetServiceEndpointsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get service endpoints request was received.
@@ -122,17 +122,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an add charge detail records SOAP request was received.
         /// </summary>
-        public event RequestLogHandler  OnAddCDRsSOAPRequest;
+        public event HTTPRequestLogHandlerX         OnAddCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an add charge detail records SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler   OnAddCDRsSOAPResponse;
+        public event HTTPResponseLogHandlerX        OnAddCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an add charge detail records request was received.
         /// </summary>
-        public event OnAddCDRsDelegate  OnAddCDRsRequest;
+        public event OnAddCDRsDelegate              OnAddCDRsRequest;
 
         #endregion
 
@@ -141,17 +141,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a check charge detail records SOAP request was received.
         /// </summary>
-        public event RequestLogHandler    OnCheckCDRsSOAPRequest;
+        public event HTTPRequestLogHandlerX   OnCheckCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a check charge detail records SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler     OnCheckCDRsSOAPResponse;
+        public event HTTPResponseLogHandlerX  OnCheckCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a check charge detail records request was received.
         /// </summary>
-        public event OnCheckCDRsDelegate  OnCheckCDRsRequest;
+        public event OnCheckCDRsDelegate      OnCheckCDRsRequest;
 
         #endregion
 
@@ -160,12 +160,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get roaming authorisation list SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                      OnGetRoamingAuthorisationListSOAPRequest;
+        public event HTTPRequestLogHandlerX                 OnGetRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                       OnGetRoamingAuthorisationListSOAPResponse;
+        public event HTTPResponseLogHandlerX                OnGetRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list request was received.
@@ -179,12 +179,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                             OnGetRoamingAuthorisationListUpdatesSOAPRequest;
+        public event HTTPRequestLogHandlerX                        OnGetRoamingAuthorisationListUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                              OnGetRoamingAuthorisationListUpdatesSOAPResponse;
+        public event HTTPResponseLogHandlerX                       OnGetRoamingAuthorisationListUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get roaming authorisation list updates request was received.
@@ -198,12 +198,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get single roaming authorisation SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                        OnGetSingleRoamingAuthorisationSOAPRequest;
+        public event HTTPRequestLogHandlerX                   OnGetSingleRoamingAuthorisationSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get single roaming authorisation SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                         OnGetSingleRoamingAuthorisationSOAPResponse;
+        public event HTTPResponseLogHandlerX                  OnGetSingleRoamingAuthorisationSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get single roaming authorisation request was received.
@@ -217,12 +217,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a set charge point list SOAP request was received.
         /// </summary>
-        public event RequestLogHandler             OnSetChargePointListSOAPRequest;
+        public event HTTPRequestLogHandlerX        OnSetChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a set charge point list SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler              OnSetChargePointListSOAPResponse;
+        public event HTTPResponseLogHandlerX       OnSetChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a set charge point list request was received.
@@ -236,12 +236,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a update charge point list SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                OnUpdateChargePointListSOAPRequest;
+        public event HTTPRequestLogHandlerX           OnUpdateChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a update charge point list SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                 OnUpdateChargePointListSOAPResponse;
+        public event HTTPResponseLogHandlerX          OnUpdateChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a update charge point list request was received.
@@ -255,17 +255,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status SOAP request was received.
         /// </summary>
-        public event RequestLogHandler       OnUpdateStatusSOAPRequest;
+        public event HTTPRequestLogHandlerX   OnUpdateStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler        OnUpdateStatusSOAPResponse;
+        public event HTTPResponseLogHandlerX  OnUpdateStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update EVSE and/or parking status request was received.
         /// </summary>
-        public event OnUpdateStatusDelegate  OnUpdateStatusRequest;
+        public event OnUpdateStatusDelegate   OnUpdateStatusRequest;
 
         #endregion
 
@@ -274,12 +274,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update charging tariffs SOAP request was received.
         /// </summary>
-        public event RequestLogHandler        OnUpdateTariffsSOAPRequest;
+        public event HTTPRequestLogHandlerX   OnUpdateTariffsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update charging tariffs SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler         OnUpdateTariffsSOAPResponse;
+        public event HTTPResponseLogHandlerX  OnUpdateTariffsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update charging tariffs request was received.
@@ -296,17 +296,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charge detail records SOAP request was received.
         /// </summary>
-        public event RequestLogHandler  OnGetCDRsSOAPRequest;
+        public event HTTPRequestLogHandlerX   OnGetCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charge detail records SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler   OnGetCDRsSOAPResponse;
+        public event HTTPResponseLogHandlerX  OnGetCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charge detail records request was received.
         /// </summary>
-        public event OnGetCDRsDelegate  OnGetCDRsRequest;
+        public event OnGetCDRsDelegate        OnGetCDRsRequest;
 
         #endregion
 
@@ -315,17 +315,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a confirm charge detail records SOAP request was received.
         /// </summary>
-        public event RequestLogHandler      OnConfirmCDRsSOAPRequest;
+        public event HTTPRequestLogHandlerX   OnConfirmCDRsSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a confirm charge detail records SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler       OnConfirmCDRsSOAPResponse;
+        public event HTTPResponseLogHandlerX  OnConfirmCDRsSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a confirm charge detail records request was received.
         /// </summary>
-        public event OnConfirmCDRsDelegate  OnConfirmCDRsRequest;
+        public event OnConfirmCDRsDelegate    OnConfirmCDRsRequest;
 
         #endregion
 
@@ -334,12 +334,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charge point list SOAP request was received.
         /// </summary>
-        public event RequestLogHandler             OnGetChargePointListSOAPRequest;
+        public event HTTPRequestLogHandlerX        OnGetChargePointListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charge point list SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler              OnGetChargePointListSOAPResponse;
+        public event HTTPResponseLogHandlerX       OnGetChargePointListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charge point list request was received.
@@ -353,12 +353,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charge point list updates SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                    OnGetChargePointListUpdatesSOAPRequest;
+        public event HTTPRequestLogHandlerX               OnGetChargePointListUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charge point list updates SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                     OnGetChargePointListUpdatesSOAPResponse;
+        public event HTTPResponseLogHandlerX              OnGetChargePointListUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charge point list updates request was received.
@@ -372,17 +372,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get EVSE and parking status SOAP request was received.
         /// </summary>
-        public event RequestLogHandler    OnGetStatusSOAPRequest;
+        public event HTTPRequestLogHandlerX   OnGetStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get EVSE and parking status SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler     OnGetStatusSOAPResponse;
+        public event HTTPResponseLogHandlerX  OnGetStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get EVSE and parking status request was received.
         /// </summary>
-        public event OnGetStatusDelegate  OnGetStatusRequest;
+        public event OnGetStatusDelegate      OnGetStatusRequest;
 
         #endregion
 
@@ -391,12 +391,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a get charging tariffs updates SOAP request was received.
         /// </summary>
-        public event RequestLogHandler           OnGetTariffUpdatesSOAPRequest;
+        public event HTTPRequestLogHandlerX      OnGetTariffUpdatesSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get charging tariffs updates SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler            OnGetTariffUpdatesSOAPResponse;
+        public event HTTPResponseLogHandlerX     OnGetTariffUpdatesSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get charging tariffs updates request was received.
@@ -410,12 +410,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                      OnSetRoamingAuthorisationListSOAPRequest;
+        public event HTTPRequestLogHandlerX                 OnSetRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                       OnSetRoamingAuthorisationListSOAPResponse;
+        public event HTTPResponseLogHandlerX                OnSetRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a set roaming authorisation infos request was received.
@@ -429,12 +429,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos SOAP request was received.
         /// </summary>
-        public event RequestLogHandler                         OnUpdateRoamingAuthorisationListSOAPRequest;
+        public event HTTPRequestLogHandlerX                    OnUpdateRoamingAuthorisationListSOAPRequest;
 
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler                          OnUpdateRoamingAuthorisationListSOAPResponse;
+        public event HTTPResponseLogHandlerX                   OnUpdateRoamingAuthorisationListSOAPResponse;
 
         /// <summary>
         /// An event sent whenever an update roaming authorisation infos request was received.
@@ -460,15 +460,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// <param name="RegisterHTTPRootService">Register HTTP root services for sending a notice to clients connecting via HTML or plain text.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
-        public CHServer(String           HTTPServerName            = DefaultHTTPServerName,
-                        IPPort?          TCPPort                   = null,
-                        String           ServiceName               = null,
+        public CHServer(String            HTTPServerName            = DefaultHTTPServerName,
+                        IPPort?           TCPPort                   = null,
+                        String?           ServiceName               = null,
 
-                        HTTPPath?        URLPrefix                 = null,
-                        HTTPContentType  ContentType               = null,
-                        Boolean          RegisterHTTPRootService   = true,
-                        DNSClient        DNSClient                 = null,
-                        Boolean          AutoStart                 = false)
+                        HTTPPath?         URLPrefix                 = null,
+                        HTTPContentType?  ContentType               = null,
+                        Boolean           RegisterHTTPRootService   = true,
+                        IDNSClient?       DNSClient                 = null,
+                        Boolean           AutoStart                 = false)
 
             : base(HTTPServerName.IsNotNullOrEmpty() ? HTTPServerName : DefaultHTTPServerName,
                    TCPPort     ?? DefaultHTTPServerPort,
@@ -484,7 +484,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
             RegisterURITemplates();
 
             if (AutoStart)
-                Start();
+                SOAPServer.HTTPServer.Start().GetAwaiter().GetResult();
 
         }
 
@@ -538,9 +538,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnAddServiceEndpointsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                             this.SOAPServer.HTTPServer,
-                                                             Request);
+                    OnAddServiceEndpointsSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -558,7 +561,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnAddServiceEndpointsRequest?.
@@ -593,7 +596,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -607,10 +610,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnAddServiceEndpointsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                              this.SOAPServer.HTTPServer,
-                                                              Request,
-                                                              HTTPResponse);
+                    OnAddServiceEndpointsSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -640,9 +646,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetServiceEndpointsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                             this.SOAPServer.HTTPServer,
-                                                             Request);
+                    OnGetServiceEndpointsSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -693,7 +702,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -707,10 +716,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetServiceEndpointsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                              this.SOAPServer.HTTPServer,
-                                                              Request,
-                                                              HTTPResponse);
+                    OnGetServiceEndpointsSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -743,9 +755,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnAddCDRsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                 this.SOAPServer.HTTPServer,
-                                                 Request);
+                    OnAddCDRsSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -797,7 +812,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -811,10 +826,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnAddCDRsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                  this.SOAPServer.HTTPServer,
-                                                  Request,
-                                                  HTTPResponse);
+                    OnAddCDRsSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -844,9 +862,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnCheckCDRsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                 this.SOAPServer.HTTPServer,
-                                                 Request);
+                    OnCheckCDRsSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -898,7 +919,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -912,10 +933,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnCheckCDRsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                    this.SOAPServer.HTTPServer,
-                                                    Request,
-                                                    HTTPResponse);
+                    OnCheckCDRsSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -945,9 +969,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetRoamingAuthorisationListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                                     this.SOAPServer.HTTPServer,
-                                                                     Request);
+                    OnGetRoamingAuthorisationListSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -998,7 +1025,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1012,10 +1039,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetRoamingAuthorisationListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                      this.SOAPServer.HTTPServer,
-                                                                      Request,
-                                                                      HTTPResponse);
+                    OnGetRoamingAuthorisationListSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1045,9 +1075,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetRoamingAuthorisationListUpdatesSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                                            this.SOAPServer.HTTPServer,
-                                                                            Request);
+                    OnGetRoamingAuthorisationListUpdatesSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1099,7 +1132,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1113,10 +1146,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetRoamingAuthorisationListUpdatesSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                             this.SOAPServer.HTTPServer,
-                                                                             Request,
-                                                                             HTTPResponse);
+                    OnGetRoamingAuthorisationListUpdatesSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1146,9 +1182,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetSingleRoamingAuthorisationSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                                       this.SOAPServer.HTTPServer,
-                                                                       Request);
+                    OnGetSingleRoamingAuthorisationSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1200,7 +1239,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1214,10 +1253,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetSingleRoamingAuthorisationSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                        this.SOAPServer.HTTPServer,
-                                                                        Request,
-                                                                        HTTPResponse);
+                    OnGetSingleRoamingAuthorisationSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1247,9 +1289,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnSetChargePointListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                            this.SOAPServer.HTTPServer,
-                                                            Request);
+                    OnSetChargePointListSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1301,7 +1346,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1315,10 +1360,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnSetChargePointListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                             this.SOAPServer.HTTPServer,
-                                                             Request,
-                                                             HTTPResponse);
+                    OnSetChargePointListSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1348,9 +1396,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateChargePointListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                               this.SOAPServer.HTTPServer,
-                                                               Request);
+                    OnUpdateChargePointListSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1402,7 +1453,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1416,10 +1467,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateChargePointListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                this.SOAPServer.HTTPServer,
-                                                                Request,
-                                                                HTTPResponse);
+                    OnUpdateChargePointListSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1449,9 +1503,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateStatusSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                      this.SOAPServer.HTTPServer,
-                                                      Request);
+                    OnUpdateStatusSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1505,7 +1562,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1519,10 +1576,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateStatusSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                       this.SOAPServer.HTTPServer,
-                                                       Request,
-                                                       HTTPResponse);
+                    OnUpdateStatusSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1552,9 +1612,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateTariffsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                       this.SOAPServer.HTTPServer,
-                                                       Request);
+                    OnUpdateTariffsSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1606,7 +1669,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1620,10 +1683,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateTariffsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                        this.SOAPServer.HTTPServer,
-                                                        Request,
-                                                        HTTPResponse);
+                    OnUpdateTariffsSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1656,9 +1722,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetCDRsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                 this.SOAPServer.HTTPServer,
-                                                 Request);
+                    OnGetCDRsSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1710,7 +1779,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1724,10 +1793,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetCDRsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                  this.SOAPServer.HTTPServer,
-                                                  Request,
-                                                  HTTPResponse);
+                    OnGetCDRsSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1757,9 +1829,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnConfirmCDRsSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                     this.SOAPServer.HTTPServer,
-                                                     Request);
+                    OnConfirmCDRsSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1812,7 +1887,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1826,10 +1901,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnConfirmCDRsSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                      this.SOAPServer.HTTPServer,
-                                                      Request,
-                                                      HTTPResponse);
+                    OnConfirmCDRsSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1859,9 +1937,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetChargePointListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                            this.SOAPServer.HTTPServer,
-                                                            Request);
+                    OnGetChargePointListSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1912,7 +1993,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -1926,10 +2007,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetChargePointListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                             this.SOAPServer.HTTPServer,
-                                                             Request,
-                                                             HTTPResponse);
+                    OnGetChargePointListSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -1959,9 +2043,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetChargePointListUpdatesSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                                   this.SOAPServer.HTTPServer,
-                                                                   Request);
+                    OnGetChargePointListUpdatesSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2013,7 +2100,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -2027,10 +2114,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetChargePointListUpdatesSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                    this.SOAPServer.HTTPServer,
-                                                                    Request,
-                                                                    HTTPResponse);
+                    OnGetChargePointListUpdatesSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2060,9 +2150,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetStatusSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                   this.SOAPServer.HTTPServer,
-                                                   Request);
+                    OnGetStatusSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2115,7 +2208,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -2129,10 +2222,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetStatusSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                    this.SOAPServer.HTTPServer,
-                                                    Request,
-                                                    HTTPResponse);
+                    OnGetStatusSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2162,9 +2258,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetTariffUpdatesSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                          this.SOAPServer.HTTPServer,
-                                                          Request);
+                    OnGetTariffUpdatesSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2216,7 +2315,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -2230,10 +2329,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnGetTariffUpdatesSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                           this.SOAPServer.HTTPServer,
-                                                           Request,
-                                                           HTTPResponse);
+                    OnGetTariffUpdatesSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2263,9 +2365,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnSetRoamingAuthorisationListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                                     this.SOAPServer.HTTPServer,
-                                                                     Request);
+                    OnSetRoamingAuthorisationListSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2317,7 +2422,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -2331,10 +2436,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnSetRoamingAuthorisationListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                      this.SOAPServer.HTTPServer,
-                                                                      Request,
-                                                                      HTTPResponse);
+                    OnSetRoamingAuthorisationListSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2364,9 +2472,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateRoamingAuthorisationListSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                                        this.SOAPServer.HTTPServer,
-                                                                        Request);
+                    OnUpdateRoamingAuthorisationListSOAPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -2418,7 +2529,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -2432,10 +2543,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 try
                 {
 
-                    OnUpdateRoamingAuthorisationListSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                         this.SOAPServer.HTTPServer,
-                                                                         Request,
-                                                                         HTTPResponse);
+                    OnUpdateRoamingAuthorisationListSOAPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)

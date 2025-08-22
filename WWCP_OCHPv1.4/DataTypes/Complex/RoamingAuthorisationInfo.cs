@@ -189,7 +189,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, RoamingAuthorisationInfoXML, e);
+                OnException?.Invoke(Timestamp.Now, RoamingAuthorisationInfoXML, e);
 
                 RoamingAuthorisationInfo = null;
                 return false;
@@ -226,7 +226,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, RoamingAuthorisationInfoText, e);
+                OnException?.Invoke(Timestamp.Now, RoamingAuthorisationInfoText, e);
             }
 
             RoamingAuthorisationInfo = null;

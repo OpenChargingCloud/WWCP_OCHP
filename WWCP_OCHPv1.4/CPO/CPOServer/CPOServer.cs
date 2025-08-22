@@ -92,17 +92,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a select EVSE SOAP request was received.
         /// </summary>
-        public event RequestLogHandler     OnSelectEVSESOAPRequest;
+        public event HTTPRequestLogHandlerX   OnSelectEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a select EVSE SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler      OnSelectEVSESOAPResponse;
+        public event HTTPResponseLogHandlerX  OnSelectEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a select EVSE request was received.
         /// </summary>
-        public event OnSelectEVSEDelegate  OnSelectEVSERequest;
+        public event OnSelectEVSEDelegate     OnSelectEVSERequest;
 
         #endregion
 
@@ -111,17 +111,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a control EVSE SOAP request was received.
         /// </summary>
-        public event RequestLogHandler      OnControlEVSESOAPRequest;
+        public event HTTPRequestLogHandlerX   OnControlEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a control EVSE SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler       OnControlEVSESOAPResponse;
+        public event HTTPResponseLogHandlerX  OnControlEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a control EVSE request was received.
         /// </summary>
-        public event OnControlEVSEDelegate  OnControlEVSERequest;
+        public event OnControlEVSEDelegate    OnControlEVSERequest;
 
         #endregion
 
@@ -130,17 +130,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a release EVSE SOAP request was received.
         /// </summary>
-        public event RequestLogHandler      OnReleaseEVSESOAPRequest;
+        public event HTTPRequestLogHandlerX   OnReleaseEVSESOAPRequest;
 
         /// <summary>
         /// An event sent whenever a release EVSE SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler       OnReleaseEVSESOAPResponse;
+        public event HTTPResponseLogHandlerX  OnReleaseEVSESOAPResponse;
 
         /// <summary>
         /// An event sent whenever a release EVSE request was received.
         /// </summary>
-        public event OnReleaseEVSEDelegate  OnReleaseEVSERequest;
+        public event OnReleaseEVSEDelegate    OnReleaseEVSERequest;
 
         #endregion
 
@@ -149,12 +149,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a get EVSE status SOAP request was received.
         /// </summary>
-        public event RequestLogHandler        OnGetEVSEStatusSOAPRequest;
+        public event HTTPRequestLogHandlerX   OnGetEVSEStatusSOAPRequest;
 
         /// <summary>
         /// An event sent whenever a get EVSE status SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler         OnGetEVSEStatusSOAPResponse;
+        public event HTTPResponseLogHandlerX  OnGetEVSEStatusSOAPResponse;
 
         /// <summary>
         /// An event sent whenever a get EVSE status request was received.
@@ -168,12 +168,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// An event sent whenever a report discrepancy SOAP request was received.
         /// </summary>
-        public event RequestLogHandler            OnReportDiscrepancySOAPRequest;
+        public event HTTPRequestLogHandlerX       OnReportDiscrepancySOAPRequest;
 
         /// <summary>
         /// An event sent whenever a report discrepancy SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler             OnReportDiscrepancySOAPResponse;
+        public event HTTPResponseLogHandlerX      OnReportDiscrepancySOAPResponse;
 
         /// <summary>
         /// An event sent whenever a report discrepancy request was received.
@@ -237,7 +237,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             RegisterURITemplates();
 
             if (AutoStart)
-                Start();
+                SOAPServer.HTTPServer.Start().GetAwaiter().GetResult();
 
         }
 
@@ -296,9 +296,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnSelectEVSESOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                        this.SOAPServer.HTTPServer,
-                                                        Request);
+                        OnSelectEVSESOAPRequest?.Invoke(
+                            Timestamp.Now,
+                            API,
+                            Request,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -352,7 +355,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.HTTPServerName,
                         Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.Text.XML_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -366,10 +369,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnSelectEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                         this.SOAPServer.HTTPServer,
-                                                         Request,
-                                                         HTTPResponse);
+                        OnSelectEVSESOAPResponse?.Invoke(
+                            HTTPResponse.Timestamp,
+                            API,
+                            Request,
+                            HTTPResponse,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -399,9 +405,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnControlEVSESOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                         this.SOAPServer.HTTPServer,
-                                                         Request);
+                        OnControlEVSESOAPRequest?.Invoke(
+                            Timestamp.Now,
+                            API,
+                            Request,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -460,7 +469,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.HTTPServerName,
                         Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.Text.XML_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -474,10 +483,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnControlEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                          this.SOAPServer.HTTPServer,
-                                                          Request,
-                                                          HTTPResponse);
+                        OnControlEVSESOAPResponse?.Invoke(
+                            HTTPResponse.Timestamp,
+                            API,
+                            Request,
+                            HTTPResponse,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -507,9 +519,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnReleaseEVSESOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                         this.SOAPServer.HTTPServer,
-                                                         Request);
+                        OnReleaseEVSESOAPRequest?.Invoke(
+                            Timestamp.Now,
+                            API,
+                            Request,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -561,7 +576,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.HTTPServerName,
                         Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.Text.XML_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -575,10 +590,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnReleaseEVSESOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                          this.SOAPServer.HTTPServer,
-                                                          Request,
-                                                          HTTPResponse);
+                        OnReleaseEVSESOAPResponse?.Invoke(
+                            HTTPResponse.Timestamp,
+                            API,
+                            Request,
+                            HTTPResponse,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -608,9 +626,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnGetEVSEStatusSOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                           this.SOAPServer.HTTPServer,
-                                                           Request);
+                        OnGetEVSEStatusSOAPRequest?.Invoke(
+                            Timestamp.Now,
+                            API,
+                            Request,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -662,7 +683,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.HTTPServerName,
                         Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.Text.XML_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -676,10 +697,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnGetEVSEStatusSOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                            this.SOAPServer.HTTPServer,
-                                                            Request,
-                                                            HTTPResponse);
+                        OnGetEVSEStatusSOAPResponse?.Invoke(
+                            HTTPResponse.Timestamp,
+                            API,
+                            Request,
+                            HTTPResponse,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -709,9 +733,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnReportDiscrepancySOAPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                               this.SOAPServer.HTTPServer,
-                                                               Request);
+                        OnReportDiscrepancySOAPRequest?.Invoke(
+                            Timestamp.Now,
+                            API,
+                            Request,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)
@@ -764,7 +791,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     var HTTPResponse = new HTTPResponse.Builder(Request) {
                         HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.DefaultServerName,
+                        Server          = SOAPServer.HTTPServer.HTTPServerName,
                         Date            = Timestamp.Now,
                         ContentType     = HTTPContentType.Text.XML_UTF8,
                         Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -778,10 +805,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     try
                     {
 
-                        OnReportDiscrepancySOAPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                                this.SOAPServer.HTTPServer,
-                                                                Request,
-                                                                HTTPResponse);
+                        OnReportDiscrepancySOAPResponse?.Invoke(
+                            HTTPResponse.Timestamp,
+                            API,
+                            Request,
+                            HTTPResponse,
+                            CancellationToken.None
+                        );
 
                     }
                     catch (Exception e)

@@ -223,7 +223,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, UpdateTariffsRequestXML, e);
+                OnException?.Invoke(Timestamp.Now, UpdateTariffsRequestXML, e);
 
                 UpdateTariffsRequest = null;
                 return false;
@@ -259,7 +259,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, UpdateTariffsRequestText, e);
+                OnException?.Invoke(Timestamp.Now, UpdateTariffsRequestText, e);
             }
 
             UpdateTariffsRequest = null;

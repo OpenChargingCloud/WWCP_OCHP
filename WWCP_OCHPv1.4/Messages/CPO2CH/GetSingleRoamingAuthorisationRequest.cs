@@ -181,7 +181,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetSingleRoamingAuthorisationRequestXML, e);
+                OnException?.Invoke(Timestamp.Now, GetSingleRoamingAuthorisationRequestXML, e);
 
                 GetSingleRoamingAuthorisationRequest = null;
                 return false;
@@ -217,7 +217,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetSingleRoamingAuthorisationRequestText, e);
+                OnException?.Invoke(Timestamp.Now, GetSingleRoamingAuthorisationRequestText, e);
             }
 
             GetSingleRoamingAuthorisationRequest = null;

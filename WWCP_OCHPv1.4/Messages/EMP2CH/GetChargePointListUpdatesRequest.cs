@@ -166,7 +166,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetChargePointListUpdatesRequestXML, e);
+                OnException?.Invoke(Timestamp.Now, GetChargePointListUpdatesRequestXML, e);
 
                 GetChargePointListUpdatesRequest = null;
                 return false;
@@ -202,7 +202,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetChargePointListUpdatesRequestText, e);
+                OnException?.Invoke(Timestamp.Now, GetChargePointListUpdatesRequestText, e);
             }
 
             GetChargePointListUpdatesRequest = null;

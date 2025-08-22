@@ -98,12 +98,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// An event sent whenever an inform provider SOAP request was received.
         /// </summary>
-        public event RequestLogHandler         OnInformProviderHTTPRequest;
+        public event HTTPRequestLogHandlerX    OnInformProviderHTTPRequest;
 
         /// <summary>
         /// An event sent whenever an inform provider SOAP response was sent.
         /// </summary>
-        public event AccessLogHandler          OnInformProviderHTTPResponse;
+        public event HTTPResponseLogHandlerX   OnInformProviderHTTPResponse;
 
         /// <summary>
         /// An event sent whenever an inform provider request was received.
@@ -167,7 +167,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             RegisterURITemplates();
 
             if (AutoStart)
-                Start();
+                SOAPServer.HTTPServer.Start().GetAwaiter().GetResult();
 
         }
 
@@ -323,9 +323,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 try
                 {
 
-                    OnInformProviderHTTPRequest?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                                        this.SOAPServer.HTTPServer,
-                                                        Request);
+                    OnInformProviderHTTPRequest?.Invoke(
+                        Timestamp.Now,
+                        API,
+                        Request,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)
@@ -395,7 +398,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 var HTTPResponse = new HTTPResponse.Builder(Request) {
                     HTTPStatusCode  = HTTPStatusCode.OK,
-                    Server          = SOAPServer.HTTPServer.DefaultServerName,
+                    Server          = SOAPServer.HTTPServer.HTTPServerName,
                     Date            = Timestamp.Now,
                     ContentType     = HTTPContentType.Text.XML_UTF8,
                     Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
@@ -409,10 +412,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 try
                 {
 
-                    OnInformProviderHTTPResponse?.Invoke(HTTPResponse.Timestamp,
-                                                         this.SOAPServer.HTTPServer,
-                                                         Request,
-                                                         HTTPResponse);
+                    OnInformProviderHTTPResponse?.Invoke(
+                        HTTPResponse.Timestamp,
+                        API,
+                        Request,
+                        HTTPResponse,
+                        CancellationToken.None
+                    );
 
                 }
                 catch (Exception e)

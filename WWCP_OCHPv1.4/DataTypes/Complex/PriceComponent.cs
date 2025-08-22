@@ -170,7 +170,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, PriceComponentXML, e);
+                OnException?.Invoke(Timestamp.Now, PriceComponentXML, e);
 
                 PriceComponent = null;
                 return false;
@@ -206,7 +206,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, PriceComponentText, e);
+                OnException?.Invoke(Timestamp.Now, PriceComponentText, e);
             }
 
             PriceComponent = null;

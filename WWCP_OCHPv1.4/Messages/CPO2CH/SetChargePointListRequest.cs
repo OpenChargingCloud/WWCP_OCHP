@@ -178,7 +178,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, SetChargePointListRequestXML, e);
+                OnException?.Invoke(Timestamp.Now, SetChargePointListRequestXML, e);
 
                 SetChargePointListRequest = null;
                 return false;
@@ -214,7 +214,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, SetChargePointListRequestText, e);
+                OnException?.Invoke(Timestamp.Now, SetChargePointListRequestText, e);
             }
 
             SetChargePointListRequest = null;

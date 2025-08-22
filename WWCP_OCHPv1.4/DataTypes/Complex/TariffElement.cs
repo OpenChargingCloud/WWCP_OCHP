@@ -164,7 +164,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, TariffElementXML, e);
+                OnException?.Invoke(Timestamp.Now, TariffElementXML, e);
 
                 TariffElement = null;
                 return false;
@@ -200,7 +200,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, TariffElementText, e);
+                OnException?.Invoke(Timestamp.Now, TariffElementText, e);
             }
 
             TariffElement = null;

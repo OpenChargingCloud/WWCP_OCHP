@@ -202,7 +202,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, OperatorEndpointXML, e);
+                OnException?.Invoke(Timestamp.Now, OperatorEndpointXML, e);
 
                 OperatorEndpoint = null;
                 return false;
@@ -238,7 +238,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, OperatorEndpointText, e);
+                OnException?.Invoke(Timestamp.Now, OperatorEndpointText, e);
             }
 
             OperatorEndpoint = null;

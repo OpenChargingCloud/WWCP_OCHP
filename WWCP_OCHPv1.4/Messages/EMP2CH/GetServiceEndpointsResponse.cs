@@ -278,7 +278,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetServiceEndpointsResponseXML, e);
+                OnException?.Invoke(Timestamp.Now, GetServiceEndpointsResponseXML, e);
 
                 GetServiceEndpointsResponse = null;
                 return false;
@@ -317,7 +317,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetServiceEndpointsResponseText, e);
+                OnException?.Invoke(Timestamp.Now, GetServiceEndpointsResponseText, e);
             }
 
             GetServiceEndpointsResponse = null;

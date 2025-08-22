@@ -254,7 +254,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetCDRsResponseXML, e);
+                OnException?.Invoke(Timestamp.Now, GetCDRsResponseXML, e);
 
                 GetCDRsResponse = null;
                 return false;
@@ -293,7 +293,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, GetCDRsResponseText, e);
+                OnException?.Invoke(Timestamp.Now, GetCDRsResponseText, e);
             }
 
             GetCDRsResponse = null;

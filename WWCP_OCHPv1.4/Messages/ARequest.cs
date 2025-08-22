@@ -48,7 +48,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <summary>
         /// The optional timestamp of the request.
         /// </summary>
-        public DateTimeOffset     Timestamp            { get; }
+        public DateTimeOffset     RequestTimestamp     { get; }
 
         /// <summary>
         /// An optional event tracking identification for correlating this request with other events.
@@ -76,15 +76,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
-        public ARequest(DateTimeOffset?    Timestamp           = null,
+        public ARequest(DateTimeOffset?    RequestTimestamp    = null,
                         EventTracking_Id?  EventTrackingId     = null,
                         TimeSpan?          RequestTimeout      = null,
                         CancellationToken  CancellationToken   = default)
         {
 
-            this.Timestamp          = Timestamp       ?? org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-            this.EventTrackingId    = EventTrackingId ?? EventTracking_Id.New;
-            this.RequestTimeout     = RequestTimeout  ?? DefaultRequestTimeout;
+            this.RequestTimestamp   = RequestTimestamp ?? Timestamp.Now;
+            this.EventTrackingId    = EventTrackingId  ?? EventTracking_Id.New;
+            this.RequestTimeout     = RequestTimeout   ?? DefaultRequestTimeout;
             this.CancellationToken  = CancellationToken;
 
         }

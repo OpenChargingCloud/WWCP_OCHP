@@ -184,7 +184,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, SelectEVSERequestXML, e);
+                OnException?.Invoke(Timestamp.Now, SelectEVSERequestXML, e);
 
                 SelectEVSERequest = null;
                 return false;
@@ -220,7 +220,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, SelectEVSERequestText, e);
+                OnException?.Invoke(Timestamp.Now, SelectEVSERequestText, e);
             }
 
             SelectEVSERequest = null;

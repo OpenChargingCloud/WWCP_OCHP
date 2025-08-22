@@ -178,7 +178,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, AddCDRsRequestXML, e);
+                OnException?.Invoke(Timestamp.Now, AddCDRsRequestXML, e);
 
                 AddCDRsRequest = null;
                 return false;
@@ -214,7 +214,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, AddCDRsRequestText, e);
+                OnException?.Invoke(Timestamp.Now, AddCDRsRequestText, e);
             }
 
             AddCDRsRequest = null;

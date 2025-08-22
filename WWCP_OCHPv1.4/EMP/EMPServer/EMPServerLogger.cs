@@ -29,7 +29,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP EMP server logger.
     /// </summary>
-    public class EMPServerLogger : HTTPServerLogger
+    public class EMPServerLogger : HTTPServerLoggerX
     {
 
         #region Data
@@ -162,19 +162,19 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region InformProvider
 
-            RegisterEvent("InformProviderRequest",
+            RegisterEvent2("InformProviderRequest",
                           handler => EMPServer.OnInformProviderHTTPRequest += handler,
                           handler => EMPServer.OnInformProviderHTTPRequest -= handler,
                           "InformProvider", "OCHPdirect", "Requests", "All").
-                RegisterDefaultConsoleLogTarget(this).
-                RegisterDefaultDiscLogTarget(this);
+                RegisterDefaultConsoleLogTargetX(this).
+                RegisterDefaultDiscLogTargetX(this);
 
-            RegisterEvent("InformProviderResponse",
+            RegisterEvent2("InformProviderResponse",
                           handler => EMPServer.OnInformProviderHTTPResponse += handler,
                           handler => EMPServer.OnInformProviderHTTPResponse -= handler,
                           "InformProvider", "OCHPdirect", "Responses", "All").
-               RegisterDefaultConsoleLogTarget(this).
-               RegisterDefaultDiscLogTarget(this);
+               RegisterDefaultConsoleLogTargetX(this).
+               RegisterDefaultDiscLogTargetX(this);
 
             #endregion
 

@@ -163,7 +163,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             catch (Exception e)
             {
 
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ParkingStatusXML, e);
+                OnException?.Invoke(Timestamp.Now, ParkingStatusXML, e);
 
                 ParkingStatus = default(ParkingStatus);
                 return false;
@@ -199,7 +199,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             }
             catch (Exception e)
             {
-                OnException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now, ParkingStatusText, e);
+                OnException?.Invoke(Timestamp.Now, ParkingStatusText, e);
             }
 
             ParkingStatus = default(ParkingStatus);
