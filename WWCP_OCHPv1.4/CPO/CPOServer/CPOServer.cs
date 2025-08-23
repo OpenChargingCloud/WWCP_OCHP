@@ -203,18 +203,18 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="LogfileCreator">A delegate to create a log file from the given context and logfile name.</param>
         /// <param name="DNSClient">An optional DNS client to use.</param>
         /// <param name="AutoStart">Start the server immediately.</param>
-        public CPOServer(String                  ServerName                = DefaultHTTPServerName,
-                         IPPort?                 TCPPort                   = null,
-                         String                  ServiceName               = null,
-                         HTTPPath?               URLPrefix                 = null,
-                         HTTPPath?               URLSuffix                 = null,
-                         HTTPContentType         ContentType               = null,
-                         Boolean                 RegisterHTTPRootService   = true,
-                         String                  LoggingPath               = null,
-                         String                  LoggingContext            = CPOServerLogger.DefaultContext,
-                         LogfileCreatorDelegate  LogfileCreator            = null,
-                         DNSClient               DNSClient                 = null,
-                         Boolean                 AutoStart                 = false)
+        public CPOServer(String                   ServerName                = DefaultHTTPServerName,
+                         IPPort?                  TCPPort                   = null,
+                         String?                  ServiceName               = null,
+                         HTTPPath?                URLPrefix                 = null,
+                         HTTPPath?                URLSuffix                 = null,
+                         HTTPContentType?         ContentType               = null,
+                         Boolean                  RegisterHTTPRootService   = true,
+                         String?                  LoggingPath               = null,
+                         String                   LoggingContext            = CPOServerLogger.DefaultContext,
+                         LogfileCreatorDelegate?  LogfileCreator            = null,
+                         IDNSClient?              DNSClient                 = null,
+                         Boolean                  AutoStart                 = false)
 
             : base(ServerName.IsNotNullOrEmpty() ? ServerName : DefaultHTTPServerName,
                    TCPPort     ?? DefaultHTTPServerPort,

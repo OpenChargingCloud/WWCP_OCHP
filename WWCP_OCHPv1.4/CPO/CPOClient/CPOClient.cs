@@ -1002,7 +1002,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                          String?                                                    LoggingPath                  = null,
                          String                                                     LoggingContext               = HTTP_Logger.DefaultContext,
                          LogfileCreatorDelegate?                                    LogfileCreator               = null,
-                         DNSClient?                                                 DNSClient                    = null)
+                         IDNSClient?                                                DNSClient                    = null)
 
             : base(RemoteURL,
                    VirtualHostname,
