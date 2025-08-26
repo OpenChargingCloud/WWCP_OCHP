@@ -103,7 +103,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (DirectId == null)
+            if (DirectId is null)
                 throw new ArgumentNullException(nameof(DirectId),  "The given direct charging session identification must not be null!");
 
             #endregion
@@ -367,7 +367,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ControlEVSERequest1 == null) || ((Object) ControlEVSERequest2 == null))
+            if (((Object) ControlEVSERequest1 is null) || ((Object) ControlEVSERequest2 is null))
                 return false;
 
             return ControlEVSERequest1.Equals(ControlEVSERequest2);
@@ -404,12 +404,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a control EVSE request.
             var ControlEVSERequest = Object as ControlEVSERequest;
-            if ((Object) ControlEVSERequest == null)
+            if ((Object) ControlEVSERequest is null)
                 return false;
 
             return this.Equals(ControlEVSERequest);
@@ -428,7 +428,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(ControlEVSERequest ControlEVSERequest)
         {
 
-            if ((Object) ControlEVSERequest == null)
+            if ((Object) ControlEVSERequest is null)
                 return false;
 
             return DirectId.    Equals(ControlEVSERequest.DirectId)     &&

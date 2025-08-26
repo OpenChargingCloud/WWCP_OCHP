@@ -311,7 +311,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) EVSEImageURL1 == null) || ((Object) EVSEImageURL2 == null))
+            if (((Object) EVSEImageURL1 is null) || ((Object) EVSEImageURL2 is null))
                 return false;
 
             return EVSEImageURL1.Equals(EVSEImageURL2);
@@ -348,12 +348,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is an EVSE image.
             var EVSEImageURL = Object as EVSEImageURL;
-            if ((Object) EVSEImageURL == null)
+            if ((Object) EVSEImageURL is null)
                 return false;
 
             return this.Equals(EVSEImageURL);
@@ -372,7 +372,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(EVSEImageURL EVSEImageURL)
         {
 
-            if ((Object) EVSEImageURL == null)
+            if ((Object) EVSEImageURL is null)
                 return false;
 
             return URI.  Equals(EVSEImageURL.URI)   &&
@@ -385,8 +385,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                    ((!Height.HasValue && !EVSEImageURL.Height.HasValue) ||
                      (Height.HasValue &&  EVSEImageURL.Height.HasValue && Height.Value.Equals(EVSEImageURL.Height.Value))) &&
 
-                   ((ThumbURI == null && EVSEImageURL.ThumbURI == null) ||
-                    (ThumbURI != null && EVSEImageURL.ThumbURI != null && ThumbURI.Equals(EVSEImageURL.ThumbURI)));
+                   ((ThumbURI is null && EVSEImageURL.ThumbURI is null) ||
+                    (ThumbURI is not null && EVSEImageURL.ThumbURI is not null && ThumbURI.Equals(EVSEImageURL.ThumbURI)));
 
 
         }
@@ -418,7 +418,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                            ? Height.GetHashCode()
                            : 0) * 5 ^
 
-                       (ThumbURI != null
+                       (ThumbURI is not null
                            ? ThumbURI.GetHashCode()
                            : 0);
 

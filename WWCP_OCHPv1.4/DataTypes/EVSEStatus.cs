@@ -324,7 +324,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) EVSEStatus1 == null) || ((Object) EVSEStatus2 == null))
+            if (((Object) EVSEStatus1 is null) || ((Object) EVSEStatus2 is null))
                 return false;
 
             return EVSEStatus1.Equals(EVSEStatus2);
@@ -361,7 +361,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             if (!(Object is EVSEStatus EVSEStatus))
@@ -383,7 +383,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(EVSEStatus EVSEStatus)
         {
 
-            if ((Object) EVSEStatus == null)
+            if ((Object) EVSEStatus is null)
                 return false;
 
             return EVSEId.      Equals(EVSEStatus.EVSEId)      &&

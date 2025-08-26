@@ -255,7 +255,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) UpdateChargePointListRequest1 == null) || ((Object) UpdateChargePointListRequest2 == null))
+            if (((Object) UpdateChargePointListRequest1 is null) || ((Object) UpdateChargePointListRequest2 is null))
                 return false;
 
             return UpdateChargePointListRequest1.Equals(UpdateChargePointListRequest2);
@@ -292,12 +292,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a update charge point list request.
             var UpdateChargePointListRequest = Object as UpdateChargePointListRequest;
-            if ((Object) UpdateChargePointListRequest == null)
+            if ((Object) UpdateChargePointListRequest is null)
                 return false;
 
             return this.Equals(UpdateChargePointListRequest);
@@ -316,7 +316,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(UpdateChargePointListRequest UpdateChargePointListRequest)
         {
 
-            if ((Object) UpdateChargePointListRequest == null)
+            if ((Object) UpdateChargePointListRequest is null)
                 return false;
 
             return ChargePointInfos.Count().Equals(UpdateChargePointListRequest.ChargePointInfos.Count());

@@ -344,7 +344,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) SetChargePointListResponse1 == null) || ((Object) SetChargePointListResponse2 == null))
+            if (((Object) SetChargePointListResponse1 is null) || ((Object) SetChargePointListResponse2 is null))
                 return false;
 
             return SetChargePointListResponse1.Equals(SetChargePointListResponse2);
@@ -381,12 +381,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a set charge point list response.
             var SetChargePointListResponse = Object as SetChargePointListResponse;
-            if ((Object) SetChargePointListResponse == null)
+            if ((Object) SetChargePointListResponse is null)
                 return false;
 
             return this.Equals(SetChargePointListResponse);
@@ -405,7 +405,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(SetChargePointListResponse SetChargePointListResponse)
         {
 
-            if ((Object) SetChargePointListResponse == null)
+            if ((Object) SetChargePointListResponse is null)
                 return false;
 
             return this.Result. Equals(SetChargePointListResponse.Result);
@@ -427,7 +427,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             unchecked
             {
 
-                return RefusedChargePointInfos != null
+                return RefusedChargePointInfos is not null
 
                            ? Result.GetHashCode() * 11 ^
                              RefusedChargePointInfos.SafeSelect(chargepoint => chargepoint.GetHashCode()).Aggregate((a, b) => a ^ b)

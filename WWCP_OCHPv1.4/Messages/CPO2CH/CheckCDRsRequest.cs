@@ -253,7 +253,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) CheckCDRsRequest1 == null) || ((Object) CheckCDRsRequest2 == null))
+            if (((Object) CheckCDRsRequest1 is null) || ((Object) CheckCDRsRequest2 is null))
                 return false;
 
             return CheckCDRsRequest1.Equals(CheckCDRsRequest2);
@@ -290,12 +290,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a check charge detail records request.
             var CheckCDRsRequest = Object as CheckCDRsRequest;
-            if ((Object) CheckCDRsRequest == null)
+            if ((Object) CheckCDRsRequest is null)
                 return false;
 
             return this.Equals(CheckCDRsRequest);
@@ -314,11 +314,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(CheckCDRsRequest CheckCDRsRequest)
         {
 
-            if ((Object) CheckCDRsRequest == null)
+            if ((Object) CheckCDRsRequest is null)
                 return false;
 
-            return (CDRStatus == null && CheckCDRsRequest.CDRStatus == null) ||
-                   (CDRStatus != null && CheckCDRsRequest.CDRStatus != null && CDRStatus.Value.Equals(CheckCDRsRequest.CDRStatus.Value));
+            return (CDRStatus is null && CheckCDRsRequest.CDRStatus is null) ||
+                   (CDRStatus is not null && CheckCDRsRequest.CDRStatus is not null && CDRStatus.Value.Equals(CheckCDRsRequest.CDRStatus.Value));
 
         }
 

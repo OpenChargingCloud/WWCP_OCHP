@@ -311,7 +311,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) UpdateStatusResponse1 == null) || ((Object) UpdateStatusResponse2 == null))
+            if (((Object) UpdateStatusResponse1 is null) || ((Object) UpdateStatusResponse2 is null))
                 return false;
 
             return UpdateStatusResponse1.Equals(UpdateStatusResponse2);
@@ -348,11 +348,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             var UpdateStatusResponse = Object as UpdateStatusResponse;
-            if ((Object) UpdateStatusResponse == null)
+            if ((Object) UpdateStatusResponse is null)
                 return false;
 
             return this.Equals(UpdateStatusResponse);
@@ -371,7 +371,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(UpdateStatusResponse UpdateStatusResponse)
         {
 
-            if ((Object) UpdateStatusResponse == null)
+            if ((Object) UpdateStatusResponse is null)
                 return false;
 
             return this.Result.Equals(UpdateStatusResponse.Result);
@@ -412,10 +412,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             public Builder(UpdateStatusResponse UpdateStatusResponse = null)
             {
 
-                if (UpdateStatusResponse != null)
+                if (UpdateStatusResponse is not null)
                 {
 
-                    if (UpdateStatusResponse.CustomData != null)
+                    if (UpdateStatusResponse.CustomData is not null)
                         foreach (var item in UpdateStatusResponse.CustomData)
                             CustomData.Add(item.Key, item.Value);
 

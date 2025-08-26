@@ -346,7 +346,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetTariffUpdatesResponse1 == null) || ((Object) GetTariffUpdatesResponse2 == null))
+            if (((Object) GetTariffUpdatesResponse1 is null) || ((Object) GetTariffUpdatesResponse2 is null))
                 return false;
 
             return GetTariffUpdatesResponse1.Equals(GetTariffUpdatesResponse2);
@@ -383,12 +383,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get tariff update response.
             var GetTariffUpdatesResponse = Object as GetTariffUpdatesResponse;
-            if ((Object) GetTariffUpdatesResponse == null)
+            if ((Object) GetTariffUpdatesResponse is null)
                 return false;
 
             return this.Equals(GetTariffUpdatesResponse);
@@ -407,7 +407,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetTariffUpdatesResponse GetTariffUpdatesResponse)
         {
 
-            if ((Object) GetTariffUpdatesResponse == null)
+            if ((Object) GetTariffUpdatesResponse is null)
                 return false;
 
             return this.Result. Equals(GetTariffUpdatesResponse.Result);
@@ -429,7 +429,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return TariffInfos != null
+                return TariffInfos is not null
 
                            ? Result.GetHashCode() * 11 ^
                              TariffInfos.SafeSelect(tariffinfo => tariffinfo.GetHashCode()).Aggregate((a, b) => a ^ b)

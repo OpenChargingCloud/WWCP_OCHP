@@ -375,7 +375,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetStatusResponse1 == null) || ((Object) GetStatusResponse2 == null))
+            if (((Object) GetStatusResponse1 is null) || ((Object) GetStatusResponse2 is null))
                 return false;
 
             return GetStatusResponse1.Equals(GetStatusResponse2);
@@ -412,12 +412,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get status response.
             var GetStatusResponse = Object as GetStatusResponse;
-            if ((Object) GetStatusResponse == null)
+            if ((Object) GetStatusResponse is null)
                 return false;
 
             return this.Equals(GetStatusResponse);
@@ -436,17 +436,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetStatusResponse GetStatusResponse)
         {
 
-            if ((Object) GetStatusResponse == null)
+            if ((Object) GetStatusResponse is null)
                 return false;
 
-            return ((EVSEStatus     != null && GetStatusResponse.EVSEStatus     != null && EVSEStatus.    Count() == GetStatusResponse.EVSEStatus.    Count()) ||
-                    (EVSEStatus     == null && GetStatusResponse.EVSEStatus     == null)) &&
+            return ((EVSEStatus     is not null && GetStatusResponse.EVSEStatus     is not null && EVSEStatus.    Count() == GetStatusResponse.EVSEStatus.    Count()) ||
+                    (EVSEStatus     is null && GetStatusResponse.EVSEStatus     is null)) &&
 
-                   ((ParkingStatus  != null && GetStatusResponse.ParkingStatus  != null && ParkingStatus. Count() == GetStatusResponse.ParkingStatus. Count()) ||
-                    (ParkingStatus  == null && GetStatusResponse.ParkingStatus  == null)) &&
+                   ((ParkingStatus  is not null && GetStatusResponse.ParkingStatus  is not null && ParkingStatus. Count() == GetStatusResponse.ParkingStatus. Count()) ||
+                    (ParkingStatus  is null && GetStatusResponse.ParkingStatus  is null)) &&
 
-                   ((CombinedStatus != null && GetStatusResponse.CombinedStatus != null && CombinedStatus.Count() == GetStatusResponse.CombinedStatus.Count()) ||
-                    (CombinedStatus == null && GetStatusResponse.CombinedStatus == null));
+                   ((CombinedStatus is not null && GetStatusResponse.CombinedStatus is not null && CombinedStatus.Count() == GetStatusResponse.CombinedStatus.Count()) ||
+                    (CombinedStatus is null && GetStatusResponse.CombinedStatus is null));
 
         }
 
@@ -465,9 +465,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return (EVSEStatus     != null ? EVSEStatus.    GetHashCode() : 0) * 17 ^
-                       (ParkingStatus  != null ? ParkingStatus. GetHashCode() : 0) * 11 ^
-                       (CombinedStatus != null ? CombinedStatus.GetHashCode() : 0);
+                return (EVSEStatus     is not null ? EVSEStatus.    GetHashCode() : 0) * 17 ^
+                       (ParkingStatus  is not null ? ParkingStatus. GetHashCode() : 0) * 11 ^
+                       (CombinedStatus is not null ? CombinedStatus.GetHashCode() : 0);
 
             }
         }

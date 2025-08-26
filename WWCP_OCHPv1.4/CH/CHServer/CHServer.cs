@@ -585,7 +585,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = AddServiceEndpointsResponse.Server(_AddServiceEndpointsRequest, "Could not process the incoming AddServiceEndpoints request!");
 
                 }
@@ -669,7 +669,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetServiceEndpointsRequest?.
@@ -691,7 +691,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = GetServiceEndpointsResponse.Server(_GetServiceEndpointsRequest, "Could not process the incoming GetServiceEndpoints request!");
 
                 }
@@ -778,7 +778,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnAddCDRsRequest?.
@@ -801,7 +801,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = AddCDRsResponse.Server(_AddCDRsRequest, "Could not process the incoming AddCDRs request!");
 
                 }
@@ -885,7 +885,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnCheckCDRsRequest?.
@@ -908,7 +908,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = CheckCDRsResponse.Server(_CheckCDRsRequest, "Could not process the incoming CheckCDRs request!");
 
                 }
@@ -992,7 +992,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetRoamingAuthorisationListRequest?.
@@ -1014,7 +1014,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = GetRoamingAuthorisationListResponse.Server(_GetRoamingAuthorisationListRequest, "Could not process the incoming GetRoamingAuthorisationList request!");
 
                 }
@@ -1098,7 +1098,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetRoamingAuthorisationListUpdatesRequest?.
@@ -1121,7 +1121,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = GetRoamingAuthorisationListUpdatesResponse.Server(_GetRoamingAuthorisationListUpdatesRequest, "Could not process the incoming GetRoamingAuthorisationListUpdates request!");
 
                 }
@@ -1205,7 +1205,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetSingleRoamingAuthorisationRequest?.
@@ -1219,7 +1219,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                                            DefaultRequestTimeout)).
                                       ToArray();
 
-                    if (results != null && results.Length > 0)
+                    if (results is not null && results.Length > 0)
                     {
 
                         await Task.WhenAll(results);
@@ -1228,7 +1228,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (response == null || results.Length == 0)
+                    if (response is null || results.Length == 0)
                         response = GetSingleRoamingAuthorisationResponse.Server(_GetSingleRoamingAuthorisationRequest, "Could not process the incoming GetSingleRoamingAuthorisation request!");
 
                 }
@@ -1312,7 +1312,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnSetChargePointListRequest?.
@@ -1335,7 +1335,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = SetChargePointListResponse.Server(_SetChargePointListRequest, "Could not process the incoming SetChargePointList request!");
 
                 }
@@ -1419,7 +1419,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnUpdateChargePointListRequest?.
@@ -1442,7 +1442,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = UpdateChargePointListResponse.Server(_UpdateChargePointListRequest, "Could not process the incoming UpdateChargePointList request!");
 
                 }
@@ -1526,7 +1526,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnUpdateStatusRequest?.
@@ -1542,7 +1542,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                                            DefaultRequestTimeout)).
                                       ToArray();
 
-                    if (results != null && results.Length > 0)
+                    if (results is not null && results.Length > 0)
                     {
 
                         await Task.WhenAll(results);
@@ -1551,7 +1551,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (response == null || results.Length == 0)
+                    if (response is null || results.Length == 0)
                         response = UpdateStatusResponse.Server(_UpdateStatusRequest, "Could not process the incoming UpdateStatus request!");
 
                 }
@@ -1635,7 +1635,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnUpdateTariffsRequest?.
@@ -1658,7 +1658,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = UpdateTariffsResponse.Server(_UpdateTariffsRequest, "Could not process the incoming UpdateTariffs request!");
 
                 }
@@ -1745,7 +1745,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetCDRsRequest?.
@@ -1768,7 +1768,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = GetCDRsResponse.Server(_GetCDRsRequest, "Could not process the incoming GetCDRs request!");
 
                 }
@@ -1852,7 +1852,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnConfirmCDRsRequest?.
@@ -1876,7 +1876,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = ConfirmCDRsResponse.Server(_ConfirmCDRsRequest, "Could not process the incoming ConfirmCDRs request!");
 
                 }
@@ -1960,7 +1960,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetChargePointListRequest?.
@@ -1982,7 +1982,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = GetChargePointListResponse.Server(_GetChargePointListRequest, "Could not process the incoming GetChargePointList request!");
 
                 }
@@ -2066,7 +2066,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetChargePointListUpdatesRequest?.
@@ -2089,7 +2089,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = GetChargePointListUpdatesResponse.Server(_GetChargePointListUpdatesRequest, "Could not process the incoming GetChargePointListUpdates request!");
 
                 }
@@ -2173,7 +2173,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetStatusRequest?.
@@ -2197,7 +2197,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = GetStatusResponse.Server(_GetStatusRequest, "Could not process the incoming GetStatus request!");
 
                 }
@@ -2281,7 +2281,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnGetTariffUpdatesRequest?.
@@ -2304,7 +2304,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = GetTariffUpdatesResponse.Server(_GetTariffUpdatesRequest, "Could not process the incoming GetTariffUpdates request!");
 
                 }
@@ -2388,7 +2388,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnSetRoamingAuthorisationListRequest?.
@@ -2411,7 +2411,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = SetRoamingAuthorisationListResponse.Server(_SetRoamingAuthorisationListRequest, "Could not process the incoming SetRoamingAuthorisationList request!");
 
                 }
@@ -2495,7 +2495,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnUpdateRoamingAuthorisationListRequest?.
@@ -2518,7 +2518,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = UpdateRoamingAuthorisationListResponse.Server(_UpdateRoamingAuthorisationListRequest, "Could not process the incoming UpdateRoamingAuthorisationList request!");
 
                 }

@@ -308,7 +308,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "tariffRestriction",
 
-                   RegularHours != null
+                   RegularHours is not null
                        ? RegularHours.SafeSelect(hours => hours.ToXML())
                        : null,
 

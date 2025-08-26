@@ -62,10 +62,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (TariffId == null)
-                throw new ArgumentNullException(nameof(TariffId),  "The given tariff identification must not be null!");
-
-            if (IndividualTariff == null || !IndividualTariff.Any())
+            if (IndividualTariff is null || !IndividualTariff.Any())
                 throw new ArgumentNullException(nameof(IndividualTariff), "The given enumeration of individual tariffs must not be null or empty!");
 
             #endregion
@@ -253,7 +250,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) TariffInfo1 == null) || ((Object) TariffInfo2 == null))
+            if (((Object) TariffInfo1 is null) || ((Object) TariffInfo2 is null))
                 return false;
 
             return TariffInfo1.Equals(TariffInfo2);
@@ -290,12 +287,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is an tariff info.
             var TariffInfo = Object as TariffInfo;
-            if ((Object) TariffInfo == null)
+            if ((Object) TariffInfo is null)
                 return false;
 
             return this.Equals(TariffInfo);
@@ -314,7 +311,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(TariffInfo TariffInfo)
         {
 
-            if ((Object) TariffInfo == null)
+            if ((Object) TariffInfo is null)
                 return false;
 
             return TariffId.Equals(TariffInfo.TariffId);

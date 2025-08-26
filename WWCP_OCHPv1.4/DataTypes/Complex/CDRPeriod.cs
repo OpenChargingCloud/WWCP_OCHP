@@ -331,7 +331,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) CDRPeriod1 == null) || ((Object) CDRPeriod2 == null))
+            if (((Object) CDRPeriod1 is null) || ((Object) CDRPeriod2 is null))
                 return false;
 
             return CDRPeriod1.Equals(CDRPeriod2);
@@ -368,12 +368,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a charge detail record period.
             var CDRPeriod = Object as CDRPeriod;
-            if ((Object) CDRPeriod == null)
+            if ((Object) CDRPeriod is null)
                 return false;
 
             return this.Equals(CDRPeriod);
@@ -392,7 +392,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(CDRPeriod CDRPeriod)
         {
 
-            if ((Object) CDRPeriod == null)
+            if ((Object) CDRPeriod is null)
                 return false;
 
             return Start.       Equals(CDRPeriod.Start)        &&

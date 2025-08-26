@@ -54,15 +54,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
             #region Initial checks
 
-            if (ChargePointInfos == null)
+            if (ChargePointInfos is null)
                 throw new ArgumentNullException(nameof(ChargePointInfos), "The given enumeration of charge points must not be null!");
 
             var _EVSEDataRecords = ChargePointInfos.ToArray();
 
-            if (ChargePointInfo2XML == null)
+            if (ChargePointInfo2XML is null)
                 ChargePointInfo2XML = (rn, evsedatarecord, xml) => xml;
 
-            if (XMLPostProcessing == null)
+            if (XMLPostProcessing is null)
                 XMLPostProcessing = xml => xml;
 
             #endregion
@@ -77,7 +77,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
             //                                          ? _EVSEDataRecords.
             //                                                ToLookup(evsedatarecord => evsedatarecord.EVSE?.Operator).
-            //                                                Select(group => group.Any(evsedatarecord => evsedatarecord != null)
+            //                                                Select(group => group.Any(evsedatarecord => evsedatarecord is not null)
 
             //                                                           ? new XElement(OCHPNS.EVSEData + "OperatorEvseData",
 
@@ -99,7 +99,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
             //                                                                 ),
 
             //                                                                 // <EvseDataRecord> ... </EvseDataRecord>
-            //                                                                 group.Where(evsedatarecord => evsedatarecord != null).
+            //                                                                 group.Where(evsedatarecord => evsedatarecord is not null).
             //                                                                       Select(evsedatarecord => ChargePointInfo2XML(RoamingNetwork, evsedatarecord, evsedatarecord.ToXML())).
             //                                                                       ToArray()
 
@@ -138,13 +138,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
             #region Initial checks
 
-            if (EVSEs == null)
+            if (EVSEs is null)
                 throw new ArgumentNullException(nameof(EVSEs),  "The given enumeration of EVSEs must not be null!");
 
-            if (EVSEStatusRecord2XML == null)
+            if (EVSEStatusRecord2XML is null)
                 EVSEStatusRecord2XML = (rn, evsestatusrecord, xml) => xml;
 
-            if (XMLPostProcessing == null)
+            if (XMLPostProcessing is null)
                 XMLPostProcessing = xml => xml;
 
             #endregion
@@ -173,7 +173,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
 //                                                                 }).
 
-//                                                        Select(group => group.Any(evsestatusrecord => evsestatusrecord != null)
+//                                                        Select(group => group.Any(evsestatusrecord => evsestatusrecord is not null)
 
 //                                                            ? new XElement(OCHPNS.EVSEStatus + "OperatorEvseStatus",
 
@@ -195,7 +195,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 //                                                                ),
 
 //                                                                // <EvseStatusRecord> ... </EvseStatusRecord>
-//                                                                group.Where (evsestatusrecord => evsestatusrecord != null).
+//                                                                group.Where (evsestatusrecord => evsestatusrecord is not null).
 //                                                                      Select(evsestatusrecord => EVSEStatusRecord2XML(RoamingNetwork, evsestatusrecord, evsestatusrecord.ToXML())).
 //                                                                      ToArray()
 

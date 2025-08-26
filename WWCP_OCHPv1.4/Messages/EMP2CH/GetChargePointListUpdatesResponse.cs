@@ -344,7 +344,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetChargePointListUpdatesResponse1 == null) || ((Object) GetChargePointListUpdatesResponse2 == null))
+            if (((Object) GetChargePointListUpdatesResponse1 is null) || ((Object) GetChargePointListUpdatesResponse2 is null))
                 return false;
 
             return GetChargePointListUpdatesResponse1.Equals(GetChargePointListUpdatesResponse2);
@@ -381,12 +381,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get charge point list update response.
             var GetChargePointListUpdatesResponse = Object as GetChargePointListUpdatesResponse;
-            if ((Object) GetChargePointListUpdatesResponse == null)
+            if ((Object) GetChargePointListUpdatesResponse is null)
                 return false;
 
             return this.Equals(GetChargePointListUpdatesResponse);
@@ -405,7 +405,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetChargePointListUpdatesResponse GetChargePointListUpdatesResponse)
         {
 
-            if ((Object) GetChargePointListUpdatesResponse == null)
+            if ((Object) GetChargePointListUpdatesResponse is null)
                 return false;
 
             return this.Result. Equals(GetChargePointListUpdatesResponse.Result);
@@ -427,7 +427,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return ChargePoints != null
+                return ChargePoints is not null
 
                            ? Result.GetHashCode() * 11 ^
                              ChargePoints.SafeSelect(chargepoint => chargepoint.GetHashCode()).Aggregate((a, b) => a ^ b)

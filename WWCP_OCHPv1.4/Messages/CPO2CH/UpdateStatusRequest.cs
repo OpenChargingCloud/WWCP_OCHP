@@ -288,7 +288,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) UpdateStatusRequest1 == null) || ((Object) UpdateStatusRequest2 == null))
+            if (((Object) UpdateStatusRequest1 is null) || ((Object) UpdateStatusRequest2 is null))
                 return false;
 
             return UpdateStatusRequest1.Equals(UpdateStatusRequest2);
@@ -325,11 +325,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             var UpdateStatusRequest = Object as UpdateStatusRequest;
-            if ((Object) UpdateStatusRequest == null)
+            if ((Object) UpdateStatusRequest is null)
                 return false;
 
             return this.Equals(UpdateStatusRequest);
@@ -348,14 +348,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(UpdateStatusRequest UpdateStatusRequest)
         {
 
-            if ((Object) UpdateStatusRequest == null)
+            if ((Object) UpdateStatusRequest is null)
                 return false;
 
             return EVSEStatus.   Count().Equals(UpdateStatusRequest.EVSEStatus.   Count()) &&
                    ParkingStatus.Count().Equals(UpdateStatusRequest.ParkingStatus.Count()) &&
 
-                   ((DefaultTTL == null && UpdateStatusRequest.DefaultTTL == null) ||
-                    (DefaultTTL != null && UpdateStatusRequest.DefaultTTL != null && DefaultTTL.Equals(UpdateStatusRequest.DefaultTTL)));
+                   ((DefaultTTL is null && UpdateStatusRequest.DefaultTTL is null) ||
+                    (DefaultTTL is not null && UpdateStatusRequest.DefaultTTL is not null && DefaultTTL.Equals(UpdateStatusRequest.DefaultTTL)));
 
 
         }

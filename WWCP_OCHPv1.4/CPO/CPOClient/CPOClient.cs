@@ -111,7 +111,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomSetChargePointListRequestMapper = value;
             }
 
@@ -133,7 +133,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomSetChargePointListSOAPRequestMapper = value;
             }
 
@@ -161,7 +161,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomUpdateChargePointListRequestMapper = value;
             }
 
@@ -183,7 +183,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomUpdateChargePointListSOAPRequestMapper = value;
             }
 
@@ -211,7 +211,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomUpdateStatusRequestMapper = value;
             }
 
@@ -233,7 +233,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomUpdateStatusSOAPRequestMapper = value;
             }
 
@@ -261,7 +261,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomUpdateTariffsRequestMapper = value;
             }
 
@@ -283,7 +283,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomUpdateTariffsSOAPRequestMapper = value;
             }
 
@@ -312,7 +312,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetSingleRoamingAuthorisationRequestMapper = value;
             }
 
@@ -334,7 +334,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetSingleRoamingAuthorisationSOAPRequestMapper = value;
             }
 
@@ -362,7 +362,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetRoamingAuthorisationListRequestMapper = value;
             }
 
@@ -384,7 +384,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetRoamingAuthorisationListSOAPRequestMapper = value;
             }
 
@@ -412,7 +412,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetRoamingAuthorisationListUpdatesRequestMapper = value;
             }
 
@@ -434,7 +434,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetRoamingAuthorisationListUpdatesSOAPRequestMapper = value;
             }
 
@@ -463,7 +463,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomAddCDRsRequestMapper = value;
             }
 
@@ -485,7 +485,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomAddCDRsSOAPRequestMapper = value;
             }
 
@@ -513,7 +513,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomCheckCDRsRequestMapper = value;
             }
 
@@ -535,7 +535,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomCheckCDRsSOAPRequestMapper = value;
             }
 
@@ -566,7 +566,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomAddServiceEndpointsRequestMapper = value;
             }
 
@@ -588,7 +588,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomAddServiceEndpointsSOAPRequestMapper = value;
             }
 
@@ -616,7 +616,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetServiceEndpointsRequestMapper = value;
             }
 
@@ -638,7 +638,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetServiceEndpointsSOAPRequestMapper = value;
             }
 
@@ -1062,12 +1062,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given SetChargePointList request must not be null!");
 
             Request = _CustomSetChargePointListRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped SetChargePointList request must not be null!");
 
 
@@ -1238,7 +1238,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<SetChargePointListResponse>.ClientError(
                                  new SetChargePointListResponse(Request,
                                                                 Result.Client("HTTP request failed!"))
@@ -1297,12 +1297,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given UpdateChargePointList request must not be null!");
 
             Request = _CustomUpdateChargePointListRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped UpdateChargePointList request must not be null!");
 
 
@@ -1469,7 +1469,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<UpdateChargePointListResponse>.ClientError(
                                  new UpdateChargePointListResponse(Request,
                                                                    Result.Client("HTTP request failed!"))
@@ -1528,12 +1528,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given UpdateStatus request must not be null!");
 
             Request = _CustomUpdateStatusRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped UpdateStatus request must not be null!");
 
 
@@ -1710,7 +1710,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<UpdateStatusResponse>.ClientError(
                                  new UpdateStatusResponse(Request,
                                                           Result.Client("HTTP request failed!"))
@@ -1773,12 +1773,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given UpdateTariffs request must not be null!");
 
             Request = _CustomUpdateTariffsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped UpdateTariffs request must not be null!");
 
 
@@ -1945,7 +1945,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<UpdateTariffsResponse>.ClientError(
                                  new UpdateTariffsResponse(Request,
                                                                    Result.Client("HTTP request failed!"))
@@ -2005,12 +2005,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetSingleRoamingAuthorisation request must not be null!");
 
             Request = _CustomGetSingleRoamingAuthorisationRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetSingleRoamingAuthorisation request must not be null!");
 
 
@@ -2168,7 +2168,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.ClientError(
                                  new GetSingleRoamingAuthorisationResponse(Request,
                                                                            Result.Client("HTTP request failed!"))
@@ -2227,12 +2227,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetRoamingAuthorisationList request must not be null!");
 
             Request = _CustomGetRoamingAuthorisationListRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetRoamingAuthorisationList request must not be null!");
 
 
@@ -2390,7 +2390,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetRoamingAuthorisationListResponse>.ClientError(
                                  new GetRoamingAuthorisationListResponse(Request,
                                                                            Result.Client("HTTP request failed!"))
@@ -2448,12 +2448,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetRoamingAuthorisationListUpdates request must not be null!");
 
             Request = _CustomGetRoamingAuthorisationListUpdatesRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetRoamingAuthorisationListUpdates request must not be null!");
 
 
@@ -2612,7 +2612,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.ClientError(
                                  new GetRoamingAuthorisationListUpdatesResponse(Request,
                                                                            Result.Client("HTTP request failed!"))
@@ -2672,12 +2672,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given AddCDRs request must not be null!");
 
             Request = _CustomAddCDRsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped AddCDRs request must not be null!");
 
 
@@ -2848,7 +2848,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<AddCDRsResponse>.ClientError(
                                  new AddCDRsResponse(Request,
                                                                            Result.Client("HTTP request failed!"))
@@ -2907,12 +2907,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given CheckCDRs request must not be null!");
 
             Request = _CustomCheckCDRsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped CheckCDRs request must not be null!");
 
 
@@ -3070,7 +3070,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<CheckCDRsResponse>.ClientError(
                                  new CheckCDRsResponse(Request,
                                                        Result.Client("HTTP request failed!"))
@@ -3132,12 +3132,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given AddServiceEndpoints request must not be null!");
 
             Request = _CustomAddServiceEndpointsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped AddServiceEndpoints request must not be null!");
 
 
@@ -3295,7 +3295,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<AddServiceEndpointsResponse>.ClientError(
                                  new AddServiceEndpointsResponse(
                                      Request,
@@ -3357,12 +3357,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetServiceEndpoints request must not be null!");
 
             Request = _CustomGetServiceEndpointsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetServiceEndpoints request must not be null!");
 
 
@@ -3506,7 +3506,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetServiceEndpointsResponse>.ClientError(
                                  new GetServiceEndpointsResponse(
                                      Request,
@@ -3775,7 +3775,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Handle HTTP client errors...
 
-            if (result == null)
+            if (result is null)
                 result = HTTPResponse<InformProviderResponse>.ClientError(
                              new InformProviderResponse(Request,
                                                         Result.Client("HTTP request failed!"))

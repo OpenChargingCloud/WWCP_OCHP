@@ -53,7 +53,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (DirectId == null)
+            if (DirectId is null)
                 throw new ArgumentNullException(nameof(DirectId),  "The given identification of an direct charging process must not be null!");
 
             #endregion
@@ -235,7 +235,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ReleaseEVSERequest1 == null) || ((Object) ReleaseEVSERequest2 == null))
+            if (((Object) ReleaseEVSERequest1 is null) || ((Object) ReleaseEVSERequest2 is null))
                 return false;
 
             return ReleaseEVSERequest1.Equals(ReleaseEVSERequest2);
@@ -272,12 +272,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a release EVSE request.
             var ReleaseEVSERequest = Object as ReleaseEVSERequest;
-            if ((Object) ReleaseEVSERequest == null)
+            if ((Object) ReleaseEVSERequest is null)
                 return false;
 
             return this.Equals(ReleaseEVSERequest);
@@ -296,7 +296,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(ReleaseEVSERequest ReleaseEVSERequest)
         {
 
-            if ((Object) ReleaseEVSERequest == null)
+            if ((Object) ReleaseEVSERequest is null)
                 return false;
 
             return DirectId.Equals(ReleaseEVSERequest.DirectId);

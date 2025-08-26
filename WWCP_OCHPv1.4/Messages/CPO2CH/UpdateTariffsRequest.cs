@@ -303,7 +303,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) UpdateTariffsRequest1 == null) || ((Object) UpdateTariffsRequest2 == null))
+            if (((Object) UpdateTariffsRequest1 is null) || ((Object) UpdateTariffsRequest2 is null))
                 return false;
 
             return UpdateTariffsRequest1.Equals(UpdateTariffsRequest2);
@@ -340,12 +340,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a update tariffs request.
             var UpdateTariffsRequest = Object as UpdateTariffsRequest;
-            if ((Object) UpdateTariffsRequest == null)
+            if ((Object) UpdateTariffsRequest is null)
                 return false;
 
             return this.Equals(UpdateTariffsRequest);
@@ -364,7 +364,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(UpdateTariffsRequest UpdateTariffsRequest)
         {
 
-            if ((Object) UpdateTariffsRequest == null)
+            if ((Object) UpdateTariffsRequest is null)
                 return false;
 
             return TariffInfos.Count().Equals(UpdateTariffsRequest.TariffInfos.Count());

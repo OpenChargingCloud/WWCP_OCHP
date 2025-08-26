@@ -365,7 +365,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) Result1 == null) || ((Object) Result2 == null))
+            if (((Object) Result1 is null) || ((Object) Result2 is null))
                 return false;
 
             return Result1.Equals(Result2);
@@ -402,12 +402,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a result.
             var Result = Object as Result;
-            if ((Object) Result == null)
+            if ((Object) Result is null)
                 return false;
 
             return this.Equals(Result);
@@ -426,7 +426,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(Result Result)
         {
 
-            if ((Object) Result == null)
+            if ((Object) Result is null)
                 return false;
 
             return this.ResultCode. Equals(Result.ResultCode) &&
@@ -451,7 +451,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
                 return ResultCode. GetHashCode() * 11 ^
 
-                       (Description != null
+                       (Description is not null
                             ? Description.GetHashCode()
                             : 0);
 

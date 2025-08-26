@@ -352,7 +352,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) AddCDRsResponse1 == null) || ((Object) AddCDRsResponse2 == null))
+            if (((Object) AddCDRsResponse1 is null) || ((Object) AddCDRsResponse2 is null))
                 return false;
 
             return AddCDRsResponse1.Equals(AddCDRsResponse2);
@@ -389,12 +389,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a add charge details records response.
             var AddCDRsResponse = Object as AddCDRsResponse;
-            if ((Object) AddCDRsResponse == null)
+            if ((Object) AddCDRsResponse is null)
                 return false;
 
             return this.Equals(AddCDRsResponse);
@@ -413,7 +413,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(AddCDRsResponse AddCDRsResponse)
         {
 
-            if ((Object) AddCDRsResponse == null)
+            if ((Object) AddCDRsResponse is null)
                 return false;
 
             return this.Result.Equals(AddCDRsResponse.Result);
@@ -435,7 +435,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             unchecked
             {
 
-                return ImplausibleCDRs != null
+                return ImplausibleCDRs is not null
 
                            ? Result.GetHashCode() * 11 ^
                              ImplausibleCDRs.SafeSelect(cdr => cdr.GetHashCode()).Aggregate((a, b) => a ^ b)
@@ -478,12 +478,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             public Builder(AddCDRsResponse AddCDRsResponse = null)
             {
 
-                if (AddCDRsResponse != null)
+                if (AddCDRsResponse is not null)
                 {
 
                     this.ImplausibleCDRs = AddCDRsResponse.ImplausibleCDRs;
 
-                    if (AddCDRsResponse.CustomData != null)
+                    if (AddCDRsResponse.CustomData is not null)
                         foreach (var item in AddCDRsResponse.CustomData)
                             CustomData.Add(item.Key, item.Value);
 

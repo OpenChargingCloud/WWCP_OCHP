@@ -103,7 +103,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Whether the response has customer-specific data defined.
         /// </summary>
         public Boolean HasCustomData
-            => CustomData != null;
+            => CustomData is not null;
 
         /// <summary>
         /// The timestamp of the response message creation.
@@ -178,7 +178,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) AResponse1 == null) || ((Object) AResponse2 == null))
+            if (((Object) AResponse1 is null) || ((Object) AResponse2 is null))
                 return false;
 
             return AResponse1.Equals(AResponse2);
@@ -215,12 +215,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a response.
             var AResponse = Object as AResponse<TResponse>;
-            if ((Object) AResponse == null)
+            if ((Object) AResponse is null)
                 return false;
 
             return this.Equals(AResponse);
@@ -239,7 +239,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(AResponse<TResponse> AResponse)
         {
 
-            if ((Object) AResponse == null)
+            if ((Object) AResponse is null)
                 return false;
 
             return this.Result.Equals(AResponse.Result);

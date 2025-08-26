@@ -99,9 +99,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The parameter must not be null!");
-
             if (IdSuffix.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(IdSuffix),    "The parameter must not be null or empty!");
 
@@ -166,9 +163,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         {
 
             #region Initial checks
-
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The charging station operator identification must not be null or empty!");
 
             if (IdSuffix.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(IdSuffix),    "The suffix must not be null or empty!");
@@ -300,10 +294,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) DirectId1 == null) || ((Object) DirectId2 == null))
+            if (((Object) DirectId1 is null) || ((Object) DirectId2 is null))
                 return false;
 
-            if ((Object) DirectId1 == null)
+            if ((Object) DirectId1 is null)
                 throw new ArgumentNullException(nameof(DirectId1),  "The given charging process identification must not be null!");
 
             return DirectId1.Equals(DirectId2);
@@ -336,7 +330,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (Direct_Id DirectId1, Direct_Id DirectId2)
         {
 
-            if ((Object) DirectId1 == null)
+            if ((Object) DirectId1 is null)
                 throw new ArgumentNullException(nameof(DirectId1),  "The given charging process identification must not be null!");
 
             return DirectId1.CompareTo(DirectId2) < 0;
@@ -369,7 +363,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (Direct_Id DirectId1, Direct_Id DirectId2)
         {
 
-            if ((Object) DirectId1 == null)
+            if ((Object) DirectId1 is null)
                 throw new ArgumentNullException(nameof(DirectId1),  "The given charging process identification must not be null!");
 
             return DirectId1.CompareTo(DirectId2) > 0;
@@ -404,12 +398,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             // Check if the given object is a charging process identification.
             var DirectId = Object as Direct_Id;
-            if ((Object) DirectId == null)
+            if ((Object) DirectId is null)
                 throw new ArgumentException("The given object is not a charging process identification!", nameof(Object));
 
             return CompareTo(DirectId);
@@ -427,7 +421,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Direct_Id DirectId)
         {
 
-            if ((Object) DirectId == null)
+            if ((Object) DirectId is null)
                 throw new ArgumentNullException(nameof(DirectId),  "The given charging process identification must not be null!");
 
             // Compare the length of the charging process identifications
@@ -461,12 +455,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a charging process identification.
             var DirectId = Object as Direct_Id;
-            if ((Object) DirectId == null)
+            if ((Object) DirectId is null)
                 return false;
 
             return this.Equals(DirectId);
@@ -485,7 +479,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(Direct_Id DirectId)
         {
 
-            if ((Object) DirectId == null)
+            if ((Object) DirectId is null)
                 return false;
 
             return OperatorId.Equals(DirectId.OperatorId) &&

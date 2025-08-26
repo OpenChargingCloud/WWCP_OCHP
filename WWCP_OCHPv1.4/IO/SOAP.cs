@@ -48,10 +48,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (SOAPBody == null)
+            if (SOAPBody is null)
                 throw new ArgumentNullException(nameof(SOAPBody),  "The given XML must not be null!");
 
-            if (XMLNamespaces == null)
+            if (XMLNamespaces is null)
                 XMLNamespaces = xml => xml;
 
             #endregion
@@ -85,16 +85,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (WSSUsername == null)
+            if (WSSUsername is null)
                 throw new ArgumentNullException(nameof(WSSUsername),  "The given XML must not be null!");
 
-            if (WSSPassword == null)
+            if (WSSPassword is null)
                 throw new ArgumentNullException(nameof(WSSPassword),  "The given XML must not be null!");
 
-            if (SOAPBody == null)
+            if (SOAPBody is null)
                 throw new ArgumentNullException(nameof(SOAPBody),     "The given XML must not be null!");
 
-            if (XMLNamespaces == null)
+            if (XMLNamespaces is null)
                 XMLNamespaces = xml => xml;
 
             #endregion

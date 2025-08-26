@@ -339,7 +339,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetCDRsResponse1 == null) || ((Object) GetCDRsResponse2 == null))
+            if (((Object) GetCDRsResponse1 is null) || ((Object) GetCDRsResponse2 is null))
                 return false;
 
             return GetCDRsResponse1.Equals(GetCDRsResponse2);
@@ -376,12 +376,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get charge details record response.
             var GetCDRsResponse = Object as GetCDRsResponse;
-            if ((Object) GetCDRsResponse == null)
+            if ((Object) GetCDRsResponse is null)
                 return false;
 
             return this.Equals(GetCDRsResponse);
@@ -400,7 +400,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetCDRsResponse GetCDRsResponse)
         {
 
-            if ((Object) GetCDRsResponse == null)
+            if ((Object) GetCDRsResponse is null)
                 return false;
 
             return this.Result.Equals(GetCDRsResponse.Result);
@@ -422,7 +422,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return ChargeDetailRecords != null
+                return ChargeDetailRecords is not null
 
                            ? Result.GetHashCode() * 11 ^
                              ChargeDetailRecords.SafeSelect(cdr => cdr.GetHashCode()).Aggregate((a, b) => a ^ b)

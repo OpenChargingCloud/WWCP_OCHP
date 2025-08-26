@@ -333,10 +333,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) CDRId1 == null) || ((Object) CDRId2 == null))
+            if (((Object) CDRId1 is null) || ((Object) CDRId2 is null))
                 return false;
 
-            if ((Object) CDRId1 == null)
+            if ((Object) CDRId1 is null)
                 throw new ArgumentNullException(nameof(CDRId1),  "The given charge point identification must not be null!");
 
             return CDRId1.Equals(CDRId2);
@@ -369,7 +369,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (CDR_Id CDRId1, CDR_Id CDRId2)
         {
 
-            if ((Object) CDRId1 == null)
+            if ((Object) CDRId1 is null)
                 throw new ArgumentNullException(nameof(CDRId1),  "The given charge point identification must not be null!");
 
             return CDRId1.CompareTo(CDRId2) < 0;
@@ -402,7 +402,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (CDR_Id CDRId1, CDR_Id CDRId2)
         {
 
-            if ((Object) CDRId1 == null)
+            if ((Object) CDRId1 is null)
                 throw new ArgumentNullException(nameof(CDRId1),  "The given charge point identification must not be null!");
 
             return CDRId1.CompareTo(CDRId2) > 0;
@@ -437,7 +437,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             if (!(Object is CDR_Id))
@@ -458,7 +458,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(CDR_Id CDRId)
         {
 
-            if ((Object) CDRId == null)
+            if ((Object) CDRId is null)
                 throw new ArgumentNullException(nameof(CDRId),  "The given charge point identification must not be null!");
 
             var _Result = OperatorId.CompareTo(CDRId.OperatorId);
@@ -486,7 +486,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             if (!(Object is CDR_Id))
@@ -508,7 +508,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(CDR_Id CDRId)
         {
 
-            if ((Object) CDRId == null)
+            if ((Object) CDRId is null)
                 return false;
 
             return OperatorId.Equals(CDRId.OperatorId) &&

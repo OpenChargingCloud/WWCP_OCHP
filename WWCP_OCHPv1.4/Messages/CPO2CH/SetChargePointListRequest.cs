@@ -72,7 +72,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (ChargePointInfos == null)
+            if (ChargePointInfos is null)
                 throw new ArgumentNullException(nameof(ChargePointInfos),  "The given enumeration of charge point infos must not be null!");
 
             #endregion
@@ -260,7 +260,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) SetChargePointListRequest1 == null) || ((Object) SetChargePointListRequest2 == null))
+            if (((Object) SetChargePointListRequest1 is null) || ((Object) SetChargePointListRequest2 is null))
                 return false;
 
             return SetChargePointListRequest1.Equals(SetChargePointListRequest2);
@@ -297,12 +297,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a set charge point list request.
             var SetChargePointListRequest = Object as SetChargePointListRequest;
-            if ((Object) SetChargePointListRequest == null)
+            if ((Object) SetChargePointListRequest is null)
                 return false;
 
             return this.Equals(SetChargePointListRequest);
@@ -321,7 +321,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(SetChargePointListRequest SetChargePointListRequest)
         {
 
-            if ((Object) SetChargePointListRequest == null)
+            if ((Object) SetChargePointListRequest is null)
                 return false;
 
             return ChargePointInfos.Count().Equals(SetChargePointListRequest.ChargePointInfos.Count());

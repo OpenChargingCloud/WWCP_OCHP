@@ -258,7 +258,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) AddCDRsRequest1 == null) || ((Object) AddCDRsRequest2 == null))
+            if (((Object) AddCDRsRequest1 is null) || ((Object) AddCDRsRequest2 is null))
                 return false;
 
             return AddCDRsRequest1.Equals(AddCDRsRequest2);
@@ -295,12 +295,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a add charge detail records request.
             var AddCDRsRequest = Object as AddCDRsRequest;
-            if ((Object) AddCDRsRequest == null)
+            if ((Object) AddCDRsRequest is null)
                 return false;
 
             return this.Equals(AddCDRsRequest);
@@ -319,7 +319,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(AddCDRsRequest AddCDRsRequest)
         {
 
-            if ((Object) AddCDRsRequest == null)
+            if ((Object) AddCDRsRequest is null)
                 return false;
 
             return CDRInfos.Count().Equals(AddCDRsRequest.CDRInfos.Count());

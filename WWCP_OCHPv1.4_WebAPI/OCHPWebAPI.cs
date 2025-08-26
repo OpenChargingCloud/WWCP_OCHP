@@ -62,15 +62,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                                   out HTTPResponse                             HTTPResponse)
         {
 
-            if (HTTPServer == null)
-                Console.WriteLine("HTTPServer == null!");
+            if (HTTPServer is null)
+                Console.WriteLine("HTTPServer is null!");
 
             #region Initial checks
 
-            if (HTTPRequest == null)
+            if (HTTPRequest is null)
                 throw new ArgumentNullException("HTTPRequest",  "The given HTTP request must not be null!");
 
-            if (HTTPServer == null)
+            if (HTTPServer is null)
                 throw new ArgumentNullException("HTTPServer",   "The given HTTP server must not be null!");
 
             #endregion
@@ -111,7 +111,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                   GetAllTenants(HTTPRequest.Host).
                                   FirstOrDefault(roamingnetwork => roamingnetwork.Id == RoamingNetworkId);
 
-            if (RoamingNetwork == null) {
+            if (RoamingNetwork is null) {
 
                 HTTPResponse = new HTTPResponse.Builder(HTTPRequest) {
                     HTTPStatusCode  = HTTPStatusCode.NotFound,
@@ -356,7 +356,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
                 #region Check HTTP Basic Authentication
 
-                if (Request.Authorization == null ||
+                if (Request.Authorization is null ||
                     !HTTPLogins.Any(kvp => kvp.Key   == (Request.Authorization as HTTPBasicAuthentication)?.Username &&
                                            kvp.Value == (Request.Authorization as HTTPBasicAuthentication)?.Password))
                 {
@@ -420,7 +420,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                                                                         return null;
 
                                                                     }).
-                                                                    Where(evsedatarecord => evsedatarecord != null).
+                                                                    Where(evsedatarecord => evsedatarecord is not null).
                                                                     ToXML(_RoamingNetwork, XMLNamespaces, ChargePointInfo2XML, XMLPostProcessing).
                                                                     ToUTF8Bytes(),
                         X_ExpectedTotalNumberOfItems  = _ExpectedCount
@@ -460,7 +460,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
                 #region Check HTTP Basic Authentication
 
-                if (Request.Authorization == null ||
+                if (Request.Authorization is null ||
                     !HTTPLogins.Any(kvp => kvp.Key   == (Request.Authorization as HTTPBasicAuthentication)?.Username &&
                                            kvp.Value == (Request.Authorization as HTTPBasicAuthentication)?.Password))
                 {
@@ -599,7 +599,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
                 #region Check HTTP Basic Authentication
 
-                if (Request.Authorization == null ||
+                if (Request.Authorization is null ||
                     !HTTPLogins.Any(kvp => kvp.Key   == (Request.Authorization as HTTPBasicAuthentication)?.Username &&
                                            kvp.Value == (Request.Authorization as HTTPBasicAuthentication)?.Password))
                 {

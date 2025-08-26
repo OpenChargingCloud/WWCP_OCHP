@@ -363,7 +363,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetServiceEndpointsResponse1 == null) || ((Object) GetServiceEndpointsResponse2 == null))
+            if (((Object) GetServiceEndpointsResponse1 is null) || ((Object) GetServiceEndpointsResponse2 is null))
                 return false;
 
             return GetServiceEndpointsResponse1.Equals(GetServiceEndpointsResponse2);
@@ -400,12 +400,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get service endpoints response.
             var GetServiceEndpointsResponse = Object as GetServiceEndpointsResponse;
-            if ((Object) GetServiceEndpointsResponse == null)
+            if ((Object) GetServiceEndpointsResponse is null)
                 return false;
 
             return this.Equals(GetServiceEndpointsResponse);
@@ -424,7 +424,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetServiceEndpointsResponse GetServiceEndpointsResponse)
         {
 
-            if ((Object) GetServiceEndpointsResponse == null)
+            if ((Object) GetServiceEndpointsResponse is null)
                 return false;
 
             return this.Result. Equals(GetServiceEndpointsResponse.Result);
@@ -446,7 +446,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return ServiceEndpoints != null
+                return ServiceEndpoints is not null
 
                            ? Result.GetHashCode() * 11 ^
                              ServiceEndpoints.SafeSelect(endpoint => endpoint.GetHashCode()).Aggregate((a, b) => a ^ b)

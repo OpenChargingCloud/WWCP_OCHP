@@ -250,7 +250,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ParkingStatus1 == null) || ((Object) ParkingStatus2 == null))
+            if (((Object) ParkingStatus1 is null) || ((Object) ParkingStatus2 is null))
                 return false;
 
             return ParkingStatus1.Equals(ParkingStatus2);
@@ -287,7 +287,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a parking status.
@@ -310,7 +310,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(ParkingStatus ParkingStatus)
         {
 
-            if ((Object) ParkingStatus == null)
+            if ((Object) ParkingStatus is null)
                 return false;
 
             return ParkingId.Equals(ParkingStatus.ParkingId) &&

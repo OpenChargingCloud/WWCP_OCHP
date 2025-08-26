@@ -278,7 +278,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) AddServiceEndpointsRequest1 == null) || ((Object) AddServiceEndpointsRequest2 == null))
+            if (((Object) AddServiceEndpointsRequest1 is null) || ((Object) AddServiceEndpointsRequest2 is null))
                 return false;
 
             return AddServiceEndpointsRequest1.Equals(AddServiceEndpointsRequest2);
@@ -315,12 +315,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a add service endpoints request.
             var AddServiceEndpointsRequest = Object as AddServiceEndpointsRequest;
-            if ((Object) AddServiceEndpointsRequest == null)
+            if ((Object) AddServiceEndpointsRequest is null)
                 return false;
 
             return this.Equals(AddServiceEndpointsRequest);
@@ -339,7 +339,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(AddServiceEndpointsRequest AddServiceEndpointsRequest)
         {
 
-            if ((Object) AddServiceEndpointsRequest == null)
+            if ((Object) AddServiceEndpointsRequest is null)
                 return false;
 
             return OperatorEndpoints.Count().Equals(AddServiceEndpointsRequest.OperatorEndpoints.Count());

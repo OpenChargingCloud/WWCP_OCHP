@@ -113,7 +113,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetChargePointListRequestMapper = value;
             }
 
@@ -135,7 +135,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetChargePointListSOAPRequestMapper = value;
             }
 
@@ -163,7 +163,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetChargePointListUpdatesRequestMapper = value;
             }
 
@@ -185,7 +185,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetChargePointListUpdatesSOAPRequestMapper = value;
             }
 
@@ -213,7 +213,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetStatusRequestMapper = value;
             }
 
@@ -235,7 +235,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetStatusSOAPRequestMapper = value;
             }
 
@@ -263,7 +263,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetTariffUpdatesRequestMapper = value;
             }
 
@@ -285,7 +285,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetTariffUpdatesSOAPRequestMapper = value;
             }
 
@@ -314,7 +314,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomSetRoamingAuthorisationListRequestMapper = value;
             }
 
@@ -336,7 +336,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomSetRoamingAuthorisationListSOAPRequestMapper = value;
             }
 
@@ -364,7 +364,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomUpdateRoamingAuthorisationListRequestMapper = value;
             }
 
@@ -386,7 +386,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomUpdateRoamingAuthorisationListSOAPRequestMapper = value;
             }
 
@@ -415,7 +415,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetCDRsRequestMapper = value;
             }
 
@@ -437,7 +437,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetCDRsSOAPRequestMapper = value;
             }
 
@@ -465,7 +465,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomConfirmCDRsRequestMapper = value;
             }
 
@@ -487,7 +487,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomConfirmCDRsSOAPRequestMapper = value;
             }
 
@@ -518,7 +518,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomAddServiceEndpointsRequestMapper = value;
             }
 
@@ -540,7 +540,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomAddServiceEndpointsSOAPRequestMapper = value;
             }
 
@@ -568,7 +568,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetServiceEndpointsRequestMapper = value;
             }
 
@@ -590,7 +590,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             set
             {
-                if (value != null)
+                if (value is not null)
                     _CustomGetServiceEndpointsSOAPRequestMapper = value;
             }
 
@@ -1111,12 +1111,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetChargePointList request must not be null!");
 
             Request = _CustomGetChargePointListRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetChargePointList request must not be null!");
 
 
@@ -1259,7 +1259,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetChargePointListResponse>.ClientError(
                                  new GetChargePointListResponse(
                                      Request,
@@ -1321,12 +1321,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetChargePointListUpdates request must not be null!");
 
             Request = _CustomGetChargePointListUpdatesRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetChargePointListUpdates request must not be null!");
 
 
@@ -1470,7 +1470,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetChargePointListUpdatesResponse>.ClientError(
                                  new GetChargePointListUpdatesResponse(
                                      Request,
@@ -1534,12 +1534,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetStatus request must not be null!");
 
             Request = _CustomGetStatusRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetStatus request must not be null!");
 
 
@@ -1684,7 +1684,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetStatusResponse>.ClientError(
                                  new GetStatusResponse(
                                      Request,
@@ -1748,12 +1748,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetTariffUpdates request must not be null!");
 
             Request = _CustomGetTariffUpdatesRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetTariffUpdates request must not be null!");
 
 
@@ -1897,7 +1897,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetTariffUpdatesResponse>.ClientError(
                                  new GetTariffUpdatesResponse(
                                      Request,
@@ -1961,12 +1961,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given SetRoamingAuthorisationList request must not be null!");
 
             Request = _CustomSetRoamingAuthorisationListRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped SetRoamingAuthorisationList request must not be null!");
 
 
@@ -2124,10 +2124,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                //if (result == null)
+                //if (result is null)
                 //    result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(new SetRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<SetRoamingAuthorisationListResponse>.ClientError(
                                  new SetRoamingAuthorisationListResponse(
                                      Request,
@@ -2190,12 +2190,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given UpdateRoamingAuthorisationList request must not be null!");
 
             Request = _CustomUpdateRoamingAuthorisationListRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped UpdateRoamingAuthorisationList request must not be null!");
 
 
@@ -2353,10 +2353,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                //if (result == null)
+                //if (result is null)
                 //    result = HTTPResponse<UpdateRoamingAuthorisationListResponse>.OK(new UpdateRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<UpdateRoamingAuthorisationListResponse>.ClientError(
                                  new UpdateRoamingAuthorisationListResponse(
                                      Request,
@@ -2420,12 +2420,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetCDRs request must not be null!");
 
             Request = _CustomGetCDRsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetCDRs request must not be null!");
 
 
@@ -2569,7 +2569,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetCDRsResponse>.ClientError(
                                  new GetCDRsResponse(
                                      Request,
@@ -2632,12 +2632,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given ConfirmCDRs request must not be null!");
 
             Request = _CustomConfirmCDRsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped ConfirmCDRs request must not be null!");
 
 
@@ -2796,7 +2796,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<ConfirmCDRsResponse>.ClientError(
                                  new ConfirmCDRsResponse(
                                      Request,
@@ -2862,12 +2862,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given AddServiceEndpoints request must not be null!");
 
             Request = _CustomAddServiceEndpointsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped AddServiceEndpoints request must not be null!");
 
 
@@ -3025,7 +3025,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<AddServiceEndpointsResponse>.ClientError(
                                  new AddServiceEndpointsResponse(
                                      Request,
@@ -3087,12 +3087,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The given GetServiceEndpoints request must not be null!");
 
             Request = _CustomGetServiceEndpointsRequestMapper(Request);
 
-            if (Request == null)
+            if (Request is null)
                 throw new ArgumentNullException(nameof(Request), "The mapped GetServiceEndpoints request must not be null!");
 
 
@@ -3235,7 +3235,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 }
 
-                if (result == null)
+                if (result is null)
                     result = HTTPResponse<GetServiceEndpointsResponse>.ClientError(
                                  new GetServiceEndpointsResponse(
                                      Request,
@@ -3440,7 +3440,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             }
 
-            if (result == null)
+            if (result is null)
                 result = HTTPResponse<SelectEVSEResponse>.OK(new SelectEVSEResponse(Request, Result.OK("Nothing to upload!")));
 
 
@@ -3649,7 +3649,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             }
 
-            if (result == null)
+            if (result is null)
                 result = HTTPResponse<ControlEVSEResponse>.OK(new ControlEVSEResponse(Request, Result.OK("Nothing to upload!")));
 
 
@@ -3833,7 +3833,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             }
 
-            if (result == null)
+            if (result is null)
                 result = HTTPResponse<ReleaseEVSEResponse>.OK(new ReleaseEVSEResponse(Request, Result.OK("Nothing to upload!")));
 
 
@@ -4015,7 +4015,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             }
 
-            if (result == null)
+            if (result is null)
                 result = HTTPResponse<GetEVSEStatusResponse>.OK(new GetEVSEStatusResponse(Request, Result.OK("Nothing to upload!")));
 
 
@@ -4076,7 +4076,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Report == null || Report.Trim().IsNullOrEmpty())
+            if (Report is null || Report.Trim().IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Report),  "The given EVSE report must not be null or empty!");
 
 
@@ -4203,7 +4203,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             }
 
-            if (result == null)
+            if (result is null)
                 result = HTTPResponse<ReportDiscrepancyResponse>.OK(new ReportDiscrepancyResponse(Request, Result.OK("Nothing to upload!")));
 
 
@@ -4387,7 +4387,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             }
 
-            if (result == null)
+            if (result is null)
                 result = HTTPResponse<GetInformProviderResponse>.OK(GetInformProviderResponse.OK(Request, "Nothing to upload!"));
 
 

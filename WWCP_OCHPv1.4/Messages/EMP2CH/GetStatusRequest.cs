@@ -271,7 +271,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetStatusRequest1 == null) || ((Object) GetStatusRequest2 == null))
+            if (((Object) GetStatusRequest1 is null) || ((Object) GetStatusRequest2 is null))
                 return false;
 
             return GetStatusRequest1.Equals(GetStatusRequest2);
@@ -308,12 +308,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get status request.
             var GetStatusRequest = Object as GetStatusRequest;
-            if ((Object) GetStatusRequest == null)
+            if ((Object) GetStatusRequest is null)
                 return false;
 
             return this.Equals(GetStatusRequest);
@@ -332,7 +332,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetStatusRequest GetStatusRequest)
         {
 
-            if ((Object) GetStatusRequest == null)
+            if ((Object) GetStatusRequest is null)
                 return false;
 
             return ((!LastRequest.HasValue && !GetStatusRequest.LastRequest.HasValue) ||

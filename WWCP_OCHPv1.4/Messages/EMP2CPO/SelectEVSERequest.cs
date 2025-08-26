@@ -271,7 +271,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) SelectEVSERequest1 == null) || ((Object) SelectEVSERequest2 == null))
+            if (((Object) SelectEVSERequest1 is null) || ((Object) SelectEVSERequest2 is null))
                 return false;
 
             return SelectEVSERequest1.Equals(SelectEVSERequest2);
@@ -308,12 +308,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a select EVSE request.
             var SelectEVSERequest = Object as SelectEVSERequest;
-            if ((Object) SelectEVSERequest == null)
+            if ((Object) SelectEVSERequest is null)
                 return false;
 
             return this.Equals(SelectEVSERequest);
@@ -332,7 +332,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(SelectEVSERequest SelectEVSERequest)
         {
 
-            if ((Object) SelectEVSERequest == null)
+            if ((Object) SelectEVSERequest is null)
                 return false;
 
             return EVSEId.    Equals(SelectEVSERequest.EVSEId)     &&

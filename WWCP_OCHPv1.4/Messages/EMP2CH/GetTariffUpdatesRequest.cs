@@ -257,7 +257,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetTariffUpdatesRequest1 == null) || ((Object) GetTariffUpdatesRequest2 == null))
+            if (((Object) GetTariffUpdatesRequest1 is null) || ((Object) GetTariffUpdatesRequest2 is null))
                 return false;
 
             return GetTariffUpdatesRequest1.Equals(GetTariffUpdatesRequest2);
@@ -294,12 +294,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get tariff updates request.
             var GetTariffUpdatesRequest = Object as GetTariffUpdatesRequest;
-            if ((Object) GetTariffUpdatesRequest == null)
+            if ((Object) GetTariffUpdatesRequest is null)
                 return false;
 
             return this.Equals(GetTariffUpdatesRequest);
@@ -318,7 +318,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetTariffUpdatesRequest GetTariffUpdatesRequest)
         {
 
-            if ((Object) GetTariffUpdatesRequest == null)
+            if ((Object) GetTariffUpdatesRequest is null)
                 return false;
 
             return (!LastUpdate.HasValue && !GetTariffUpdatesRequest.LastUpdate.HasValue) ||

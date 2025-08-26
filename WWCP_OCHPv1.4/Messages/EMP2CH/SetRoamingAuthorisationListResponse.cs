@@ -353,7 +353,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) SetRoamingAuthorisationListResponse1 == null) || ((Object) SetRoamingAuthorisationListResponse2 == null))
+            if (((Object) SetRoamingAuthorisationListResponse1 is null) || ((Object) SetRoamingAuthorisationListResponse2 is null))
                 return false;
 
             return SetRoamingAuthorisationListResponse1.Equals(SetRoamingAuthorisationListResponse2);
@@ -390,12 +390,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a set roaming authorisation list response.
             var SetRoamingAuthorisationListResponse = Object as SetRoamingAuthorisationListResponse;
-            if ((Object) SetRoamingAuthorisationListResponse == null)
+            if ((Object) SetRoamingAuthorisationListResponse is null)
                 return false;
 
             return this.Equals(SetRoamingAuthorisationListResponse);
@@ -414,7 +414,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(SetRoamingAuthorisationListResponse SetRoamingAuthorisationListResponse)
         {
 
-            if ((Object) SetRoamingAuthorisationListResponse == null)
+            if ((Object) SetRoamingAuthorisationListResponse is null)
                 return false;
 
             return this.Result. Equals(SetRoamingAuthorisationListResponse.Result);
@@ -436,7 +436,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return RefusedRoamingAuthorisationInfos != null
+                return RefusedRoamingAuthorisationInfos is not null
 
                            ? Result.GetHashCode() * 11 ^
                              RefusedRoamingAuthorisationInfos.SafeSelect(info => info.GetHashCode()).Aggregate((a, b) => a ^ b)

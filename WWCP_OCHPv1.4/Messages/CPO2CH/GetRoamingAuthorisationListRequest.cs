@@ -220,7 +220,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetRoamingAuthorisationListRequest1 == null) || ((Object) GetRoamingAuthorisationListRequest2 == null))
+            if (((Object) GetRoamingAuthorisationListRequest1 is null) || ((Object) GetRoamingAuthorisationListRequest2 is null))
                 return false;
 
             return GetRoamingAuthorisationListRequest1.Equals(GetRoamingAuthorisationListRequest2);
@@ -257,12 +257,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get roaming authorisation list request.
             var GetRoamingAuthorisationListRequest = Object as GetRoamingAuthorisationListRequest;
-            if ((Object) GetRoamingAuthorisationListRequest == null)
+            if ((Object) GetRoamingAuthorisationListRequest is null)
                 return false;
 
             return this.Equals(GetRoamingAuthorisationListRequest);
@@ -281,7 +281,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(GetRoamingAuthorisationListRequest GetRoamingAuthorisationListRequest)
         {
 
-            if ((Object) GetRoamingAuthorisationListRequest == null)
+            if ((Object) GetRoamingAuthorisationListRequest is null)
                 return false;
 
             return Object.ReferenceEquals(this, GetRoamingAuthorisationListRequest);

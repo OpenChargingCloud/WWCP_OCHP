@@ -344,7 +344,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) UpdateChargePointListResponse1 == null) || ((Object) UpdateChargePointListResponse2 == null))
+            if (((Object) UpdateChargePointListResponse1 is null) || ((Object) UpdateChargePointListResponse2 is null))
                 return false;
 
             return UpdateChargePointListResponse1.Equals(UpdateChargePointListResponse2);
@@ -381,12 +381,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a update charge point list response.
             var UpdateChargePointListResponse = Object as UpdateChargePointListResponse;
-            if ((Object) UpdateChargePointListResponse == null)
+            if ((Object) UpdateChargePointListResponse is null)
                 return false;
 
             return this.Equals(UpdateChargePointListResponse);
@@ -405,7 +405,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(UpdateChargePointListResponse UpdateChargePointListResponse)
         {
 
-            if ((Object) UpdateChargePointListResponse == null)
+            if ((Object) UpdateChargePointListResponse is null)
                 return false;
 
             return this.Result. Equals(UpdateChargePointListResponse.Result);
@@ -427,7 +427,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             unchecked
             {
 
-                return RefusedChargePointInfos != null
+                return RefusedChargePointInfos is not null
 
                            ? Result.GetHashCode() * 11 ^
                              RefusedChargePointInfos.SafeSelect(info => info.GetHashCode()).Aggregate((a, b) => a ^ b)

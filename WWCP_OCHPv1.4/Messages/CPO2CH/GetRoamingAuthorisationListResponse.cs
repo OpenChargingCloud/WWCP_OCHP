@@ -357,7 +357,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetRoamingAuthorisationListResponse1 == null) || ((Object) GetRoamingAuthorisationListResponse2 == null))
+            if (((Object) GetRoamingAuthorisationListResponse1 is null) || ((Object) GetRoamingAuthorisationListResponse2 is null))
                 return false;
 
             return GetRoamingAuthorisationListResponse1.Equals(GetRoamingAuthorisationListResponse2);
@@ -394,12 +394,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a roaming authorisation list response.
             var GetRoamingAuthorisationListResponse = Object as GetRoamingAuthorisationListResponse;
-            if ((Object) GetRoamingAuthorisationListResponse == null)
+            if ((Object) GetRoamingAuthorisationListResponse is null)
                 return false;
 
             return this.Equals(GetRoamingAuthorisationListResponse);
@@ -418,7 +418,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(GetRoamingAuthorisationListResponse GetRoamingAuthorisationListResponse)
         {
 
-            if ((Object) GetRoamingAuthorisationListResponse == null)
+            if ((Object) GetRoamingAuthorisationListResponse is null)
                 return false;
 
             return this.Result. Equals(GetRoamingAuthorisationListResponse.Result);
@@ -440,7 +440,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             unchecked
             {
 
-                return RoamingAuthorisationInfos != null
+                return RoamingAuthorisationInfos is not null
 
                            ? Result.GetHashCode() * 11 ^
                              RoamingAuthorisationInfos.SafeSelect(info => info.GetHashCode()).Aggregate((a, b) => a ^ b)
@@ -484,12 +484,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             public Builder(GetRoamingAuthorisationListResponse GetRoamingAuthorisationListResponse = null)
             {
 
-                if (GetRoamingAuthorisationListResponse != null)
+                if (GetRoamingAuthorisationListResponse is not null)
                 {
 
                     this.RoamingAuthorisationInfos = GetRoamingAuthorisationListResponse.RoamingAuthorisationInfos;
 
-                    if (GetRoamingAuthorisationListResponse.CustomData != null)
+                    if (GetRoamingAuthorisationListResponse.CustomData is not null)
                         foreach (var item in GetRoamingAuthorisationListResponse.CustomData)
                             CustomData.Add(item.Key, item.Value);
 

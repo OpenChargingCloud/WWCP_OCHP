@@ -98,10 +98,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             if (ParkingRestrictions.HasValue && ParkingRestrictions == RestrictionTypes.Unknown)
                 throw new ArgumentNullException(nameof(ParkingRestrictions),  "The given parking restrictions must not be null!");
 
-            if (FloorLevel        != null && !FloorLevel_RegExpr.       IsMatch(FloorLevel))
+            if (FloorLevel        is not null && !FloorLevel_RegExpr.       IsMatch(FloorLevel))
                 throw new ArgumentException("The given floor level is invalid!",          nameof(FloorLevel));
 
-            if (ParkingSpotNumber != null && !ParkingSpotNumber_RegExpr.IsMatch(ParkingSpotNumber))
+            if (ParkingSpotNumber is not null && !ParkingSpotNumber_RegExpr.IsMatch(ParkingSpotNumber))
                 throw new ArgumentException("The given parking spot number is invalid!",  nameof(ParkingSpotNumber));
 
             #endregion
@@ -332,7 +332,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ParkingSpotInfo1 == null) || ((Object) ParkingSpotInfo2 == null))
+            if (((Object) ParkingSpotInfo1 is null) || ((Object) ParkingSpotInfo2 is null))
                 return false;
 
             return ParkingSpotInfo1.Equals(ParkingSpotInfo2);
@@ -369,12 +369,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a parking spot.
             var ParkingSpotInfo = Object as ParkingSpotInfo;
-            if ((Object) ParkingSpotInfo == null)
+            if ((Object) ParkingSpotInfo is null)
                 return false;
 
             return this.Equals(ParkingSpotInfo);
@@ -393,7 +393,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(ParkingSpotInfo ParkingSpotInfo)
         {
 
-            if ((Object) ParkingSpotInfo == null)
+            if ((Object) ParkingSpotInfo is null)
                 return false;
 
             return ParkingId.Equals(ParkingSpotInfo.ParkingId);

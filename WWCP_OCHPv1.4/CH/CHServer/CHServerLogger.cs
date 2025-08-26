@@ -150,7 +150,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
 
             #region Initial checks
 
-            if (CHServer == null)
+            if (CHServer is null)
                 throw new ArgumentNullException(nameof(CHServer), "The given CH server must not be null!");
 
             this.CHServer = CHServer;

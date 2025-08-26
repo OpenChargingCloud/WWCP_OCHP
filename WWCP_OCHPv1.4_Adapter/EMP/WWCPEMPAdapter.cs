@@ -404,7 +404,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             if (Name.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Name),        "The given roaming provider name must not be null or empty!");
 
-            if (EMPRoaming == null)
+            if (EMPRoaming is null)
                 throw new ArgumentNullException(nameof(EMPRoaming),  "The given OCHP EMP Roaming object must not be null!");
 
             #endregion
@@ -431,7 +431,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             this.PullStatusServiceTimer           = new Timer(PullStatusService, null, 150000, _PullStatusServiceEvery);
             this.DisablePullStatus                = DisablePullStatus;
 
-            this.DefaultProviderId                = DefaultProvider != null
+            this.DefaultProviderId                = DefaultProvider is not null
                                                         ? new Provider_Id?(DefaultProvider.Id.ToOCHP())
                                                         : null;
             this.DefaultSearchCenter              = DefaultSearchCenter;
@@ -534,7 +534,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Map response
 
-            //        if (response != null)
+            //        if (response is not null)
             //        {
             //            switch (response.Result)
             //            {
@@ -660,7 +660,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Map response
 
-            //        if (response != null)
+            //        if (response is not null)
             //        {
             //            switch (response.Result)
             //            {
@@ -677,12 +677,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //                                                            );
 
             //                case AuthStartResultType.NotAuthorized:
-            //                    if (Request.Identification.RFIDId != null)
+            //                    if (Request.Identification.RFIDId is not null)
             //                        return CPO.AuthorizationStart.NotAuthorized(Request,
             //                                                                    StatusCodes.RFIDAuthenticationfailed_InvalidUID,
             //                                                                    "RFID Authentication failed - Invalid UID!");
 
-            //                    if (Request.Identification.QRCodeIdentification != null)
+            //                    if (Request.Identification.QRCodeIdentification is not null)
             //                        return CPO.AuthorizationStart.NotAuthorized(Request,
             //                                                                    StatusCodes.QRCodeAuthenticationFailed_InvalidCredentials,
             //                                                                    "QR-Code Authentication failed - Invalid credentials!");
@@ -813,7 +813,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Map response
 
-            //        if (response != null)
+            //        if (response is not null)
             //        {
             //            switch (response.Result)
             //            {
@@ -924,7 +924,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Map response
 
-            //        if (response != null)
+            //        if (response is not null)
             //        {
             //            switch (response.Result)
             //            {
@@ -1041,7 +1041,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //    #region Map response
 
-            //    if (response != null)
+            //    if (response is not null)
             //    {
 
             //        if (response.Result == SendCDRsResultTypes.Success)
@@ -1054,7 +1054,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        var FailedCDR = response.RejectedChargeDetailRecords.FirstOrDefault();
 
-            //        if (FailedCDR != null)
+            //        if (FailedCDR is not null)
             //        {
             //            switch (FailedCDR.Result)
             //            {
@@ -1152,7 +1152,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //if (!CancellationToken.HasValue)
             //    CancellationToken = new CancellationTokenSource().Token;
 
-            //if (EventTrackingId == null)
+            //if (EventTrackingId is null)
             //    EventTrackingId = EventTracking_Id.New;
 
             //if (!RequestTimeout.HasValue)
@@ -1203,7 +1203,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //                                ConfigureAwait(false);
 
             //if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-            //    response.Content        != null)
+            //    response.Content        is not null)
             //{
 
             //    var Warnings = new List<String>();
@@ -1225,7 +1225,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //                                       }
 
             //                                   }).
-            //                 SafeWhere(cdr => cdr != null);
+            //                 SafeWhere(cdr => cdr is not null);
 
             //}
 
@@ -1354,7 +1354,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 catch (Exception e)
                 {
 
-                    while (e.InnerException != null)
+                    while (e.InnerException is not null)
                         e = e.InnerException;
 
                     DebugX.Log("A exception occured during PullDataService: " + e.Message + Environment.NewLine + e.StackTrace);
@@ -1410,10 +1410,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Everything is ok!
 
-            //        if (PullEVSEData                    != null     &&
-            //            PullEVSEData.Content            != null     &&
-            //            PullEVSEData.Content.StatusCode == null)
-            //            //PullEVSEData.Content.StatusCode != null     &&
+            //        if (PullEVSEData                    is not null     &&
+            //            PullEVSEData.Content            is not null     &&
+            //            PullEVSEData.Content.StatusCode is null)
+            //            //PullEVSEData.Content.StatusCode is not null     &&
             //            //PullEVSEData.Content.StatusCode.HasResult() &&
             //            //PullEVSEData.Content.StatusCode.Value.Code == StatusCodes.Success)
             //        {
@@ -1671,7 +1671,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //                                            _ChargingPool.Description           = CurrentEVSEDataRecord.AdditionalInfo;
             //                                            _ChargingPool.LocationLanguage      = LocationLanguage;
             //                                            _ChargingPool.EntranceLocation      = CurrentEVSEDataRecord.GeoChargingPointEntrance;
-            //                                            _ChargingPool.OpeningTimes          = CurrentEVSEDataRecord.OpeningTime != null ? OpeningTimes.Parse(CurrentEVSEDataRecord.OpeningTime) : null;
+            //                                            _ChargingPool.OpeningTimes          = CurrentEVSEDataRecord.OpeningTime is not null ? OpeningTimes.Parse(CurrentEVSEDataRecord.OpeningTime) : null;
             //                                            _ChargingPool.AuthenticationModes   = new ReactiveSet<WWCP.AuthenticationModes>(CurrentEVSEDataRecord.AuthenticationModes.ToEnumeration().SafeSelect(mode   => OCHPMapper.AsWWCPAuthenticationMode(mode)));
             //                                            _ChargingPool.PaymentOptions        = new ReactiveSet<WWCP.PaymentOptions>     (CurrentEVSEDataRecord.PaymentOptions.     ToEnumeration().SafeSelect(option => OCHPMapper.AsWWCPPaymentOption(option)));
             //                                            _ChargingPool.Accessibility         = CurrentEVSEDataRecord.Accessibility.ToWWCP();
@@ -1704,7 +1704,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //                                                                    pool.GeoLocation                 = CurrentEVSEDataRecord.GeoCoordinate;
             //                                                                    pool.LocationLanguage            = LocationLanguage;
             //                                                                    pool.EntranceLocation            = CurrentEVSEDataRecord.GeoChargingPointEntrance;
-            //                                                                    pool.OpeningTimes                = CurrentEVSEDataRecord.OpeningTime != null ? OpeningTimes.Parse(CurrentEVSEDataRecord.OpeningTime) : null;
+            //                                                                    pool.OpeningTimes                = CurrentEVSEDataRecord.OpeningTime is not null ? OpeningTimes.Parse(CurrentEVSEDataRecord.OpeningTime) : null;
             //                                                                    pool.AuthenticationModes         = new ReactiveSet<WWCP.AuthenticationModes>(CurrentEVSEDataRecord.AuthenticationModes.ToEnumeration().SafeSelect(mode   => OCHPMapper.AsWWCPAuthenticationMode(mode)));
             //                                                                    pool.PaymentOptions              = new ReactiveSet<WWCP.PaymentOptions>     (CurrentEVSEDataRecord.PaymentOptions.     ToEnumeration().SafeSelect(option => OCHPMapper.AsWWCPPaymentOption(option)));
             //                                                                    pool.Accessibility               = CurrentEVSEDataRecord.Accessibility.ToWWCP();
@@ -1888,7 +1888,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //            //    DebugX.Log("Importing EVSE data records failed: " +
             //            //               PullEVSEDataTask.Result.HTTPStatusCode.ToString() +
             //            //
-            //            //               PullEVSEDataTask.Result.HTTPBody != null
+            //            //               PullEVSEDataTask.Result.HTTPBody is not null
             //            //                   ? Environment.NewLine + PullEVSEDataTask.Result.HTTPBody.ToUTF8String()
             //            //                   : "");
             //            //
@@ -1898,7 +1898,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region OCHP StatusCode is not 'Success'
 
-            //            //else if (PullEVSEDataTask.Result.Content.StatusCode != null &&
+            //            //else if (PullEVSEDataTask.Result.Content.StatusCode is not null &&
             //            //        !PullEVSEDataTask.Result.Content.StatusCode.HasResult)
             //            //{
             //            //
@@ -1934,7 +1934,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //    catch (Exception e)
             //    {
 
-            //        while (e.InnerException != null)
+            //        while (e.InnerException is not null)
             //            e = e.InnerException;
 
             //        DebugX.LogT(nameof(WWCPEMPAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
@@ -2000,15 +2000,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             //        #region Everything is ok!
 
-            //        if (PullEVSEStatusTask.Result                    != null  &&
-            //            PullEVSEStatusTask.Result.Content            != null  &&
+            //        if (PullEVSEStatusTask.Result                    is not null  &&
+            //            PullEVSEStatusTask.Result.Content            is not null  &&
             //            PullEVSEStatusTask.Result.Content.StatusCode.HasValue &&
             //            PullEVSEStatusTask.Result.Content.StatusCode.Value.Code == StatusCodes.Success)
             //        {
 
             //            var OperatorEVSEStatus = PullEVSEStatusTask.Result.Content.OperatorEVSEStatus;
 
-            //            if (OperatorEVSEStatus != null && OperatorEVSEStatus.Any())
+            //            if (OperatorEVSEStatus is not null && OperatorEVSEStatus.Any())
             //            {
 
             //                DebugX.Log("Imported " + OperatorEVSEStatus.Count() + " OperatorEVSEStatus!");
@@ -2124,7 +2124,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //            DebugX.Log("Importing EVSE status records failed: " +
             //                       PullEVSEStatusTask.Result.HTTPStatusCode.ToString() +
 
-            //                       PullEVSEStatusTask.Result.HTTPBody != null
+            //                       PullEVSEStatusTask.Result.HTTPBody is not null
             //                           ? Environment.NewLine + PullEVSEStatusTask.Result.HTTPBody.ToUTF8String()
             //                           : "");
 
@@ -2171,7 +2171,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             //    catch (Exception e)
             //    {
 
-            //        while (e.InnerException != null)
+            //        while (e.InnerException is not null)
             //            e = e.InnerException;
 
             //        DebugX.LogT(nameof(WWCPEMPAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
@@ -2217,7 +2217,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) WWCPEMPAdapter1 == null) || ((Object) WWCPEMPAdapter2 == null))
+            if (((Object) WWCPEMPAdapter1 is null) || ((Object) WWCPEMPAdapter2 is null))
                 return false;
 
             return WWCPEMPAdapter1.Equals(WWCPEMPAdapter2);
@@ -2252,7 +2252,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                           WWCPEMPAdapter  WWCPEMPAdapter2)
         {
 
-            if ((Object) WWCPEMPAdapter1 == null)
+            if ((Object) WWCPEMPAdapter1 is null)
                 throw new ArgumentNullException(nameof(WWCPEMPAdapter1),  "The given WWCPEMPAdapter must not be null!");
 
             return WWCPEMPAdapter1.CompareTo(WWCPEMPAdapter2) < 0;
@@ -2288,7 +2288,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                                           WWCPEMPAdapter WWCPEMPAdapter2)
         {
 
-            if ((Object) WWCPEMPAdapter1 == null)
+            if ((Object) WWCPEMPAdapter1 is null)
                 throw new ArgumentNullException(nameof(WWCPEMPAdapter1),  "The given WWCPEMPAdapter must not be null!");
 
             return WWCPEMPAdapter1.CompareTo(WWCPEMPAdapter2) > 0;
@@ -2325,11 +2325,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
 
             var WWCPEMPAdapter = Object as WWCPEMPAdapter;
-            if ((Object) WWCPEMPAdapter == null)
+            if ((Object) WWCPEMPAdapter is null)
                 throw new ArgumentException("The given object is not an WWCPEMPAdapter!", nameof(Object));
 
             return CompareTo(WWCPEMPAdapter);
@@ -2347,7 +2347,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public Int32 CompareTo(WWCPEMPAdapter WWCPEMPAdapter)
         {
 
-            if ((Object) WWCPEMPAdapter == null)
+            if ((Object) WWCPEMPAdapter is null)
                 throw new ArgumentNullException(nameof(WWCPEMPAdapter), "The given WWCPEMPAdapter must not be null!");
 
             return Id.CompareTo(WWCPEMPAdapter.Id);
@@ -2370,11 +2370,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             var WWCPEMPAdapter = Object as WWCPEMPAdapter;
-            if ((Object) WWCPEMPAdapter == null)
+            if ((Object) WWCPEMPAdapter is null)
                 return false;
 
             return Equals(WWCPEMPAdapter);
@@ -2393,7 +2393,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public Boolean Equals(WWCPEMPAdapter WWCPEMPAdapter)
         {
 
-            if ((Object) WWCPEMPAdapter == null)
+            if ((Object) WWCPEMPAdapter is null)
                 return false;
 
             return Id.Equals(WWCPEMPAdapter.Id);

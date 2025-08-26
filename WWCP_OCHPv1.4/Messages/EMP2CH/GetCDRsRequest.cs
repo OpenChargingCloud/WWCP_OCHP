@@ -255,7 +255,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetCDRsRequest1 == null) || ((Object) GetCDRsRequest2 == null))
+            if (((Object) GetCDRsRequest1 is null) || ((Object) GetCDRsRequest2 is null))
                 return false;
 
             return GetCDRsRequest1.Equals(GetCDRsRequest2);
@@ -292,12 +292,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get charge detail records request.
             var GetCDRsRequest = Object as GetCDRsRequest;
-            if ((Object) GetCDRsRequest == null)
+            if ((Object) GetCDRsRequest is null)
                 return false;
 
             return this.Equals(GetCDRsRequest);
@@ -316,7 +316,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetCDRsRequest GetCDRsRequest)
         {
 
-            if ((Object) GetCDRsRequest == null)
+            if ((Object) GetCDRsRequest is null)
                 return false;
 
             return (!CDRStatus.HasValue && !GetCDRsRequest.CDRStatus.HasValue) ||

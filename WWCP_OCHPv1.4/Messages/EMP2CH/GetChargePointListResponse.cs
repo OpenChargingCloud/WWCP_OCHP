@@ -346,7 +346,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetChargePointListResponse1 == null) || ((Object) GetChargePointListResponse2 == null))
+            if (((Object) GetChargePointListResponse1 is null) || ((Object) GetChargePointListResponse2 is null))
                 return false;
 
             return GetChargePointListResponse1.Equals(GetChargePointListResponse2);
@@ -383,12 +383,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get charge point list response.
             var GetChargePointListResponse = Object as GetChargePointListResponse;
-            if ((Object) GetChargePointListResponse == null)
+            if ((Object) GetChargePointListResponse is null)
                 return false;
 
             return this.Equals(GetChargePointListResponse);
@@ -407,7 +407,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetChargePointListResponse GetChargePointListResponse)
         {
 
-            if ((Object) GetChargePointListResponse == null)
+            if ((Object) GetChargePointListResponse is null)
                 return false;
 
             return this.Result. Equals(GetChargePointListResponse.Result);
@@ -429,7 +429,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return ChargePoints != null
+                return ChargePoints is not null
 
                            ? Result.GetHashCode() * 11 ^
                              ChargePoints.SafeSelect(chargepoint => chargepoint.GetHashCode()).Aggregate((a, b) => a ^ b)

@@ -123,7 +123,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (RegularHours != null || !RegularHours.Any())
+            if (RegularHours is not null || !RegularHours.Any())
                 throw new ArgumentNullException(nameof(RegularHours),  "The given enumeration of regular hours must not be null or empty!");
 
             #endregion
@@ -395,7 +395,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             => new XElement(XName ?? OCHPNS.Default + "openingTimes",
 
-                   !TwentyFourSeven && RegularHours != null
+                   !TwentyFourSeven && RegularHours is not null
                        ? RegularHours.SafeSelect(hours => hours.ToXML())
                        : null,
 

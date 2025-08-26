@@ -316,7 +316,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) DirectResult1 == null) || ((Object) DirectResult2 == null))
+            if (((Object) DirectResult1 is null) || ((Object) DirectResult2 is null))
                 return false;
 
             return DirectResult1.Equals(DirectResult2);
@@ -353,12 +353,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a result.
             var DirectResult = Object as DirectResult;
-            if ((Object) DirectResult == null)
+            if ((Object) DirectResult is null)
                 return false;
 
             return this.Equals(DirectResult);
@@ -377,7 +377,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(DirectResult DirectResult)
         {
 
-            if ((Object) DirectResult == null)
+            if ((Object) DirectResult is null)
                 return false;
 
             return DirectResultCode.Equals(DirectResult.DirectResultCode) &&
@@ -402,7 +402,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
                 return DirectResultCode. GetHashCode() * 11 ^
 
-                       (Description != null
+                       (Description is not null
                             ? Description.GetHashCode()
                             : 0);
 

@@ -339,7 +339,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) CheckCDRsResponse1 == null) || ((Object) CheckCDRsResponse2 == null))
+            if (((Object) CheckCDRsResponse1 is null) || ((Object) CheckCDRsResponse2 is null))
                 return false;
 
             return CheckCDRsResponse1.Equals(CheckCDRsResponse2);
@@ -376,12 +376,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a check charge details record response.
             var CheckCDRsResponse = Object as CheckCDRsResponse;
-            if ((Object) CheckCDRsResponse == null)
+            if ((Object) CheckCDRsResponse is null)
                 return false;
 
             return this.Equals(CheckCDRsResponse);
@@ -400,7 +400,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(CheckCDRsResponse CheckCDRsResponse)
         {
 
-            if ((Object) CheckCDRsResponse == null)
+            if ((Object) CheckCDRsResponse is null)
                 return false;
 
             return Result.Equals(CheckCDRsResponse.Result);
@@ -422,7 +422,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             unchecked
             {
 
-                return ChargeDetailRecords != null
+                return ChargeDetailRecords is not null
 
                            ? Result.GetHashCode() * 11 ^
                              ChargeDetailRecords.SafeSelect(cdr => cdr.GetHashCode()).Aggregate((a, b) => a ^ b)
@@ -465,12 +465,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             public Builder(CheckCDRsResponse CheckCDRsResponse = null)
             {
 
-                if (CheckCDRsResponse != null)
+                if (CheckCDRsResponse is not null)
                 {
 
                     this.ChargeDetailRecords = CheckCDRsResponse.ChargeDetailRecords;
 
-                    if (CheckCDRsResponse.CustomData != null)
+                    if (CheckCDRsResponse.CustomData is not null)
                         foreach (var item in CheckCDRsResponse.CustomData)
                             CustomData.Add(item.Key, item.Value);
 

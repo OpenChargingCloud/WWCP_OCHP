@@ -182,7 +182,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (CountryCode == null)
+            if (CountryCode is null)
                 throw new ArgumentNullException(nameof(CountryCode),  "The given country must not be null!");
 
             if (Suffix.IsNullOrEmpty())
@@ -316,7 +316,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (CountryCode == null || Suffix.IsNullOrEmpty() || Suffix.Trim().IsNullOrEmpty())
+            if (CountryCode is null || Suffix.IsNullOrEmpty() || Suffix.Trim().IsNullOrEmpty())
             {
                 OperatorId = default(Operator_Id);
                 return false;
@@ -389,7 +389,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) OperatorId1 == null) || ((Object) OperatorId2 == null))
+            if (((Object) OperatorId1 is null) || ((Object) OperatorId2 is null))
                 return false;
 
             return OperatorId1.Equals(OperatorId2);
@@ -422,7 +422,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (Operator_Id OperatorId1, Operator_Id OperatorId2)
         {
 
-            if ((Object) OperatorId1 == null)
+            if ((Object) OperatorId1 is null)
                 throw new ArgumentNullException(nameof(OperatorId1), "The given OperatorId1 must not be null!");
 
             return OperatorId1.CompareTo(OperatorId2) < 0;
@@ -455,7 +455,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (Operator_Id OperatorId1, Operator_Id OperatorId2)
         {
 
-            if ((Object) OperatorId1 == null)
+            if ((Object) OperatorId1 is null)
                 throw new ArgumentNullException(nameof(OperatorId1), "The given OperatorId1 must not be null!");
 
             return OperatorId1.CompareTo(OperatorId2) > 0;
@@ -490,7 +490,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
 
             if (!(Object is Operator_Id))
@@ -511,7 +511,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Operator_Id OperatorId)
         {
 
-            if ((Object) OperatorId == null)
+            if ((Object) OperatorId is null)
                 throw new ArgumentNullException(nameof(OperatorId), "The given charging station operator identification must not be null!");
 
             // Compare the length of the OperatorIds
@@ -545,7 +545,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             if (!(Object is Operator_Id))
@@ -567,7 +567,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(Operator_Id OperatorId)
         {
 
-            if ((Object) OperatorId == null)
+            if ((Object) OperatorId is null)
                 return false;
 
             return CountryCode.Equals(OperatorId.CountryCode) &&

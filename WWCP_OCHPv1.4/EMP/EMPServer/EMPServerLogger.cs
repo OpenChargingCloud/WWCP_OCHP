@@ -150,7 +150,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (EMPServer == null)
+            if (EMPServer is null)
                 throw new ArgumentNullException(nameof(EMPServer),  "The given EMP server must not be null!");
 
             this.EMPServer = EMPServer;

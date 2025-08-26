@@ -313,7 +313,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ReportDiscrepancyResponse1 == null) || ((Object) ReportDiscrepancyResponse2 == null))
+            if (((Object) ReportDiscrepancyResponse1 is null) || ((Object) ReportDiscrepancyResponse2 is null))
                 return false;
 
             return ReportDiscrepancyResponse1.Equals(ReportDiscrepancyResponse2);
@@ -350,12 +350,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a report discrepancy response.
             var ReportDiscrepancyResponse = Object as ReportDiscrepancyResponse;
-            if ((Object) ReportDiscrepancyResponse == null)
+            if ((Object) ReportDiscrepancyResponse is null)
                 return false;
 
             return this.Equals(ReportDiscrepancyResponse);
@@ -374,7 +374,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(ReportDiscrepancyResponse ReportDiscrepancyResponse)
         {
 
-            if ((Object) ReportDiscrepancyResponse == null)
+            if ((Object) ReportDiscrepancyResponse is null)
                 return false;
 
             return this.Result.Equals(ReportDiscrepancyResponse.Result);

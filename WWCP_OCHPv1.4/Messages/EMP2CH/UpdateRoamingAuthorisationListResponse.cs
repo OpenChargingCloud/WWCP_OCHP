@@ -357,7 +357,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) UpdateRoamingAuthorisationListResponse1 == null) || ((Object) UpdateRoamingAuthorisationListResponse2 == null))
+            if (((Object) UpdateRoamingAuthorisationListResponse1 is null) || ((Object) UpdateRoamingAuthorisationListResponse2 is null))
                 return false;
 
             return UpdateRoamingAuthorisationListResponse1.Equals(UpdateRoamingAuthorisationListResponse2);
@@ -394,12 +394,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a update roaming authorisation list response.
             var UpdateRoamingAuthorisationListResponse = Object as UpdateRoamingAuthorisationListResponse;
-            if ((Object) UpdateRoamingAuthorisationListResponse == null)
+            if ((Object) UpdateRoamingAuthorisationListResponse is null)
                 return false;
 
             return this.Equals(UpdateRoamingAuthorisationListResponse);
@@ -418,7 +418,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(UpdateRoamingAuthorisationListResponse UpdateRoamingAuthorisationListResponse)
         {
 
-            if ((Object) UpdateRoamingAuthorisationListResponse == null)
+            if ((Object) UpdateRoamingAuthorisationListResponse is null)
                 return false;
 
             return this.Result. Equals(UpdateRoamingAuthorisationListResponse.Result);
@@ -440,7 +440,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return RefusedRoamingAuthorisationInfos != null
+                return RefusedRoamingAuthorisationInfos is not null
 
                            ? Result.GetHashCode() * 11 ^
                              RefusedRoamingAuthorisationInfos.SafeSelect(info => info.GetHashCode()).Aggregate((a, b) => a ^ b)

@@ -335,7 +335,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                    Result.ToXML(),
 
-                   DirectId != null
+                   DirectId is not null
                        ? new XElement(OCHPNS.Default + "directId",  DirectId.ToString())
                        : null,
 
@@ -368,7 +368,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ControlEVSEResponse1 == null) || ((Object) ControlEVSEResponse2 == null))
+            if (((Object) ControlEVSEResponse1 is null) || ((Object) ControlEVSEResponse2 is null))
                 return false;
 
             return ControlEVSEResponse1.Equals(ControlEVSEResponse2);
@@ -405,12 +405,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a control EVSE response.
             var ControlEVSEResponse = Object as ControlEVSEResponse;
-            if ((Object) ControlEVSEResponse == null)
+            if ((Object) ControlEVSEResponse is null)
                 return false;
 
             return this.Equals(ControlEVSEResponse);
@@ -429,12 +429,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(ControlEVSEResponse ControlEVSEResponse)
         {
 
-            if ((Object) ControlEVSEResponse == null)
+            if ((Object) ControlEVSEResponse is null)
                 return false;
 
             return this.Result.Equals(ControlEVSEResponse.Result) &&
 
-                   (DirectId != null
+                   (DirectId is not null
                        ? DirectId.Equals(ControlEVSEResponse.DirectId)
                        : true) &&
 
@@ -459,7 +459,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             unchecked
             {
 
-                return (DirectId != null
+                return (DirectId is not null
                             ? DirectId.GetHashCode() * 17
                             : 0) ^
 
@@ -483,7 +483,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             => String.Concat(Result,
 
-                             DirectId != null
+                             DirectId is not null
                                  ? " for " + DirectId
                                  : "",
 

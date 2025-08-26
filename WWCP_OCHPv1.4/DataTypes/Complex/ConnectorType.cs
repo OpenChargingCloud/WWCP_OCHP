@@ -265,7 +265,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ConnectorType1 == null) || ((Object) ConnectorType2 == null))
+            if (((Object) ConnectorType1 is null) || ((Object) ConnectorType2 is null))
                 return false;
 
             return ConnectorType1.Equals(ConnectorType2);
@@ -302,12 +302,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a connector.
             var ConnectorType = Object as ConnectorType;
-            if ((Object) ConnectorType == null)
+            if ((Object) ConnectorType is null)
                 return false;
 
             return this.Equals(ConnectorType);
@@ -326,7 +326,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(ConnectorType ConnectorType)
         {
 
-            if ((Object) ConnectorType == null)
+            if ((Object) ConnectorType is null)
                 return false;
 
             return Standard.Equals(ConnectorType.Standard) &&

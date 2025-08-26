@@ -268,14 +268,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (EVSEId     == null)
-                throw new ArgumentNullException(nameof(EVSEId),      "The given identification of an EVSE must not be null!");
-
-            if (ContractId == null)
-                throw new ArgumentNullException(nameof(ContractId),  "The given identification of an e-mobility contract must not be null!");
-
-            if (DirectId   == null)
-                throw new ArgumentNullException(nameof(DirectId),    "The given identification of an direct charging process must not be null!");
+            if (DirectId is null)
+                throw new ArgumentNullException(nameof(DirectId), "The given identification of an direct charging process must not be null!");
 
             #endregion
 
@@ -673,7 +667,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                          )
                        : null,
 
-                   ChargingPeriods != null && ChargingPeriods.Any()
+                   ChargingPeriods is not null && ChargingPeriods.Any()
                        ? new XElement(OCHPNS.Default + "chargingPeriods",   ChargingPeriods.Select(persiod => persiod.ToXML()))
                        : null,
 
@@ -681,7 +675,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                        ? new XElement(OCHPNS.Default + "currentCost",       CurrentCost.Value)
                        : null,
 
-                   Currency != null
+                   Currency is not null
                        ? new XElement(OCHPNS.Default + "currency",          Currency.ISOCode)
                        : null
 
@@ -708,7 +702,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetInformProviderResponse1 == null) || ((Object) GetInformProviderResponse2 == null))
+            if (((Object) GetInformProviderResponse1 is null) || ((Object) GetInformProviderResponse2 is null))
                 return false;
 
             return GetInformProviderResponse1.Equals(GetInformProviderResponse2);
@@ -745,12 +739,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get inform provider response.
             var GetInformProviderResponse = Object as GetInformProviderResponse;
-            if ((Object) GetInformProviderResponse == null)
+            if ((Object) GetInformProviderResponse is null)
                 return false;
 
             return this.Equals(GetInformProviderResponse);
@@ -769,7 +763,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetInformProviderResponse GetInformProviderResponse)
         {
 
-            if ((Object) GetInformProviderResponse == null)
+            if ((Object) GetInformProviderResponse is null)
                 return false;
 
             return Result.       Equals(GetInformProviderResponse.Result)        &&
@@ -907,7 +901,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                             ? CurrentCost.     GetHashCode() * 11
                             : 0) ^
 
-                       (Currency != null
+                       (Currency is not null
                             ? Currency.GetHashCode()
                             : 0);
 

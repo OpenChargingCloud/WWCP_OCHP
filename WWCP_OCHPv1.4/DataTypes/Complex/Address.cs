@@ -315,7 +315,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) Address1 == null) || ((Object) Address2 == null))
+            if (((Object) Address1 is null) || ((Object) Address2 is null))
                 return false;
 
             return Address1.Equals(Address2);
@@ -352,12 +352,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is an address.
             var Address = Object as Address;
-            if ((Object) Address == null)
+            if ((Object) Address is null)
                 return false;
 
             return this.Equals(Address);
@@ -376,7 +376,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(Address Address)
         {
 
-            if ((Object) Address == null)
+            if ((Object) Address is null)
                 return false;
 
             return Street.      Equals(Address.Street)      &&

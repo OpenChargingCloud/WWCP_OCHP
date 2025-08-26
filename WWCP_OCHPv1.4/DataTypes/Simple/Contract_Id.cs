@@ -311,10 +311,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ContractId1 == null) || ((Object) ContractId2 == null))
+            if (((Object) ContractId1 is null) || ((Object) ContractId2 is null))
                 return false;
 
-            if ((Object) ContractId1 == null)
+            if ((Object) ContractId1 is null)
                 throw new ArgumentNullException(nameof(ContractId1),  "The given contract identification must not be null!");
 
             return ContractId1.Equals(ContractId2);
@@ -347,7 +347,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (Contract_Id ContractId1, Contract_Id ContractId2)
         {
 
-            if ((Object) ContractId1 == null)
+            if ((Object) ContractId1 is null)
                 throw new ArgumentNullException(nameof(ContractId1),  "The given contract identification must not be null!");
 
             return ContractId1.CompareTo(ContractId2) < 0;
@@ -380,7 +380,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (Contract_Id ContractId1, Contract_Id ContractId2)
         {
 
-            if ((Object) ContractId1 == null)
+            if ((Object) ContractId1 is null)
                 throw new ArgumentNullException(nameof(ContractId1),  "The given contract identification must not be null!");
 
             return ContractId1.CompareTo(ContractId2) > 0;
@@ -415,7 +415,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             // Check if the given object is a contract identification.
@@ -437,7 +437,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Contract_Id ContractId)
         {
 
-            if ((Object) ContractId == null)
+            if ((Object) ContractId is null)
                 throw new ArgumentNullException(nameof(ContractId),  "The given contract identification must not be null!");
 
             // Compare the length of the contract identifications
@@ -483,7 +483,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a contract identification.
@@ -506,7 +506,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(Contract_Id ContractId)
         {
 
-            if ((Object) ContractId == null)
+            if ((Object) ContractId is null)
                 return false;
 
             return ProviderId.Equals(ContractId.ProviderId) &&

@@ -153,7 +153,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (CPOServer == null)
+            if (CPOServer is null)
                 throw new ArgumentNullException(nameof(CPOServer), "The given CPO server must not be null!");
 
             this.CPOServer = CPOServer;

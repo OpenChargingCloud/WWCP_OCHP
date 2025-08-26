@@ -338,7 +338,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                            new JProperty("result",                          Result.                  ToJSON(CustomResultSerializer)),
 
-                           RoamingAuthorisationInfo != null
+                           RoamingAuthorisationInfo is not null
                                ? new JProperty("roamingAuthorisationInfo",  RoamingAuthorisationInfo.ToJSON(CustomRoamingAuthorisationInfoSerializer,
                                                                                                             CustomEMTIdSerializer))
                                : null
@@ -372,7 +372,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetSingleRoamingAuthorisationResponse1 == null) || ((Object) GetSingleRoamingAuthorisationResponse2 == null))
+            if (((Object) GetSingleRoamingAuthorisationResponse1 is null) || ((Object) GetSingleRoamingAuthorisationResponse2 is null))
                 return false;
 
             return GetSingleRoamingAuthorisationResponse1.Equals(GetSingleRoamingAuthorisationResponse2);
@@ -409,12 +409,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get single roaming authorisation response.
             var GetSingleRoamingAuthorisationResponse = Object as GetSingleRoamingAuthorisationResponse;
-            if ((Object) GetSingleRoamingAuthorisationResponse == null)
+            if ((Object) GetSingleRoamingAuthorisationResponse is null)
                 return false;
 
             return this.Equals(GetSingleRoamingAuthorisationResponse);
@@ -433,7 +433,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(GetSingleRoamingAuthorisationResponse GetSingleRoamingAuthorisationResponse)
         {
 
-            if ((Object) GetSingleRoamingAuthorisationResponse == null)
+            if ((Object) GetSingleRoamingAuthorisationResponse is null)
                 return false;
 
             return this.Result. Equals(GetSingleRoamingAuthorisationResponse.Result);
@@ -455,7 +455,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             unchecked
             {
 
-                return RoamingAuthorisationInfo != null
+                return RoamingAuthorisationInfo is not null
 
                            ? Result.                  GetHashCode() * 11 ^
                              RoamingAuthorisationInfo.GetHashCode()
@@ -495,12 +495,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             public Builder(GetSingleRoamingAuthorisationResponse GetSingleRoamingAuthorisationResponse = null)
             {
 
-                if (GetSingleRoamingAuthorisationResponse != null)
+                if (GetSingleRoamingAuthorisationResponse is not null)
                 {
 
                     this.RoamingAuthorisationInfo = GetSingleRoamingAuthorisationResponse.RoamingAuthorisationInfo;
 
-                    if (GetSingleRoamingAuthorisationResponse.CustomData != null)
+                    if (GetSingleRoamingAuthorisationResponse.CustomData is not null)
                         foreach (var item in GetSingleRoamingAuthorisationResponse.CustomData)
                             CustomData.Add(item.Key, item.Value);
 

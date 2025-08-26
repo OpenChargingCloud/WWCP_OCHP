@@ -194,10 +194,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             if (ChargePointType == ChargePointTypes.Unknown)
                 throw new ArgumentNullException(nameof(ChargePointType),  "The given charge point type information must not be null or empty!");
 
-            if (ConnectorType == null)
+            if (ConnectorType is null)
                 throw new ArgumentNullException(nameof(ConnectorType),    "The given charge point connector type must not be null!");
 
-            if (ChargingPeriods == null || !ChargingPeriods.Any())
+            if (ChargingPeriods is null || !ChargingPeriods.Any())
                 throw new ArgumentNullException(nameof(ChargingPeriods),  "The given enumeration of charge detail record periods must not be null or empty!");
 
             #endregion
@@ -571,7 +571,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) CDRInfo1 == null) || ((Object) CDRInfo2 == null))
+            if (((Object) CDRInfo1 is null) || ((Object) CDRInfo2 is null))
                 return false;
 
             return CDRInfo1.Equals(CDRInfo2);
@@ -606,7 +606,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
 
             if (!(Object is CDRInfo CDRInfo))
@@ -650,7 +650,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             if (!(Object is CDRInfo CDRInfo))

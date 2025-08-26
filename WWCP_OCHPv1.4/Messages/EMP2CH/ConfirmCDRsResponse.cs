@@ -313,7 +313,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ConfirmCDRsResponse1 == null) || ((Object) ConfirmCDRsResponse2 == null))
+            if (((Object) ConfirmCDRsResponse1 is null) || ((Object) ConfirmCDRsResponse2 is null))
                 return false;
 
             return ConfirmCDRsResponse1.Equals(ConfirmCDRsResponse2);
@@ -350,12 +350,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a confirm charge details record response.
             var ConfirmCDRsResponse = Object as ConfirmCDRsResponse;
-            if ((Object) ConfirmCDRsResponse == null)
+            if ((Object) ConfirmCDRsResponse is null)
                 return false;
 
             return this.Equals(ConfirmCDRsResponse);
@@ -374,7 +374,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(ConfirmCDRsResponse ConfirmCDRsResponse)
         {
 
-            if ((Object) ConfirmCDRsResponse == null)
+            if ((Object) ConfirmCDRsResponse is null)
                 return false;
 
             return this.Result.Equals(ConfirmCDRsResponse.Result);

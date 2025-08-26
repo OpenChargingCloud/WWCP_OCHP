@@ -62,7 +62,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (Report == null || Report.Trim().IsNullOrEmpty())
+            if (Report is null || Report.Trim().IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(Report),  "The given EVSE report must not be null or empty!");
 
             #endregion
@@ -249,7 +249,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ReportDiscrepancyRequest1 == null) || ((Object) ReportDiscrepancyRequest2 == null))
+            if (((Object) ReportDiscrepancyRequest1 is null) || ((Object) ReportDiscrepancyRequest2 is null))
                 return false;
 
             return ReportDiscrepancyRequest1.Equals(ReportDiscrepancyRequest2);
@@ -286,12 +286,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a report discrepancy request.
             var ReportDiscrepancyRequest = Object as ReportDiscrepancyRequest;
-            if ((Object) ReportDiscrepancyRequest == null)
+            if ((Object) ReportDiscrepancyRequest is null)
                 return false;
 
             return this.Equals(ReportDiscrepancyRequest);
@@ -310,7 +310,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(ReportDiscrepancyRequest ReportDiscrepancyRequest)
         {
 
-            if ((Object) ReportDiscrepancyRequest == null)
+            if ((Object) ReportDiscrepancyRequest is null)
                 return false;
 
             return EVSEId.Equals(ReportDiscrepancyRequest.EVSEId) &&

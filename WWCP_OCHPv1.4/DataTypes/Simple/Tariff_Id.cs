@@ -96,9 +96,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The given charging station operator identification must not be null!");
-
             if (IdSuffix.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(IdSuffix),    "The identification suffix must not be null or empty!");
 
@@ -252,10 +249,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) TariffId1 == null) || ((Object) TariffId2 == null))
+            if (((Object) TariffId1 is null) || ((Object) TariffId2 is null))
                 return false;
 
-            if ((Object) TariffId1 == null)
+            if ((Object) TariffId1 is null)
                 throw new ArgumentNullException(nameof(TariffId1),  "The given tariff identification must not be null!");
 
             return TariffId1.Equals(TariffId2);
@@ -288,7 +285,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (Tariff_Id TariffId1, Tariff_Id TariffId2)
         {
 
-            if ((Object) TariffId1 == null)
+            if ((Object) TariffId1 is null)
                 throw new ArgumentNullException(nameof(TariffId1),  "The given tariff identification must not be null!");
 
             return TariffId1.CompareTo(TariffId2) < 0;
@@ -321,7 +318,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (Tariff_Id TariffId1, Tariff_Id TariffId2)
         {
 
-            if ((Object) TariffId1 == null)
+            if ((Object) TariffId1 is null)
                 throw new ArgumentNullException(nameof(TariffId1),  "The given tariff identification must not be null!");
 
             return TariffId1.CompareTo(TariffId2) > 0;
@@ -356,7 +353,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             if (!(Object  is Tariff_Id))
@@ -377,7 +374,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Tariff_Id TariffId)
         {
 
-            if ((Object) TariffId == null)
+            if ((Object) TariffId is null)
                 throw new ArgumentNullException(nameof(TariffId),  "The given tariff identification must not be null!");
 
             // Compare the length of the tariff identifications
@@ -411,7 +408,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             if (!(Object is Tariff_Id))
@@ -433,7 +430,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(Tariff_Id TariffId)
         {
 
-            if ((Object) TariffId == null)
+            if ((Object) TariffId is null)
                 return false;
 
             return OperatorId.Equals(TariffId.OperatorId) &&

@@ -55,7 +55,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (EVSEIds == null)
+            if (EVSEIds is null)
                 throw new ArgumentNullException(nameof(EVSEIds),  "The given enumeration of EVSE identifications must not be null!");
 
             #endregion
@@ -238,7 +238,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetEVSEStatusRequest1 == null) || ((Object) GetEVSEStatusRequest2 == null))
+            if (((Object) GetEVSEStatusRequest1 is null) || ((Object) GetEVSEStatusRequest2 is null))
                 return false;
 
             return GetEVSEStatusRequest1.Equals(GetEVSEStatusRequest2);
@@ -275,12 +275,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a direct EVSE status request.
             var GetEVSEStatusRequest = Object as GetEVSEStatusRequest;
-            if ((Object) GetEVSEStatusRequest == null)
+            if ((Object) GetEVSEStatusRequest is null)
                 return false;
 
             return this.Equals(GetEVSEStatusRequest);
@@ -299,7 +299,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetEVSEStatusRequest GetEVSEStatusRequest)
         {
 
-            if ((Object) GetEVSEStatusRequest == null)
+            if ((Object) GetEVSEStatusRequest is null)
                 return false;
 
             return EVSEIds.Count().Equals(GetEVSEStatusRequest.EVSEIds.Count()) &&

@@ -30,7 +30,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
     /// <summary>
     /// A pair of an EVSE and a charge detail record identification.
     /// </summary>
-    public struct EVSECDRPair
+    public readonly struct EVSECDRPair
     {
 
         #region Properties
@@ -58,13 +58,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                            EVSE_Id  EVSEId)
 
         {
-
-            #region Initial checks
-
-            if (CDRId == null)
-                throw new ArgumentNullException(nameof(CDRId),   "The given charge detail record identification must not be null!");
-
-            #endregion
 
             this.CDRId   = CDRId;
             this.EVSEId  = EVSEId;
@@ -247,7 +240,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) EVSECDRPair1 == null) || ((Object) EVSECDRPair2 == null))
+            if (((Object) EVSECDRPair1 is null) || ((Object) EVSECDRPair2 is null))
                 return false;
 
             return EVSECDRPair1.Equals(EVSECDRPair2);
@@ -284,7 +277,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is an EVSE-CDR-pair.
@@ -307,7 +300,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(EVSECDRPair EVSECDRPair)
         {
 
-            if ((Object) EVSECDRPair == null)
+            if ((Object) EVSECDRPair is null)
                 return false;
 
             return CDRId. Equals(EVSECDRPair.CDRId) &&

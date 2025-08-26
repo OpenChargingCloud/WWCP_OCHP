@@ -310,7 +310,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) AddServiceEndpointsResponse1 == null) || ((Object) AddServiceEndpointsResponse2 == null))
+            if (((Object) AddServiceEndpointsResponse1 is null) || ((Object) AddServiceEndpointsResponse2 is null))
                 return false;
 
             return AddServiceEndpointsResponse1.Equals(AddServiceEndpointsResponse2);
@@ -347,12 +347,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a add service endpoints response.
             var AddServiceEndpointsResponse = Object as AddServiceEndpointsResponse;
-            if ((Object) AddServiceEndpointsResponse == null)
+            if ((Object) AddServiceEndpointsResponse is null)
                 return false;
 
             return this.Equals(AddServiceEndpointsResponse);
@@ -371,7 +371,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         public override Boolean Equals(AddServiceEndpointsResponse AddServiceEndpointsResponse)
         {
 
-            if ((Object) AddServiceEndpointsResponse == null)
+            if ((Object) AddServiceEndpointsResponse is null)
                 return false;
 
             return this.Result.Equals(AddServiceEndpointsResponse.Result);

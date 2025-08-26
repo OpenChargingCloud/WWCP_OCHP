@@ -300,10 +300,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) EVSEId1 == null) || ((Object) EVSEId2 == null))
+            if (((Object) EVSEId1 is null) || ((Object) EVSEId2 is null))
                 return false;
 
-            if ((Object) EVSEId1 == null)
+            if ((Object) EVSEId1 is null)
                 throw new ArgumentNullException(nameof(EVSEId1),  "The given charge point identification must not be null!");
 
             return EVSEId1.Equals(EVSEId2);
@@ -336,7 +336,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (EVSE_Id EVSEId1, EVSE_Id EVSEId2)
         {
 
-            if ((Object) EVSEId1 == null)
+            if ((Object) EVSEId1 is null)
                 throw new ArgumentNullException(nameof(EVSEId1),  "The given charge point identification must not be null!");
 
             return EVSEId1.CompareTo(EVSEId2) < 0;
@@ -369,7 +369,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (EVSE_Id EVSEId1, EVSE_Id EVSEId2)
         {
 
-            if ((Object) EVSEId1 == null)
+            if ((Object) EVSEId1 is null)
                 throw new ArgumentNullException(nameof(EVSEId1),  "The given charge point identification must not be null!");
 
             return EVSEId1.CompareTo(EVSEId2) > 0;
@@ -404,7 +404,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             if (!(Object is EVSE_Id))
@@ -425,7 +425,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(EVSE_Id EVSEId)
         {
 
-            if ((Object) EVSEId == null)
+            if ((Object) EVSEId is null)
                 throw new ArgumentNullException(nameof(EVSEId),  "The given charge point identification must not be null!");
 
             // Compare the length of the charge point identifications
@@ -459,7 +459,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             if (!(Object is EVSE_Id))
@@ -481,7 +481,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(EVSE_Id EVSEId)
         {
 
-            if ((Object) EVSEId == null)
+            if ((Object) EVSEId is null)
                 return false;
 
             return OperatorId.Equals(EVSEId.OperatorId) &&

@@ -253,7 +253,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) SetRoamingAuthorisationListRequest1 == null) || ((Object) SetRoamingAuthorisationListRequest2 == null))
+            if (((Object) SetRoamingAuthorisationListRequest1 is null) || ((Object) SetRoamingAuthorisationListRequest2 is null))
                 return false;
 
             return SetRoamingAuthorisationListRequest1.Equals(SetRoamingAuthorisationListRequest2);
@@ -290,12 +290,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a set roaming authorisation list request.
             var SetRoamingAuthorisationListRequest = Object as SetRoamingAuthorisationListRequest;
-            if ((Object) SetRoamingAuthorisationListRequest == null)
+            if ((Object) SetRoamingAuthorisationListRequest is null)
                 return false;
 
             return this.Equals(SetRoamingAuthorisationListRequest);
@@ -314,7 +314,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(SetRoamingAuthorisationListRequest SetRoamingAuthorisationListRequest)
         {
 
-            if ((Object) SetRoamingAuthorisationListRequest == null)
+            if ((Object) SetRoamingAuthorisationListRequest is null)
                 return false;
 
             return RoamingAuthorisationInfos.Count().Equals(SetRoamingAuthorisationListRequest.RoamingAuthorisationInfos.Count());

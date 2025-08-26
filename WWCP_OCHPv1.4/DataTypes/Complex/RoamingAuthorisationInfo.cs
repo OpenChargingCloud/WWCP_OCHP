@@ -313,7 +313,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) RoamingAuthorisationInfo1 == null) || ((Object) RoamingAuthorisationInfo2 == null))
+            if (((Object) RoamingAuthorisationInfo1 is null) || ((Object) RoamingAuthorisationInfo2 is null))
                 return false;
 
             return RoamingAuthorisationInfo1.Equals(RoamingAuthorisationInfo2);
@@ -350,12 +350,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a roaming authorisation info.
             var RoamingAuthorisationInfo = Object as RoamingAuthorisationInfo;
-            if ((Object) RoamingAuthorisationInfo == null)
+            if ((Object) RoamingAuthorisationInfo is null)
                 return false;
 
             return this.Equals(RoamingAuthorisationInfo);
@@ -374,7 +374,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(RoamingAuthorisationInfo RoamingAuthorisationInfo)
         {
 
-            if ((Object) RoamingAuthorisationInfo == null)
+            if ((Object) RoamingAuthorisationInfo is null)
                 return false;
 
             return this.EMTId.     Equals(RoamingAuthorisationInfo.EMTId) &&

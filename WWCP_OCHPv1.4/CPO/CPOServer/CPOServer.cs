@@ -22,9 +22,9 @@ using org.GraphDefined.Vanaheimr.Hermod;
 using org.GraphDefined.Vanaheimr.Hermod.DNS;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.SOAP;
+using org.GraphDefined.Vanaheimr.Hermod.Logging;
 
 using cloud.charging.open.protocols.OCHPv1_4.EMP;
-using org.GraphDefined.Vanaheimr.Hermod.Logging;
 
 #endregion
 
@@ -76,12 +76,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// The identification of this HTTP/SOAP service.
         /// </summary>
-        public String   ServiceName           { get; }
+        public String    ServiceName    { get; }
 
         /// <summary>
         /// The HTTP/SOAP/XML server URI suffix.
         /// </summary>
-        public HTTPPath  URLSuffix           { get; }
+        public HTTPPath  URLSuffix      { get; }
 
         #endregion
 
@@ -253,7 +253,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="URLPrefix">An optional prefix for the HTTP URLs.</param>
         /// <param name="URLSuffix">An optional HTTP/SOAP/XML server URI suffix.</param>
         public CPOServer(SOAPServer  SOAPServer,
-                         String      ServiceName   = null,
+                         String?     ServiceName   = null,
                          HTTPPath?   URLPrefix     = null,
                          HTTPPath?   URLSuffix     = null)
 
@@ -312,14 +312,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _SelectEVSERequest = SelectEVSERequest.Parse(SelectEVSEXML);
+                    var selectEVSERequest = SelectEVSERequest.Parse(SelectEVSEXML);
 
-                    SelectEVSEResponse response            = null;
+                    SelectEVSEResponse? response = null;
 
 
                     #region Call async subscribers
 
-                    if (response == null)
+                    if (response is null)
                     {
 
                         var results = OnSelectEVSERequest?.
@@ -329,13 +329,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
-                                               _SelectEVSERequest.EVSEId,
-                                               _SelectEVSERequest.ContractId,
-                                               _SelectEVSERequest.ReserveUntil,
+                                               selectEVSERequest.EVSEId,
+                                               selectEVSERequest.ContractId,
+                                               selectEVSERequest.ReserveUntil,
                                                DefaultRequestTimeout)).
                                           ToArray();
 
-                        if (results.Length > 0)
+                        if (results?.Length > 0)
                         {
 
                             await Task.WhenAll(results);
@@ -344,8 +344,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                         }
 
-                        if (results.Length == 0 || response == null)
-                            response = SelectEVSEResponse.Server(_SelectEVSERequest, "Could not process the incoming SelectEVSE request!");
+                        if (results?.Length == 0 || response is null)
+                            response = SelectEVSEResponse.Server(selectEVSERequest, "Could not process the incoming SelectEVSE request!");
 
                     }
 
@@ -353,13 +353,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #region Create SOAPResponse
 
-                    var HTTPResponse = new HTTPResponse.Builder(Request) {
-                        HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.HTTPServerName,
-                        Date            = Timestamp.Now,
-                        ContentType     = HTTPContentType.Text.XML_UTF8,
-                        Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
-                    };
+                    var httpResponse = new HTTPResponse.Builder(Request) {
+                                           HTTPStatusCode  = HTTPStatusCode.OK,
+                                           Server          = SOAPServer.HTTPServer.HTTPServerName,
+                                           Date            = Timestamp.Now,
+                                           ContentType     = HTTPContentType.Text.XML_UTF8,
+                                           Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
+                                       };
 
                     #endregion
 
@@ -370,10 +370,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     {
 
                         OnSelectEVSESOAPResponse?.Invoke(
-                            HTTPResponse.Timestamp,
+                            httpResponse.Timestamp,
                             API,
                             Request,
-                            HTTPResponse,
+                            httpResponse,
                             CancellationToken.None
                         );
 
@@ -385,7 +385,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #endregion
 
-                    return HTTPResponse;
+                    return httpResponse;
 
             });
 
@@ -421,14 +421,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _ControlEVSERequest = ControlEVSERequest.Parse(ControlEVSEXML);
+                    var controlEVSERequest = ControlEVSERequest.Parse(ControlEVSEXML);
 
-                    ControlEVSEResponse response = null;
+                    ControlEVSEResponse? response = null;
 
 
                     #region Call async subscribers
 
-                    if (response == null)
+                    if (response is null)
                     {
 
                         var results = OnControlEVSERequest?.
@@ -438,14 +438,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
-                                               _ControlEVSERequest.DirectId,
-                                               _ControlEVSERequest.Operation,
-                                               _ControlEVSERequest.MaxPower,
-                                               _ControlEVSERequest.MaxCurrent,
-                                               _ControlEVSERequest.OnePhase,
-                                               _ControlEVSERequest.MaxEnergy,
-                                               _ControlEVSERequest.MinEnergy,
-                                               _ControlEVSERequest.Departure,
+                                               controlEVSERequest.DirectId,
+                                               controlEVSERequest.Operation,
+                                               controlEVSERequest.MaxPower,
+                                               controlEVSERequest.MaxCurrent,
+                                               controlEVSERequest.OnePhase,
+                                               controlEVSERequest.MaxEnergy,
+                                               controlEVSERequest.MinEnergy,
+                                               controlEVSERequest.Departure,
                                                DefaultRequestTimeout)).
                                           ToArray();
 
@@ -458,8 +458,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                         }
 
-                        if (results.Length == 0 || response == null)
-                            response = ControlEVSEResponse.Server(_ControlEVSERequest, "Could not process the incoming ControlEVSE request!");
+                        if (results.Length == 0 || response is null)
+                            response = ControlEVSEResponse.Server(controlEVSERequest, "Could not process the incoming ControlEVSE request!");
 
                     }
 
@@ -467,13 +467,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #region Create SOAPResponse
 
-                    var HTTPResponse = new HTTPResponse.Builder(Request) {
-                        HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.HTTPServerName,
-                        Date            = Timestamp.Now,
-                        ContentType     = HTTPContentType.Text.XML_UTF8,
-                        Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
-                    };
+                    var httpResponse = new HTTPResponse.Builder(Request) {
+                                           HTTPStatusCode  = HTTPStatusCode.OK,
+                                           Server          = SOAPServer.HTTPServer.HTTPServerName,
+                                           Date            = Timestamp.Now,
+                                           ContentType     = HTTPContentType.Text.XML_UTF8,
+                                           Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
+                                       };
 
                     #endregion
 
@@ -484,10 +484,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     {
 
                         OnControlEVSESOAPResponse?.Invoke(
-                            HTTPResponse.Timestamp,
+                            httpResponse.Timestamp,
                             API,
                             Request,
-                            HTTPResponse,
+                            httpResponse,
                             CancellationToken.None
                         );
 
@@ -499,7 +499,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #endregion
 
-                    return HTTPResponse;
+                    return httpResponse;
 
             });
 
@@ -535,14 +535,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _ReleaseEVSERequest = ReleaseEVSERequest.Parse(ReleaseEVSEXML);
+                    var releaseEVSERequest = ReleaseEVSERequest.Parse(ReleaseEVSEXML);
 
-                    ReleaseEVSEResponse response = null;
+                    ReleaseEVSEResponse? response = null;
 
 
                     #region Call async subscribers
 
-                    if (response == null)
+                    if (response is null)
                     {
 
                         var results = OnReleaseEVSERequest?.
@@ -552,7 +552,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
-                                               _ReleaseEVSERequest.DirectId,
+                                               releaseEVSERequest.DirectId,
                                                DefaultRequestTimeout)).
                                           ToArray();
 
@@ -565,8 +565,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                         }
 
-                        if (results.Length == 0 || response == null)
-                            response = ReleaseEVSEResponse.Server(_ReleaseEVSERequest, "Could not process the incoming ReleaseEVSE request!");
+                        if (results.Length == 0 || response is null)
+                            response = ReleaseEVSEResponse.Server(releaseEVSERequest, "Could not process the incoming ReleaseEVSE request!");
 
                     }
 
@@ -574,13 +574,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #region Create SOAPResponse
 
-                    var HTTPResponse = new HTTPResponse.Builder(Request) {
-                        HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.HTTPServerName,
-                        Date            = Timestamp.Now,
-                        ContentType     = HTTPContentType.Text.XML_UTF8,
-                        Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
-                    };
+                    var httpResponse = new HTTPResponse.Builder(Request) {
+                                           HTTPStatusCode  = HTTPStatusCode.OK,
+                                           Server          = SOAPServer.HTTPServer.HTTPServerName,
+                                           Date            = Timestamp.Now,
+                                           ContentType     = HTTPContentType.Text.XML_UTF8,
+                                           Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
+                                       };
 
                     #endregion
 
@@ -591,10 +591,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     {
 
                         OnReleaseEVSESOAPResponse?.Invoke(
-                            HTTPResponse.Timestamp,
+                            httpResponse.Timestamp,
                             API,
                             Request,
-                            HTTPResponse,
+                            httpResponse,
                             CancellationToken.None
                         );
 
@@ -606,7 +606,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #endregion
 
-                    return HTTPResponse;
+                    return httpResponse;
 
             });
 
@@ -642,14 +642,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _GetEVSEStatusRequest = GetEVSEStatusRequest.Parse(GetEVSEStatusXML);
+                    var getEVSEStatusRequest = GetEVSEStatusRequest.Parse(GetEVSEStatusXML);
 
-                    GetEVSEStatusResponse response = null;
+                    GetEVSEStatusResponse? response = null;
 
 
                     #region Call async subscribers
 
-                    if (response == null)
+                    if (response is null)
                     {
 
                         var results = OnGetEVSEStatusRequest?.
@@ -659,7 +659,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
-                                               _GetEVSEStatusRequest.EVSEIds,
+                                               getEVSEStatusRequest.EVSEIds,
                                                DefaultRequestTimeout)).
                                           ToArray();
 
@@ -672,8 +672,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                         }
 
-                        if (results.Length == 0 || response == null)
-                            response = GetEVSEStatusResponse.Server(_GetEVSEStatusRequest, "Could not process the incoming GetEVSEStatus request!");
+                        if (results.Length == 0 || response is null)
+                            response = GetEVSEStatusResponse.Server(getEVSEStatusRequest, "Could not process the incoming GetEVSEStatus request!");
 
                     }
 
@@ -681,13 +681,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #region Create SOAPResponse
 
-                    var HTTPResponse = new HTTPResponse.Builder(Request) {
-                        HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.HTTPServerName,
-                        Date            = Timestamp.Now,
-                        ContentType     = HTTPContentType.Text.XML_UTF8,
-                        Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
-                    };
+                    var httpResponse = new HTTPResponse.Builder(Request) {
+                                           HTTPStatusCode  = HTTPStatusCode.OK,
+                                           Server          = SOAPServer.HTTPServer.HTTPServerName,
+                                           Date            = Timestamp.Now,
+                                           ContentType     = HTTPContentType.Text.XML_UTF8,
+                                           Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
+                                       };
 
                     #endregion
 
@@ -698,10 +698,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     {
 
                         OnGetEVSEStatusSOAPResponse?.Invoke(
-                            HTTPResponse.Timestamp,
+                            httpResponse.Timestamp,
                             API,
                             Request,
-                            HTTPResponse,
+                            httpResponse,
                             CancellationToken.None
                         );
 
@@ -713,7 +713,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #endregion
 
-                    return HTTPResponse;
+                    return httpResponse;
 
             });
 
@@ -749,14 +749,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     #endregion
 
 
-                    var _ReportDiscrepancyRequest = ReportDiscrepancyRequest.Parse(ReportDiscrepancyXML);
+                    var reportDiscrepancyRequest = ReportDiscrepancyRequest.Parse(ReportDiscrepancyXML);
 
-                    ReportDiscrepancyResponse response = null;
+                    ReportDiscrepancyResponse? response = null;
 
 
                     #region Call async subscribers
 
-                    if (response == null)
+                    if (response is null)
                     {
 
                         var results = OnReportDiscrepancyRequest?.
@@ -766,8 +766,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                this,
                                                Request.CancellationToken,
                                                Request.EventTrackingId,
-                                               _ReportDiscrepancyRequest.EVSEId,
-                                               _ReportDiscrepancyRequest.Report,
+                                               reportDiscrepancyRequest.EVSEId,
+                                               reportDiscrepancyRequest.Report,
                                                DefaultRequestTimeout)).
                                           ToArray();
 
@@ -780,8 +780,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                         }
 
-                        if (results.Length == 0 || response == null)
-                            response = ReportDiscrepancyResponse.Server(_ReportDiscrepancyRequest, "Could not process the incoming ReportDiscrepancy request!");
+                        if (results.Length == 0 || response is null)
+                            response = ReportDiscrepancyResponse.Server(reportDiscrepancyRequest, "Could not process the incoming ReportDiscrepancy request!");
 
                     }
 
@@ -789,13 +789,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #region Create SOAPResponse
 
-                    var HTTPResponse = new HTTPResponse.Builder(Request) {
-                        HTTPStatusCode  = HTTPStatusCode.OK,
-                        Server          = SOAPServer.HTTPServer.HTTPServerName,
-                        Date            = Timestamp.Now,
-                        ContentType     = HTTPContentType.Text.XML_UTF8,
-                        Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
-                    };
+                    var httpResponse = new HTTPResponse.Builder(Request) {
+                                           HTTPStatusCode  = HTTPStatusCode.OK,
+                                           Server          = SOAPServer.HTTPServer.HTTPServerName,
+                                           Date            = Timestamp.Now,
+                                           ContentType     = HTTPContentType.Text.XML_UTF8,
+                                           Content         = SOAP.Encapsulation(response.ToXML()).ToUTF8Bytes()
+                                       };
 
                     #endregion
 
@@ -806,10 +806,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     {
 
                         OnReportDiscrepancySOAPResponse?.Invoke(
-                            HTTPResponse.Timestamp,
+                            httpResponse.Timestamp,
                             API,
                             Request,
-                            HTTPResponse,
+                            httpResponse,
                             CancellationToken.None
                         );
 
@@ -821,7 +821,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     #endregion
 
-                    return HTTPResponse;
+                    return httpResponse;
 
             });
 

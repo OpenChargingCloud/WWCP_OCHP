@@ -346,7 +346,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                 #region Call async subscribers
 
-                if (response == null)
+                if (response is null)
                 {
 
                     var results = OnInformProviderRequest?.
@@ -387,7 +387,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                     }
 
-                    if (results.Length == 0 || response == null)
+                    if (results.Length == 0 || response is null)
                         response = InformProviderResponse.Server(_InformProviderRequest, "Could not process the incoming InformProvider request!");
 
                 }

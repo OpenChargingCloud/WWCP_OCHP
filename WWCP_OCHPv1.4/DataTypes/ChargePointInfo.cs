@@ -271,7 +271,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             if (LocationName.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(LocationName),        "The given location name must not be null!");
 
-            if (ChargePointAddress == null)
+            if (ChargePointAddress is null)
                 throw new ArgumentNullException(nameof(ChargePointAddress),  "The given address must not be null!");
 
             if (Location == GeneralLocationTypes.Unknown)
@@ -280,13 +280,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             if (AuthMethods == AuthMethodTypes.Unknown)
                 throw new ArgumentNullException(nameof(AuthMethods),         "The given authentication methods must have at least one item!");
 
-            if (Connectors == null || Connectors.Count() < 1)
+            if (Connectors is null || Connectors.Count() < 1)
                 throw new ArgumentNullException(nameof(Connectors),          "The given enumeration of connectors must have at least one item!");
 
             if (ChargePointType == ChargePointTypes.Unknown)
                 throw new ArgumentNullException(nameof(ChargePointType),     "The given charge point type is invalid!");
 
-            if (OpeningTimes == null)
+            if (OpeningTimes is null)
                 throw new ArgumentNullException(nameof(OpeningTimes),        "The given opening times must not be null!");
 
             if (TelephoneNumber.IsNotNullOrEmpty() && !TelephoneNumber_RegEx.IsMatch(TelephoneNumber))
@@ -784,11 +784,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                               new XElement(OCHPNS.Default + "locationName",     LocationName),
                               new XElement(OCHPNS.Default + "locationNameLang", LocationNameLang.ToString().ToUpper()),
 
-                              Images != null
+                              Images is not null
                                   ? Images.SafeSelect(image => image.ToXML())
                                   : null,
 
-                              RelatedResources != null
+                              RelatedResources is not null
                                   ? RelatedResources.SafeSelect(resource => resource.ToXML())
                                   : null,
 
@@ -799,7 +799,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                   new XAttribute("lon", String.Format("{0:0.000000}", ChargePointLocation.Longitude.Value))
                               ),
 
-                              RelatedLocations != null
+                              RelatedLocations is not null
                                   ? RelatedLocations.SafeSelect(location => location.ToXML())
                                   : null,
 
@@ -815,7 +815,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                     )
                                   : null,
 
-                              ChargePointSchedule != null
+                              ChargePointSchedule is not null
                                   ? ChargePointSchedule.SafeSelect(schedule => "")
                                   : null,
 
@@ -827,7 +827,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                                   new XElement(OCHPNS.Default + "GeneralLocationType", XML_IO.AsText(Location))
                               ),
 
-                              ParkingSpots != null
+                              ParkingSpots is not null
                                   ? ParkingSpots.SafeSelect(parkingspot => parkingspot.ToXML())
                                   : null,
 
@@ -851,11 +851,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
                               new XElement(OCHPNS.Default + "chargePointType", XML_IO.AsText(ChargePointType)),
 
-                              Ratings != null
+                              Ratings is not null
                                   ? Ratings.ToXML()
                                   : null,
 
-                              UserInterfaceLang != null
+                              UserInterfaceLang is not null
                                   ? UserInterfaceLang.Select(language => new XElement(OCHPNS.Default + "userInterfaceLang", language))
                                   : null,
 
@@ -894,7 +894,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ChargePointInfo1 == null) || ((Object) ChargePointInfo2 == null))
+            if (((Object) ChargePointInfo1 is null) || ((Object) ChargePointInfo2 is null))
                 return false;
 
             return ChargePointInfo1.Equals(ChargePointInfo2);
@@ -931,12 +931,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a charge point info.
             var ChargePointInfo = Object as ChargePointInfo;
-            if ((Object) ChargePointInfo == null)
+            if ((Object) ChargePointInfo is null)
                 return false;
 
             return this.Equals(ChargePointInfo);
@@ -955,7 +955,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(ChargePointInfo ChargePointInfo)
         {
 
-            if ((Object) ChargePointInfo == null)
+            if ((Object) ChargePointInfo is null)
                 return false;
 
             return EVSEId.Equals(ChargePointInfo.EVSEId);

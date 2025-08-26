@@ -68,14 +68,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
         {
 
-            #region Initial checks
-
-            if (EMTId == null)
-                throw new ArgumentNullException(nameof(EMTId),  "The given e-mobility token must not be null!");
-
-            #endregion
-
-            this.EMTId  = EMTId;
+            this.EMTId = EMTId;
 
         }
 
@@ -259,7 +252,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetSingleRoamingAuthorisationRequest1 == null) || ((Object) GetSingleRoamingAuthorisationRequest2 == null))
+            if (((Object) GetSingleRoamingAuthorisationRequest1 is null) || ((Object) GetSingleRoamingAuthorisationRequest2 is null))
                 return false;
 
             return GetSingleRoamingAuthorisationRequest1.Equals(GetSingleRoamingAuthorisationRequest2);
@@ -296,12 +289,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get single roaming authorisation request.
             var GetSingleRoamingAuthorisationRequest = Object as GetSingleRoamingAuthorisationRequest;
-            if ((Object) GetSingleRoamingAuthorisationRequest == null)
+            if ((Object) GetSingleRoamingAuthorisationRequest is null)
                 return false;
 
             return this.Equals(GetSingleRoamingAuthorisationRequest);
@@ -320,7 +313,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(GetSingleRoamingAuthorisationRequest GetSingleRoamingAuthorisationRequest)
         {
 
-            if ((Object) GetSingleRoamingAuthorisationRequest == null)
+            if ((Object) GetSingleRoamingAuthorisationRequest is null)
                 return false;
 
             return EMTId.Equals(GetSingleRoamingAuthorisationRequest.EMTId);

@@ -98,9 +98,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 
             #region Initial checks
 
-            if (OperatorId == null)
-                throw new ArgumentNullException(nameof(OperatorId),  "The charging station operator identification must not be null!");
-
             if (IdSuffix.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(IdSuffix),    "The parking identification suffix must not be null or empty!");
 
@@ -254,10 +251,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) ParkingId1 == null) || ((Object) ParkingId2 == null))
+            if (((Object) ParkingId1 is null) || ((Object) ParkingId2 is null))
                 return false;
 
-            if ((Object) ParkingId1 == null)
+            if ((Object) ParkingId1 is null)
                 throw new ArgumentNullException(nameof(ParkingId1),  "The given parking spot identification must not be null!");
 
             return ParkingId1.Equals(ParkingId2);
@@ -290,7 +287,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (Parking_Id ParkingId1, Parking_Id ParkingId2)
         {
 
-            if ((Object) ParkingId1 == null)
+            if ((Object) ParkingId1 is null)
                 throw new ArgumentNullException(nameof(ParkingId1),  "The given parking spot identification must not be null!");
 
             return ParkingId1.CompareTo(ParkingId2) < 0;
@@ -323,7 +320,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (Parking_Id ParkingId1, Parking_Id ParkingId2)
         {
 
-            if ((Object) ParkingId1 == null)
+            if ((Object) ParkingId1 is null)
                 throw new ArgumentNullException(nameof(ParkingId1),  "The given parking spot identification must not be null!");
 
             return ParkingId1.CompareTo(ParkingId2) > 0;
@@ -358,7 +355,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             // Check if the given object is a parking spot identification.
@@ -380,7 +377,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Parking_Id ParkingId)
         {
 
-            if ((Object) ParkingId == null)
+            if ((Object) ParkingId is null)
                 throw new ArgumentNullException(nameof(ParkingId),  "The given parking spot identification must not be null!");
 
             // Compare the length of the parking spot identifications
@@ -414,7 +411,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a parking spot identification.
@@ -437,7 +434,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(Parking_Id ParkingId)
         {
 
-            if ((Object) ParkingId == null)
+            if ((Object) ParkingId is null)
                 return false;
 
             return OperatorId.Equals(ParkingId.OperatorId) &&

@@ -564,7 +564,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             //    TimeSpan? Duration = null;
 
             //    // Analyse the ChargingProductId field and apply the found key/value-pairs
-            //    if (PartnerProductId != null && PartnerProductId.ToString().IsNotNullOrEmpty())
+            //    if (PartnerProductId is not null && PartnerProductId.ToString().IsNotNullOrEmpty())
             //    {
 
             //        var Elements = pattern.Replace(PartnerProductId.ToString(), "=").Split('|').ToArray();
@@ -573,7 +573,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             //        {
 
             //            var DurationText = Elements.FirstOrDefault(element => element.StartsWith("D=", StringComparison.InvariantCulture));
-            //            if (DurationText != null)
+            //            if (DurationText is not null)
             //            {
 
             //                DurationText = DurationText.Substring(2);
@@ -587,7 +587,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             //            }
 
             //            var PartnerProductText = Elements.FirstOrDefault(element => element.StartsWith("P=", StringComparison.InvariantCulture));
-            //            if (PartnerProductText != null)
+            //            if (PartnerProductText is not null)
             //            {
 
             //                PartnerProductId = PartnerProduct_Id.Parse(DurationText.Substring(2));
@@ -614,7 +614,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             //    #region Response mapping
 
-            //    if (response != null)
+            //    if (response is not null)
             //    {
             //        switch (response.Result)
             //        {
@@ -686,7 +686,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             //    #region Response mapping
 
-            //    if (response != null)
+            //    if (response is not null)
             //    {
             //        switch (response.Result)
             //        {
@@ -745,7 +745,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             //    ChargingReservation_Id ReservationId = default(ChargingReservation_Id);
 
-            //    if (ChargingProductId != null && ChargingProductId.ToString().IsNotNullOrEmpty())
+            //    if (ChargingProductId is not null && ChargingProductId.ToString().IsNotNullOrEmpty())
             //    {
 
             //        var Elements = ChargingProductId.ToString().Split('|').ToArray();
@@ -775,7 +775,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             //    #region Response mapping
 
-            //    if (response != null)
+            //    if (response is not null)
             //    {
             //        switch (response.Result)
             //        {
@@ -856,7 +856,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             //    #region Response mapping
 
-            //    if (response != null)
+            //    if (response is not null)
             //    {
             //        switch (response.Result)
             //        {
@@ -1378,14 +1378,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (EVSEStatusUpdates == null)
+            if (EVSEStatusUpdates is null)
                 throw new ArgumentNullException(nameof(EVSEStatusUpdates), "The given enumeration of EVSE status updates must not be null!");
 
 
             if (!Timestamp.HasValue)
                 Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
-            if (EventTrackingId == null)
+            if (EventTrackingId is null)
                 EventTrackingId = EventTracking_Id.New;
 
             if (!RequestTimeout.HasValue)
@@ -1507,7 +1507,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                     this,
                                                     EVSEStatusUpdates,
                                                     response.HTTPStatusCode.ToString(),
-                                                    response.HTTPBody != null
+                                                    response.HTTPBody is not null
                                                         ? warnings.AddAndReturnList(I18NString.Create(response.HTTPBody.ToUTF8String()))
                                                         : warnings.AddAndReturnList(I18NString.Create("No HTTP body received!")),
                                                     runtime);
@@ -2235,7 +2235,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (!Timestamp.HasValue)
                 Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
-            if (EventTrackingId == null)
+            if (EventTrackingId is null)
                 EventTrackingId = EventTracking_Id.New;
 
             if (!RequestTimeout.HasValue)
@@ -2322,7 +2322,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     result = AuthStartResult.Authorized(Id,
                                                         this,
                                                         SessionId:      ChargingSession_Id.NewRandom(),
-                                                        ProviderId:     response.Content.RoamingAuthorisationInfo != null
+                                                        ProviderId:     response.Content.RoamingAuthorisationInfo is not null
                                                                             ? response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
                                                                             : EMobilityProvider_Id.Parse(Country.Germany, "GEF"),
                                                         ContractId:     response.Content.RoamingAuthorisationInfo.ContractId.ToString(),
@@ -2456,7 +2456,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (!Timestamp.HasValue)
                 Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
-            if (EventTrackingId == null)
+            if (EventTrackingId is null)
                 EventTrackingId = EventTracking_Id.New;
 
             if (!RequestTimeout.HasValue)
@@ -2649,7 +2649,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (!Timestamp.HasValue)
                 Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
 
-            if (EventTrackingId == null)
+            if (EventTrackingId is null)
                 EventTrackingId = EventTracking_Id.New;
 
             if (!RequestTimeout.HasValue)
@@ -3076,7 +3076,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 catch (Exception e)
                 {
 
-                    while (e.InnerException != null)
+                    while (e.InnerException is not null)
                         e = e.InnerException;
 
                     DebugX.Log("A exception occured during ServiceCheck: " + e.Message + Environment.NewLine + e.StackTrace);
@@ -3148,7 +3148,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 catch (Exception e)
                 {
 
-                    while (e.InnerException != null)
+                    while (e.InnerException is not null)
                         e = e.InnerException;
 
                     DebugX.LogT(nameof(WWCPCSOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
@@ -3554,7 +3554,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 catch (Exception e)
                 {
 
-                    while (e.InnerException != null)
+                    while (e.InnerException is not null)
                         e = e.InnerException;
 
                     DebugX.Log("A exception occured during EVSEStatusRefresh: " + e.Message + Environment.NewLine + e.StackTrace);
@@ -3608,7 +3608,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                         if (IncludeEVSEIds(evsestatus.Id))
                         {
 
-                            _EVSEId = _CustomEVSEIdMapper != null
+                            _EVSEId = _CustomEVSEIdMapper is not null
                                           ? _CustomEVSEIdMapper(evsestatus.Id)
                                           : evsestatus.Id.ToOCHP();
 
@@ -3652,7 +3652,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     var Runtime = Endtime - StartTime;
 
                     if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                        response.Content        != null)
+                        response.Content        is not null)
                     {
 
                         if (response.Content.Result.ResultCode == ResultCodes.OK)
@@ -3676,7 +3676,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                         this,
                                                         new EVSEStatusUpdate[0],
                                                         response.HTTPStatusCode.ToString(),
-                                                        response.HTTPBody != null
+                                                        response.HTTPBody is not null
                                                             ? Warnings.AddAndReturnList(I18NString.Create(response.HTTPBody.ToUTF8String()))
                                                             : Warnings.AddAndReturnList(I18NString.Create("No HTTP body received!")),
                                                         Runtime);
@@ -3689,7 +3689,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             catch (Exception e)
             {
 
-                while (e.InnerException != null)
+                while (e.InnerException is not null)
                     e = e.InnerException;
 
                 DebugX.LogT(nameof(WWCPCSOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
@@ -3850,7 +3850,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) WWCPCPOAdapter1 == null) || ((Object) WWCPCPOAdapter2 == null))
+            if (((Object) WWCPCPOAdapter1 is null) || ((Object) WWCPCPOAdapter2 is null))
                 return false;
 
             return WWCPCPOAdapter1.Equals(WWCPCPOAdapter2);
@@ -3885,7 +3885,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           WWCPCSOAdapter  WWCPCPOAdapter2)
         {
 
-            if ((Object) WWCPCPOAdapter1 == null)
+            if ((Object) WWCPCPOAdapter1 is null)
                 throw new ArgumentNullException(nameof(WWCPCPOAdapter1),  "The given WWCPCPOAdapter must not be null!");
 
             return WWCPCPOAdapter1.CompareTo(WWCPCPOAdapter2) < 0;
@@ -3921,7 +3921,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           WWCPCSOAdapter WWCPCPOAdapter2)
         {
 
-            if ((Object) WWCPCPOAdapter1 == null)
+            if ((Object) WWCPCPOAdapter1 is null)
                 throw new ArgumentNullException(nameof(WWCPCPOAdapter1),  "The given WWCPCPOAdapter must not be null!");
 
             return WWCPCPOAdapter1.CompareTo(WWCPCPOAdapter2) > 0;
@@ -3958,11 +3958,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object), "The given object must not be null!");
 
             var WWCPCPOAdapter = Object as WWCPCSOAdapter;
-            if ((Object) WWCPCPOAdapter == null)
+            if ((Object) WWCPCPOAdapter is null)
                 throw new ArgumentException("The given object is not an WWCPCPOAdapter!", nameof(Object));
 
             return CompareTo(WWCPCPOAdapter);
@@ -3980,7 +3980,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public Int32 CompareTo(WWCPCSOAdapter WWCPCPOAdapter)
         {
 
-            if ((Object) WWCPCPOAdapter == null)
+            if ((Object) WWCPCPOAdapter is null)
                 throw new ArgumentNullException(nameof(WWCPCPOAdapter), "The given WWCPCPOAdapter must not be null!");
 
             return Id.CompareTo(WWCPCPOAdapter.Id);
@@ -4003,11 +4003,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             var WWCPCPOAdapter = Object as WWCPCSOAdapter;
-            if ((Object) WWCPCPOAdapter == null)
+            if ((Object) WWCPCPOAdapter is null)
                 return false;
 
             return this.Equals(WWCPCPOAdapter);
@@ -4026,7 +4026,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public Boolean Equals(WWCPCSOAdapter WWCPCPOAdapter)
         {
 
-            if ((Object) WWCPCPOAdapter == null)
+            if ((Object) WWCPCPOAdapter is null)
                 return false;
 
             return Id.Equals(WWCPCPOAdapter.Id);

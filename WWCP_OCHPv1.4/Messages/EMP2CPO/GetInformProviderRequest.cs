@@ -53,7 +53,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
             #region Initial checks
 
-            if (DirectId == null)
+            if (DirectId is null)
                 throw new ArgumentNullException(nameof(DirectId),  "The given identification of an direct charging process must not be null!");
 
             #endregion
@@ -235,7 +235,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetInformProviderRequest1 == null) || ((Object) GetInformProviderRequest2 == null))
+            if (((Object) GetInformProviderRequest1 is null) || ((Object) GetInformProviderRequest2 is null))
                 return false;
 
             return GetInformProviderRequest1.Equals(GetInformProviderRequest2);
@@ -272,12 +272,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get inform provider request.
             var GetInformProviderRequest = Object as GetInformProviderRequest;
-            if ((Object) GetInformProviderRequest == null)
+            if ((Object) GetInformProviderRequest is null)
                 return false;
 
             return this.Equals(GetInformProviderRequest);
@@ -296,7 +296,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetInformProviderRequest GetInformProviderRequest)
         {
 
-            if ((Object) GetInformProviderRequest == null)
+            if ((Object) GetInformProviderRequest is null)
                 return false;
 
             return DirectId.Equals(GetInformProviderRequest.DirectId);

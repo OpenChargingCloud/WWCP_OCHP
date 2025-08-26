@@ -389,10 +389,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) EMTId1 == null) || ((Object) EMTId2 == null))
+            if (((Object) EMTId1 is null) || ((Object) EMTId2 is null))
                 return false;
 
-            if ((Object) EMTId1 == null)
+            if ((Object) EMTId1 is null)
                 throw new ArgumentNullException(nameof(EMTId1),  "The given token identification must not be null!");
 
             return EMTId1.Equals(EMTId2);
@@ -425,7 +425,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (EMT_Id EMTId1, EMT_Id EMTId2)
         {
 
-            if ((Object) EMTId1 == null)
+            if ((Object) EMTId1 is null)
                 throw new ArgumentNullException(nameof(EMTId1),  "The given token identification must not be null!");
 
             return EMTId1.CompareTo(EMTId2) < 0;
@@ -458,7 +458,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (EMT_Id EMTId1, EMT_Id EMTId2)
         {
 
-            if ((Object) EMTId1 == null)
+            if ((Object) EMTId1 is null)
                 throw new ArgumentNullException(nameof(EMTId1),  "The given token identification must not be null!");
 
             return EMTId1.CompareTo(EMTId2) > 0;
@@ -493,7 +493,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             if (!(Object is EMT_Id))
@@ -514,7 +514,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(EMT_Id EMTId)
         {
 
-            if ((Object) EMTId == null)
+            if ((Object) EMTId is null)
                 throw new ArgumentNullException(nameof(EMTId),  "The given token identification must not be null!");
 
             return String.Compare(Instance, EMTId.Instance, StringComparison.Ordinal);
@@ -537,7 +537,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             if (!(Object is EMT_Id))
@@ -559,7 +559,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(EMT_Id EMTId)
         {
 
-            if ((Object) EMTId == null)
+            if ((Object) EMTId is null)
                 return false;
 
             return Instance.      Equals(EMTId.Instance)       &&

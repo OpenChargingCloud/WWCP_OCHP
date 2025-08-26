@@ -246,7 +246,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) GetChargePointListUpdatesRequest1 == null) || ((Object) GetChargePointListUpdatesRequest2 == null))
+            if (((Object) GetChargePointListUpdatesRequest1 is null) || ((Object) GetChargePointListUpdatesRequest2 is null))
                 return false;
 
             return GetChargePointListUpdatesRequest1.Equals(GetChargePointListUpdatesRequest2);
@@ -283,12 +283,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a get charge point list updates request.
             var GetChargePointListUpdatesRequest = Object as GetChargePointListUpdatesRequest;
-            if ((Object) GetChargePointListUpdatesRequest == null)
+            if ((Object) GetChargePointListUpdatesRequest is null)
                 return false;
 
             return this.Equals(GetChargePointListUpdatesRequest);
@@ -307,7 +307,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public override Boolean Equals(GetChargePointListUpdatesRequest GetChargePointListUpdatesRequest)
         {
 
-            if ((Object) GetChargePointListUpdatesRequest == null)
+            if ((Object) GetChargePointListUpdatesRequest is null)
                 return false;
 
             return LastUpdate.Equals(GetChargePointListUpdatesRequest.LastUpdate);

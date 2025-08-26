@@ -176,7 +176,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (DirectId   == null)
+            if (DirectId   is null)
                 throw new ArgumentNullException(nameof(DirectId),    "The given identification of an direct charging process must not be null!");
 
             #endregion
@@ -551,7 +551,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                          )
                        : null,
 
-                   ChargingPeriods != null && ChargingPeriods.Any()
+                   ChargingPeriods is not null && ChargingPeriods.Any()
                        ? new XElement(OCHPNS.Default + "chargingPeriods",   ChargingPeriods.Select(persiod => persiod.ToXML()))
                        : null,
 
@@ -559,7 +559,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                        ? new XElement(OCHPNS.Default + "currentCost",       CurrentCost.Value)
                        : null,
 
-                   Currency != null
+                   Currency is not null
                        ? new XElement(OCHPNS.Default + "currency",          Currency.ISOCode)
                        : null
 
@@ -586,7 +586,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) InformProviderRequest1 == null) || ((Object) InformProviderRequest2 == null))
+            if (((Object) InformProviderRequest1 is null) || ((Object) InformProviderRequest2 is null))
                 return false;
 
             return InformProviderRequest1.Equals(InformProviderRequest2);
@@ -623,12 +623,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a inform provider request.
             var InformProviderRequest = Object as InformProviderRequest;
-            if ((Object) InformProviderRequest == null)
+            if ((Object) InformProviderRequest is null)
                 return false;
 
             return this.Equals(InformProviderRequest);
@@ -647,7 +647,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(InformProviderRequest InformProviderRequest)
         {
 
-            if ((Object) InformProviderRequest == null)
+            if ((Object) InformProviderRequest is null)
                 return false;
 
             return DirectMessage.Equals(InformProviderRequest.DirectMessage) &&
@@ -783,7 +783,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             ? CurrentCost.     GetHashCode() * 11
                             : 0) ^
 
-                       (Currency != null
+                       (Currency is not null
                             ? Currency.GetHashCode()
                             : 0);
 

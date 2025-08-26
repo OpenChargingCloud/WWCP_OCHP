@@ -167,10 +167,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) LiveAuthId1 == null) || ((Object) LiveAuthId2 == null))
+            if (((Object) LiveAuthId1 is null) || ((Object) LiveAuthId2 is null))
                 return false;
 
-            if ((Object) LiveAuthId1 == null)
+            if ((Object) LiveAuthId1 is null)
                 throw new ArgumentNullException(nameof(LiveAuthId1),  "The given live authentication identification must not be null!");
 
             return LiveAuthId1.Equals(LiveAuthId2);
@@ -203,7 +203,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator < (LiveAuth_Id LiveAuthId1, LiveAuth_Id LiveAuthId2)
         {
 
-            if ((Object) LiveAuthId1 == null)
+            if ((Object) LiveAuthId1 is null)
                 throw new ArgumentNullException(nameof(LiveAuthId1),  "The given live authentication identification must not be null!");
 
             return LiveAuthId1.CompareTo(LiveAuthId2) < 0;
@@ -236,7 +236,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static Boolean operator > (LiveAuth_Id LiveAuthId1, LiveAuth_Id LiveAuthId2)
         {
 
-            if ((Object) LiveAuthId1 == null)
+            if ((Object) LiveAuthId1 is null)
                 throw new ArgumentNullException(nameof(LiveAuthId1),  "The given live authentication identification must not be null!");
 
             return LiveAuthId1.CompareTo(LiveAuthId2) > 0;
@@ -271,12 +271,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 throw new ArgumentNullException(nameof(Object),  "The given object must not be null!");
 
             // Check if the given object is a live authentication identification.
             var LiveAuthId = Object as LiveAuth_Id;
-            if ((Object) LiveAuthId == null)
+            if ((Object) LiveAuthId is null)
                 throw new ArgumentException("The given object is not a LiveAuthId!", nameof(Object));
 
             return CompareTo(LiveAuthId);
@@ -294,7 +294,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Int32 CompareTo(LiveAuth_Id LiveAuthId)
         {
 
-            if ((Object) LiveAuthId == null)
+            if ((Object) LiveAuthId is null)
                 throw new ArgumentNullException(nameof(LiveAuthId),  "The given live authentication identification must not be null!");
 
             return String.Compare(InternalId, LiveAuthId.InternalId, StringComparison.Ordinal);
@@ -317,12 +317,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is a live authentication identification.
             var LiveAuthId = Object as LiveAuth_Id;
-            if ((Object) LiveAuthId == null)
+            if ((Object) LiveAuthId is null)
                 return false;
 
             return this.Equals(LiveAuthId);
@@ -341,7 +341,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public Boolean Equals(LiveAuth_Id LiveAuthId)
         {
 
-            if ((Object) LiveAuthId == null)
+            if ((Object) LiveAuthId is null)
                 return false;
 
             return InternalId.Equals(LiveAuthId.InternalId);

@@ -311,7 +311,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 return true;
 
             // If one is null, but not both, return false.
-            if (((Object) InformProviderResponse1 == null) || ((Object) InformProviderResponse2 == null))
+            if (((Object) InformProviderResponse1 is null) || ((Object) InformProviderResponse2 is null))
                 return false;
 
             return InformProviderResponse1.Equals(InformProviderResponse2);
@@ -348,12 +348,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(Object Object)
         {
 
-            if (Object == null)
+            if (Object is null)
                 return false;
 
             // Check if the given object is an inform provider response.
             var InformProviderResponse = Object as InformProviderResponse;
-            if ((Object) InformProviderResponse == null)
+            if ((Object) InformProviderResponse is null)
                 return false;
 
             return this.Equals(InformProviderResponse);
@@ -372,7 +372,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public override Boolean Equals(InformProviderResponse InformProviderResponse)
         {
 
-            if ((Object) InformProviderResponse == null)
+            if ((Object) InformProviderResponse is null)
                 return false;
 
             return this.Result.Equals(InformProviderResponse.Result);

@@ -134,13 +134,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         #region Convert EVSE Ids...
 
         public static EVSE_Id? ToOCHP(this WWCP.EVSE_Id EVSEId, CPO.CustomEVSEIdMapperDelegate _CustomEVSEIdMapper = null)
-            => _CustomEVSEIdMapper != null
+            => _CustomEVSEIdMapper is not null
                    ? _CustomEVSEIdMapper(EVSEId)
                    : EVSE_Id.Parse(EVSEId.ToString());
 
         public static EVSE_Id? ToOCHP(this WWCP.EVSE_Id? EVSEId, CPO.CustomEVSEIdMapperDelegate _CustomEVSEIdMapper = null)
             => EVSEId.HasValue
-                   ? _CustomEVSEIdMapper != null ? _CustomEVSEIdMapper(EVSEId) : EVSE_Id.Parse(EVSEId.ToString())
+                   ? _CustomEVSEIdMapper is not null ? _CustomEVSEIdMapper(EVSEId) : EVSE_Id.Parse(EVSEId.ToString())
                    : new EVSE_Id?();
 
 
