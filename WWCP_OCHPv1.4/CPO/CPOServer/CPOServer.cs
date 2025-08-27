@@ -25,6 +25,7 @@ using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 using org.GraphDefined.Vanaheimr.Hermod.Logging;
 
 using cloud.charging.open.protocols.OCHPv1_4.EMP;
+using org.GraphDefined.Vanaheimr.Hermod.HTTPTest;
 
 #endregion
 
@@ -282,11 +283,21 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         protected void RegisterURITemplates()
         {
 
+            var httpAPI = SOAPServer.HTTPServer.AddHTTPAPI(
+                              URLPrefix + URLSuffix,
+                              null,
+                              (a, b) => new HTTPAPIX(
+                                            SOAPServer.HTTPServer,
+                                            null,
+                                            URLPrefix + URLSuffix
+                                        )
+                          );
+
             #region / - SelectEVSE
 
-            SOAPServer.RegisterSOAPDelegate(null,
+            SOAPServer.RegisterSOAPDelegate(httpAPI,
                                             HTTPHostname.Any,
-                                            URLPrefix + URLSuffix,
+                                            HTTPPath.Root,
                                             "SelectEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "SelectEvseRequest").FirstOrDefault(),
                                             async (Request, SelectEVSEXML) => {
@@ -393,9 +404,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - ControlEVSE
 
-            SOAPServer.RegisterSOAPDelegate(null,
+            SOAPServer.RegisterSOAPDelegate(httpAPI,
                                             HTTPHostname.Any,
-                                            URLPrefix + URLSuffix,
+                                            HTTPPath.Root,
                                             "ControlEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ControlEvseRequest").FirstOrDefault(),
                                             async (Request, ControlEVSEXML) => {
@@ -507,9 +518,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - ReleaseEVSE
 
-            SOAPServer.RegisterSOAPDelegate(null,
+            SOAPServer.RegisterSOAPDelegate(httpAPI,
                                             HTTPHostname.Any,
-                                            URLPrefix + URLSuffix,
+                                            HTTPPath.Root,
                                             "ReleaseEvseRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ReleaseEvseRequest").FirstOrDefault(),
                                             async (Request, ReleaseEVSEXML) => {
@@ -614,9 +625,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - GetEVSEStatus
 
-            SOAPServer.RegisterSOAPDelegate(null,
+            SOAPServer.RegisterSOAPDelegate(httpAPI,
                                             HTTPHostname.Any,
-                                            URLPrefix + URLSuffix,
+                                            HTTPPath.Root,
                                             "DirectEvseStatusRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "DirectEvseStatusRequest").FirstOrDefault(),
                                             async (Request, GetEVSEStatusXML) => {
@@ -721,9 +732,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region / - ReportDiscrepancy
 
-            SOAPServer.RegisterSOAPDelegate(null,
+            SOAPServer.RegisterSOAPDelegate(httpAPI,
                                             HTTPHostname.Any,
-                                            URLPrefix + URLSuffix,
+                                            HTTPPath.Root,
                                             "ReportDiscrepancyRequest",
                                             XML => XML.Descendants(OCHPNS.Default + "ReportDiscrepancyRequest").FirstOrDefault(),
                                             async (Request, ReportDiscrepancyXML) => {
