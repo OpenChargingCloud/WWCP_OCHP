@@ -65,9 +65,9 @@ namespace cloud.charging.open.protocols.WWCP
         /// 
         /// <param name="OCHPConfigurator">An optional delegate to configure the new OCHP roaming provider after its creation.</param>
         /// <param name="Configurator">An optional delegate to configure the new roaming provider after its creation.</param>
-        public static OCHPv1_4.EMP.WWCPEMPAdapter
+        public static OCHPv1_4.EMP.WWCPEMPAdapter?
 
-            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                       RoamingNetwork,
+            CreateOCHPv1_4_EMPRoamingProvider(this IRoamingNetwork                      RoamingNetwork,
                                               EMPRoamingProvider_Id                     Id,
                                               I18NString                                Name,
                                               EMPRoaming                                EMPRoaming,
@@ -102,33 +102,36 @@ namespace cloud.charging.open.protocols.WWCP
 
             #endregion
 
-            var NewRoamingProvider = new WWCPEMPAdapter(Id,
-                                                        Name,
-                                                        RoamingNetwork,
-                                                        EMPRoaming,
+            var NewRoamingProvider = new WWCPEMPAdapter(
+                                         Id,
+                                         Name,
+                                         RoamingNetwork,
+                                         EMPRoaming,
 
-                                                        //EVSEDataRecord2EVSE,
+                                         //EVSEDataRecord2EVSE,
 
-                                                        //EVSEOperatorFilter,
+                                         //EVSEOperatorFilter,
 
-                                                        PullDataServiceEvery,
-                                                        DisablePullData,
-                                                        PullDataServiceRequestTimeout,
+                                         PullDataServiceEvery,
+                                         DisablePullData,
+                                         PullDataServiceRequestTimeout,
 
-                                                        PullStatusServiceEvery,
-                                                        DisablePullStatus,
-                                                        PullStatusServiceRequestTimeout,
+                                         PullStatusServiceEvery,
+                                         DisablePullStatus,
+                                         PullStatusServiceRequestTimeout,
 
-                                                        DefaultProvider,
-                                                        DefaultSearchCenter,
-                                                        DefaultDistanceKM);
+                                         DefaultProvider,
+                                         DefaultSearchCenter,
+                                         DefaultDistanceKM
+                                     );
 
 
             OCHPConfigurator?.Invoke(NewRoamingProvider);
 
-            return RoamingNetwork.
-                       CreateEMPRoamingProvider(NewRoamingProvider,
-                                                Configurator) as WWCPEMPAdapter;
+            return RoamingNetwork.CreateEMPRoamingProvider(
+                       NewRoamingProvider,
+                       Configurator
+                   ) as WWCPEMPAdapter;
 
         }
 

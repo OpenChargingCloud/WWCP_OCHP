@@ -65,7 +65,7 @@ namespace cloud.charging.open.protocols.WWCP
         /// <param name="DNSClient">An optional DNS client to use.</param>
         public static WWCPCSOAdapter
 
-            CreateOCHPv1_4_EMPRoamingProvider(this RoamingNetwork                                 RoamingNetwork,
+            CreateOCHPv1_4_EMPRoamingProvider(this IRoamingNetwork                                RoamingNetwork,
                                               CSORoamingProvider_Id                               Id,
                                               I18NString                                          Name,
                                               I18NString                                          Description,

@@ -46,88 +46,88 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
 
         #region ParseRoamingNetwork(this HTTPRequest, HTTPServer, out RoamingNetwork, out HTTPResponse)
 
-        /// <summary>
-        /// Parse the given HTTP request and return the roaming network
-        /// for the given HTTP hostname and HTTP query parameter
-        /// or an HTTP error response.
-        /// </summary>
-        /// <param name="HTTPRequest">A HTTP request.</param>
-        /// <param name="HTTPServer">A HTTP server.</param>
-        /// <param name="RoamingNetwork">The roaming network.</param>
-        /// <param name="HTTPResponse">A HTTP error response.</param>
-        /// <returns>True, when roaming network was found; false else.</returns>
-        public static Boolean ParseRoamingNetwork(this HTTPRequest                             HTTPRequest,
-                                                  HTTPServer<RoamingNetworks, RoamingNetwork>  HTTPServer,
-                                                  out RoamingNetwork                           RoamingNetwork,
-                                                  out HTTPResponse                             HTTPResponse)
-        {
+        ///// <summary>
+        ///// Parse the given HTTP request and return the roaming network
+        ///// for the given HTTP hostname and HTTP query parameter
+        ///// or an HTTP error response.
+        ///// </summary>
+        ///// <param name="HTTPRequest">A HTTP request.</param>
+        ///// <param name="HTTPServer">A HTTP server.</param>
+        ///// <param name="RoamingNetwork">The roaming network.</param>
+        ///// <param name="HTTPResponse">A HTTP error response.</param>
+        ///// <returns>True, when roaming network was found; false else.</returns>
+        //public static Boolean ParseRoamingNetwork(this HTTPRequest    HTTPRequest,
+        //                                          HTTPServer          HTTPServer,
+        //                                          out RoamingNetwork  RoamingNetwork,
+        //                                          out HTTPResponse    HTTPResponse)
+        //{
 
-            if (HTTPServer is null)
-                Console.WriteLine("HTTPServer is null!");
+        //    if (HTTPServer is null)
+        //        Console.WriteLine("HTTPServer is null!");
 
-            #region Initial checks
+        //    #region Initial checks
 
-            if (HTTPRequest is null)
-                throw new ArgumentNullException("HTTPRequest",  "The given HTTP request must not be null!");
+        //    if (HTTPRequest is null)
+        //        throw new ArgumentNullException("HTTPRequest",  "The given HTTP request must not be null!");
 
-            if (HTTPServer is null)
-                throw new ArgumentNullException("HTTPServer",   "The given HTTP server must not be null!");
+        //    if (HTTPServer is null)
+        //        throw new ArgumentNullException("HTTPServer",   "The given HTTP server must not be null!");
 
-            #endregion
+        //    #endregion
 
-            RoamingNetwork_Id RoamingNetworkId;
-                              RoamingNetwork    = null;
-                              HTTPResponse      = null;
+        //    RoamingNetwork_Id RoamingNetworkId;
+        //                      RoamingNetwork    = null;
+        //                      HTTPResponse      = null;
 
-            if (HTTPRequest.ParsedURLParameters.Length < 1)
-            {
+        //    if (HTTPRequest.ParsedURLParameters.Length < 1)
+        //    {
 
-                HTTPResponse = new HTTPResponse.Builder(HTTPRequest) {
-                    HTTPStatusCode  = HTTPStatusCode.BadRequest,
-                    Server          = HTTPServer.DefaultServerName,
-                    Date            = DateTime.Now,
-                };
+        //        HTTPResponse = new HTTPResponse.Builder(HTTPRequest) {
+        //            HTTPStatusCode  = HTTPStatusCode.BadRequest,
+        //            Server          = HTTPServer.DefaultServerName,
+        //            Date            = DateTime.Now,
+        //        };
 
-                return false;
+        //        return false;
 
-            }
+        //    }
 
-            if (!RoamingNetwork_Id.TryParse(HTTPRequest.ParsedURLParameters[0], out RoamingNetworkId))
-            {
+        //    if (!RoamingNetwork_Id.TryParse(HTTPRequest.ParsedURLParameters[0], out RoamingNetworkId))
+        //    {
 
-                HTTPResponse = new HTTPResponse.Builder(HTTPRequest) {
-                    HTTPStatusCode  = HTTPStatusCode.BadRequest,
-                    Server          = HTTPServer.DefaultServerName,
-                    Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.Application.JSON_UTF8,
-                    Content         = @"{ ""description"": ""Invalid RoamingNetworkId!"" }".ToUTF8Bytes()
-                };
+        //        HTTPResponse = new HTTPResponse.Builder(HTTPRequest) {
+        //            HTTPStatusCode  = HTTPStatusCode.BadRequest,
+        //            Server          = HTTPServer.DefaultServerName,
+        //            Date            = DateTime.Now,
+        //            ContentType     = HTTPContentType.Application.JSON_UTF8,
+        //            Content         = @"{ ""description"": ""Invalid RoamingNetworkId!"" }".ToUTF8Bytes()
+        //        };
 
-                return false;
+        //        return false;
 
-            }
+        //    }
 
-            RoamingNetwork  = HTTPServer.
-                                  GetAllTenants(HTTPRequest.Host).
-                                  FirstOrDefault(roamingnetwork => roamingnetwork.Id == RoamingNetworkId);
+        //    RoamingNetwork  = HTTPServer.
+        //                          //GetAllTenants(HTTPRequest.Host).
+        //                          FirstOrDefault(roamingNetwork => roamingNetwork.Id == RoamingNetworkId);
 
-            if (RoamingNetwork is null) {
+        //    if (RoamingNetwork is null) {
 
-                HTTPResponse = new HTTPResponse.Builder(HTTPRequest) {
-                    HTTPStatusCode  = HTTPStatusCode.NotFound,
-                    Server          = HTTPServer.DefaultServerName,
-                    Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.Application.JSON_UTF8,
-                    Content         = @"{ ""description"": ""Unknown RoamingNetworkId!"" }".ToUTF8Bytes()
-                };
+        //        HTTPResponse = new HTTPResponse.Builder(HTTPRequest) {
+        //            HTTPStatusCode  = HTTPStatusCode.NotFound,
+        //            Server          = HTTPServer.DefaultServerName,
+        //            Date            = DateTime.Now,
+        //            ContentType     = HTTPContentType.Application.JSON_UTF8,
+        //            Content         = @"{ ""description"": ""Unknown RoamingNetworkId!"" }".ToUTF8Bytes()
+        //        };
 
-                return false;
+        //        return false;
 
-            }
+        //    }
 
-            return true;
+        //    return true;
 
-        }
+        //}
 
         #endregion
 
@@ -192,7 +192,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
         /// <summary>
         /// The HTTP server for serving the OCHP+ WebAPI.
         /// </summary>
-        public HTTPServer<RoamingNetworks, RoamingNetwork>   HTTPServer         { get; }
+        public HTTPServer                                    HTTPServer         { get; }
 
         /// <summary>
         /// The HTTP URI prefix.
@@ -271,7 +271,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
         /// <param name="ChargePointInfo2XML">An optional delegate to process an EVSE data record XML before sending it somewhere.</param>
         /// <param name="EVSEStatus2XML">An optional delegate to process an EVSE status record XML before sending it somewhere.</param>
         /// <param name="XMLPostProcessing">An optional delegate to process the XML after its final creation.</param>
-        public OCHPWebAPI(HTTPServer<RoamingNetworks, RoamingNetwork>  HTTPServer,
+        public OCHPWebAPI(HTTPServer                                   HTTPServer,
                           HTTPPath?                                    URLPathPrefix         = null,
                           String                                       HTTPRealm             = DefaultHTTPRealm,
                           IEnumerable<KeyValuePair<String, String>>    HTTPLogins            = null,
@@ -377,10 +377,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                 #region Check parameters
 
                 HTTPResponse   _HTTPResponse;
-                RoamingNetwork _RoamingNetwork;
+                RoamingNetwork _RoamingNetwork = null;
 
-                if (!Request.ParseRoamingNetwork(HTTPServer, out _RoamingNetwork, out _HTTPResponse))
-                    return Task.FromResult(_HTTPResponse);
+                //if (!Request.ParseRoamingNetwork(HTTPServer, out _RoamingNetwork, out _HTTPResponse))
+                //    return Task.FromResult(_HTTPResponse);
 
                 #endregion
 
@@ -481,10 +481,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                 #region Check parameters
 
                 HTTPResponse   _HTTPResponse;
-                RoamingNetwork _RoamingNetwork;
+                RoamingNetwork _RoamingNetwork = null;
 
-                if (!Request.ParseRoamingNetwork(HTTPServer, out _RoamingNetwork, out _HTTPResponse))
-                    return Task.FromResult(_HTTPResponse);
+                //if (!Request.ParseRoamingNetwork(HTTPServer, out _RoamingNetwork, out _HTTPResponse))
+                //    return Task.FromResult(_HTTPResponse);
 
                 #endregion
 
@@ -620,10 +620,10 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
                 #region Check parameters
 
                 HTTPResponse    _HTTPResponse;
-                RoamingNetwork  _RoamingNetwork;
+                RoamingNetwork  _RoamingNetwork = null;
 
-                if (!Request.ParseRoamingNetwork(HTTPServer, out _RoamingNetwork, out _HTTPResponse))
-                    return Task.FromResult(_HTTPResponse);
+                //if (!Request.ParseRoamingNetwork(HTTPServer, out _RoamingNetwork, out _HTTPResponse))
+                //    return Task.FromResult(_HTTPResponse);
 
                 #endregion
 

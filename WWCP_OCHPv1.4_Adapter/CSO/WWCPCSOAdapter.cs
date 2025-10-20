@@ -329,7 +329,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public WWCPCSOAdapter(CSORoamingProvider_Id                           Id,
                               I18NString                                      Name,
                               I18NString                                      Description,
-                              RoamingNetwork                                  RoamingNetwork,
+                              IRoamingNetwork                                 RoamingNetwork,
                               CPORoaming                                      CPORoaming,
 
                               EVSE2ChargePointInfoDelegate?                   EVSE2ChargePointInfo                = null,
