@@ -85,8 +85,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The TLS client certificate to use of HTTP authentication.
         /// </summary>
-        X509Certificate? IHTTPClient.ClientCert
-            => EMPClient.ClientCert;
+        X509Certificate2?                    IHTTPClient.ClientCertificate
+            => EMPClient.ClientCertificate;
 
                 /// <summary>
         /// The TLS protocol to use.
@@ -121,8 +121,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// The optional HTTP authentication to use.
         /// </summary>
-        IHTTPAuthentication?                 IHTTPClient.Authentication
-            => EMPClient.Authentication;
+        IHTTPAuthentication?                 IHTTPClient.HTTPAuthentication
+        {
+            get
+            {
+                return EMPClient.HTTPAuthentication;
+            }
+            set
+            {
+                EMPClient.HTTPAuthentication = value;
+            }
+        }
 
         /// <summary>
         /// The HTTP user agent identification.
@@ -200,6 +209,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         public IDNSClient?       DNSClient
             => EMPServer?.DNSClient;
+
+        public X509Certificate2? ClientCertificate => throw new NotImplementedException();
+
+        public IHTTPAuthentication? HTTPAuthentication { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public TOTPConfig? TOTPConfig { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         #endregion
 
@@ -1525,7 +1539,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                           Boolean?                                                   PreferIPv4                      = null,
                           RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionHandler?                          ClientCertificateSelector       = null,
-                          X509Certificate?                                           ClientCert                      = null,
+                          X509Certificate2?                                          ClientCert                      = null,
                           SslProtocols?                                              TLSProtocol                     = null,
                           AcceptTypes?                                               Accept                          = null,
                           IHTTPAuthentication?                                       HTTPAuthentication              = null,
