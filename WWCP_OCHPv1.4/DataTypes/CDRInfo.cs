@@ -334,7 +334,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP charge data record.
         /// </summary>
         /// <param name="CDRInfoXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static CDRInfo Parse(XElement             CDRInfoXML,
                                     OnExceptionDelegate  OnException  = null)
         {
@@ -356,7 +356,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP charge data record
         /// </summary>
         /// <param name="CDRInfoText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static CDRInfo Parse(String               CDRInfoText,
                                     OnExceptionDelegate  OnException  = null)
         {
@@ -379,7 +379,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="CDRInfoXML">The XML to parse.</param>
         /// <param name="CDRInfo">The parsed charge data record.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             CDRInfoXML,
                                        out CDRInfo          CDRInfo,
                                        OnExceptionDelegate  OnException  = null)
@@ -469,7 +469,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="CDRInfoText">The text to parse.</param>
         /// <param name="CDRInfo">The parsed charge data record.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               CDRInfoText,
                                        out CDRInfo          CDRInfo,
                                        OnExceptionDelegate  OnException  = null)

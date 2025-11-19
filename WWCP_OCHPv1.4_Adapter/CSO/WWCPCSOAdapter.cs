@@ -3079,7 +3079,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     while (e.InnerException is not null)
                         e = e.InnerException;
 
-                    DebugX.Log("A exception occured during ServiceCheck: " + e.Message + Environment.NewLine + e.StackTrace);
+                    DebugX.Log("A exception occurred during ServiceCheck: " + e.Message + Environment.NewLine + e.StackTrace);
 
                     OnWWCPCPOAdapterException?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
                                                       this,
@@ -3557,7 +3557,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     while (e.InnerException is not null)
                         e = e.InnerException;
 
-                    DebugX.Log("A exception occured during EVSEStatusRefresh: " + e.Message + Environment.NewLine + e.StackTrace);
+                    DebugX.Log("A exception occurred during EVSEStatusRefresh: " + e.Message + Environment.NewLine + e.StackTrace);
 
                 }
 

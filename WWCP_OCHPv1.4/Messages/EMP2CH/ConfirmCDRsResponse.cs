@@ -157,7 +157,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="ConfirmCDRsResponseXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ConfirmCDRsResponse Parse(ConfirmCDRsRequest   Request,
                                                 XElement             ConfirmCDRsResponseXML,
                                                 OnExceptionDelegate  OnException = null)
@@ -181,7 +181,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="ConfirmCDRsResponseText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ConfirmCDRsResponse Parse(ConfirmCDRsRequest   Request,
                                                 String               ConfirmCDRsResponseText,
                                                 OnExceptionDelegate  OnException = null)
@@ -206,7 +206,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="ConfirmCDRsResponseXML">The XML to parse.</param>
         /// <param name="ConfirmCDRsResponse">The parsed confirm charge details record response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(ConfirmCDRsRequest       Request,
                                        XElement                 ConfirmCDRsResponseXML,
                                        out ConfirmCDRsResponse  ConfirmCDRsResponse,
@@ -251,7 +251,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Request">The confirm charge details record request leading to this response.</param>
         /// <param name="ConfirmCDRsResponseText">The text to parse.</param>
         /// <param name="ConfirmCDRsResponse">The parsed confirm charge details record response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(ConfirmCDRsRequest       Request,
                                        String                   ConfirmCDRsResponseText,
                                        out ConfirmCDRsResponse  ConfirmCDRsResponse,

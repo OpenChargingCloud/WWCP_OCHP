@@ -162,7 +162,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP parking spot.
         /// </summary>
         /// <param name="ParkingSpotInfoXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ParkingSpotInfo Parse(XElement             ParkingSpotInfoXML,
                                             OnExceptionDelegate  OnException = null)
         {
@@ -184,7 +184,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP parking spot.
         /// </summary>
         /// <param name="ParkingSpotInfoText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ParkingSpotInfo Parse(String               ParkingSpotInfoText,
                                             OnExceptionDelegate  OnException = null)
         {
@@ -207,7 +207,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ParkingSpotInfoXML">The XML to parse.</param>
         /// <param name="ParkingSpotInfo">The parsed parking spot.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             ParkingSpotInfoXML,
                                        out ParkingSpotInfo  ParkingSpotInfo,
                                        OnExceptionDelegate  OnException  = null)
@@ -256,7 +256,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ParkingSpotInfoText">The text to parse.</param>
         /// <param name="ParkingSpotInfo">The parsed parking spot.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               ParkingSpotInfoText,
                                        out ParkingSpotInfo  ParkingSpotInfo,
                                        OnExceptionDelegate  OnException  = null)

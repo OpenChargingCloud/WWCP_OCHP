@@ -118,7 +118,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP authorisation card info.
         /// </summary>
         /// <param name="RoamingAuthorisationInfoXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static RoamingAuthorisationInfo Parse(XElement             RoamingAuthorisationInfoXML,
                                                      OnExceptionDelegate  OnException = null)
 
@@ -137,7 +137,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP authorisation card info.
         /// </summary>
         /// <param name="RoamingAuthorisationInfoText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static RoamingAuthorisationInfo Parse(String               RoamingAuthorisationInfoText,
                                                      OnExceptionDelegate  OnException = null)
 
@@ -157,7 +157,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="RoamingAuthorisationInfoXML">The XML to parse.</param>
         /// <param name="RoamingAuthorisationInfo">The parsed authorisation card info.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                      RoamingAuthorisationInfoXML,
                                        out RoamingAuthorisationInfo  RoamingAuthorisationInfo,
                                        OnExceptionDelegate           OnException  = null)
@@ -207,7 +207,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="RoamingAuthorisationInfoText">The text to parse.</param>
         /// <param name="RoamingAuthorisationInfo">The parsed authorisation card info.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                        RoamingAuthorisationInfoText,
                                        out RoamingAuthorisationInfo  RoamingAuthorisationInfo,
                                        OnExceptionDelegate           OnException  = null)

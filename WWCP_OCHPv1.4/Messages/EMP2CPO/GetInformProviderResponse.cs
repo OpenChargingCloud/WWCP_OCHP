@@ -409,7 +409,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="GetInformProviderResponseXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetInformProviderResponse Parse(GetInformProviderRequest  Request,
                                                       XElement                  GetInformProviderResponseXML,
                                                       OnExceptionDelegate       OnException = null)
@@ -433,7 +433,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="GetInformProviderResponseText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetInformProviderResponse Parse(GetInformProviderRequest  Request,
                                                       String                    GetInformProviderResponseText,
                                                       OnExceptionDelegate       OnException = null)
@@ -458,7 +458,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="GetInformProviderResponseXML">The XML to parse.</param>
         /// <param name="GetInformProviderResponse">The parsed get inform provider response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(GetInformProviderRequest       Request,
                                        XElement                       GetInformProviderResponseXML,
                                        out GetInformProviderResponse  GetInformProviderResponse,
@@ -577,7 +577,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Request">The get inform provider request leading to this response.</param>
         /// <param name="GetInformProviderResponseText">The text to parse.</param>
         /// <param name="GetInformProviderResponse">The parsed get inform provider response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(GetInformProviderRequest       Request,
                                        String                         GetInformProviderResponseText,
                                        out GetInformProviderResponse  GetInformProviderResponse,

@@ -183,7 +183,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP result.
         /// </summary>
         /// <param name="ResultXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Result Parse(XElement             ResultXML,
                                    OnExceptionDelegate  OnException = null)
         {
@@ -205,7 +205,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP result.
         /// </summary>
         /// <param name="ResultText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Result Parse(String               ResultText,
                                    OnExceptionDelegate  OnException = null)
         {
@@ -228,7 +228,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ResultXML">The XML to parse.</param>
         /// <param name="Result">The parsed result.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             ResultXML,
                                        out Result           Result,
                                        OnExceptionDelegate  OnException  = null)
@@ -271,7 +271,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ResultText">The text to parse.</param>
         /// <param name="Result">The parsed result.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               ResultText,
                                        out Result           Result,
                                        OnExceptionDelegate  OnException  = null)

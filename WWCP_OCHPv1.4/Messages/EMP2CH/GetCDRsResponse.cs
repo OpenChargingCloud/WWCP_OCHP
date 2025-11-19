@@ -175,7 +175,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="GetCDRsResponseXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetCDRsResponse Parse(GetCDRsRequest       Request,
                                             XElement             GetCDRsResponseXML,
                                             OnExceptionDelegate  OnException = null)
@@ -199,7 +199,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="GetCDRsResponseText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetCDRsResponse Parse(GetCDRsRequest       Request,
                                             String               GetCDRsResponseText,
                                             OnExceptionDelegate  OnException = null)
@@ -224,7 +224,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="GetCDRsResponseXML">The XML to parse.</param>
         /// <param name="GetCDRsResponse">The parsed get charge details record response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(GetCDRsRequest       Request,
                                        XElement             GetCDRsResponseXML,
                                        out GetCDRsResponse  GetCDRsResponse,
@@ -273,7 +273,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Request">The get charge details record request leading to this response.</param>
         /// <param name="GetCDRsResponseText">The text to parse.</param>
         /// <param name="GetCDRsResponse">The parsed get charge details record response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(GetCDRsRequest       Request,
                                        String               GetCDRsResponseText,
                                        out GetCDRsResponse  GetCDRsResponse,

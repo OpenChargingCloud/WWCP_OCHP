@@ -133,7 +133,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP token identification.
         /// </summary>
         /// <param name="EMTIdXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EMT_Id Parse(XElement             EMTIdXML,
                                    OnExceptionDelegate  OnException = null)
 
@@ -149,7 +149,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP token identification.
         /// </summary>
         /// <param name="EMTIdText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EMT_Id Parse(String               EMTIdText,
                                    OnExceptionDelegate  OnException = null)
 
@@ -165,7 +165,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Try to parse the given XML representation of an OCHP token identification.
         /// </summary>
         /// <param name="EMTIdXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EMT_Id? TryParse(XElement             EMTIdXML,
                                        OnExceptionDelegate  OnException  = null)
         {
@@ -206,7 +206,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EMTIdXML">The XML to parse.</param>
         /// <param name="EMTId">The parsed token identification.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             EMTIdXML,
                                        out EMT_Id           EMTId,
                                        OnExceptionDelegate  OnException  = null)
@@ -253,7 +253,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Try to parse the given text representation of an OCHP token identification.
         /// </summary>
         /// <param name="EMTIdText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EMT_Id? TryParse(String               EMTIdText,
                                        OnExceptionDelegate  OnException  = null)
         {
@@ -287,7 +287,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EMTIdText">The text to parse.</param>
         /// <param name="EMTId">The parsed token identification.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               EMTIdText,
                                        out EMT_Id           EMTId,
                                        OnExceptionDelegate  OnException  = null)

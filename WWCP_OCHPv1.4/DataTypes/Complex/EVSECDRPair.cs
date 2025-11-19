@@ -87,7 +87,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of a pair of an EVSE and a charge detail record identification.
         /// </summary>
         /// <param name="EVSECDRPairXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EVSECDRPair Parse(XElement             EVSECDRPairXML,
                                         OnExceptionDelegate  OnException = null)
         {
@@ -109,7 +109,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of a pair of an EVSE and a charge detail record identification.
         /// </summary>
         /// <param name="EVSECDRPairText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EVSECDRPair Parse(String               EVSECDRPairText,
                                         OnExceptionDelegate  OnException = null)
         {
@@ -132,7 +132,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EVSECDRPairXML">The XML to parse.</param>
         /// <param name="EVSECDRPair">The parsed EVSE and a charge detail record identification.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             EVSECDRPairXML,
                                        out EVSECDRPair      EVSECDRPair,
                                        OnExceptionDelegate  OnException  = null)
@@ -176,7 +176,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EVSECDRPairText">The text to parse.</param>
         /// <param name="EVSECDRPair">The parsed EVSE and a charge detail record identification.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               EVSECDRPairText,
                                        out EVSECDRPair      EVSECDRPair,
                                        OnExceptionDelegate  OnException  = null)

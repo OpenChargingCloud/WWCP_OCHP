@@ -177,7 +177,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="UpdateTariffsResponseXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static UpdateTariffsResponse Parse(UpdateTariffsRequest  Request,
                                                   XElement              UpdateTariffsResponseXML,
                                                   OnExceptionDelegate   OnException = null)
@@ -201,7 +201,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="UpdateTariffsResponseText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static UpdateTariffsResponse Parse(UpdateTariffsRequest  Request,
                                                   String                UpdateTariffsResponseText,
                                                   OnExceptionDelegate   OnException = null)
@@ -226,7 +226,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="UpdateTariffsResponseXML">The XML to parse.</param>
         /// <param name="UpdateTariffsResponse">The parsed update tariffs response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(UpdateTariffsRequest       Request,
                                        XElement                   UpdateTariffsResponseXML,
                                        out UpdateTariffsResponse  UpdateTariffsResponse,
@@ -275,7 +275,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Request">The update tariffs request leading to this response.</param>
         /// <param name="UpdateTariffsResponseText">The text to parse.</param>
         /// <param name="UpdateTariffsResponse">The parsed update tariffs response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(UpdateTariffsRequest       Request,
                                        String                     UpdateTariffsResponseText,
                                        out UpdateTariffsResponse  UpdateTariffsResponse,

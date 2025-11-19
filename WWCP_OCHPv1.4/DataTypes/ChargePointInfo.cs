@@ -567,7 +567,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of static OCHP charge point data.
         /// </summary>
         /// <param name="ChargePointInfoXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ChargePointInfo Parse(XElement             ChargePointInfoXML,
                                             OnExceptionDelegate  OnException  = null)
         {
@@ -589,7 +589,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of static OCHP charge point data.
         /// </summary>
         /// <param name="ChargePointInfoText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ChargePointInfo Parse(String               ChargePointInfoText,
                                             OnExceptionDelegate  OnException  = null)
         {
@@ -612,7 +612,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ChargePointInfoXML">The XML to parse.</param>
         /// <param name="ChargePointInfo">The parsed static charge point data.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             ChargePointInfoXML,
                                        out ChargePointInfo  ChargePointInfo,
                                        OnExceptionDelegate  OnException  = null)
@@ -730,7 +730,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ChargePointInfoText">The text to parse.</param>
         /// <param name="ChargePointInfo">The parsed static charge point data.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               ChargePointInfoText,
                                        out ChargePointInfo  ChargePointInfo,
                                        OnExceptionDelegate  OnException  = null)

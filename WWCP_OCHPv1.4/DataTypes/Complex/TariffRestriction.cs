@@ -158,7 +158,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of OCHP tariff restriction.
         /// </summary>
         /// <param name="TariffRestrictionXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static TariffRestriction Parse(XElement             TariffRestrictionXML,
                                               OnExceptionDelegate  OnException = null)
         {
@@ -180,7 +180,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of OCHP tariff restriction.
         /// </summary>
         /// <param name="TariffRestrictionText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static TariffRestriction Parse(String               TariffRestrictionText,
                                               OnExceptionDelegate  OnException = null)
         {
@@ -203,7 +203,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="TariffRestrictionXML">The XML to parse.</param>
         /// <param name="TariffRestriction">The parsed tariff restriction.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement               TariffRestrictionXML,
                                        out TariffRestriction  TariffRestriction,
                                        OnExceptionDelegate    OnException  = null)
@@ -270,7 +270,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="TariffRestrictionText">The text to parse.</param>
         /// <param name="TariffRestriction">The parsed tariff restriction.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                 TariffRestrictionText,
                                        out TariffRestriction  TariffRestriction,
                                        OnExceptionDelegate    OnException  = null)

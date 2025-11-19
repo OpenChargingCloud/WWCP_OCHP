@@ -169,7 +169,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given XML representation of an OCHPdirect control EVSE request.
         /// </summary>
         /// <param name="ControlEVSERequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ControlEVSERequest Parse(XElement             ControlEVSERequestXML,
                                                OnExceptionDelegate  OnException = null)
         {
@@ -191,7 +191,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given text representation of an OCHPdirect control EVSE request.
         /// </summary>
         /// <param name="ControlEVSERequestText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ControlEVSERequest Parse(String               ControlEVSERequestText,
                                                OnExceptionDelegate  OnException = null)
         {
@@ -214,7 +214,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ControlEVSERequestXML">The XML to parse.</param>
         /// <param name="ControlEVSERequest">The parsed control EVSE request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                ControlEVSERequestXML,
                                        out ControlEVSERequest  ControlEVSERequest,
                                        OnExceptionDelegate     OnException  = null)
@@ -277,7 +277,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ControlEVSERequestText">The text to parse.</param>
         /// <param name="ControlEVSERequest">The parsed control EVSE request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                  ControlEVSERequestText,
                                        out ControlEVSERequest  ControlEVSERequest,
                                        OnExceptionDelegate     OnException  = null)

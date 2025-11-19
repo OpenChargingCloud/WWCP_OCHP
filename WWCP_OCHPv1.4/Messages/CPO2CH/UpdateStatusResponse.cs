@@ -155,7 +155,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="UpdateStatusResponseXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static UpdateStatusResponse Parse(UpdateStatusRequest  Request,
                                                  XElement             UpdateStatusResponseXML,
                                                  OnExceptionDelegate  OnException = null)
@@ -179,7 +179,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="UpdateStatusResponseText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static UpdateStatusResponse Parse(UpdateStatusRequest  Request,
                                                  String               UpdateStatusResponseText,
                                                  OnExceptionDelegate  OnException = null)
@@ -204,7 +204,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="UpdateStatusResponseXML">The XML to parse.</param>
         /// <param name="UpdateStatusResponse">The parsed update status response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(UpdateStatusRequest       Request,
                                        XElement                  UpdateStatusResponseXML,
                                        out UpdateStatusResponse  UpdateStatusResponse,
@@ -249,7 +249,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Request">The update status request leading to this response.</param>
         /// <param name="UpdateStatusResponseText">The text to parse.</param>
         /// <param name="UpdateStatusResponse">The parsed update status response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(UpdateStatusRequest       Request,
                                        String                    UpdateStatusResponseText,
                                        out UpdateStatusResponse  UpdateStatusResponse,

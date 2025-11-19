@@ -180,7 +180,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="UpdateChargePointListResponseXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static UpdateChargePointListResponse Parse(UpdateChargePointListRequest  Request,
                                                           XElement                      UpdateChargePointListResponseXML,
                                                           OnExceptionDelegate           OnException = null)
@@ -204,7 +204,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="UpdateChargePointListResponseText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static UpdateChargePointListResponse Parse(UpdateChargePointListRequest  Request,
                                                           String                        UpdateChargePointListResponseText,
                                                           OnExceptionDelegate           OnException = null)
@@ -229,7 +229,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="UpdateChargePointListResponseXML">The XML to parse.</param>
         /// <param name="UpdateChargePointListResponse">The parsed update charge point list response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(UpdateChargePointListRequest       Request,
                                        XElement                           UpdateChargePointListResponseXML,
                                        out UpdateChargePointListResponse  UpdateChargePointListResponse,
@@ -278,7 +278,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Request">The update charge point list request leading to this response.</param>
         /// <param name="UpdateChargePointListResponseText">The text to parse.</param>
         /// <param name="UpdateChargePointListResponse">The parsed update charge point list response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(UpdateChargePointListRequest       Request,
                                        String                             UpdateChargePointListResponseText,
                                        out UpdateChargePointListResponse  UpdateChargePointListResponse,

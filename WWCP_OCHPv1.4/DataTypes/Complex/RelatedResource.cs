@@ -103,7 +103,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP resource related to a charge point or charging station.
         /// </summary>
         /// <param name="RelatedResourceXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static RelatedResource Parse(XElement             RelatedResourceXML,
                                             OnExceptionDelegate  OnException = null)
         {
@@ -125,7 +125,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP resource related to a charge point or charging station.
         /// </summary>s
         /// <param name="RelatedResourceText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static RelatedResource Parse(String               RelatedResourceText,
                                             OnExceptionDelegate  OnException = null)
         {
@@ -148,7 +148,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="RelatedResourceXML">The XML to parse.</param>
         /// <param name="RelatedResource">The parsed resource.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             RelatedResourceXML,
                                        out RelatedResource  RelatedResource,
                                        OnExceptionDelegate  OnException  = null)
@@ -193,7 +193,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="RelatedResourceText">The text to parse.</param>
         /// <param name="RelatedResource">The parsed resource.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               RelatedResourceText,
                                        out RelatedResource  RelatedResource,
                                        OnExceptionDelegate  OnException  = null)

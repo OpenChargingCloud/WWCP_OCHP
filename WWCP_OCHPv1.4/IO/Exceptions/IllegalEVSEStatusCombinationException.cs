@@ -19,7 +19,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
 {
 
     /// <summary>
-    /// An exception thrown whenever an illegal combination of EVSE major and minor status occured.
+    /// An exception thrown whenever an illegal combination of EVSE major and minor status occurred.
     /// </summary>
     public class IllegalEVSEStatusCombinationException : OCHPException
     {

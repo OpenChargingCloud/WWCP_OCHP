@@ -175,7 +175,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The check charge details record request leading to this response.</param>
         /// <param name="CheckCDRsResponseXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static CheckCDRsResponse Parse(CheckCDRsRequest     Request,
                                               XElement             CheckCDRsResponseXML,
                                               OnExceptionDelegate  OnException = null)
@@ -199,7 +199,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="Request">The check charge details record request leading to this response.</param>
         /// <param name="CheckCDRsResponseText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static CheckCDRsResponse Parse(CheckCDRsRequest     Request,
                                               String               CheckCDRsResponseText,
                                               OnExceptionDelegate  OnException = null)
@@ -224,7 +224,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Request">The check charge details record request leading to this response.</param>
         /// <param name="CheckCDRsResponseXML">The XML to parse.</param>
         /// <param name="CheckCDRsResponse">The parsed check charge details record response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(CheckCDRsRequest       Request,
                                        XElement               CheckCDRsResponseXML,
                                        out CheckCDRsResponse  CheckCDRsResponse,
@@ -273,7 +273,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Request">The check charge details record request leading to this response.</param>
         /// <param name="CheckCDRsResponseText">The text to parse.</param>
         /// <param name="CheckCDRsResponse">The parsed check charge details record response.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(CheckCDRsRequest       Request,
                                        String                 CheckCDRsResponseText,
                                        out CheckCDRsResponse  CheckCDRsResponse,

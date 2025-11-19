@@ -95,7 +95,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP geo coordinate with additional information.
         /// </summary>
         /// <param name="ExtendedGeoCoordinateXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ExtendedGeoCoordinate Parse(XElement             ExtendedGeoCoordinateXML,
                                                   OnExceptionDelegate  OnException = null)
         {
@@ -117,7 +117,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP geo coordinate with additional information.
         /// </summary>s
         /// <param name="ExtendedGeoCoordinateText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ExtendedGeoCoordinate Parse(String               ExtendedGeoCoordinateText,
                                                   OnExceptionDelegate  OnException = null)
         {
@@ -140,7 +140,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ExtendedGeoCoordinateXML">The XML to parse.</param>
         /// <param name="ExtendedGeoCoordinate">The parsed geo coordinate with additional information.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                   ExtendedGeoCoordinateXML,
                                        out ExtendedGeoCoordinate  ExtendedGeoCoordinate,
                                        OnExceptionDelegate        OnException  = null)
@@ -195,7 +195,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ExtendedGeoCoordinateText">The text to parse.</param>
         /// <param name="ExtendedGeoCoordinate">The parsed geo coordinate with additional information.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                     ExtendedGeoCoordinateText,
                                        out ExtendedGeoCoordinate  ExtendedGeoCoordinate,
                                        OnExceptionDelegate        OnException  = null)

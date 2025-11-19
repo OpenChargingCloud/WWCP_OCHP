@@ -155,7 +155,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP address.
         /// </summary>
         /// <param name="AddressXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Address Parse(XElement             AddressXML,
                                     OnExceptionDelegate  OnException = null)
         {
@@ -177,7 +177,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP address.
         /// </summary>
         /// <param name="AddressText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Address Parse(String               AddressText,
                                     OnExceptionDelegate  OnException = null)
         {
@@ -200,7 +200,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="AddressXML">The XML to parse.</param>
         /// <param name="Address">The parsed address.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             AddressXML,
                                        out Address          Address,
                                        OnExceptionDelegate  OnException  = null)
@@ -246,7 +246,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="AddressText">The text to parse.</param>
         /// <param name="Address">The parsed address.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               AddressText,
                                        out Address          Address,
                                        OnExceptionDelegate  OnException  = null)

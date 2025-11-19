@@ -96,7 +96,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of OCHP tariff info.
         /// </summary>
         /// <param name="TariffInfoXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static TariffInfo Parse(XElement             TariffInfoXML,
                                        OnExceptionDelegate  OnException = null)
         {
@@ -118,7 +118,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of OCHP tariff info.
         /// </summary>
         /// <param name="TariffInfoText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static TariffInfo Parse(String               TariffInfoText,
                                        OnExceptionDelegate  OnException = null)
         {
@@ -141,7 +141,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="TariffInfoXML">The XML to parse.</param>
         /// <param name="TariffInfo">The parsed tariff info.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             TariffInfoXML,
                                        out TariffInfo       TariffInfo,
                                        OnExceptionDelegate  OnException  = null)
@@ -185,7 +185,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="TariffInfoText">The text to parse.</param>
         /// <param name="TariffInfo">The parsed tariff info.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               TariffInfoText,
                                        out TariffInfo       TariffInfo,
                                        OnExceptionDelegate  OnException  = null)

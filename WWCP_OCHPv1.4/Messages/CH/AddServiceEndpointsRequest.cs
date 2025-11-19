@@ -123,7 +123,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// Parse the given XML representation of an OCHP add service endpoints request.
         /// </summary>
         /// <param name="AddServiceEndpointsRequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static AddServiceEndpointsRequest Parse(XElement             AddServiceEndpointsRequestXML,
                                                        OnExceptionDelegate  OnException = null)
         {
@@ -145,7 +145,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// Parse the given text representation of an OCHP add service endpoints request.
         /// </summary>
         /// <param name="AddServiceEndpointsRequestText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static AddServiceEndpointsRequest Parse(String               AddServiceEndpointsRequestText,
                                                        OnExceptionDelegate  OnException = null)
         {
@@ -168,7 +168,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// </summary>
         /// <param name="AddServiceEndpointsRequestXML">The XML to parse.</param>
         /// <param name="AddServiceEndpointsRequest">The parsed add service endpoints request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                        AddServiceEndpointsRequestXML,
                                        out AddServiceEndpointsRequest  AddServiceEndpointsRequest,
                                        OnExceptionDelegate             OnException  = null)
@@ -213,7 +213,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
         /// </summary>
         /// <param name="AddServiceEndpointsRequestText">The text to parse.</param>
         /// <param name="AddServiceEndpointsRequest">The parsed add service endpoints request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                          AddServiceEndpointsRequestText,
                                        out AddServiceEndpointsRequest  AddServiceEndpointsRequest,
                                        OnExceptionDelegate             OnException  = null)

@@ -97,7 +97,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of OCHP ratings of a charge point.
         /// </summary>
         /// <param name="RatingsXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Ratings Parse(XElement             RatingsXML,
                                     OnExceptionDelegate  OnException = null)
         {
@@ -119,7 +119,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of OCHP ratings of a charge point.
         /// </summary>
         /// <param name="RatingsText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Ratings Parse(String               RatingsText,
                                     OnExceptionDelegate  OnException = null)
         {
@@ -142,7 +142,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="RatingsXML">The XML to parse.</param>
         /// <param name="Ratings">The parsed OCHP ratings of a charge point.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             RatingsXML,
                                        out Ratings          Ratings,
                                        OnExceptionDelegate  OnException  = null)
@@ -188,7 +188,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="RatingsText">The text to parse.</param>
         /// <param name="Ratings">The parsed OCHP ratings of a charge point.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               RatingsText,
                                        out Ratings          Ratings,
                                        OnExceptionDelegate  OnException  = null)

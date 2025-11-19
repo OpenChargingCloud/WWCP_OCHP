@@ -104,7 +104,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP status schedule.
         /// </summary>
         /// <param name="ChargePointScheduleXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ChargePointSchedule Parse(XElement             ChargePointScheduleXML,
                                                 OnExceptionDelegate  OnException = null)
         {
@@ -126,7 +126,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP status schedule.
         /// </summary>
         /// <param name="ChargePointScheduleText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ChargePointSchedule Parse(String               ChargePointScheduleText,
                                                 OnExceptionDelegate  OnException = null)
         {
@@ -149,7 +149,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ChargePointScheduleXML">The XML to parse.</param>
         /// <param name="ChargePointSchedule">The parsed status schedule.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                 ChargePointScheduleXML,
                                        out ChargePointSchedule  ChargePointSchedule,
                                        OnExceptionDelegate      OnException  = null)
@@ -198,7 +198,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ChargePointScheduleText">The text to parse.</param>
         /// <param name="ChargePointSchedule">The parsed status schedule.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                   ChargePointScheduleText,
                                        out ChargePointSchedule  ChargePointSchedule,
                                        OnExceptionDelegate      OnException  = null)

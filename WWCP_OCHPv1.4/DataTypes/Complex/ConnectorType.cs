@@ -99,7 +99,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP connector type.
         /// </summary>
         /// <param name="ConnectorTypeXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ConnectorType Parse(XElement             ConnectorTypeXML,
                                           OnExceptionDelegate  OnException = null)
         {
@@ -121,7 +121,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP connector type.
         /// </summary>
         /// <param name="ConnectorTypeText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ConnectorType Parse(String               ConnectorTypeText,
                                           OnExceptionDelegate  OnException = null)
         {
@@ -144,7 +144,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ConnectorTypeXML">The XML to parse.</param>
         /// <param name="ConnectorType">The parsed connector type.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             ConnectorTypeXML,
                                        out ConnectorType    ConnectorType,
                                        OnExceptionDelegate  OnException  = null)
@@ -192,7 +192,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="ConnectorTypeText">The text to parse.</param>
         /// <param name="ConnectorType">The parsed connector type.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               ConnectorTypeText,
                                        out ConnectorType    ConnectorType,
                                        OnExceptionDelegate  OnException  = null)

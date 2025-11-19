@@ -162,7 +162,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHPdirect result.
         /// </summary>
         /// <param name="DirectResultXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static DirectResult Parse(XElement             DirectResultXML,
                                          OnExceptionDelegate  OnException = null)
         {
@@ -184,7 +184,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHPdirect result.
         /// </summary>
         /// <param name="DirectResultText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static DirectResult Parse(String               DirectResultText,
                                          OnExceptionDelegate  OnException = null)
         {
@@ -207,7 +207,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="DirectResultXML">The XML to parse.</param>
         /// <param name="DirectResult">The parsed OCHPdirect result.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             DirectResultXML,
                                        out DirectResult     DirectResult,
                                        OnExceptionDelegate  OnException  = null)
@@ -250,7 +250,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="DirectResultText">The text to parse.</param>
         /// <param name="DirectResult">The parsed OCHPdirect result.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               DirectResultText,
                                        out DirectResult     DirectResult,
                                        OnExceptionDelegate  OnException  = null)

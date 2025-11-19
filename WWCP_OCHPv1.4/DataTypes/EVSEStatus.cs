@@ -157,7 +157,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP EVSE status.
         /// </summary>
         /// <param name="EVSEStatusXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EVSEStatus Parse(XElement             EVSEStatusXML,
                                        OnExceptionDelegate  OnException = null)
         {
@@ -179,7 +179,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP EVSE status.
         /// </summary>
         /// <param name="EVSEStatusText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EVSEStatus Parse(String               EVSEStatusText,
                                        OnExceptionDelegate  OnException = null)
         {
@@ -202,7 +202,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EVSEStatusXML">The XML to parse.</param>
         /// <param name="EVSEStatus">The parsed EVSE status.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             EVSEStatusXML,
                                        out EVSEStatus       EVSEStatus,
                                        OnExceptionDelegate  OnException  = null)
@@ -251,7 +251,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EVSEStatusText">The text to parse.</param>
         /// <param name="EVSEStatus">The parsed EVSE status.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               EVSEStatusText,
                                        out EVSEStatus       EVSEStatus,
                                        OnExceptionDelegate  OnException  = null)

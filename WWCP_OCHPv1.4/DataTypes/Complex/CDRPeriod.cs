@@ -141,7 +141,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP time and billing period.
         /// </summary>
         /// <param name="CDRPeriodXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static CDRPeriod Parse(XElement             CDRPeriodXML,
                                       OnExceptionDelegate  OnException  = null)
         {
@@ -163,7 +163,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP time and billing period
         /// </summary>
         /// <param name="CDRPeriodText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static CDRPeriod Parse(String               CDRPeriodText,
                                       OnExceptionDelegate  OnException  = null)
         {
@@ -186,7 +186,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="CDRPeriodXML">The XML to parse.</param>
         /// <param name="CDRPeriod">The parsed time and billing period.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             CDRPeriodXML,
                                        out CDRPeriod        CDRPeriod,
                                        OnExceptionDelegate  OnException  = null)
@@ -247,7 +247,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="CDRPeriodText">The text to parse.</param>
         /// <param name="CDRPeriod">The parsed time and billing period.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               CDRPeriodText,
                                        out CDRPeriod        CDRPeriod,
                                        OnExceptionDelegate  OnException  = null)

@@ -79,7 +79,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// Parse the given XML representation of an OCHP get service endpoints request.
         /// </summary>
         /// <param name="GetServiceEndpointsRequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetServiceEndpointsRequest Parse(XElement             GetServiceEndpointsRequestXML,
                                                        OnExceptionDelegate  OnException = null)
         {
@@ -101,7 +101,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// Parse the given text representation of an OCHP get service endpoints request.
         /// </summary>
         /// <param name="GetServiceEndpointsRequestText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetServiceEndpointsRequest Parse(String               GetServiceEndpointsRequestText,
                                                        OnExceptionDelegate  OnException = null)
         {
@@ -124,7 +124,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetServiceEndpointsRequestXML">The XML to parse.</param>
         /// <param name="GetServiceEndpointsRequest">The parsed get service endpoints request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                        GetServiceEndpointsRequestXML,
                                        out GetServiceEndpointsRequest  GetServiceEndpointsRequest,
                                        OnExceptionDelegate             OnException  = null)
@@ -162,7 +162,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetServiceEndpointsRequestText">The text to parse.</param>
         /// <param name="GetServiceEndpointsRequest">The parsed get service endpoints request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                          GetServiceEndpointsRequestText,
                                        out GetServiceEndpointsRequest  GetServiceEndpointsRequest,
                                        OnExceptionDelegate             OnException  = null)

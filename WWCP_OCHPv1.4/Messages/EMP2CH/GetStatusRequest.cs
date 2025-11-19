@@ -112,7 +112,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given XML representation of an OCHP get status request.
         /// </summary>
         /// <param name="GetStatusRequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetStatusRequest Parse(XElement             GetStatusRequestXML,
                                              OnExceptionDelegate  OnException = null)
         {
@@ -134,7 +134,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given text representation of an OCHP get status request.
         /// </summary>
         /// <param name="GetStatusRequestText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetStatusRequest Parse(String               GetStatusRequestText,
                                              OnExceptionDelegate  OnException = null)
         {
@@ -157,7 +157,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetStatusRequestXML">The XML to parse.</param>
         /// <param name="GetStatusRequest">The parsed get status request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement              GetStatusRequestXML,
                                        out GetStatusRequest  GetStatusRequest,
                                        OnExceptionDelegate   OnException  = null)
@@ -201,7 +201,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetStatusRequestText">The text to parse.</param>
         /// <param name="GetStatusRequest">The parsed get status request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                GetStatusRequestText,
                                        out GetStatusRequest  GetStatusRequest,
                                        OnExceptionDelegate   OnException  = null)

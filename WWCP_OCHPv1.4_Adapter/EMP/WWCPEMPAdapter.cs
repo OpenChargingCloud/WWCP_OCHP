@@ -168,7 +168,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public GeoCoordinate?  DefaultSearchCenter    { get; }
         public UInt64?         DefaultDistanceKM      { get; }
 
-        public Func<EVSEStatusReport, ChargingStationStatusTypes>  EVSEStatusAggregationDelegate { get; }
+        public Func<EVSEStatusReport, ChargingStationStatusType>  EVSEStatusAggregationDelegate { get; }
 
         public IEnumerable<ChargingReservation>                    ChargingReservations  => throw new NotImplementedException();
 
@@ -1359,7 +1359,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                     while (e.InnerException is not null)
                         e = e.InnerException;
 
-                    DebugX.Log("A exception occured during PullDataService: " + e.Message + Environment.NewLine + e.StackTrace);
+                    DebugX.Log("A exception occurred during PullDataService: " + e.Message + Environment.NewLine + e.StackTrace);
 
                     OnWWCPEMPAdapterException?.Invoke(DateTime.Now,
                                                       this,

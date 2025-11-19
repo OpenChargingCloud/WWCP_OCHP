@@ -235,7 +235,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of OCHP opening hours of a charge point.
         /// </summary>
         /// <param name="HoursXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Hours Parse(XElement             HoursXML,
                                   OnExceptionDelegate  OnException = null)
         {
@@ -257,7 +257,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of OCHP opening hours of a charge point.
         /// </summary>
         /// <param name="HoursText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Hours Parse(String               HoursText,
                                   OnExceptionDelegate  OnException = null)
         {
@@ -280,7 +280,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="HoursXML">The XML to parse.</param>
         /// <param name="Hours">The parsed opening hours.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             HoursXML,
                                        out Hours            Hours,
                                        OnExceptionDelegate  OnException  = null)
@@ -357,7 +357,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="HoursText">The text to parse.</param>
         /// <param name="Hours">The parsed opening hours.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               HoursText,
                                        out Hours            Hours,
                                        OnExceptionDelegate  OnException  = null)

@@ -136,7 +136,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of an OCHP EVSE reference image.
         /// </summary>
         /// <param name="EVSEImageURLXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EVSEImageURL Parse(XElement             EVSEImageURLXML,
                                          OnExceptionDelegate  OnException = null)
         {
@@ -158,7 +158,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of an OCHP EVSE reference image.
         /// </summary>s
         /// <param name="EVSEImageURLText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static EVSEImageURL Parse(String               EVSEImageURLText,
                                          OnExceptionDelegate  OnException = null)
         {
@@ -181,7 +181,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EVSEImageURLXML">The XML to parse.</param>
         /// <param name="EVSEImageURL">The parsed EVSE reference image.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             EVSEImageURLXML,
                                        out EVSEImageURL     EVSEImageURL,
                                        OnExceptionDelegate  OnException  = null)
@@ -234,7 +234,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="EVSEImageURLText">The text to parse.</param>
         /// <param name="EVSEImageURL">The parsed EVSE reference image.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               EVSEImageURLText,
                                        out EVSEImageURL     EVSEImageURL,
                                        OnExceptionDelegate  OnException  = null)

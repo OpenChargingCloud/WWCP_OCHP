@@ -99,7 +99,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given XML representation of an OCHPdirect report discrepancy request.
         /// </summary>
         /// <param name="ReportDiscrepancyRequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ReportDiscrepancyRequest Parse(XElement             ReportDiscrepancyRequestXML,
                                                      OnExceptionDelegate  OnException = null)
         {
@@ -121,7 +121,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given text representation of an OCHPdirect report discrepancy request.
         /// </summary>
         /// <param name="ReportDiscrepancyRequestText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static ReportDiscrepancyRequest Parse(String               ReportDiscrepancyRequestText,
                                                      OnExceptionDelegate  OnException = null)
         {
@@ -144,7 +144,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ReportDiscrepancyRequestXML">The XML to parse.</param>
         /// <param name="ReportDiscrepancyRequest">The parsed report discrepancy request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                      ReportDiscrepancyRequestXML,
                                        out ReportDiscrepancyRequest  ReportDiscrepancyRequest,
                                        OnExceptionDelegate           OnException  = null)
@@ -186,7 +186,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="ReportDiscrepancyRequestText">The text to parse.</param>
         /// <param name="ReportDiscrepancyRequest">The parsed report discrepancy request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                        ReportDiscrepancyRequestText,
                                        out ReportDiscrepancyRequest  ReportDiscrepancyRequest,
                                        OnExceptionDelegate           OnException  = null)

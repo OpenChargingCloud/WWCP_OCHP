@@ -100,7 +100,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// Parse the given XML representation of an OCHP get roaming authorisation list updates request.
         /// </summary>
         /// <param name="GetRoamingAuthorisationListUpdatesRequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetRoamingAuthorisationListUpdatesRequest Parse(XElement             GetRoamingAuthorisationListUpdatesRequestXML,
                                                                       OnExceptionDelegate  OnException = null)
         {
@@ -122,7 +122,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// Parse the given text representation of an OCHP get roaming authorisation list updates request.
         /// </summary>
         /// <param name="GetRoamingAuthorisationListUpdatesRequestText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetRoamingAuthorisationListUpdatesRequest Parse(String               GetRoamingAuthorisationListUpdatesRequestText,
                                                                       OnExceptionDelegate  OnException = null)
         {
@@ -145,7 +145,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetRoamingAuthorisationListUpdatesRequestXML">The XML to parse.</param>
         /// <param name="GetRoamingAuthorisationListUpdatesRequest">The parsed get roaming authorisation list updates request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                                       GetRoamingAuthorisationListUpdatesRequestXML,
                                        out GetRoamingAuthorisationListUpdatesRequest  GetRoamingAuthorisationListUpdatesRequest,
                                        OnExceptionDelegate                            OnException  = null)
@@ -186,7 +186,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         /// <param name="GetRoamingAuthorisationListUpdatesRequestText">The text to parse.</param>
         /// <param name="GetRoamingAuthorisationListUpdatesRequest">The parsed get roaming authorisation list updates request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                                         GetRoamingAuthorisationListUpdatesRequestText,
                                        out GetRoamingAuthorisationListUpdatesRequest  GetRoamingAuthorisationListUpdatesRequest,
                                        OnExceptionDelegate                            OnException  = null)

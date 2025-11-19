@@ -79,7 +79,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given XML representation of an OCHP get charge point list request.
         /// </summary>
         /// <param name="GetChargePointListRequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetChargePointListRequest Parse(XElement             GetChargePointListRequestXML,
                                                       OnExceptionDelegate  OnException = null)
         {
@@ -101,7 +101,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given text representation of an OCHP get charge point list request.
         /// </summary>
         /// <param name="GetChargePointListRequestText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetChargePointListRequest Parse(String               GetChargePointListRequestText,
                                                       OnExceptionDelegate  OnException = null)
         {
@@ -124,7 +124,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetChargePointListRequestXML">The XML to parse.</param>
         /// <param name="GetChargePointListRequest">The parsed get charge point list request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                       GetChargePointListRequestXML,
                                        out GetChargePointListRequest  GetChargePointListRequest,
                                        OnExceptionDelegate            OnException  = null)
@@ -162,7 +162,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetChargePointListRequestText">The text to parse.</param>
         /// <param name="GetChargePointListRequest">The parsed get charge point list request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                         GetChargePointListRequestText,
                                        out GetChargePointListRequest  GetChargePointListRequest,
                                        OnExceptionDelegate            OnException  = null)

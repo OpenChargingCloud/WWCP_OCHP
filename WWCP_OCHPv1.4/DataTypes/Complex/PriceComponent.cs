@@ -96,7 +96,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of OCHP price component.
         /// </summary>
         /// <param name="PriceComponentXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static PriceComponent Parse(XElement             PriceComponentXML,
                                            OnExceptionDelegate  OnException = null)
         {
@@ -118,7 +118,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of OCHP price component.
         /// </summary>
         /// <param name="PriceComponentText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static PriceComponent Parse(String               PriceComponentText,
                                            OnExceptionDelegate  OnException = null)
         {
@@ -141,7 +141,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="PriceComponentXML">The XML to parse.</param>
         /// <param name="PriceComponent">The parsed price component.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement             PriceComponentXML,
                                        out PriceComponent   PriceComponent,
                                        OnExceptionDelegate  OnException  = null)
@@ -188,7 +188,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="PriceComponentText">The text to parse.</param>
         /// <param name="PriceComponent">The parsed price component.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String               PriceComponentText,
                                        out PriceComponent   PriceComponent,
                                        OnExceptionDelegate  OnException  = null)

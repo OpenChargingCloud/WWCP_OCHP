@@ -88,7 +88,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given XML representation of an OCHPdirect get inform provider request.
         /// </summary>
         /// <param name="GetInformProviderRequestXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetInformProviderRequest Parse(XElement             GetInformProviderRequestXML,
                                                      OnExceptionDelegate  OnException = null)
         {
@@ -110,7 +110,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// Parse the given text representation of an OCHPdirect get inform provider request.
         /// </summary>
         /// <param name="GetInformProviderRequestText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static GetInformProviderRequest Parse(String               GetInformProviderRequestText,
                                                      OnExceptionDelegate  OnException = null)
         {
@@ -133,7 +133,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetInformProviderRequestXML">The XML to parse.</param>
         /// <param name="GetInformProviderRequest">The parsed get inform provider request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement                      GetInformProviderRequestXML,
                                        out GetInformProviderRequest  GetInformProviderRequest,
                                        OnExceptionDelegate           OnException  = null)
@@ -173,7 +173,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// </summary>
         /// <param name="GetInformProviderRequestText">The text to parse.</param>
         /// <param name="GetInformProviderRequest">The parsed get inform provider request.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                        GetInformProviderRequestText,
                                        out GetInformProviderRequest  GetInformProviderRequest,
                                        OnExceptionDelegate           OnException  = null)

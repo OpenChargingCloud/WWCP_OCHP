@@ -127,7 +127,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given XML representation of OCHP operator endpoint.
         /// </summary>
         /// <param name="OperatorEndpointXML">The XML to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static OperatorEndpoint Parse(XElement             OperatorEndpointXML,
                                              OnExceptionDelegate  OnException = null)
         {
@@ -149,7 +149,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// Parse the given text representation of OCHP operator endpoint.
         /// </summary>
         /// <param name="OperatorEndpointText">The text to parse.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static OperatorEndpoint Parse(String               OperatorEndpointText,
                                              OnExceptionDelegate  OnException = null)
         {
@@ -172,7 +172,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="OperatorEndpointXML">The XML to parse.</param>
         /// <param name="OperatorEndpoint">The parsed operator endpoint.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(XElement              OperatorEndpointXML,
                                        out OperatorEndpoint  OperatorEndpoint,
                                        OnExceptionDelegate   OnException  = null)
@@ -220,7 +220,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         /// </summary>
         /// <param name="OperatorEndpointText">The text to parse.</param>
         /// <param name="OperatorEndpoint">The parsed operator endpoint.</param>
-        /// <param name="OnException">An optional delegate called whenever an exception occured.</param>
+        /// <param name="OnException">An optional delegate called whenever an exception occurred.</param>
         public static Boolean TryParse(String                OperatorEndpointText,
                                        out OperatorEndpoint  OperatorEndpoint,
                                        OnExceptionDelegate   OnException  = null)
