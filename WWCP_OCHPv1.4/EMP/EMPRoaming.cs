@@ -17,6 +17,7 @@
 
 #region Usings
 
+using System.Net.Security;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 
@@ -83,10 +84,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             => EMPClient.RemoteCertificateValidator;
 
         /// <summary>
-        /// The TLS client certificate to use of HTTP authentication.
+        /// Multiple optional TLS client certificates to use for HTTP authentication (not a chain of certificates!).
         /// </summary>
-        X509Certificate2?                    IHTTPClient.ClientCertificate
-            => EMPClient.ClientCertificate;
+        IEnumerable<X509Certificate2>                               IHTTPClient.ClientCertificates
+            => EMPClient.ClientCertificates;
+
+        /// <summary>
+        /// The optionalTLS client certificate context to use for HTTP authentication.
+        /// </summary>
+        SslStreamCertificateContext?                                IHTTPClient.ClientCertificateContext
+            => EMPClient.ClientCertificateContext;
+
+        /// <summary>
+        /// The optional TLS client certificate chain to use for HTTP authentication.
+        /// </summary>
+        IEnumerable<X509Certificate2>                               IHTTPClient.ClientCertificateChain
+            => EMPClient.ClientCertificateChain;
 
                 /// <summary>
         /// The TLS protocol to use.
@@ -1539,7 +1552,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                           Boolean?                                                   PreferIPv4                      = null,
                           RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionHandler?                          ClientCertificateSelector       = null,
-                          X509Certificate2?                                          ClientCert                      = null,
+                          IEnumerable<X509Certificate2>?                             ClientCertificates              = null,
+                          SslStreamCertificateContext?                               ClientCertificateContext        = null,
+                          IEnumerable<X509Certificate2>?                             ClientCertificateChain          = null,
                           SslProtocols?                                              TLSProtocol                     = null,
                           AcceptTypes?                                               Accept                          = null,
                           IHTTPAuthentication?                                       HTTPAuthentication              = null,
@@ -1577,7 +1592,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                        PreferIPv4,
                        RemoteCertificateValidator,
                        ClientCertificateSelector,
-                       ClientCert,
+                       ClientCertificates,
+                       ClientCertificateContext,
+                       ClientCertificateChain,
                        TLSProtocol,
                        Accept,
                        HTTPAuthentication,
