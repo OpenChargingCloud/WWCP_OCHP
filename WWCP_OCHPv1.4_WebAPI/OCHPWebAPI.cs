@@ -155,7 +155,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.WebAPI
         #region Data
 
         /// <summary>
-        /// The default HTTP URI prefix.
+        /// The default HTTP URL prefix.
         /// </summary>
         public static readonly HTTPPath                      DefaultURLPathPrefix       = HTTPPath.Parse("/ext/OCHPPlus");
 
