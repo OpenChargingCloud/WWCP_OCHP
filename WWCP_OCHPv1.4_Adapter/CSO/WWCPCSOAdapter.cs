@@ -2264,8 +2264,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                 ChargingProduct,
                                                 SessionId,
                                                 CPOPartnerSessionId,
-                                                new ISendAuthorizeStartStop[0],
-                                                RequestTimeout);
+                                                [],
+                                                RequestTimeout,
+                                                CancellationToken);
 
             }
             catch (Exception e)
@@ -2403,10 +2404,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                  ChargingProduct,
                                                  SessionId,
                                                  CPOPartnerSessionId,
-                                                 new ISendAuthorizeStartStop[0],
+                                                 [],
                                                  RequestTimeout,
                                                  result,
-                                                 Runtime);
+                                                 Runtime,
+                                                 CancellationToken);
 
             }
             catch (Exception e)
