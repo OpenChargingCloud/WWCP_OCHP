@@ -42,7 +42,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<SetChargePointListResponse>>
 
             SetChargePointList(this ICPOClient               ICPOClient,
@@ -79,7 +79,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="IncludeChargePoints">An optional delegate for filtering charge points before pushing them to the server.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public static Task<HTTPResponse<UpdateChargePointListResponse>>
@@ -120,7 +120,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="IncludeEVSEIds">An optional delegate for filtering EVSE status based on their EVSE identification before pushing them to the server.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public static Task<HTTPResponse<UpdateStatusResponse>>
@@ -162,7 +162,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="TariffInfos">An enumeration of tariff infos.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public static Task<HTTPResponse<UpdateTariffsResponse>>
@@ -198,7 +198,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EMTId">An e-mobility token.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public static Task<HTTPResponse<GetSingleRoamingAuthorisationResponse>>
@@ -233,7 +233,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<GetRoamingAuthorisationListResponse>>
 
             GetRoamingAuthorisationList(this ICPOClient     ICPOClient,
@@ -263,7 +263,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="LastUpdate">The timestamp of the last roaming authorisation list update.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public static Task<HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>>
@@ -301,7 +301,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<AddCDRsResponse>>
 
             AddCDR(this ICPOClient     ICPOClient,
@@ -336,7 +336,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<AddCDRsResponse>>
 
             AddCDRs(this ICPOClient       ICPOClient,
@@ -371,7 +371,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<CheckCDRsResponse>>
 
             CheckCDRs(this ICPOClient    ICPOClient,
@@ -407,7 +407,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="OperatorEndpoints">An enumeration of operator service endpoints.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public static Task<HTTPResponse<AddServiceEndpointsResponse>>
@@ -440,7 +440,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// Download OCHPdirect provider endpoints.
         /// </summary>
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public static Task<HTTPResponse<GetServiceEndpointsResponse>>

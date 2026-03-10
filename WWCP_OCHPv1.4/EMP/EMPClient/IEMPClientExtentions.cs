@@ -47,7 +47,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<GetChargePointListResponse>>
 
             GetChargePointList(this IEMPClient     IEMPClient,
@@ -78,7 +78,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<GetChargePointListUpdatesResponse>>
 
             GetChargePointListUpdates(this IEMPClient     IEMPClient,
@@ -114,7 +114,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<GetStatusResponse>>
 
             GetStatus(this IEMPClient     IEMPClient,
@@ -151,7 +151,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<GetTariffUpdatesResponse>>
 
             GetTariffUpdates(this IEMPClient     IEMPClient,
@@ -186,7 +186,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
 
             SetRoamingAuthorisationList(this IEMPClient           IEMPClient,
@@ -221,7 +221,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<SetRoamingAuthorisationListResponse>>
 
             SetRoamingAuthorisationList(this IEMPClient                        IEMPClient,
@@ -256,7 +256,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<UpdateRoamingAuthorisationListResponse>>
 
             UpdateRoamingAuthorisationList(this IEMPClient           IEMPClient,
@@ -291,7 +291,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<UpdateRoamingAuthorisationListResponse>>
 
             UpdateRoamingAuthorisationList(this IEMPClient                        IEMPClient,
@@ -327,7 +327,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<GetCDRsResponse>>
 
             GetCDRs(this IEMPClient     IEMPClient,
@@ -363,7 +363,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<ConfirmCDRsResponse>>
 
             ConfirmCDRs(this IEMPClient            IEMPClient,
@@ -403,7 +403,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<AddServiceEndpointsResponse>>
 
             AddServiceEndpoints(this IEMPClient                IEMPClient,
@@ -436,7 +436,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public static Task<HTTPResponse<GetServiceEndpointsResponse>>
 
             GetServiceEndpoints(this IEMPClient     IEMPClient,

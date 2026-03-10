@@ -343,12 +343,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// An event sent whenever a 'charge detail record' was received.
         /// </summary>
-        public event OnSendCDRsRequestDelegate   OnChargeDetailRecordRequest;
+        public event OnChargeDetailRecordsRequestDelegate   OnChargeDetailRecordRequest;
 
         /// <summary>
         /// An event sent whenever a response to a 'charge detail record' was sent.
         /// </summary>
-        public event OnSendCDRsResponseDelegate  OnChargeDetailRecordResponse;
+        public event OnChargeDetailRecordsResponseDelegate  OnChargeDetailRecordResponse;
         public event WWCP.OnGetCDRsRequestDelegate OnGetChargeDetailRecordsRequest;
         public event WWCP.OnGetCDRsResponseDelegate OnGetChargeDetailRecordsResponse;
         public event OnReserveRequestDelegate OnReserveRequest;
@@ -1124,7 +1124,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public async Task<IEnumerable<WWCP.ChargeDetailRecord>>
 
             GetChargeDetailRecords(DateTimeOffset         From,

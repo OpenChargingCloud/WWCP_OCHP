@@ -1391,7 +1391,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Currency">The displayed and charged currency. Defined in ISO 4217 - Table A.1, alphabetic list.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public Task<HTTPResponse<InformProviderResponse>>

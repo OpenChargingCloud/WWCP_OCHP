@@ -3298,7 +3298,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="ReserveUntil">An optional timestamp till when then given EVSE should be reserved.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<SelectEVSEResponse>>
@@ -3497,7 +3497,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Departure">Scheduled time of departure.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<ControlEVSEResponse>>
@@ -3702,7 +3702,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="DirectId">The session identification of the direct charging process to be released.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<ReleaseEVSEResponse>>
@@ -3882,7 +3882,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="EVSEIds">An enumeration of EVSE identifications.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetEVSEStatusResponse>>
@@ -4064,7 +4064,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="Report">Textual or generated report of the discrepancy.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<ReportDiscrepancyResponse>>
@@ -4250,7 +4250,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <param name="DirectId">The session identification of the direct charging process.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public async Task<HTTPResponse<GetInformProviderResponse>>

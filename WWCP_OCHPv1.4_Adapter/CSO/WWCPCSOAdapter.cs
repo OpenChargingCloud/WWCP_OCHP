@@ -261,17 +261,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// An event fired whenever a charge detail record was enqueued for later sending upstream.
         /// </summary>
-        public event OnSendCDRsRequestDelegate   OnEnqueueSendCDRsRequest;
+        public event OnChargeDetailRecordsRequestDelegate   OnEnqueueSendCDRsRequest;
 
         /// <summary>
         /// An event fired whenever a charge detail record will be send upstream.
         /// </summary>
-        public event OnSendCDRsRequestDelegate   OnSendCDRsRequest;
+        public event OnChargeDetailRecordsRequestDelegate   OnSendCDRsRequest;
 
         /// <summary>
         /// An event fired whenever a charge detail record had been sent upstream.
         /// </summary>
-        public event OnSendCDRsResponseDelegate  OnSendCDRsResponse;
+        public event OnChargeDetailRecordsResponseDelegate  OnChargeDetailRecordsResponse;
 
         #endregion
 
@@ -916,7 +916,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         private async Task<ReplaceEVSEsResult>
 
             SetChargePointInfos(IEnumerable<IEVSE>  EVSEs,
@@ -1145,7 +1145,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         private async Task<UpdateEVSEsResult>
 
             UpdateChargePointInfos(IEnumerable<IEVSE>  EVSEs,
@@ -1364,7 +1364,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public async Task<PushEVSEStatusResult>
 
             UpdateEVSEStatus(IEnumerable<EVSEStatusUpdate>  EVSEStatusUpdates,
@@ -1558,7 +1558,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public override async Task<AddEVSEResult>
 
             AddEVSE(IEVSE               EVSE,
@@ -1655,7 +1655,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="TransmissionType">Whether to send the EVSE directly or enqueue it for a while.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public override async Task<AddOrUpdateEVSEResult>
@@ -1761,7 +1761,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public override async Task<UpdateEVSEResult>
 
             UpdateEVSE(IEVSE               EVSE,
@@ -1864,7 +1864,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public override async Task<AddEVSEsResult>
 
             AddEVSEs(IEnumerable<IEVSE>  EVSEs,
@@ -1946,7 +1946,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EVSEs">An enumeration of EVSEs.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public override async Task<AddOrUpdateEVSEsResult>
@@ -2032,7 +2032,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="EVSEs">An enumeration of EVSEs.</param>
         /// 
         /// <param name="Timestamp">The optional timestamp of the request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         public override async Task<UpdateEVSEsResult>
@@ -2083,7 +2083,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public async Task<PushEVSEStatusResult>
 
             UpdateStatus(IEnumerable<EVSEStatusUpdate>  StatusUpdates,
@@ -2213,7 +2213,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public async Task<AuthStartResult>
 
             AuthorizeStart(LocalAuthentication               LocalAuthentication,
@@ -2438,7 +2438,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public async Task<AuthStopResult>
 
             AuthorizeStop(ChargingSession_Id                SessionId,
@@ -2474,19 +2474,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 OnAuthorizeStopRequest?.Invoke(StartTime,
-                                                   Timestamp.Value,
-                                                   this,
-                                                   Id.ToString(),
-                                                   EventTrackingId,
-                                                   RoamingNetwork.Id,
-                                                   null,
-                                                   Id,
-                                                   OperatorId,
-                                                   ChargingLocation,
-                                                   SessionId,
-                                                   CPOPartnerSessionId,
-                                                   LocalAuthentication,
-                                                   RequestTimeout);
+                                               Timestamp.Value,
+                                               this,
+                                               Id.ToString(),
+                                               EventTrackingId,
+                                               RoamingNetwork.Id,
+                                               null,
+                                               Id,
+                                               OperatorId,
+                                               ChargingLocation,
+                                               SessionId,
+                                               CPOPartnerSessionId,
+                                               LocalAuthentication,
+                                               RequestTimeout,
+                                               CancellationToken);
 
             }
             catch (Exception e)
@@ -2559,21 +2560,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 OnAuthorizeStopResponse?.Invoke(Endtime,
-                                                    Timestamp.Value,
-                                                    this,
-                                                    Id.ToString(),
-                                                    EventTrackingId,
-                                                    RoamingNetwork.Id,
-                                                    null,
-                                                    Id,
-                                                    OperatorId,
-                                                    ChargingLocation,
-                                                    SessionId,
-                                                    CPOPartnerSessionId,
-                                                    LocalAuthentication,
-                                                    RequestTimeout,
-                                                    result,
-                                                    Runtime);
+                                                Timestamp.Value,
+                                                this,
+                                                Id.ToString(),
+                                                EventTrackingId,
+                                                RoamingNetwork.Id,
+                                                null,
+                                                Id,
+                                                OperatorId,
+                                                ChargingLocation,
+                                                SessionId,
+                                                CPOPartnerSessionId,
+                                                LocalAuthentication,
+                                                RequestTimeout,
+                                                result,
+                                                Runtime,
+                                                CancellationToken);
 
             }
             catch (Exception e)
@@ -2601,7 +2603,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public async Task<SendCDRResult>
 
             SendChargeDetailRecord(ChargeDetailRecord  ChargeDetailRecord,
@@ -2633,7 +2635,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <param name="Timestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
+        /// <param name="CancellationToken">A cancellation token to cancel the operation.</param>
         public async Task<SendCDRsResult>
 
             SendChargeDetailRecords(IEnumerable<ChargeDetailRecord>  ChargeDetailRecords,
@@ -2698,7 +2700,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                           EventTrackingId,
                                           RoamingNetwork.Id,
                                           ChargeDetailRecords,
-                                          RequestTimeout);
+                                          RequestTimeout,
+                                          CancellationToken);
 
             }
             catch (Exception e)
@@ -2759,7 +2762,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                                  EventTrackingId,
                                                                  RoamingNetwork.Id,
                                                                  ChargeDetailRecords,
-                                                                 RequestTimeout);
+                                                                 RequestTimeout,
+                                                                 CancellationToken);
 
                             }
                             catch (Exception e)
@@ -3032,21 +3036,22 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             try
             {
 
-                OnSendCDRsResponse?.Invoke(Endtime,
-                                           Timestamp.Value,
-                                           this,
-                                           Id.ToString(),
-                                           EventTrackingId,
-                                           RoamingNetwork.Id,
-                                           ChargeDetailRecords,
-                                           RequestTimeout,
-                                           results,
-                                           Runtime);
+                OnChargeDetailRecordsResponse?.Invoke(Endtime,
+                                                      Timestamp.Value,
+                                                      this,
+                                                      Id.ToString(),
+                                                      EventTrackingId,
+                                                      RoamingNetwork.Id,
+                                                      ChargeDetailRecords,
+                                                      RequestTimeout,
+                                                      results,
+                                                      Runtime,
+                                                      CancellationToken);
 
             }
             catch (Exception e)
             {
-                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnSendCDRsResponse));
+                DebugX.LogException(e, nameof(WWCPCSOAdapter) + "." + nameof(OnChargeDetailRecordsResponse));
             }
 
             #endregion

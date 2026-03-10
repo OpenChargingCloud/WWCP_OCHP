@@ -311,7 +311,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             Timestamp.Now,
                             API,
                             Request,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -385,7 +385,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             API,
                             Request,
                             httpResponse,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -420,7 +420,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             Timestamp.Now,
                             API,
                             Request,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -499,7 +499,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             API,
                             Request,
                             httpResponse,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -534,7 +534,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             Timestamp.Now,
                             API,
                             Request,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -606,7 +606,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             API,
                             Request,
                             httpResponse,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -641,7 +641,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             Timestamp.Now,
                             API,
                             Request,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -713,7 +713,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             API,
                             Request,
                             httpResponse,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -748,7 +748,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             Timestamp.Now,
                             API,
                             Request,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }
@@ -821,7 +821,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                             API,
                             Request,
                             httpResponse,
-                            CancellationToken.None
+                            Request.CancellationToken
                         );
 
                     }

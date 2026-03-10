@@ -327,7 +327,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                         Timestamp.Now,
                         API,
                         Request,
-                        CancellationToken.None
+                        Request.CancellationToken
                     );
 
                 }
@@ -417,7 +417,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                         API,
                         Request,
                         HTTPResponse,
-                        CancellationToken.None
+                        Request.CancellationToken
                     );
 
                 }
