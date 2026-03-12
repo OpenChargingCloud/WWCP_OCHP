@@ -300,6 +300,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         public delegate void EVSEStatusRefreshEventDelegate(DateTimeOffset Timestamp, WWCPCSOAdapter Sender, String Message);
 
         public event EVSEStatusRefreshEventDelegate EVSEStatusRefreshEvent;
+        public event OnChargeDetailRecordsRequestDelegate? OnChargeDetailRecordsRequest;
 
         #endregion
 
