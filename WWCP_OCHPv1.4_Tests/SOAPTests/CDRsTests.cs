@@ -116,7 +116,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.UnitTests
                                                DateTime.Now - TimeSpan.FromHours(1),
                                                DateTime.Now,
                                                BillingItems.UsageTime,
-                                               WattHour.ParseKWh(23.5m),
+                                               WattHour.FromKWh(23.5m),
                                                23.5m
                                            )
                                        ],
