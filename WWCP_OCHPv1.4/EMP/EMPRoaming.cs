@@ -110,7 +110,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         /// <summary>
         /// Prefer IPv4 instead of IPv6.
         /// </summary>
-        Boolean                              IHTTPClient.PreferIPv4
+        IPVersionPreference                  IHTTPClient.PreferIPv4
             => EMPClient.PreferIPv4;
 
         /// <summary>
@@ -1549,7 +1549,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public EMPRoaming(URL                                                        RemoteURL,
                           HTTPHostname?                                              VirtualHostname                 = null,
                           I18NString?                                                Description                     = null,
-                          Boolean?                                                   PreferIPv4                      = null,
+                          IPVersionPreference?                                       PreferIPv4                      = null,
                           RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator      = null,
                           LocalCertificateSelectionHandler?                          ClientCertificateSelector       = null,
                           IEnumerable<X509Certificate2>?                             ClientCertificates              = null,

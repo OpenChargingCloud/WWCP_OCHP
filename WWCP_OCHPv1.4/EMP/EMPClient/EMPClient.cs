@@ -1031,7 +1031,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         public EMPClient(URL                                                        RemoteURL,
                          HTTPHostname?                                              VirtualHostname              = null,
                          I18NString?                                                Description                  = null,
-                         Boolean?                                                   PreferIPv4                   = null,
+                         IPVersionPreference?                                       PreferIPv4                   = null,
                          RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionHandler?                          LocalCertificateSelector     = null,
                          IEnumerable<X509Certificate2>?                             ClientCertificates           = null,

@@ -109,7 +109,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// <summary>
         /// Prefer IPv4 instead of IPv6.
         /// </summary>
-        Boolean                              IHTTPClient.PreferIPv4
+        IPVersionPreference                  IHTTPClient.PreferIPv4
             => CPOClient.PreferIPv4;
 
         /// <summary>
