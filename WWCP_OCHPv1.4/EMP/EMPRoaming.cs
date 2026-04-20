@@ -1461,20 +1461,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
         #region Generic HTTP/SOAP server logging
 
-        /// <summary>
-        /// An event called whenever a HTTP request came in.
-        /// </summary>
-        public HTTPRequestLogEvent   RequestLog    = new HTTPRequestLogEvent();
+        ///// <summary>
+        ///// An event called whenever a HTTP request came in.
+        ///// </summary>
+        //public HTTPRequestLogEvent   RequestLog    = new HTTPRequestLogEvent();
 
-        /// <summary>
-        /// An event called whenever a HTTP request could successfully be processed.
-        /// </summary>
-        public HTTPResponseLogEvent  ResponseLog   = new HTTPResponseLogEvent();
+        ///// <summary>
+        ///// An event called whenever a HTTP request could successfully be processed.
+        ///// </summary>
+        //public HTTPResponseLogEvent  ResponseLog   = new HTTPResponseLogEvent();
 
-        /// <summary>
-        /// An event called whenever a HTTP request resulted in an error.
-        /// </summary>
-        public HTTPErrorLogEvent     ErrorLog      = new HTTPErrorLogEvent();
+        ///// <summary>
+        ///// An event called whenever a HTTP request resulted in an error.
+        ///// </summary>
+        //public HTTPErrorLogEvent     ErrorLog      = new HTTPErrorLogEvent();
 
         #endregion
 
@@ -1502,9 +1502,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
             this.EMPServer  = EMPServer ?? throw new ArgumentNullException(nameof(EMPServer), "The given EMPServer must not be null!");
 
             // Link HTTP events...
-            EMPServer.RequestLog   += (HTTPProcessor, ServerTimestamp, Request)                                 => RequestLog. WhenAll(HTTPProcessor, ServerTimestamp, Request);
-            EMPServer.ResponseLog  += (HTTPProcessor, ServerTimestamp, Request, Response)                       => ResponseLog.WhenAll(HTTPProcessor, ServerTimestamp, Request, Response);
-            EMPServer.ErrorLog     += (HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException) => ErrorLog.   WhenAll(HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException);
+            //EMPServer.RequestLog   += (HTTPProcessor, ServerTimestamp, Request)                                 => RequestLog. WhenAll(HTTPProcessor, ServerTimestamp, Request);
+            //EMPServer.ResponseLog  += (HTTPProcessor, ServerTimestamp, Request, Response)                       => ResponseLog.WhenAll(HTTPProcessor, ServerTimestamp, Request, Response);
+            //EMPServer.ErrorLog     += (HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException) => ErrorLog.   WhenAll(HTTPProcessor, ServerTimestamp, Request, Response, Error, LastException);
 
         }
 
@@ -1566,7 +1566,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                           TransmissionRetryDelayDelegate?                            TransmissionRetryDelay          = null,
                           UInt16?                                                    MaxNumberOfRetries              = null,
                           UInt32?                                                    InternalBufferSize              = null,
-                          Boolean                                                    ClientDisableLogging            = false,
+                          Boolean?                                                   ClientDisableLogging            = null,
                           String?                                                    ClientLoggingPath               = null,
                           String?                                                    ClientLoggingContext            = null,
                           LogfileCreatorDelegate?                                    ClientLogfileCreator            = null,
@@ -1606,10 +1606,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                        TransmissionRetryDelay,
                        MaxNumberOfRetries,
                        InternalBufferSize,
-                       ClientDisableLogging,
                        ClientLoggingPath,
                        ClientLoggingContext,
                        ClientLogfileCreator,
+
+                       ClientDisableLogging,
                        DNSClient
                    ),
 
@@ -1846,6 +1847,16 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
         }
 
         #endregion
+
+        public HTTPRequest.Builder CreateRequest(HTTPMethod HTTPMethod, HTTPPath HTTPPath, QueryString? QueryString = null, AcceptTypes? Accept = null, IHTTPAuthentication? Authentication = null, Byte[]? Content = null, HTTPContentType? ContentType = null, String? UserAgent = null, ConnectionType? Connection = null, Action<HTTPRequest.Builder>? RequestBuilder = null, Boolean? ConsumeRequestChunkedTEImmediately = null, CancellationToken CancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<HTTPResponse> RunRequest(HTTPMethod HTTPMethod, HTTPPath HTTPPath, QueryString? QueryString = null, AcceptTypes? Accept = null, IHTTPAuthentication? Authentication = null, Byte[]? Content = null, HTTPContentType? ContentType = null, String? UserAgent = null, ConnectionType? Connection = null, Action<HTTPRequest.Builder>? RequestBuilder = null, Boolean? ConsumeRequestChunkedTEImmediately = null, Boolean? ConsumeResponseChunkedTEImmediately = null, EventTracking_Id? EventTrackingId = null, TimeSpan? RequestTimeout = null, ClientRequestLogHandler? RequestLogDelegate = null, ClientResponseLogHandler? ResponseLogDelegate = null, CancellationToken CancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 

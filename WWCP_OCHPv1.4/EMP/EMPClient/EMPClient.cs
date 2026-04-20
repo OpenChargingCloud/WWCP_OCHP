@@ -1048,10 +1048,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                          TransmissionRetryDelayDelegate?                            TransmissionRetryDelay       = null,
                          UInt16?                                                    MaxNumberOfRetries           = null,
                          UInt32?                                                    InternalBufferSize           = null,
-                         Boolean?                                                   DisableLogging               = false,
                          String?                                                    LoggingPath                  = null,
                          String?                                                    LoggingContext               = HTTP_Logger.DefaultContext,
                          LogfileCreatorDelegate?                                    LogfileCreator               = null,
+
+                         Boolean?                                                   DisableLogging               = null,
                          DNSClient?                                                 DNSClient                    = null)
 
             : base(RemoteURL,
@@ -1077,8 +1078,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                    MaxNumberOfRetries,
                    InternalBufferSize,
                    false,
-                   DisableLogging,
                    null,
+
+                   DisableLogging,
                    DNSClient)
 
         {
@@ -1200,7 +1202,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<GetChargePointListResponse>.IsFault(
+                                                         return HTTPResponse<GetChargePointListResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetChargePointListResponse(
                                                                         Request,
@@ -1221,7 +1223,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<GetChargePointListResponse>.IsFault(
+                                                         return HTTPResponse<GetChargePointListResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetChargePointListResponse(
                                                                         Request,
@@ -1265,7 +1267,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetChargePointListResponse>.ClientError(
+                    result = HTTPResponse<GetChargePointListResponse>.FromClientError(
                                  new GetChargePointListResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -1411,7 +1413,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<GetChargePointListUpdatesResponse>.IsFault(
+                                                         return HTTPResponse<GetChargePointListUpdatesResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetChargePointListUpdatesResponse(
                                                                         Request,
@@ -1432,7 +1434,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<GetChargePointListUpdatesResponse>.IsFault(
+                                                         return HTTPResponse<GetChargePointListUpdatesResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetChargePointListUpdatesResponse(
                                                                         Request,
@@ -1476,7 +1478,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetChargePointListUpdatesResponse>.ClientError(
+                    result = HTTPResponse<GetChargePointListUpdatesResponse>.FromClientError(
                                  new GetChargePointListUpdatesResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -1625,7 +1627,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<GetStatusResponse>.IsFault(
+                                                         return HTTPResponse<GetStatusResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetStatusResponse(
                                                                         Request,
@@ -1646,7 +1648,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<GetStatusResponse>.IsFault(
+                                                         return HTTPResponse<GetStatusResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetStatusResponse(
                                                                         Request,
@@ -1690,7 +1692,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetStatusResponse>.ClientError(
+                    result = HTTPResponse<GetStatusResponse>.FromClientError(
                                  new GetStatusResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -1838,7 +1840,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<GetTariffUpdatesResponse>.IsFault(
+                                                         return HTTPResponse<GetTariffUpdatesResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetTariffUpdatesResponse(
                                                                         Request,
@@ -1859,7 +1861,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<GetTariffUpdatesResponse>.IsFault(
+                                                         return HTTPResponse<GetTariffUpdatesResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetTariffUpdatesResponse(
                                                                         Request,
@@ -1903,7 +1905,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetTariffUpdatesResponse>.ClientError(
+                    result = HTTPResponse<GetTariffUpdatesResponse>.FromClientError(
                                  new GetTariffUpdatesResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -2065,7 +2067,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<SetRoamingAuthorisationListResponse>.IsFault(
+                                                         return HTTPResponse<SetRoamingAuthorisationListResponse>.FromError(
                                                                     httpresponse,
                                                                     new SetRoamingAuthorisationListResponse(
                                                                         Request,
@@ -2086,7 +2088,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<SetRoamingAuthorisationListResponse>.IsFault(
+                                                         return HTTPResponse<SetRoamingAuthorisationListResponse>.FromError(
                                                                     httpresponse,
                                                                     new SetRoamingAuthorisationListResponse(
                                                                         Request,
@@ -2133,7 +2135,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 //    result = HTTPResponse<SetRoamingAuthorisationListResponse>.OK(new SetRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
 
                 if (result is null)
-                    result = HTTPResponse<SetRoamingAuthorisationListResponse>.ClientError(
+                    result = HTTPResponse<SetRoamingAuthorisationListResponse>.FromClientError(
                                  new SetRoamingAuthorisationListResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -2294,7 +2296,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<UpdateRoamingAuthorisationListResponse>.IsFault(
+                                                         return HTTPResponse<UpdateRoamingAuthorisationListResponse>.FromError(
                                                                     httpresponse,
                                                                     new UpdateRoamingAuthorisationListResponse(
                                                                         Request,
@@ -2315,7 +2317,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<UpdateRoamingAuthorisationListResponse>.IsFault(
+                                                         return HTTPResponse<UpdateRoamingAuthorisationListResponse>.FromError(
                                                                     httpresponse,
                                                                     new UpdateRoamingAuthorisationListResponse(
                                                                         Request,
@@ -2362,7 +2364,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 //    result = HTTPResponse<UpdateRoamingAuthorisationListResponse>.OK(new UpdateRoamingAuthorisationListResponse(Request, Result.OK("Nothing to upload!")));
 
                 if (result is null)
-                    result = HTTPResponse<UpdateRoamingAuthorisationListResponse>.ClientError(
+                    result = HTTPResponse<UpdateRoamingAuthorisationListResponse>.FromClientError(
                                  new UpdateRoamingAuthorisationListResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -2510,7 +2512,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<GetCDRsResponse>.IsFault(
+                                                         return HTTPResponse<GetCDRsResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetCDRsResponse(
                                                                         Request,
@@ -2531,7 +2533,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<GetCDRsResponse>.IsFault(
+                                                         return HTTPResponse<GetCDRsResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetCDRsResponse(
                                                                         Request,
@@ -2575,7 +2577,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetCDRsResponse>.ClientError(
+                    result = HTTPResponse<GetCDRsResponse>.FromClientError(
                                  new GetCDRsResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -2737,7 +2739,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<ConfirmCDRsResponse>.IsFault(
+                                                         return HTTPResponse<ConfirmCDRsResponse>.FromError(
                                                                     httpresponse,
                                                                     new ConfirmCDRsResponse(
                                                                         Request,
@@ -2758,7 +2760,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<ConfirmCDRsResponse>.IsFault(
+                                                         return HTTPResponse<ConfirmCDRsResponse>.FromError(
                                                                     httpresponse,
                                                                     new ConfirmCDRsResponse(
                                                                         Request,
@@ -2802,7 +2804,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 }
 
                 if (result is null)
-                    result = HTTPResponse<ConfirmCDRsResponse>.ClientError(
+                    result = HTTPResponse<ConfirmCDRsResponse>.FromClientError(
                                  new ConfirmCDRsResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -2966,7 +2968,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<AddServiceEndpointsResponse>.IsFault(
+                                                         return HTTPResponse<AddServiceEndpointsResponse>.FromError(
                                                                     httpresponse,
                                                                     new AddServiceEndpointsResponse(
                                                                         Request,
@@ -2987,7 +2989,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<AddServiceEndpointsResponse>.IsFault(
+                                                         return HTTPResponse<AddServiceEndpointsResponse>.FromError(
                                                                     httpresponse,
                                                                     new AddServiceEndpointsResponse(
                                                                         Request,
@@ -3031,7 +3033,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 }
 
                 if (result is null)
-                    result = HTTPResponse<AddServiceEndpointsResponse>.ClientError(
+                    result = HTTPResponse<AddServiceEndpointsResponse>.FromClientError(
                                  new AddServiceEndpointsResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -3176,7 +3178,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<GetServiceEndpointsResponse>.IsFault(
+                                                         return HTTPResponse<GetServiceEndpointsResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetServiceEndpointsResponse(
                                                                         Request,
@@ -3197,7 +3199,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<GetServiceEndpointsResponse>.IsFault(
+                                                         return HTTPResponse<GetServiceEndpointsResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetServiceEndpointsResponse(
                                                                         Request,
@@ -3241,7 +3243,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetServiceEndpointsResponse>.ClientError(
+                    result = HTTPResponse<GetServiceEndpointsResponse>.FromClientError(
                                  new GetServiceEndpointsResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -3387,7 +3389,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return HTTPResponse<SelectEVSEResponse>.IsFault(
+                                                     return HTTPResponse<SelectEVSEResponse>.FromError(
                                                                 httpresponse,
                                                                 new SelectEVSEResponse(
                                                                     Request,
@@ -3408,7 +3410,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return HTTPResponse<SelectEVSEResponse>.IsFault(
+                                                     return HTTPResponse<SelectEVSEResponse>.FromError(
                                                                 httpresponse,
                                                                 new SelectEVSEResponse(
                                                                     Request,
@@ -3596,7 +3598,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return HTTPResponse<ControlEVSEResponse>.IsFault(
+                                                     return HTTPResponse<ControlEVSEResponse>.FromError(
                                                                 httpresponse,
                                                                 new ControlEVSEResponse(
                                                                     Request,
@@ -3617,7 +3619,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return HTTPResponse<ControlEVSEResponse>.IsFault(
+                                                     return HTTPResponse<ControlEVSEResponse>.FromError(
                                                                 httpresponse,
                                                                 new ControlEVSEResponse(
                                                                     Request,
@@ -3780,7 +3782,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return HTTPResponse<ReleaseEVSEResponse>.IsFault(
+                                                     return HTTPResponse<ReleaseEVSEResponse>.FromError(
                                                                 httpresponse,
                                                                 new ReleaseEVSEResponse(
                                                                     Request,
@@ -3801,7 +3803,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return HTTPResponse<ReleaseEVSEResponse>.IsFault(
+                                                     return HTTPResponse<ReleaseEVSEResponse>.FromError(
                                                                 httpresponse,
                                                                 new ReleaseEVSEResponse(
                                                                     Request,
@@ -3962,7 +3964,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return HTTPResponse<GetEVSEStatusResponse>.IsFault(
+                                                     return HTTPResponse<GetEVSEStatusResponse>.FromError(
                                                                 httpresponse,
                                                                 new GetEVSEStatusResponse(
                                                                     Request,
@@ -3983,7 +3985,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return HTTPResponse<GetEVSEStatusResponse>.IsFault(
+                                                     return HTTPResponse<GetEVSEStatusResponse>.FromError(
                                                                 httpresponse,
                                                                 new GetEVSEStatusResponse(
                                                                     Request,
@@ -4150,7 +4152,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return HTTPResponse<ReportDiscrepancyResponse>.IsFault(
+                                                     return HTTPResponse<ReportDiscrepancyResponse>.FromError(
                                                                 httpresponse,
                                                                 new ReportDiscrepancyResponse(
                                                                     Request,
@@ -4171,7 +4173,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return HTTPResponse<ReportDiscrepancyResponse>.IsFault(
+                                                     return HTTPResponse<ReportDiscrepancyResponse>.FromError(
                                                                 httpresponse,
                                                                 new ReportDiscrepancyResponse(
                                                                     Request,
@@ -4338,7 +4340,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return HTTPResponse<GetInformProviderResponse>.IsFault(
+                                                     return HTTPResponse<GetInformProviderResponse>.FromError(
                                                                 httpresponse,
                                                                 GetInformProviderResponse.Format(
                                                                     Request,
@@ -4357,7 +4359,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return HTTPResponse<GetInformProviderResponse>.IsFault(
+                                                     return HTTPResponse<GetInformProviderResponse>.FromError(
                                                                 httpresponse,
                                                                 GetInformProviderResponse.Server(
                                                                      Request,

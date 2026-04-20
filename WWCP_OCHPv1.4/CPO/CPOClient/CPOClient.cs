@@ -1000,10 +1000,11 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                          TransmissionRetryDelayDelegate?                            TransmissionRetryDelay       = null,
                          UInt16?                                                    MaxNumberOfRetries           = null,
                          UInt32?                                                    InternalBufferSize           = null,
-                         Boolean?                                                   DisableLogging               = false,
                          String?                                                    LoggingPath                  = null,
                          String                                                     LoggingContext               = HTTP_Logger.DefaultContext,
                          LogfileCreatorDelegate?                                    LogfileCreator               = null,
+
+                         Boolean?                                                   DisableLogging               = null,
                          IDNSClient?                                                DNSClient                    = null)
 
             : base(RemoteURL,
@@ -1029,8 +1030,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                    MaxNumberOfRetries,
                    InternalBufferSize,
                    false,
-                   DisableLogging,
                    null,
+
+                   DisableLogging,
                    DNSClient)
 
         {
@@ -1160,7 +1162,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<SetChargePointListResponse>.IsFault(
+                                                         return HTTPResponse<SetChargePointListResponse>.FromError(
                                                                     httpresponse,
                                                                     new SetChargePointListResponse(
                                                                         Request,
@@ -1187,7 +1189,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<SetChargePointListResponse>.IsFault(
+                                                             return HTTPResponse<SetChargePointListResponse>.FromError(
                                                                  httpresponse,
                                                                  new SetChargePointListResponse(
                                                                      Request,
@@ -1200,7 +1202,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<SetChargePointListResponse>.IsFault(
+                                                         return HTTPResponse<SetChargePointListResponse>.FromError(
                                                              httpresponse,
                                                              new SetChargePointListResponse(
                                                                  Request,
@@ -1244,7 +1246,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<SetChargePointListResponse>.ClientError(
+                    result = HTTPResponse<SetChargePointListResponse>.FromClientError(
                                  new SetChargePointListResponse(Request,
                                                                 Result.Client("HTTP request failed!"))
                              );
@@ -1390,7 +1392,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<UpdateChargePointListResponse>.IsFault(
+                                                         return HTTPResponse<UpdateChargePointListResponse>.FromError(
                                                                     httpresponse,
                                                                     new UpdateChargePointListResponse(
                                                                         Request,
@@ -1417,7 +1419,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<UpdateChargePointListResponse>.IsFault(
+                                                             return HTTPResponse<UpdateChargePointListResponse>.FromError(
                                                                  httpresponse,
                                                                  new UpdateChargePointListResponse(
                                                                      Request,
@@ -1431,7 +1433,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<UpdateChargePointListResponse>.IsFault(
+                                                         return HTTPResponse<UpdateChargePointListResponse>.FromError(
                                                              httpresponse,
                                                              new UpdateChargePointListResponse(
                                                                  Request,
@@ -1475,7 +1477,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<UpdateChargePointListResponse>.ClientError(
+                    result = HTTPResponse<UpdateChargePointListResponse>.FromClientError(
                                  new UpdateChargePointListResponse(Request,
                                                                    Result.Client("HTTP request failed!"))
                              );
@@ -1631,7 +1633,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<UpdateStatusResponse>.IsFault(
+                                                         return HTTPResponse<UpdateStatusResponse>.FromError(
                                                                     httpresponse,
                                                                     new UpdateStatusResponse(
                                                                         Request,
@@ -1658,7 +1660,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<UpdateStatusResponse>.IsFault(
+                                                             return HTTPResponse<UpdateStatusResponse>.FromError(
                                                                  httpresponse,
                                                                  new UpdateStatusResponse(
                                                                      Request,
@@ -1672,7 +1674,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<UpdateStatusResponse>.IsFault(
+                                                         return HTTPResponse<UpdateStatusResponse>.FromError(
                                                              httpresponse,
                                                              new UpdateStatusResponse(
                                                                  Request,
@@ -1716,7 +1718,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<UpdateStatusResponse>.ClientError(
+                    result = HTTPResponse<UpdateStatusResponse>.FromClientError(
                                  new UpdateStatusResponse(Request,
                                                           Result.Client("HTTP request failed!"))
                              );
@@ -1866,7 +1868,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<UpdateTariffsResponse>.IsFault(
+                                                         return HTTPResponse<UpdateTariffsResponse>.FromError(
                                                                     httpresponse,
                                                                     new UpdateTariffsResponse(
                                                                         Request,
@@ -1893,7 +1895,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<UpdateTariffsResponse>.IsFault(
+                                                             return HTTPResponse<UpdateTariffsResponse>.FromError(
                                                                  httpresponse,
                                                                  new UpdateTariffsResponse(
                                                                      Request,
@@ -1907,7 +1909,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<UpdateTariffsResponse>.IsFault(
+                                                         return HTTPResponse<UpdateTariffsResponse>.FromError(
                                                              httpresponse,
                                                              new UpdateTariffsResponse(
                                                                  Request,
@@ -1951,7 +1953,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<UpdateTariffsResponse>.ClientError(
+                    result = HTTPResponse<UpdateTariffsResponse>.FromClientError(
                                  new UpdateTariffsResponse(Request,
                                                                    Result.Client("HTTP request failed!"))
                              );
@@ -2089,7 +2091,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<GetSingleRoamingAuthorisationResponse>.IsFault(
+                                                         return HTTPResponse<GetSingleRoamingAuthorisationResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetSingleRoamingAuthorisationResponse(
                                                                         Request,
@@ -2116,7 +2118,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<GetSingleRoamingAuthorisationResponse>.IsFault(
+                                                             return HTTPResponse<GetSingleRoamingAuthorisationResponse>.FromError(
                                                                  httpresponse,
                                                                  new GetSingleRoamingAuthorisationResponse(
                                                                      Request,
@@ -2130,7 +2132,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<GetSingleRoamingAuthorisationResponse>.IsFault(
+                                                         return HTTPResponse<GetSingleRoamingAuthorisationResponse>.FromError(
                                                              httpresponse,
                                                              new GetSingleRoamingAuthorisationResponse(
                                                                  Request,
@@ -2174,7 +2176,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.ClientError(
+                    result = HTTPResponse<GetSingleRoamingAuthorisationResponse>.FromClientError(
                                  new GetSingleRoamingAuthorisationResponse(Request,
                                                                            Result.Client("HTTP request failed!"))
                              );
@@ -2311,7 +2313,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<GetRoamingAuthorisationListResponse>.IsFault(
+                                                         return HTTPResponse<GetRoamingAuthorisationListResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetRoamingAuthorisationListResponse(
                                                                         Request,
@@ -2338,7 +2340,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<GetRoamingAuthorisationListResponse>.IsFault(
+                                                             return HTTPResponse<GetRoamingAuthorisationListResponse>.FromError(
                                                                  httpresponse,
                                                                  new GetRoamingAuthorisationListResponse(
                                                                      Request,
@@ -2352,7 +2354,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<GetRoamingAuthorisationListResponse>.IsFault(
+                                                         return HTTPResponse<GetRoamingAuthorisationListResponse>.FromError(
                                                              httpresponse,
                                                              new GetRoamingAuthorisationListResponse(
                                                                  Request,
@@ -2396,7 +2398,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetRoamingAuthorisationListResponse>.ClientError(
+                    result = HTTPResponse<GetRoamingAuthorisationListResponse>.FromClientError(
                                  new GetRoamingAuthorisationListResponse(Request,
                                                                            Result.Client("HTTP request failed!"))
                              );
@@ -2533,7 +2535,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.IsFault(
+                                                         return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetRoamingAuthorisationListUpdatesResponse(
                                                                         Request,
@@ -2560,7 +2562,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.IsFault(
+                                                             return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.FromError(
                                                                  httpresponse,
                                                                  new GetRoamingAuthorisationListUpdatesResponse(
                                                                      Request,
@@ -2574,7 +2576,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.IsFault(
+                                                         return HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.FromError(
                                                              httpresponse,
                                                              new GetRoamingAuthorisationListUpdatesResponse(
                                                                  Request,
@@ -2618,7 +2620,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.ClientError(
+                    result = HTTPResponse<GetRoamingAuthorisationListUpdatesResponse>.FromClientError(
                                  new GetRoamingAuthorisationListUpdatesResponse(Request,
                                                                            Result.Client("HTTP request failed!"))
                              );
@@ -2770,7 +2772,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<AddCDRsResponse>.IsFault(
+                                                         return HTTPResponse<AddCDRsResponse>.FromError(
                                                                     httpresponse,
                                                                     new AddCDRsResponse(
                                                                         Request,
@@ -2797,7 +2799,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<AddCDRsResponse>.IsFault(
+                                                             return HTTPResponse<AddCDRsResponse>.FromError(
                                                                  httpresponse,
                                                                  new AddCDRsResponse(
                                                                      Request,
@@ -2810,7 +2812,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<AddCDRsResponse>.IsFault(
+                                                         return HTTPResponse<AddCDRsResponse>.FromError(
                                                              httpresponse,
                                                              new AddCDRsResponse(
                                                                  Request,
@@ -2854,7 +2856,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<AddCDRsResponse>.ClientError(
+                    result = HTTPResponse<AddCDRsResponse>.FromClientError(
                                  new AddCDRsResponse(Request,
                                                                            Result.Client("HTTP request failed!"))
                              );
@@ -2991,7 +2993,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                         return HTTPResponse<CheckCDRsResponse>.IsFault(
+                                                         return HTTPResponse<CheckCDRsResponse>.FromError(
                                                                     httpresponse,
                                                                     new CheckCDRsResponse(
                                                                         Request,
@@ -3018,7 +3020,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                              httpresponse.HTTPStatusCode == HTTPStatusCode.NotFound)
                                                          {
 
-                                                             return HTTPResponse<CheckCDRsResponse>.IsFault(
+                                                             return HTTPResponse<CheckCDRsResponse>.FromError(
                                                                  httpresponse,
                                                                  new CheckCDRsResponse(
                                                                      Request,
@@ -3032,7 +3034,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          }
 
-                                                         return HTTPResponse<CheckCDRsResponse>.IsFault(
+                                                         return HTTPResponse<CheckCDRsResponse>.FromError(
                                                              httpresponse,
                                                              new CheckCDRsResponse(
                                                                  Request,
@@ -3076,7 +3078,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<CheckCDRsResponse>.ClientError(
+                    result = HTTPResponse<CheckCDRsResponse>.FromClientError(
                                  new CheckCDRsResponse(Request,
                                                        Result.Client("HTTP request failed!"))
                              );
@@ -3236,7 +3238,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<AddServiceEndpointsResponse>.IsFault(
+                                                         return HTTPResponse<AddServiceEndpointsResponse>.FromError(
                                                                     httpresponse,
                                                                     new AddServiceEndpointsResponse(
                                                                         Request,
@@ -3257,7 +3259,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<AddServiceEndpointsResponse>.IsFault(
+                                                         return HTTPResponse<AddServiceEndpointsResponse>.FromError(
                                                                     httpresponse,
                                                                     new AddServiceEndpointsResponse(
                                                                         Request,
@@ -3301,7 +3303,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<AddServiceEndpointsResponse>.ClientError(
+                    result = HTTPResponse<AddServiceEndpointsResponse>.FromClientError(
                                  new AddServiceEndpointsResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -3447,7 +3449,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendSOAPError(timestamp, soapclient, httpresponse.Content);
 
-                                                         return HTTPResponse<GetServiceEndpointsResponse>.IsFault(
+                                                         return HTTPResponse<GetServiceEndpointsResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetServiceEndpointsResponse(
                                                                         Request,
@@ -3468,7 +3470,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                          SendHTTPError(timestamp, soapclient, httpresponse);
 
-                                                         return HTTPResponse<GetServiceEndpointsResponse>.IsFault(
+                                                         return HTTPResponse<GetServiceEndpointsResponse>.FromError(
                                                                     httpresponse,
                                                                     new GetServiceEndpointsResponse(
                                                                         Request,
@@ -3512,7 +3514,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 }
 
                 if (result is null)
-                    result = HTTPResponse<GetServiceEndpointsResponse>.ClientError(
+                    result = HTTPResponse<GetServiceEndpointsResponse>.FromClientError(
                                  new GetServiceEndpointsResponse(
                                      Request,
                                      Result.OK("Nothing to upload!")
@@ -3662,7 +3664,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                 CurrentCost,
                                                 Currency,
 
-                                                RequestTimeout ?? DefaultRequestTimeout);
+                                                RequestTimeout ?? ReceiveTimeout);
 
             }
             catch (Exception e)
@@ -3723,7 +3725,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      SendSOAPError(timestamp, this, httpresponse.Content);
 
-                                                     return HTTPResponse<InformProviderResponse>.IsFault(
+                                                     return HTTPResponse<InformProviderResponse>.FromError(
                                                                 httpresponse,
                                                                 InformProviderResponse.Format(
                                                                    Request,
@@ -3742,7 +3744,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                                                      SendHTTPError(timestamp, this, httpresponse);
 
-                                                     return HTTPResponse<InformProviderResponse>.IsFault(
+                                                     return HTTPResponse<InformProviderResponse>.FromError(
                                                                 httpresponse,
                                                                 InformProviderResponse.Server(
                                                                     Request,
@@ -3781,7 +3783,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             #region Handle HTTP client errors...
 
             if (result is null)
-                result = HTTPResponse<InformProviderResponse>.ClientError(
+                result = HTTPResponse<InformProviderResponse>.FromClientError(
                              new InformProviderResponse(Request,
                                                         Result.Client("HTTP request failed!"))
                          );
@@ -3821,7 +3823,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                                  CurrentCost,
                                                  Currency,
 
-                                                 RequestTimeout ?? DefaultRequestTimeout,
+                                                 RequestTimeout ?? ReceiveTimeout,
                                                  result.Content,
                                                  EndTime - StartTime);
 

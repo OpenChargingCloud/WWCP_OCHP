@@ -175,15 +175,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnGetChargePointListSOAPRequest += handler,
                               handler => EMPClient.OnGetChargePointListSOAPRequest -= handler,
                               "GetChargePointList", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetChargePointListResponse",
                               handler => EMPClient.OnGetChargePointListSOAPResponse += handler,
                               handler => EMPClient.OnGetChargePointListSOAPResponse -= handler,
                               "GetChargePointList", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -193,15 +193,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnGetChargePointListUpdatesSOAPRequest += handler,
                               handler => EMPClient.OnGetChargePointListUpdatesSOAPRequest -= handler,
                               "GetChargePointListUpdates", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetChargePointListUpdatesResponse",
                               handler => EMPClient.OnGetChargePointListUpdatesSOAPResponse += handler,
                               handler => EMPClient.OnGetChargePointListUpdatesSOAPResponse -= handler,
                               "GetChargePointListUpdates", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -211,15 +211,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnGetStatusSOAPRequest += handler,
                               handler => EMPClient.OnGetStatusSOAPRequest -= handler,
                               "GetStatus", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetStatusResponse",
                               handler => EMPClient.OnGetStatusSOAPResponse += handler,
                               handler => EMPClient.OnGetStatusSOAPResponse -= handler,
                               "GetStatus", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -229,15 +229,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnSetRoamingAuthorisationListSOAPRequest += handler,
                               handler => EMPClient.OnSetRoamingAuthorisationListSOAPRequest -= handler,
                               "SetRoamingAuthorisationList", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("SetRoamingAuthorisationListResponse",
                               handler => EMPClient.OnSetRoamingAuthorisationListSOAPResponse += handler,
                               handler => EMPClient.OnSetRoamingAuthorisationListSOAPResponse -= handler,
                               "SetRoamingAuthorisationList", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -247,15 +247,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnUpdateRoamingAuthorisationListSOAPRequest += handler,
                               handler => EMPClient.OnUpdateRoamingAuthorisationListSOAPRequest -= handler,
                               "UpdateRoamingAuthorisationList", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("UpdateRoamingAuthorisationListResponse",
                               handler => EMPClient.OnUpdateRoamingAuthorisationListSOAPResponse += handler,
                               handler => EMPClient.OnUpdateRoamingAuthorisationListSOAPResponse -= handler,
                               "UpdateRoamingAuthorisationList", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -265,15 +265,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnGetCDRsSOAPRequest += handler,
                               handler => EMPClient.OnGetCDRsSOAPRequest -= handler,
                               "GetCDRs", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetCDRsResponse",
                               handler => EMPClient.OnGetCDRsSOAPResponse += handler,
                               handler => EMPClient.OnGetCDRsSOAPResponse -= handler,
                               "GetCDRs", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -283,15 +283,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnConfirmCDRsSOAPRequest += handler,
                               handler => EMPClient.OnConfirmCDRsSOAPRequest -= handler,
                               "ConfirmCDRs", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("ConfirmCDRsResponse",
                               handler => EMPClient.OnConfirmCDRsSOAPResponse += handler,
                               handler => EMPClient.OnConfirmCDRsSOAPResponse -= handler,
                               "ConfirmCDRs", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -301,15 +301,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnGetTariffUpdatesSOAPRequest += handler,
                               handler => EMPClient.OnGetTariffUpdatesSOAPRequest -= handler,
                               "GetTariffUpdates", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetTariffUpdatesResponse",
                               handler => EMPClient.OnGetTariffUpdatesSOAPResponse += handler,
                               handler => EMPClient.OnGetTariffUpdatesSOAPResponse -= handler,
                               "GetTariffUpdates", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -322,15 +322,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnAddServiceEndpointsSOAPRequest += handler,
                               handler => EMPClient.OnAddServiceEndpointsSOAPRequest -= handler,
                               "AddServiceEndpoints", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("AddServiceEndpointsResponse",
                               handler => EMPClient.OnAddServiceEndpointsSOAPResponse += handler,
                               handler => EMPClient.OnAddServiceEndpointsSOAPResponse -= handler,
                               "AddServiceEndpoints", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -340,15 +340,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnGetServiceEndpointsSOAPRequest += handler,
                               handler => EMPClient.OnGetServiceEndpointsSOAPRequest -= handler,
                               "GetServiceEndpoints", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetServiceEndpointsResponse",
                               handler => EMPClient.OnGetServiceEndpointsSOAPResponse += handler,
                               handler => EMPClient.OnGetServiceEndpointsSOAPResponse -= handler,
                               "GetServiceEndpoints", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -358,15 +358,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnSelectEVSESOAPRequest += handler,
                               handler => EMPClient.OnSelectEVSESOAPRequest -= handler,
                               "SelectEVSE", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("SelectEVSEResponse",
                               handler => EMPClient.OnSelectEVSESOAPResponse += handler,
                               handler => EMPClient.OnSelectEVSESOAPResponse -= handler,
                               "SelectEVSE", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -376,15 +376,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnControlEVSESOAPRequest += handler,
                               handler => EMPClient.OnControlEVSESOAPRequest -= handler,
                               "ControlEVSE", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("ControlEVSEResponse",
                               handler => EMPClient.OnControlEVSESOAPResponse += handler,
                               handler => EMPClient.OnControlEVSESOAPResponse -= handler,
                               "ControlEVSE", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -394,15 +394,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnReleaseEVSESOAPRequest += handler,
                               handler => EMPClient.OnReleaseEVSESOAPRequest -= handler,
                               "ReleaseEVSE", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("ReleaseEVSEResponse",
                               handler => EMPClient.OnReleaseEVSESOAPResponse += handler,
                               handler => EMPClient.OnReleaseEVSESOAPResponse -= handler,
                               "ReleaseEVSE", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -412,15 +412,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnGetEVSEStatusSOAPRequest += handler,
                               handler => EMPClient.OnGetEVSEStatusSOAPRequest -= handler,
                               "GetEVSEStatus", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetEVSEStatusResponse",
                               handler => EMPClient.OnGetEVSEStatusSOAPResponse += handler,
                               handler => EMPClient.OnGetEVSEStatusSOAPResponse -= handler,
                               "GetEVSEStatus", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -430,15 +430,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnReportDiscrepancySOAPRequest += handler,
                               handler => EMPClient.OnReportDiscrepancySOAPRequest -= handler,
                               "ReportDiscrepancy", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("ReportDiscrepancyResponse",
                               handler => EMPClient.OnReportDiscrepancySOAPResponse += handler,
                               handler => EMPClient.OnReportDiscrepancySOAPResponse -= handler,
                               "ReportDiscrepancy", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -448,15 +448,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
                               handler => EMPClient.OnGetInformProviderSOAPRequest += handler,
                               handler => EMPClient.OnGetInformProviderSOAPRequest -= handler,
                               "GetInformProvider", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetInformProviderResponse",
                               handler => EMPClient.OnGetInformProviderSOAPResponse += handler,
                               handler => EMPClient.OnGetInformProviderSOAPResponse -= handler,
                               "GetInformProvider", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 

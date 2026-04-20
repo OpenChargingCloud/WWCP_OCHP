@@ -17,10 +17,10 @@
 
 #region Usings
 
-using System;
 using System.Xml.Linq;
+
 using Newtonsoft.Json.Linq;
-using org.GraphDefined.Vanaheimr.Hermod.JSON;
+
 using org.GraphDefined.Vanaheimr.Illias;
 
 #endregion

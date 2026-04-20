@@ -175,15 +175,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnSetChargePointListSOAPRequest += handler,
                               handler => CPOClient.OnSetChargePointListSOAPRequest -= handler,
                               "SetChargePointList", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("SetChargePointListResponse",
                               handler => CPOClient.OnSetChargePointListSOAPResponse += handler,
                               handler => CPOClient.OnSetChargePointListSOAPResponse -= handler,
                               "SetChargePointList", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -193,15 +193,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnUpdateChargePointListSOAPRequest += handler,
                               handler => CPOClient.OnUpdateChargePointListSOAPRequest -= handler,
                               "UpdateChargePointList", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("UpdateChargePointListResponse",
                               handler => CPOClient.OnUpdateChargePointListSOAPResponse += handler,
                               handler => CPOClient.OnUpdateChargePointListSOAPResponse -= handler,
                               "UpdateChargePointList", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -211,15 +211,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnUpdateStatusSOAPRequest += handler,
                               handler => CPOClient.OnUpdateStatusSOAPRequest -= handler,
                               "UpdateStatus", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("UpdateStatusResponse",
                               handler => CPOClient.OnUpdateStatusSOAPResponse += handler,
                               handler => CPOClient.OnUpdateStatusSOAPResponse -= handler,
                               "UpdateStatus", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -229,15 +229,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnGetSingleRoamingAuthorisationSOAPRequest += handler,
                               handler => CPOClient.OnGetSingleRoamingAuthorisationSOAPRequest -= handler,
                               "GetSingleRoamingAuthorisation", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetSingleRoamingAuthorisationResponse",
                               handler => CPOClient.OnGetSingleRoamingAuthorisationSOAPResponse += handler,
                               handler => CPOClient.OnGetSingleRoamingAuthorisationSOAPResponse -= handler,
                               "GetSingleRoamingAuthorisation", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -247,15 +247,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnGetRoamingAuthorisationListSOAPRequest += handler,
                               handler => CPOClient.OnGetRoamingAuthorisationListSOAPRequest -= handler,
                               "GetRoamingAuthorisationList", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetRoamingAuthorisationListResponse",
                               handler => CPOClient.OnGetRoamingAuthorisationListSOAPResponse += handler,
                               handler => CPOClient.OnGetRoamingAuthorisationListSOAPResponse -= handler,
                               "GetRoamingAuthorisationList", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -265,15 +265,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPRequest += handler,
                               handler => CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPRequest -= handler,
                               "GetRoamingAuthorisationListUpdates", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetRoamingAuthorisationListUpdatesResponse",
                               handler => CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPResponse += handler,
                               handler => CPOClient.OnGetRoamingAuthorisationListUpdatesSOAPResponse -= handler,
                               "GetRoamingAuthorisationListUpdates", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -283,15 +283,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnAddCDRsSOAPRequest += handler,
                               handler => CPOClient.OnAddCDRsSOAPRequest -= handler,
                               "AddCDRs", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("AddCDRsResponse",
                               handler => CPOClient.OnAddCDRsSOAPResponse += handler,
                               handler => CPOClient.OnAddCDRsSOAPResponse -= handler,
                               "AddCDRs", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -301,15 +301,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnCheckCDRsSOAPRequest += handler,
                               handler => CPOClient.OnCheckCDRsSOAPRequest -= handler,
                               "CheckCDRs", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("CheckCDRsResponse",
                               handler => CPOClient.OnCheckCDRsSOAPResponse += handler,
                               handler => CPOClient.OnCheckCDRsSOAPResponse -= handler,
                               "CheckCDRs", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -319,15 +319,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnUpdateTariffsSOAPRequest += handler,
                               handler => CPOClient.OnUpdateTariffsSOAPRequest -= handler,
                               "UpdateTariffs", "OCHP", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("UpdateTariffsResponse",
                               handler => CPOClient.OnUpdateTariffsSOAPResponse += handler,
                               handler => CPOClient.OnUpdateTariffsSOAPResponse -= handler,
                               "UpdateTariffs", "OCHP", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -340,15 +340,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnAddServiceEndpointsSOAPRequest += handler,
                               handler => CPOClient.OnAddServiceEndpointsSOAPRequest -= handler,
                               "AddServiceEndpoints", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("AddServiceEndpointsResponse",
                               handler => CPOClient.OnAddServiceEndpointsSOAPResponse += handler,
                               handler => CPOClient.OnAddServiceEndpointsSOAPResponse -= handler,
                               "AddServiceEndpoints", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -358,15 +358,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnGetServiceEndpointsSOAPRequest += handler,
                               handler => CPOClient.OnGetServiceEndpointsSOAPRequest -= handler,
                               "GetServiceEndpoints", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("GetServiceEndpointsResponse",
                               handler => CPOClient.OnGetServiceEndpointsSOAPResponse += handler,
                               handler => CPOClient.OnGetServiceEndpointsSOAPResponse -= handler,
                               "GetServiceEndpoints", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 
@@ -376,15 +376,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               handler => CPOClient.OnInformProviderSOAPRequest += handler,
                               handler => CPOClient.OnInformProviderSOAPRequest -= handler,
                               "InformProvider", "OCHPdirect", "Requests", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 RegisterEvent("InformProviderResponse",
                               handler => CPOClient.OnInformProviderSOAPResponse += handler,
                               handler => CPOClient.OnInformProviderSOAPResponse -= handler,
                               "InformProvider", "OCHPdirect", "Responses", "All").
-                    RegisterDefaultConsoleLogTarget(this).
-                    RegisterDefaultDiscLogTarget(this);
+                    RegisterDefaultConsoleLogTargetX(this).
+                    RegisterDefaultDiscLogTargetX(this);
 
                 #endregion
 

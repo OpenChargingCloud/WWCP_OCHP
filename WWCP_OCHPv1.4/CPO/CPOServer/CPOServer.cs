@@ -25,7 +25,6 @@ using org.GraphDefined.Vanaheimr.Hermod.SOAP;
 using org.GraphDefined.Vanaheimr.Hermod.Logging;
 
 using cloud.charging.open.protocols.OCHPv1_4.EMP;
-using org.GraphDefined.Vanaheimr.Hermod.HTTPTest;
 
 #endregion
 
@@ -286,7 +285,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             var httpAPI = SOAPServer.HTTPServer.AddHTTPAPI(
                               URLPrefix + URLSuffix,
                               null,
-                              (a, b) => new HTTPAPIX(
+                              (a, b) => new HTTPAPI(
                                             SOAPServer.HTTPServer,
                                             null,
                                             URLPrefix + URLSuffix
