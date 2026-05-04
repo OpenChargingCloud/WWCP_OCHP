@@ -2225,7 +2225,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                            //WWCP.ChargingStationOperator_Id?  OperatorId            = null,
                            WWCP.EMobilityProvider_Id?        EMobilityProviderId   = null,
 
-                           DateTimeOffset?                   Timestamp             = null,
+                           DateTimeOffset?                   RequestTimestamp      = null,
                            EventTracking_Id?                 EventTrackingId       = null,
                            TimeSpan?                         RequestTimeout        = null,
                            CancellationToken                 CancellationToken     = default)
@@ -2234,8 +2234,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (!Timestamp.HasValue)
-                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            if (!RequestTimestamp.HasValue)
+                RequestTimestamp = Timestamp.Now;
 
             if (EventTrackingId is null)
                 EventTrackingId = EventTracking_Id.New;
@@ -2247,13 +2247,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnAuthorizeStartRequest event
 
-            var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            var startTime = Timestamp.Now;
 
             try
             {
 
-                OnAuthorizeStartRequest?.Invoke(StartTime,
-                                                Timestamp.Value,
+                OnAuthorizeStartRequest?.Invoke(startTime,
+                                                RequestTimestamp.Value,
                                                 this,
                                                 Id.ToString(),
                                                 EventTrackingId,
@@ -2287,12 +2287,15 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             if (DisableAuthorization)
             {
 
-                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-                Runtime  = Endtime - StartTime;
-                result   = AuthStartResult.AdminDown(Id,
-                                                     this,
-                                                     SessionId:  SessionId,
-                                                     Runtime:    Runtime);
+                Endtime  = Timestamp.Now;
+                Runtime  = Endtime - startTime;
+                result   = AuthStartResult.AdminDown(
+                               Id,
+                               this,
+                               Timestamp.Now,
+                               Runtime,
+                               SessionId:  SessionId
+                          );
 
             }
 
@@ -2308,31 +2311,34 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 var response  = await CPORoaming.GetSingleRoamingAuthorisation(
                                           EMTId,
 
-                                          Timestamp,
+                                          RequestTimestamp,
                                           EventTrackingId,
                                           RequestTimeout,
                                           CancellationToken
                                       );
 
 
-                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-                Runtime  = Endtime - StartTime;
+                Endtime  = Timestamp.Now;
+                Runtime  = Endtime - startTime;
 
                 if (response?.HTTPStatusCode            == HTTPStatusCode.OK &&
                     response?.Content                   is not null          &&
                     response?.Content.Result.ResultCode == ResultCodes.OK)
                 {
 
-                    result = AuthStartResult.Authorized(Id,
-                                                        this,
-                                                        SessionId:      ChargingSession_Id.NewRandom(),
-                                                        ProviderId:     response.Content.RoamingAuthorisationInfo is not null
-                                                                            ? response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
-                                                                            : EMobilityProvider_Id.Parse(Country.Germany, "GEF"),
-                                                        ContractId:     response.Content.RoamingAuthorisationInfo.ContractId.ToString(),
-                                                        PrintedNumber:  response.Content.RoamingAuthorisationInfo.PrintedNumber,
-                                                        ExpiryDate:     response.Content.RoamingAuthorisationInfo.ExpiryDate,
-                                                        Runtime:        Runtime);
+                    result = AuthStartResult.Authorized(
+                                 Id,
+                                 this,
+                                 Timestamp.Now,
+                                 Runtime,
+                                 SessionId:      ChargingSession_Id.NewRandom(),
+                                 ProviderId:     response.Content.RoamingAuthorisationInfo is not null
+                                                     ? response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
+                                                     : EMobilityProvider_Id.Parse(Country.Germany, "GEF"),
+                                 ContractId:     response.Content.RoamingAuthorisationInfo.ContractId.ToString(),
+                                 PrintedNumber:  response.Content.RoamingAuthorisationInfo.PrintedNumber,
+                                 ExpiryDate:     response.Content.RoamingAuthorisationInfo.ExpiryDate
+                             );
 
                     lock (lookup)
                     {
@@ -2369,10 +2375,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 else
                 {
 
-                    result = AuthStartResult.NotAuthorized(Id,
-                                                           this,
-                                                           // response.Content.ProviderId.ToWWCP(),
-                                                           Runtime: Runtime);
+                    result = AuthStartResult.NotAuthorized(
+                                 Id,
+                                 this,
+                                 Timestamp.Now,
+                                 Runtime: Runtime
+                             );
 
                     lock (lookup)
                     {
@@ -2394,7 +2402,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 OnAuthorizeStartResponse?.Invoke(Endtime,
-                                                 Timestamp.Value,
+                                                 RequestTimestamp.Value,
                                                  this,
                                                  Id.ToString(),
                                                  EventTrackingId,
@@ -2452,7 +2460,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                           //WWCP.ChargingStationOperator_Id?  OperatorId            = null,
                           WWCP.EMobilityProvider_Id?        EMobilityProviderId   = null,
 
-                          DateTimeOffset?                   Timestamp             = null,
+                          DateTimeOffset?                   RequestTimestamp      = null,
                           EventTracking_Id?                 EventTrackingId       = null,
                           TimeSpan?                         RequestTimeout        = null,
                           CancellationToken                 CancellationToken     = default)
@@ -2460,8 +2468,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Initial checks
 
-            if (!Timestamp.HasValue)
-                Timestamp = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            if (!RequestTimestamp.HasValue)
+                RequestTimestamp = Timestamp.Now;
 
             if (EventTrackingId is null)
                 EventTrackingId = EventTracking_Id.New;
@@ -2473,13 +2481,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             #region Send OnAuthorizeStopRequest event
 
-            var StartTime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+            var StartTime = Timestamp.Now;
 
             try
             {
 
                 OnAuthorizeStopRequest?.Invoke(StartTime,
-                                               Timestamp.Value,
+                                               RequestTimestamp.Value,
                                                this,
                                                Id.ToString(),
                                                EventTrackingId,
@@ -2510,12 +2518,13 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
             if (DisableAuthorization)
             {
-                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+                Endtime  = Timestamp.Now;
                 Runtime  = Endtime - StartTime;
                 result   = AuthStopResult.AdminDown(
                                Id,
-                               Runtime,
                                this,
+                               Timestamp.Now,
+                               Runtime,
                                SessionId:  SessionId
                            );
             }
@@ -2530,14 +2539,14 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                                              TokenTypes.RFID
                                          ),
 
-                                         Timestamp,
+                                         RequestTimestamp,
                                          EventTrackingId,
                                          RequestTimeout,
                                          CancellationToken
                                      ).ConfigureAwait(false);
 
 
-                Endtime  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
+                Endtime  = Timestamp.Now;
                 Runtime  = Endtime - StartTime;
 
                 if (response?.HTTPStatusCode            == HTTPStatusCode.OK &&
@@ -2547,8 +2556,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                     result = AuthStopResult.Authorized(
                                  Id,
-                                 Runtime,
                                  this,
+                                 Timestamp.Now,
+                                 Runtime,
                                  SessionId:   ChargingSession_Id.NewRandom(),
                                  ProviderId:  response.Content.RoamingAuthorisationInfo.ContractId.ProviderId.ToWWCP()
                              );
@@ -2558,8 +2568,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                 else
                     result = AuthStopResult.NotAuthorized(
                                  Id,
-                                 Runtime,
-                                 this
+                                 this,
+                                 Timestamp.Now,
+                                 Runtime
                              );
 
             }
@@ -2571,7 +2582,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             {
 
                 OnAuthorizeStopResponse?.Invoke(Endtime,
-                                                Timestamp.Value,
+                                                RequestTimestamp.Value,
                                                 this,
                                                 Id.ToString(),
                                                 EventTrackingId,
