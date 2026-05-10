@@ -339,94 +339,91 @@ namespace cloud.charging.open.protocols.OCHPv1_4
         public static ConnectorType ToOCHP(this IChargingConnector WWCPChargingConnector)
         {
 
-            switch (WWCPChargingConnector.Plug)
-            {
+            if (WWCPChargingConnector.Type == ChargingConnectorType.TESLA_Roadster)
+                return new ConnectorType(
+                           ConnectorStandards.TESLA_R,
+                           ConnectorFormats.Socket
+                       );
 
-                //case PlugTypes.SmallPaddleInductive:
-                //case PlugTypes.LargePaddleInductive:
-                //case PlugTypes.AVCONConnector:
+            if (WWCPChargingConnector.Type == ChargingConnectorType.TESLA_ModelS)
+                return new ConnectorType(
+                           ConnectorStandards.TESLA_S,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.TESLA_Roadster:
-                    return new ConnectorType(ConnectorStandards.TESLA_R,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.DOMESTIC_E_FrenchStandard)
+                return new ConnectorType(
+                           ConnectorStandards.DOMESTIC_E,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.TESLA_ModelS:
-                    return new ConnectorType(ConnectorStandards.TESLA_S,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.DOMESTIC_F_SchuKo)
+                return new ConnectorType(
+                           ConnectorStandards.DOMESTIC_F,
+                           ConnectorFormats.Socket
+                       );
 
-                //case PlugTypes.NEMA5_20:
+            if (WWCPChargingConnector.Type == ChargingConnectorType.DOMESTIC_G_BritishStandard)
+                return new ConnectorType(
+                           ConnectorStandards.DOMESTIC_G,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.TypeEFrenchStandard:
-                    return new ConnectorType(ConnectorStandards.DOMESTIC_E,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.DOMESTIC_J_SwissStandard)
+                return new ConnectorType(
+                           ConnectorStandards.DOMESTIC_J,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.TypeFSchuko:
-                    return new ConnectorType(ConnectorStandards.DOMESTIC_F,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.IEC_62196_T1)
+                return new ConnectorType(
+                           ConnectorStandards.IEC_62196_T1,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.TypeGBritishStandard:
-                    return new ConnectorType(ConnectorStandards.DOMESTIC_G,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.IEC_62196_T2)
+                return new ConnectorType(
+                           ConnectorStandards.IEC_62196_T2,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.TypeJSwissStandard:
-                    return new ConnectorType(ConnectorStandards.DOMESTIC_J,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.IEC_62196_T2_COMBO)
+                return new ConnectorType(
+                           ConnectorStandards.IEC_62196_T2_COMBO,
+                           ConnectorFormats.Cable
+                       );
 
-                case ChargingPlugTypes.Type1Connector_CableAttached:
-                    return new ConnectorType(ConnectorStandards.IEC_62196_T1,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.IEC_60309_2_single_16)
+                return new ConnectorType(
+                           ConnectorStandards.IEC_60309_2_single_16,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.Type2Outlet:
-                    return new ConnectorType(ConnectorStandards.IEC_62196_T2,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.IEC_60309_2_three_16)
+                return new ConnectorType(
+                           ConnectorStandards.IEC_60309_2_three_16,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.Type2Connector_CableAttached:
-                    return new ConnectorType(ConnectorStandards.IEC_62196_T2,
-                                             ConnectorFormats.Cable);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.IEC_62196_T1_COMBO)
+                return new ConnectorType(
+                           ConnectorStandards.IEC_62196_T1_COMBO,
+                           ConnectorFormats.Cable
+                       );
 
-                //case PlugTypes.Type3Outlet:
-                //return ConnectorStandards.IEC_62196_T3A;
-                //return ConnectorStandards.IEC_62196_T3C;
+            if (WWCPChargingConnector.Type == ChargingConnectorType.IEC_62196_T2_COMBO)
+                return new ConnectorType(
+                           ConnectorStandards.IEC_62196_T2_COMBO,
+                           ConnectorFormats.Cable
+                       );
 
-                case ChargingPlugTypes.IEC60309SinglePhase:
-                    return new ConnectorType(ConnectorStandards.IEC_60309_2_single_16,
-                                             ConnectorFormats.Socket);
+            if (WWCPChargingConnector.Type == ChargingConnectorType.CHAdeMO)
+                return new ConnectorType(
+                           ConnectorStandards.Chademo,
+                           ConnectorFormats.Socket
+                       );
 
-                case ChargingPlugTypes.IEC60309ThreePhase:
-                    return new ConnectorType(ConnectorStandards.IEC_60309_2_three_16,
-                                             ConnectorFormats.Socket);
-                //return ConnectorStandards.IEC_60309_2_three_32;
-                //return ConnectorStandards.IEC_60309_2_three_64;
-
-                case ChargingPlugTypes.CCSCombo1Plug_CableAttached:
-                    return new ConnectorType(ConnectorStandards.IEC_62196_T1_COMBO,
-                                             ConnectorFormats.Cable);
-
-                case ChargingPlugTypes.CCSCombo2Plug_CableAttached:
-                    return new ConnectorType(ConnectorStandards.IEC_62196_T2_COMBO,
-                                             ConnectorFormats.Cable);
-
-                case ChargingPlugTypes.CHAdeMO:
-                    return new ConnectorType(ConnectorStandards.Chademo,
-                                             ConnectorFormats.Socket);
-
-
-                //return ConnectorStandards.DOMESTIC_A;
-                //return ConnectorStandards.DOMESTIC_B;
-                //return ConnectorStandards.DOMESTIC_C;
-                //return ConnectorStandards.DOMESTIC_D;
-                //return ConnectorStandards.DOMESTIC_H;
-                //return ConnectorStandards.DOMESTIC_I;
-                //return ConnectorStandards.DOMESTIC_K;
-                //return ConnectorStandards.DOMESTIC_L;
-
-
-                default:
-                    return new ConnectorType(ConnectorStandards.Unknown,
-                                             ConnectorFormats.Unknown);
-
-            }
-
+            throw new ArgumentException($"Unsupported WWCP charging connector type: {WWCPChargingConnector.Type}!", nameof(WWCPChargingConnector));
 
         }
 

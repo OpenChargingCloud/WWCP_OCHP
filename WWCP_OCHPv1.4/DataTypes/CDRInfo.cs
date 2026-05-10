@@ -194,7 +194,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4
             if (ChargePointType == ChargePointTypes.Unknown)
                 throw new ArgumentNullException(nameof(ChargePointType),  "The given charge point type information must not be null or empty!");
 
-            if (ConnectorType is null)
+            if (ConnectorType   is null)
                 throw new ArgumentNullException(nameof(ConnectorType),    "The given charge point connector type must not be null!");
 
             if (ChargingPeriods is null || !ChargingPeriods.Any())
