@@ -29,7 +29,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CH
     /// <summary>
     /// An OCHP CH server logger.
     /// </summary>
-    public class CHServerLogger : HTTPServerLoggerX
+    public class CHServerLogger : HTTPServerLogger
     {
 
         #region Data

@@ -29,7 +29,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.EMP
     /// <summary>
     /// An OCHP EMP server logger.
     /// </summary>
-    public class EMPServerLogger : HTTPServerLoggerX
+    public class EMPServerLogger : HTTPServerLogger
     {
 
         #region Data

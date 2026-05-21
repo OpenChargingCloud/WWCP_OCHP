@@ -31,7 +31,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
     /// <summary>
     /// An OCHP CPO server logger.
     /// </summary>
-    public class CPOServerLogger : HTTPServerLoggerX
+    public class CPOServerLogger : HTTPServerLogger
     {
 
         #region Data

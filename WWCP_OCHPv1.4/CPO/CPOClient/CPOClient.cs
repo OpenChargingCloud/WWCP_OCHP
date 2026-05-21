@@ -982,6 +982,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                          HTTPHostname?                                              VirtualHostname              = null,
                          I18NString?                                                Description                  = null,
                          IPVersionPreference?                                       PreferIPv4                   = null,
+
+                         String?                                                    TLSHostname                  = null,
                          RemoteTLSServerCertificateValidationHandler<IHTTPClient>?  RemoteCertificateValidator   = null,
                          LocalCertificateSelectionHandler?                          LocalCertificateSelector     = null,
                          IEnumerable<X509Certificate2>?                             ClientCertificates           = null,
@@ -1010,7 +1012,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             : base(RemoteURL,
                    VirtualHostname,
                    Description,
-                   PreferIPv4,
+
+                   TLSHostname,
                    RemoteCertificateValidator,
                    LocalCertificateSelector,
                    ClientCertificates,
@@ -1030,8 +1033,9 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                    MaxNumberOfRetries,
                    InternalBufferSize,
                    false,
-                   null,
+                   PreferIPv4,
 
+                   null,
                    DisableLogging,
                    DNSClient)
 
