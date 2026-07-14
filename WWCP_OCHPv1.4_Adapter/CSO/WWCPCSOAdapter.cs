@@ -27,6 +27,7 @@ using org.GraphDefined.Vanaheimr.Hermod.HTTP;
 using org.GraphDefined.Vanaheimr.Hermod.Logging;
 
 using cloud.charging.open.protocols.WWCP;
+using System.Diagnostics;
 
 #endregion
 
@@ -50,17 +51,17 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
         //private        readonly  ISendStatus                                   _ISendStatus;
 
-        private        readonly  CPO.CustomEVSEIdMapperDelegate                _CustomEVSEIdMapper;
+        private        readonly  CustomEVSEIdMapperDelegate?                   _CustomEVSEIdMapper;
 
-        private        readonly  EVSE2ChargePointInfoDelegate                  _EVSE2ChargePointInfo;
+        private        readonly  EVSE2ChargePointInfoDelegate?                 _EVSE2ChargePointInfo;
 
-        private        readonly  EVSEStatusUpdate2EVSEStatusDelegate           _EVSEStatusUpdate2EVSEStatus;
+        private        readonly  EVSEStatusUpdate2EVSEStatusDelegate?          _EVSEStatusUpdate2EVSEStatus;
 
-        private        readonly  ChargePointInfo2XMLDelegate                   _ChargePointInfo2XML;
+        private        readonly  ChargePointInfo2XMLDelegate?                  _ChargePointInfo2XML;
 
-        private        readonly  EVSEStatus2XMLDelegate                        _EVSEStatus2XML;
+        private        readonly  EVSEStatus2XMLDelegate?                       _EVSEStatus2XML;
 
-        private        readonly  ChargingStationOperatorNameSelectorDelegate   _OperatorNameSelector;
+        private        readonly  ChargingStationOperatorNameSelectorDelegate?  _OperatorNameSelector;
 
         private static readonly  Regex                                         pattern = new Regex(@"\s=\s");
 
@@ -76,29 +77,20 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         /// </summary>
         public  readonly static  TimeSpan                                       DefaultStatusCheckEvery        = TimeSpan.FromSeconds(3);
 
-        /// <summary>
-        /// The default EVSE status refresh interval.
-        /// </summary>
-        public  readonly static  TimeSpan                                       DefaultEVSEStatusRefreshEvery  = TimeSpan.FromHours(12);
-
 
         private readonly         Object                                         ServiceCheckLock;
         private readonly         Timer                                          ServiceCheckTimer;
         //private readonly         Object                                         StatusCheckLock;
         //private readonly         Timer                                          StatusCheckTimer;
-        //private readonly         Object                                         EVSEStatusRefreshLock;
-        private static           SemaphoreSlim                                  EVSEStatusRefreshLock  = new SemaphoreSlim(1,1);
-        private readonly         TimeSpan                                       EVSEStatusRefreshEvery;
-        private readonly         Timer                                          EVSEStatusRefreshTimer;
 
         private                  UInt64                                         serviceRunId;
 
-        public readonly static   TimeSpan                                       DefaultRequestTimeout = TimeSpan.FromSeconds(30);
+        //public readonly static   TimeSpan                                       DefaultRequestTimeout = TimeSpan.FromSeconds(30);
 
 
         private readonly         Dictionary<EMT_Id, Contract_Id>                lookup;
 
-        private static readonly  Char[] rs                                      = new Char[] { (Char) 30 };
+        private static readonly  Char[] rs                                      = [ (Char) 30 ];
 
         #endregion
 
@@ -142,6 +134,12 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         //    => CPORoaming?.CPOServerLogger;
 
 
+        /// <summary>
+        /// The default EVSE status refresh interval (6 hours).
+        /// </summary>
+        public static           TimeSpan        DefaultEVSEStatusRefreshEvery    { get; } = TimeSpan.FromHours(6);
+
+
         #region ServiceCheckEvery
 
         private UInt32 _ServiceCheckEvery;
@@ -167,7 +165,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
         #endregion
 
 
-        public IncludeChargePointDelegate       IncludeChargePoints        { get; }
+        public IncludeChargePointDelegate       IncludeChargePoints              { get; }
 
 
         #region DisableEVSEStatusRefresh
@@ -354,8 +352,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                               TimeSpan?                                       ServiceCheckEvery                   = null,
                               TimeSpan?                                       StatusCheckEvery                    = null,
-                              TimeSpan?                                       EVSEStatusRefreshEvery              = null,
                               TimeSpan?                                       CDRCheckEvery                       = null,
+                              TimeSpan?                                       EVSEStatusRefreshEvery              = null,
 
                               Boolean                                         DisablePushData                     = false,
                               Boolean                                         DisablePushStatus                   = false,
@@ -397,7 +395,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
                    ServiceCheckEvery,
                    StatusCheckEvery,
-                   EVSEStatusRefreshEvery,
+                   EVSEStatusRefreshEvery ?? DefaultEVSEStatusRefreshEvery,
                    CDRCheckEvery,
 
                    DisablePushData,
@@ -450,10 +448,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
             this._ServiceCheckEvery                   = (UInt32) (ServiceCheckEvery.HasValue
                                                                      ? ServiceCheckEvery.Value. TotalMilliseconds
                                                                      : DefaultServiceCheckEvery.TotalMilliseconds);
-            this.ServiceCheckTimer                    = new Timer(ServiceCheck,           null,                           0, _ServiceCheckEvery);
-
-            this.EVSEStatusRefreshEvery               = EVSEStatusRefreshEvery ?? DefaultEVSEStatusRefreshEvery;
-            this.EVSEStatusRefreshTimer               = new Timer(EVSEStatusRefresh, null, this.EVSEStatusRefreshEvery, this.EVSEStatusRefreshEvery);
+            this.ServiceCheckTimer                    = new Timer(ServiceCheck, null, 0, _ServiceCheckEvery);
 
             this.DisableEVSEStatusRefresh             = DisableEVSEStatusRefresh;
 
@@ -3567,185 +3562,6 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
 
         #endregion
 
-        #region (timer) EVSEStatusRefresh(State)
-
-        private void EVSEStatusRefresh(Object State)
-        {
-
-            if (!DisableSendStatus && !DisableEVSEStatusRefresh)
-            {
-
-                try
-                {
-
-                    RefreshEVSEStatus().Wait();
-
-                }
-                catch (Exception e)
-                {
-
-                    while (e.InnerException is not null)
-                        e = e.InnerException;
-
-                    DebugX.Log("A exception occurred during EVSEStatusRefresh: " + e.Message + Environment.NewLine + e.StackTrace);
-
-                }
-
-            }
-
-        }
-
-        private async Task<PushEVSEStatusResult> RefreshEVSEStatus()
-        {
-
-            #region Try to acquire the EVSE status refresh lock, or return...
-
-            if (!EVSEStatusRefreshLock.Wait(0))
-            {
-                DebugX.Log("Could not acquire EVSE status refresh lock!");
-                return PushEVSEStatusResult.NoOperation(Id, this);
-            }
-
-            #endregion
-
-
-            EVSEStatusRefreshEvent?.Invoke(org.GraphDefined.Vanaheimr.Illias.Timestamp.Now,
-                                           this,
-                                           "EVSE status refresh, as every " + EVSEStatusRefreshEvery.TotalHours.ToString() + " hours!");
-
-            #region Data
-
-            EVSE_Id?             _EVSEId;
-            PushEVSEStatusResult result = null;
-
-            var StartTime                  = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-            var Warnings                   = new List<Warning>();
-            var AllEVSEStatusRefreshments  = new List<EVSEStatus>();
-
-            #endregion
-
-            try
-            {
-
-                #region Fetch EVSE status
-
-                foreach (var evsestatus in RoamingNetwork.EVSEStatus())
-                {
-
-                    try
-                    {
-
-                        if (IncludeEVSEIds(evsestatus.Id))
-                        {
-
-                            _EVSEId = _CustomEVSEIdMapper is not null
-                                          ? _CustomEVSEIdMapper(evsestatus.Id)
-                                          : evsestatus.Id.ToOCHP();
-
-                            if (_EVSEId.HasValue)
-                                AllEVSEStatusRefreshments.Add(new EVSEStatus(_EVSEId.Value,
-                                                                             evsestatus.Status.AsEVSEMajorStatus(),
-                                                                             evsestatus.Status.AsEVSEMinorStatus()));
-
-                        }
-
-                    }
-                    catch (Exception e)
-                    {
-                        DebugX.  Log(e.Message);
-                        Warnings.Add(Warning.Create(e.Message, evsestatus));
-                    }
-
-                }
-
-                #endregion
-
-                #region Upload EVSE status
-
-                if (AllEVSEStatusRefreshments.Count > 0)
-                {
-
-                    var response = await CPORoaming.
-                                             UpdateStatus(AllEVSEStatusRefreshments,
-                                                          null,
-                                                          // TTL => 2x refresh interval
-                                                          org.GraphDefined.Vanaheimr.Illias.Timestamp.Now + EVSEStatusRefreshEvery + EVSEStatusRefreshEvery
-
-                                                         //Timestamp,
-                                                         //CancellationToken,
-                                                         //EventTrackingId,
-                                                         //RequestTimeout
-                                                         );
-
-
-                    var Endtime = org.GraphDefined.Vanaheimr.Illias.Timestamp.Now;
-                    var Runtime = Endtime - StartTime;
-
-                    if (response.HTTPStatusCode == HTTPStatusCode.OK &&
-                        response.Content        is not null)
-                    {
-
-                        if (response.Content.Result.ResultCode == ResultCodes.OK)
-                            result = PushEVSEStatusResult.Success(Id,
-                                                              this,
-                                                              response.Content.Result.Description,
-                                                              Warnings,
-                                                              Runtime);
-
-                        else
-                            result = PushEVSEStatusResult.Error(Id,
-                                                            this,
-                                                            new EVSEStatusUpdate[0],
-                                                            response.Content.Result.Description,
-                                                            Warnings,
-                                                            Runtime);
-
-                    }
-                    else
-                        result = PushEVSEStatusResult.Error(Id,
-                                                        this,
-                                                        new EVSEStatusUpdate[0],
-                                                        response.HTTPStatusCode.ToString(),
-                                                        response.HTTPBody is not null
-                                                            ? Warnings.AddAndReturnList(I18NString.Create(response.HTTPBody.ToUTF8String()))
-                                                            : Warnings.AddAndReturnList(I18NString.Create("No HTTP body received!")),
-                                                        Runtime);
-
-                }
-
-                #endregion
-
-            }
-            catch (Exception e)
-            {
-
-                while (e.InnerException is not null)
-                    e = e.InnerException;
-
-                DebugX.LogT(nameof(WWCPCSOAdapter) + " '" + Id + "' led to an exception: " + e.Message + Environment.NewLine + e.StackTrace);
-
-                result = PushEVSEStatusResult.Error(
-                             Id,
-                             this,
-                             [],
-                             e.Message,
-                             Warnings,
-                             Timestamp.Now - StartTime
-                         );
-
-            }
-
-            finally
-            {
-                EVSEStatusRefreshLock.Release();
-            }
-
-            return result;
-
-        }
-
-        #endregion
-
         #region (timer) FlushChargeDetailRecords()
 
         protected override Boolean SkipFlushChargeDetailRecordsQueues()
@@ -3853,6 +3669,182 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                               )
                           );
             }
+
+        }
+
+        #endregion
+
+
+        #region (override) RefreshEVSEStatus()
+
+        protected override async Task<PushEVSEStatusResult> RefreshEVSEStatus()
+        {
+
+            #region Try to acquire the EVSE status refresh lock, or return...
+
+            if (!EVSEStatusRefreshLock.Wait(0))
+            {
+                DebugX.Log("Could not acquire EVSE status refresh lock!");
+                return PushEVSEStatusResult.NoOperation(Id, this);
+            }
+
+            #endregion
+
+            #region Data
+
+            PushEVSEStatusResult? result = null;
+
+            var sw                         = Stopwatch.StartNew();
+            var startTime                  = Timestamp.Now;
+            var warnings                   = new List<Warning>();
+            var allEVSEStatusRefreshments  = new List<EVSEStatus>();
+            var cancellationTokenSource    = new CancellationTokenSource();
+
+            #endregion
+
+            #region Log EVSE status refresh event
+
+            EVSEStatusRefreshEvent?.Invoke(
+                startTime,
+                this,
+                $"EVSE status refresh, as every {EVSEStatusRefreshEvery?.TotalHours} hours!"
+            );
+
+            #endregion
+
+            var allEVSEStatus = RoamingNetwork.EVSEStatus();
+
+            try
+            {
+
+                #region Fetch EVSE status
+
+                foreach (var evsestatus in allEVSEStatus)
+                {
+
+                    try
+                    {
+
+                        if (IncludeEVSEIds(evsestatus.Id))
+                        {
+
+                            var evseId = _CustomEVSEIdMapper is not null
+                                             ? _CustomEVSEIdMapper(evsestatus.Id)
+                                             : evsestatus.Id.ToOCHP();
+
+                            if (evseId.HasValue)
+                                allEVSEStatusRefreshments.Add(
+                                    new EVSEStatus(
+                                        evseId.Value,
+                                        evsestatus.Status.AsEVSEMajorStatus(),
+                                        evsestatus.Status.AsEVSEMinorStatus()
+                                    )
+                                );
+
+                        }
+
+                    }
+                    catch (Exception e)
+                    {
+                        DebugX.Log(e.Message);
+                        warnings.Add(Warning.Create(e.Message, evsestatus));
+                    }
+
+                }
+
+                #endregion
+
+                #region Upload EVSE status
+
+                if (allEVSEStatusRefreshments.Count > 0)
+                {
+
+                    var response = await CPORoaming.UpdateStatus(
+                                             EVSEStatus:       allEVSEStatusRefreshments,
+                                             ParkingStatus:    null,
+                                             DefaultTTL:       startTime + EVSEStatusRefreshEvery + EVSEStatusRefreshEvery,  // TTL => 2x refresh interval
+                                             IncludeEVSEIds:   null,
+
+                                             Timestamp:        null,
+                                             EventTrackingId:  null,
+                                             RequestTimeout:   null,
+                                             cancellationTokenSource.Token
+                                         );
+
+
+                    if (response.HTTPStatusCode == HTTPStatusCode.OK &&
+                        response.Content is not null)
+                    {
+
+                        if (response.Content.Result.ResultCode == ResultCodes.OK)
+                            result = PushEVSEStatusResult.Success(
+                                         Id,
+                                         this,
+                                         response.Content.Result.Description,
+                                         warnings,
+                                         sw.Elapsed
+                                     );
+
+                        else
+                            result = PushEVSEStatusResult.Error(
+                                         Id,
+                                         this,
+                                         [.. allEVSEStatus.Select(evseStatus => new EVSEStatusUpdate(evseStatus.Id, evseStatus.Status))],
+                                         response.Content.Result.Description,
+                                         warnings,
+                                         sw.Elapsed
+                                     );
+
+                    }
+                    else
+                        result = PushEVSEStatusResult.Error(
+                                     Id,
+                                     this,
+                                     [.. allEVSEStatus.Select(evseStatus => new EVSEStatusUpdate(evseStatus.Id, evseStatus.Status))],
+                                     response.HTTPStatusCode.ToString(),
+                                     response.HTTPBody is not null
+                                         ? warnings.AddAndReturnList(I18NString.Create(response.HTTPBody.ToUTF8String()))
+                                         : warnings.AddAndReturnList(I18NString.Create("No HTTP body received!")),
+                                     sw.Elapsed
+                                 );
+
+                }
+
+                #endregion
+
+            }
+            catch (Exception e)
+            {
+
+                while (e.InnerException is not null)
+                    e = e.InnerException;
+
+                DebugX.LogT($"{nameof(WWCPCSOAdapter)} '{Id}' led to an exception: {e.Message}{Environment.NewLine}{e.StackTrace}");
+
+                result = PushEVSEStatusResult.Error(
+                             Id,
+                             this,
+                             [.. allEVSEStatus.Select(evseStatus => new EVSEStatusUpdate(evseStatus.Id, evseStatus.Status))],
+                             e.Message,
+                             warnings,
+                             sw.Elapsed
+                         );
+
+            }
+
+            finally
+            {
+                EVSEStatusRefreshLock.Release();
+            }
+
+            return result ?? PushEVSEStatusResult.Error(
+                                 Id,
+                                 this,
+                                 [.. allEVSEStatus.Select(evseStatus => new EVSEStatusUpdate(evseStatus.Id, evseStatus.Status))],
+                                 "General error during EVSE status refresh!",
+                                 warnings,
+                                 sw.Elapsed
+                             );
 
         }
 
