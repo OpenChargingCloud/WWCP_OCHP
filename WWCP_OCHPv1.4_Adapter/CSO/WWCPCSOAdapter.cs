@@ -391,6 +391,8 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                    null,
                    null,
                    null,
+                   null,
+                   null,
                    ChargeDetailRecordFilter,
 
                    ServiceCheckEvery,
