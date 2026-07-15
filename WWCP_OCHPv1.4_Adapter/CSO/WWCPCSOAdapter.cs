@@ -3506,7 +3506,7 @@ namespace cloud.charging.open.protocols.OCHPv1_4.CPO
                     if (evseStatusChangesFastQueue.Count == 0)
                         return;
 
-                    _StatusRunId++;
+                    flushEVSEStatusRunId++;
 
                     // Copy 'EVSE status changes', remove originals...
                     EVSEStatusFastQueueCopy = new List<WWCP.EVSEStatusUpdate>(evseStatusChangesFastQueue.Where(evsestatuschange => !evsesToAddQueue.Any(evse => evse.Id == evsestatuschange.Id)));
